@@ -1,4 +1,4 @@
-import { Nullable, Nullish } from "../types";
+import { Nullish, Nullable } from "../types/common";
 
 export function parseFloatDef(
   value: Nullish<string>,

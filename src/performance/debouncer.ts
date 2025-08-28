@@ -1,9 +1,12 @@
-import { Nullable } from "../types";
+import { Nullable } from "../types/common";
 
 export class Debouncer {
   private timeout: Nullable<number> = null;
 
-  constructor(private readonly delay: number, private readonly callback: () => void) {}
+  constructor(
+    private readonly delay: number,
+    private readonly callback: () => void
+  ) {}
 
   private schedule(): void {
     this.cancel();
@@ -17,7 +20,7 @@ export class Debouncer {
     this.schedule();
   }
 
-  private cancel(): void {
+  public cancel(): void {
     if (this.timeout) {
       clearTimeout(this.timeout);
       this.timeout = null;

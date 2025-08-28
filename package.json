@@ -1,6 +1,6 @@
 {
   "name": "pithos",
-  "version": "1.0.5",
+  "version": "1.0.10",
   "description": "Advanced JavaScript/TypeScript superset providing performance, gestures, animations, and DOM utilities",
   "exports": {
     "./animations/*": "./dist/animations/*.js",
@@ -15,6 +15,7 @@
     "./types/*": "./dist/types/*.js",
     "./types/animations/*": "./dist/types/animations/*.js",
     "./types/dom/*": "./dist/types/dom/*.js",
+    "./types/gestures/*": "./dist/types/gestures/*.js",
     "./types/math/*": "./dist/types/math/*.js"
   },
   "files": [
