@@ -1,7 +1,7 @@
 import { distance, isPinchGesture } from "./touch-utils";
 
 export class TouchGestureHandler {
-  private element: EventTarget;
+  private element: HTMLElement;
   private initialDistance = 0;
   private centerX = 0;
   private centerY = 0;
@@ -17,7 +17,7 @@ export class TouchGestureHandler {
   private shouldAllowZoom?: (source: "pinch", target?: EventTarget) => boolean;
 
   constructor(
-    element: EventTarget = document,
+    element: HTMLElement = document.body,
     callbacks?: {
       onPinchChange?: (scale: number, centerX: number, centerY: number) => void;
       onPinchStart?: VoidFunction;

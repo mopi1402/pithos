@@ -31,7 +31,7 @@ export interface WheelGestureOptions {
 }
 
 export class WheelGestureHandler {
-  private element: EventTarget;
+  private element: HTMLElement;
   private isWheeling = false;
   private startElement: Nullable<EventTarget> = null;
   private lastEventTime = 0;
@@ -50,7 +50,7 @@ export class WheelGestureHandler {
   private onEnd: WheelGestureCallbacks["onEnd"];
 
   constructor(
-    element: EventTarget = document,
+    element: HTMLElement = document.body,
     options: WheelGestureOptions = {},
     callbacks: WheelGestureCallbacks = {}
   ) {

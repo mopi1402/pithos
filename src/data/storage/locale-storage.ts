@@ -1,5 +1,3 @@
-import { Nullable } from "../..";
-
 export class LocalStorage {
   static get<T>(key: string, defaultValue?: T): Nullable<T> {
     try {
