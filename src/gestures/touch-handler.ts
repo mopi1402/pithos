@@ -1,23 +1,26 @@
 import { distance, isPinchGesture } from "./touch-utils";
 
 export class TouchGestureHandler {
-  private element: HTMLElement;
+  private readonly element: EventTarget;
   private initialDistance = 0;
   private centerX = 0;
   private centerY = 0;
   private isPinching = false;
   private isZoomAllowed = false;
-  private onPinchChange?: (
+  private readonly onPinchChange?: (
     scale: number,
     centerX: number,
     centerY: number
   ) => void;
-  private onPinchStart?: VoidFunction;
-  private onPinchEnd?: VoidFunction;
-  private shouldAllowZoom?: (source: "pinch", target?: EventTarget) => boolean;
+  private readonly onPinchStart?: VoidFunction;
+  private readonly onPinchEnd?: VoidFunction;
+  private readonly shouldAllowZoom?: (
+    source: "pinch",
+    target?: EventTarget
+  ) => boolean;
 
   constructor(
-    element: HTMLElement = document.body,
+    element: EventTarget = document.body,
     callbacks?: {
       onPinchChange?: (scale: number, centerX: number, centerY: number) => void;
       onPinchStart?: VoidFunction;
@@ -40,7 +43,7 @@ export class TouchGestureHandler {
     });
   }
 
-  private handleTouchStart = (e: TouchEvent): void => {
+  private readonly handleTouchStart = (e: TouchEvent): void => {
     if (isPinchGesture(e.touches)) {
       if (this.shouldAllowZoom) {
         this.isZoomAllowed = this.shouldAllowZoom(
@@ -64,7 +67,7 @@ export class TouchGestureHandler {
     }
   };
 
-  private handleTouchMove = (e: TouchEvent): void => {
+  private readonly handleTouchMove = (e: TouchEvent): void => {
     if (isPinchGesture(e.touches) && this.isPinching && this.isZoomAllowed) {
       e.preventDefault();
 
@@ -75,7 +78,7 @@ export class TouchGestureHandler {
     }
   };
 
-  private handleTouchEnd = (e: TouchEvent): void => {
+  private readonly handleTouchEnd = (e: TouchEvent): void => {
     if (!isPinchGesture(e.touches) && this.isPinching) {
       this.isPinching = false;
       this.isZoomAllowed = false;

@@ -29,9 +29,9 @@ function generateExports(): ExportConfig {
           .filter((file) => file.endsWith(".ts"));
 
         if (tsFiles.length > 0) {
-          exports[`./${newExportPath}`] = `./src/${newExportPath.replace(
+          exports[`./${newExportPath}`] = `./dist/${newExportPath.replace(
             "/*",
-            "/*.ts"
+            "/*.js"
           )}`;
         }
 

@@ -8,7 +8,7 @@ import { linear } from "./ease-functions";
  * Controller for managing smooth animations using requestAnimationFrame
  */
 export class AnimationController {
-  private frameScheduler = new FrameScheduler();
+  private readonly frameScheduler = new FrameScheduler();
   private currentAnimation?: AnimationState;
 
   public animate(

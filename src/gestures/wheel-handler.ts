@@ -31,7 +31,7 @@ export interface WheelGestureOptions {
 }
 
 export class WheelGestureHandler {
-  private element: HTMLElement;
+  private readonly element: EventTarget;
   private isWheeling = false;
   private startElement: Nullable<EventTarget> = null;
   private lastEventTime = 0;
@@ -39,18 +39,18 @@ export class WheelGestureHandler {
   private timeout: Nullable<number> = null;
 
   private recentDeltas: number[] = [];
-  private maxHistorySize = 5;
+  private readonly maxHistorySize = 5;
 
-  private maxLogicalDistance: number;
-  private minDelay: number;
-  private maxDelay: number;
+  private readonly maxLogicalDistance: number;
+  private readonly minDelay: number;
+  private readonly maxDelay: number;
 
-  private onStart: WheelGestureCallbacks["onStart"];
-  private onWheel: WheelGestureCallbacks["onWheel"];
-  private onEnd: WheelGestureCallbacks["onEnd"];
+  private readonly onStart: WheelGestureCallbacks["onStart"];
+  private readonly onWheel: WheelGestureCallbacks["onWheel"];
+  private readonly onEnd: WheelGestureCallbacks["onEnd"];
 
   constructor(
-    element: HTMLElement = document.body,
+    element: EventTarget = document.body,
     options: WheelGestureOptions = {},
     callbacks: WheelGestureCallbacks = {}
   ) {
@@ -145,7 +145,7 @@ export class WheelGestureHandler {
     this.lastEventTime = 0;
   }
 
-  private handleWheel = (event: WheelEvent): void => {
+  private readonly handleWheel = (event: WheelEvent): void => {
     if (!event.ctrlKey) {
       if (this.isWheeling) {
         this.stopGesture();
@@ -188,16 +188,18 @@ export class WheelGestureHandler {
     const adaptiveDelay = this.calculateAdaptiveDelay();
     const phase = this.getMovementPhase();
 
-    this.onWheel?.({
-      event,
-      startElement: this.startElement!,
-      currentElement: event.target!,
-      distance: this.lastPosition
-        ? distance(this.lastPosition, currentPosition)
-        : 0,
-      adaptiveDelay,
-      phase,
-    });
+    if (this.startElement && event.target) {
+      this.onWheel?.({
+        event,
+        startElement: this.startElement,
+        currentElement: event.target,
+        distance: this.lastPosition
+          ? distance(this.lastPosition, currentPosition)
+          : 0,
+        adaptiveDelay,
+        phase,
+      });
+    }
 
     this.lastEventTime = now;
     this.lastPosition = currentPosition;
@@ -211,7 +213,7 @@ export class WheelGestureHandler {
     }, adaptiveDelay);
   };
 
-  private handleKeyUp = (event: KeyboardEvent): void => {
+  private readonly handleKeyUp = (event: KeyboardEvent): void => {
     if (event.key === "Control" && this.isWheeling) {
       this.stopGesture();
     }
