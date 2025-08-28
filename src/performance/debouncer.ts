@@ -3,7 +3,7 @@ import { Nullable } from "../types";
 export class Debouncer {
   private timeout: Nullable<number> = null;
 
-  constructor(private delay: number, private callback: () => void) {}
+  constructor(private readonly delay: number, private readonly callback: () => void) {}
 
   private schedule(): void {
     this.cancel();

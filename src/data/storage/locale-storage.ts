@@ -1,3 +1,5 @@
+import { Nullable } from "../../types/common";
+
 export class LocalStorage {
   static get<T>(key: string, defaultValue?: T): Nullable<T> {
     try {

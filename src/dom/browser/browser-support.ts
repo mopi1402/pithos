@@ -27,7 +27,7 @@ export function hasViewTransitions(): boolean {
 }
 
 export function hasPopoverAPI(): boolean {
-  return HTMLElement.prototype.hasOwnProperty("popover");
+  return Object.prototype.hasOwnProperty.call(HTMLElement.prototype, "popover");
 }
 
 export function hasFileSystemAccess(): boolean {
