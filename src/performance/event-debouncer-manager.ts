@@ -28,7 +28,9 @@ export class EventDebouncerManager {
 
   addEvent(config: EventConfig): void {
     const handler = () => {
-      if (!config.preventTimeout) {
+      if (config.preventTimeout) {
+        this.debouncer.cancel();
+      } else {
         this.debouncer.trigger();
       }
     };
@@ -43,6 +45,10 @@ export class EventDebouncerManager {
 
   trigger(): void {
     this.debouncer.trigger();
+  }
+
+  cancel(): void {
+    this.debouncer.cancel();
   }
 
   destroy(): void {
