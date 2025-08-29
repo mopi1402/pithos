@@ -1,0 +1,23 @@
+Never create barrel files (index.ts) that export multiple modules.
+
+Never generate code in French. Always use English for code, comments, and documentation.
+
+Never add explanatory comments in code (except for documentation purposes).
+
+Always add JSDoc comments to generate proper documentation.
+
+Keep code as simple and clean as possible.
+
+Always use existing helpers/utils/types before creating new code.
+
+Maximize tree-shaking by preferring pure functions over classes when appropriate.
+
+.d.ts files are automatically generated.
+
+Project uses TypeScript 5, ESNext modules, and ES2020 target.
+
+Always type variables and place types in types/subfolder directory.
+
+For each new function, always check what already exists to avoid reinventing the wheel.
+
+Always ask user for approval before making changes as breaking changes must be managed (npm package).

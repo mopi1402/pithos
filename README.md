@@ -62,7 +62,7 @@ Pithos is optimized for tree shaking. Use direct imports for optimal bundle size
 
 ```typescript
 // ✅ Good - only FrameScheduler included
-import { FrameScheduler } from "pithos/performance/frame-scheduler";
+import { FrameScheduler } from "pithos/timing/frame-scheduler";
 
 // ❌ Less optimal - entire module included
 import { FrameScheduler } from "pithos";
@@ -73,7 +73,7 @@ import { FrameScheduler } from "pithos";
 - **types** : Common TypeScript utility types...
 - **data** : Storage, parsing, number utilities...
 - **dom** : Viewport parsing, browser support utilities...
-- **performance** : Frame scheduling, debouncing...
+- **timing** : Frame scheduling, debouncing, delays...
 - **animations** : Animation controllers, easing functions...
 - **gestures** : Touch handling, wheel gestures, gesture recognition...
 - **math** : Geometry utilities...
@@ -119,6 +119,23 @@ await controller.animate(0, 100, {
 });
 ```
 
+### ⏱️ **delay** - Simple and effective delays
+
+```typescript
+import { delay } from "pithos/timing/delay";
+
+// Wait for 1 second
+await delay(1000);
+
+// Delay in animation sequence
+await delay(500);
+animateElement();
+
+// Prevent spam with delay
+await delay(2000);
+allowNextAction();
+```
+
 ## 🔧 Available scripts
 
 ```bash
@@ -138,6 +155,28 @@ While Pithos already provides useful utilities, it's intentionally kept **lean a
 **Quality over quantity** - each utility is carefully crafted, tested, and optimized before being added. This ensures that what you get is **actually useful** and **production-ready**, not just another "kitchen sink" library.
 
 **Current status**: Core utilities are stable, new features are added incrementally based on real needs and community feedback.
+
+## 📚 Complementary Libraries
+
+Pithos is designed to provide the most useful and reusable utilities possible, but it is **not intended to replace popular and specialized libraries** that already excel at their specific domains.
+
+**In some cases**, certain implementations have been developed for simplicity and to achieve lighter bundles, but for more robust requirements, specialized libraries remain the recommended approach.
+
+**Practical example**: Pithos offers two animation systems that are performant and produce ultra-lightweight code, but for more substantial needs (complex timelines, morphing, etc.), you should consider GSAP.
+
+### 📚 Recommended Libraries
+
+#### **🧮 Functional Programming**
+
+- **[fp-ts](https://github.com/gcanti/fp-ts)** - Comprehensive functional programming library for TypeScript with monads, functors, and composition tools
+
+#### **📅 Date Management**
+
+- **Temporal** - Modern and standardized JavaScript API for date and time manipulation, built into the language with excellent TypeScript support
+
+#### **🎬 Advanced Animations**
+
+- **[GSAP](https://greensock.com/gsap/)** - Professional and ultra-performant animation library for complex requirements, featuring timeline management, morphing capabilities, and comprehensive browser support
 
 ## 🤝 Contributing
 
