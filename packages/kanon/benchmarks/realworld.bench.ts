@@ -7,51 +7,22 @@ import { Type } from "@sinclair/typebox";
 import { Value } from "@sinclair/typebox/value";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
-import { parse as parseV3 } from "@kanon/v3/core/parser.js";
-import { string as stringV3 } from "@kanon/v3/schemas/primitives/string";
-import { number as numberV3 } from "@kanon/v3/schemas/primitives/number";
-import { boolean as booleanV3 } from "@kanon/v3/schemas/primitives/boolean";
-import { object as objectV3 } from "@kanon/v3/schemas/composites/object";
-import { array as arrayV3 } from "@kanon/v3/schemas/composites/array";
-import { optional as optionalV3 } from "@kanon/v3/schemas/wrappers/optional";
-import { nullable as nullableV3 } from "@kanon/v3/schemas/wrappers/nullable";
-import { discriminatedUnion as discriminatedUnionV3 } from "@kanon/v3/schemas/operators/union";
-import { literal as literalV3 } from "@kanon/v3/schemas/primitives/literal";
-import { enum_ as enumV3 } from "@kanon/v3/schemas/primitives/enum";
-import { refineObject as refineObjectV3 } from "@kanon/v3/schemas/constraints/refine/object";
-import { coerceNumber as coerceNumberV3 } from "@kanon/v3/schemas/coerce/number";
-import { coerceBoolean as coerceBooleanV3 } from "@kanon/v3/schemas/coerce/boolean";
-import { compile as compileJIT } from "@kanon/v3/jit/compiler";
-import { GenericSchema } from "@kanon/v3/types/base";
-// Kanon V1 imports
-import { PithosString } from "@kanon/v1/schemas/primitives/string";
-import { PithosNumber } from "@kanon/v1/schemas/primitives/number";
-import { PithosBoolean } from "@kanon/v1/schemas/primitives/boolean";
-import { PithosObject } from "@kanon/v1/schemas/composites/object";
-import { PithosArray } from "@kanon/v1/schemas/composites/array";
-import { PithosUnion } from "@kanon/v1/schemas/composites/union";
-import { PithosLiteral } from "@kanon/v1/schemas/concepts/literal";
-import { PithosEnum } from "@kanon/v1/schemas/concepts/enum/string-enum";
-import { PithosCoerceNumber } from "@kanon/v1/schemas/concepts/coerce/number";
-import { PithosCoerceBoolean } from "@kanon/v1/schemas/concepts/coerce/boolean";
-// Kanon V2 imports
-import { safeParse as safeParseV2 } from "@kanon/v2/core/parser.js";
-import { string as stringV2 } from "@kanon/v2/schemas/primitives/string";
-import { number as numberV2 } from "@kanon/v2/schemas/primitives/number";
-import { boolean as booleanV2 } from "@kanon/v2/schemas/primitives/boolean";
-import { object as objectV2 } from "@kanon/v2/schemas/composites/object";
-import { union as unionV2 } from "@kanon/v2/schemas/composites/union";
-import { literal as literalV2 } from "@kanon/v2/schemas/primitives/literal";
-import { enum_ as enumV2 } from "@kanon/v2/schemas/primitives/enum";
-import { coerceNumber as coerceNumberV2 } from "@kanon/v2/schemas/coerce/number";
-import { coerceBoolean as coerceBooleanV2 } from "@kanon/v2/schemas/coerce/boolean";
-import { array as arrayV2 } from "@kanon/v2/schemas/composites/array";
-import { nullable as nullableV2 } from "@kanon/v2/schemas/wrappers/nullable";
-import { optional as optionalV2 } from "@kanon/v2/schemas/wrappers/optional";
-import { minLength as minLengthV2, maxLength as maxLengthV2, email as emailV2, pattern as patternV2, url as urlV2 } from "@kanon/v2/schemas/constraints/string";
-import { min as minV2, max as maxV2 } from "@kanon/v2/schemas/constraints/number";
-import { refine as refineV2 } from "@kanon/v2/schemas/constraints/refine";
-import { minLength as arrayMinLengthV2, maxLength as arrayMaxLengthV2 } from "@kanon/v2/schemas/constraints/array-length";
+import { parse as parseV3 } from "@kanon/core/parser.js";
+import { string as stringV3 } from "@kanon/schemas/primitives/string";
+import { number as numberV3 } from "@kanon/schemas/primitives/number";
+import { boolean as booleanV3 } from "@kanon/schemas/primitives/boolean";
+import { object as objectV3 } from "@kanon/schemas/composites/object";
+import { array as arrayV3 } from "@kanon/schemas/composites/array";
+import { optional as optionalV3 } from "@kanon/schemas/wrappers/optional";
+import { nullable as nullableV3 } from "@kanon/schemas/wrappers/nullable";
+import { discriminatedUnion as discriminatedUnionV3 } from "@kanon/schemas/operators/union";
+import { literal as literalV3 } from "@kanon/schemas/primitives/literal";
+import { enum_ as enumV3 } from "@kanon/schemas/primitives/enum";
+import { refineObject as refineObjectV3 } from "@kanon/schemas/constraints/refine/object";
+import { coerceNumber as coerceNumberV3 } from "@kanon/schemas/coerce/number";
+import { coerceBoolean as coerceBooleanV3 } from "@kanon/schemas/coerce/boolean";
+import { compile as compileJIT } from "@kanon/jit/compiler";
+import { GenericSchema } from "@kanon/types/base";
 
 import { POOL_SIZE, LibName } from "./dataset/config";
 import * as poolHelpers from "./helpers/pool_helpers";
@@ -75,20 +46,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
   }));
   let loginIndex = 0;
   const getLoginForm = () => loginFormPool[loginIndex++ % loginFormPool.length];
-
-  // Kanon V1
-  const kanonV1LoginSchema = new PithosObject({
-    email: new PithosString().email(),
-    password: new PithosString().min(8),
-    rememberMe: new PithosBoolean(),
-  });
-
-  // Kanon V2 (with constraints)
-  const kanonV2LoginSchema = objectV2({
-    email: emailV2(stringV2()),
-    password: minLengthV2(stringV2(), 8),
-    rememberMe: booleanV2(),
-  });
 
   // Kanon V3
   const kanonLoginSchema = objectV3({
@@ -152,8 +109,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
   });
 
   poolHelpers.runBenchmarkSuite("🔐 Login Form Validation", [
-    { name: "@kanon/V1" as LibName, fn: () => kanonV1LoginSchema.safeParse(getLoginForm()) },
-    { name: "@kanon/V2" as LibName, fn: () => safeParseV2(kanonV2LoginSchema, getLoginForm()) },
     { name: "@kanon/V3.0" as LibName, fn: () => parseV3(kanonLoginSchema, getLoginForm()) },
     { name: "@kanon/JIT" as LibName, fn: () => jitLoginSchema(getLoginForm()) },
     { name: "Zod" as LibName, fn: () => zodLoginSchema.safeParse(getLoginForm()) },
@@ -178,29 +133,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
   }));
   let regIndex = 0;
   const getRegistration = () => registrationPool[regIndex++ % registrationPool.length];
-
-  // Kanon V1
-  const kanonV1RegSchema = new PithosObject({
-    username: new PithosString().min(3).max(20),
-    email: new PithosString().email(),
-    password: new PithosString().min(8),
-    confirmPassword: new PithosString(),
-    age: new PithosNumber().min(13).max(120),
-    acceptTerms: new PithosBoolean(),
-  }).refine((data) => data.password === data.confirmPassword, "Passwords don't match");
-
-  // Kanon V2 (with constraints and refine)
-  const kanonV2RegSchema = refineV2(
-    objectV2({
-      username: maxLengthV2(minLengthV2(stringV2(), 3), 20),
-      email: emailV2(stringV2()),
-      password: minLengthV2(stringV2(), 8),
-      confirmPassword: stringV2(),
-      age: maxV2(minV2(numberV2(), 13), 120),
-      acceptTerms: booleanV2(),
-    }),
-    (data) => data.password === data.confirmPassword || "Passwords don't match"
-  );
 
   // Kanon V3
   const kanonRegSchema = refineObjectV3(
@@ -304,8 +236,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
   });
 
   poolHelpers.runBenchmarkSuite("📝 User Registration (with password confirm)", [
-    { name: "@kanon/V1" as LibName, fn: () => kanonV1RegSchema.safeParse(getRegistration()) },
-    { name: "@kanon/V2" as LibName, fn: () => safeParseV2(kanonV2RegSchema, getRegistration()) },
     { name: "@kanon/V3.0" as LibName, fn: () => parseV3(kanonRegSchema, getRegistration()) },
     { name: "@kanon/JIT" as LibName, fn: () => jitRegSchema(getRegistration()) },
     { name: "Zod" as LibName, fn: () => zodRegSchema.safeParse(getRegistration()) },
@@ -331,44 +261,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
   });
   let apiIndex = 0;
   const getApiResponse = () => apiResponsePool[apiIndex++ % apiResponsePool.length];
-
-  // Kanon V1 (using union - tries each variant in order)
-  const kanonV1ApiSchema = new PithosUnion([
-    new PithosObject({
-      status: new PithosLiteral("success"),
-      data: new PithosObject({
-        id: new PithosNumber(),
-        name: new PithosString(),
-        createdAt: new PithosString(),
-      }),
-    }),
-    new PithosObject({
-      status: new PithosLiteral("error"),
-      error: new PithosObject({
-        code: new PithosNumber(),
-        message: new PithosString(),
-      }),
-    }),
-  ]);
-
-  // Kanon V2 (using union - tries each variant in order)
-  const kanonV2ApiSchema = unionV2([
-    objectV2({
-      status: literalV2("success"),
-      data: objectV2({
-        id: numberV2(),
-        name: stringV2(),
-        createdAt: stringV2(),
-      }),
-    }),
-    objectV2({
-      status: literalV2("error"),
-      error: objectV2({
-        code: numberV2(),
-        message: stringV2(),
-      }),
-    }),
-  ]);
 
   // Kanon V3
   const kanonApiSchema = discriminatedUnionV3("status", [
@@ -507,8 +399,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
   });
 
   poolHelpers.runBenchmarkSuite("📡 API Response (discriminated union)", [
-    { name: "@kanon/V1" as LibName, fn: () => kanonV1ApiSchema.safeParse(getApiResponse()) },
-    { name: "@kanon/V2" as LibName, fn: () => safeParseV2(kanonV2ApiSchema, getApiResponse()) },
     { name: "@kanon/V3.0" as LibName, fn: () => parseV3(kanonApiSchema, getApiResponse()) },
     { name: "@kanon/JIT" as LibName, fn: () => jitApiSchema(getApiResponse()) },
     { name: "Zod" as LibName, fn: () => zodApiSchema.safeParse(getApiResponse()) },
@@ -536,38 +426,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
   }));
   let productIndex = 0;
   const getProduct = () => productPool[productIndex++ % productPool.length];
-
-  // Kanon V1
-  const kanonV1ProductSchema = new PithosObject({
-    id: new PithosString(),
-    name: new PithosString().min(1).max(200),
-    description: new PithosString().nullable(),
-    price: new PithosNumber().min(0),
-    currency: new PithosString(), // V1 enum requires different syntax, using string
-    stock: new PithosNumber().min(0),
-    categories: new PithosArray(new PithosString()),
-    isActive: new PithosBoolean(),
-    metadata: new PithosObject({
-      featured: new PithosBoolean(),
-      rank: new PithosNumber(),
-    }).optional(),
-  });
-
-  // Kanon V2 (with constraints)
-  const kanonV2ProductSchema = objectV2({
-    id: stringV2(),
-    name: maxLengthV2(minLengthV2(stringV2(), 1), 200),
-    description: nullableV2(stringV2()),
-    price: minV2(numberV2(), 0),
-    currency: enumV2(["USD", "EUR", "GBP"]),
-    stock: minV2(numberV2(), 0),
-    categories: arrayV2(stringV2()),
-    isActive: booleanV2(),
-    metadata: optionalV2(objectV2({
-      featured: booleanV2(),
-      rank: numberV2(),
-    })),
-  });
 
   // Kanon V3
   const kanonProductSchema = objectV3({
@@ -710,8 +568,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
   });
 
   poolHelpers.runBenchmarkSuite("🛒 E-commerce Product", [
-    { name: "@kanon/V1" as LibName, fn: () => kanonV1ProductSchema.safeParse(getProduct()) },
-    { name: "@kanon/V2" as LibName, fn: () => safeParseV2(kanonV2ProductSchema, getProduct()) },
     { name: "@kanon/V3.0" as LibName, fn: () => parseV3(kanonProductSchema, getProduct()) },
     { name: "@kanon/JIT" as LibName, fn: () => jitProductSchema(getProduct()) },
     { name: "Zod" as LibName, fn: () => zodProductSchema.safeParse(getProduct()) },
@@ -747,48 +603,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
   }));
   let blogIndex = 0;
   const getBlogPost = () => blogPostPool[blogIndex++ % blogPostPool.length];
-
-  // Kanon V1
-  const kanonV1BlogSchema = new PithosObject({
-    id: new PithosNumber(),
-    title: new PithosString().min(1).max(200),
-    slug: new PithosString().regex(/^[a-z0-9-]+$/),
-    content: new PithosString(),
-    author: new PithosObject({
-      id: new PithosNumber(),
-      name: new PithosString(),
-      email: new PithosString().email(),
-    }),
-    tags: new PithosArray(new PithosString()),
-    publishedAt: new PithosString().nullable(),
-    comments: new PithosArray(new PithosObject({
-      id: new PithosNumber(),
-      author: new PithosString(),
-      text: new PithosString(),
-      createdAt: new PithosString(),
-    })),
-  });
-
-  // Kanon V2 (with constraints)
-  const kanonV2BlogSchema = objectV2({
-    id: numberV2(),
-    title: maxLengthV2(minLengthV2(stringV2(), 1), 200),
-    slug: patternV2(stringV2(), /^[a-z0-9-]+$/),
-    content: stringV2(),
-    author: objectV2({
-      id: numberV2(),
-      name: stringV2(),
-      email: emailV2(stringV2()),
-    }),
-    tags: arrayV2(stringV2()),
-    publishedAt: nullableV2(stringV2()),
-    comments: arrayV2(objectV2({
-      id: numberV2(),
-      author: stringV2(),
-      text: stringV2(),
-      createdAt: stringV2(),
-    })),
-  });
 
   // Kanon V3
   const kanonBlogSchema = objectV3({
@@ -983,8 +797,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
   });
 
   poolHelpers.runBenchmarkSuite("📰 Blog Post with Comments", [
-    { name: "@kanon/V1" as LibName, fn: () => kanonV1BlogSchema.safeParse(getBlogPost()) },
-    { name: "@kanon/V2" as LibName, fn: () => safeParseV2(kanonV2BlogSchema, getBlogPost()) },
     { name: "@kanon/V3.0" as LibName, fn: () => parseV3(kanonBlogSchema, getBlogPost()) },
     { name: "@kanon/JIT" as LibName, fn: () => jitBlogSchema(getBlogPost()) },
     { name: "Zod" as LibName, fn: () => zodBlogSchema.safeParse(getBlogPost()) },
@@ -1008,24 +820,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
   }));
   let searchIndex = 0;
   const getSearchParams = () => searchParamsPool[searchIndex++ % searchParamsPool.length];
-
-  // Kanon V1 (with coercion support)
-  const kanonV1SearchSchema = new PithosObject({
-    q: new PithosString(),
-    page: new PithosCoerceNumber(),
-    limit: new PithosCoerceNumber(),
-    sortBy: new PithosEnum(["date", "relevance", "popularity"] as const),
-    includeArchived: new PithosCoerceBoolean(),
-  });
-
-  // Kanon V2 (with coercion and enum)
-  const kanonV2SearchSchema = objectV2({
-    q: stringV2(),
-    page: coerceNumberV2(),
-    limit: coerceNumberV2(),
-    sortBy: enumV2(["date", "relevance", "popularity"]),
-    includeArchived: coerceBooleanV2(),
-  });
 
   // Kanon V3
   const kanonSearchSchema = objectV3({
@@ -1104,8 +898,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
   });
 
   poolHelpers.runBenchmarkSuite("🔍 Search Params (with coercion)", [
-    { name: "@kanon/V1" as LibName, fn: () => kanonV1SearchSchema.safeParse(getSearchParams()) },
-    { name: "@kanon/V2" as LibName, fn: () => safeParseV2(kanonV2SearchSchema, getSearchParams()) },
     { name: "@kanon/V3.0" as LibName, fn: () => parseV3(kanonSearchSchema, getSearchParams()) },
     { name: "@kanon/JIT" as LibName, fn: () => jitSearchSchema(getSearchParams()) },
     { name: "Zod" as LibName, fn: () => zodSearchSchema.safeParse(getSearchParams()) },
@@ -1130,22 +922,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
   });
   let profileIndex = 0;
   const getProfileUpdate = () => profileUpdatePool[profileIndex++ % profileUpdatePool.length];
-
-  // Kanon V1
-  const kanonV1ProfileSchema = new PithosObject({
-    displayName: new PithosString().min(1).max(50).optional(),
-    bio: new PithosString().max(500).optional(),
-    website: new PithosString().url().optional(),
-    location: new PithosString().max(100).optional(),
-  });
-
-  // Kanon V2 (with constraints)
-  const kanonV2ProfileSchema = objectV2({
-    displayName: optionalV2(maxLengthV2(minLengthV2(stringV2(), 1), 50)),
-    bio: optionalV2(maxLengthV2(stringV2(), 500)),
-    website: optionalV2(urlV2(stringV2())),
-    location: optionalV2(maxLengthV2(stringV2(), 100)),
-  });
 
   // Kanon V3
   const kanonProfileSchema = objectV3({
@@ -1217,8 +993,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
   });
 
   poolHelpers.runBenchmarkSuite("👤 User Profile Update (optional fields)", [
-    { name: "@kanon/V1" as LibName, fn: () => kanonV1ProfileSchema.safeParse(getProfileUpdate()) },
-    { name: "@kanon/V2" as LibName, fn: () => safeParseV2(kanonV2ProfileSchema, getProfileUpdate()) },
     { name: "@kanon/V3.0" as LibName, fn: () => parseV3(kanonProfileSchema, getProfileUpdate()) },
     { name: "@kanon/JIT" as LibName, fn: () => jitProfileSchema(getProfileUpdate()) },
     { name: "Zod" as LibName, fn: () => zodProfileSchema.safeParse(getProfileUpdate()) },
@@ -1247,47 +1021,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
   });
   let paymentIndex = 0;
   const getPayment = () => paymentPool[paymentIndex++ % paymentPool.length];
-
-  // Kanon V1
-  const kanonV1PaymentSchema = new PithosObject({
-    amount: new PithosNumber().min(1),
-    currency: new PithosString(), // V1: no enum, use string
-    method: new PithosString(), // V1: no enum, use string
-    cardNumber: new PithosString().optional(),
-    cardExpiry: new PithosString().optional(),
-    paypalEmail: new PithosString().email().optional(),
-    bankAccount: new PithosString().optional(),
-  }).refine((data) => {
-    if (data.method === "card" && (!data.cardNumber || !data.cardExpiry)) return false;
-    if (data.method === "paypal" && !data.paypalEmail) return false;
-    if (data.method === "bank" && !data.bankAccount) return false;
-    return true;
-  }, "Payment details required");
-
-  // Kanon V2 (with enum, min, and refine)
-  const kanonV2PaymentSchema = refineV2(
-    objectV2({
-      amount: minV2(numberV2(), 1),
-      currency: enumV2(["USD", "EUR", "GBP"]),
-      method: enumV2(["card", "paypal", "bank"]),
-      cardNumber: optionalV2(stringV2()),
-      cardExpiry: optionalV2(stringV2()),
-      paypalEmail: optionalV2(emailV2(stringV2())),
-      bankAccount: optionalV2(stringV2()),
-    }),
-    (data) => {
-      if (data.method === "card" && (!data.cardNumber || !data.cardExpiry)) {
-        return "Card details required";
-      }
-      if (data.method === "paypal" && !data.paypalEmail) {
-        return "PayPal email required";
-      }
-      if (data.method === "bank" && !data.bankAccount) {
-        return "Bank account required";
-      }
-      return true;
-    }
-  );
 
   // Kanon V3
   const kanonPaymentSchema = refineObjectV3(
@@ -1437,8 +1170,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
   });
 
   poolHelpers.runBenchmarkSuite("💳 Payment Form (conditional validation)", [
-    { name: "@kanon/V1" as LibName, fn: () => kanonV1PaymentSchema.safeParse(getPayment()) },
-    { name: "@kanon/V2" as LibName, fn: () => safeParseV2(kanonV2PaymentSchema, getPayment()) },
     { name: "@kanon/V3.0" as LibName, fn: () => parseV3(kanonPaymentSchema, getPayment()) },
     { name: "@kanon/JIT" as LibName, fn: () => jitPaymentSchema(getPayment()) },
     { name: "Zod" as LibName, fn: () => zodPaymentSchema.safeParse(getPayment()) },
@@ -1466,35 +1197,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
   }));
   let bookingIndex = 0;
   const getBooking = () => bookingPool[bookingIndex++ % bookingPool.length];
-
-  // Kanon V1
-  const kanonV1BookingSchema = new PithosObject({
-    eventId: new PithosString(),
-    attendees: new PithosArray(new PithosObject({
-      name: new PithosString().min(1),
-      email: new PithosString().email(),
-      dietaryRequirements: new PithosString().nullable(), // V1: no enum, use string
-    })),
-    date: new PithosString(),
-    specialRequests: new PithosString().max(500).optional(),
-    totalPrice: new PithosNumber().min(0),
-  });
-
-  // Kanon V2 (with all constraints matching V3)
-  const kanonV2BookingSchema = objectV2({
-    eventId: stringV2(),
-    attendees: refineV2(
-      arrayV2(objectV2({
-        name: minLengthV2(stringV2(), 1),
-        email: emailV2(stringV2()),
-        dietaryRequirements: nullableV2(enumV2(["vegetarian", "vegan", "gluten-free", "halal", "kosher"])),
-      })),
-      (arr) => arr.length >= 1 && arr.length <= 10 || "Attendees must be between 1 and 10"
-    ),
-    date: stringV2(),
-    specialRequests: optionalV2(maxLengthV2(stringV2(), 500)),
-    totalPrice: minV2(numberV2(), 0),
-  });
 
   // Kanon V3
   const kanonBookingSchema = objectV3({
@@ -1629,8 +1331,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
   });
 
   poolHelpers.runBenchmarkSuite("🎫 Event Booking", [
-    { name: "@kanon/V1" as LibName, fn: () => kanonV1BookingSchema.safeParse(getBooking()) },
-    { name: "@kanon/V2" as LibName, fn: () => safeParseV2(kanonV2BookingSchema, getBooking()) },
     { name: "@kanon/V3.0" as LibName, fn: () => parseV3(kanonBookingSchema, getBooking()) },
     { name: "@kanon/JIT" as LibName, fn: () => jitBookingSchema(getBooking()) },
     { name: "Zod" as LibName, fn: () => zodBookingSchema.safeParse(getBooking()) },
@@ -1654,8 +1354,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
   const getInvalidLogin = () => invalidLoginPool[invalidLoginIndex++ % invalidLoginPool.length];
 
   poolHelpers.runBenchmarkSuite("❌ Invalid Login (error handling)", [
-    { name: "@kanon/V1" as LibName, fn: () => kanonV1LoginSchema.safeParse(getInvalidLogin()) },
-    { name: "@kanon/V2" as LibName, fn: () => safeParseV2(kanonV2LoginSchema, getInvalidLogin()) },
     { name: "@kanon/V3.0" as LibName, fn: () => parseV3(kanonLoginSchema, getInvalidLogin()) },
     { name: "@kanon/JIT" as LibName, fn: () => jitLoginSchema(getInvalidLogin()) },
     { name: "Zod" as LibName, fn: () => zodLoginSchema.safeParse(getInvalidLogin()) },

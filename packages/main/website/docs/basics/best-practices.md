@@ -98,7 +98,7 @@ const result: Result<User, ApiError> = fetchUser(id);
 Use Kanon to validate external data exactly once, at the point of entry.
 
 ```typescript
-import { object, string, number, parse } from "pithos/kanon/v3";
+import { object, string, number, parse } from "pithos/kanon";
 
 const UserSchema = object({
   id: string(),

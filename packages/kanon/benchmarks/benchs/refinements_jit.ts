@@ -19,13 +19,13 @@
  * Refinements cannot be inlined and require function calls.
  */
 
-import { parse as parseV3 } from "@kanon/v3/core/parser.js";
-import { string as stringV3 } from "@kanon/v3/schemas/primitives/string";
-import { number as numberV3 } from "@kanon/v3/schemas/primitives/number";
-import { object as objectV3 } from "@kanon/v3/schemas/composites/object";
-import { refineString } from "@kanon/v3/schemas/constraints/refine/string";
-import { refineNumber } from "@kanon/v3/schemas/constraints/refine/number";
-import { compile } from "@kanon/v3/jit/compiler";
+import { parse as parseV3 } from "@kanon/core/parser.js";
+import { string as stringV3 } from "@kanon/schemas/primitives/string";
+import { number as numberV3 } from "@kanon/schemas/primitives/number";
+import { object as objectV3 } from "@kanon/schemas/composites/object";
+import { refineString } from "@kanon/schemas/constraints/refine/string";
+import { refineNumber } from "@kanon/schemas/constraints/refine/number";
+import { compile } from "@kanon/jit/compiler";
 import { LibName, POOL_SIZE } from "../dataset/config";
 
 // ============================================================================

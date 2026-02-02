@@ -535,7 +535,7 @@ export function CodeExample({ variant }: CodeExampleProps): React.ReactElement {
     return (
       <pre className={styles.codeBlock}>
         <code>{`// ✅ BEST: Direct imports (${directSize} for login form)
-import { object, string, parse } from "pithos/kanon/v3";
+import { object, string, parse } from "pithos/kanon";
 
 const schema = object({
   email: string({ format: "email" }),
@@ -550,7 +550,7 @@ const result = parse(schema, data);`}</code>
     return (
       <pre className={styles.codeBlock}>
         <code>{`// ⚠️ CONVENIENT: k namespace (${kSize} - includes ALL schemas)
-import { k } from "pithos/kanon/v3";
+import { k } from "pithos/kanon";
 
 const schema = k.object({
   email: k.string(),
@@ -565,7 +565,7 @@ const result = k.parse(schema, data);`}</code>
   return (
     <pre className={styles.codeBlock}>
       <code>{`// ⚠️ ZOD COMPAT: z shim (${zSize} - Zod API adapter)
-import { z } from "pithos/kanon/v3/helpers/as-zod.shim";
+import { z } from "pithos/kanon/helpers/as-zod.shim";
 
 const schema = z.object({
   email: z.string().email(),

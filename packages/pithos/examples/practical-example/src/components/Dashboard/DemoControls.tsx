@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Zap, Play } from "lucide-react";
 import { useToast } from "@/components/ui/toast";
-import { parse } from "pithos/kanon/v3/index";
+import { parse } from "pithos/kanon/index";
 import { DashboardSchema } from "@/lib/schemas";
 
 const PRESETS = {

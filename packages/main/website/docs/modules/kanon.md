@@ -16,7 +16,7 @@ Lightweight alternative to Zod. Schema validation with TypeScript inference — 
 ## Quick Example
 
 ```typescript
-import { object, string, number, optional, parse } from "pithos/kanon/v3";
+import { object, string, number, optional, parse } from "pithos/kanon";
 
 const userSchema = object({
   name: string().minLength(1),
@@ -61,8 +61,8 @@ Kanon v3 offers two validation modes:
 | **V3 JIT** | 23.6M ops/s | ❌ Needs `unsafe-eval` | High-throughput scenarios |
 
 ```typescript
-import { parse } from "pithos/kanon/v3";              // Standard
-import { compile } from "pithos/kanon/v3/jit/compiler"; // JIT
+import { parse } from "pithos/kanon";              // Standard
+import { compile } from "pithos/kanon/jit/compiler"; // JIT
 
 // JIT: compile once, validate many
 const validator = compile(schema);
@@ -110,7 +110,7 @@ The `asZod()` helper provides Zod-compatible API for migration purposes, but tra
 import { z } from "zod";
 
 // After (Kanon) — only change the import, code stays IDENTICAL
-import { z } from "pithos/kanon/v3/helpers/as-zod.shim";
+import { z } from "pithos/kanon/helpers/as-zod.shim";
 
 // Your existing code works unchanged
 const userSchema = z.object({
@@ -124,7 +124,7 @@ userSchema.safeParse(data);
 ```
 
 :::tip Migration
-Search & replace `from "zod"` → `from "pithos/kanon/v3/helpers/as-zod.shim"` in your codebase. Done.
+Search & replace `from "zod"` → `from "pithos/kanon/helpers/as-zod.shim"` in your codebase. Done.
 :::
 
 ### `k` - Namespace object
@@ -132,7 +132,7 @@ Search & replace `from "zod"` → `from "pithos/kanon/v3/helpers/as-zod.shim"` i
 Same API as `z`, but using Kanon naming.
 
 ```typescript
-import { k } from "pithos/kanon/v3/helpers/k";
+import { k } from "pithos/kanon/helpers/k";
 
 const schema = k.object({
   name: k.string(),
@@ -151,8 +151,8 @@ Not tree-shakeable — imports all schemas. Prefer direct imports for optimal bu
 Wraps any Kanon schema with Zod-like methods.
 
 ```typescript
-import { asZod } from "pithos/kanon/v3/helpers/as-zod";
-import { string, number, object } from "pithos/kanon/v3";
+import { asZod } from "pithos/kanon/helpers/as-zod";
+import { string, number, object } from "pithos/kanon";
 
 const schema = asZod(object({
   name: string(),

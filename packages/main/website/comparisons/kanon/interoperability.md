@@ -43,7 +43,7 @@ However, for **smooth migration from Zod**, Kanon provides a `z` shim with a 1:1
 
 ```typescript
 // Just swap your import
-import { z } from "pithos/kanon/v3/helpers/as-zod.shim";
+import { z } from "pithos/kanon/helpers/as-zod.shim";
 
 // Your existing Zod code works as-is
 const schema = z.object({
@@ -117,7 +117,7 @@ With the `z` shim, your Zod code works as-is. Just change the import.
 import { z } from "zod";
 
 // Kanon (just change the import!)
-import { z } from "pithos/kanon/v3/helpers/as-zod.shim";
+import { z } from "pithos/kanon/helpers/as-zod.shim";
 
 // Same code works in both
 const userSchema = z.object({
@@ -130,7 +130,7 @@ const userSchema = z.object({
 #### With Constraints
 
 ```typescript
-import { z } from "pithos/kanon/v3/helpers/as-zod.shim";
+import { z } from "pithos/kanon/helpers/as-zod.shim";
 
 const productSchema = z.object({
   sku: z.string().min(3).max(10),
@@ -142,7 +142,7 @@ const productSchema = z.object({
 #### With Optional/Nullable
 
 ```typescript
-import { z } from "pithos/kanon/v3/helpers/as-zod.shim";
+import { z } from "pithos/kanon/helpers/as-zod.shim";
 
 const profileSchema = z.object({
   username: z.string(),
@@ -155,7 +155,7 @@ const profileSchema = z.object({
 #### Union Types
 
 ```typescript
-import { z } from "pithos/kanon/v3/helpers/as-zod.shim";
+import { z } from "pithos/kanon/helpers/as-zod.shim";
 
 const statusSchema = z.union([
   z.literal("pending"),
@@ -239,7 +239,7 @@ npm install pithos
 import { z } from "zod";
 
 // After
-import { z } from "pithos/kanon/v3/helpers/as-zod.shim";
+import { z } from "pithos/kanon/helpers/as-zod.shim";
 ```
 
 ### Step 3: Run your tests
@@ -266,7 +266,7 @@ z.string().regex(jwtRegex, "Invalid JWT")
 const partial = userSchema.partial()
 
 // Kanon: use native functions
-import { partial } from "pithos/kanon/v3";
+import { partial } from "pithos/kanon";
 const partialUser = partial(userSchema._schema());
 ```
 

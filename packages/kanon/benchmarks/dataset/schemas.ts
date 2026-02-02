@@ -4,34 +4,18 @@ import * as s from "superstruct";
 import Validator from "fastest-validator";
 import { Type } from "@sinclair/typebox";
 import Ajv from "ajv";
-import { string as stringV3 } from "@kanon/v3/schemas/primitives/string";
-import { number as numberV3 } from "@kanon/v3/schemas/primitives/number";
-import { boolean as booleanV3 } from "@kanon/v3/schemas/primitives/boolean";
-import { object as objectV3 } from "@kanon/v3/schemas/composites/object";
-import { array as arrayV3 } from "@kanon/v3/schemas/composites/array";
-import { null_ as nullV3 } from "@kanon/v3/schemas/primitives/null";
-import { undefined_ as undefinedV3 } from "@kanon/v3/schemas/primitives/undefined";
-import { any as anyV3 } from "@kanon/v3/schemas/primitives/any";
-import { unknown as unknownV3 } from "@kanon/v3/schemas/primitives/unknown";
-import { date as dateV3 } from "@kanon/v3/schemas/primitives/date";
-import { bigint as bigintV3 } from "@kanon/v3/schemas/primitives/bigint";
-import { compile as compileJIT } from "@kanon/v3/jit/compiler";
-import { string } from "@kanon/v2/schemas/primitives/string";
-import { number } from "@kanon/v2/schemas/primitives/number";
-import { boolean } from "@kanon/v2/schemas/primitives/boolean";
-import { object } from "@kanon/v2/schemas/composites/object";
-import { array } from "@kanon/v2/schemas/composites/array";
-import { PithosString } from "@kanon/v1/schemas/primitives/string";
-import { PithosNumber } from "@kanon/v1/schemas/primitives/number";
-import { PithosBoolean } from "@kanon/v1/schemas/primitives/boolean";
-import { PithosObject } from "@kanon/v1/schemas/composites/object";
-import { PithosArray } from "@kanon/v1/schemas/composites/array";
-import { PithosNull } from "@kanon/v1/schemas/primitives/null";
-import { PithosUndefined } from "@kanon/v1/schemas/primitives/undefined";
-import { PithosAny } from "@kanon/v1/schemas/primitives/any";
-import { PithosUnknown } from "@kanon/v1/schemas/primitives/unknown";
-import { PithosDate } from "@kanon/v1/schemas/primitives/date";
-import { PithosBigInt } from "@kanon/v1/schemas/primitives/bigint";
+import { string as stringV3 } from "@kanon/schemas/primitives/string";
+import { number as numberV3 } from "@kanon/schemas/primitives/number";
+import { boolean as booleanV3 } from "@kanon/schemas/primitives/boolean";
+import { object as objectV3 } from "@kanon/schemas/composites/object";
+import { array as arrayV3 } from "@kanon/schemas/composites/array";
+import { null_ as nullV3 } from "@kanon/schemas/primitives/null";
+import { undefined_ as undefinedV3 } from "@kanon/schemas/primitives/undefined";
+import { any as anyV3 } from "@kanon/schemas/primitives/any";
+import { unknown as unknownV3 } from "@kanon/schemas/primitives/unknown";
+import { date as dateV3 } from "@kanon/schemas/primitives/date";
+import { bigint as bigintV3 } from "@kanon/schemas/primitives/bigint";
+import { compile as compileJIT } from "@kanon/jit/compiler";
 
 // ===== SCHEMAS SETUP =====
 /**
@@ -136,86 +120,6 @@ const jitStringArray = compileJIT(jitStringArraySchema as any);
 const jitNumberArray = compileJIT(jitNumberArraySchema as any);
 
 export const schemas = {
-  kanonV1: {
-    string: new PithosString(),
-    number: new PithosNumber(),
-    boolean: new PithosBoolean(),
-    simpleObject: new PithosObject({
-      name: new PithosString(),
-      age: new PithosNumber(),
-      active: new PithosBoolean(),
-    }),
-    bulkObject: new PithosObject({
-      id: new PithosNumber(),
-      name: new PithosString(),
-      active: new PithosBoolean(),
-    }),
-    complexObject: new PithosObject({
-      id: new PithosNumber(),
-      name: new PithosString(),
-      tags: new PithosArray(new PithosString()),
-      config: new PithosObject({
-        enabled: new PithosBoolean(),
-        timeout: new PithosNumber(),
-        retries: new PithosNumber(),
-      }),
-      users: new PithosArray(
-        new PithosObject({
-          id: new PithosNumber(),
-          name: new PithosString(),
-          active: new PithosBoolean(),
-        })
-      ),
-    }),
-    stringArray: new PithosArray(new PithosString()),
-    numberArray: new PithosArray(new PithosNumber()),
-    null: new PithosNull(),
-    undefined: new PithosUndefined(),
-    any: new PithosAny(),
-    unknown: new PithosUnknown(),
-    date: new PithosDate(),
-    bigint: new PithosBigInt(),
-  },
-  kanonV2: {
-    string: string(),
-    number: number(),
-    boolean: boolean(),
-    null: object({}),
-    undefined: object({}),
-    any: object({}),
-    unknown: object({}),
-    date: string(),
-    bigint: number(),
-    simpleObject: object({
-      name: string(),
-      age: number(),
-      active: boolean(),
-    }),
-    bulkObject: object({
-      id: number(),
-      name: string(),
-      active: boolean(),
-    }),
-    complexObject: object({
-      id: number(),
-      name: string(),
-      tags: array(string()),
-      config: object({
-        enabled: boolean(),
-        timeout: number(),
-        retries: number(),
-      }),
-      users: array(
-        object({
-          id: number(),
-          name: string(),
-          active: boolean(),
-        })
-      ),
-    }),
-    stringArray: array(string()),
-    numberArray: array(number()),
-  },
   kanonV3: {
     string: stringV3(),
     number: numberV3(),

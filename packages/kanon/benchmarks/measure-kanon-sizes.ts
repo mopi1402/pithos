@@ -22,7 +22,7 @@ interface BundleResult {
 }
 
 // Use the actual compiled files path
-const kanonBasePath = "/Users/pmoati/Projects/_labs/pithos/dist/pithos/src/kanon/v3";
+const kanonBasePath = "/Users/pmoati/Projects/_labs/pithos/dist/pithos/src/kanon";
 
 // Test cases with inline code
 const testCases = [

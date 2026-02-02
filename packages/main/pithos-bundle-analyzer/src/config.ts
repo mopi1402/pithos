@@ -7,9 +7,9 @@ import type { ModuleTransform } from "./types.js";
 export const MODULE_TRANSFORMS: readonly ModuleTransform[] = [
   {
     sourceModule: "kanon",
-    displayName: "Kanon (v3)",
-    skipLevels: ["v3"],
-    filePathPrefix: "kanon/v3/",
+    displayName: "Kanon",
+    skipLevels: [],
+    filePathPrefix: "kanon/",
   },
 ] as const;
 

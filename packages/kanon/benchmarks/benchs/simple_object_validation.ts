@@ -1,7 +1,6 @@
 import * as v from "valibot";
 import * as s from "superstruct";
-import { safeParse } from "@kanon/v2/core/parser.js";
-import { parse as parseV3 } from "@kanon/v3/core/parser.js";
+import { parse as parseV3 } from "@kanon/core/parser.js";
 import * as poolHelpers from "../helpers/pool_helpers";
 import { schemas } from "../dataset/schemas";
 import { LibName } from "../dataset/config";
@@ -12,16 +11,6 @@ export const simpleObjectValidation: () => {
   fn: () => void;
 }[] = () => {
   return [
-    {
-      name: "@kanon/V1",
-      fn: () =>
-        schemas.kanonV1.simpleObject.safeParse(poolHelpers.getSimpleObject()),
-    },
-    {
-      name: "@kanon/V2",
-      fn: () =>
-        safeParse(schemas.kanonV2.simpleObject, poolHelpers.getSimpleObject()),
-    },
     {
       name: "@kanon/V3.0",
       fn: () =>

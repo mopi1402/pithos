@@ -242,6 +242,10 @@
       "description": "Analyze bundle size",
       "category": "Analyze"
     },
+    "analyze:treeshaking": {
+      "description": "Test Kanon tree-shaking with bundle visualizer",
+      "category": "Analyze"
+    },
     "prepublishOnly": {
       "description": "Script executed before npm publish",
       "category": "Publish"
@@ -266,7 +270,7 @@
           "description": "Libraries to compare",
           "options": [
             { "label": "default (Kanon vs Zod)", "value": "" },
-            { "label": "Kanon versions", "value": "kanon", "args": ["jit,v3,v2,v1"] },
+            { "label": "Kanon versions", "value": "kanon", "args": ["jit,v3"] },
             { "label": "⚡ all libs", "value": "all", "args": ["all"] },
             { "label": "custom:", "value": "custom" }
           ]
@@ -285,6 +289,10 @@
           "args": ["--report"]
         }
       ]
+    },
+    "benchmark:kanon:perf": {
+      "description": "Run Kanon performance benchmarks (optimization decisions)",
+      "category": "Benchmark"
     },
     "benchmark:arkhe": {
       "description": "Run benchmarks for arkhe module (vs es-toolkit, lodash-es)",

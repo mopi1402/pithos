@@ -1,7 +1,6 @@
 import * as v from "valibot";
 import * as s from "superstruct";
-import { safeParse } from "@kanon/v2/core/parser.js";
-import { parse as parseV3 } from "@kanon/v3/core/parser.js";
+import { parse as parseV3 } from "@kanon/core/parser.js";
 import * as poolHelpers from "../helpers/pool_helpers";
 import { LibName } from "../dataset/config";
 import { schemas } from "../dataset/schemas";
@@ -12,19 +11,6 @@ export const complexObjectValidation: () => {
   fn: () => void;
 }[] = () => {
   return [
-    {
-      name: "@kanon/V1",
-      fn: () =>
-        schemas.kanonV1.complexObject.safeParse(poolHelpers.getComplexObject()),
-    },
-    {
-      name: "@kanon/V2",
-      fn: () =>
-        safeParse(
-          schemas.kanonV2.complexObject,
-          poolHelpers.getComplexObject()
-        ),
-    },
     {
       name: "@kanon/V3.0",
       fn: () =>

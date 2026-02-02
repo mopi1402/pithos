@@ -36,6 +36,9 @@
       "@arkhe/*": [
         "arkhe/*"
       ],
+      "@kanon": [
+        "kanon/index"
+      ],
       "@kanon/*": [
         "kanon/*"
       ],

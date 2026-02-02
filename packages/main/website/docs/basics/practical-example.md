@@ -40,7 +40,7 @@ import {
   array,
   optional,
   parse,
-} from "pithos/kanon/v3";
+} from "pithos/kanon";
 
 // Define the expected API response structure
 const UserSchema = object({
@@ -83,7 +83,7 @@ const DashboardSchema = object({
 If you prefer Zod's API and don't need absolute tree-shaking, you can use the Zod shim:
 
 ```typescript
-import { z } from "pithos/kanon/v3/helpers/as-zod.shim";
+import { z } from "pithos/kanon/helpers/as-zod.shim";
 
 const UserSchema = z.object({
   id: z.string(),

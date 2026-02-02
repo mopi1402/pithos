@@ -5,7 +5,7 @@
  * In this example, we use mock data, but the pattern works identically with real APIs.
  */
 import { ResultAsync, errAsync, okAsync } from "pithos/zygos/result/result-async";
-import { parse } from "pithos/kanon/v3/index";
+import { parse } from "pithos/kanon/index";
 import { DashboardSchema } from "./schemas";
 import { formatUser, formatPosts } from "./transformers";
 import type { DashboardData, RawDashboardData } from "./types";

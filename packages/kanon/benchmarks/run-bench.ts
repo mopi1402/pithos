@@ -139,8 +139,7 @@ function padRight(str: string, len: number): string {
 // Extract library name from test name
 function extractLibraryName(testName: string): string {
   if (testName.includes("@kanon/V3.0")) return "@kanon/V3.0";
-  if (testName.includes("@kanon/V2")) return "@kanon/V2";
-  if (testName.includes("@kanon/V1")) return "@kanon/V1";
+  if (testName.includes("@kanon/JIT")) return "@kanon/JIT";
   if (testName.includes("Zod")) return "Zod";
   if (testName.includes("Valibot")) return "Valibot";
   return testName.split(" - ")[0] || testName;

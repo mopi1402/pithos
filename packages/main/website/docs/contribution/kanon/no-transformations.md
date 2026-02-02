@@ -26,7 +26,7 @@ Mixing both creates complexity and unpredictability.
 ### ✅ Validation
 
 ```typescript
-import { string, parse } from "pithos/kanon/v3";
+import { string, parse } from "pithos/kanon";
 
 parse(string(), "  hello  ");
 // → { success: true, data: "  hello  " }
@@ -36,7 +36,7 @@ parse(string(), "  hello  ");
 ### ✅ Coercion (Type Conversion Before Validation)
 
 ```typescript
-import { coerceNumber, parse } from "pithos/kanon/v3";
+import { coerceNumber, parse } from "pithos/kanon";
 
 parse(coerceNumber(), "123");
 // → { success: true, data: 123 }
@@ -119,7 +119,7 @@ Transformations are pure runtime operations. Kanon prioritizes what can be done 
 ### Approach 1: Transform After Validation (Recommended)
 
 ```typescript
-import { string, parse } from "pithos/kanon/v3";
+import { string, parse } from "pithos/kanon";
 
 const result = parse(string().email(), input);
 
@@ -138,7 +138,7 @@ if (result.success) {
 ### Approach 2: Transform Before Validation
 
 ```typescript
-import { string, parse } from "pithos/kanon/v3";
+import { string, parse } from "pithos/kanon";
 
 // Transform first
 const normalized = input.trim().toLowerCase();
@@ -154,7 +154,7 @@ const result = parse(string().email(), normalized);
 ### Approach 3: Use Coercion for Type Conversion
 
 ```typescript
-import { coerceNumber, coerceBoolean, parse } from "pithos/kanon/v3";
+import { coerceNumber, coerceBoolean, parse } from "pithos/kanon";
 
 // Type coercion is built-in
 parse(coerceNumber(), "123"); // → { success: true, data: 123 }
@@ -168,7 +168,7 @@ parse(coerceBoolean(), "true"); // → { success: true, data: true }
 ### Approach 4: Use Arkhe Utilities
 
 ```typescript
-import { string, parse } from "pithos/kanon/v3";
+import { string, parse } from "pithos/kanon";
 import { evolve } from "pithos/arkhe/object/evolve";
 
 const result = parse(userSchema, input);
@@ -192,8 +192,8 @@ if (result.success) {
 The `asZod()` helper provides Zod-compatible API for **migration purposes**:
 
 ```typescript
-import { asZod } from "pithos/kanon/v3/helpers/as-zod";
-import { string } from "pithos/kanon/v3";
+import { asZod } from "pithos/kanon/helpers/as-zod";
+import { string } from "pithos/kanon";
 
 const schema = asZod(string());
 

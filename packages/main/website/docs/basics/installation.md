@@ -65,7 +65,7 @@ Pithos ships zero runtime dependencies and ES modules only.
 - Import at function/module granularity to keep bundles small:
   ```typescript
   import { chunk } from "pithos/arkhe/array/chunk";
-  import { parse } from "pithos/kanon/v3";
+  import { parse } from "pithos/kanon";
   import { ok, err } from "pithos/zygos/result/result";
   ```
 - Avoid <Code>import <s>* as Pithos</s> from "pithos"</Code>: the package exposes per-file entry points specifically for tree-shaking.

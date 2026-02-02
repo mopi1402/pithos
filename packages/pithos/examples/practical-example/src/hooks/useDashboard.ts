@@ -3,7 +3,7 @@
  * Demonstrates the Pithos pipeline in a React context
  */
 import { useState, useEffect, useCallback } from "react";
-import { parse } from "pithos/kanon/v3/index";
+import { parse } from "pithos/kanon/index";
 import { DashboardSchema } from "@/lib/schemas";
 import { formatUser, formatPosts } from "@/lib/transformers";
 import { mockDashboardData } from "@/lib/mock-data";

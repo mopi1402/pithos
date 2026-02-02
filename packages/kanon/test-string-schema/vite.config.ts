@@ -14,7 +14,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@kanon/v3": resolve(__dirname, "../../pithos/src/kanon/v3"),
+      "@kanon": resolve(__dirname, "../../pithos/src/kanon"),
       "@arkhe": resolve(__dirname, "../../pithos/src/arkhe"),
       "@zygos": resolve(__dirname, "../../pithos/src/zygos"),
     },

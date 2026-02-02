@@ -94,29 +94,22 @@ import {
   conditionalRefinementTests,
 } from "./benchs/refinements_custom";
 
-import { safeParse } from "@kanon/v2/core/parser.js";
-import { parse as parseV3 } from "@kanon/v3/core/parser.js";
+import { parse as parseV3 } from "@kanon/core/parser.js";
 import { schemas as schemasDataset } from "./dataset/schemas";
 import * as poolHelpers from "./helpers/pool_helpers";
 import * as valibot from "valibot";
 import * as s from "superstruct";
 import { Value } from "@sinclair/typebox/value";
-import { v as validatorsV1 } from "@kanon/v1/validation";
 
-describe("🚀 Kanon All Versions Comparison: V1, V2, V3", () => {
+describe("🚀 Kanon vs others:", () => {
   const schemas = schemasDataset;
   console.log("✅ Schemas generated");
-
-  console.log("📚 Kanon V1 validators (class-based architecture)");
-  console.log("✅ Kanon V1 validators ready");
 
   // ===== WARMUP =====
   console.log("🔥 Starting warmup with pooled data...");
 
   const runWarmup = () => {
     for (let i = 0; i < 1000; i++) {
-      validatorsV1.string().safeParse(poolHelpers.getString());
-      safeParse(schemas.kanonV2.string, poolHelpers.getString());
       parseV3(schemas.kanonV3.string, poolHelpers.getString());
       schemas.zod.string.safeParse(poolHelpers.getString());
       valibot.safeParse(schemas.valibot.string, poolHelpers.getString());
@@ -125,8 +118,6 @@ describe("🚀 Kanon All Versions Comparison: V1, V2, V3", () => {
       Value.Check(schemas.typebox.string, poolHelpers.getString());
       schemas.ajv.string(poolHelpers.getString());
 
-      validatorsV1.number().safeParse(poolHelpers.getNumber());
-      safeParse(schemas.kanonV2.number, poolHelpers.getNumber());
       parseV3(schemas.kanonV3.number, poolHelpers.getNumber());
       schemas.zod.number.safeParse(poolHelpers.getNumber());
       valibot.safeParse(schemas.valibot.number, poolHelpers.getNumber());
@@ -136,14 +127,6 @@ describe("🚀 Kanon All Versions Comparison: V1, V2, V3", () => {
       schemas.ajv.number(poolHelpers.getNumber());
 
       if (i % 10 === 0) {
-        validatorsV1
-          .object({
-            name: validatorsV1.string(),
-            age: validatorsV1.number(),
-            active: validatorsV1.boolean(),
-          })
-          .safeParse(poolHelpers.getSimpleObject());
-        safeParse(schemas.kanonV2.simpleObject, poolHelpers.getSimpleObject());
         parseV3(schemas.kanonV3.simpleObject, poolHelpers.getSimpleObject());
         schemas.zod.simpleObject.safeParse(poolHelpers.getSimpleObject());
         valibot.safeParse(
@@ -158,9 +141,6 @@ describe("🚀 Kanon All Versions Comparison: V1, V2, V3", () => {
         );
         schemas.ajv.simpleObject(poolHelpers.getSimpleObject());
       }
-
-      validatorsV1.string().safeParse(poolHelpers.getInvalidString());
-      safeParse(schemas.kanonV2.string, poolHelpers.getInvalidString());
       parseV3(schemas.kanonV3.string, poolHelpers.getInvalidString());
       schemas.zod.string.safeParse(poolHelpers.getInvalidString());
       valibot.safeParse(schemas.valibot.string, poolHelpers.getInvalidString());

@@ -1,12 +1,9 @@
-import { safeParse } from "@kanon/v2/core/parser.js";
-
 import * as v from "valibot";
 import * as s from "superstruct";
-import { parse as parseV3 } from "@kanon/v3/core/parser.js";
+import { parse as parseV3 } from "@kanon/core/parser.js";
 
 import { Value } from "@sinclair/typebox/value";
 import { schemas } from "../dataset/schemas";
-import { v as validatorsV1 } from "@kanon/v1/validation";
 import { LibName } from "../dataset/config";
 import * as poolHelpers from "../helpers/pool_helpers";
 
@@ -15,14 +12,6 @@ export const stringValidationLongString: () => {
   fn: () => void;
 }[] = () => {
   return [
-    {
-      name: "@kanon/V1",
-      fn: () => validatorsV1.string().safeParse(poolHelpers.getLongString()),
-    },
-    {
-      name: "@kanon/V2",
-      fn: () => safeParse(schemas.kanonV2.string, poolHelpers.getLongString()),
-    },
     {
       name: "@kanon/V3.0",
       fn: () => parseV3(schemas.kanonV3.string, poolHelpers.getLongString()),

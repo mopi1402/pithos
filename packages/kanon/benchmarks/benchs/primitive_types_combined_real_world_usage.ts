@@ -1,13 +1,10 @@
-import { safeParse } from "@kanon/v2/core/parser.js";
-
 import * as v from "valibot";
 import * as s from "superstruct";
 import { Value } from "@sinclair/typebox/value";
-import { parse as parseV3 } from "@kanon/v3/core/parser.js";
+import { parse as parseV3 } from "@kanon/core/parser.js";
 
 import * as poolHelpers from "../helpers/pool_helpers";
 import { schemas } from "../dataset/schemas";
-import { v as validatorsV1 } from "@kanon/v1/validation";
 import { LibName } from "../dataset/config";
 
 export const primitiveTypesCombinedRealWorldUsage: () => {
@@ -15,23 +12,6 @@ export const primitiveTypesCombinedRealWorldUsage: () => {
   fn: () => void;
 }[] = () => {
   return [
-    {
-      name: "@kanon/V1",
-      fn: () => {
-        // Test réaliste : validation de plusieurs primitifs en séquence
-        validatorsV1.string().safeParse(poolHelpers.getString());
-        validatorsV1.number().safeParse(poolHelpers.getNumber());
-        validatorsV1.boolean().safeParse(poolHelpers.getBoolean());
-      },
-    },
-    {
-      name: "@kanon/V2",
-      fn: () => {
-        safeParse(schemas.kanonV2.string, poolHelpers.getString());
-        safeParse(schemas.kanonV2.number, poolHelpers.getNumber());
-        safeParse(schemas.kanonV2.boolean, poolHelpers.getBoolean());
-      },
-    },
     {
       name: "@kanon/V3.0",
       fn: () => {

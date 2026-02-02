@@ -1,11 +1,11 @@
 import * as z from "zod";
 import * as v from "valibot";
-import { parse as parseV3 } from "@kanon/v3/core/parser.js";
-import { coerceNumber as coerceNumberV3 } from "@kanon/v3/schemas/coerce/number";
-import { coerceBoolean as coerceBooleanV3 } from "@kanon/v3/schemas/coerce/boolean";
-import { coerceDate as coerceDateV3 } from "@kanon/v3/schemas/coerce/date";
-import { coerceBigInt as coerceBigIntV3 } from "@kanon/v3/schemas/coerce/bigint";
-import { object as objectV3 } from "@kanon/v3/schemas/composites/object";
+import { parse as parseV3 } from "@kanon/core/parser.js";
+import { coerceNumber as coerceNumberV3 } from "@kanon/schemas/coerce/number";
+import { coerceBoolean as coerceBooleanV3 } from "@kanon/schemas/coerce/boolean";
+import { coerceDate as coerceDateV3 } from "@kanon/schemas/coerce/date";
+import { coerceBigInt as coerceBigIntV3 } from "@kanon/schemas/coerce/bigint";
+import { object as objectV3 } from "@kanon/schemas/composites/object";
 import { LibName, POOL_SIZE } from "../dataset/config";
 
 const stringNumberPool = Array.from(

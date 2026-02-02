@@ -2,8 +2,6 @@
 export const POOL_SIZE = 10000;
 
 export type LibName =
-  | "@kanon/V1"
-  | "@kanon/V2"
   | "@kanon/V3.0"
   | "@kanon/JIT"
   | "Zod"
@@ -14,8 +12,6 @@ export type LibName =
   | "AJV";
 
 const defaultAvailability: Record<LibName, boolean> = {
-  "@kanon/V1": false,
-  "@kanon/V2": false,
   "@kanon/V3.0": true,
   "@kanon/JIT": true,
   Zod: true,
@@ -29,8 +25,6 @@ const defaultAvailability: Record<LibName, boolean> = {
 const mapName = (name: string): LibName | null => {
   const n = name.trim().toLowerCase();
   if (n === "kanon" || n === "kanonv3" || n === "v3") return "@kanon/V3.0";
-  if (n === "kanonv2" || n === "v2") return "@kanon/V2";
-  if (n === "kanonv1" || n === "v1") return "@kanon/V1";
   if (n === "jit" || n === "kanonjit") return "@kanon/JIT";
   if (n === "zod") return "Zod";
   if (n === "valibot") return "Valibot";
@@ -59,8 +53,6 @@ const availability: Record<LibName, boolean> = { ...defaultAvailability };
 export const BENCH_LIB_HINTS = [
   "@kanon/V3.0 (aliases: kanon, v3, kanonv3)",
   "@kanon/JIT (aliases: jit, kanonjit)",
-  "@kanon/V2 (aliases: kanonv2, v2)",
-  "@kanon/V1 (aliases: kanonv1, v1)",
   "Zod",
   "Valibot",
   "Superstruct",

@@ -311,7 +311,7 @@ const schema = optional(
 ### Simple Schema
 
 ```typescript
-import { string, number, object, optional } from "@kanon/v3";
+import { string, number, object, optional } from "@kanon";
 
 const userSchema = object({
   name: string().minLength(1),
@@ -324,7 +324,7 @@ const userSchema = object({
 ### Strict Schema (Rejects Additional Properties)
 
 ```typescript
-import { string, number, object, strictObject } from "@kanon/v3";
+import { string, number, object, strictObject } from "@kanon";
 
 // Method 1: Use .strict() to make an object strict (chaining)
 const strictSchema = object({
@@ -353,7 +353,7 @@ const strictWithConstraints = object({
 ### Complex Schema
 
 ```typescript
-import { string, number, object, array, record, unionOf } from "@kanon/v3";
+import { string, number, object, array, record, unionOf } from "@kanon";
 
 const complexSchema = object({
   id: string().uuid(),
@@ -369,7 +369,7 @@ const complexSchema = object({
 ### Union and Intersection
 
 ```typescript
-import { string, number, unionOf, intersection, object } from "@kanon/v3";
+import { string, number, unionOf, intersection, object } from "@kanon";
 
 const stringOrNumber = unionOf(string(), number());
 
@@ -382,7 +382,7 @@ const userWithId = intersection(
 ### Lazy Evaluation
 
 ```typescript
-import { string, array, object, lazy } from "@kanon/v3";
+import { string, array, object, lazy } from "@kanon";
 
 type Node = {
   value: string;
@@ -400,7 +400,7 @@ const nodeSchema = lazy(() =>
 ### Bulk Validation with Early Abort
 
 ```typescript
-import { string, parseBulk } from "@kanon/v3";
+import { string, parseBulk } from "@kanon";
 
 const schema = string().email();
 const emails = ["valid@example.com", "invalid", "another@example.com"];

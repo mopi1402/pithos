@@ -1,9 +1,9 @@
-import { parse as parseV3 } from "@kanon/v3/core/parser.js";
+import { parse as parseV3 } from "@kanon/core/parser.js";
 import {
   numberEnum,
   booleanEnum,
   mixedEnum,
-} from "@kanon/v3/schemas/primitives/enum.js";
+} from "@kanon/schemas/primitives/enum.js";
 import * as z from "zod";
 import { POOL_SIZE } from "../dataset/config";
 import { LibName } from "../dataset/config";

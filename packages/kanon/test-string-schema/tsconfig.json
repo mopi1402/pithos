@@ -18,8 +18,8 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@kanon/v3/*": ["../../pithos/src/kanon/v3/*"],
-      "@pithos/kanon/v3": ["../../pithos/src/kanon/v3"],
+      "@kanon/*": ["../../pithos/src/kanon/*"],
+      "@pithos/kanon": ["../../pithos/src/kanon"],
       "@pithos/arkhe/*": ["../../pithos/src/arkhe/*"],
       "@pithos/zygos/*": ["../../pithos/src/zygos/*"]
     }

@@ -1,6 +1,5 @@
 import * as v from "valibot";
-import { safeParseBulk } from "@kanon/v2/core/parser.js";
-import { parseBulk as parseBulkV3 } from "@kanon/v3/core/parser.js";
+import { parseBulk as parseBulkV3 } from "@kanon/core/parser.js";
 import * as poolHelpers from "../helpers/pool_helpers";
 import { LibName } from "../dataset/config";
 import { schemas } from "../dataset/schemas";
@@ -10,21 +9,6 @@ export const earlyAbortTests: () => {
   fn: () => void;
 }[] = () => {
   return [
-    {
-      name: "@kanon/V1",
-      fn: () => {
-        // V1 n'a pas de parseBulk avec early abort, simulation manuelle
-        const data = poolHelpers.getBulkStrings();
-        return data.map((item) => schemas.kanonV1.string.safeParse(item));
-      },
-    },
-    {
-      name: "@kanon/V2",
-      fn: () =>
-        safeParseBulk(schemas.kanonV2.string, poolHelpers.getBulkStrings(), {
-          abortEarly: true,
-        }),
-    },
     {
       name: "@kanon/V3.0",
       fn: () =>
@@ -61,26 +45,6 @@ export const earlyAbortWithErrorsTests: () => {
   fn: () => void;
 }[] = () => {
   return [
-    {
-      name: "@kanon/V2",
-      fn: () => {
-        // Même données avec abortEarly
-        const mixedData = [
-          ...poolHelpers.getBulkStrings().slice(0, 10), // 10 valides
-          ...poolHelpers
-            .getBulkStrings()
-            .map((s) => (typeof s === "string" ? 123 : s)), // 10 invalides (numbers)
-          ...poolHelpers.getBulkStrings().slice(0, 10), // 10 valides
-          ...poolHelpers
-            .getBulkStrings()
-            .map((s) => (typeof s === "string" ? true : s)), // 10 invalides (booleans)
-          ...poolHelpers.getBulkStrings().slice(0, 10), // 10 valides
-        ];
-        return safeParseBulk(schemas.kanonV2.string, mixedData, {
-          abortEarly: true,
-        });
-      },
-    },
     {
       name: "@kanon/V3.0",
       fn: () => {

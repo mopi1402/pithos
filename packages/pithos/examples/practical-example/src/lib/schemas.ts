@@ -9,7 +9,7 @@ import {
   boolean,
   array,
   optional,
-} from "pithos/kanon/v3/index";
+} from "pithos/kanon/index";
 
 // Define the expected API response structure
 export const UserSchema = object({

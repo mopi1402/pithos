@@ -24,15 +24,15 @@ const outputPath = join(outputDir, "bundle-sizes.json");
 
 // Paths
 const projectRoot = join(__dirname, "../../../..");
-const kanonDistPath = join(projectRoot, "packages/pithos/dist/kanon/v3/index.js");
-const kanonKPath = join(projectRoot, "packages/pithos/dist/kanon/v3/helpers/k.js");
+const kanonDistPath = join(projectRoot, "packages/pithos/dist/kanon/index.js");
+const kanonKPath = join(projectRoot, "packages/pithos/dist/kanon/helpers/k.js");
 const kanonZShimPath = join(
   projectRoot,
-  "packages/pithos/dist/kanon/v3/helpers/as-zod.shim.js"
+  "packages/pithos/dist/kanon/helpers/as-zod.shim.js"
 );
 const kanonValidationPath = join(
   projectRoot,
-  "packages/pithos/dist/kanon/v3/validation.js"
+  "packages/pithos/dist/kanon/validation.js"
 );
 const zodPath = join(projectRoot, "node_modules/zod");
 const zod3Path = join(projectRoot, "node_modules/zod3");

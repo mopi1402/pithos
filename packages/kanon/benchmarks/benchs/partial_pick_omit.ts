@@ -1,13 +1,13 @@
 import * as z from "zod";
 import * as v from "valibot";
-import { parse as parseV3 } from "@kanon/v3/core/parser.js";
-import { string as stringV3 } from "@kanon/v3/schemas/primitives/string";
-import { number as numberV3 } from "@kanon/v3/schemas/primitives/number";
-import { object as objectV3 } from "@kanon/v3/schemas/composites/object";
-import { nullable as nullableV3 } from "@kanon/v3/schemas/wrappers/nullable";
-import { partial as partialV3 } from "@kanon/v3/schemas/transforms/partial";
-import { pick as pickV3 } from "@kanon/v3/schemas/transforms/pick";
-import { omit as omitV3 } from "@kanon/v3/schemas/transforms/omit";
+import { parse as parseV3 } from "@kanon/core/parser.js";
+import { string as stringV3 } from "@kanon/schemas/primitives/string";
+import { number as numberV3 } from "@kanon/schemas/primitives/number";
+import { object as objectV3 } from "@kanon/schemas/composites/object";
+import { nullable as nullableV3 } from "@kanon/schemas/wrappers/nullable";
+import { partial as partialV3 } from "@kanon/schemas/transforms/partial";
+import { pick as pickV3 } from "@kanon/schemas/transforms/pick";
+import { omit as omitV3 } from "@kanon/schemas/transforms/omit";
 import { LibName, POOL_SIZE } from "../dataset/config";
 
 interface FullUser {

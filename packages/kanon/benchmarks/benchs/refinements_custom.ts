@@ -1,17 +1,16 @@
 import * as z from "zod";
 import * as v from "valibot";
-import { parse as parseV3 } from "@kanon/v3/core/parser.js";
-import { string as stringV3 } from "@kanon/v3/schemas/primitives/string";
-import { number as numberV3 } from "@kanon/v3/schemas/primitives/number";
-import { boolean as booleanV3 } from "@kanon/v3/schemas/primitives/boolean";
-import { date as dateV3 } from "@kanon/v3/schemas/primitives/date";
-import { object as objectV3 } from "@kanon/v3/schemas/composites/object";
-import { array as arrayV3 } from "@kanon/v3/schemas/composites/array";
-import { refineObject as refineObjectV3 } from "@kanon/v3/schemas/constraints/refine/object";
-import { refineArray as refineArrayV3 } from "@kanon/v3/schemas/constraints/refine/array";
-import { optional as optionalV3 } from "@kanon/v3/schemas/wrappers/optional";
-import { enum_ as enumV3 } from "@kanon/v3/schemas/primitives/enum";
-import { v as validatorsV1 } from "@kanon/v1/validation";
+import { parse as parseV3 } from "@kanon/core/parser.js";
+import { string as stringV3 } from "@kanon/schemas/primitives/string";
+import { number as numberV3 } from "@kanon/schemas/primitives/number";
+import { boolean as booleanV3 } from "@kanon/schemas/primitives/boolean";
+import { date as dateV3 } from "@kanon/schemas/primitives/date";
+import { object as objectV3 } from "@kanon/schemas/composites/object";
+import { array as arrayV3 } from "@kanon/schemas/composites/array";
+import { refineObject as refineObjectV3 } from "@kanon/schemas/constraints/refine/object";
+import { refineArray as refineArrayV3 } from "@kanon/schemas/constraints/refine/array";
+import { optional as optionalV3 } from "@kanon/schemas/wrappers/optional";
+import { enum_ as enumV3 } from "@kanon/schemas/primitives/enum";
 import { LibName, POOL_SIZE } from "../dataset/config";
 
 const evenNumberPool = Array.from({ length: POOL_SIZE }, (_, i) => i * 2);
@@ -79,9 +78,6 @@ export const simpleRefinementTests: () => {
   name: LibName;
   fn: () => void;
 }[] = () => {
-  const kanonV1Schema = validatorsV1
-    .number()
-    .refine((n) => n % 2 === 0, "Must be even");
 
   // Kanon V3 uses multipleOf for even number validation
   const kanonV3Schema = numberV3().multipleOf(2);
@@ -94,10 +90,6 @@ export const simpleRefinementTests: () => {
   );
 
   return [
-    {
-      name: "@kanon/V1",
-      fn: () => kanonV1Schema.safeParse(getEvenNumber()),
-    },
     {
       name: "@kanon/V3.0",
       fn: () => parseV3(kanonV3Schema, getEvenNumber()),
@@ -122,14 +114,6 @@ export const passwordStrengthRefinementTests: () => {
   const hasNumber = (s: string) => /[0-9]/.test(s);
   const hasSpecial = (s: string) => /[!@#$%^&*]/.test(s);
 
-  const kanonV1Schema = validatorsV1
-    .string()
-    .min(8)
-    .refine(hasUpperCase, "Must have uppercase")
-    .refine(hasLowerCase, "Must have lowercase")
-    .refine(hasNumber, "Must have number")
-    .refine(hasSpecial, "Must have special character");
-
   // Kanon V3 uses pattern() for regex validation - combining checks into one regex
   const strongPasswordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/;
   const kanonV3Schema = stringV3().pattern(strongPasswordRegex);
@@ -152,10 +136,6 @@ export const passwordStrengthRefinementTests: () => {
   );
 
   return [
-    {
-      name: "@kanon/V1",
-      fn: () => kanonV1Schema.safeParse(getPassword()),
-    },
     {
       name: "@kanon/V3.0",
       fn: () => parseV3(kanonV3Schema, getPassword()),

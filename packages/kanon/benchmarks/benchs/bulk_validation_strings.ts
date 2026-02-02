@@ -1,7 +1,6 @@
 import * as v from "valibot";
 import * as s from "superstruct";
-import { safeParseBulk } from "@kanon/v2/core/parser.js";
-import { parseBulk as parseBulkV3 } from "@kanon/v3/core/parser.js";
+import { parseBulk as parseBulkV3 } from "@kanon/core/parser.js";
 import * as poolHelpers from "../helpers/pool_helpers";
 import { LibName } from "../dataset/config";
 import { schemas } from "../dataset/schemas";
@@ -12,18 +11,6 @@ export const bulkValidationStrings: () => {
   fn: () => void;
 }[] = () => {
   return [
-    {
-      name: "@kanon/V1",
-      fn: () => {
-        const data = poolHelpers.getBulkStrings();
-        return data.map((item) => schemas.kanonV1.string.safeParse(item));
-      },
-    },
-    {
-      name: "@kanon/V2",
-      fn: () =>
-        safeParseBulk(schemas.kanonV2.string, poolHelpers.getBulkStrings()),
-    },
     {
       name: "@kanon/V3.0",
       fn: () =>

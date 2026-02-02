@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { parse as parseV3 } from "@kanon/v3/core/parser.js";
+import { parse as parseV3 } from "@kanon/core/parser.js";
 import * as poolHelpers from "../helpers/pool_helpers";
 import { LibName } from "../dataset/config";
 import { schemas } from "../dataset/schemas";
@@ -9,16 +9,6 @@ export const v3NewTypesSimpleTests: () => {
   fn: () => void | boolean;
 }[] = () => {
   return [
-    {
-      name: "@kanon/V1",
-      fn: () => {
-        schemas.kanonV1.null.safeParse(poolHelpers.getNull());
-        schemas.kanonV1.undefined.safeParse(poolHelpers.getUndefined());
-        schemas.kanonV1.any.safeParse(poolHelpers.getAny());
-        schemas.kanonV1.unknown.safeParse(poolHelpers.getUnknown());
-        return true;
-      },
-    },
     {
       name: "@kanon/V3.0",
       fn: () => {
@@ -71,15 +61,6 @@ export const v3NewTypesConstrainedTests: () => {
 }[] = () => {
   return [
     {
-      name: "@kanon/V1",
-      fn: () => {
-        schemas.kanonV1.date.safeParse(poolHelpers.getDate());
-        schemas.kanonV1.bigint.safeParse(poolHelpers.getBigInt());
-        return true;
-      },
-    },
-
-    {
       name: "@kanon/V3.0",
       fn: () => {
         parseV3(schemas.kanonV3.date, poolHelpers.getDate());
@@ -122,22 +103,6 @@ export const v3NewTypesAppliedTests: () => {
   fn: () => void | boolean;
 }[] = () => {
   return [
-    {
-      name: "@kanon/V1",
-      fn: () => {
-        // V1 utilise le même pattern que V3 : chaînage de refine() pour min/max
-        const dateSchema = schemas.kanonV1.date
-          .refine((date) => date >= new Date("2023-01-01"))
-          .refine((date) => date <= new Date("2023-12-31"));
-        const bigintSchema = schemas.kanonV1.bigint
-          .refine((bigint) => bigint >= 0n)
-          .refine((bigint) => bigint <= 1000000n);
-        dateSchema.safeParse(poolHelpers.getDate());
-        bigintSchema.safeParse(poolHelpers.getBigInt());
-        return true;
-      },
-    },
-
     {
       name: "@kanon/V3.0",
       fn: () => {

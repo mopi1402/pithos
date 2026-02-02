@@ -1,17 +1,15 @@
 import * as z from "zod";
 import * as v from "valibot";
 import * as s from "superstruct";
-import { parse as parseV3 } from "@kanon/v3/core/parser.js";
-import { safeParse } from "@kanon/v2/core/parser.js";
-import { string as stringV3 } from "@kanon/v3/schemas/primitives/string";
-import { number as numberV3 } from "@kanon/v3/schemas/primitives/number";
-import { boolean as booleanV3 } from "@kanon/v3/schemas/primitives/boolean";
-import { object as objectV3 } from "@kanon/v3/schemas/composites/object";
-import { optional as optionalV3 } from "@kanon/v3/schemas/wrappers/optional";
-import { nullable as nullableV3 } from "@kanon/v3/schemas/wrappers/nullable";
-import { nullish as nullishV3 } from "@kanon/v3/schemas/wrappers/nullish";
-import { compile as compileJIT } from "@kanon/v3/jit/compiler";
-import { v as validatorsV1 } from "@kanon/v1/validation";
+import { parse as parseV3 } from "@kanon/core/parser.js";
+import { string as stringV3 } from "@kanon/schemas/primitives/string";
+import { number as numberV3 } from "@kanon/schemas/primitives/number";
+import { boolean as booleanV3 } from "@kanon/schemas/primitives/boolean";
+import { object as objectV3 } from "@kanon/schemas/composites/object";
+import { optional as optionalV3 } from "@kanon/schemas/wrappers/optional";
+import { nullable as nullableV3 } from "@kanon/schemas/wrappers/nullable";
+import { nullish as nullishV3 } from "@kanon/schemas/wrappers/nullish";
+import { compile as compileJIT } from "@kanon/jit/compiler";
 import { LibName, POOL_SIZE } from "../dataset/config";
 
 const optionalObjectPool = Array.from({ length: POOL_SIZE }, (_, i) => {
@@ -48,15 +46,6 @@ export const optionalFieldsTests: () => {
   name: LibName;
   fn: () => void;
 }[] = () => {
-  const kanonV1Schema = validatorsV1.object({
-    firstName: validatorsV1.string(),
-    lastName: validatorsV1.string(),
-    middleName: validatorsV1.string().optional(),
-    nickname: validatorsV1.string().optional(),
-    age: validatorsV1.number(),
-    bio: validatorsV1.string().optional(),
-  });
-
   const kanonV3Schema = objectV3({
     firstName: stringV3(),
     lastName: stringV3(),
@@ -99,10 +88,6 @@ export const optionalFieldsTests: () => {
 
   return [
     {
-      name: "@kanon/V1",
-      fn: () => kanonV1Schema.safeParse(getOptionalObject()),
-    },
-    {
       name: "@kanon/V3.0",
       fn: () => parseV3(kanonV3Schema, getOptionalObject()),
     },
@@ -129,17 +114,6 @@ export const nullableFieldsTests: () => {
   name: LibName;
   fn: () => void;
 }[] = () => {
-  const kanonV1Schema = validatorsV1.object({
-    id: validatorsV1.number(),
-    name: validatorsV1.string(),
-    deletedAt: validatorsV1.date().nullable(),
-    parentId: validatorsV1.number().nullable(),
-    metadata: validatorsV1
-      .object({
-        key: validatorsV1.string(),
-      })
-      .nullable(),
-  });
 
   const kanonV3Schema = objectV3({
     id: numberV3(),
@@ -182,10 +156,6 @@ export const nullableFieldsTests: () => {
   });
 
   return [
-    {
-      name: "@kanon/V1",
-      fn: () => kanonV1Schema.safeParse(getNullableObject()),
-    },
     {
       name: "@kanon/V3.0",
       fn: () => parseV3(kanonV3Schema, getNullableObject()),

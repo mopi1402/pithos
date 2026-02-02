@@ -62,7 +62,7 @@ These are actual validation scenarios you'll encounter in production:
 ```typescript
 // ✅ Kanon - each function is standalone
 // Only string() and object() end up in your bundle
-import { string, object, parse } from "pithos/kanon/v3";
+import { string, object, parse } from "pithos/kanon";
 
 const loginSchema = object({
   email: string({ format: "email" }),
@@ -111,7 +111,7 @@ Or measure any import manually:
 
 ```bash
 # Using esbuild
-echo 'import { string, object, parse } from "pithos/kanon/v3"' | \
+echo 'import { string, object, parse } from "pithos/kanon"' | \
   esbuild --bundle --minify | gzip -c | wc -c
 ```
 

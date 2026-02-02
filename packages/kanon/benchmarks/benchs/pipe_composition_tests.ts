@@ -1,12 +1,10 @@
 import * as z from "zod";
 import * as v from "valibot";
-import { safeParse } from "@kanon/v2/core/parser.js";
-import { parse as parseV3 } from "@kanon/v3/core/parser.js";
-import { string as stringV3 } from "@kanon/v3/schemas/primitives/string";
-import { number as numberV3 } from "@kanon/v3/schemas/primitives/number";
-import { boolean as booleanV3 } from "@kanon/v3/schemas/primitives/boolean";
-import { object as objectV3 } from "@kanon/v3/schemas/composites/object";
-import { v as validatorsV1 } from "@kanon/v1/validation";
+import { parse as parseV3 } from "@kanon/core/parser.js";
+import { string as stringV3 } from "@kanon/schemas/primitives/string";
+import { number as numberV3 } from "@kanon/schemas/primitives/number";
+import { boolean as booleanV3 } from "@kanon/schemas/primitives/boolean";
+import { object as objectV3 } from "@kanon/schemas/composites/object";
 import { Value } from "@sinclair/typebox/value";
 import { LibName } from "../dataset/config";
 import { schemas } from "../dataset/schemas";
@@ -18,30 +16,6 @@ export const pipeCompositionTests: () => {
   fn: () => void;
 }[] = () => {
   return [
-    {
-      name: "@kanon/V1",
-      fn: () => {
-        const data = poolHelpers.getSimpleObject();
-        const result = schemas.kanonV1.simpleObject.safeParse(data);
-        if (!result.success) return JSON.stringify({ error: result.error });
-        const user = result.data as { name: string; age: number; active: boolean };
-        const processed = { ...user, processed: true };
-        const timestamped = { ...processed, timestamp: Date.now() };
-        return JSON.stringify(timestamped);
-      },
-    },
-    {
-      name: "@kanon/V2",
-      fn: () => {
-        const data = poolHelpers.getSimpleObject();
-        const result = safeParse(schemas.kanonV2.simpleObject, data);
-        if (!result.success) return JSON.stringify({ error: result.error });
-        const user = result.data as { name: string; age: number; active: boolean };
-        const processed = { ...user, processed: true };
-        const timestamped = { ...processed, timestamp: Date.now() };
-        return JSON.stringify(timestamped);
-      },
-    },
     {
       name: "@kanon/V3.0",
       fn: () => {
@@ -104,12 +78,6 @@ export const pipeWithConstraintsTests: () => {
   name: LibName;
   fn: () => void;
 }[] = () => {
-  const kanonV1StrictSchema = validatorsV1.object({
-    name: validatorsV1.string().min(2).max(50),
-    age: validatorsV1.number().min(18).max(120),
-    active: validatorsV1.boolean(),
-  });
-
   const kanonV3StrictSchema = objectV3({
     name: stringV3().minLength(2).maxLength(50),
     age: numberV3().min(18).max(120),
@@ -138,30 +106,6 @@ export const pipeWithConstraintsTests: () => {
   );
 
   return [
-    {
-      name: "@kanon/V1",
-      fn: () => {
-        const data = poolHelpers.getSimpleObject();
-        const result = kanonV1StrictSchema.safeParse(data);
-        if (!result.success) return JSON.stringify({ error: result.error });
-        const user = result.data as { name: string; age: number; active: boolean };
-        const validated = { ...user, validated: true };
-        const scored = { ...validated, score: user.age * 2 };
-        return JSON.stringify(scored);
-      },
-    },
-    {
-      name: "@kanon/V2",
-      fn: () => {
-        const data = poolHelpers.getSimpleObject();
-        const result = safeParse(schemas.kanonV2.simpleObject, data);
-        if (!result.success) return JSON.stringify({ error: result.error });
-        const user = result.data as { name: string; age: number; active: boolean };
-        const validated = { ...user, validated: true };
-        const scored = { ...validated, score: user.age * 2 };
-        return JSON.stringify(scored);
-      },
-    },
     {
       name: "@kanon/V3.0",
       fn: () => {
@@ -206,30 +150,6 @@ export const pipeWithErrorHandlingTests: () => {
   const defaultUser = { name: "default", age: 0, active: false };
 
   return [
-    {
-      name: "@kanon/V1",
-      fn: () => {
-        const data = poolHelpers.getInvalidObject();
-        const result = schemas.kanonV1.simpleObject.safeParse(data);
-        const user = result.success
-          ? (result.data as { name: string; age: number; active: boolean })
-          : defaultUser;
-        const processed = { ...user, processed: true, timestamp: Date.now() };
-        return JSON.stringify(processed);
-      },
-    },
-    {
-      name: "@kanon/V2",
-      fn: () => {
-        const data = poolHelpers.getInvalidObject();
-        const result = safeParse(schemas.kanonV2.simpleObject, data);
-        const user = result.success
-          ? (result.data as { name: string; age: number; active: boolean })
-          : defaultUser;
-        const processed = { ...user, processed: true, timestamp: Date.now() };
-        return JSON.stringify(processed);
-      },
-    },
     {
       name: "@kanon/V3.0",
       fn: () => {

@@ -20,16 +20,16 @@
 
 import * as z from "zod";
 import * as v from "valibot";
-import { parse as parseV3 } from "@kanon/v3/core/parser.js";
-import { string as stringV3 } from "@kanon/v3/schemas/primitives/string";
-import { number as numberV3 } from "@kanon/v3/schemas/primitives/number";
-import { boolean as booleanV3 } from "@kanon/v3/schemas/primitives/boolean";
-import { null_ as nullV3 } from "@kanon/v3/schemas/primitives/null";
-import { unionOf, unionOf4 } from "@kanon/v3/schemas/operators/union";
+import { parse as parseV3 } from "@kanon/core/parser.js";
+import { string as stringV3 } from "@kanon/schemas/primitives/string";
+import { number as numberV3 } from "@kanon/schemas/primitives/number";
+import { boolean as booleanV3 } from "@kanon/schemas/primitives/boolean";
+import { null_ as nullV3 } from "@kanon/schemas/primitives/null";
+import { unionOf, unionOf4 } from "@kanon/schemas/operators/union";
 import { LibName, POOL_SIZE } from "../dataset/config";
 
 // JIT imports
-import { createGeneratorContext } from "@kanon/v3/jit/context";
+import { createGeneratorContext } from "@kanon/jit/context";
 import {
   generateUnionValidation,
   createStringBranch,
@@ -37,10 +37,10 @@ import {
   createBooleanBranch,
   createNullBranch,
   type UnionBranchMeta,
-} from "@kanon/v3/jit/builders/operators/union";
-import { generateStringValidation } from "@kanon/v3/jit/builders/primitives/string";
-import { generateNumberValidation } from "@kanon/v3/jit/builders/primitives/number";
-import { generateBooleanValidation } from "@kanon/v3/jit/builders/primitives/boolean";
+} from "@kanon/jit/builders/operators/union";
+import { generateStringValidation } from "@kanon/jit/builders/primitives/string";
+import { generateNumberValidation } from "@kanon/jit/builders/primitives/number";
+import { generateBooleanValidation } from "@kanon/jit/builders/primitives/boolean";
 
 // ============================================================================
 // Test Data Pools

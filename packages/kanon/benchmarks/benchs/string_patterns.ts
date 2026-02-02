@@ -1,10 +1,9 @@
 import * as z from "zod";
 import * as v from "valibot";
-import { parse as parseV3 } from "@kanon/v3/core/parser.js";
-import { string as stringV3 } from "@kanon/v3/schemas/primitives/string";
-import { object as objectV3 } from "@kanon/v3/schemas/composites/object";
-import { compile as compileJIT } from "@kanon/v3/jit/compiler";
-import { v as validatorsV1 } from "@kanon/v1/validation";
+import { parse as parseV3 } from "@kanon/core/parser.js";
+import { string as stringV3 } from "@kanon/schemas/primitives/string";
+import { object as objectV3 } from "@kanon/schemas/composites/object";
+import { compile as compileJIT } from "@kanon/jit/compiler";
 import { LibName, POOL_SIZE } from "../dataset/config";
 
 const emailPool = Array.from(
@@ -48,7 +47,6 @@ export const emailValidationTests: () => {
   name: LibName;
   fn: () => void;
 }[] = () => {
-  const kanonV1Schema = validatorsV1.string().email();
   const kanonV3Schema = stringV3().email();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const kanonJITValidator = compileJIT(kanonV3Schema as any);
@@ -56,10 +54,6 @@ export const emailValidationTests: () => {
   const valibotSchema = v.pipe(v.string(), v.email());
 
   return [
-    {
-      name: "@kanon/V1",
-      fn: () => kanonV1Schema.safeParse(getEmail()),
-    },
     {
       name: "@kanon/V3.0",
       fn: () => parseV3(kanonV3Schema, getEmail()),
@@ -83,7 +77,6 @@ export const urlValidationTests: () => {
   name: LibName;
   fn: () => void;
 }[] = () => {
-  const kanonV1Schema = validatorsV1.string().url();
   const kanonV3Schema = stringV3().url();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const kanonJITValidator = compileJIT(kanonV3Schema as any);
@@ -91,10 +84,6 @@ export const urlValidationTests: () => {
   const valibotSchema = v.pipe(v.string(), v.url());
 
   return [
-    {
-      name: "@kanon/V1",
-      fn: () => kanonV1Schema.safeParse(getUrl()),
-    },
     {
       name: "@kanon/V3.0",
       fn: () => parseV3(kanonV3Schema, getUrl()),
@@ -118,7 +107,6 @@ export const uuidValidationTests: () => {
   name: LibName;
   fn: () => void;
 }[] = () => {
-  const kanonV1Schema = validatorsV1.string().uuid();
   const kanonV3Schema = stringV3().uuid();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const kanonJITValidator = compileJIT(kanonV3Schema as any);
@@ -126,10 +114,6 @@ export const uuidValidationTests: () => {
   const valibotSchema = v.pipe(v.string(), v.uuid());
 
   return [
-    {
-      name: "@kanon/V1",
-      fn: () => kanonV1Schema.safeParse(getUuid()),
-    },
     {
       name: "@kanon/V3.0",
       fn: () => parseV3(kanonV3Schema, getUuid()),
@@ -155,7 +139,6 @@ export const regexValidationTests: () => {
 }[] = () => {
   const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
-  const kanonV1Schema = validatorsV1.string().regex(slugRegex);
   const kanonV3Schema = stringV3().pattern(slugRegex);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const kanonJITValidator = compileJIT(kanonV3Schema as any);
@@ -163,10 +146,6 @@ export const regexValidationTests: () => {
   const valibotSchema = v.pipe(v.string(), v.regex(slugRegex));
 
   return [
-    {
-      name: "@kanon/V1",
-      fn: () => kanonV1Schema.safeParse(getSlug()),
-    },
     {
       name: "@kanon/V3.0",
       fn: () => parseV3(kanonV3Schema, getSlug()),
@@ -191,8 +170,6 @@ export const ipValidationTests: () => {
   fn: () => void;
 }[] = () => {
   const ipv4Regex = /^(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)$/;
-  
-  const kanonV1Schema = validatorsV1.string().regex(ipv4Regex);
   const kanonV3Schema = stringV3().pattern(ipv4Regex);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const kanonJITValidator = compileJIT(kanonV3Schema as any);
@@ -200,10 +177,6 @@ export const ipValidationTests: () => {
   const valibotSchema = v.pipe(v.string(), v.regex(ipv4Regex));
 
   return [
-    {
-      name: "@kanon/V1",
-      fn: () => kanonV1Schema.safeParse(getIp()),
-    },
     {
       name: "@kanon/V3.0",
       fn: () => parseV3(kanonV3Schema, getIp()),

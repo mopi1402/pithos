@@ -48,7 +48,7 @@ export type ModuleTransform = {
    */
   readonly skipLevels?: readonly string[];
   /**
-   * Prefix to remove from file names (e.g., "kanon/v3/")
+   * Prefix to remove from file names (e.g., "kanon/")
    */
   readonly filePathPrefix?: string;
 };

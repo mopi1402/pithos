@@ -58,7 +58,7 @@ Direct imports for optimal tree-shaking:
 import { chunk } from "pithos/arkhe/array/chunk";
 
 // Validation
-import { object, string, number, optional } from "pithos/kanon/v3";
+import { object, string, number, optional } from "pithos/kanon";
 
 // Result pattern
 import { ok, err } from "pithos/zygos/result/result";
@@ -87,8 +87,8 @@ get(user, "profile.address.city", "Unknown");
 ### Validation
 
 ```typescript
-import { object, string, number, optional, parse } from "pithos/kanon/v3";
-import { asZod } from "pithos/kanon/v3/helpers/as-zod";
+import { object, string, number, optional, parse } from "pithos/kanon";
+import { asZod } from "pithos/kanon/helpers/as-zod";
 
 const userSchema = object({
   name: string(),

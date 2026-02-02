@@ -1,15 +1,14 @@
 import * as z from "zod";
 import * as valibot from "valibot";
 import { Type, TObject } from "@sinclair/typebox";
-import { parse as parseV3 } from "@kanon/v3/core/parser.js";
-import { string as stringV3 } from "@kanon/v3/schemas/primitives/string";
-import { number as numberV3 } from "@kanon/v3/schemas/primitives/number";
-import { boolean as booleanV3 } from "@kanon/v3/schemas/primitives/boolean";
-import { object as objectV3 } from "@kanon/v3/schemas/composites/object";
-import { compile as compileJIT } from "@kanon/v3/jit/compiler";
+import { parse as parseV3 } from "@kanon/core/parser.js";
+import { string as stringV3 } from "@kanon/schemas/primitives/string";
+import { number as numberV3 } from "@kanon/schemas/primitives/number";
+import { boolean as booleanV3 } from "@kanon/schemas/primitives/boolean";
+import { object as objectV3 } from "@kanon/schemas/composites/object";
+import { compile as compileJIT } from "@kanon/jit/compiler";
 import { Value } from "@sinclair/typebox/value";
 import { LibName } from "../dataset/config";
-import { v as validatorsV1 } from "@kanon/v1/validation";
 import * as poolHelpers from "../helpers/pool_helpers";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
@@ -28,14 +27,6 @@ const ajvUserSchema = ajv.compile({
   },
   required: ["name", "email", "age", "password", "terms"],
   additionalProperties: false,
-});
-
-const kanonV1UserSchema = validatorsV1.object({
-  name: validatorsV1.string().min(2).max(50),
-  email: validatorsV1.string().email(),
-  age: validatorsV1.number().min(18).max(120),
-  password: validatorsV1.string().min(8),
-  terms: validatorsV1.boolean(),
 });
 
 const kanonV3UserSchema = objectV3({
@@ -87,12 +78,6 @@ export const objectsWithConstraintsUserRegistration: () => {
   fn: () => void;
 }[] = () => {
   return [
-    {
-      name: "@kanon/V1",
-      fn: () => {
-        return kanonV1UserSchema.safeParse(poolHelpers.getUserRegistration());
-      },
-    },
     {
       name: "@kanon/V3.0",
       fn: () => {

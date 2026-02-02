@@ -22,25 +22,25 @@
 import * as z from "zod";
 import * as v from "valibot";
 import Validator from "fastest-validator";
-import { parse as parseV3 } from "@kanon/v3/core/parser.js";
-import { string as stringV3 } from "@kanon/v3/schemas/primitives/string";
-import { number as numberV3 } from "@kanon/v3/schemas/primitives/number";
-import { boolean as booleanV3 } from "@kanon/v3/schemas/primitives/boolean";
-import { object as objectV3 } from "@kanon/v3/schemas/composites/object";
-import { array as arrayV3 } from "@kanon/v3/schemas/composites/array";
+import { parse as parseV3 } from "@kanon/core/parser.js";
+import { string as stringV3 } from "@kanon/schemas/primitives/string";
+import { number as numberV3 } from "@kanon/schemas/primitives/number";
+import { boolean as booleanV3 } from "@kanon/schemas/primitives/boolean";
+import { object as objectV3 } from "@kanon/schemas/composites/object";
+import { array as arrayV3 } from "@kanon/schemas/composites/array";
 import { LibName, POOL_SIZE } from "../dataset/config";
 
 // JIT imports
-import { createGeneratorContext } from "@kanon/v3/jit/context";
+import { createGeneratorContext } from "@kanon/jit/context";
 import {
   generateObjectValidation,
   type ObjectConstraintMeta,
   type ObjectPropertyMeta,
-} from "@kanon/v3/jit/builders/composites/object";
-import { generateStringValidation } from "@kanon/v3/jit/builders/primitives/string";
-import { generateNumberValidation } from "@kanon/v3/jit/builders/primitives/number";
-import { generateBooleanValidation } from "@kanon/v3/jit/builders/primitives/boolean";
-import { generateArrayValidation } from "@kanon/v3/jit/builders/composites/array";
+} from "@kanon/jit/builders/composites/object";
+import { generateStringValidation } from "@kanon/jit/builders/primitives/string";
+import { generateNumberValidation } from "@kanon/jit/builders/primitives/number";
+import { generateBooleanValidation } from "@kanon/jit/builders/primitives/boolean";
+import { generateArrayValidation } from "@kanon/jit/builders/composites/array";
 
 // ============================================================================
 // Fastest-Validator instance
