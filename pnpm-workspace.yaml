@@ -1,0 +1,15 @@
+packages:
+  # All packages in the packages directory (root level)
+  - "packages/*"
+  
+  # All packages in subdirectories (e.g., packages/main/*, packages/kanon/*, etc.)
+  - "packages/*/*"
+  
+  # Examples in pithos
+  - "packages/pithos/examples/*"
+  
+  # Exclude tmp directory
+  - "!packages/tmp/**"
+
+  # Optionally include examples if they become packages
+  # - 'examples/*'

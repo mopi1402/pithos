@@ -1,0 +1,67 @@
+{
+  "todo-tree.general.tags": [
+    "INTENTIONAL",
+    "TODO",
+    "FIXME",
+    "NOTE",
+    "HACK",
+    "BUG",
+  ],
+  "todo-tree.highlights.customHighlight": {
+    "INTENTIONAL": {
+      "icon": "check",
+      "type": "tag",
+      "foreground": "#000000",
+      "background": "#8bfe5e",
+      "iconColour": "#8bfe5e"
+    },
+    "TODO": {
+      "icon": "light-bulb",
+      "type": "tag",
+      "foreground": "#FFFFFF",
+      "background": "#36c2b9",
+      "iconColour": "#36c2b9"
+    },
+    "FIXME": {
+      "icon": "alert",
+      "type": "tag",
+      "foreground": "#FFFFFF",
+      "background": "#d31100",
+      "iconColour": "#d31100"
+    },
+    "NOTE": {
+      "icon": "note",
+      "type": "tag",
+      "foreground": "#000000",
+      "background": "#efdc0f",
+      "iconColour": "#efdc0f"
+    },
+    "HACK": {
+      "icon": "flame",
+      "type": "tag",
+      "foreground": "#FFFFFF",
+      "background": "#790a89"
+    },
+    "BUG": {
+      "icon": "bug",
+      "type": "tag",
+      "foreground": "#FFFFFF",
+      "background": "#ee9609",
+      "iconColour": "#ee9609"
+    },
+      "icon": "check",
+      "type": "tag",
+      "foreground": "#FFFFFF",
+      "background": "#045f11"
+    },
+      "icon": "alert",
+      "type": "tag",
+      "foreground": "#FFFFFF",
+      "background": "#e80953"
+    }
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "kiroAgent.configureMCP": "Disabled"
+}

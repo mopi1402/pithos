@@ -1,0 +1,278 @@
+---
+description: How to write Taphos deprecated utility functions
+globs: packages/pithos/src/taphos/**/*.ts
+alwaysApply: true
+---
+
+# ⚰️ Taphos Function Rules
+
+**Taphos** (τάφος, "tomb") contains deprecated utilities that have native JavaScript equivalents. These functions exist for backward compatibility and migration purposes only.
+
+## 1. 🎯 Purpose
+
+Taphos utilities are **wrappers around functionality now available natively** in JavaScript. They:
+
+- Provide backward compatibility for older codebases
+- Serve as migration guides toward native APIs
+- Will eventually be removed in future major versions
+
+**Rule**: Every Taphos function MUST have a native equivalent OR be an alias for an Arkhe function. If not exists, the function belongs in **Arkhe**, not Taphos.
+
+## 2. 🧬 Inherits Arkhe Rules
+
+Taphos follows all Arkhe rules for implementation:
+
+- **Pure Functions Only**: Same input = same output. No side effects.
+- **Zero Dependencies**: NEVER import from `Zygos`, `Sphalma`, or external libs.
+- **Data First**: The data being operated on is the FIRST argument.
+- **Immutability**: NEVER mutate arguments. Return new instances.
+- **TypeScript First**: Use generics, no `any`, use `unknown` if needed.
+- **Direct Exports**: `export function name() {}`, no default exports.
+- **One Function Per File**: `at.ts` exports `at`.
+- **Sidecar Tests**: `at.test.ts` lives next to `at.ts`.
+
+### Exception: Intra-Module Imports for Deprecated Aliases
+
+For deprecated aliases, intra-module imports are acceptable because:
+
+- It's a pure alias (no additional logic)
+- Both functions are deprecated anyway
+- It avoids unnecessary code duplication
+
+```typescript
+// ✅ Good: Alias importing from another Taphos function
+import { head } from "./head";
+
+/**
+ * Alias for `head`. Returns the first element of an array.
+ *
+ * @deprecated Use `array[0]` or `array.at(0)` directly instead.
+ * ...
+ */
+export const first = head;
+```
+
+## 3. �️ Native API Compatibility
+
+Before deprecating a function to Taphos, verify that the native equivalent follows Arkhe's philosophy:
+
+1. **Immutability**: The native API must not mutate the original data. If it does (e.g., `Array.reverse()`, `Array.fill()`), wrap it to return a new instance.
+
+2. **Error handling**: The native API must throw on invalid values (e.g., negative count, invalid range). If it fails silently, wrap it to throw appropriate errors (`RangeError`, `TypeError`).
+
+**Decision rule**:
+- ✅ **Native is compliant** → Deprecate to Taphos, recommend native directly
+- ❌ **Native is mutable** → Keep in Arkhe with immutable wrapper
+- ❌ **Native fails silently** → Keep in Arkhe with validation wrapper
+
+A function belongs in **Taphos** only if the native equivalent (or Arkhe alias) fully respects Arkhe's principles. Otherwise, it stays in **Arkhe** as a necessary wrapper.
+
+## 4. �📝 TSDoc Requirements (Taphos-Specific)
+
+Taphos has stricter TSDoc requirements than other modules.
+
+### Required Structure Order
+
+1. **Main Description** (1-2 sentences, required)
+2. **Detailed Description** (optional)
+3. **@template** tags (if applicable)
+4. **@param** tags (required, in function signature order)
+5. **@returns** tag (required for non-void)
+6. **@deprecated** tag (**REQUIRED** - always provide native alternative)
+7. **@see** tags (**REQUIRED** - links to native API docs)
+8. **@since** tag (required)
+9. **@example** tag (**REQUIRED** - with specific structure)
+
+### @deprecated Tag (REQUIRED)
+
+Every Taphos function MUST have `@deprecated` with a clear alternative.
+
+```typescript
+// ✅ Good: Clear native alternative
+@deprecated Use `array.at(index)` directly instead.
+
+// ✅ Good: With additional context
+@deprecated Use `Object.keys()` directly instead. Available since ES5.
+
+// ❌ Bad: No alternative provided
+@deprecated
+
+// ❌ Bad: Vague alternative
+@deprecated Use native methods instead.
+```
+
+### @see Tags (REQUIRED)
+
+Every Taphos function MUST have `@see` links to:
+1. **MDN Documentation** (English URL, not `/fr/`)
+2. **Can I Use** (browser support)
+
+Format: `@see {@link URL | Description}`
+
+```typescript
+// ✅ Good: Both MDN and Can I Use
+@see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at | Array.at() - MDN}
+@see {@link https://caniuse.com/mdn-javascript_builtins_array_at | Browser support - Can I Use}
+
+// ❌ Bad: French MDN URL
+@see {@link https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/at}
+
+// ❌ Bad: Missing description
+@see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at}
+
+// ❌ Bad: Missing Can I Use link
+@see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at | Array.at() - MDN}
+// (no Can I Use link)
+```
+
+### @example Tag (REQUIRED with Specific Structure)
+
+Every Taphos function MUST have an example with this structure:
+
+1. **❌ Deprecated approach** - Show the Taphos utility usage
+2. **✅ Recommended approach** - Show the native/traditional approach
+3. **✅ Modern approach with ES20XX** - (Optional) Only if ES2020+ provides a better API
+
+```typescript
+/**
+ * @example
+ * ```typescript
+ * const numbers = [1, 2, 3, 4, 5];
+ *
+ * // ❌ Deprecated approach
+ * const last = at(numbers, -1);
+ * console.log(last); // 5
+ *
+ * // ✅ Recommended approach
+ * const lastNative = numbers[numbers.length - 1];
+ * console.log(lastNative); // 5
+ *
+ * // ✅ Modern approach with ES2022
+ * const lastModern = numbers.at(-1);
+ * console.log(lastModern); // 5
+ * ```
+ */
+```
+
+**Rules for the "Modern approach" section:**
+- Only include if the native API was introduced in **ES2020 or later**
+- Specify the ES version (ES2020, ES2021, ES2022, ES2023, etc.)
+- If the native API is older than ES2020, only show "Recommended approach"
+
+```typescript
+// ✅ Good: ES2022 feature (Array.at)
+// ✅ Modern approach with ES2022
+const last = numbers.at(-1);
+
+// ✅ Good: ES2020 feature (Optional chaining)
+// ✅ Modern approach with ES2020
+const value = obj?.nested?.value;
+
+// ❌ Bad: ES5 feature (no "Modern approach" needed)
+// ✅ Modern approach with ES5  // Wrong! ES5 is not "modern"
+const keys = Object.keys(obj);
+```
+
+## 5. 📋 Complete TSDoc Template
+
+````typescript
+/**
+ * Brief description of what the function does.
+ *
+ * Additional details if needed (optional).
+ *
+ * @template T - The type of elements in the array.
+ * @param arr - The array to query.
+ * @param index - The index of the element to return.
+ * @returns The element at the given index, or `undefined` if out of bounds.
+ * @deprecated Use `array.at(index)` directly instead.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at | Array.at() - MDN}
+ * @see {@link https://caniuse.com/mdn-javascript_builtins_array_at | Browser support - Can I Use}
+ * @since 1.1.0
+ *
+ * @example
+ * ```typescript
+ * const numbers = [1, 2, 3, 4, 5];
+ *
+ * // ❌ Deprecated approach
+ * const first = at(numbers, 0);
+ * console.log(first); // 1
+ *
+ * const last = at(numbers, -1);
+ * console.log(last); // 5
+ *
+ * // ✅ Recommended approach
+ * const firstNative = numbers[0];
+ * console.log(firstNative); // 1
+ *
+ * const lastNative = numbers[numbers.length - 1];
+ * console.log(lastNative); // 5
+ *
+ * // ✅ Modern approach with ES2022
+ * const firstModern = numbers.at(0);
+ * console.log(firstModern); // 1
+ *
+ * const lastModern = numbers.at(-1);
+ * console.log(lastModern); // 5
+ * ```
+ */
+export function at<T>(arr: T[], index: number): T | undefined {
+  const len = arr.length;
+  const normalizedIndex = index < 0 ? len + index : index;
+
+  if (normalizedIndex < 0 || normalizedIndex >= len) return undefined;
+
+  return arr[normalizedIndex];
+}
+````
+
+## 6. 🏷️ Common Native Equivalents Reference
+
+| Taphos Function | Native Equivalent | ES Version |
+|-----------------|-------------------|------------|
+| `at(arr, i)` | `arr.at(i)` | ES2022 |
+| `includes(arr, v)` | `arr.includes(v)` | ES2016 |
+| `flat(arr)` | `arr.flat()` | ES2019 |
+| `flatMap(arr, fn)` | `arr.flatMap(fn)` | ES2019 |
+| `fromEntries(entries)` | `Object.fromEntries(entries)` | ES2019 |
+| `keys(obj)` | `Object.keys(obj)` | ES5 |
+| `values(obj)` | `Object.values(obj)` | ES2017 |
+| `entries(obj)` | `Object.entries(obj)` | ES2017 |
+| `assign(target, ...sources)` | `Object.assign(target, ...sources)` | ES2015 |
+| `padStart(str, len, fill)` | `str.padStart(len, fill)` | ES2017 |
+| `padEnd(str, len, fill)` | `str.padEnd(len, fill)` | ES2017 |
+| `trimStart(str)` | `str.trimStart()` | ES2019 |
+| `trimEnd(str)` | `str.trimEnd()` | ES2019 |
+| `replaceAll(str, search, replace)` | `str.replaceAll(search, replace)` | ES2021 |
+| `hasOwn(obj, key)` | `Object.hasOwn(obj, key)` | ES2022 |
+
+## 7. ⚠️ Common Mistakes to Avoid
+
+1. **Missing @deprecated**: Every Taphos function MUST be deprecated.
+2. **Missing @see links**: Must have both MDN and Can I Use links.
+3. **French MDN URLs**: Always use `/en-US/` URLs.
+4. **Missing example sections**: Must have ❌ Deprecated and ✅ Recommended.
+5. **Wrong "Modern" ES version**: Only use for ES2020+ features.
+6. **Vague deprecation message**: Always specify the exact native alternative.
+7. **Function without native equivalent**: Move to Arkhe instead.
+
+## 8. 📂 Directory Structure
+
+```
+packages/pithos/src/taphos/
+├── array/
+│   ├── at.ts
+│   ├── at.test.ts
+│   ├── flat.ts
+│   ├── flat.test.ts
+│   └── ...
+├── object/
+│   ├── keys.ts
+│   ├── keys.test.ts
+│   └── ...
+├── string/
+│   ├── pad-start.ts
+│   ├── pad-start.test.ts
+│   └── ...
+└── ...
+```

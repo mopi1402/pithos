@@ -1,0 +1,106 @@
+---
+globs: *.ts, *.tsx
+alwaysApply: false
+---
+
+# 🏛️ Pithos Design Philosophy
+
+## 1. 🧩 Ecosystem Synergy
+
+Pithos is a layered ecosystem, not just a utility bag.
+
+- **Kanon** (Boundary): Validation & Parsing (Input → Typed Data).
+- **Arkhe** (Foundation): Pure util functions. Trusts types. Throws on misuse.
+- **Zygos** (Result): Functional Error Handling (`Result<T, E>`).
+- **Sphalma** (Errors): Typed Coded Error Factories.
+
+**Golden Rule of Dependency**:
+
+- **Arkhe** is PURE. Nier depends on Zygos/Sphalma.
+
+## 2. 🚨 Error Handling
+
+| Type                | Responsible          | Approach                  | Example                     |
+| ------------------- | -------------------- | ------------------------- | --------------------------- |
+| **Developer Error** | **Arkhe**            | `Throw Error` (Fail Fast) | `throw new TypeError()`     |
+| **Absence**         | **All**              | `undefined`               | `find() ?? undefined`       |
+
+**Conventions**:
+
+- **Zygos Result**: Use `ok()` and `err()`.
+- **Sphalma Errors**: Use `0xMFEE` Hex format (`M`=Module, `F`=Feature, `E`=Error).
+- **Fail Fast**: If input is invalid (e.g. negative count), throw immediately in Arkhe.
+
+## 3. 🔒 Immutability
+
+**Immutable by Default**.
+
+- Functions return new instances.
+- Arguments are never modified.
+- Mutable vars allowed ONLY for internal perf limits (suffix `Mut`).
+
+```typescript
+// ✅ Good
+const reversed = reverse(array);
+// ❌ Bad
+array.reverse();
+```
+
+## 4. 📘 TypeScript-First
+
+- **Inference > Explicit Generics**. Parameters should imply types.
+- **No Any**. Use `unknown` with narrowing.
+- **Strict Types**. Trust the type system.
+- **No Runtime Type Checks**. Never check types at runtime (`typeof`, `instanceof`, `Array.isArray`). TypeScript guarantees types at compile time. Only check values/ranges (e.g. `size < 0`).
+- **Explicit Type Naming** (React/React Native style): Prefer explicit names for generic types (e.g. `Item`, `Result`, `Schema`) instead of opaque letters (e.g. `T`, `R`, `S`), except for `T` when trivial and obvious.
+
+```typescript
+// ❌ Opaque generic types
+const map = <T, R>(array: T[], fn: (item: T) => R): R[] => { ... };
+
+// ✅ Explicit type names (React Native style, no T prefix)
+const map = <Item, Result>(
+  array: Item[],
+  fn: (item: Item) => Result
+): Result[] => { ... };
+
+// ✅ `T` alone is acceptable for simple, obvious cases
+const chunk = <T>(array: T[], size: number): T[][] => { ... };
+```
+
+## 5. 🔄 Data-First
+
+Pithos favors **Data-First** for standard utilities (except Zygos piping).
+
+```typescript
+// ✅ Data-First (Good TS Inference)
+map(items, (item) => item.name);
+
+// ❌ Data-Last (Bad Inference)
+map((item) => item.name)(items);
+```
+
+**Reason**: Superior TypeScript inference and readability.
+
+## 6. 🎯 API Design
+
+- **Simplicity over Exhaustiveness**: Prefer a simple function that covers 99% of use cases over a complex function with many options for rare edge cases. Avoid adding options for features used in <1% of cases. For rare cases, prefer composition over configuration.
+
+```typescript
+// ✅ Simple, covers 99% of cases
+export function window<T>(array: T[], size: number): T[][];
+
+// ❌ Too many options for edge cases
+export function windowed<T>(
+  arr: T[],
+  size: number,
+  step = 1,
+  { partialWindows = false }: Options = {}
+): T[][];
+```
+
+## 7. ⚡ Performance & API
+
+- **Tree-shaking**: No barrel files for internal cross-imports.
+- **Zero Dependencies**: Pithos stands alone.
+- **Naming**: `is*` (Predicates), `to*` (Transformers), `get*` (Accessors).

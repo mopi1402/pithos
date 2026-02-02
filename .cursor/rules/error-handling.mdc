@@ -1,0 +1,32 @@
+---
+alwaysApply: true
+globs: *.ts, *.tsx
+---
+
+# Error Handling Philosophy
+
+1. **"Fail Fast, Fail Loud"**: Throw exceptions for developer errors (invalid input, broken invariants).
+   - Use `TypeError` or `RangeError` for native-like checks.
+   - Use `CodedError` (via `createErrorFactory`) for module-specific errors.
+
+2. **Expected Absence**: Return `undefined` when a value MIGHT be missing (e.g. `array.find()`, `map.get()`).
+   - Do NOT throw errors for simple "Not Found" scenarios unless existence is critical.
+
+3. **Runtime Failures**: Use `Result<T, E>` (Zygos) for operations that can fail at runtime (I/O, Parsing, Validation).
+
+# Coded Errors Convention
+
+Use `@sphalma/error-factory` for typed errors.
+
+**Hex Format `0xMFEE`**:
+- **M** (Module 1-F): `1`=Reserved, `2`=Reserved, `3`=Kanon, `4`=Arkhe, `5`=Zygos
+- **F** (Feature 0-F): Feature index within module
+- **EE** (Error 00-FF): Specific error code
+
+**Example**:
+```typescript
+// [Validation:0x3104] -> Kanon(3), Validation(1), Error(04)
+export const ValidationErrorCodes = {
+  INVALID_SCHEMA: 0x3104,
+} as const;
+```

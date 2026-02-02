@@ -1,8 +1,23 @@
+---
+alwaysApply: true
+---
+
 Never create barrel files (index.ts) that export multiple modules.
 
 Never generate code in French. Always use English for code, comments, and documentation.
 
-Never add explanatory comments in code (except for documentation purposes).
+Never add explanatory comments in code (except for documentation purposes or `// INTENTIONAL` comments to explain deliberate design choices).
+
+When disabling a linter rule (e.g., `eslint-disable-next-line`), always add a `// INTENTIONAL` comment on the line above to explain why the rule is disabled.
+
+**✅ Good**: justify an `any`, a lint bypass, an unusual pattern, a technical trade-off, etc.
+// INTENTIONAL: Encapsulating global access to avoid repeating type casts
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const testGlobal = global as any;
+
+**❌ Bad**: obvious code behavior
+// INTENTIONAL: Only affects the specified observer
+observer.unobserve(element);
 
 Always add JSDoc comments to generate proper documentation.
 
@@ -16,8 +31,14 @@ Maximize tree-shaking by preferring pure functions over classes when appropriate
 
 Project uses TypeScript 5, ESNext modules, and ES2020 target.
 
-Always type variables and place types in types/subfolder directory.
+Always type variables explicitly when type inference is not obvious or for public APIs. Place shared types in types/subfolder directory, keep local types near their usage.
 
 For each new function, always check what already exists to avoid reinventing the wheel.
 
-Always ask user for approval before making changes as breaking changes must be managed (npm package).
+Always ask user for approval before making breaking changes or major modifications. For minor improvements and bug fixes, proceed directly but inform the user of changes made.
+
+Avoid `any` type at all costs. Use proper TypeScript types and create new types when needed. Use `unknown` when the type is truly unknown and needs runtime checking.
+
+Use the Result pattern for error handling in functions and methods. Prefer `Result<T, E>` and `ResultAsync<T, E>` over throwing exceptions when possible. Use `ok()` and `err()` for creating results, and `isOk()`/`isErr()` for checking results. For constructors and simple validation, consider validation functions or throw when appropriate. Use Result pattern when errors are expected and recoverable, prefer exceptions for truly exceptional cases.
+
+Place test files as sidecar files next to the source files being tested (e.g., `file.ts` and `file.test.ts` in the same directory).

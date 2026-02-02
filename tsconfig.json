@@ -1,34 +1,25 @@
 {
+  "extends": "./tsconfig.build.json",
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "ESNext",
-    "lib": ["ES2020", "DOM"],
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "allowJs": true,
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": false,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": false,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": false,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": false,
-    "incremental": true,
-    "tsBuildInfoFile": "./dist/.tsbuildinfo"
+    "rootDir": ".",
+    "noEmit": true
   },
-  "include": ["src/**/*", "src/index.ts"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
+  "include": [
+    "packages/pithos/src/**/*",
+    "**/*.test.ts",
+    "**/*.bench.ts",
+    "packages/kanon/benchmarks/**/*.ts",
+    "packages/main/website/scripts/**/*.ts",
+    "vitest.config.ts",
+    "vitest.setup.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "tmp",
+    "packages/tmp",
+    ".stryker-tmp",
+    ".stryker-tmp-manual",
+    "vendor"
+  ]
 }

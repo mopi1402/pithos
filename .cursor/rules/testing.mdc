@@ -1,0 +1,495 @@
+---
+globs: *.ts;*.test.ts;*.spec.ts
+alwaysApply: false
+---
+
+# Testing Rules
+
+## Test File Location
+
+- **Always use sidecar test files**: Test files must be placed next to the source files being tested (e.g., `file.ts` and `file.test.ts` in the same directory)
+- Never create separate test directories or test files in different locations
+
+## Test Exhaustiveness
+
+- Write exhaustive tests for **functions** (all behaviors, edge cases, error paths)
+- Write minimal tests for **types** (1-3 tests proving the type works)
+- Rule of thumb: if it's just a type alias, 1-3 tests suffice
+- **Write exhaustive tests for validation/security-critical code**:
+  - **Regex patterns**: Test both valid and invalid cases exhaustively (security/fiability critical)
+  - **Type guards**: Test all edge cases and type narrowing behavior
+  - **Validation systems** (like Kanon): Test all validation rules, edge cases, and error paths
+- Never add superfluous tests that don't add value
+- Focus on testing the actual behavior, not implementation details
+
+## Test Scope
+
+- **Only test what the test is designed for**: If testing a function, test only the function's behavior
+- **Never test TypeScript/JavaScript features**: Don't test language features, operators, or built-in behaviors (e.g., `??`, type guards, `Array.isArray`, etc.)
+- **Never test framework behavior**: Don't test framework internals or third-party library behavior
+- **Never test utility types**: If a test file uses utility types (like `Nullable`, `Optional`, `Nullish`), don't test those types - they have their own test files
+
+## Testing Functions vs Types
+
+- **Functions**: Test inputs, outputs, edge cases, error handling
+- **Type aliases**: 1-3 tests max, just verify the type accepts expected values
+- **Interfaces**: Test structure acceptance, don't test every property combination
+
+## Validation and Security-Critical Code
+
+- **Regex patterns**: Test exhaustively - these are security/fiability critical points
+  - Test both valid and invalid cases
+  - Test edge cases and boundary conditions
+  - Example: Email, URL, UUID regex patterns need comprehensive testing
+- **Type guards**: Test all edge cases and type narrowing behavior
+  - Verify correct type narrowing in all scenarios
+  - Test with various input types
+- **Validation systems** (like Kanon): Test all validation rules exhaustively
+  - Test all validation rules, edge cases, and error paths
+  - Test both success and failure scenarios
+  - These are critical for data integrity and security
+
+## Test Naming
+
+- Use descriptive names: `should limit concurrent executions to 2`
+- Avoid vague names: `should work correctly`
+
+## Mock Usage
+
+- Use `vi.fn()` to verify calls
+- Use `vi.fn().mockImplementation()` for behavior simulation
+- Prefer `noop` from pithos over inline `() => {}` for void callbacks
+- **Only mock functions when you need to change their behavior**: If a function is already tested in its own sidecar test file, use the real implementation instead of mocking it. Mock only when you need to:
+  - Change the function's return value
+  - Simulate errors or edge cases
+  - Verify that the function was called with specific arguments
+  - Isolate the unit under test from external dependencies that are not part of the codebase
+
+## Linting
+
+- **Always check linter errors after modifying test files**: After any modification to a test file, verify that no linter errors have been introduced. Run the linter or check for TypeScript/ESLint errors to ensure code quality and consistency.
+
+## Test Helpers
+
+- **Always check `@arkhe/test` helpers before creating custom mocks**: Before creating manual mocks or workarounds, check what's available in `@arkhe/test`:
+  - `@arkhe/test/globals`: `mockWindow()`, `mockDocument()`, `mockDOMRect()`, `mockPerformance()`, `setGlobal()`, `getGlobalThis()` - for mocking global objects
+  - `@arkhe/test/console`: `mockConsole()`, `silenceConsole()`, `withSilentConsole()` - for mocking console methods
+  - `@arkhe/test/private-access`: `cast<T>()` - for type casting in tests
+- **Use `cast<T>()` instead of manual type casts**: Always use `cast<T>()` from `@arkhe/test/private-access` instead of `as unknown as` or `as any` in tests
+  - **❌ Bad**: `const value = obj as unknown as MyType;`
+  - **✅ Good**: `const value = cast<MyType>(obj);`
+- **Use helpers to avoid INTENTIONAL comments**: The helpers in `@arkhe/test` encapsulate common patterns, reducing the need for `// INTENTIONAL` comments and `eslint-disable-next-line` directives
+- **Use `mockDOMRect()` for DOMRect mocking**: Instead of manually creating DOMRect mocks, use `mockDOMRect()` from `@arkhe/test/globals`
+  - **❌ Bad**: `global.DOMRect = class DOMRect { ... };`
+  - **✅ Good**: `mockDOMRect();` (automatically restored after tests)
+- **Use `mockPerformance()` for performance mocking**: Instead of manually mocking performance, use `mockPerformance()` from `@arkhe/test/globals`
+  - **❌ Bad**: `global.performance = { now: vi.fn() };`
+  - **✅ Good**: `mockPerformance({ now: vi.fn() });` (automatically restored after tests)
+
+## Test Patterns
+
+### Prefer Direct Behavior Verification
+
+When testing concurrent execution limits, timeouts, or similar behaviors:
+
+**❌ Bad**: Testing timing/duration with `Date.now()` or fake timers
+
+**✅ Good**: Test the actual behavior (e.g., verify that only N operations execute concurrently, or that a timeout error is thrown after the limit)
+
+## FAQ
+
+### How to avoid `any` type in tests?
+
+Use `cast<T>()` from `@arkhe/test/private-access` instead of type assertions with `any`:
+
+**❌ Bad**:
+
+```typescript
+const value = obj as any;
+const typed = something as unknown as MyType;
+```
+
+**✅ Good**:
+
+```typescript
+import { cast } from "@arkhe/test/private-access";
+
+const value = cast(obj);
+const typed = cast<MyType>(something);
+```
+
+### How to avoid circular dependencies in test files?
+
+When you need to test a module that has a circular dependency, write an interface with the parameter as optional, then add it later:
+
+**❌ Bad**:
+
+```typescript
+// Creates circular dependency
+import { SomeType } from "./module-a";
+```
+
+**✅ Good**:
+
+```typescript
+// Define interface with optional parameter
+interface TestHelper {
+  someParam?: SomeType;
+}
+
+// Then add it later in the test
+const helper: TestHelper = {};
+helper.someParam = getSomeType();
+```
+
+## Coverage Strategy
+
+- **100% code coverage is the minimum, not the goal**: All branches must be covered, but this alone doesn't guarantee correctness
+- **Always test boundary conditions** for numeric parameters:
+  - Zero (`0`)
+  - One (`1`)
+  - Exactly at limit (`length`, `max`, etc.)
+  - Beyond limit (`length + 1`, `max + 1`, etc.)
+- **Always test empty collections**: Empty arrays, empty strings, empty objects
+- **Always test single-element collections**: Arrays with one element often reveal off-by-one errors
+- **Test the "just past" values**: If a function uses `>=`, test both the boundary and one past it
+
+### Edge Cases Checklist
+
+For array functions, always verify:
+
+- Empty array behavior
+- Single element behavior
+- `count/index > array.length` behavior
+- `count/index === array.length` behavior
+
+For numeric functions, always verify:
+
+- `0` behavior
+- Negative numbers (if applicable)
+- `Infinity` / `-Infinity` (if applicable)
+- `NaN` (if applicable)
+
+For string functions, always verify:
+
+- Empty string behavior
+- Single character behavior
+- Unicode/emoji handling (if relevant)
+
+### The "Off-by-One" Rule
+
+If a function uses slicing, indexing, or counting:
+
+- Test `n-1`, `n`, and `n+1` where `n` is any boundary value
+- These are the most common sources of bugs
+
+## Mutation Testing
+
+### Decision Process for Surviving Mutants
+
+When a mutant survives, analyze it to determine if it's a **real bug** or a **false positive**:
+
+#### 1. Real Bug → Write a Test
+
+If the mutation would cause incorrect behavior in production:
+
+- **Write a test prefixed with `[👾]`** to kill the mutant
+- The test should verify the specific behavior the mutation breaks
+- Keep tests minimal — one well-targeted test can kill multiple mutants
+
+**Example**:
+
+```typescript
+// Mutant: `proto === null ? Object.create(null) : {}` → `true ? Object.create(null) : {}`
+// This would give plain objects a null prototype instead of Object.prototype — real bug!
+
+it("[👾] plain object clone has Object prototype", () => {
+  const obj = { x: 1 };
+  const cloned = deepClone(obj);
+  expect(Object.getPrototypeOf(cloned)).toBe(Object.prototype);
+});
+```
+
+#### 2. False Positive → Disable with Explanation
+
+If the mutation produces **identical behavior** (optimization, redundant check, fallback handles it):
+
+- **Disable only the specific mutant type(s)** — never use `all`
+- **Always include an explanation** after the colon
+
+**Stryker disable syntax**:
+
+```typescript
+// Stryker disable next-line MutantType1,MutantType2: Explanation of why this is a false positive
+```
+
+**Common false positive patterns**:
+
+| Pattern                                      | Why it's a false positive                                | Disable                                                |
+| -------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------ |
+| Early return optimization                    | Fallback code handles the case identically               | `ConditionalExpression,LogicalOperator,BlockStatement` |
+| Array preallocation `new Array(len)`         | `new Array()` produces same result after iteration       | `ArrayDeclaration`                                     |
+| Loop guard `i < len` → `i <= len`            | Bounds check or sparse array check prevents side effects | `EqualityOperator`                                     |
+| Feature detection `typeof X !== "undefined"` | Runtime guard for optional APIs                          | `ConditionalExpression,StringLiteral,EqualityOperator` |
+| Fast path with identical fallback            | Generic fallback produces same result                    | `ConditionalExpression,LogicalOperator,BlockStatement` |
+
+**Example**:
+
+```typescript
+// Stryker disable next-line ConditionalExpression,LogicalOperator,BlockStatement: Early return optimization - cloneRecursive handles primitives identically
+if (value === null || typeof value !== "object") {
+  return value;
+}
+```
+
+### Naming Convention
+
+- **Prefix mutation-specific tests with `[👾]`**: Tests added specifically to kill mutants should be clearly marked
+  - **Standard test**: `it("drops elements from right while predicate is true", ...)`
+  - **Mutation test**: `it("[👾] keeps only first element when others match", ...)`
+- This distinction helps identify which tests exist for coverage vs which exist to kill specific mutants
+
+### Stryker Disable Rules
+
+- **Only use `next-line`** — never use block `disable/restore` patterns
+- **Never use `all`** — always specify exact mutant types to avoid masking future real bugs
+- **Always explain** — the comment must clarify why the mutant is a false positive
+- **Be precise** — only disable the mutant types that actually survive on that line
+
+**❌ Bad** (block disable/restore):
+
+```typescript
+// Stryker disable ObjectLiteral,StringLiteral: Event names
+const maps = {
+  pointer: { start: "pointerdown", move: "pointermove" },
+  mouse: { start: "mousedown", move: "mousemove" },
+};
+// Stryker restore ObjectLiteral,StringLiteral
+```
+
+**❌ Bad** (using `all`):
+
+```typescript
+// Stryker disable next-line all
+if (typeof Buffer !== "undefined" && Buffer.isBuffer(obj)) {
+```
+
+**✅ Good** (next-line for each line):
+
+```typescript
+// Stryker disable next-line ObjectLiteral,StringLiteral: Event names
+const maps = {
+  // Stryker disable next-line ObjectLiteral,StringLiteral: pointer event names
+  pointer: { start: "pointerdown", move: "pointermove" },
+  // Stryker disable next-line ObjectLiteral,StringLiteral: mouse event names
+  mouse: { start: "mousedown", move: "mousemove" },
+};
+```
+
+**✅ Good** (specific mutant types with explanation):
+
+```typescript
+// Stryker disable next-line ConditionalExpression,StringLiteral,EqualityOperator: Feature detection guard for Buffer availability
+if (typeof Buffer !== "undefined" && Buffer.isBuffer(obj)) {
+```
+
+### Inline Stryker Disable for `else if` Conditions
+
+The `// Stryker disable next-line` comment doesn't work for `else if` conditions because the mutant is on the same line as the `}`. Use an **inline block comment** instead:
+
+**❌ Doesn't work** (comment applies to wrong line):
+
+```typescript
+if (x < 1) {
+  // ...
+  // Stryker disable next-line EqualityOperator: Explanation
+} else if (x > 10) {  // Mutant survives!
+  // ...
+}
+```
+
+**✅ Works** (inline block comment before the condition):
+
+```typescript
+if (x < 1) {
+  // ...
+} else if (/* Stryker disable next-line EqualityOperator */ x > 10) {
+  // ...
+}
+```
+
+### Cleanup After Mutation Testing
+
+After achieving 100% mutation score, review tests marked `~` (covered but not killing):
+
+- **Keep `~` tests on original tests** — they provide code coverage
+- **For `~` tests on `[👾]` tests**, check if they cover a functional edge case:
+  - If yes → **convert to `[🎯]`** and keep (functional value)
+  - If no → **remove** (truly redundant)
+
+### Stryker Configuration
+
+- **Always exclude test files from mutation**: Use `!**/*.test.ts` in mutate patterns
+
+## Specification Tests
+
+Beyond code coverage and mutation testing, ensure all **specified behaviors** are tested. These tests are prefixed with `[🎯]`.
+Specification tests should also describe the **essence** of the utility, its core reason for existing.
+
+Specification tests verify behaviors that are:
+- Not discoverable by code coverage (code already covered by other tests)
+- Not discoverable by mutation testing (no surviving mutant)
+- **Core to the utility's purpose** (describing *why* this utility exists)
+- **Essential** for guaranteeing correct behavior at boundaries
+
+### Boundary Conditions
+
+For functions with numeric parameters or collections, test boundary behaviors:
+
+- **Empty collections**: `fn([], n)` — what happens with no data?
+- **Single element**: `fn([x], n)` — off-by-one errors often appear here
+- **count === length**: `fn([1,2,3], 3)` — exact boundary
+- **count > length**: `fn([1,2,3], 10)` — beyond boundary
+
+**Example**:
+
+```typescript
+it("[🎯] returns empty array for empty input", () => {
+  expect(drop([], 5)).toEqual([]);
+});
+
+it("[🎯] returns empty array when count equals length", () => {
+  expect(drop([1, 2, 3], 3)).toEqual([]);
+});
+```
+
+### Union Types Coverage
+
+- **For each union type in the API (`A | B`), ensure both branches are tested**
+- Check function signatures, return types, and generic constraints
+- Each branch of a union represents a distinct use case that deserves a test
+
+**Example**:
+
+```typescript
+// Type definition
+type Transformation<T> = Transformations<T> | ((value: T) => unknown);
+
+// Tests needed:
+it("handles nested transformations", () => {
+  /* Transformations<T> branch */
+});
+it("[🎯] applies function transformation to nested object", () => {
+  /* ((value: T) => unknown) branch */
+});
+```
+
+### JSDoc Coverage
+
+- **For each `@note` in JSDoc, ensure a corresponding test exists** — these document specific guarantees or edge-case behaviors
+
+### Core Purpose / Raison d'être
+
+Tests should describe the fundamental reason why the utility exists, capturing its "essence" beyond simple input/output examples.
+
+- **Ask**: "If I deleted this utility, what high-level capability would I lose?"
+- **Test**: Write a test that demonstrates this capability directly.
+- **Example**: For a `debounce` utility, a test ensuring it "only calls the function once after the delay passes" captures its essence better than just checking strict timing.
+
+### Implicit Specifications
+
+Not all specification tests come from explicit documentation. Some behaviors are **implicitly expected** but not documented:
+
+- **Standard behaviors**: What happens with empty input? With a single element?
+- **Boundary behaviors**: What if `count > length`? What if `start > end`?
+- **Type coercion**: Are keys always strings? Are values cloned or referenced?
+
+**Don't assume "no `@note` = no test needed"**. Analyze the function's contract and ask: *"What would a user expect in this edge case?"*
+
+### Checklist
+
+When reviewing test coverage, ask:
+
+1. Are boundary conditions tested (empty, single, exact limit, beyond limit)?
+2. Are all branches of union types tested?
+3. Are all `@note` behaviors verified?
+4. Are optional parameters tested with and without values?
+5. Are generic constraints tested with different type arguments?
+6. Are there **implicit behaviors** not documented but worth testing?
+
+### Naming Convention
+
+- **Prefix specification tests with `[🎯]`** — tests for boundary conditions, union type branches, `@note` behaviors, or core purpose
+  - **Standard test**: `it("applies transformation functions to properties", ...)`
+  - **Specification test**: `it("[🎯] returns empty array for empty input", ...)`
+
+### Summary of Test Prefixes
+
+| Prefix | Meaning                  | Discovery Method                        |
+| ------ | ------------------------ | --------------------------------------- |
+| (none) | Standard functional test | Normal test design                      |
+| `[🎯]` | Specification test       | Boundary / Union / @note / Core purpose |
+| `[👾]` | Mutation test            | Stryker mutation testing                |
+| `[🎲]` | Property-based test      | Fast-check random generation            |
+
+## Property-Based Testing
+
+Use `@fast-check/vitest` to discover edge cases automatically. These tests generate hundreds of random inputs including edge cases (empty strings, `NaN`, `null`, deeply nested objects, etc.).
+
+```typescript
+import { it as itProp, fc } from "@fast-check/vitest";
+
+itProp.prop([fc.object({ maxDepth: 2 })])(
+  "[🎲] clone equals original",
+  (obj) => {
+    expect(deepClone(obj)).toEqual(obj);
+  }
+);
+```
+
+### Immutability Rule
+
+Systematically add a test to ensure that the initial data has not been mutated. This test must use **@fast-check**.
+
+```typescript
+itProp.prop([fc.array(fc.integer())])(
+  "[🎲] does not mutate original array",
+  (arr) => {
+    const original = [...arr];
+    countBy(arr, (n) => n);
+    expect(arr).toEqual(original);
+  }
+);
+```
+
+### Common Patterns
+
+| Pattern          | Description                           | Example                                  |
+| ---------------- | ------------------------------------- | ---------------------------------------- |
+| **Invariant**    | Output has constant property          | `clone(x)` equals `x`                    |
+| **Idempotence**  | `f(f(x)) === f(x)`                    | `clone(clone(x))` equals `clone(x)`      |
+| **Independence** | Mutating source doesn't affect output | `clone(x)` unchanged after `x.foo = bar` |
+| **Round-trip**   | `decode(encode(x)) === x`             | `parse(stringify(x))` equals `x`         |
+
+### Useful Arbitraries
+
+```typescript
+fc.object({ maxDepth: 2 }); // Nested objects (limit depth for perf)
+fc.anything(); // Any JS primitive
+fc.array(fc.object()); // Arrays of objects
+fc.dictionary(fc.string(), fc.anything()); // Record<string, unknown>
+```
+
+### When a Test Fails
+
+Fast-check shows the minimal "shrunk" input that causes the failure:
+
+```
+Property failed after 23 tests
+Shrunk 5 time(s)
+Counterexample: [{"": null}]
+```
+
+Copy this counterexample into a unit test to fix it permanently:
+- **`[🎯]`** if it reveals an untested API branch (union type, optional parameter)
+- **`[👾]`** if it's a logic bug (code doesn't handle this input correctly)

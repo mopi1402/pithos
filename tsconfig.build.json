@@ -1,0 +1,62 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": [
+      "ES2020",
+      "DOM"
+    ],
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./packages/pithos/dist",
+    "rootDir": "./packages/pithos/src",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": false,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": false,
+    "incremental": true,
+    "tsBuildInfoFile": "./packages/pithos/dist/.tsbuildinfo",
+    "baseUrl": "./packages/pithos/src",
+    "paths": {
+      "@arkhe/*": [
+        "arkhe/*"
+      ],
+      "@kanon/*": [
+        "kanon/*"
+      ],
+      "@zygos/*": [
+        "zygos/*"
+      ],
+      "@sphalma/*": [
+        "sphalma/*"
+      ],
+      "@taphos/*": [
+        "taphos/*"
+      ]
+    }
+  },
+  "include": [
+    "packages/pithos/src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "packages/tmp",
+    "**/*.test.ts"
+  ]
+}

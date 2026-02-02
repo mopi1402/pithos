@@ -1,0 +1,274 @@
+---
+description: How to write Arkhe utility functions
+globs: packages/pithos/src/arkhe/**/*.ts
+alwaysApply: true
+---
+
+# 🏛️ Arkhe Function Rules
+
+**Arkhe** is the foundation of Pithos. It provides pure, type-safe utilities.
+
+## 1. 🧬 Purity & Dependencies
+
+- **Pure Functions Only**: Same input = same output. No side effects.
+- **Zero Dependencies**: NEVER import from `Zygos`, `Sphalma`, or external libs.
+- **No State**: Do not use module-level state.
+- **Intra-Module Dependencies**: 
+  - **Trivial checks** (`typeof x === "function"`, `Array.isArray(x)`): Use inline checks. Imports add bundle overhead for no benefit.
+  - **Non-trivial guards** (`isPlainObject`, `isEqual`, etc.): Import from `@arkhe/is/guard`. Single source of truth > bundle micro-optimization. These guards have specific logic (prototype checks, deep comparison) where code duplication creates maintenance risk and potential divergence.
+```typescript
+// ✅ Good: Inline trivial checks
+const getValue = (item: T): unknown =>
+  typeof iteratee === "function" ? iteratee(item) : item[iteratee];
+
+// ✅ Good: Import non-trivial guards
+import { isPlainObject } from "@arkhe/is/guard/is-plain-object";
+if (isPlainObject(targetValue) && isPlainObject(sourceValue)) {
+  assignDeepDefaults(targetValue, sourceValue);
+}
+
+// ❌ Bad: Duplicating non-trivial logic
+function isPlainObject(value: unknown): value is Record {
+  // Duplicated logic = maintenance risk
+  if (value === null || typeof value !== "object") return false;
+  const proto = Object.getPrototypeOf(value);
+  return proto === null || proto === Object.prototype;
+}
+```
+
+## 2. 🚨 Error Handling (Fail Fast)
+
+- **No Parameter Type Checks**: Never check types of function parameters at runtime (e.g. `typeof param`, `instanceof`, `Array.isArray(param)`). TypeScript guarantees parameter types at compile time.
+- **Value Checks Only**: Only check invalid values/ranges (e.g. `size < 0`, `index < 0`). Throw immediately on misuse.
+- **No `Result`**: Never return `Result<T, E>`. Arkhe does not handle runtime logic errors.
+- **Exceptions**: Use `TypeError` or `RangeError` for value violations.
+
+```typescript
+// ✅ Good: Check values, not parameter types
+if (size <= 0) throw new RangeError("Size must be positive");
+if (!Number.isInteger(size)) throw new RangeError("Size must be an integer");
+
+// ❌ Bad: Don't check parameter types - TypeScript already does
+if (!Array.isArray(array)) throw new TypeError("Expected array"); // array is already typed as T[]
+if (typeof value !== "string") throw new TypeError("Expected string"); // value is already typed as string
+```
+
+**Note**: `typeof` is allowed for union type discrimination (see Section 4), but not for validating parameter types.
+
+## 3. 🔄 API Design (Data-First)
+
+- **Data First**: The data being operated on is the FIRST argument.
+- **Signature**: `fn(data: T, options: U): R`
+- **Immutability**: NEVER mutate arguments. Return new instances.
+- **Simplicity over Exhaustiveness**: Prefer a simple function that covers 99% of use cases over a complex function with many options for rare edge cases. Avoid adding options for features used in <1% of cases. For rare cases, prefer composition over configuration.
+- **Utility Justification**: A utility function has a reason to exist if it is frequently reimplemented across projects. Common utilities like `debounce`, `throttle`, `chunk`, `groupBy`, etc. are valuable even if "simple" because developers constantly rewrite them. DO NOT suggest removing these utilities—their existence prevents code duplication.
+
+```typescript
+// ✅ Good: Simple, covers 99% of cases
+export function window<T>(array: T[], size: number): T[][];
+
+// ❌ Bad: Too many options for edge cases
+export function windowed<T>(
+  arr: T[],
+  size: number,
+  step = 1,
+  { partialWindows = false }: Options = {}
+): T[][];
+```
+
+```typescript
+// ✅ Good
+export function chunk<T>(array: T[], size: number): T[][];
+
+// ❌ Bad (Data-last or Config objects)
+export function chunk(size: number): (array: T[]) => T[][];
+export function chunk(array: T[], options: { size: number });
+```
+
+## 4. 📘 TypeScript First
+
+- **Generics**: Use generics for inference (`<T>`).
+- **No Any**: Use `unknown` if needed, then narrow.
+- **Overloads**: Use overloads for precise return types if arguments change the result type.
+- **Type Guards**: For union type discrimination (e.g. `((item: T) => unknown) | keyof T`), use inline `typeof` checks rather than importing type guards from `@arkhe/is/guard`. This avoids intra-module dependencies and keeps bundle size minimal.
+- **Explicit Type Naming** (React/React Native style): Prefer explicit names for generic types (e.g. `Item`, `Result`, `Schema`) when the generic has a specific meaning or when there are multiple generics. Use single letters (`T`, `R`, `U`) for simple, obvious cases with a single generic parameter. **Note**: When multiple generics are present, `T` can remain `T` if the other generics are already explicit (e.g. `Key`, `Criterion`) and there's no ambiguity about what `T` represents (typically the element type).
+
+```typescript
+// ✅ Good: Inline typeof for union type discrimination
+const getValue = (item: T): unknown =>
+  typeof iteratee === "function" ? iteratee(item) : item[iteratee];
+
+// ❌ Bad: Importing type guard adds unnecessary dependency
+import { isFunction } from "@arkhe/is/guard/is-function";
+const getValue = (item: T): unknown =>
+  isFunction(iteratee) ? iteratee(item) : item[iteratee];
+```
+
+```typescript
+// ✅ Good: Single letter for simple, single generic
+export function chunk<T>(array: T[], size: number): T[][] { ... }
+export function isEqual<T>(a: T, b: T): boolean { ... }
+
+// ✅ Good: Explicit names when multiple generics or specific meaning
+export function map<Item, Result>(
+  array: Item[],
+  fn: (item: Item) => Result
+): Result[] { ... }
+
+export function differenceBy<Item, Key>(
+  array: Item[],
+  values: Item[],
+  iteratee: ((item: Item) => Key) | keyof Item
+): Item[] { ... }
+
+export function unionBy<T, Key>(
+  arrays: readonly (readonly T[])[],
+  iteratee: (item: T) => Key
+): T[] { ... }
+
+export function findBest<T, Criterion>(
+  array: readonly T[],
+  iteratee: (value: T) => Criterion,
+  compareFn: (a: Criterion, b: Criterion) => boolean
+): T | undefined { ... }
+
+// ✅ Good: Explicit names for complex function signatures
+export function debounce<Args extends unknown[], Context = unknown>(
+  func: (this: Context, ...args: Args) => void,
+  wait: number
+): ((this: Context, ...args: Args) => void) & { cancel: () => void }
+```
+
+## 5. 💬 Comments
+
+- **TSDoc Only**: No inline comments in code, except TSDoc comments for documentation.
+- **Self-Documenting**: Code should be clear enough without comments.
+- **@example Required**: Include one or more simple, non-superfluous examples in TSDoc that demonstrate practical usage.
+- **No Type Duplication**: Never duplicate TypeScript types in JSDoc `@param` or `@returns` tags. TypeDoc infers types directly from the signature. Exception: `@throws` (not inferable).
+- **No Default Value Duplication**: TypeDoc detects default values from the signature (`param = value`). Don't add `@defaultValue` or `[param=value]` in JSDoc. Exception: defaults inside function body (destructuring) are not visible to TypeDoc — document these explicitly.
+
+```typescript
+// ✅ Good: Let TypeDoc infer types and defaults
+/**
+ * Creates a debounced function.
+ *
+ * @param func - The function to debounce.
+ * @param wait - Milliseconds to delay.
+ * @param immediate - Trigger on leading edge instead of trailing.
+ * @returns The debounced function with `cancel()` method.
+ * @throws {RangeError} If wait is negative.
+ */
+export function debounce<Args extends unknown[]>(
+  func: (...args: Args) => void,
+  wait: number,
+  immediate = false
+): ((...args: Args) => void) & { cancel: () => void };
+
+// ❌ Bad: Redundant types and defaults
+/**
+ * @param {(...args: Args) => void} func - The function to debounce.
+ * @param {number} wait - Milliseconds to delay.
+ * @param {boolean} [immediate=false] - Trigger on leading edge.
+ * @returns {Function & { cancel: () => void }}
+ */
+export function debounce<Args extends unknown[]>(
+  func: (...args: Args) => void,
+  wait: number,
+  immediate = false
+): ...
+
+// ✅ Good: Document defaults hidden in destructuring
+/**
+ * @param options - Memoization options.
+ * @param options.maxSize - Max cache entries (default: 100).
+ */
+export function memoize<T>(fn: () => T, options: MemoizeOptions = {}) {
+  const { maxSize = 100 } = options; // Not visible to TypeDoc
+}
+```
+
+## 6. 📂 Structure
+
+- **One Function Per File**: `chunk.ts` exports `chunk`.
+- **Sidecar Tests**: `chunk.test.ts` lives next to `chunk.ts`.
+- **Direct Exports**: No default exports. `export function name() {}`.
+
+## 7. ⚡ Performance
+
+- **Prefer `for` loops** over chained array methods (`map`, `filter`, `reduce`) for performance-critical operations. `for` loops avoid intermediate allocations and function call overhead.
+- **Avoid unnecessary allocations** in hot paths. Reuse variables when possible.
+- **Document complexity** using `@performance` tag in TSDoc. Include Big O notation (O(n), O(n²), etc.) when relevant.
+
+```typescript
+// ✅ Good: for loop for performance
+export function keyBy<T>(
+  array: readonly T[],
+  iteratee: (value: T) => PropertyKey
+): Record<string, T> {
+  const result: Record<string, T> = {};
+  for (let i = 0; i < array.length; i++) {
+    const key = String(iteratee(array[i]));
+    result[key] = array[i];
+  }
+  return result;
+}
+
+// ✅ Good: Array methods are fine for simple, readable code
+export function difference<T>(array: readonly T[], values: readonly T[]): T[] {
+  const excludeSet = new Set(values);
+  return array.filter((item) => !excludeSet.has(item));
+}
+```
+
+## 8. 🏷️ Naming Conventions
+
+- **Verbs for actions**: Use action verbs for functions that transform data (`chunk`, `flatten`, `merge`, `debounce`).
+- **Predicates**: Use `is*`, `has*`, or `can*` prefixes for boolean-returning functions (`isEmpty`, `hasOwn`, `canRead`).
+- **No cryptic abbreviations**: Prefer full words over abbreviations (`debounce` ✅, `dbnc` ❌). Common abbreviations are acceptable (`min`, `max`, `id`).
+
+```typescript
+// ✅ Good: Action verbs
+export function chunk<T>(array: T[], size: number): T[][];
+export function merge<T>(target: T, source: Partial<T>): T;
+
+// ✅ Good: Predicates
+export function isEmpty<T>(value: T | null | undefined): boolean;
+
+// ❌ Bad: Cryptic abbreviations
+export function dbnc(fn: Function, wait: number): Function;
+```
+
+## 9. 📤 Return Values
+
+- **Consistent return types**: Prefer consistent return types when possible. `T | undefined` is acceptable when absence is semantically meaningful (e.g., `findBest`, `sample`, `minBy` return `undefined` when no element is found).
+- **Empty collections**: Return `[]` (empty array) when an empty collection is a valid result. Throw an error when an empty collection indicates invalid input (follow "Fail Fast" principle from Section 2).
+- **Document edge cases**: Explicitly document return values for edge cases in TSDoc.
+
+```typescript
+// ✅ Good: undefined is semantically correct for "not found"
+export function sample<T>(array: readonly T[]): T | undefined {
+  return array.length ? array[Math.floor(Math.random() * array.length)] : undefined;
+}
+
+// ✅ Good: Empty array for valid empty result
+export function unionBy<T, Key>(
+  arrays: readonly (readonly T[])[],
+  iteratee: (item: T) => Key
+): T[] {
+  if (arrays.length === 0) return []; // Valid: no arrays to union = empty result
+  // ...
+}
+
+// ✅ Good: Throw when empty collection indicates invalid input
+export function process<T>(array: T[]): T[] {
+  if (array.length === 0) {
+    throw new RangeError("Array must not be empty"); // Invalid: function requires at least one element
+  }
+  // ...
+}
+
+// ❌ Bad: Inconsistent return type
+export function process<T>(array: T[]): T[] | undefined {
+  return array.length > 0 ? array.map(...) : undefined; // Should return [] if empty is valid, or throw if invalid
+}
+```
