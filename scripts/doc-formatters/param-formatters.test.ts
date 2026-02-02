@@ -1263,3 +1263,451 @@ Function to determine if error should trigger retry. Return \`false\` to abort.
         expect(result).not.toContain("**attempts**");
     });
 });
+
+describe("reformatParameters - Readonly properties (const object properties)", () => {
+    it("should format readonly property with string literal type and default value", () => {
+        const input = `### string
+
+> \`readonly\` **string**: \`"Expected string"\` = \`"Expected string"\`
+
+Error message for string validation.
+
+`;
+        const result = reformatParameters(input);
+        expect(result).toContain('### string: <code>"Expected string"</code>');
+        expect(result).toContain("Error message for string validation.");
+        expect(result).not.toContain("> `readonly`");
+        expect(result).not.toContain("**string**");
+        expect(result).not.toContain('= `"Expected string"`');
+    });
+
+    it("should format readonly method with function type", () => {
+        const input = `### minLength()
+
+> \`readonly\` **minLength**: (\`min\`) => \`string\`
+
+Function to generate min length error message.
+
+`;
+        const result = reformatParameters(input);
+        expect(result).toContain("### minLength(): <code>(min) =&gt; string</code>");
+        expect(result).toContain("Function to generate min length error message.");
+        expect(result).not.toContain("> `readonly`");
+        expect(result).not.toContain("**minLength**");
+    });
+
+    it("should format readonly property without default value", () => {
+        const input = `### number
+
+> \`readonly\` **number**: \`"Expected number"\`
+
+Error message for number validation.
+
+`;
+        const result = reformatParameters(input);
+        expect(result).toContain('### number: <code>"Expected number"</code>');
+        expect(result).toContain("Error message for number validation.");
+        expect(result).not.toContain("> `readonly`");
+    });
+
+    it("should format multiple readonly properties correctly", () => {
+        const input = `### string
+
+> \`readonly\` **string**: \`"Expected string"\` = \`"Expected string"\`
+
+### number
+
+> \`readonly\` **number**: \`"Expected number"\` = \`"Expected number"\`
+
+### minLength()
+
+> \`readonly\` **minLength**: (\`min\`) => \`string\`
+
+### maxLength()
+
+> \`readonly\` **maxLength**: (\`max\`) => \`string\`
+
+`;
+        const result = reformatParameters(input);
+        expect(result).toContain('### string: <code>"Expected string"</code>');
+        expect(result).toContain('### number: <code>"Expected number"</code>');
+        expect(result).toContain("### minLength(): <code>(min) =&gt; string</code>");
+        expect(result).toContain("### maxLength(): <code>(max) =&gt; string</code>");
+        expect(result).not.toContain("> `readonly`");
+        expect(result).not.toContain("**string**");
+        expect(result).not.toContain("**minLength**");
+    });
+
+    it("should format ERROR_MESSAGES_COMPOSITION properties (real-world example)", () => {
+        const input = `## Type Declaration
+
+### string
+
+> \`readonly\` **string**: \`"Expected string"\` = \`"Expected string"\`
+
+### number
+
+> \`readonly\` **number**: \`"Expected number"\` = \`"Expected number"\`
+
+### boolean
+
+> \`readonly\` **boolean**: \`"Expected boolean"\` = \`"Expected boolean"\`
+
+### minLength()
+
+> \`readonly\` **minLength**: (\`min\`) => \`string\`
+
+#### Parameters
+
+##### min
+
+\`number\`
+
+#### Returns
+
+\`string\`
+
+### maxLength()
+
+> \`readonly\` **maxLength**: (\`max\`) => \`string\`
+
+`;
+        const result = reformatParameters(input);
+        expect(result).toContain('### string: <code>"Expected string"</code>');
+        expect(result).toContain('### number: <code>"Expected number"</code>');
+        expect(result).toContain('### boolean: <code>"Expected boolean"</code>');
+        expect(result).toContain("### minLength(): <code>(min) =&gt; string</code>");
+        expect(result).toContain("### maxLength(): <code>(max) =&gt; string</code>");
+        expect(result).not.toContain("> `readonly`");
+        expect(result).not.toContain('= `"Expected string"`');
+    });
+
+    it("should escape special characters in readonly property types", () => {
+        const input = `### genericProp
+
+> \`readonly\` **genericProp**: \`Record<string, unknown>\`
+
+Property with generic type.
+
+`;
+        const result = reformatParameters(input);
+        expect(result).toContain("### genericProp: <code>Record&lt;string, unknown&gt;</code>");
+        expect(result).not.toContain("<string, unknown>");
+    });
+});
+
+describe("reformatParameters - Nested method sections in readonly properties", () => {
+    it("should reformat nested Parameters and Returns sections compactly", () => {
+        const input = `### minLength()
+
+> \`readonly\` **minLength**: (\`min\`) => \`string\`
+
+#### Parameters
+
+##### min
+
+\`number\`
+
+#### Returns
+
+\`string\`
+
+`;
+        const result = reformatParameters(input);
+        expect(result).toContain("> **min**: `number`");
+        expect(result).toContain("> **Returns**: `string`");
+        expect(result).not.toContain("#### Parameters");
+        expect(result).not.toContain("#### Returns");
+        expect(result).not.toContain("##### min");
+    });
+
+    it("should handle multiple parameters in nested sections", () => {
+        const input = `### literal()
+
+> \`readonly\` **literal**: (\`expected\`, \`actualType\`) => \`string\`
+
+#### Parameters
+
+##### expected
+
+\`unknown\`
+
+##### actualType
+
+\`string\`
+
+#### Returns
+
+\`string\`
+
+`;
+        const result = reformatParameters(input);
+        expect(result).toContain("> **expected**: `unknown`");
+        expect(result).toContain("> **actualType**: `string`");
+        expect(result).toContain("> **Returns**: `string`");
+        expect(result).not.toContain("#### Parameters");
+        expect(result).not.toContain("##### expected");
+    });
+
+    it("should handle methods without parameters", () => {
+        const input = `### coerceNumber
+
+> \`readonly\` **coerceNumber**: \`"Cannot coerce to number"\` = \`"Cannot coerce to number"\`
+
+`;
+        const result = reformatParameters(input);
+        // Should not add Parameters/Returns sections for non-function properties
+        expect(result).not.toContain("> **");
+        expect(result).not.toContain("**Returns**:");
+    });
+
+    it("should format ERROR_MESSAGES_COMPOSITION methods (real-world example)", () => {
+        const input = `### minLength()
+
+> \`readonly\` **minLength**: (\`min\`) => \`string\`
+
+#### Parameters
+
+##### min
+
+\`number\`
+
+#### Returns
+
+\`string\`
+
+### maxLength()
+
+> \`readonly\` **maxLength**: (\`max\`) => \`string\`
+
+#### Parameters
+
+##### max
+
+\`number\`
+
+#### Returns
+
+\`string\`
+
+### pattern()
+
+> \`readonly\` **pattern**: (\`regex\`) => \`string\`
+
+#### Parameters
+
+##### regex
+
+\`RegExp\`
+
+#### Returns
+
+\`string\`
+
+`;
+        const result = reformatParameters(input);
+        expect(result).toContain("> **min**: `number`");
+        expect(result).toContain("> **max**: `number`");
+        expect(result).toContain("> **regex**: `RegExp`");
+        expect(result).toContain("> **Returns**: `string`");
+        expect(result).not.toContain("#### Parameters");
+        expect(result).not.toContain("#### Returns");
+    });
+
+    it("should handle parameters with readonly prefix outside backticks", () => {
+        const input = `### enum()
+
+> \`readonly\` **enum**: (\`values\`, \`actualType\`) => \`string\`
+
+#### Parameters
+
+##### values
+
+readonly \`unknown\`[]
+
+##### actualType
+
+\`string\`
+
+#### Returns
+
+\`string\`
+
+`;
+        const result = reformatParameters(input);
+        expect(result).toContain("> **values**: `readonly unknown[]`");
+        expect(result).toContain("> **actualType**: `string`");
+        expect(result).toContain("> **Returns**: `string`");
+        expect(result).not.toContain("#### Parameters");
+        expect(result).not.toContain("##### values");
+    });
+});
+
+describe("reformatParameters - general parameter sections", () => {
+  it("should format regular function parameters with Returns", () => {
+    const input = `### function()
+
+#### Parameters
+
+##### schema
+
+\`Schema<T>\`
+
+Schema to validate against.
+
+##### input
+
+\`unknown\`
+
+Value to validate.
+
+#### Returns
+
+\`Result\`
+
+Some description`;
+
+    const expected = `### function()
+
+> **schema**: \`Schema<T>\` - Schema to validate against.<br />
+> **input**: \`unknown\` - Value to validate.<br />
+> **Returns**: \`Result\`
+
+Some description`;
+
+    const result = reformatParameters(input);
+    expect(result).toBe(expected);
+  });
+
+  it("should format parameters without descriptions", () => {
+    const input = `### function()
+
+#### Parameters
+
+##### schema
+
+\`Schema<T>\`
+
+##### input
+
+\`unknown\`
+
+#### Returns
+
+\`Result\``;
+
+    const expected = `### function()
+
+> **schema**: \`Schema<T>\`<br />
+> **input**: \`unknown\`<br />
+> **Returns**: \`Result\``;
+
+    const result = reformatParameters(input);
+    expect(result).toBe(expected);
+  });
+
+  it("should format parameters without Returns section", () => {
+    const input = `### function()
+
+#### Parameters
+
+##### schema
+
+\`Schema<T>\`
+
+Schema to validate.
+
+##### input
+
+\`unknown\`
+
+### Next Section`;
+
+    const expected = `### function()
+
+> **schema**: \`Schema<T>\` - Schema to validate.<br />
+> **input**: \`unknown\`
+
+### Next Section`;
+
+    const result = reformatParameters(input);
+    expect(result).toBe(expected);
+  });
+
+  it("should handle multi-line descriptions", () => {
+    const input = `### function()
+
+#### Parameters
+
+##### schema
+
+\`Schema<T>\`
+
+Schema to validate against.
+This is a longer description.
+
+##### input
+
+\`unknown\`
+
+Value to validate.
+
+#### Returns
+
+\`Result\``;
+
+    const expected = `### function()
+
+> **schema**: \`Schema<T>\` - Schema to validate against.
+This is a longer description.<br />
+> **input**: \`unknown\` - Value to validate.<br />
+> **Returns**: \`Result\``;
+
+    const result = reformatParameters(input);
+    expect(result).toBe(expected);
+  });
+
+  it("should handle optional parameters with ?", () => {
+    const input = `### function()
+
+#### Parameters
+
+##### message?
+
+\`string\`
+
+Custom error message.
+
+#### Returns
+
+\`Schema\``;
+
+    const expected = `### function()
+
+> **message?**: \`string\` - Custom error message.<br />
+> **Returns**: \`Schema\``;
+
+    const result = reformatParameters(input);
+    expect(result).toBe(expected);
+  });
+
+  it("should handle complex types without backticks", () => {
+    const input = `### function()
+
+#### Parameters
+
+##### schema
+
+[ObjectSchema](../types/ObjectSchema.md)<T> | [ObjectConstraint](../types/ObjectConstraint.md)<T>
+
+Object schema to make partial.
+
+#### Returns
+
+[PartialSchema](../types/PartialSchema.md)<[ObjectSchema](../types/ObjectSchema.md)<T>>`;
+
+    const result = reformatParameters(input);
+    expect(result).toContain("> **schema**: `[ObjectSchema](../types/ObjectSchema.md)<T> | [ObjectConstraint](../types/ObjectConstraint.md)<T>` - Object schema to make partial.<br />");
+    expect(result).toContain("> **Returns**: `[PartialSchema](../types/PartialSchema.md)<[ObjectSchema](../types/ObjectSchema.md)<T>>`");
+  });
+});

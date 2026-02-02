@@ -91,10 +91,10 @@ export function looksLikeType(line: string): boolean {
 
     const withoutBackticks = trimmed.replace(/`/g, "").trim();
     return (
-        /^\(|^`|\[.*\]\(.*\)|\[|\]|\||=>|keyof|\.\.\.|\<|\>|extends\b|unknown\b|never\b|any\b|void\b|boolean\b|string\b|number\b|object\b|Promise\b|Result\b|Either\b/.test(
+        /^\(|^`|\[.*\]\(.*\)|\[|\]|\||=>|keyof|\.\.\.|\<|\>|extends\b|unknown\b|never\b|any\b|void\b|boolean\b|string\b|number\b|object\b|readonly\b|Promise\b|Result\b|Either\b/.test(
             trimmed
         ) ||
-        /^\(|\[.*\]\(.*\)|\[|\]|\||=>|keyof|\.\.\.|\<|\>|extends\b|unknown\b|never\b|any\b|void\b|boolean\b|string\b|number\b|object\b|Promise\b|Result\b|Either\b/.test(
+        /^\(|\[.*\]\(.*\)|\[|\]|\||=>|keyof|\.\.\.|\<|\>|extends\b|unknown\b|never\b|any\b|void\b|boolean\b|string\b|number\b|object\b|readonly\b|Promise\b|Result\b|Either\b/.test(
             withoutBackticks
         )
     );

@@ -154,6 +154,10 @@ function mergeOptions(collectedItems: Map<string, CollectedDocItem>) {
                 // Read content
                 const auxContent = fs.readFileSync(aux.filePath, "utf-8");
                 let cleanAux = cleanMarkdown(removeThrowsAndSeeSections(auxContent));
+                
+                // Reformat parameters BEFORE merging
+                cleanAux = reformatParameters(cleanAux);
+                
                 const auxName = path.basename(aux.filePath, ".md");
 
                 // Determine badge label

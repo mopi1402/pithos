@@ -1,15 +1,17 @@
 /**
  * Regex pattern for matching parameter headings with type on the same line.
  * Matches: `### paramName\n\ntype\n\n` (type on single line, no description).
+ * Uses negative lookahead to not match if "type" is actually another heading.
  */
-export const PARAM_SIMPLE_TYPE_REGEX = /(###+\s+([^\n]+?))\n\n([^\n]+)\n\n/g;
+export const PARAM_SIMPLE_TYPE_REGEX = /(###+\s+([^\n]+?))\n\n((?!##)[^\n]+)\n\n/g;
 
 /**
  * Regex pattern for matching parameter sections with description.
  * Matches: `### paramName?\n\n(description)\n\n(type)\n\n`.
+ * Uses negative lookahead to not match if first block is another heading.
  */
 export const PARAM_WITH_DESCRIPTION_REGEX =
-    /(###+\s+([^\n]+?))\n\n([^\n]*(?:\n[^\n]+)*?)\n\n([^\n]+)\n\n/g;
+    /(###+\s+([^\n]+?))\n\n((?!##)[^\n]*(?:\n[^\n]+)*?)\n\n([^\n]+)\n\n/g;
 
 /**
  * Regex pattern for matching simple parameter with backticked type.
@@ -28,6 +30,17 @@ export const PARAM_BACKTICK_TYPE_REGEX =
  */
 export const INTERFACE_PROPERTY_REGEX =
     /(###+\s+(\w+)(?:\(\))?\??)\n\n>\s*(?:`optional`\s*)?\*\*\w+\*\*:\s*([^\n]+)\n\n/g;
+
+/**
+ * Regex pattern for matching readonly property with default value.
+ * Matches TypeDoc format for const object properties:
+ * - `### propName\n\n> \`readonly\` **propName**: \`type\` = \`defaultValue\`\n\n`
+ * - `### propName()\n\n> \`readonly\` **propName**: (params) => type\n\n`
+ * Captures: (1) heading, (2) propName, (3) type after colon (everything before optional = defaultValue)
+ * Note: Uses negative lookahead to avoid matching => as assignment
+ */
+export const READONLY_PROPERTY_REGEX =
+    /(###+\s+(\w+)(?:\(\))?)\n\n>\s*`readonly`\s*\*\*\w+\*\*:\s*((?:[^=\n]|=>)+?)(?:\s*=\s+`[^`]+`)?\n\n/g;
 
 /**
  * Regex pattern for matching Returns section with type before description.

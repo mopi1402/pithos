@@ -3,12 +3,75 @@ import {
     PARAM_WITH_DESCRIPTION_REGEX,
     PARAM_BACKTICK_TYPE_REGEX,
     INTERFACE_PROPERTY_REGEX,
+    READONLY_PROPERTY_REGEX,
     RETURNS_TYPE_FIRST_REGEX,
     RETURNS_DESCRIPTION_FIRST_REGEX,
     RETURNS_NESTED_SUBSECTIONS_REGEX,
     RETURNS_SIMPLE_TYPE_REGEX,
 } from "./regex-patterns.js";
 import { wrapFullType, looksLikeType, isSectionHeader } from "./type-utils.js";
+
+/**
+ * Reformats nested Parameters and Returns sections within method properties.
+ * Must be called BEFORE other parameter reformatting.
+ * Converts:
+ *   ### method(): type
+ *   #### Parameters
+ *   ##### param
+ *   `type`
+ *   description (optional)
+ *   #### Returns
+ *   `type`
+ *   description (optional)
+ * To:
+ *   ### method(): type
+ *   > **param**: `type` - description<br />
+ *   > **Returns**: `type`
+ *   description
+ */
+function reformatNestedMethodSections(content: string): string {
+    // Match: #### Parameters section, capture everything until #### Returns
+    // Use [\s\S]*? to capture multi-line content including descriptions
+    const regex = /(####\s+Parameters\n\n)([\s\S]*?)(####\s+Returns\n\n)([^\n]+)(?:\n\n([^\n#][^\n]*))?/g;
+
+    content = content.replace(regex, (match, _paramsHeader, paramsContent, _returnsHeader, returnType, returnDesc) => {
+        // Split by ##### to get individual parameter blocks
+        const paramBlocks = paramsContent.split(/(?=##### )/);
+        let formattedLines: string[] = [];
+
+        for (const block of paramBlocks) {
+            if (!block.trim()) continue;
+
+            // Match: ##### paramName\n\ntype\n\n[optional description]
+            const paramMatch = block.match(/^##### (\w+\??)\n\n([^\n]+)(?:\n\n([\s\S]*))?$/);
+            if (paramMatch) {
+                const [, paramName, rawType, description] = paramMatch;
+                // Use wrapFullType to handle links properly
+                const wrappedType = wrapFullType(rawType.trim());
+
+                if (description && description.trim()) {
+                    formattedLines.push(`> **${paramName}**: ${wrappedType} — ${description.trim()}<br />`);
+                } else {
+                    formattedLines.push(`> **${paramName}**: ${wrappedType}<br />`);
+                }
+            }
+        }
+
+        // Add return type using wrapFullType to preserve links
+        // Include return description on the same line if present
+        const wrappedReturnType = wrapFullType(returnType.trim());
+        if (returnDesc && returnDesc.trim()) {
+            formattedLines.push(`> **Returns**: ${wrappedReturnType} — ${returnDesc.trim()}`);
+        } else {
+            formattedLines.push(`> **Returns**: ${wrappedReturnType}`);
+        }
+
+        // Join with single newline to keep them in the same blockquote
+        return formattedLines.join('\n') + '\n\n';
+    });
+
+    return content;
+}
 
 /**
  * Reformats parameters and return types to have types on the same line as names.
@@ -21,15 +84,71 @@ import { wrapFullType, looksLikeType, isSectionHeader } from "./type-utils.js";
  * @returns The reformatted markdown content.
  */
 export function reformatParameters(content: string): string {
+    // IMPORTANT: Reformat nested method sections FIRST, before other transformations
+    content = reformatNestedMethodSections(content);
     // Handle interface property with blockquote type (TypeDoc format) - MUST BE FIRST
     // Format: ### propName?\n\n> `optional` **propName**: `type`\n\n
+    // Transform to: ### propName?: <code>type</code>\n\n
     content = content.replace(
         INTERFACE_PROPERTY_REGEX,
         (match, heading, paramName, typePart) => {
             if (heading.includes(":")) return match;
             if (isSectionHeader(paramName)) return match;
-            const typeWithoutBackticks = typePart.trim().replace(/`/g, "").trim();
-            return `${heading}: ${wrapFullType(typeWithoutBackticks)}\n\n`;
+            
+            // Extract optional marker (?) from heading
+            const isOptional = heading.includes("?");
+            const cleanHeading = heading.replace(/\?/, "");
+            
+            // Clean the type and wrap in <code> for consistent formatting with function parameters
+            let cleanType = typePart.trim().replace(/`/g, "").trim();
+            
+            // Unescape TypeDoc's markdown escapes before converting to HTML entities
+            cleanType = cleanType
+                .replace(/\\</g, "<")
+                .replace(/\\>/g, ">")
+                .replace(/\\{/g, "{")
+                .replace(/\\}/g, "}");
+            
+            // Escape special characters for MDX
+            cleanType = cleanType
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/{/g, "&#123;")
+                .replace(/}/g, "&#125;");
+            
+            const optionalMarker = isOptional ? "?" : "";
+            
+            return `${cleanHeading}${optionalMarker}: <code>${cleanType}</code>\n\n`;
+        }
+    );
+
+    // Handle readonly property with default value (const object properties)
+    // Format: ### propName\n\n> `readonly` **propName**: `type` = `defaultValue`\n\n
+    // Transform to: ### propName: <code>type</code>\n\n
+    content = content.replace(
+        READONLY_PROPERTY_REGEX,
+        (match, heading, paramName, typePart) => {
+            if (heading.includes(":")) return match;
+            if (isSectionHeader(paramName)) return match;
+            
+            // Clean the type and wrap in <code>
+            let cleanType = typePart.trim().replace(/`/g, "").trim();
+            
+            // Unescape TypeDoc's markdown escapes before converting to HTML entities
+            cleanType = cleanType
+                .replace(/\\</g, "<")
+                .replace(/\\>/g, ">")
+                .replace(/\\{/g, "{")
+                .replace(/\\}/g, "}");
+            
+            // Escape special characters for MDX
+            cleanType = cleanType
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/{/g, "&#123;")
+                .replace(/}/g, "&#125;");
+            
+            return `${heading}: <code>${cleanType}</code>\n\n`;
         }
     );
 
@@ -39,6 +158,8 @@ export function reformatParameters(content: string): string {
         (match, heading, paramName, typeLine) => {
             if (heading.includes(":")) return match;
             if (isSectionHeader(paramName)) return match;
+            // Don't match if typeLine is actually another heading
+            if (typeLine.trim().startsWith("#")) return match;
             if (looksLikeType(typeLine)) {
                 const typeWithoutBackticks = typeLine.replace(/`/g, "").trim();
                 return `${heading}: ${wrapFullType(typeWithoutBackticks)}\n\n`;
