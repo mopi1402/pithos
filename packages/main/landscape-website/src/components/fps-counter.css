@@ -1,0 +1,47 @@
+.fps-counter {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(10, 10, 15, 0.8);
+  border: 1px solid rgba(201, 169, 98, 0.3);
+  border-radius: 8px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+  font-size: 14px;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.fps-label {
+  color: rgba(201, 169, 98, 0.7);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.fps-value {
+  font-weight: 600;
+  min-width: 40px;
+  text-align: right;
+  transition: color 0.3s ease;
+}
+
+.fps-value.fps-excellent {
+  color: #10b981;
+}
+
+.fps-value.fps-good {
+  color: #c9a962;
+}
+
+.fps-value.fps-warning {
+  color: #f59e0b;
+}
+
+.fps-value.fps-poor {
+  color: #ef4444;
+}
+
