@@ -1,0 +1,22 @@
+{
+  "name": "pithos-bundle-analyzer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "preview": "vite preview --open",
+    "analyze": "vite build"
+  },
+  "dependencies": {
+    "pithos": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@preact/preset-vite": "^2.10.2",
+    "preact": "^10.24.3",
+    "typescript": "^5.9.2",
+    "vite": "^5.4.0"
+  }
+}
+
