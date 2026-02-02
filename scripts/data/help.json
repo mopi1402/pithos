@@ -1,0 +1,361 @@
+{
+  "commands": {
+    "build": {
+      "description": "Compile the TypeScript project",
+      "category": "Build",
+      "flags": [
+        { "type": "checkbox", "name": "watch", "script": "dev", "description": "Watch mode" }
+      ]
+    },
+    "dev": {
+      "description": "Start development mode (alias for build:watch)",
+      "category": "Build"
+    },
+    "clean": {
+      "description": "Remove the dist folder",
+      "category": "Build"
+    },
+    "test": {
+      "description": "Run all tests",
+      "category": "Test",
+      "order": 1,
+      "flags": [
+        { "type": "checkbox", "name": "watch", "script": "test:watch", "description": "Watch mode" }
+      ]
+    },
+    "test:module": {
+      "description": "Run tests for module",
+      "category": "Test",
+      "order": 2,
+      "baseScript": "test",
+      "flags": [
+        {
+          "type": "radio",
+          "name": "module",
+          "description": "Module",
+          "defaultValue": "arkhe",
+          "options": [
+            { "label": "arkhe", "value": "arkhe", "suffix": ":arkhe" },
+            { "label": "kanon", "value": "kanon", "suffix": ":kanon" },
+            { "label": "sphalma", "value": "sphalma", "suffix": ":sphalma" },
+            { "label": "taphos", "value": "taphos", "suffix": ":taphos" },
+            { "label": "zygos", "value": "zygos", "suffix": ":zygos" }
+          ]
+        }
+      ]
+    },
+    "test:mutation:check": {
+      "description": "Check mutation test coverage",
+      "category": "Mutation",
+      "order": 1
+    },
+    "test:mutation:file": {
+      "description": "Run mutation tests on a single file",
+      "category": "Mutation",
+      "order": 2,
+      "flags": [
+        {
+          "type": "text",
+          "name": "file",
+          "description": "File path (relative to src/)",
+          "placeholder": "e.g. arkhe/array/chunk.ts"
+        }
+      ]
+    },
+    "test:mutation": {
+      "description": "Run mutation tests",
+      "category": "Mutation",
+      "order": 3,
+      "flags": [
+        {
+          "type": "radio",
+          "name": "module",
+          "description": "Module to test",
+          "options": [
+            { "label": "all", "value": "" },
+            { "label": "arkhe", "value": "arkhe", "script": "test:mutation:arkhe" },
+            { "label": "kanon", "value": "kanon", "script": "test:mutation:kanon" },
+            { "label": "sphalma", "value": "sphalma", "script": "test:mutation:sphalma" },
+            { "label": "taphos", "value": "taphos", "script": "test:mutation:taphos" },
+            { "label": "zygos", "value": "zygos", "script": "test:mutation:zygos" }
+          ]
+        }
+      ]
+    },
+    "coverage": {
+      "description": "Generate coverage report for all modules",
+      "category": "Coverage",
+      "order": 1
+    },
+    "coverage:module": {
+      "description": "Generate coverage report for module",
+      "category": "Coverage",
+      "order": 2,
+      "baseScript": "coverage",
+      "flags": [
+        {
+          "type": "radio",
+          "name": "module",
+          "description": "Module",
+          "defaultValue": "arkhe",
+          "options": [
+            { "label": "arkhe", "value": "arkhe", "suffix": ":arkhe" },
+            { "label": "kanon", "value": "kanon", "suffix": ":kanon" },
+            { "label": "sphalma", "value": "sphalma", "suffix": ":sphalma" },
+            { "label": "taphos", "value": "taphos", "suffix": ":taphos" },
+            { "label": "zygos", "value": "zygos", "suffix": ":zygos" }
+          ]
+        }
+      ]
+    },
+    "lint": {
+      "description": "Check code with ESLint",
+      "category": "Lint",
+      "order": 1,
+      "flags": [
+        {
+          "type": "radio",
+          "name": "module",
+          "description": "Module to lint",
+          "options": [
+            { "label": "all", "value": "" },
+            { "label": "arkhe", "value": "arkhe", "suffix": ":arkhe" },
+            { "label": "kanon", "value": "kanon", "suffix": ":kanon" },
+            { "label": "sphalma", "value": "sphalma", "suffix": ":sphalma" },
+            { "label": "taphos", "value": "taphos", "suffix": ":taphos" },
+            { "label": "zygos", "value": "zygos", "suffix": ":zygos" }
+          ]
+        },
+        {
+          "type": "radio",
+          "name": "fix",
+          "description": "Auto-fix",
+          "options": [
+            { "label": "check only", "value": "" },
+            { "label": "with fix", "value": "fix", "suffix": ":fix" }
+          ]
+        }
+      ]
+    },
+    "check:types": {
+      "description": "Check TypeScript types",
+      "category": "Check",
+      "order": 2
+    },
+    "check:tsdoc": {
+      "description": "Check TSDoc documentation",
+      "category": "Check",
+      "order": 3
+    },
+    "check:multiple-jsdoc": {
+      "description": "Check for functions with multiple JSDoc (overload issue)",
+      "category": "Check",
+      "order": 3.5
+    },
+    "check:stryker-comments": {
+      "description": "Check Stryker disable comments format",
+      "category": "Check",
+      "order": 5
+    },
+    "check:dependencies": {
+      "description": "Check project dependencies",
+      "category": "Check",
+      "order": 6
+    },
+    "check:test-imports": {
+      "description": "Check imports in tests",
+      "category": "Check",
+      "order": 4
+    },
+    "check:all": {
+      "description": "Run all checks (lint → types → tsdoc → imports → stryker)",
+      "category": "Check",
+      "order": 7
+    },
+    "check:knip": {
+      "description": "Detect unused code and dependencies",
+      "category": "Check",
+      "order": 100,
+      "separator": "────────── optional ──────────"
+    },
+    "check:jscpd": {
+      "description": "Detect code duplication",
+      "category": "Check",
+      "order": 101
+    },
+    "doc:check": {
+      "description": "Check documentation coverage",
+      "category": "Documentation",
+      "order": 1
+    },
+    "check:doc-pages": {
+      "description": "Check that all functions have documentation pages",
+      "category": "Documentation",
+      "order": 2
+    },
+    "doc:copy:changelog": {
+      "description": "Copy CHANGELOG.md to documentation",
+      "category": "Documentation",
+      "order": 3
+    },
+    "doc:generate": {
+      "description": "Generate full documentation",
+      "category": "Documentation",
+      "order": 10
+    },
+    "doc:generate:api": {
+      "description": "Generate API documentation with TypeDoc",
+      "category": "Documentation",
+      "order": 11
+    },
+    "doc:merge": {
+      "description": "Merge documentation files",
+      "category": "Documentation",
+      "order": 12
+    },
+    "doc:build": {
+      "description": "Build documentation website",
+      "category": "Documentation",
+      "order": 20
+    },
+    "doc:generate:kanon:benchmarks-results": {
+      "description": "Generate Kanon benchmark results JSON for website",
+      "category": "Documentation"
+    },
+    "doc:generate:arkhe:benchmarks-results": {
+      "description": "Generate Arkhe benchmark results JSON for website",
+      "category": "Documentation"
+    },
+    "doc:generate:taphos:benchmarks-results": {
+      "description": "Generate Taphos benchmark results JSON for website",
+      "category": "Documentation"
+    },
+    "generate:exports": {
+      "description": "Generate export files",
+      "category": "Generate"
+    },
+    "generate:autocompletion": {
+      "description": "Generate autocompletion files",
+      "category": "Generate"
+    },
+    "analyze:bundle": {
+      "description": "Analyze bundle size",
+      "category": "Analyze"
+    },
+    "prepublishOnly": {
+      "description": "Script executed before npm publish",
+      "category": "Publish"
+    },
+    "benchmark:kanon": {
+      "description": "Run benchmarks for kanon module",
+      "category": "Benchmark",
+      "flags": [
+        {
+          "type": "radio",
+          "name": "suite",
+          "description": "Benchmark suite",
+          "defaultValue": "realworld",
+          "options": [
+            { "label": "🎯 Real-world only", "value": "realworld", "args": ["realworld"] },
+            { "label": "Full comparison", "value": "full" }
+          ]
+        },
+        {
+          "type": "radio",
+          "name": "libs",
+          "description": "Libraries to compare",
+          "options": [
+            { "label": "default (Kanon vs Zod)", "value": "" },
+            { "label": "Kanon versions", "value": "kanon", "args": ["jit,v3,v2,v1"] },
+            { "label": "⚡ all libs", "value": "all", "args": ["all"] },
+            { "label": "custom:", "value": "custom" }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "custom",
+          "description": "Custom libs list",
+          "placeholder": "e.g. kanon,zod,valibot",
+          "prefix": ""
+        },
+        {
+          "type": "checkbox",
+          "name": "report",
+          "description": "Generate JSON report for website",
+          "args": ["--report"]
+        }
+      ]
+    },
+    "benchmark:arkhe": {
+      "description": "Run benchmarks for arkhe module (vs es-toolkit, lodash-es)",
+      "category": "Benchmark",
+      "flags": [
+        {
+          "type": "checkbox",
+          "name": "report",
+          "description": "Generate JSON report for website",
+          "script": "doc:generate:arkhe:benchmarks-results"
+        }
+      ]
+    },
+    "benchmark:taphos": {
+      "description": "Run benchmarks for taphos module (vs es-toolkit, lodash-es)",
+      "category": "Benchmark",
+      "flags": [
+        {
+          "type": "checkbox",
+          "name": "report",
+          "description": "Generate JSON report for website",
+          "script": "doc:generate:taphos:benchmarks-results"
+        }
+      ]
+    }
+  },
+  "categories": {
+    "Analyze": {
+      "description": "Analyze bundle size and dependencies",
+      "group": "Benchmarking"
+    },
+    "Benchmark": {
+      "description": "Run performance benchmarks",
+      "group": "Benchmarking"
+    },
+    "Build": {
+      "description": "Compile TypeScript and build the project",
+      "group": "Build Pipeline"
+    },
+    "Check": {
+      "description": "Run type checks, linting and validation",
+      "group": "Build Pipeline"
+    },
+    "Coverage": {
+      "description": "Generate test coverage reports",
+      "group": "Quality & Tests"
+    },
+    "Documentation": {
+      "description": "Generate and build documentation",
+      "group": "Documentation"
+    },
+    "Generate": {
+      "description": "Generate exports and autocompletion files",
+      "group": "Build Pipeline"
+    },
+    "Lint": {
+      "description": "Check and fix code style with ESLint",
+      "group": "Quality & Tests"
+    },
+    "Mutation": {
+      "description": "Run mutation testing with Stryker",
+      "group": "Quality & Tests"
+    },
+    "Publish": {
+      "description": "Prepare and publish to npm",
+      "group": "Build Pipeline"
+    },
+    "Test": {
+      "description": "Run unit tests with Vitest",
+      "group": "Quality & Tests"
+    }
+  },
+  "groups": ["Build Pipeline", "Quality & Tests", "Benchmarking", "Documentation"]
+}

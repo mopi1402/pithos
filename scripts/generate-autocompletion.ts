@@ -1,6 +1,12 @@
 import { Project, Node, SourceFile } from "ts-morph";
-import * as path from "path";
-import * as fs from "fs";
+import * as path from "node:path";
+import * as fs from "node:fs";
+import {
+  getPackageName,
+  getFilename,
+  getSrcDir,
+  getDistDir
+} from "./common/index.js";
 
 interface ExportInfo {
   name: string;
@@ -21,36 +27,20 @@ class AutocompletionGenerator {
   private distDir: string;
   private packageName: string;
 
-  constructor(srcDir = "./src", distDir = "./dist") {
+  constructor(srcDir: string, distDir: string) {
     this.srcDir = path.resolve(srcDir);
     this.distDir = path.resolve(distDir);
     this.structure = {
       exports: [],
       subfolders: new Map(),
     };
-    this.packageName = this.getPackageName();
+    this.packageName = getPackageName();
 
     // Initialize ts-morph project
     this.project = new Project({
       tsConfigFilePath: path.join(process.cwd(), "tsconfig.json"),
       skipAddingFilesFromTsConfig: true,
     });
-  }
-
-  /**
-   * Reads package name from package.json
-   */
-  private getPackageName(): string {
-    try {
-      const packageJsonPath = path.join(process.cwd(), "package.json");
-      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
-      return packageJson.name || "your-package";
-    } catch (error) {
-      console.warn(
-        "⚠️  Could not read package.json, using 'your-package' as fallback"
-      );
-      return "your-package";
-    }
   }
 
   /**
@@ -63,6 +53,7 @@ class AutocompletionGenerator {
     this.project.addSourceFilesAtPaths([
       `${this.srcDir}/**/*.ts`,
       `!${this.srcDir}/**/*.d.ts`,
+      `!${this.srcDir}/_internal/**/*`,
     ]);
 
     // Analyze each file and build the structure
@@ -129,7 +120,7 @@ class AutocompletionGenerator {
     }
 
     // Add exports to the hierarchical structure
-    if (exports.length > 0) {
+    if (exports.length) {
       this.addToStructure(relativePath, exports);
     }
   }
@@ -197,7 +188,7 @@ class AutocompletionGenerator {
  * ✅ import { distance } from '${this.packageName}/math/geometry';
  * 
  * Generated on: ${new Date().toISOString()}
- */
+ * */
 
 `;
 
@@ -386,55 +377,18 @@ class AutocompletionGenerator {
 
     return content;
   }
-
-  /**
-   * Generates flat exports for backward compatibility
-   */
-  private generateFlatExports(
-    structure: FileStructure,
-    basePath: string
-  ): string {
-    let content = "";
-
-    structure.subfolders.forEach((sub, name) => {
-      const currentPath = basePath ? `${basePath}/${name}` : name;
-
-      // If this node has exports, generate them
-      if (sub.exports.length > 0) {
-        sub.exports.forEach((exp) => {
-          const typeKeyword = exp.isType ? "type " : "";
-
-          content += `/** \n`;
-          content += ` * @deprecated ⚠️ For autocompletion only.\n`;
-          content += ` * Use direct import: \`import ${typeKeyword}{ ${exp.name} } from './${exp.filePath}'\`\n`;
-          content += ` */\n`;
-
-          if (exp.isDefault) {
-            // Add path suffix to avoid naming conflicts
-            const safeName = `${exp.name}_${currentPath.replace(
-              /[\/\-\.]/g,
-              "_"
-            )}`;
-            content += `export { default as ${safeName} } from './${exp.filePath}';\n`;
-          } else {
-            content += `export ${typeKeyword}{ ${exp.name} } from './${exp.filePath}';\n`;
-          }
-        });
-      }
-
-      // Recursively process subdirectories
-      if (sub.subfolders.size > 0) {
-        content += this.generateFlatExports(sub, currentPath);
-      }
-    });
-
-    return content;
-  }
 }
 
-// Execution script
-if (require.main === module) {
-  const generator = new AutocompletionGenerator();
+// Execution script (ESM-safe)
+const isMain = process.argv[1]
+  ? path.resolve(process.argv[1]) === getFilename(import.meta.url)
+  : false;
+
+if (isMain) {
+  const srcDir = getSrcDir(import.meta.url);
+  const distDir = getDistDir(import.meta.url);
+
+  const generator = new AutocompletionGenerator(srcDir, distDir);
   generator.generate().catch(console.error);
 }
 

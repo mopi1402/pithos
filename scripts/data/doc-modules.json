@@ -1,0 +1,29 @@
+{
+  "modules": [
+    {
+      "name": "arkhe",
+      "enabled": true,
+      "description": "Core utility functions"
+    },
+    {
+      "name": "kanon",
+      "enabled": true,
+      "description": "Schema validation library"
+    },
+    {
+      "name": "taphos",
+      "enabled": true,
+      "description": "Lodash-compatible utilities"
+    },
+    {
+      "name": "zygos",
+      "enabled": true,
+      "description": "Functional programming utilities"
+    },
+    {
+      "name": "sphalma",
+      "enabled": true,
+      "description": "Error handling utilities"
+    }
+  ]
+}

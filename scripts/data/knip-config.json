@@ -1,0 +1,30 @@
+{
+  "ignoreDependencies": [
+    "@sinclair/typebox",
+    "@typescript-eslint/eslint-plugin",
+    "@typescript-eslint/parser",
+    "ajv-formats",
+    "c8",
+    "esbuild",
+    "fast-check",
+    "fastest-validator",
+    "neverthrow",
+    "superstruct",
+    "ts-node",
+    "valibot",
+    "vite",
+    "zod",
+    "zod3"
+  ],
+  "ignoreWorkspaces": [
+    "packages/kanon/*",
+    "packages/main/*",
+    "packages/arkhe",
+    "packages/tmp"
+  ],
+  "ignore": [
+    "vendor/**",
+    ".stryker-tmp/**",
+    "scripts/**"
+  ]
+}

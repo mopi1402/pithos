@@ -56,4 +56,5 @@ tmp/
 # Auto-generated documentation files
 packages/main/documentation/_generated/
 packages/main/documentation/.intermediate/
+packages/main/website/docs/basics/changelog.md
 
