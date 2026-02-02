@@ -1,0 +1,22 @@
+{
+  "name": "@pithos/perf-benchmarks",
+  "version": "1.0.0",
+  "description": "Performance benchmarks for Kanon optimization decisions",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "benchmark": "npm run build && node dist/benchmarks.js",
+    "benchmark:type-guards": "npm run build && node dist/type-guards-vs-typeof.js",
+    "benchmark:messages": "npm run build && node dist/messages-arrow-functions-vs-strings.js",
+    "benchmark:as-any": "npm run build && node dist/as-any-vs-proper-types.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+

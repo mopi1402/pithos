@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Kanon - string only",
+    "rawBytes": 10902,
+    "gzipBytes": 2816,
+    "brotliBytes": 2446
+  },
+  {
+    "name": "Kanon - object simple",
+    "rawBytes": 12084,
+    "gzipBytes": 3203,
+    "brotliBytes": 2809
+  },
+  {
+    "name": "Kanon - comprehensive",
+    "rawBytes": 16101,
+    "gzipBytes": 4325,
+    "brotliBytes": 3815
+  }
+]
