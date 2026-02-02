@@ -1,0 +1,53 @@
+// Based on es-toolkit benchmark, adapted to include lodash-es and arkhe
+import { bench, describe } from 'vitest';
+import { intersection as intersectionToolkit_ } from 'es-toolkit';
+import { intersection as intersectionCompatToolkit_ } from 'es-toolkit/compat';
+import { intersection as intersectionLodashEs_ } from 'lodash-es';
+import { intersection as intersectionArkhe_ } from '../../pithos/src/arkhe/array/intersection';
+
+const intersectionToolkit = intersectionToolkit_;
+const intersectionCompatToolkit = intersectionCompatToolkit_;
+const intersectionLodashEs = intersectionLodashEs_;
+const intersectionArkhe = intersectionArkhe_;
+
+describe('intersection', () => {
+  const array1 = [1, 2, 3];
+  const array2 = [2, 4];
+
+  bench('es-toolkit/intersection', () => {
+    intersectionToolkit(array1, array2);
+  });
+
+  bench('es-toolkit/compat/intersection', () => {
+    intersectionCompatToolkit(array1, array2);
+  });
+
+  bench('lodash-es/intersection', () => {
+    intersectionLodashEs(array1, array2);
+  });
+
+  bench('arkhe/intersection', () => {
+    intersectionArkhe(array1, array2);
+  });
+});
+
+describe('intersection/largeArray', () => {
+  const array1 = Array.from({ length: 10000 }, () => Math.floor(Math.random() * 1000));
+  const array2 = Array.from({ length: 10000 }, () => Math.floor(Math.random() * 1000));
+
+  bench('es-toolkit/intersection', () => {
+    intersectionToolkit(array1, array2);
+  });
+
+  bench('es-toolkit/compat/intersection', () => {
+    intersectionCompatToolkit(array1, array2);
+  });
+
+  bench('lodash-es/intersection', () => {
+    intersectionLodashEs(array1, array2);
+  });
+
+  bench('arkhe/intersection', () => {
+    intersectionArkhe(array1, array2);
+  });
+});
