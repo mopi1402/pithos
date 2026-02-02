@@ -1,0 +1,122 @@
+{
+  "all": {
+    "lodash": null,
+    "ramda": null,
+    "radashi": { "name": "all", "group": "Async" },
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": { "name": "all", "group": "Effect" },
+    "es-toolkit": null,
+    "python": { "name": "gather", "group": "asyncio" },
+    "kotlin": { "name": "awaitAll", "group": "coroutines" }
+  },
+  "dedupeByKey": {
+    "lodash": null,
+    "ramda": null,
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": null,
+    "python": null,
+    "kotlin": null
+  },
+  "defer": {
+    "lodash": { "name": "defer", "group": "Function" },
+    "ramda": null,
+    "radashi": { "name": "defer", "group": "Async" },
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": { "name": "defer", "group": "function" },
+    "python": null,
+    "kotlin": null
+  },
+  "guard": {
+    "lodash": null,
+    "ramda": null,
+    "radashi": { "name": "guard", "group": "Async" },
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": null,
+    "python": null,
+    "kotlin": null
+  },
+  "parallel": {
+    "lodash": null,
+    "ramda": null,
+    "radashi": { "name": "parallel", "group": "Async" },
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": { "name": "forEach", "group": "Effect" },
+    "es-toolkit": null,
+    "python": { "name": "TaskGroup", "group": "asyncio" },
+    "kotlin": { "name": "async", "group": "coroutines" }
+  },
+  "queueByKey": {
+    "lodash": null,
+    "ramda": null,
+    "radashi": { "name": "queueByKey", "group": "Async" },
+    "remeda": null,
+    "moderndash": { "name": "Queue", "group": "Promise" },
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": null,
+    "python": null,
+    "kotlin": null
+  },
+  "retry": {
+    "lodash": null,
+    "ramda": null,
+    "radashi": { "name": "retry", "group": "Async" },
+    "remeda": null,
+    "moderndash": { "name": "retry", "group": "Promise" },
+    "antfu": null,
+    "effect": { "name": "retry", "group": "Schedule" },
+    "es-toolkit": null,
+    "python": { "name": "retry", "group": "tenacity" },
+    "kotlin": null
+  },
+  "timeout": {
+    "lodash": null,
+    "ramda": null,
+    "radashi": null,
+    "remeda": null,
+    "moderndash": { "name": "timeout", "group": "Promise" },
+    "antfu": null,
+    "effect": { "name": "timeout", "group": "Effect" },
+    "es-toolkit": { "name": "timeout", "group": "promise" },
+    "python": { "name": "wait_for", "group": "asyncio" },
+    "kotlin": { "name": "withTimeout", "group": "coroutines" }
+  },
+  "tryCatch": {
+    "lodash": null,
+    "ramda": { "name": "tryCatch", "group": "Function" },
+    "radashi": { "name": "tryit", "group": "Async" },
+    "remeda": null,
+    "moderndash": { "name": "tryCatch", "group": "Promise" },
+    "antfu": null,
+    "effect": { "name": "tryPromise", "group": "Effect" },
+    "es-toolkit": null,
+    "python": null,
+    "kotlin": { "name": "runCatching", "group": "kotlin" }
+  },
+  "createSingletonPromise": {
+    "lodash": null,
+    "ramda": null,
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": { "name": "createSingletonPromise", "group": "promise" },
+    "effect": null,
+    "es-toolkit": null,
+    "python": null,
+    "kotlin": null
+  }
+}

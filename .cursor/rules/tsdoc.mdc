@@ -1,0 +1,352 @@
+---
+globs: *.ts
+alwaysApply: true
+---
+
+# TSDoc Structure Rules
+
+## Overview
+
+All exported functions, classes, interfaces, type aliases, and enums must have complete TSDoc comments following a standardized structure. Custom tags `@note` and `@performance` are declared in `packages/pithos/tsdoc.json`.
+
+## Placement Rules
+
+**Critical**: Each TSDoc comment must be placed **directly before** the declaration it documents, with no other code declarations between them. TypeDoc associates comments with the **immediately following** declaration.
+
+**✅ Good**: Comment directly before function
+
+```typescript
+const helper = new Map();
+
+/**
+ * Queues functions by key to prevent duplicate executions.
+ * @template T - The return type of the function.
+ * @param key - Unique key for the operation.
+ * @returns Promise that resolves to the function result.
+ * @since 1.1.0
+ */
+export async function dedupeByKey<T>(
+  key: string,
+  fn: () => Promise<T>
+): Promise<T> {}
+```
+
+**❌ Bad**: Comment before helper variable
+
+```typescript
+/**
+ * Queues functions by key...
+ */
+const helper = new Map(); // ❌ Comment associated with this!
+export async function dedupeByKey<T>() {} // ❌ No documentation!
+```
+
+## Required Structure Order
+
+1. **Main Description** (1-2 sentences, required)
+2. **Detailed Description** (optional)
+3. **@template** tags (if applicable)
+4. **@param** tags (required, in function signature order)
+   - **@defaultValue** tag (optional, after corresponding @param)
+5. **@returns** tag (required for non-void, omit for void)
+6. **@throws** tag (if function can throw)
+7. **@deprecated** tag (if deprecated)
+8. **@see** tag (optional)
+9. **@since** tag (required, version number)
+10. **@note** tag (optional)
+11. **@performance** tag (optional)
+12. **@example** tag (optional)
+
+## Structure Template
+
+````typescript
+/**
+ * Main description in one or two sentences.
+ *
+ * Optional detailed description explaining behavior, edge cases, or implementation details.
+ *
+ * @template T - Description of the generic type parameter.
+ * @param paramName - Description of the parameter. Defaults to `value`.
+ * @defaultValue value
+ * @returns Description of what the function returns.
+ * @throws {ErrorType} When this error condition occurs.
+ * @deprecated Use `newFunction()` instead.
+ * @see relatedFunction
+ * @since 1.0.0
+ *
+ * @note Important note about behavior or limitations.
+ *
+ * @performance Optimization details or performance characteristics.
+ *
+ * @example
+ * ```typescript
+ * const result = myFunction('example');
+ * ```
+ */
+````
+
+## Rules by Section
+
+### Main Description
+
+- **Required**: Yes
+- **Format**: 1-2 sentences, concise, always end with period. Start with capital letter.
+- **Avoid**: "This function...", implementation details.
+
+**✅ Good**: `Queues functions by key to prevent duplicate executions.`  
+**❌ Bad**: `This function queues functions by key to prevent duplicate executions`
+
+### Detailed Description
+
+- **Required**: No (only if main description needs expansion)
+- **Format**: Additional paragraphs separated by blank lines.
+
+### @template Tags
+
+- **Required**: Only if function/type has generic type parameters.
+- **Order**: In the order they appear in the type signature.
+- **Format**: `@template T - Description.`
+
+**✅ Good**: `@template T - The return type of the function.`  
+**❌ Bad**: `@template T`
+
+### @param Tags
+
+- **Required**: Yes, for all parameters.
+- **Order**: Must match function signature order exactly.
+- **Format**: `@param paramName - Description.`
+- **Note**: Don't repeat type info (it's in signature), focus on meaning.
+
+**✅ Good**: `@param key - Unique key for the operation.`  
+**❌ Bad**: `@param key - string: Unique key.`
+
+### @defaultValue Tag
+
+- **Required**: Only for parameters with default values.
+- **Order**: Immediately after the corresponding `@param` tag.
+- **Format**: `@defaultValue value` (no dash, no description).
+- **Best practice**: Mention default in `@param` description, then add `@defaultValue` for tooling.
+
+**✅ Good**:
+
+```typescript
+/**
+ * @param timeout - Request timeout in milliseconds. Defaults to `5000`.
+ * @defaultValue 5000
+ */
+```
+
+### @returns Tag
+
+- **Required**: Yes for non-void functions, omit for void functions.
+- **Format**: `@returns Description.`
+- **Note**: Explain what is returned, not just the type.
+
+**✅ Good**: `@returns Promise that resolves to the function result.`  
+**❌ Bad**: `@returns Promise<T>`
+
+### @throws Tag
+
+- **Required**: When the function can throw errors.
+- **Format**: `@throws {ErrorType} Description of when it throws.`
+- **Order**: One tag per error type, most common first.
+
+**✅ Good**: `@throws {ValidationError} When input fails schema validation.`  
+**❌ Bad**: `@throws Error when something goes wrong.`
+
+### @deprecated Tag
+
+- **Required**: When the function/type is deprecated.
+- **Format**: `@deprecated Description of what to use instead.`
+- **Note**: Always provide an alternative.
+
+**✅ Good**: `@deprecated Use `array.every()` directly instead.`  
+**❌ Bad**: `@deprecated`
+
+### @see Tag
+
+- **Required**: No, but useful for related functions/types.
+- **Format**: `@see functionName` or `@see {@link TypeName}`
+
+### @internal Tag
+
+- **Required**: Only for internal APIs.
+- **Format**: `@internal` or `@internal Description.`
+- **Note**: Excluded from generated documentation by default.
+
+### @since Tag
+
+- **Required**: Yes.
+- **Format**: `@since X.Y.Z` (semantic version).
+- **Default**: If missing, use current version from `packages/pithos/package.json` (currently `1.1.0`).
+
+**✅ Good**: `@since 1.3.0`  
+**❌ Bad**: `@since 1.3` or `@since v1.3.0` or `@since`
+
+### @note Tag
+
+- **Required**: No (optional, for important notes and caveats).
+- **Format**: `@note Description of the note.`
+- **Use when**: Edge cases, behavioral quirks, or important warnings.
+
+**✅ Good**: `@note Uses reference equality (===). NaN values are not supported.`  
+**❌ Bad**: `@note This is a note.`
+
+### @performance Tag
+
+- **Required**: No (optional, for performance-related information).
+- **Format**: `@performance Description of performance characteristics or optimizations.`
+- **Best practices**: Be specific, mention trade-offs, include quantitative info when available.
+
+**✅ Good**: `@performance Optimization: Fast paths for success/error cases.` or `@performance Messages without parameters are ~71% faster than arrow functions.`  
+**❌ Bad**: `@performance This function is fast.`
+
+## Special Cases
+
+### Functions with No Parameters
+
+```typescript
+/**
+ * Main description.
+ * @returns Description of return value.
+ * @since 1.0.0
+ */
+```
+
+### Functions with Multiple Overloads
+
+**Critical Rule**: When a function has multiple overloads, the JSDoc comment must be placed **BEFORE all signatures** with a blank line between the JSDoc and the first signature. **Do NOT use `@ignore` on the implementation signature** — TypeDoc automatically excludes it when there are overloads.
+
+**✅ Good**: JSDoc before all signatures, blank line, no @ignore on implementation
+
+```typescript
+/**
+ * Splits an array into two groups based on a predicate function.
+ * @template T - The type of elements in the array.
+ * @param array - The array to partition.
+ * @param predicate - A function that returns true for elements in the first group.
+ * @returns A tuple of [matching, non-matching] elements.
+ * @since 1.1.0
+ */
+
+export function partition<T, U extends T>(
+  array: readonly T[],
+  predicate: (value: T) => value is U
+): [U[], Exclude<T, U>[]];
+export function partition<T>(
+  array: readonly T[],
+  predicate: (value: T) => boolean
+): [T[], T[]];
+export function partition<T>(
+  array: readonly T[],
+  predicate: (value: T) => boolean
+): [T[], T[]] {
+  // implementation
+}
+```
+
+**❌ Bad**: Using @ignore on implementation (TypeDoc ignores the ENTIRE function)
+
+```typescript
+// ❌ Bad: @ignore on implementation causes TypeDoc to skip the function entirely
+export function partition<T>(array: T[], predicate: (v: T) => boolean): [T[], T[]];
+/** @ignore TypeDoc: Implementation signature excluded from documentation. */
+export function partition<T>(array: T[], predicate: (v: T) => boolean): [T[], T[]] {
+  // implementation
+}
+```
+
+**Result**: When done correctly, TypeDoc will:
+1. Generate documentation for the function with all public overloads
+2. Automatically exclude the implementation signature (no @ignore needed)
+3. Merge related interfaces into the function's page
+
+**Edge case**: For overloads with no parameters (e.g., `zip()`), use `@ignore` only on that specific overload to avoid TypeDoc warnings about missing @param tags:
+
+```typescript
+/**
+ * Creates an array of grouped elements from multiple arrays.
+ * @param arrays - One or more arrays to zip together.
+ * @returns An array of tuples.
+ * @since 1.1.0
+ */
+
+/** @ignore TypeDoc: Overload with no parameters excluded to avoid @param warnings. */
+export function zip(): [];
+export function zip<A>(a: A[]): [A][];
+export function zip<A, B>(a: A[], b: B[]): [A, B][];
+export function zip(...arrays: unknown[][]): unknown[][] {
+  // implementation
+}
+```
+
+### Functions Returning void
+
+Omit the `@returns` tag entirely.
+
+### Type Aliases and Interfaces
+
+```typescript
+/**
+ * Description of the type.
+ * @template T - Description of generic parameter.
+ * @since 1.0.0
+ */
+```
+
+### Enums
+
+```typescript
+/**
+ * Description of the enum.
+ * @since 1.0.0
+ */
+```
+
+### Classes
+
+````typescript
+/**
+ * Description of the class.
+ * @template T - Description of generic parameter.
+ * @since 1.0.0
+ * @example
+ * ```typescript
+ * const instance = new MyClass();
+ * ```
+ */
+````
+
+## Formatting Rules
+
+- **Blank lines**: Use blank lines between sections (after description, before @example).
+- **Line length**: Main description max 100 chars, @param/@returns/@throws max 80 chars, @example code blocks max 90 chars.
+- **Punctuation**: Always use periods at the end of description sentences.
+- **Code references**: Use backticks for inline code: `` `TypeName` ``
+- **Links**: Use markdown links: `[TypeName](../path/to/type.md)`
+
+## Common Mistakes to Avoid
+
+1. **Missing @since**: All exported items must have `@since`. If missing, use current version from `packages/pithos/package.json`.
+2. **Wrong parameter order**: `@param` tags must match function signature order.
+3. **Type repetition**: Don't repeat type information in descriptions.
+4. **Adding @returns for void**: Omit `@returns` for void functions.
+5. **Inconsistent formatting**: Follow the exact structure order.
+6. **Vague descriptions**: Be specific about behavior and constraints.
+7. **Missing @throws**: Document errors that can be thrown.
+8. **Missing periods**: Always end sentences with a period.
+9. **Missing @deprecated description**: Always provide an alternative when using `@deprecated`.
+10. **Wrong @defaultValue placement**: `@defaultValue` must come immediately after the corresponding `@param`.
+11. **Incorrect TSDoc placement**: TSDoc comments must be placed directly before the declaration they document.
+12. **Unescaped generic types**: Always wrap type references containing angle brackets with backticks (e.g., `` `Schema<string>` `` not `Schema<string>`). MDX interprets `<string>` as a JSX tag, which breaks documentation generation.
+13. **Wrong overload documentation**: For functions with overloads, place JSDoc BEFORE all signatures with a blank line. Do NOT use `@ignore` on the implementation — TypeDoc excludes it automatically. Using `@ignore` on implementation causes TypeDoc to skip the entire function.
+
+## Validation
+
+The project includes `scripts/check-tsdoc.ts` which validates:
+
+- Presence of TSDoc comments.
+- Presence of `@since` tag.
+- Valid `@since` version format.
+
+Run: `npm run check:tsdoc`

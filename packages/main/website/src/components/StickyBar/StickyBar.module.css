@@ -1,0 +1,15 @@
+.stickyBar {
+  position: sticky;
+  top: var(--sticky-top-offset, var(--ifm-navbar-height));
+  z-index: 100;
+  background: var(--ifm-background-color);
+  padding: 0.75rem 0;
+}
+
+.stickyBar.stuck {
+  box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.15);
+}
+
+:global([data-theme="dark"]) .stickyBar.stuck {
+  box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.5);
+}

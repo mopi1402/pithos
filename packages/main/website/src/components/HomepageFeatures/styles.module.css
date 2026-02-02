@@ -1,0 +1,138 @@
+.moduleCard {
+  padding: 1rem 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.01);
+  border-radius: 12px;
+  border: 1px solid rgba(201, 169, 98, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease,
+    border-color 0.25s ease, background 0.25s ease;
+  position: relative;
+  overflow: visible;
+  cursor: pointer;
+}
+
+/* Override Infima grid for intermediate breakpoint: 2 columns between 600-996px */
+@media screen and (max-width: 996px) and (min-width: 600px) {
+  :global(.col.col--4) {
+    --ifm-col-width: 50%;
+    flex-basis: 50%;
+    max-width: 50%;
+  }
+}
+
+[data-theme="dark"] .moduleCard {
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(201, 169, 98, 0.14);
+}
+
+.moduleCard h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--golden-color);
+  position: relative;
+  padding: 0 7rem;
+  display: inline-block;
+}
+
+.moduleCard h3::before,
+.moduleCard h3::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 7.5rem;
+  height: 1px;
+  opacity: 0.6;
+}
+
+.moduleCard h3::before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(201, 169, 98, 0.3) 40%,
+    var(--golden-color) 70%,
+    transparent 100%
+  );
+}
+
+.moduleCard h3::after {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    transparent 0%,
+    rgba(201, 169, 98, 0.3) 40%,
+    var(--golden-color) 70%,
+    transparent 100%
+  );
+}
+
+.moduleDescription {
+  margin: 1rem 0;
+  color: var(--ifm-color-content-secondary);
+}
+
+.moduleCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(201, 169, 98, 0.25),
+    0 0 25px rgba(201, 169, 98, 0.35);
+  border-color: rgba(201, 169, 98, 0.5);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="dark"] .moduleCard:hover {
+  box-shadow: 0 10px 30px rgba(201, 169, 98, 0.35),
+    0 0 25px rgba(201, 169, 98, 0.45);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.letterBurst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.letterBurst span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  color: var(--golden-color);
+  font-size: 1.4rem;
+  opacity: 0;
+  text-shadow: 0 0 8px rgba(201, 169, 98, 0.6), 0 0 16px rgba(201, 169, 98, 0.4);
+  animation: firework calc(var(--dur, 900ms) * var(--spd, 1)) ease-out forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+[data-theme="dark"] .letterBurst span {
+  color: var(--golden-color);
+  text-shadow: 0 0 10px rgba(201, 169, 98, 0.8),
+    0 0 18px rgba(201, 169, 98, 0.6);
+}
+
+@keyframes firework {
+  0% {
+    transform: translate3d(-50%, -50%, 0px) scale(0.6) rotateX(var(--rx, 0deg))
+      rotateY(var(--ry, 0deg));
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(
+        calc(-50% + var(--dx, 0px)),
+        calc(-50% + var(--dy, 0px)),
+        var(--dz, 0px)
+      )
+      scale(1);
+    opacity: 0;
+  }
+}

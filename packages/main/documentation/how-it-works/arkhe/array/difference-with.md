@@ -1,0 +1,12 @@
+Compares elements using a custom comparator function.
+
+```mermaid
+flowchart LR
+    A["[{x:1}, {x:2}, {x:3}]"] --> C["differenceWith"]
+    B["[{x:2}]"] --> C
+    C --> D["compareFn:
+    (a,b) => a.x === b.x"]
+    D --> E{{"Match found?"}}
+    E -->|"x:2 matches"| F["Excluded"]
+    E -->|"No match"| G["[{x:1}, {x:3}]"]
+```

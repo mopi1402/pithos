@@ -1,0 +1,110 @@
+{
+  "add": {
+    "lodash": { "name": "add", "group": "Math" },
+    "ramda": { "name": "add", "group": "Math" },
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": null,
+    "python": { "name": "+", "group": "builtins" },
+    "kotlin": { "name": "+", "group": "kotlin" }
+  },
+  "ceil": {
+    "lodash": { "name": "ceil", "group": "Math" },
+    "ramda": null,
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": { "name": "ceil", "group": "math" },
+    "python": { "name": "math.ceil", "group": "math" },
+    "kotlin": { "name": "ceil", "group": "kotlin.math" }
+  },
+  "divide": {
+    "lodash": { "name": "divide", "group": "Math" },
+    "ramda": { "name": "divide", "group": "Math" },
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": null,
+    "python": { "name": "/", "group": "builtins" },
+    "kotlin": { "name": "/", "group": "kotlin" }
+  },
+  "floor": {
+    "lodash": { "name": "floor", "group": "Math" },
+    "ramda": null,
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": { "name": "floor", "group": "math" },
+    "python": { "name": "math.floor", "group": "math" },
+    "kotlin": { "name": "floor", "group": "kotlin.math" }
+  },
+  "max": {
+    "lodash": { "name": "max", "group": "Math" },
+    "ramda": { "name": "max", "group": "Relation" },
+    "radashi": { "name": "max", "group": "Number" },
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": { "name": "max", "group": "math" },
+    "python": { "name": "max", "group": "builtins" },
+    "kotlin": { "name": "max", "group": "kotlin.math" }
+  },
+  "min": {
+    "lodash": { "name": "min", "group": "Math" },
+    "ramda": { "name": "min", "group": "Relation" },
+    "radashi": { "name": "min", "group": "Number" },
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": { "name": "min", "group": "math" },
+    "python": { "name": "min", "group": "builtins" },
+    "kotlin": { "name": "min", "group": "kotlin.math" }
+  },
+  "multiply": {
+    "lodash": { "name": "multiply", "group": "Math" },
+    "ramda": { "name": "multiply", "group": "Math" },
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": null,
+    "python": { "name": "*", "group": "builtins" },
+    "kotlin": { "name": "*", "group": "kotlin" }
+  },
+  "round": {
+    "lodash": { "name": "round", "group": "Math" },
+    "ramda": null,
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": { "name": "round", "group": "math" },
+    "python": { "name": "round", "group": "builtins" },
+    "kotlin": { "name": "roundToInt", "group": "kotlin.math" }
+  },
+  "subtract": {
+    "lodash": { "name": "subtract", "group": "Math" },
+    "ramda": { "name": "subtract", "group": "Math" },
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": null,
+    "python": { "name": "-", "group": "builtins" },
+    "kotlin": { "name": "-", "group": "kotlin" }
+  }
+}

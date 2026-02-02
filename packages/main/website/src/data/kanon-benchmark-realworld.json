@@ -1,0 +1,1592 @@
+{
+  "generatedAt": "2026-01-31T18:40:50.829Z",
+  "benchmarkType": "realworld",
+  "versions": {
+    "kanon": "1.1.0",
+    "zod": "4.3.5",
+    "valibot": "1.2.0",
+    "superstruct": "2.0.2",
+    "fastest-validator": "1.19.1",
+    "@sinclair/typebox": "0.34.47",
+    "ajv": "8.17.1"
+  },
+  "libraries": [
+    "@kanon/JIT",
+    "@kanon/V3.0",
+    "AJV",
+    "Fast-Validator",
+    "Superstruct",
+    "TypeBox",
+    "Valibot",
+    "Zod"
+  ],
+  "scenarios": [
+    {
+      "name": "Login Form Validation",
+      "category": "CRITICAL",
+      "weight": 5,
+      "durationMs": 12753,
+      "results": [
+        {
+          "library": "TypeBox",
+          "opsPerSecond": 15223459,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.0197,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.07%",
+            "samples": 7611730
+          }
+        },
+        {
+          "library": "Fast-Validator",
+          "opsPerSecond": 9959797,
+          "rank": 2,
+          "ratio": 1.53,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0242,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.07%",
+            "samples": 4979899
+          }
+        },
+        {
+          "library": "@kanon/JIT",
+          "opsPerSecond": 9828143,
+          "rank": 3,
+          "ratio": 1.55,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0275,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.06%",
+            "samples": 4914072
+          }
+        },
+        {
+          "library": "AJV",
+          "opsPerSecond": 8637676,
+          "rank": 4,
+          "ratio": 1.76,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.4407,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0002,
+            "p995": 0.0002,
+            "p999": 0.0002,
+            "rme": "±0.19%",
+            "samples": 4318839
+          }
+        },
+        {
+          "library": "@kanon/V3.0",
+          "opsPerSecond": 7465698,
+          "rank": 5,
+          "ratio": 2.04,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0267,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0002,
+            "p995": 0.0002,
+            "p999": 0.0003,
+            "rme": "±0.06%",
+            "samples": 3732849
+          }
+        },
+        {
+          "library": "Zod",
+          "opsPerSecond": 4906000,
+          "rank": 6,
+          "ratio": 3.1,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0001,
+            "max": 0.238,
+            "mean": 0.0002,
+            "p75": 0.0002,
+            "p99": 0.0003,
+            "p995": 0.0003,
+            "p999": 0.0004,
+            "rme": "±0.21%",
+            "samples": 2453001
+          }
+        },
+        {
+          "library": "Valibot",
+          "opsPerSecond": 3331168,
+          "rank": 7,
+          "ratio": 4.57,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0002,
+            "max": 0.3037,
+            "mean": 0.0003,
+            "p75": 0.0003,
+            "p99": 0.0004,
+            "p995": 0.0004,
+            "p999": 0.0005,
+            "rme": "±0.27%",
+            "samples": 1665585
+          }
+        },
+        {
+          "library": "Superstruct",
+          "opsPerSecond": 596045,
+          "rank": 8,
+          "ratio": 25.54,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0014,
+            "max": 0.2955,
+            "mean": 0.0017,
+            "p75": 0.0016,
+            "p99": 0.0021,
+            "p995": 0.0022,
+            "p999": 0.0085,
+            "rme": "±0.58%",
+            "samples": 298023
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Registration (with password confirm)",
+      "category": "CRITICAL",
+      "weight": 5,
+      "durationMs": 9867,
+      "results": [
+        {
+          "library": "TypeBox",
+          "opsPerSecond": 8774115,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.5107,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0002,
+            "p999": 0.0003,
+            "rme": "±0.68%",
+            "samples": 4387058
+          }
+        },
+        {
+          "library": "Fast-Validator",
+          "opsPerSecond": 6810325,
+          "rank": 2,
+          "ratio": 1.29,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.706,
+            "mean": 0.0001,
+            "p75": 0.0002,
+            "p99": 0.0002,
+            "p995": 0.0002,
+            "p999": 0.0004,
+            "rme": "±0.57%",
+            "samples": 3405163
+          }
+        },
+        {
+          "library": "AJV",
+          "opsPerSecond": 6738114,
+          "rank": 3,
+          "ratio": 1.3,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.3164,
+            "mean": 0.0001,
+            "p75": 0.0002,
+            "p99": 0.0002,
+            "p995": 0.0002,
+            "p999": 0.0003,
+            "rme": "±0.14%",
+            "samples": 3369058
+          }
+        },
+        {
+          "library": "@kanon/JIT",
+          "opsPerSecond": 5929478,
+          "rank": 4,
+          "ratio": 1.48,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0274,
+            "mean": 0.0002,
+            "p75": 0.0002,
+            "p99": 0.0002,
+            "p995": 0.0002,
+            "p999": 0.0003,
+            "rme": "±0.06%",
+            "samples": 2964740
+          }
+        },
+        {
+          "library": "@kanon/V3.0",
+          "opsPerSecond": 5129262,
+          "rank": 5,
+          "ratio": 1.71,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0001,
+            "max": 0.0274,
+            "mean": 0.0002,
+            "p75": 0.0002,
+            "p99": 0.0002,
+            "p995": 0.0003,
+            "p999": 0.0003,
+            "rme": "±0.08%",
+            "samples": 2564632
+          }
+        },
+        {
+          "library": "Zod",
+          "opsPerSecond": 2036094,
+          "rank": 6,
+          "ratio": 4.31,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0003,
+            "max": 0.5549,
+            "mean": 0.0005,
+            "p75": 0.0005,
+            "p99": 0.0006,
+            "p995": 0.0007,
+            "p999": 0.0011,
+            "rme": "±0.52%",
+            "samples": 1018048
+          }
+        },
+        {
+          "library": "Valibot",
+          "opsPerSecond": 1636685,
+          "rank": 7,
+          "ratio": 5.36,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0005,
+            "max": 0.3863,
+            "mean": 0.0006,
+            "p75": 0.0006,
+            "p99": 0.0008,
+            "p995": 0.0008,
+            "p999": 0.001,
+            "rme": "±0.21%",
+            "samples": 818343
+          }
+        },
+        {
+          "library": "Superstruct",
+          "opsPerSecond": 297830,
+          "rank": 8,
+          "ratio": 29.46,
+          "isFastest": false,
+          "stats": {
+            "min": 0.003,
+            "max": 0.3087,
+            "mean": 0.0034,
+            "p75": 0.0033,
+            "p99": 0.004,
+            "p995": 0.0048,
+            "p999": 0.0157,
+            "rme": "±0.55%",
+            "samples": 148916
+          }
+        }
+      ]
+    },
+    {
+      "name": "API Response (discriminated union)",
+      "category": "HIGH",
+      "weight": 4,
+      "durationMs": 15424,
+      "results": [
+        {
+          "library": "@kanon/JIT",
+          "opsPerSecond": 28509941,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.041,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0,
+            "p995": 0,
+            "p999": 0.0001,
+            "rme": "±0.08%",
+            "samples": 14254971
+          }
+        },
+        {
+          "library": "AJV",
+          "opsPerSecond": 17816663,
+          "rank": 2,
+          "ratio": 1.6,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.3953,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.52%",
+            "samples": 8908332
+          }
+        },
+        {
+          "library": "Fast-Validator",
+          "opsPerSecond": 14450838,
+          "rank": 3,
+          "ratio": 1.97,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0324,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.06%",
+            "samples": 7225420
+          }
+        },
+        {
+          "library": "@kanon/V3.0",
+          "opsPerSecond": 8263378,
+          "rank": 4,
+          "ratio": 3.45,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0585,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0002,
+            "p995": 0.0002,
+            "p999": 0.0002,
+            "rme": "±0.09%",
+            "samples": 4131690
+          }
+        },
+        {
+          "library": "Zod",
+          "opsPerSecond": 8182331,
+          "rank": 5,
+          "ratio": 3.48,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.2304,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0002,
+            "p995": 0.0002,
+            "p999": 0.0003,
+            "rme": "±0.26%",
+            "samples": 4091166
+          }
+        },
+        {
+          "library": "TypeBox",
+          "opsPerSecond": 3351011,
+          "rank": 6,
+          "ratio": 8.51,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0002,
+            "max": 0.3292,
+            "mean": 0.0003,
+            "p75": 0.0003,
+            "p99": 0.0004,
+            "p995": 0.0004,
+            "p999": 0.0005,
+            "rme": "±0.24%",
+            "samples": 1675506
+          }
+        },
+        {
+          "library": "Valibot",
+          "opsPerSecond": 2413166,
+          "rank": 7,
+          "ratio": 11.81,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0002,
+            "max": 0.9493,
+            "mean": 0.0004,
+            "p75": 0.0005,
+            "p99": 0.0005,
+            "p995": 0.0006,
+            "p999": 0.0011,
+            "rme": "±0.51%",
+            "samples": 1206584
+          }
+        },
+        {
+          "library": "Superstruct",
+          "opsPerSecond": 373716,
+          "rank": 8,
+          "ratio": 76.29,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0019,
+            "max": 0.2455,
+            "mean": 0.0027,
+            "p75": 0.0035,
+            "p99": 0.0039,
+            "p995": 0.0042,
+            "p999": 0.0099,
+            "rme": "±0.45%",
+            "samples": 186858
+          }
+        }
+      ]
+    },
+    {
+      "name": "E-commerce Product",
+      "category": "HIGH",
+      "weight": 4,
+      "durationMs": 11309,
+      "results": [
+        {
+          "library": "@kanon/JIT",
+          "opsPerSecond": 13572293,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.0597,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.09%",
+            "samples": 6786147
+          }
+        },
+        {
+          "library": "AJV",
+          "opsPerSecond": 12304886,
+          "rank": 2,
+          "ratio": 1.1,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.6468,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.34%",
+            "samples": 6152443
+          }
+        },
+        {
+          "library": "Fast-Validator",
+          "opsPerSecond": 11843888,
+          "rank": 3,
+          "ratio": 1.15,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.526,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.49%",
+            "samples": 5921945
+          }
+        },
+        {
+          "library": "@kanon/V3.0",
+          "opsPerSecond": 4931353,
+          "rank": 4,
+          "ratio": 2.75,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0001,
+            "max": 0.0225,
+            "mean": 0.0002,
+            "p75": 0.0002,
+            "p99": 0.0003,
+            "p995": 0.0003,
+            "p999": 0.0004,
+            "rme": "±0.07%",
+            "samples": 2465677
+          }
+        },
+        {
+          "library": "Zod",
+          "opsPerSecond": 2646103,
+          "rank": 5,
+          "ratio": 5.13,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0002,
+            "max": 0.3921,
+            "mean": 0.0004,
+            "p75": 0.0004,
+            "p99": 0.0005,
+            "p995": 0.0006,
+            "p999": 0.0007,
+            "rme": "±0.50%",
+            "samples": 1323052
+          }
+        },
+        {
+          "library": "Valibot",
+          "opsPerSecond": 1382155,
+          "rank": 6,
+          "ratio": 9.82,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0006,
+            "max": 0.3756,
+            "mean": 0.0007,
+            "p75": 0.0008,
+            "p99": 0.0009,
+            "p995": 0.001,
+            "p999": 0.0011,
+            "rme": "±0.36%",
+            "samples": 691078
+          }
+        },
+        {
+          "library": "TypeBox",
+          "opsPerSecond": 1124659,
+          "rank": 7,
+          "ratio": 12.07,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0007,
+            "max": 0.4892,
+            "mean": 0.0009,
+            "p75": 0.001,
+            "p99": 0.0011,
+            "p995": 0.0012,
+            "p999": 0.0045,
+            "rme": "±0.35%",
+            "samples": 562330
+          }
+        },
+        {
+          "library": "Superstruct",
+          "opsPerSecond": 194482,
+          "rank": 8,
+          "ratio": 69.79,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0043,
+            "max": 0.2581,
+            "mean": 0.0051,
+            "p75": 0.0054,
+            "p99": 0.0061,
+            "p995": 0.0066,
+            "p999": 0.015,
+            "rme": "±0.51%",
+            "samples": 97242
+          }
+        }
+      ]
+    },
+    {
+      "name": "Blog Post with Comments",
+      "category": "HIGH",
+      "weight": 4,
+      "durationMs": 7957,
+      "results": [
+        {
+          "library": "@kanon/JIT",
+          "opsPerSecond": 6095832,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.1039,
+            "mean": 0.0002,
+            "p75": 0.0002,
+            "p99": 0.0002,
+            "p995": 0.0002,
+            "p999": 0.0003,
+            "rme": "±0.11%",
+            "samples": 3047916
+          }
+        },
+        {
+          "library": "AJV",
+          "opsPerSecond": 4914083,
+          "rank": 2,
+          "ratio": 1.24,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0001,
+            "max": 0.6354,
+            "mean": 0.0002,
+            "p75": 0.0002,
+            "p99": 0.0003,
+            "p995": 0.0003,
+            "p999": 0.0005,
+            "rme": "±0.28%",
+            "samples": 2457042
+          }
+        },
+        {
+          "library": "Fast-Validator",
+          "opsPerSecond": 3414602,
+          "rank": 3,
+          "ratio": 1.79,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0001,
+            "max": 0.354,
+            "mean": 0.0003,
+            "p75": 0.0003,
+            "p99": 0.0005,
+            "p995": 0.0006,
+            "p999": 0.0027,
+            "rme": "±0.25%",
+            "samples": 1707302
+          }
+        },
+        {
+          "library": "@kanon/V3.0",
+          "opsPerSecond": 2566284,
+          "rank": 4,
+          "ratio": 2.38,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0002,
+            "max": 0.0383,
+            "mean": 0.0004,
+            "p75": 0.0005,
+            "p99": 0.0005,
+            "p995": 0.0005,
+            "p999": 0.0007,
+            "rme": "±0.08%",
+            "samples": 1283142
+          }
+        },
+        {
+          "library": "Zod",
+          "opsPerSecond": 1497404,
+          "rank": 5,
+          "ratio": 4.07,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0004,
+            "max": 0.3613,
+            "mean": 0.0007,
+            "p75": 0.0007,
+            "p99": 0.0009,
+            "p995": 0.001,
+            "p999": 0.0011,
+            "rme": "±0.43%",
+            "samples": 748702
+          }
+        },
+        {
+          "library": "TypeBox",
+          "opsPerSecond": 1477865,
+          "rank": 6,
+          "ratio": 4.12,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0005,
+            "max": 0.484,
+            "mean": 0.0007,
+            "p75": 0.0007,
+            "p99": 0.0008,
+            "p995": 0.0008,
+            "p999": 0.0012,
+            "rme": "±0.38%",
+            "samples": 738933
+          }
+        },
+        {
+          "library": "Valibot",
+          "opsPerSecond": 767557,
+          "rank": 7,
+          "ratio": 7.94,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0007,
+            "max": 0.2901,
+            "mean": 0.0013,
+            "p75": 0.0015,
+            "p99": 0.0018,
+            "p995": 0.0019,
+            "p999": 0.0023,
+            "rme": "±0.32%",
+            "samples": 383779
+          }
+        },
+        {
+          "library": "Superstruct",
+          "opsPerSecond": 108242,
+          "rank": 8,
+          "ratio": 56.32,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0053,
+            "max": 0.2312,
+            "mean": 0.0092,
+            "p75": 0.0108,
+            "p99": 0.0133,
+            "p995": 0.0157,
+            "p999": 0.0365,
+            "rme": "±0.52%",
+            "samples": 54122
+          }
+        }
+      ]
+    },
+    {
+      "name": "Search Params (with coercion)",
+      "category": "MEDIUM",
+      "weight": 3,
+      "durationMs": 14482,
+      "results": [
+        {
+          "library": "@kanon/JIT",
+          "opsPerSecond": 23950088,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.1336,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.10%",
+            "samples": 11975044
+          }
+        },
+        {
+          "library": "AJV",
+          "opsPerSecond": 22178489,
+          "rank": 2,
+          "ratio": 1.08,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0799,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.11%",
+            "samples": 11089245
+          }
+        },
+        {
+          "library": "Fast-Validator",
+          "opsPerSecond": 17425899,
+          "rank": 3,
+          "ratio": 1.37,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0445,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.08%",
+            "samples": 8712950
+          }
+        },
+        {
+          "library": "Zod",
+          "opsPerSecond": 4377187,
+          "rank": 4,
+          "ratio": 5.47,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0001,
+            "max": 0.3579,
+            "mean": 0.0002,
+            "p75": 0.0002,
+            "p99": 0.0003,
+            "p995": 0.0003,
+            "p999": 0.0005,
+            "rme": "±0.47%",
+            "samples": 2188594
+          }
+        },
+        {
+          "library": "@kanon/V3.0",
+          "opsPerSecond": 4271929,
+          "rank": 5,
+          "ratio": 5.61,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0001,
+            "max": 5.026,
+            "mean": 0.0002,
+            "p75": 0.0002,
+            "p99": 0.0003,
+            "p995": 0.0003,
+            "p999": 0.0004,
+            "rme": "±7.22%",
+            "samples": 2135965
+          }
+        },
+        {
+          "library": "TypeBox",
+          "opsPerSecond": 1951243,
+          "rank": 6,
+          "ratio": 12.27,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0004,
+            "max": 0.5476,
+            "mean": 0.0005,
+            "p75": 0.0005,
+            "p99": 0.0006,
+            "p995": 0.0007,
+            "p999": 0.0009,
+            "rme": "±0.34%",
+            "samples": 975622
+          }
+        },
+        {
+          "library": "Valibot",
+          "opsPerSecond": 1772716,
+          "rank": 7,
+          "ratio": 13.51,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0004,
+            "max": 0.7592,
+            "mean": 0.0006,
+            "p75": 0.0005,
+            "p99": 0.0007,
+            "p995": 0.0009,
+            "p999": 0.0044,
+            "rme": "±0.55%",
+            "samples": 886359
+          }
+        },
+        {
+          "library": "Superstruct",
+          "opsPerSecond": 188974,
+          "rank": 8,
+          "ratio": 126.74,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0048,
+            "max": 3.6418,
+            "mean": 0.0053,
+            "p75": 0.0052,
+            "p99": 0.0076,
+            "p995": 0.0089,
+            "p999": 0.0157,
+            "rme": "±1.58%",
+            "samples": 94487
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Profile Update (optional fields)",
+      "category": "MEDIUM",
+      "weight": 3,
+      "durationMs": 12474,
+      "results": [
+        {
+          "library": "@kanon/JIT",
+          "opsPerSecond": 19209707,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.4785,
+            "mean": 0.0001,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.26%",
+            "samples": 9604854
+          }
+        },
+        {
+          "library": "Fast-Validator",
+          "opsPerSecond": 11328586,
+          "rank": 2,
+          "ratio": 1.7,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0463,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.09%",
+            "samples": 5664294
+          }
+        },
+        {
+          "library": "AJV",
+          "opsPerSecond": 7798089,
+          "rank": 3,
+          "ratio": 2.46,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.454,
+            "mean": 0.0001,
+            "p75": 0.0002,
+            "p99": 0.0003,
+            "p995": 0.0003,
+            "p999": 0.0004,
+            "rme": "±0.21%",
+            "samples": 3899045
+          }
+        },
+        {
+          "library": "@kanon/V3.0",
+          "opsPerSecond": 5978347,
+          "rank": 4,
+          "ratio": 3.21,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0862,
+            "mean": 0.0002,
+            "p75": 0.0002,
+            "p99": 0.0003,
+            "p995": 0.0003,
+            "p999": 0.0004,
+            "rme": "±0.11%",
+            "samples": 2989174
+          }
+        },
+        {
+          "library": "TypeBox",
+          "opsPerSecond": 5247400,
+          "rank": 5,
+          "ratio": 3.66,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.4448,
+            "mean": 0.0002,
+            "p75": 0.0002,
+            "p99": 0.0003,
+            "p995": 0.0003,
+            "p999": 0.0004,
+            "rme": "±0.44%",
+            "samples": 2623700
+          }
+        },
+        {
+          "library": "Zod",
+          "opsPerSecond": 2596921,
+          "rank": 6,
+          "ratio": 7.4,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0001,
+            "max": 0.5583,
+            "mean": 0.0004,
+            "p75": 0.0005,
+            "p99": 0.0007,
+            "p995": 0.0007,
+            "p999": 0.001,
+            "rme": "±0.52%",
+            "samples": 1298461
+          }
+        },
+        {
+          "library": "Valibot",
+          "opsPerSecond": 2303984,
+          "rank": 7,
+          "ratio": 8.34,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0002,
+            "max": 0.361,
+            "mean": 0.0004,
+            "p75": 0.0006,
+            "p99": 0.0008,
+            "p995": 0.0008,
+            "p999": 0.001,
+            "rme": "±0.31%",
+            "samples": 1151993
+          }
+        },
+        {
+          "library": "Superstruct",
+          "opsPerSecond": 425891,
+          "rank": 8,
+          "ratio": 45.1,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0015,
+            "max": 1.8213,
+            "mean": 0.0023,
+            "p75": 0.0026,
+            "p99": 0.0045,
+            "p995": 0.006,
+            "p999": 0.0112,
+            "rme": "±1.02%",
+            "samples": 212946
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payment Form (conditional validation)",
+      "category": "CRITICAL",
+      "weight": 5,
+      "durationMs": 12948,
+      "results": [
+        {
+          "library": "@kanon/JIT",
+          "opsPerSecond": 17906421,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.635,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.31%",
+            "samples": 8953211
+          }
+        },
+        {
+          "library": "AJV",
+          "opsPerSecond": 15379109,
+          "rank": 2,
+          "ratio": 1.16,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.7495,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.31%",
+            "samples": 7689555
+          }
+        },
+        {
+          "library": "Fast-Validator",
+          "opsPerSecond": 12019909,
+          "rank": 3,
+          "ratio": 1.49,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.5262,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.61%",
+            "samples": 6009955
+          }
+        },
+        {
+          "library": "@kanon/V3.0",
+          "opsPerSecond": 5678550,
+          "rank": 4,
+          "ratio": 3.15,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0678,
+            "mean": 0.0002,
+            "p75": 0.0002,
+            "p99": 0.0003,
+            "p995": 0.0003,
+            "p999": 0.0003,
+            "rme": "±0.10%",
+            "samples": 2839275
+          }
+        },
+        {
+          "library": "Zod",
+          "opsPerSecond": 2625564,
+          "rank": 5,
+          "ratio": 6.82,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0002,
+            "max": 0.8904,
+            "mean": 0.0004,
+            "p75": 0.0005,
+            "p99": 0.0005,
+            "p995": 0.0006,
+            "p999": 0.0036,
+            "rme": "±0.81%",
+            "samples": 1312783
+          }
+        },
+        {
+          "library": "TypeBox",
+          "opsPerSecond": 1704856,
+          "rank": 6,
+          "ratio": 10.5,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0005,
+            "max": 0.3546,
+            "mean": 0.0006,
+            "p75": 0.0006,
+            "p99": 0.0007,
+            "p995": 0.0008,
+            "p999": 0.0012,
+            "rme": "±0.18%",
+            "samples": 852429
+          }
+        },
+        {
+          "library": "Valibot",
+          "opsPerSecond": 1692646,
+          "rank": 7,
+          "ratio": 10.58,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0005,
+            "max": 0.0426,
+            "mean": 0.0006,
+            "p75": 0.0006,
+            "p99": 0.0007,
+            "p995": 0.0007,
+            "p999": 0.0024,
+            "rme": "±0.09%",
+            "samples": 846324
+          }
+        },
+        {
+          "library": "Superstruct",
+          "opsPerSecond": 285115,
+          "rank": 8,
+          "ratio": 62.8,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0029,
+            "max": 0.5393,
+            "mean": 0.0035,
+            "p75": 0.0035,
+            "p99": 0.0045,
+            "p995": 0.0072,
+            "p999": 0.0146,
+            "rme": "±0.64%",
+            "samples": 142558
+          }
+        }
+      ]
+    },
+    {
+      "name": "Event Booking",
+      "category": "HIGH",
+      "weight": 4,
+      "durationMs": 7771,
+      "results": [
+        {
+          "library": "@kanon/JIT",
+          "opsPerSecond": 8550717,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.0349,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0002,
+            "p999": 0.0002,
+            "rme": "±0.07%",
+            "samples": 4275359
+          }
+        },
+        {
+          "library": "AJV",
+          "opsPerSecond": 3598945,
+          "rank": 2,
+          "ratio": 2.38,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 1.9146,
+            "mean": 0.0003,
+            "p75": 0.0003,
+            "p99": 0.0005,
+            "p995": 0.0005,
+            "p999": 0.0007,
+            "rme": "±1.64%",
+            "samples": 1799473
+          }
+        },
+        {
+          "library": "Fast-Validator",
+          "opsPerSecond": 2803332,
+          "rank": 3,
+          "ratio": 3.05,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.5001,
+            "mean": 0.0004,
+            "p75": 0.0004,
+            "p99": 0.0006,
+            "p995": 0.0007,
+            "p999": 0.0042,
+            "rme": "±0.65%",
+            "samples": 1401667
+          }
+        },
+        {
+          "library": "TypeBox",
+          "opsPerSecond": 2062133,
+          "rank": 4,
+          "ratio": 4.15,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0002,
+            "max": 18.5485,
+            "mean": 0.0005,
+            "p75": 0.0004,
+            "p99": 0.0008,
+            "p995": 0.001,
+            "p999": 0.0043,
+            "rme": "±10.22%",
+            "samples": 1031067
+          }
+        },
+        {
+          "library": "@kanon/V3.0",
+          "opsPerSecond": 1502129,
+          "rank": 5,
+          "ratio": 5.69,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0002,
+            "max": 4.2404,
+            "mean": 0.0007,
+            "p75": 0.0008,
+            "p99": 0.0013,
+            "p995": 0.0018,
+            "p999": 0.007,
+            "rme": "±2.14%",
+            "samples": 751065
+          }
+        },
+        {
+          "library": "Zod",
+          "opsPerSecond": 812837,
+          "rank": 6,
+          "ratio": 10.52,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0004,
+            "max": 0.6644,
+            "mean": 0.0012,
+            "p75": 0.0015,
+            "p99": 0.0038,
+            "p995": 0.0049,
+            "p999": 0.0107,
+            "rme": "±0.79%",
+            "samples": 406419
+          }
+        },
+        {
+          "library": "Valibot",
+          "opsPerSecond": 678203,
+          "rank": 7,
+          "ratio": 12.61,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0007,
+            "max": 0.5315,
+            "mean": 0.0015,
+            "p75": 0.0018,
+            "p99": 0.0025,
+            "p995": 0.005,
+            "p999": 0.0102,
+            "rme": "±0.58%",
+            "samples": 339102
+          }
+        },
+        {
+          "library": "Superstruct",
+          "opsPerSecond": 113386,
+          "rank": 8,
+          "ratio": 75.41,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0041,
+            "max": 0.65,
+            "mean": 0.0088,
+            "p75": 0.0106,
+            "p99": 0.017,
+            "p995": 0.0211,
+            "p999": 0.0648,
+            "rme": "±0.89%",
+            "samples": 56694
+          }
+        }
+      ]
+    },
+    {
+      "name": "Invalid Login (error handling)",
+      "category": "HIGH",
+      "weight": 4,
+      "durationMs": 9671,
+      "results": [
+        {
+          "library": "AJV",
+          "opsPerSecond": 9315244,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.0513,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0002,
+            "p995": 0.0002,
+            "p999": 0.0002,
+            "rme": "±0.08%",
+            "samples": 4657623
+          }
+        },
+        {
+          "library": "@kanon/JIT",
+          "opsPerSecond": 8809086,
+          "rank": 2,
+          "ratio": 1.06,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0338,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0002,
+            "p995": 0.0002,
+            "p999": 0.0002,
+            "rme": "±0.07%",
+            "samples": 4404544
+          }
+        },
+        {
+          "library": "TypeBox",
+          "opsPerSecond": 7755980,
+          "rank": 3,
+          "ratio": 1.2,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.4842,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0002,
+            "p995": 0.0002,
+            "p999": 0.0003,
+            "rme": "±0.64%",
+            "samples": 3877990
+          }
+        },
+        {
+          "library": "@kanon/V3.0",
+          "opsPerSecond": 5570334,
+          "rank": 4,
+          "ratio": 1.67,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 5.0055,
+            "mean": 0.0002,
+            "p75": 0.0002,
+            "p99": 0.0002,
+            "p995": 0.0002,
+            "p999": 0.0003,
+            "rme": "±2.51%",
+            "samples": 2785167
+          }
+        },
+        {
+          "library": "Valibot",
+          "opsPerSecond": 2145982,
+          "rank": 5,
+          "ratio": 4.34,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0002,
+            "max": 0.499,
+            "mean": 0.0005,
+            "p75": 0.0005,
+            "p99": 0.0007,
+            "p995": 0.0008,
+            "p999": 0.0037,
+            "rme": "±0.64%",
+            "samples": 1072991
+          }
+        },
+        {
+          "library": "Fast-Validator",
+          "opsPerSecond": 1976808,
+          "rank": 6,
+          "ratio": 4.71,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.3249,
+            "mean": 0.0005,
+            "p75": 0.0007,
+            "p99": 0.0012,
+            "p995": 0.0013,
+            "p999": 0.0015,
+            "rme": "±0.45%",
+            "samples": 988404
+          }
+        },
+        {
+          "library": "Superstruct",
+          "opsPerSecond": 235835,
+          "rank": 7,
+          "ratio": 39.5,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0017,
+            "max": 0.4763,
+            "mean": 0.0042,
+            "p75": 0.0051,
+            "p99": 0.0069,
+            "p995": 0.0086,
+            "p999": 0.0119,
+            "rme": "±0.52%",
+            "samples": 117918
+          }
+        },
+        {
+          "library": "Zod",
+          "opsPerSecond": 142302,
+          "rank": 8,
+          "ratio": 65.46,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0002,
+            "max": 5.7275,
+            "mean": 0.007,
+            "p75": 0.0095,
+            "p99": 0.0135,
+            "p995": 0.016,
+            "p999": 0.0255,
+            "rme": "±5.21%",
+            "samples": 71151
+          }
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "totalScenarios": 10,
+    "libraryRankings": [
+      {
+        "library": "@kanon/JIT",
+        "wins": 7,
+        "weightedScore": 24
+      },
+      {
+        "library": "TypeBox",
+        "wins": 2,
+        "weightedScore": 10
+      },
+      {
+        "library": "AJV",
+        "wins": 1,
+        "weightedScore": 0
+      },
+      {
+        "library": "@kanon/V3.0",
+        "wins": 0,
+        "weightedScore": 0
+      },
+      {
+        "library": "Fast-Validator",
+        "wins": 0,
+        "weightedScore": 0
+      },
+      {
+        "library": "Superstruct",
+        "wins": 0,
+        "weightedScore": 0
+      },
+      {
+        "library": "Valibot",
+        "wins": 0,
+        "weightedScore": 0
+      },
+      {
+        "library": "Zod",
+        "wins": 0,
+        "weightedScore": 0
+      }
+    ],
+    "winner": "@kanon/JIT",
+    "winnerAdvantage": 2.4
+  }
+}

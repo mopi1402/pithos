@@ -1,0 +1,22 @@
+.container {
+  width: 100%;
+}
+
+.desktop {
+  display: block;
+}
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: 996px) {
+  .desktop {
+    display: none !important;
+  }
+
+  .mobile {
+    display: flex !important;
+    justify-content: center;
+  }
+}

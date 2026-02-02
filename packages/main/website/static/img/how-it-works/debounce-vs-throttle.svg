@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 340">
+  <style>
+    .title { font: bold 16px sans-serif; fill: #e0e0e0; }
+    .subtitle { font: 12px sans-serif; fill: #6b7280; }
+    .label { font: 11px sans-serif; fill: #a0a0a0; }
+    .time { font: 10px monospace; fill: #606060; }
+    .user-action { fill: #3b82f6; }
+    .timer-reset { fill: #f59e0b; opacity: 0.4; }
+    .timer-wait { fill: #6b7280; }
+    .exec { fill: #22c55e; }
+    .locked { fill: #ef4444; opacity: 0.2; }
+    .ignored { fill: #ef4444; opacity: 0.6; }
+    .axis { stroke: #404040; stroke-width: 2; }
+    .arrow-line { stroke: #3b82f6; stroke-width: 1.5; stroke-dasharray: 3,2; }
+  </style>
+  
+  <!-- Background -->
+  <rect width="850" height="340" fill="#1a1a1a"/>
+  
+  <!-- ==================== DEBOUNCE ==================== -->
+  <text x="30" y="30" class="title">Debounce</text>
+  <text x="30" y="48" class="subtitle">waits for silence — each input resets the timer</text>
+  
+  <!-- User actions label -->
+  <text x="30" y="80" class="label">User</text>
+  
+  <!-- User action arrows (IRREGULAR spacing) -->
+  <!-- Burst 1: rapid typing -->
+  <line x1="100" y1="65" x2="100" y2="90" class="arrow-line"/>
+  <polygon points="100,92 96,84 104,84" class="user-action"/>
+  
+  <line x1="120" y1="65" x2="120" y2="90" class="arrow-line"/>
+  <polygon points="120,92 116,84 124,84" class="user-action"/>
+  
+  <line x1="135" y1="65" x2="135" y2="90" class="arrow-line"/>
+  <polygon points="135,92 131,84 139,84" class="user-action"/>
+  
+  <!-- Pause... then another keystroke -->
+  <line x1="220" y1="65" x2="220" y2="90" class="arrow-line"/>
+  <polygon points="220,92 216,84 224,84" class="user-action"/>
+  
+  <!-- Burst 2: fast typing again -->
+  <line x1="280" y1="65" x2="280" y2="90" class="arrow-line"/>
+  <polygon points="280,92 276,84 284,84" class="user-action"/>
+  
+  <line x1="295" y1="65" x2="295" y2="90" class="arrow-line"/>
+  <polygon points="295,92 291,84 299,84" class="user-action"/>
+  
+  <line x1="305" y1="65" x2="305" y2="90" class="arrow-line"/>
+  <polygon points="305,92 301,84 309,84" class="user-action"/>
+  
+  <line x1="320" y1="65" x2="320" y2="90" class="arrow-line"/>
+  <polygon points="320,92 316,84 324,84" class="user-action"/>
+  
+  <line x1="340" y1="65" x2="340" y2="90" class="arrow-line"/>
+  <polygon points="340,92 336,84 344,84" class="user-action"/>
+  
+  <!-- Timer label -->
+  <text x="30" y="130" class="label">Timer</text>
+  
+  <!-- Timeline axis -->
+  <line x1="80" y1="130" x2="650" y2="130" class="axis"/>
+  
+  <!-- Timer resets (canceled - orange faded) -->
+  <rect x="100" y="115" width="50" height="20" rx="3" class="timer-reset"/>
+  <line x1="100" y1="115" x2="150" y2="135" stroke="#f59e0b" stroke-width="1.5"/>
+  
+  <rect x="120" y="115" width="50" height="20" rx="3" class="timer-reset"/>
+  <line x1="120" y1="115" x2="170" y2="135" stroke="#f59e0b" stroke-width="1.5"/>
+  
+  <rect x="135" y="115" width="50" height="20" rx="3" class="timer-reset"/>
+  <line x1="135" y1="115" x2="185" y2="135" stroke="#f59e0b" stroke-width="1.5"/>
+  
+  <rect x="220" y="115" width="50" height="20" rx="3" class="timer-reset"/>
+  <line x1="220" y1="115" x2="270" y2="135" stroke="#f59e0b" stroke-width="1.5"/>
+  
+  <rect x="280" y="115" width="50" height="20" rx="3" class="timer-reset"/>
+  <line x1="280" y1="115" x2="330" y2="135" stroke="#f59e0b" stroke-width="1.5"/>
+  
+  <rect x="295" y="115" width="50" height="20" rx="3" class="timer-reset"/>
+  <line x1="295" y1="115" x2="345" y2="135" stroke="#f59e0b" stroke-width="1.5"/>
+  
+  <rect x="305" y="115" width="50" height="20" rx="3" class="timer-reset"/>
+  <line x1="305" y1="115" x2="355" y2="135" stroke="#f59e0b" stroke-width="1.5"/>
+  
+  <rect x="320" y="115" width="50" height="20" rx="3" class="timer-reset"/>
+  <line x1="320" y1="115" x2="370" y2="135" stroke="#f59e0b" stroke-width="1.5"/>
+  
+  <!-- Final timer that completes (gray wait) -->
+  <rect x="340" y="115" width="180" height="20" rx="3" class="timer-wait"/>
+  <text x="430" y="129" class="label" text-anchor="middle" fill="#d0d0d0">⏳ wait 300ms</text>
+  
+  <!-- Execution (green) -->
+  <rect x="520" y="115" width="80" height="20" rx="3" class="exec"/>
+  <text x="560" y="129" class="label" text-anchor="middle" fill="white">✅ exec</text>
+  
+  <!-- Annotation -->
+  <text x="200" y="158" class="time">each keystroke resets the timer</text>
+  <text x="520" y="158" class="time">silence → finally executes</text>
+  
+  
+  <!-- ==================== THROTTLE ==================== -->
+  <text x="30" y="200" class="title">Throttle</text>
+  <text x="30" y="218" class="subtitle">enforces rhythm — executes at fixed intervals regardless of input</text>
+  
+  <!-- User actions label -->
+  <text x="30" y="250" class="label">User</text>
+  
+  <!-- User action arrows (SAME irregular pattern as debounce) -->
+  <line x1="100" y1="235" x2="100" y2="260" class="arrow-line"/>
+  <polygon points="100,262 96,254 104,254" class="user-action"/>
+  
+  <line x1="120" y1="235" x2="120" y2="260" class="arrow-line"/>
+  <polygon points="120,262 116,254 124,254" class="user-action"/>
+  
+  <line x1="135" y1="235" x2="135" y2="260" class="arrow-line"/>
+  <polygon points="135,262 131,254 139,254" class="user-action"/>
+  
+  <line x1="220" y1="235" x2="220" y2="260" class="arrow-line"/>
+  <polygon points="220,262 216,254 224,254" class="user-action"/>
+  
+  <line x1="280" y1="235" x2="280" y2="260" class="arrow-line"/>
+  <polygon points="280,262 276,254 284,254" class="user-action"/>
+  
+  <line x1="295" y1="235" x2="295" y2="260" class="arrow-line"/>
+  <polygon points="295,262 291,254 299,254" class="user-action"/>
+  
+  <line x1="305" y1="235" x2="305" y2="260" class="arrow-line"/>
+  <polygon points="305,262 301,254 309,254" class="user-action"/>
+  
+  <line x1="320" y1="235" x2="320" y2="260" class="arrow-line"/>
+  <polygon points="320,262 316,254 324,254" class="user-action"/>
+  
+  <line x1="340" y1="235" x2="340" y2="260" class="arrow-line"/>
+  <polygon points="340,262 336,254 344,254" class="user-action"/>
+  
+  <!-- Exec label -->
+  <text x="30" y="300" class="label">Exec</text>
+  
+  <!-- Timeline axis -->
+  <line x1="80" y1="300" x2="650" y2="300" class="axis"/>
+  
+  <!-- Execution blocks (REGULAR intervals) -->
+  <rect x="100" y="285" width="50" height="20" rx="3" class="exec"/>
+  <text x="125" y="299" class="label" text-anchor="middle" fill="white">✅</text>
+  
+  <!-- Locked period 1 -->
+  <rect x="150" y="285" width="100" height="20" rx="3" class="locked"/>
+  <rect x="150" y="285" width="100" height="20" rx="3" stroke="#ef4444" stroke-width="1" fill="none" opacity="0.5"/>
+  
+  <!-- Execution 2 -->
+  <rect x="250" y="285" width="50" height="20" rx="3" class="exec"/>
+  <text x="275" y="299" class="label" text-anchor="middle" fill="white">✅</text>
+  
+  <!-- Locked period 2 -->
+  <rect x="300" y="285" width="100" height="20" rx="3" class="locked"/>
+  <rect x="300" y="285" width="100" height="20" rx="3" stroke="#ef4444" stroke-width="1" fill="none" opacity="0.5"/>
+  
+  <!-- Execution 3 -->
+  <rect x="400" y="285" width="50" height="20" rx="3" class="exec"/>
+  <text x="425" y="299" class="label" text-anchor="middle" fill="white">✅</text>
+  
+  <!-- Locked period 3 -->
+  <rect x="450" y="285" width="100" height="20" rx="3" class="locked"/>
+  <rect x="450" y="285" width="100" height="20" rx="3" stroke="#ef4444" stroke-width="1" fill="none" opacity="0.5"/>
+  
+  <!-- Execution 4 -->
+  <rect x="550" y="285" width="50" height="20" rx="3" class="exec"/>
+  <text x="575" y="299" class="label" text-anchor="middle" fill="white">✅</text>
+  
+  <!-- Time markers (regular) -->
+  <text x="100" y="325" class="time">0ms</text>
+  <text x="250" y="325" class="time">300ms</text>
+  <text x="400" y="325" class="time">600ms</text>
+  <text x="550" y="325" class="time">900ms</text>
+  
+  <!-- Annotation -->
+  <text x="180" y="325" class="time">🔒</text>
+  <text x="330" y="325" class="time">🔒</text>
+  <text x="480" y="325" class="time">🔒</text>
+  
+</svg>

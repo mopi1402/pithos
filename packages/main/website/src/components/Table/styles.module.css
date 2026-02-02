@@ -1,0 +1,351 @@
+.tableContainer {
+  margin: 1.5rem 0;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.tableWrapper {
+  position: relative;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  isolation: isolate;
+  display: block;
+}
+
+/* Mask to fade out content on the right */
+.tableWrapper::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  bottom: 0;
+  width: 60px;
+  pointer-events: none;
+  background: var(--ifm-background-color);
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 30%,
+    rgba(0, 0, 0, 0.8) 50%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 30%,
+    rgba(0, 0, 0, 0.8) 50%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  z-index: 150;
+  transform-origin: right;
+  transform: scaleX(var(--shadow-scale, 1));
+}
+
+.tableWrapper.scrolledToEnd::after {
+  transform: scaleX(0);
+}
+
+.table {
+  border-spacing: 0;
+  font-size: 0.95rem;
+  table-layout: auto;
+  overflow: hidden;
+  border-collapse: separate;
+  border: 1px solid var(--ifm-table-border-color);
+  border-radius: var(--ifm-global-radius);
+  width: auto;
+
+  --ifm-table-head-background: var(--ifm-color-gray-50);
+  --ifm-table-background: white;
+  --ifm-table-stripe-background: var(--ifm-table-head-background);
+}
+
+[data-theme="dark"] .table {
+  --ifm-table-head-background: var(--ifm-color-gray-885);
+  --ifm-table-background: var(--ifm-color-gray-900);
+  --ifm-table-stripe-background: var(--ifm-table-head-background);
+}
+
+/* Sticky styles */
+.table .stickyCell {
+  position: sticky;
+  z-index: 100;
+  background-color: var(--ifm-background-color);
+}
+
+.table th.stickyCell {
+  z-index: 110;
+  background-color: var(--ifm-background-color);
+}
+
+/* Shadow separator on the last sticky column */
+.stickySeparator {
+  box-shadow: 2px 0 5px -2px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid var(--ifm-color-gray-200);
+}
+
+[data-theme="dark"] .stickySeparator {
+  box-shadow: 2px 0 5px -2px rgba(0, 0, 0, 0.4);
+  border-right: 1px solid var(--ifm-color-gray-800);
+}
+
+/* Zebra striping */
+.table tbody tr:nth-child(even) .stickyCell {
+  background-color: var(--ifm-table-stripe-background);
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: var(--ifm-table-stripe-background);
+}
+
+.table td {
+  background-color: transparent;
+}
+
+/* Hover effects */
+.table tbody tr:hover .stickyCell,
+.table tbody tr:hover {
+  background: color-mix(
+    in srgb,
+    var(--ifm-color-primary) 5%,
+    var(--ifm-background-color)
+  ) !important;
+}
+
+/* Typography & Borders */
+.table th,
+.table td {
+  box-sizing: border-box;
+  white-space: nowrap;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border: solid var(--ifm-color-gray-100);
+  border-width: 0 1px 1px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Allow text wrapping when wrap is enabled */
+.table th.wrap,
+.table td.wrap {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+[data-theme="dark"] .table th,
+[data-theme="dark"] .table td {
+  border: solid var(--ifm-color-gray-870);
+  border-width: 0 0 1px 0;
+}
+
+.table th:last-child,
+.table td:last-child {
+  border-right: none;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table th {
+  background-color: var(--ifm-table-head-background);
+  font-weight: 600;
+}
+
+/* Highlighted header styles */
+.table.highlightedHeader thead th {
+  background: linear-gradient(
+    to bottom,
+    color-mix(
+      in srgb,
+      var(--ifm-color-primary) 8%,
+      var(--ifm-table-head-background)
+    ),
+    var(--ifm-table-head-background)
+  );
+  color: var(--ifm-color-primary);
+  border-bottom: 2px solid var(--ifm-color-primary);
+}
+
+/* Don't override position for sticky cells in highlighted headers */
+.table.highlightedHeader thead th.stickyCell {
+  position: sticky;
+}
+
+[data-theme="dark"] .table.highlightedHeader thead th {
+  background: linear-gradient(
+    to bottom,
+    color-mix(
+      in srgb,
+      var(--ifm-color-primary) 12%,
+      var(--ifm-table-head-background)
+    ),
+    var(--ifm-table-head-background)
+  );
+}
+
+.table.highlightedHeader thead th.stickyCell {
+  background: linear-gradient(
+    to bottom,
+    color-mix(
+      in srgb,
+      var(--ifm-color-primary) 8%,
+      var(--ifm-background-color)
+    ),
+    var(--ifm-background-color)
+  );
+}
+
+[data-theme="dark"] .table.highlightedHeader thead th.stickyCell {
+  background: linear-gradient(
+    to bottom,
+    color-mix(
+      in srgb,
+      var(--ifm-color-primary) 12%,
+      var(--ifm-background-color)
+    ),
+    var(--ifm-background-color)
+  );
+}
+
+.generatedAt {
+  font-size: 0.8rem;
+  color: var(--ifm-color-secondary-dark);
+  font-style: italic;
+  margin-top: 0.75rem;
+}
+
+/* ===========================================
+   MOBILE: Allow wrapping on non-sticky columns
+   Below 768px, columns can wrap their content
+   and are limited to max-width to stay readable
+   =========================================== */
+@media (max-width: 768px) {
+  /* Non-sticky cells: allow wrap and limit width */
+  .table th:not(.stickyCell),
+  .table td:not(.stickyCell) {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: calc(100vw - 200px);
+  }
+
+  .table th,
+  .table td {
+    padding: 0.75rem 0.75rem;
+  }
+}
+
+
+/* ===========================================
+   STICKY HEADER CLONE
+   =========================================== */
+.cloneWrapper {
+  position: fixed;
+  top: 105px;
+  z-index: 200;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  border-left: 1px solid var(--ifm-table-border-color);
+  border-radius: var(--ifm-global-radius) 0 0 0;
+  will-change: scroll-position;
+  /* Hide scrollbar on all browsers */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar on clone (webkit) */
+.cloneWrapper::-webkit-scrollbar {
+  display: none;
+  height: 0;
+  width: 0;
+}
+
+.cloneTable {
+  display: none;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-left: none;
+  border-radius: var(--ifm-global-radius) var(--ifm-global-radius) 0 0;
+}
+
+/* Fix border jump on first sticky cell when scrolling */
+.cloneTable thead tr th:first-child {
+  border-left: none;
+}
+
+/* Override shadow for clone - position it fixed relative to viewport */
+.cloneWrapper::after {
+  position: fixed;
+  top: calc(var(--clone-top, 120px) - 2px);
+  right: calc(var(--clone-right, 0px) - 2px);
+  height: calc(var(--clone-height, 50px) + 4px);
+  bottom: auto;
+  transform-origin: right;
+  transform: scaleX(var(--shadow-scale, 1));
+}
+
+/* ===========================================
+   FILTER TOGGLE
+   =========================================== */
+.filterToggleGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.filterLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ifm-color-content-secondary);
+  flex-shrink: 0;
+}
+
+.filterToggleList {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar but keep functionality */
+.filterToggleList::-webkit-scrollbar {
+  display: none;
+}
+.filterToggleList {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.filterToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.8rem;
+  color: var(--ifm-color-content-secondary);
+  background-color: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-global-radius);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.filterToggle:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+.filterToggle input[type="checkbox"] {
+  width: 0.9rem;
+  height: 0.9rem;
+  accent-color: var(--ifm-color-primary);
+  cursor: pointer;
+}

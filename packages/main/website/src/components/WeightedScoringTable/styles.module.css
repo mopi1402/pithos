@@ -1,0 +1,28 @@
+.categoryBadge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.categoryCritical {
+  background: rgba(220, 38, 38, 0.15);
+  color: #dc2626;
+}
+
+.categoryHigh {
+  background: rgba(245, 158, 11, 0.15);
+  color: #d97706;
+}
+
+.categoryMedium {
+  background: rgba(59, 130, 246, 0.15);
+  color: #2563eb;
+}
+
+.categoryLow {
+  background: rgba(107, 114, 128, 0.15);
+  color: #6b7280;
+}

@@ -1,0 +1,74 @@
+{
+  "parse-float-def": {
+    "lodash": null,
+    "ramda": null,
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": null,
+    "python": null,
+    "kotlin": null
+  },
+  "parse-float": {
+    "lodash": null,
+    "ramda": null,
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": null,
+    "python": { "name": "float()", "group": "builtins" },
+    "kotlin": { "name": "toFloatOrNull", "group": "kotlin" }
+  },
+  "parse-int-def": {
+    "lodash": null,
+    "ramda": null,
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": null,
+    "python": { "name": "int()", "group": "builtins" },
+    "kotlin": { "name": "toIntOrNull", "group": "kotlin" }
+  },
+  "parse-comma-separated": {
+    "lodash": null,
+    "ramda": null,
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": null,
+    "python": { "name": "str.split(',')", "group": "builtins" },
+    "kotlin": { "name": "split(',')", "group": "kotlin" }
+  },
+  "parse-key-value-pairs": {
+    "lodash": null,
+    "ramda": null,
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": null,
+    "python": { "name": "dict(pair.split('=') for pair in s.split(','))", "group": "builtins" },
+    "kotlin": null
+  },
+  "path-parser": {
+    "lodash": { "name": "toPath", "group": "Util" },
+    "ramda": null,
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": { "name": "toPath", "group": "object" },
+    "python": null,
+    "kotlin": null
+  }
+}

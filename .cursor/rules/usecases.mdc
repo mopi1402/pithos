@@ -1,0 +1,122 @@
+---
+description: Standards for writing USE_CASES.md documentation
+globs: **/USE_CASES.md
+alwaysApply: true
+---
+
+# Use Cases Documentation Standards
+
+This file governs the format and style of `USE_CASES.md` files.
+
+## 1. Structure
+
+### Title
+The file must start with a level 1 heading:
+`# <Module> Utilities - Use Cases Guide`
+
+### Introduction
+A brief description of what the guide covers.
+
+### Divider
+Use a horizontal rule `---` to separate the intro from the content.
+
+## 2. Function Sections
+
+Each function gets a **Level 2 heading** (`##`).
+Format: `## \`functionName\` <icon>`
+
+### Icons
+- Use `⭐` for **Top Picks** (essential, frequently used utilities).
+- Use `💎` for **Hidden Gems** (powerful but less known utilities).
+- Use no icon for standard utilities.
+
+### Description
+For **Hidden Gems** (`💎`), include a blockquote description immediately after the header to explain why it is special.
+`> Description of the gem...`
+
+## 3. Use Case Examples
+
+Each use case gets a **Level 3 heading** (`###`).
+Format: `### **Verb** description 📍`
+
+- **Use Case Title**: Bold the first word (the action verb).
+- **Pin Emoji (📍)**: Append ` 📍` to the title **ONLY** for the most common/standard use cases (e.g., the primary reason the function exists). Less common or niche examples should not have it.
+
+### Content
+1. **Description**: 1-2 lines explaining the use case.
+2. **Usage Context**: A line starting with "Essential for...", "Perfect for...", or "Critical for...".
+3. **Code Example**: A \`typescript\` code block demonstrating the use case.
+
+### Example Quality
+- **Relevance**: Examples must represent **real-world, common developer scenarios** (e.g., data fetching, form validation, UI state). Avoid abstract or mathematical examples unless the function is purely mathematical.
+- **Depth**: Examples should be **fully developed** and show realistic usage, not just a one-liner. Show how the result is used.
+- **Clarity**: Use meaningful variable names (\`users\`, \`products\`, \`config\`) instead of generic ones (\`foo\`, \`bar\`, \`arr\`).
+- **Variety**: Multiple use cases for a single function must demonstrate **different capabilities** or **distinct scenarios** (e.g., one for simple usage, one for a complex edge case, one for a specific option). Avoid repeating the same pattern with just different variable names.
+
+## 4. ES Version Constraints
+
+**NEVER recommend approaches using ES versions higher than the project target.**
+
+The project targets **ES2020** (see \`tsconfig.build.json\`). All recommended native approaches in USE_CASES.md must be compatible with ES2020 or earlier.
+
+- ✅ \`array[array.length - 1]\` (ES5)
+- ✅ \`array.flat()\` (ES2019)
+- ✅ \`Object.fromEntries()\` (ES2019)
+- ❌ \`array.at(-1)\` (ES2022) - Do NOT recommend
+- ❌ \`Object.hasOwn()\` (ES2022) - Do NOT recommend
+
+If newer ES features exist, they may be mentioned in TSDoc for informational purposes only, but USE_CASES.md must stick to ES2020-compatible recommendations.
+
+## 5. Common Mistakes to Avoid
+
+### ❌ Never add \`---\` at the end of a file or after text
+
+A \`---\` (horizontal rule) directly after text causes MDX to interpret the preceding paragraph as a **setext heading**, making the text appear as a giant title.
+
+**Bad** (text becomes a heading):
+\`\`\`
+Perfect for lazy singletons.
+---
+\`\`\`
+
+**Good** (no trailing separator):
+\`\`\`
+Perfect for lazy singletons.
+\`\`\`
+
+**Also Good** (blank line before separator if needed):
+\`\`\`
+Perfect for lazy singletons.
+
+---
+\`\`\`
+
+**Rule**: The \`---\` divider in Section 1 (after the intro) is acceptable because it follows a blank line. Never place \`---\` directly after a paragraph or at the end of a file.
+
+## 6. Example
+
+\`\`\`markdown
+## \`myFunction\` ⭐
+
+### **Analyze** data patterns 📍
+
+Detect patterns in large datasets efficiently.
+Essential for data science applications.
+
+\\\`\\\`\\\`typescript
+const result = myFunction(data);
+\\\`\\\`\\\`
+
+## \`hiddenGem\` 💎
+
+> A powerful utility that solves complex problems simply.
+
+### **Simplify** complex workflows 📍
+
+Reduce boilerplate code in complex workflows.
+Perfect for enterprise applications.
+
+\\\`\\\`\\\`typescript
+const simple = hiddenGem(complexData);
+\\\`\\\`\\\`
+\`\`\`

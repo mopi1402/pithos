@@ -1,0 +1,872 @@
+{
+  "$schema": "./function-weights.schema.json",
+  "description": "Performance weight categories for utility functions. Higher weight = more important to be fast.",
+  "categories": {
+    "CRITICAL": {
+      "weight": 5,
+      "description": "Hot path functions called in tight loops (map, filter, reduce, transformations)",
+      "color": "#dc2626"
+    },
+    "HIGH": {
+      "weight": 3,
+      "description": "Frequently used utilities, but not in tight loops (get, set, pick, omit)",
+      "color": "#f59e0b"
+    },
+    "MEDIUM": {
+      "weight": 1,
+      "description": "Occasional utilities (type guards, string formatting)",
+      "color": "#3b82f6"
+    },
+    "LOW": {
+      "weight": 0.5,
+      "description": "Setup-only functions where runtime perf is irrelevant (debounce, throttle, once)",
+      "color": "#6b7280"
+    }
+  },
+  "modules": {
+    "arkhe": {
+      "after": {
+        "category": "LOW",
+        "reason": "Function wrapper, called once at setup"
+      },
+      "before": {
+        "category": "LOW",
+        "reason": "Function wrapper, called once at setup"
+      },
+      "camelCase": {
+        "category": "MEDIUM",
+        "reason": "String transformation, occasional use"
+      },
+      "capitalize": {
+        "category": "MEDIUM",
+        "reason": "String transformation, occasional use"
+      },
+      "chunk": {
+        "category": "CRITICAL",
+        "reason": "Array transformation, often in data processing pipelines"
+      },
+      "clamp": {
+        "category": "HIGH",
+        "reason": "Math utility, can be called frequently in animations/calculations"
+      },
+      "countBy": {
+        "category": "CRITICAL",
+        "reason": "Array aggregation, data processing"
+      },
+      "curry": {
+        "category": "LOW",
+        "reason": "Function wrapper, called once at setup"
+      },
+      "debounce": {
+        "category": "LOW",
+        "reason": "Rate limiter, called once at setup - the whole point is to NOT call it often"
+      },
+      "deburr": {
+        "category": "MEDIUM",
+        "reason": "String transformation, occasional use"
+      },
+      "defaultTo": {
+        "category": "HIGH",
+        "reason": "Value fallback, frequently used"
+      },
+      "defaults": {
+        "category": "HIGH",
+        "reason": "Object merging, config handling"
+      },
+      "defaultsDeep": {
+        "category": "HIGH",
+        "reason": "Deep object merging, config handling"
+      },
+      "difference": {
+        "category": "CRITICAL",
+        "reason": "Array set operation, data processing"
+      },
+      "differenceBy": {
+        "category": "CRITICAL",
+        "reason": "Array set operation with iteratee"
+      },
+      "differenceWith": {
+        "category": "CRITICAL",
+        "reason": "Array set operation with comparator"
+      },
+      "drop": {
+        "category": "CRITICAL",
+        "reason": "Array slicing, pagination, data processing"
+      },
+      "dropRight": {
+        "category": "CRITICAL",
+        "reason": "Array slicing"
+      },
+      "dropRightWhile": {
+        "category": "CRITICAL",
+        "reason": "Array filtering"
+      },
+      "dropWhile": {
+        "category": "CRITICAL",
+        "reason": "Array filtering"
+      },
+      "escape": {
+        "category": "HIGH",
+        "reason": "HTML escaping, security-critical, can be called on many strings"
+      },
+      "escapeRegExp": {
+        "category": "MEDIUM",
+        "reason": "RegExp escaping, occasional use"
+      },
+      "fill": {
+        "category": "CRITICAL",
+        "reason": "Array mutation, data initialization"
+      },
+      "findKey": {
+        "category": "HIGH",
+        "reason": "Object search, lookup operations"
+      },
+      "findLast": {
+        "category": "CRITICAL",
+        "reason": "Array search, data processing"
+      },
+      "findLastIndex": {
+        "category": "CRITICAL",
+        "reason": "Array search, data processing"
+      },
+      "flip": {
+        "category": "LOW",
+        "reason": "Function wrapper, called once at setup"
+      },
+      "flowRight": {
+        "category": "LOW",
+        "reason": "Function composition, called once at setup"
+      },
+      "get": {
+        "category": "HIGH",
+        "reason": "Deep property access, very common utility"
+      },
+      "groupBy": {
+        "category": "CRITICAL",
+        "reason": "Array aggregation, data processing pipelines"
+      },
+      "has": {
+        "category": "HIGH",
+        "reason": "Property check, frequently used"
+      },
+      "inRange": {
+        "category": "HIGH",
+        "reason": "Range check, can be in loops for validation"
+      },
+      "intersection": {
+        "category": "CRITICAL",
+        "reason": "Array set operation, data processing"
+      },
+      "intersectionBy": {
+        "category": "CRITICAL",
+        "reason": "Array set operation with iteratee"
+      },
+      "intersectionWith": {
+        "category": "CRITICAL",
+        "reason": "Array set operation with comparator"
+      },
+      "invert": {
+        "category": "HIGH",
+        "reason": "Object transformation"
+      },
+      "isArray": {
+        "category": "MEDIUM",
+        "reason": "Type guard, occasional validation"
+      },
+      "isArrayBuffer": {
+        "category": "MEDIUM",
+        "reason": "Type guard, occasional validation"
+      },
+      "isBoolean": {
+        "category": "MEDIUM",
+        "reason": "Type guard, occasional validation"
+      },
+      "isDate": {
+        "category": "MEDIUM",
+        "reason": "Type guard, occasional validation"
+      },
+      "isEqual": {
+        "category": "HIGH",
+        "reason": "Deep equality, can be in React memo comparisons"
+      },
+      "isError": {
+        "category": "MEDIUM",
+        "reason": "Type guard, error handling"
+      },
+      "isFunction": {
+        "category": "MEDIUM",
+        "reason": "Type guard, occasional validation"
+      },
+      "isMap": {
+        "category": "MEDIUM",
+        "reason": "Type guard, occasional validation"
+      },
+      "isNil": {
+        "category": "MEDIUM",
+        "reason": "Type guard, null checks"
+      },
+      "isNull": {
+        "category": "MEDIUM",
+        "reason": "Type guard, null checks"
+      },
+      "isNumber": {
+        "category": "MEDIUM",
+        "reason": "Type guard, occasional validation"
+      },
+      "isObject": {
+        "category": "MEDIUM",
+        "reason": "Type guard, occasional validation"
+      },
+      "isPlainObject": {
+        "category": "MEDIUM",
+        "reason": "Type guard, occasional validation"
+      },
+      "isRegExp": {
+        "category": "MEDIUM",
+        "reason": "Type guard, occasional validation"
+      },
+      "isSet": {
+        "category": "MEDIUM",
+        "reason": "Type guard, occasional validation"
+      },
+      "isString": {
+        "category": "MEDIUM",
+        "reason": "Type guard, occasional validation"
+      },
+      "isSymbol": {
+        "category": "MEDIUM",
+        "reason": "Type guard, occasional validation"
+      },
+      "isUndefined": {
+        "category": "MEDIUM",
+        "reason": "Type guard, undefined checks"
+      },
+      "kebabCase": {
+        "category": "MEDIUM",
+        "reason": "String transformation, occasional use"
+      },
+      "keyBy": {
+        "category": "CRITICAL",
+        "reason": "Array to object indexing, data normalization"
+      },
+      "lowerFirst": {
+        "category": "MEDIUM",
+        "reason": "String transformation, occasional use"
+      },
+      "mapKeys": {
+        "category": "CRITICAL",
+        "reason": "Object transformation, data processing"
+      },
+      "mapValues": {
+        "category": "CRITICAL",
+        "reason": "Object transformation, data processing"
+      },
+      "maxBy": {
+        "category": "CRITICAL",
+        "reason": "Array aggregation, finding extremes"
+      },
+      "memoize": {
+        "category": "LOW",
+        "reason": "Function wrapper, called once at setup"
+      },
+      "mergeWith": {
+        "category": "HIGH",
+        "reason": "Deep object merging"
+      },
+      "minBy": {
+        "category": "CRITICAL",
+        "reason": "Array aggregation, finding extremes"
+      },
+      "negate": {
+        "category": "LOW",
+        "reason": "Function wrapper, called once at setup"
+      },
+      "noop": {
+        "category": "LOW",
+        "reason": "Empty function, no-op"
+      },
+      "omit": {
+        "category": "HIGH",
+        "reason": "Object filtering, common in React/Redux"
+      },
+      "omitBy": {
+        "category": "HIGH",
+        "reason": "Object filtering with predicate"
+      },
+      "once": {
+        "category": "LOW",
+        "reason": "Function wrapper, called once at setup"
+      },
+      "orderBy": {
+        "category": "CRITICAL",
+        "reason": "Array sorting, data display"
+      },
+      "partition": {
+        "category": "CRITICAL",
+        "reason": "Array splitting, data processing"
+      },
+      "pick": {
+        "category": "HIGH",
+        "reason": "Object filtering, very common utility"
+      },
+      "pickBy": {
+        "category": "HIGH",
+        "reason": "Object filtering with predicate"
+      },
+      "random": {
+        "category": "MEDIUM",
+        "reason": "Random number generation"
+      },
+      "range": {
+        "category": "HIGH",
+        "reason": "Array generation, iteration helpers"
+      },
+      "reverse": {
+        "category": "CRITICAL",
+        "reason": "Array transformation"
+      },
+      "sample": {
+        "category": "MEDIUM",
+        "reason": "Random selection, occasional use"
+      },
+      "sampleSize": {
+        "category": "MEDIUM",
+        "reason": "Random selection, occasional use"
+      },
+      "set": {
+        "category": "HIGH",
+        "reason": "Deep property setting, immutable updates"
+      },
+      "shuffle": {
+        "category": "MEDIUM",
+        "reason": "Array randomization, occasional use"
+      },
+      "snakeCase": {
+        "category": "MEDIUM",
+        "reason": "String transformation, occasional use"
+      },
+      "take": {
+        "category": "CRITICAL",
+        "reason": "Array slicing, pagination"
+      },
+      "takeRight": {
+        "category": "CRITICAL",
+        "reason": "Array slicing"
+      },
+      "takeRightWhile": {
+        "category": "CRITICAL",
+        "reason": "Array filtering"
+      },
+      "takeWhile": {
+        "category": "CRITICAL",
+        "reason": "Array filtering"
+      },
+      "template": {
+        "category": "MEDIUM",
+        "reason": "String templating, occasional use"
+      },
+      "throttle": {
+        "category": "LOW",
+        "reason": "Rate limiter, called once at setup - the whole point is to NOT call it often"
+      },
+      "times": {
+        "category": "HIGH",
+        "reason": "Iteration helper, loop generation"
+      },
+      "toArray": {
+        "category": "HIGH",
+        "reason": "Type conversion, data normalization"
+      },
+      "toNumber": {
+        "category": "HIGH",
+        "reason": "Type conversion, parsing"
+      },
+      "truncate": {
+        "category": "MEDIUM",
+        "reason": "String truncation, display formatting"
+      },
+      "unescape": {
+        "category": "HIGH",
+        "reason": "HTML unescaping, can be called on many strings"
+      },
+      "union": {
+        "category": "CRITICAL",
+        "reason": "Array set operation"
+      },
+      "unionBy": {
+        "category": "CRITICAL",
+        "reason": "Array set operation with iteratee"
+      },
+      "unionWith": {
+        "category": "CRITICAL",
+        "reason": "Array set operation with comparator"
+      },
+      "uniq": {
+        "category": "CRITICAL",
+        "reason": "Array deduplication, very common"
+      },
+      "uniqBy": {
+        "category": "CRITICAL",
+        "reason": "Array deduplication with iteratee"
+      },
+      "uniqWith": {
+        "category": "CRITICAL",
+        "reason": "Array deduplication with comparator"
+      },
+      "uniqueId": {
+        "category": "MEDIUM",
+        "reason": "ID generation, occasional use"
+      },
+      "unzip": {
+        "category": "CRITICAL",
+        "reason": "Array transformation, data restructuring"
+      },
+      "words": {
+        "category": "MEDIUM",
+        "reason": "String parsing, occasional use"
+      },
+      "xor": {
+        "category": "CRITICAL",
+        "reason": "Array set operation"
+      },
+      "zip": {
+        "category": "CRITICAL",
+        "reason": "Array transformation, data restructuring"
+      },
+      "zipWith": {
+        "category": "CRITICAL",
+        "reason": "Array transformation with iteratee"
+      }
+    },
+    "taphos": {
+      "add": {
+        "category": "HIGH",
+        "reason": "Math operation, can be in calculations"
+      },
+      "assign": {
+        "category": "HIGH",
+        "reason": "Object merging, common utility"
+      },
+      "at": {
+        "category": "HIGH",
+        "reason": "Property access, data extraction"
+      },
+      "attempt": {
+        "category": "MEDIUM",
+        "reason": "Error handling wrapper"
+      },
+      "bind": {
+        "category": "LOW",
+        "reason": "Function binding, called once at setup"
+      },
+      "castArray": {
+        "category": "HIGH",
+        "reason": "Type normalization, input handling"
+      },
+      "ceil": {
+        "category": "HIGH",
+        "reason": "Math rounding, calculations"
+      },
+      "cloneDeep": {
+        "category": "HIGH",
+        "reason": "Deep cloning, immutable patterns"
+      },
+      "compact": {
+        "category": "CRITICAL",
+        "reason": "Array filtering, removing falsy values"
+      },
+      "concat": {
+        "category": "CRITICAL",
+        "reason": "Array concatenation"
+      },
+      "constant": {
+        "category": "LOW",
+        "reason": "Function wrapper, returns constant"
+      },
+      "create": {
+        "category": "MEDIUM",
+        "reason": "Object creation, occasional use"
+      },
+      "defer": {
+        "category": "LOW",
+        "reason": "Async scheduling, timing utility"
+      },
+      "divide": {
+        "category": "HIGH",
+        "reason": "Math operation"
+      },
+      "endsWith": {
+        "category": "MEDIUM",
+        "reason": "String check"
+      },
+      "eq": {
+        "category": "HIGH",
+        "reason": "Equality check, comparisons"
+      },
+      "every": {
+        "category": "CRITICAL",
+        "reason": "Array predicate, validation loops"
+      },
+      "filter": {
+        "category": "CRITICAL",
+        "reason": "Array filtering, core transformation"
+      },
+      "find": {
+        "category": "CRITICAL",
+        "reason": "Array search, data lookup"
+      },
+      "findIndex": {
+        "category": "CRITICAL",
+        "reason": "Array search, index lookup"
+      },
+      "flatMap": {
+        "category": "CRITICAL",
+        "reason": "Array transformation, flattening"
+      },
+      "flatMapDeep": {
+        "category": "CRITICAL",
+        "reason": "Deep array transformation"
+      },
+      "flatMapDepth": {
+        "category": "CRITICAL",
+        "reason": "Array transformation with depth"
+      },
+      "flatten": {
+        "category": "CRITICAL",
+        "reason": "Array flattening"
+      },
+      "flattenDeep": {
+        "category": "CRITICAL",
+        "reason": "Deep array flattening"
+      },
+      "flattenDepth": {
+        "category": "CRITICAL",
+        "reason": "Array flattening with depth"
+      },
+      "floor": {
+        "category": "HIGH",
+        "reason": "Math rounding"
+      },
+      "forIn": {
+        "category": "CRITICAL",
+        "reason": "Object iteration"
+      },
+      "forOwn": {
+        "category": "CRITICAL",
+        "reason": "Object iteration"
+      },
+      "fromPairs": {
+        "category": "CRITICAL",
+        "reason": "Array to object conversion"
+      },
+      "gt": {
+        "category": "HIGH",
+        "reason": "Comparison, can be in sorting"
+      },
+      "gte": {
+        "category": "HIGH",
+        "reason": "Comparison, can be in sorting"
+      },
+      "hasIn": {
+        "category": "HIGH",
+        "reason": "Property check"
+      },
+      "head": {
+        "category": "CRITICAL",
+        "reason": "Array access, very common"
+      },
+      "identity": {
+        "category": "LOW",
+        "reason": "Identity function, passthrough"
+      },
+      "includes": {
+        "category": "CRITICAL",
+        "reason": "Collection search, membership check"
+      },
+      "indexOf": {
+        "category": "CRITICAL",
+        "reason": "Array search"
+      },
+      "initial": {
+        "category": "CRITICAL",
+        "reason": "Array slicing"
+      },
+      "isBuffer": {
+        "category": "MEDIUM",
+        "reason": "Type guard"
+      },
+      "isElement": {
+        "category": "MEDIUM",
+        "reason": "DOM type guard"
+      },
+      "isFinite": {
+        "category": "MEDIUM",
+        "reason": "Number validation"
+      },
+      "isInteger": {
+        "category": "MEDIUM",
+        "reason": "Number validation"
+      },
+      "isNaN": {
+        "category": "MEDIUM",
+        "reason": "Number validation"
+      },
+      "isSafeInteger": {
+        "category": "MEDIUM",
+        "reason": "Number validation"
+      },
+      "isTypedArray": {
+        "category": "MEDIUM",
+        "reason": "Type guard"
+      },
+      "isWeakMap": {
+        "category": "MEDIUM",
+        "reason": "Type guard"
+      },
+      "isWeakSet": {
+        "category": "MEDIUM",
+        "reason": "Type guard"
+      },
+      "join": {
+        "category": "CRITICAL",
+        "reason": "Array to string, common operation"
+      },
+      "keys": {
+        "category": "CRITICAL",
+        "reason": "Object keys extraction, very common"
+      },
+      "last": {
+        "category": "CRITICAL",
+        "reason": "Array access, very common"
+      },
+      "lastIndexOf": {
+        "category": "CRITICAL",
+        "reason": "Array search"
+      },
+      "lowerCase": {
+        "category": "MEDIUM",
+        "reason": "String transformation"
+      },
+      "map": {
+        "category": "CRITICAL",
+        "reason": "Array transformation, core utility"
+      },
+      "max": {
+        "category": "CRITICAL",
+        "reason": "Array aggregation"
+      },
+      "min": {
+        "category": "CRITICAL",
+        "reason": "Array aggregation"
+      },
+      "multiply": {
+        "category": "HIGH",
+        "reason": "Math operation"
+      },
+      "nth": {
+        "category": "HIGH",
+        "reason": "Array access"
+      },
+      "nthArg": {
+        "category": "LOW",
+        "reason": "Function wrapper"
+      },
+      "overEvery": {
+        "category": "HIGH",
+        "reason": "Predicate composition"
+      },
+      "overSome": {
+        "category": "HIGH",
+        "reason": "Predicate composition"
+      },
+      "pad": {
+        "category": "MEDIUM",
+        "reason": "String padding"
+      },
+      "padEnd": {
+        "category": "MEDIUM",
+        "reason": "String padding"
+      },
+      "padStart": {
+        "category": "MEDIUM",
+        "reason": "String padding"
+      },
+      "partial": {
+        "category": "LOW",
+        "reason": "Function wrapper, called once at setup"
+      },
+      "property": {
+        "category": "HIGH",
+        "reason": "Property accessor creator, used in iteratees"
+      },
+      "propertyOf": {
+        "category": "HIGH",
+        "reason": "Property accessor creator"
+      },
+      "pull": {
+        "category": "CRITICAL",
+        "reason": "Array mutation, removing elements"
+      },
+      "pullAllBy": {
+        "category": "CRITICAL",
+        "reason": "Array mutation with iteratee"
+      },
+      "pullAllWith": {
+        "category": "CRITICAL",
+        "reason": "Array mutation with comparator"
+      },
+      "pullAt": {
+        "category": "CRITICAL",
+        "reason": "Array mutation by index"
+      },
+      "rangeRight": {
+        "category": "HIGH",
+        "reason": "Array generation"
+      },
+      "reduce": {
+        "category": "CRITICAL",
+        "reason": "Array reduction, core transformation"
+      },
+      "reduceRight": {
+        "category": "CRITICAL",
+        "reason": "Array reduction from right"
+      },
+      "reject": {
+        "category": "CRITICAL",
+        "reason": "Array filtering (inverse of filter)"
+      },
+      "repeat": {
+        "category": "MEDIUM",
+        "reason": "String repetition"
+      },
+      "replace": {
+        "category": "MEDIUM",
+        "reason": "String replacement"
+      },
+      "rest": {
+        "category": "LOW",
+        "reason": "Function wrapper"
+      },
+      "round": {
+        "category": "HIGH",
+        "reason": "Math rounding"
+      },
+      "size": {
+        "category": "HIGH",
+        "reason": "Collection size, common check"
+      },
+      "slice": {
+        "category": "CRITICAL",
+        "reason": "Array slicing"
+      },
+      "some": {
+        "category": "CRITICAL",
+        "reason": "Array predicate, validation"
+      },
+      "sortBy": {
+        "category": "CRITICAL",
+        "reason": "Array sorting"
+      },
+      "split": {
+        "category": "HIGH",
+        "reason": "String splitting"
+      },
+      "spread": {
+        "category": "LOW",
+        "reason": "Function wrapper"
+      },
+      "startsWith": {
+        "category": "MEDIUM",
+        "reason": "String check"
+      },
+      "subtract": {
+        "category": "HIGH",
+        "reason": "Math operation"
+      },
+      "tail": {
+        "category": "CRITICAL",
+        "reason": "Array slicing, common operation"
+      },
+      "toFinite": {
+        "category": "HIGH",
+        "reason": "Number conversion"
+      },
+      "toInteger": {
+        "category": "HIGH",
+        "reason": "Number conversion"
+      },
+      "toPairs": {
+        "category": "CRITICAL",
+        "reason": "Object to array conversion"
+      },
+      "toPath": {
+        "category": "HIGH",
+        "reason": "Path parsing for get/set"
+      },
+      "toSafeInteger": {
+        "category": "HIGH",
+        "reason": "Number conversion"
+      },
+      "toString": {
+        "category": "HIGH",
+        "reason": "Type conversion"
+      },
+      "toUpper": {
+        "category": "MEDIUM",
+        "reason": "String transformation"
+      },
+      "transform": {
+        "category": "CRITICAL",
+        "reason": "Object/array transformation"
+      },
+      "trim": {
+        "category": "MEDIUM",
+        "reason": "String trimming"
+      },
+      "trimEnd": {
+        "category": "MEDIUM",
+        "reason": "String trimming"
+      },
+      "trimStart": {
+        "category": "MEDIUM",
+        "reason": "String trimming"
+      },
+      "unary": {
+        "category": "LOW",
+        "reason": "Function wrapper"
+      },
+      "unset": {
+        "category": "HIGH",
+        "reason": "Property removal"
+      },
+      "update": {
+        "category": "HIGH",
+        "reason": "Property update"
+      },
+      "upperCase": {
+        "category": "MEDIUM",
+        "reason": "String transformation"
+      },
+      "upperFirst": {
+        "category": "MEDIUM",
+        "reason": "String transformation"
+      },
+      "values": {
+        "category": "CRITICAL",
+        "reason": "Object values extraction, very common"
+      },
+      "without": {
+        "category": "CRITICAL",
+        "reason": "Array filtering"
+      },
+      "wrap": {
+        "category": "LOW",
+        "reason": "Function wrapper, called once at setup"
+      },
+      "zipObject": {
+        "category": "CRITICAL",
+        "reason": "Array to object conversion"
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "console": {
+    "lodash": null,
+    "ramda": null,
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": null,
+    "python": null,
+    "kotlin": null
+  },
+  "globals": {
+    "lodash": null,
+    "ramda": null,
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": null,
+    "python": null,
+    "kotlin": null
+  },
+  "privateAccess": {
+    "lodash": null,
+    "ramda": null,
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": null,
+    "python": null,
+    "kotlin": null
+  }
+}

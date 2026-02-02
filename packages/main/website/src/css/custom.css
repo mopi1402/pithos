@@ -1,0 +1,337 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap");
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #f26f17;
+  --ifm-color-primary-dark: #d96214;
+  --ifm-color-primary-darker: #cc5d13;
+  --ifm-color-primary-darkest: #a84c0f;
+  --ifm-color-primary-light: #f37c2e;
+  --ifm-color-primary-lighter: #f4833a;
+  --ifm-color-primary-lightest: #f69d5c;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  /* Prism code block colors - customize these variables */
+  --prism-background: #faf8f6;
+  --prism-color: #2d2926;
+  --prism-keyword: #c75000;
+  --prism-string: #986801;
+  --prism-function: #287d4a;
+  --prism-number: #9a6700;
+  --prism-comment: #8b8685;
+  --prism-operator: #c75000;
+  --prism-punctuation: #5c5856;
+  --prism-class: #9a6700;
+  --prism-variable: #b35900;
+  --prism-property: #287d4a;
+  --ifm-background-color: #ffffff;
+  --ifm-background-surface-color: #f5f6f7;
+  --golden-color: #1c1e21;
+  --ifm-footer-padding-vertical: 5px;
+  --greek-font: "Cormorant Garamond", serif;
+
+  --ifm-color-gray-50: #fafbfb;
+  --ifm-color-gray-66: #f8f9fa;
+  --ifm-color-gray-75: #f8f9f9;
+  --ifm-color-gray-115: #f4f5f6;
+  --ifm-color-gray-850: #303439;
+  --ifm-color-gray-870: #282b2f;
+  --ifr-color-gray-875: #26292d;
+  --ifm-color-gray-880: #24272b;
+  --ifm-color-gray-885: #222529;
+  --ifm-color-gray-890: #202226;
+  --ifm-color-gray-900: #1c1e21;
+  --ifm-color-gray-950: #0e0f11;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme="dark"] {
+  --ifm-color-primary: #f26f17;
+  --ifm-color-primary-dark: #d96214;
+  --ifm-color-primary-darker: #cc5d13;
+  --ifm-color-primary-darkest: #a84c0f;
+  --ifm-color-primary-light: #f37c2e;
+  --ifm-color-primary-lighter: #f4833a;
+  --ifm-color-primary-lightest: #f69d5c;
+  --golden-color: #c9a962;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  /* Prism code block colors for dark theme */
+  --prism-background: #1a1614;
+  --prism-color: #e8e4e0;
+  --prism-keyword: #f26f17;
+  --prism-string: #e6b450;
+  --prism-function: #7ec699;
+  --prism-number: #d19a66;
+  --prism-comment: #6d6560;
+  --prism-operator: #f26f17;
+  --prism-punctuation: #a39e99;
+  --prism-class: #e5c07b;
+  --prism-variable: #f5a962;
+  --prism-property: #98c379;
+
+
+  --ifm-background-color: #0a0a0a;
+  --ifm-background-surface-color: #111111;
+  --light-grey: #b0b3b8;
+}
+
+table {
+  overflow-x: scroll !important;
+  width: 100%;
+}
+
+/* Hero section: replace orange background with quasi-black and invert text colors */
+.hero--primary,
+[data-theme="dark"] .hero--primary {
+  background-color: transparent;
+  backdrop-filter: blur(2px);
+}
+
+.hero--primary,
+.hero--primary .hero__title {
+  color: #1c1e21;
+}
+
+.hero--primary .hero__subtitle {
+  color: #606770;
+}
+
+/* Dark theme: use quasi-black background for hero */
+[data-theme="dark"] .hero--primary,
+[data-theme="dark"] .hero--primary .hero__title {
+  color: var(--golden-color);
+}
+
+[data-theme="dark"] .hero--primary .hero__subtitle {
+  color: #b0b3b8;
+}
+
+/* Background effects from landscape-website */
+body {
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  z-index: 1;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle,
+      rgba(201, 169, 98, 0.05) 0%,
+      transparent 70%);
+  pointer-events: none;
+  animation: pulse 8s ease-in-out infinite;
+  will-change: transform, opacity;
+  z-index: 1;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.7;
+  }
+}
+
+/* Apply Cormorant Garamond font to Pithos text */
+.navbar__title {
+  font-family: var(--greek-font), serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--golden-color);
+}
+
+.hero__title {
+  font-family: var(--greek-font), serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Add subtle border and very light white drop shadow to navbar */
+.navbar {
+  border-bottom: 1px solid rgba(201, 169, 98, 0.1);
+  box-shadow: 0 1px 5px rgba(255, 255, 255, 0.1);
+}
+
+/* Apply same style to footer */
+.footer {
+  border-top: 1px solid rgba(201, 169, 98, 0.1);
+  box-shadow: 0 -1px 5px rgba(255, 255, 255, 0.1);
+}
+
+/* Darker footer in dark mode */
+[data-theme="dark"] .footer {
+  background-color: #050505;
+}
+
+div.container div.row>div.col {
+  margin-top: 30px;
+}
+
+.theme-doc-sidebar-menu .menu__list-item>.menu__list {
+  border-left: 1px solid color-mix(in srgb, var(--light-grey, #b0b3b8) 20%, transparent);
+  margin-left: 10px;
+  padding-left: 0;
+  border-radius: 0;
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  position: relative;
+}
+
+.menu__link--active:not(.menu__link--sublist)::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  margin-left: -2px;
+  background-color: var(--ifm-color-primary);
+}
+
+.plugin-id-api .theme-doc-sidebar-item-category-level-1.menu__list-item>.menu__list-item-collapsible {
+  font-family: var(--greek-font), sans-serif;
+  text-transform: uppercase;
+
+  a {
+    color: var(--golden-color) !important;
+  }
+}
+
+table {
+  --table-border-color: #efefef;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid var(--table-border-color);
+  border-radius: var(--ifm-global-radius);
+  overflow: hidden;
+
+  border-width: 0.5px;
+
+  th,
+  td,
+  table {
+    border: 1px solid var(--table-border-color);
+  }
+
+  th:last-child {
+    width: 100%;
+  }
+}
+
+[data-theme="dark"] table {
+  --table-border-color: #1a1a1a;
+}
+
+.tabs__item {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.tabs-container .theme-code-block {
+  margin-top: -1rem;
+}
+
+ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
+  border-top-left-radius: 0;
+}
+
+.markdown h1:first-child {
+  --ifm-h1-font-size: 3rem;
+  margin-bottom: 50px;
+}
+
+.markdown h3 code,
+.markdown h2 code,
+.markdown h4 code,
+.markdown h2 .param-type,
+.markdown h3 .param-type,
+.markdown h4 .param-type {
+  border: 1px dashed #666666;
+  background-color: transparent !important;
+  font-weight: lighter;
+  font-size: 0.95rem;
+  opacity: 0.75;
+  padding: 0.25rem 0.25rem;
+  border-radius: 0.25rem;
+}
+
+/* Prism code block styling using CSS variables */
+.prism-code {
+  background-color: var(--prism-background);
+  color: var(--prism-color);
+}
+
+.token.keyword {
+  color: var(--prism-keyword);
+}
+
+.token.string {
+  color: var(--prism-string);
+}
+
+.token.function {
+  color: var(--prism-function);
+}
+
+.token.number {
+  color: var(--prism-number);
+}
+
+.token.comment {
+  color: var(--prism-comment);
+}
+
+.token.operator {
+  color: var(--prism-operator);
+}
+
+.token.punctuation {
+  color: var(--prism-punctuation);
+}
+
+.token.class-name {
+  color: var(--prism-class);
+}
+
+.token.variable {
+  color: var(--prism-variable);
+}
+
+.token.property {
+  color: var(--prism-property);
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  :root {
+    --ifm-spacing-horizontal: 0.5rem;
+  }
+}

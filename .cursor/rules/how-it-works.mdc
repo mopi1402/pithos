@@ -1,0 +1,156 @@
+---
+description: How to write "How it works" documentation sections
+globs: docs/**/*.md, docs/**/*.mdx
+alwaysApply: false
+---
+
+# 📊 How It Works Documentation Rules
+
+This rule defines how to structure the "How it works" sections in Pithos documentation. The goal is **visual-first documentation** — a diagram is worth a thousand words.
+
+## 1. 🎯 Philosophy
+
+- **Show behavior, not description**: This section illustrates *how* the function works internally, not *what* it does (that's the role of the main description and examples)
+- **Visual confirmation over textual explanation**: Even "simple" functions benefit from a diagram that confirms understanding in milliseconds
+- **RxJS marble diagrams as inspiration**: Immediate visual comprehension, no parsing required
+- **AI/MCP friendly**: Rich visual context helps LLMs choose the right utility
+
+### What This Section Is NOT
+
+- ❌ A repeat of the function description
+- ❌ A list of parameters and return values
+- ❌ Usage examples (that's the `@example` section)
+- ❌ Comparisons with other functions (SEO duplicate content risk)
+
+### What This Section IS
+
+- ✅ A visual representation of the transformation/behavior
+- ✅ An illustration of the internal mechanism
+
+## 2. 📂 File Organization
+
+**One file per function — no grouping.**
+
+- Each function gets its own `.md` file: `chunk.md`, `difference.md`, `difference-by.md`, etc.
+- Never combine related functions in a single file (e.g., don't put `differenceBy` inside `difference.md`)
+- File naming: use kebab-case matching the function name (`dropRightWhile` → `drop-right-while.md`)
+
+This ensures:
+- Clean URLs for each function
+- Independent documentation updates
+- Better SEO and discoverability
+- Easier maintenance
+
+## 3. 📐 Content Structure
+
+### Simple Functions (self-explanatory behavior)
+
+Diagram only, no text explanation needed.
+````markdown
+```mermaid
+flowchart LR
+    A["[1,2,3,4,5]"] --> B["chunk(_, 2)"] --> C["[[1,2], [3,4], [5]]"]
+```
+````
+
+### Complex Functions (non-obvious behavior)
+
+Short explanation (1-2 sentences) focusing on the *mechanism*, not the purpose + diagram.
+````markdown
+Slides through the array one element at a time, creating overlapping subarrays.
+Each window shares `size - 1` elements with the previous one.
+```mermaid
+flowchart LR
+    A["[1,2,3,4,5]"] --> B["window(_, 3)"] --> C["[[1,2,3], [2,3,4], [3,4,5]]"]
+```
+````
+
+## 4. 📏 Diagram Guidelines
+
+### Mermaid Flowchart (preferred for transformations)
+````markdown
+```mermaid
+flowchart LR
+    A["input"] --> B["function(_)"] --> C["output"]
+```
+````
+
+### Mermaid Sequence (for temporal/stateful behavior like debounce/throttle)
+````markdown
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant F as function
+    U->>F: call
+    Note right of F: behavior
+    F->>U: result
+```
+````
+
+### Visual Conventions
+
+- Use emojis for visual distinction: `🍎`, `🍊`, `🍋`, `✅`, `❌`, `⏱️`, `🔒`
+- Keep arrays short: 3-5 elements max
+- Show concrete values, not abstract `T` types
+- Use consistent sizing for comparison diagrams
+
+## 5. ✅ Checklist
+
+Before submitting a "How it works" section:
+
+- [ ] **Diagram present**: Every function has at least one visual
+- [ ] **Shows mechanism**: Illustrates *how* it works, not *what* it does
+- [ ] **No description repeat**: Doesn't duplicate the main function description
+- [ ] **No comparisons**: Avoids duplicate content with other function pages
+- [ ] **Concrete examples**: Real values, not abstract types
+- [ ] **Consistent style**: Matches existing documentation patterns
+
+## 6. 🚫 Anti-patterns
+
+**❌ Repeating the description**
+````markdown
+## How it works
+
+Chunk splits an array into smaller arrays of the specified size. It takes an array and a size parameter and returns an array of arrays.
+````
+
+**✅ Showing the mechanism**
+````markdown
+```mermaid
+flowchart LR
+    A["[1,2,3,4,5]"] --> B["chunk(_, 2)"] --> C["[[1,2], [3,4], [5]]"]
+```
+````
+
+**❌ Abstract diagrams**
+````markdown
+```mermaid
+flowchart LR
+    A["T[]"] --> B["fn"] --> C["T[][]"]
+```
+````
+
+**✅ Concrete values**
+````markdown
+```mermaid
+flowchart LR
+    A["[1,2,3,4,5]"] --> B["chunk(_, 2)"] --> C["[[1,2], [3,4], [5]]"]
+```
+````
+
+**❌ Comparing with other functions**
+````markdown
+### Chunk vs Window
+
+| | Chunk | Window |
+|--|-------|--------|
+| **Overlap** | No | Yes |
+````
+
+**✅ Focus on this function only**
+````markdown
+```mermaid
+flowchart LR
+    A["[1,2,3,4,5]"] --> B["chunk(_, 2)"] --> C["[[1,2], [3,4], [5]]"]
+```
+````

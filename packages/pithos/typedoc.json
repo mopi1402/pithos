@@ -1,0 +1,61 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": [
+    "src/**/*.ts"
+  ],
+  "entryPointStrategy": "expand",
+  "tsconfig": "./tsconfig.typedoc.json",
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.bench.ts",
+    "**/*.md"
+  ],
+  "out": "../main/documentation/.intermediate/api-docs",
+  "plugin": [
+    "typedoc-plugin-markdown"
+  ],
+  "readme": "none",
+  "githubPages": false,
+  "disableSources": true,
+  "excludeReferences": true,
+  "categorizeByGroup": true,
+  "defaultCategory": "Other",
+  "categoryOrder": [
+    "Arkhe",
+    "Kanon",
+    "Taphos",
+    "Zygos",
+    "Sphalma",
+    "*"
+  ],
+  "sort": [
+    "source-order"
+  ],
+  "kindSortOrder": [
+    "Project",
+    "Module",
+    "Namespace",
+    "Enum",
+    "EnumMember",
+    "Class",
+    "Interface",
+    "TypeAlias",
+    "Function",
+    "Variable",
+    "Accessor"
+  ],
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeInternal": true,
+  "includeVersion": true,
+  "gitRevision": "main",
+  "gitRemote": "origin",
+  "validation": {
+    "notDocumented": false,
+    "invalidLink": true,
+    "notExported": false
+  },
+  "pageTitleTemplates": {
+    "member": "{name}"
+  }
+}

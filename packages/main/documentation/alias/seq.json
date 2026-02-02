@@ -1,0 +1,26 @@
+{
+  "tap": {
+    "lodash": { "name": "tap", "group": "Seq" },
+    "ramda": { "name": "tap", "group": "Function" },
+    "radashi": null,
+    "remeda": { "name": "tap", "group": "Function" },
+    "moderndash": null,
+    "antfu": null,
+    "effect": { "name": "tap", "group": "Function" },
+    "es-toolkit": null,
+    "python": null,
+    "kotlin": { "name": "also", "group": "kotlin" }
+  },
+  "thru": {
+    "lodash": { "name": "thru", "group": "Seq" },
+    "ramda": null,
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": null,
+    "effect": null,
+    "es-toolkit": null,
+    "python": null,
+    "kotlin": { "name": "let", "group": "kotlin" }
+  }
+}

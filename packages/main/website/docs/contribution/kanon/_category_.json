@@ -1,0 +1,8 @@
+{
+  "label": "Kanon",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "Deep dive into Kanon's architecture, evolution from V1 to V3, design innovations, and architectural decisions."
+  }
+}

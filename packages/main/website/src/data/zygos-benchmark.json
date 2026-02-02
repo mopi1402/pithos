@@ -1,0 +1,1219 @@
+{
+  "generatedAt": "2026-01-29T20:53:25.090Z",
+  "versions": {
+    "zygos": "1.1.0",
+    "neverthrow": "8.2.0"
+  },
+  "libraries": [
+    "fp-ts/flatMap",
+    "fp-ts/fromNullable",
+    "fp-ts/getOrElse",
+    "fp-ts/isSome",
+    "fp-ts/map",
+    "fp-ts/match",
+    "fp-ts/some",
+    "neverthrow",
+    "zygos"
+  ],
+  "scenarios": [
+    {
+      "name": "option/flatMap",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 17066555,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.2398,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0003,
+            "rme": "±0.27%",
+            "samples": 8533278
+          }
+        },
+        {
+          "library": "fp-ts/flatMap",
+          "opsPerSecond": 2159401,
+          "rank": 2,
+          "ratio": 7.9,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0003,
+            "max": 0.3111,
+            "mean": 0.0005,
+            "p75": 0.0005,
+            "p99": 0.0006,
+            "p995": 0.0007,
+            "p999": 0.0046,
+            "rme": "±0.34%",
+            "samples": 1079701
+          }
+        }
+      ]
+    },
+    {
+      "name": "option/fromNullable",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 21175235,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.429,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.30%",
+            "samples": 10587618
+          }
+        },
+        {
+          "library": "fp-ts/fromNullable",
+          "opsPerSecond": 12531120,
+          "rank": 2,
+          "ratio": 1.69,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0431,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.12%",
+            "samples": 6265561
+          }
+        }
+      ]
+    },
+    {
+      "name": "option/fromNullable-null",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 21418732,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.0794,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.12%",
+            "samples": 10709367
+          }
+        },
+        {
+          "library": "fp-ts/fromNullable",
+          "opsPerSecond": 12738723,
+          "rank": 2,
+          "ratio": 1.68,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0665,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.13%",
+            "samples": 6369362
+          }
+        }
+      ]
+    },
+    {
+      "name": "option/getOrElse",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 20483242,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.1204,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.13%",
+            "samples": 10241621
+          }
+        },
+        {
+          "library": "fp-ts/getOrElse",
+          "opsPerSecond": 10367453,
+          "rank": 2,
+          "ratio": 1.98,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0699,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.13%",
+            "samples": 5183817
+          }
+        }
+      ]
+    },
+    {
+      "name": "option/isSome",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 20538438,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.813,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.34%",
+            "samples": 10269219
+          }
+        },
+        {
+          "library": "fp-ts/isSome",
+          "opsPerSecond": 12327922,
+          "rank": 2,
+          "ratio": 1.67,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0842,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.13%",
+            "samples": 6163962
+          }
+        }
+      ]
+    },
+    {
+      "name": "option/map",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 20265719,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.1348,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.14%",
+            "samples": 10132860
+          }
+        },
+        {
+          "library": "fp-ts/map",
+          "opsPerSecond": 10061446,
+          "rank": 2,
+          "ratio": 2.01,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.3281,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0002,
+            "p999": 0.0003,
+            "rme": "±0.18%",
+            "samples": 5030723
+          }
+        }
+      ]
+    },
+    {
+      "name": "option/match",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 20351076,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.3162,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.19%",
+            "samples": 10175539
+          }
+        },
+        {
+          "library": "fp-ts/match",
+          "opsPerSecond": 10000249,
+          "rank": 2,
+          "ratio": 2.04,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.2816,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0002,
+            "p999": 0.0003,
+            "rme": "±0.17%",
+            "samples": 5000125
+          }
+        }
+      ]
+    },
+    {
+      "name": "option/some-creation",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 21107403,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.0643,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.11%",
+            "samples": 10553702
+          }
+        },
+        {
+          "library": "fp-ts/some",
+          "opsPerSecond": 13702970,
+          "rank": 2,
+          "ratio": 1.54,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0586,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.13%",
+            "samples": 6851485
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/andThen-chain",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 15625104,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.0394,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.12%",
+            "samples": 7812553
+          }
+        },
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 4372974,
+          "rank": 2,
+          "ratio": 3.57,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0001,
+            "max": 0.0668,
+            "mean": 0.0002,
+            "p75": 0.0002,
+            "p99": 0.0003,
+            "p995": 0.0003,
+            "p999": 0.0011,
+            "rme": "±0.13%",
+            "samples": 2186487
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/andThen-err",
+      "results": [
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 25129486,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.0378,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.13%",
+            "samples": 12564743
+          }
+        },
+        {
+          "library": "zygos",
+          "opsPerSecond": 25096290,
+          "rank": 2,
+          "ratio": 1,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.105,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.13%",
+            "samples": 12548149
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/andThen-ok",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 22392142,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.2858,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.20%",
+            "samples": 11196072
+          }
+        },
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 9925282,
+          "rank": 2,
+          "ratio": 2.26,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.1548,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0002,
+            "p999": 0.0003,
+            "rme": "±0.17%",
+            "samples": 4962641
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/combine-all-ok",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 17092844,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 2.6903,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0003,
+            "rme": "±1.09%",
+            "samples": 8546422
+          }
+        },
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 6607547,
+          "rank": 2,
+          "ratio": 2.59,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.2838,
+            "mean": 0.0002,
+            "p75": 0.0002,
+            "p99": 0.0002,
+            "p995": 0.0002,
+            "p999": 0.0007,
+            "rme": "±0.27%",
+            "samples": 3303774
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/combine-large",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 3579460,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0.0002,
+            "max": 0.2067,
+            "mean": 0.0003,
+            "p75": 0.0003,
+            "p99": 0.0006,
+            "p995": 0.0008,
+            "p999": 0.0043,
+            "rme": "±0.42%",
+            "samples": 1789730
+          }
+        },
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 2491544,
+          "rank": 2,
+          "ratio": 1.44,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0002,
+            "max": 0.2685,
+            "mean": 0.0004,
+            "p75": 0.0004,
+            "p99": 0.0007,
+            "p995": 0.001,
+            "p999": 0.0045,
+            "rme": "±0.39%",
+            "samples": 1245772
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/combine-with-err",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 17579034,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.2636,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0003,
+            "rme": "±0.44%",
+            "samples": 8789518
+          }
+        },
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 6693805,
+          "rank": 2,
+          "ratio": 2.63,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.4447,
+            "mean": 0.0001,
+            "p75": 0.0002,
+            "p99": 0.0002,
+            "p995": 0.0003,
+            "p999": 0.0007,
+            "rme": "±0.37%",
+            "samples": 3346903
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/err-creation",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 21036986,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.1367,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.20%",
+            "samples": 10518494
+          }
+        },
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 7172761,
+          "rank": 2,
+          "ratio": 2.93,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.143,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0002,
+            "p995": 0.0002,
+            "p999": 0.0004,
+            "rme": "±0.23%",
+            "samples": 3586381
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/fromThrowable-error",
+      "results": [
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 235960,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0.0038,
+            "max": 1.6269,
+            "mean": 0.0042,
+            "p75": 0.004,
+            "p99": 0.0086,
+            "p995": 0.0123,
+            "p999": 0.0366,
+            "rme": "±0.79%",
+            "samples": 117980
+          }
+        },
+        {
+          "library": "zygos",
+          "opsPerSecond": 233677,
+          "rank": 2,
+          "ratio": 1.01,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0038,
+            "max": 0.5621,
+            "mean": 0.0043,
+            "p75": 0.0041,
+            "p99": 0.0097,
+            "p995": 0.0127,
+            "p999": 0.043,
+            "rme": "±0.50%",
+            "samples": 116839
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/fromThrowable-success",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 4895958,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0.0001,
+            "max": 0.043,
+            "mean": 0.0002,
+            "p75": 0.0002,
+            "p99": 0.0003,
+            "p995": 0.0003,
+            "p999": 0.0008,
+            "rme": "±0.12%",
+            "samples": 2447979
+          }
+        },
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 4893052,
+          "rank": 2,
+          "ratio": 1,
+          "isFastest": false,
+          "stats": {
+            "min": 0.0001,
+            "max": 0.1341,
+            "mean": 0.0002,
+            "p75": 0.0002,
+            "p99": 0.0003,
+            "p995": 0.0003,
+            "p999": 0.0005,
+            "rme": "±0.16%",
+            "samples": 2446526
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/isErr",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 25304675,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.0526,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.12%",
+            "samples": 12652338
+          }
+        },
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 25273787,
+          "rank": 2,
+          "ratio": 1,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0633,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.15%",
+            "samples": 12636894
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/isOk",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 25364340,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.0754,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.13%",
+            "samples": 12682172
+          }
+        },
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 25201040,
+          "rank": 2,
+          "ratio": 1.01,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0903,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.13%",
+            "samples": 12600520
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/map-err",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 28472551,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.2628,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0,
+            "p995": 0,
+            "p999": 0.0001,
+            "rme": "±0.16%",
+            "samples": 14236276
+          }
+        },
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 28439012,
+          "rank": 2,
+          "ratio": 1,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0571,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0,
+            "p995": 0,
+            "p999": 0.0001,
+            "rme": "±0.12%",
+            "samples": 14219506
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/map-ok",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 28375133,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.0707,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0,
+            "p995": 0,
+            "p999": 0.0001,
+            "rme": "±0.13%",
+            "samples": 14187567
+          }
+        },
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 28318830,
+          "rank": 2,
+          "ratio": 1,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.1597,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.15%",
+            "samples": 14159415
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/mapErr",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 28436674,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.039,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0,
+            "p995": 0,
+            "p999": 0.0001,
+            "rme": "±0.13%",
+            "samples": 14218338
+          }
+        },
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 28407978,
+          "rank": 2,
+          "ratio": 1,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.0673,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0,
+            "p995": 0,
+            "p999": 0.0001,
+            "rme": "±0.13%",
+            "samples": 14203990
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/match-err",
+      "results": [
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 28321918,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.0956,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0,
+            "p995": 0,
+            "p999": 0.0001,
+            "rme": "±0.19%",
+            "samples": 14160960
+          }
+        },
+        {
+          "library": "zygos",
+          "opsPerSecond": 28305181,
+          "rank": 2,
+          "ratio": 1,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.1078,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0,
+            "p995": 0,
+            "p999": 0.0001,
+            "rme": "±0.21%",
+            "samples": 14152591
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/match-ok",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 28231723,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.0685,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.13%",
+            "samples": 14115862
+          }
+        },
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 27991975,
+          "rank": 2,
+          "ratio": 1.01,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.1938,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.23%",
+            "samples": 13995988
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/ok-complex",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 21365131,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.2407,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0002,
+            "rme": "±0.23%",
+            "samples": 10682566
+          }
+        },
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 7128846,
+          "rank": 2,
+          "ratio": 3,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.1102,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0002,
+            "p995": 0.0002,
+            "p999": 0.0003,
+            "rme": "±0.24%",
+            "samples": 3564423
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/ok-creation",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 21001921,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.0781,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.21%",
+            "samples": 10501012
+          }
+        },
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 9980636,
+          "rank": 2,
+          "ratio": 2.1,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.1812,
+            "mean": 0.0001,
+            "p75": 0.0001,
+            "p99": 0.0001,
+            "p995": 0.0002,
+            "p999": 0.0003,
+            "rme": "±0.24%",
+            "samples": 4990318
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/unwrapOr-err",
+      "results": [
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 25294674,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.0662,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.13%",
+            "samples": 12647338
+          }
+        },
+        {
+          "library": "zygos",
+          "opsPerSecond": 25172038,
+          "rank": 2,
+          "ratio": 1,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.1113,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.14%",
+            "samples": 12586019
+          }
+        }
+      ]
+    },
+    {
+      "name": "result/unwrapOr-ok",
+      "results": [
+        {
+          "library": "zygos",
+          "opsPerSecond": 25327681,
+          "rank": 1,
+          "ratio": 1,
+          "isFastest": true,
+          "stats": {
+            "min": 0,
+            "max": 0.1078,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.12%",
+            "samples": 12663841
+          }
+        },
+        {
+          "library": "neverthrow",
+          "opsPerSecond": 25318959,
+          "rank": 2,
+          "ratio": 1,
+          "isFastest": false,
+          "stats": {
+            "min": 0,
+            "max": 0.364,
+            "mean": 0,
+            "p75": 0,
+            "p99": 0.0001,
+            "p995": 0.0001,
+            "p999": 0.0001,
+            "rme": "±0.19%",
+            "samples": 12659480
+          }
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "totalScenarios": 28,
+    "libraryRankings": [
+      {
+        "library": "zygos",
+        "wins": 24,
+        "totalTests": 28
+      },
+      {
+        "library": "neverthrow",
+        "wins": 4,
+        "totalTests": 28
+      },
+      {
+        "library": "fp-ts/flatMap",
+        "wins": 0,
+        "totalTests": 28
+      },
+      {
+        "library": "fp-ts/fromNullable",
+        "wins": 0,
+        "totalTests": 28
+      },
+      {
+        "library": "fp-ts/getOrElse",
+        "wins": 0,
+        "totalTests": 28
+      },
+      {
+        "library": "fp-ts/isSome",
+        "wins": 0,
+        "totalTests": 28
+      },
+      {
+        "library": "fp-ts/map",
+        "wins": 0,
+        "totalTests": 28
+      },
+      {
+        "library": "fp-ts/match",
+        "wins": 0,
+        "totalTests": 28
+      },
+      {
+        "library": "fp-ts/some",
+        "wins": 0,
+        "totalTests": 28
+      }
+    ],
+    "winner": "zygos"
+  }
+}

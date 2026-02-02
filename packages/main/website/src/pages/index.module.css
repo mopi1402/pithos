@@ -1,0 +1,158 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.hero {
+  padding: 4rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.heroText {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.heroTitle {
+  font-family: var(--greek-font), serif;
+  font-size: 5.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--golden-color);
+  margin: 0 0 0.5rem 0;
+  line-height: 1;
+  -webkit-text-stroke: 2px currentColor;
+  text-shadow: 0.5px 0 0 currentColor, -0.5px 0 0 currentColor;
+}
+
+.heroTagline {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 2rem 0;
+  line-height: 1.2;
+}
+
+[data-theme="light"] .heroTagline {
+  color: #1c1e21;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.buttonPrimary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.25rem;
+  border-radius: 2rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  background-color: var(--ifm-color-primary);
+  color: #ffffff;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.buttonPrimary:hover {
+  background-color: var(--ifm-color-primary-dark);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.buttonSecondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.25rem;
+  border-radius: 2rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: background-color 0.2s;
+}
+
+[data-theme="light"] .buttonSecondary {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #1c1e21;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.buttonSecondary:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+[data-theme="light"] .buttonSecondary:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #1c1e21;
+}
+
+.heroImage {
+  flex-shrink: 0;
+}
+
+.heroImage img {
+  width: 180px;
+  height: auto;
+  filter: drop-shadow(0 0 60px rgba(242, 111, 23, 0.3));
+}
+
+.desktopBreak {
+  display: block;
+}
+
+@media screen and (max-width: 1024px) {
+  .heroTitle {
+    font-size: 4.5rem;
+    -webkit-text-stroke: 1.5px currentColor;
+  }
+
+  .heroTagline {
+    font-size: 1.75rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .hero {
+    padding: 3rem 1.5rem;
+  }
+
+  .heroContent {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .heroTitle {
+    font-size: 4rem;
+  }
+
+  .heroTagline {
+    font-size: 1.5rem;
+  }
+
+  .heroButtons {
+    justify-content: center;
+  }
+
+  .heroImage img {
+    width: 120px;
+    height: auto;
+  }
+}

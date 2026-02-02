@@ -1,0 +1,14 @@
+{
+  "now": {
+    "lodash": { "name": "now", "group": "Date" },
+    "ramda": null,
+    "radashi": null,
+    "remeda": null,
+    "moderndash": null,
+    "antfu": { "name": "timestamp", "group": "time" },
+    "effect": null,
+    "es-toolkit": null,
+    "python": { "name": "time.time", "group": "time" },
+    "kotlin": { "name": "System.currentTimeMillis", "group": "kotlin" }
+  }
+}

@@ -1,0 +1,46 @@
+.code {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.9em;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  background: var(--prism-background);
+  color: var(--prism-color);
+}
+
+/* Use the same token colors as code blocks */
+.code :global(.token.keyword) {
+  color: var(--prism-keyword);
+}
+
+.code :global(.token.string) {
+  color: var(--prism-string);
+}
+
+.code :global(.token.function) {
+  color: var(--prism-function);
+}
+
+.code :global(.token.number) {
+  color: var(--prism-number);
+}
+
+.code :global(.token.operator) {
+  color: var(--prism-operator);
+}
+
+.code :global(.token.punctuation) {
+  color: var(--prism-punctuation);
+}
+
+.code :global(.token.property) {
+  color: var(--prism-property);
+}
+
+.code :global(.token.class-name) {
+  color: var(--prism-class);
+}
+
+.strikethrough {
+  text-decoration: line-through;
+  opacity: 0.7;
+}

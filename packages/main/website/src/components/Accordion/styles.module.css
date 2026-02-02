@@ -1,0 +1,45 @@
+.accordion {
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--ifm-table-border-color);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.summary {
+  padding: 0.75rem 1rem;
+  background: var(--ifm-background-surface-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  list-style: none;
+}
+
+.summary::-webkit-details-marker {
+  display: none;
+}
+
+.summary::before {
+  content: "▶";
+  font-size: 0.7rem;
+  color: var(--ifm-color-content-secondary);
+  transition: transform 0.2s ease;
+}
+
+.accordion[open] > .summary::before {
+  transform: rotate(90deg);
+}
+
+.summary:hover {
+  background: var(--ifm-hover-overlay);
+}
+
+.title {
+  font-weight: 500;
+  color: var(--ifm-color-emphasis-700);
+  flex: 1;
+}
+
+.content {
+  padding: 0.75rem 1rem;
+}
