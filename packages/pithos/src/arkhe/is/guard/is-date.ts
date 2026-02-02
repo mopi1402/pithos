@@ -1,0 +1,19 @@
+//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-16
+/**
+ * Checks if a value is a Date instance.
+ *
+ * @param value - The value to check.
+ * @returns `true` if the value is a Date, `false` otherwise.
+ * @since 1.1.0
+ *
+ * @note Does not validate if the Date is valid (use `isValidDate` for that).
+ *
+ * @example
+ * ```typescript
+ * isDate(new Date());       // => true
+ * isDate(new Date('invalid')); // => true (still a Date instance)
+ * isDate('2024-01-01');     // => false
+ * isDate(Date.now());       // => false (number)
+ * ```
+ */
+export const isDate = (value: unknown): value is Date => value instanceof Date;

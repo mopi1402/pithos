@@ -1,0 +1,22 @@
+//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-16
+/**
+ * Checks if a value is a Set instance.
+ *
+ * @param value - The value to check.
+ * @returns `true` if the value is a Set, `false` otherwise.
+ * @since 1.1.0
+ *
+ * @see isMap
+ * @see isWeakSet
+ *
+ * @example
+ * ```typescript
+ * isSet(new Set());        // => true
+ * isSet(new Set([1, 2]));  // => true
+ * isSet([]);               // => false
+ * isSet(new WeakSet());    // => false
+ * isSet(new Map());        // => false
+ * ```
+ */
+export const isSet = (value: unknown): value is Set<unknown> =>
+  value instanceof Set;
