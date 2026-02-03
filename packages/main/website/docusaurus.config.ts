@@ -38,10 +38,12 @@ const config: Config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "mopi1402", // Usually your GitHub org/user name.
-  projectName: "docusaurus", // Usually your repo name.
+  projectName: "pithos", // Usually your repo name.
 
   onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
+  onBrokenAnchors: "warn",
+  onDuplicateRoutes: "warn",
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -59,7 +61,7 @@ const config: Config = {
           sidebarPath: "./sidebars.ts",
           path: "./docs",
           routeBasePath: "guide",
-          sidebarCollapsed: false,
+          sidebarCollapsed: true,
         },
         theme: {
           customCss: "./src/css/custom.css",

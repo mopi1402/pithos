@@ -9,10 +9,16 @@ export function FeatureCard({
   description,
   link,
 }: Feature): ReactNode {
+  const isImagePath = icon.startsWith("/");
+  
   return (
     <Link to={link} className={styles.featureCard}>
       <div className={styles.featureIcon} aria-hidden="true">
-        {icon}
+        {isImagePath ? (
+          <img src={icon} alt={title} width={125} height={125} />
+        ) : (
+          icon
+        )}
       </div>
       <h3 className={styles.featureTitle}>{title}</h3>
       <p className={styles.featureDescription}>{description}</p>
