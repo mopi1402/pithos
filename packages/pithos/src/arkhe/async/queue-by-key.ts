@@ -1,6 +1,5 @@
 const queueMap = new Map<string, Promise<unknown>>();
 
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-16
 /**
  * Queues async functions by key to ensure sequential execution.
  *

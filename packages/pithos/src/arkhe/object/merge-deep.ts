@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-18
 // INTENTIONAL: any required for recursive deep merge; type inference via T & U at call site
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyRecord = Record<PropertyKey, any>;

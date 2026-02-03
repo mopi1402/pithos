@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-30
 /**
  * Iterates over elements from right to left, returning the first element predicate returns truthy for.
  *

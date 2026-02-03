@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-16
 /**
  * Creates an object composed of keys generated from the results of running each element through iteratee.
  *

@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-16
 /**
  * Returns the index of the last element that satisfies the predicate, or -1 if none found.
  *

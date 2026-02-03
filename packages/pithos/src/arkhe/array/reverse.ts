@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-30
 /**
  * Reverses array so that the first element becomes the last, the second element becomes the second to last, and so on.
  *

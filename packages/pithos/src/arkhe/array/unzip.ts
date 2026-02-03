@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-16
 /**
  * Maps each index of tuple T to an array of that index's type.
  * @template T - The tuple type to transform.

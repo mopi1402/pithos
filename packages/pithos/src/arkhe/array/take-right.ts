@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-30
 /**
  * Creates a slice of array with n elements taken from the end.
  *

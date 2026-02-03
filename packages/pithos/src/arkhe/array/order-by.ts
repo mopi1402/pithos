@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-30
 /**
  * Sort order type for orderBy function.
  * @since 1.1.0

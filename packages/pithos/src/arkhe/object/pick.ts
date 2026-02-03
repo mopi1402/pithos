@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-18
 /**
  * Creates a new object with only the specified keys.
  *

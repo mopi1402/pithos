@@ -4,7 +4,6 @@ import { addNumberConstraints } from "./number";
 import { parse } from "../../core/parser";
 import { ERROR_MESSAGES_COMPOSITION } from "../../core/consts/messages";
 
-// AI_OK : Code Review by Claude Opus 4.5, 2025-12-06
 describe("addNumberConstraints", () => {
   const createBaseSchema = () => ({
     type: "number" as const,

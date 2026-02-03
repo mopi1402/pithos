@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-31
 /**
  * Creates a function that invokes func after it's called n or more times.
  *

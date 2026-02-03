@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Sonnet 4.5, 2025-12-16
 /**
  * Composes functions right-to-left, passing the result of each to the previous.
  * This is the opposite of `pipe` (also known as `compose`).

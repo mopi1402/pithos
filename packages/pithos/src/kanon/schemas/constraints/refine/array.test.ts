@@ -10,7 +10,6 @@ import { ERROR_MESSAGES_COMPOSITION } from "../../../core/consts/messages";
 import type { ArraySchema } from "@kanon/types/composites";
 import type { ArrayConstraint , StringConstraint } from "@kanon/types/constraints";
 
-// AI_OK : Code Review by Claude Opus 4.5, 2025-12-06
 describe("refineArray", () => {
   describe("[🎯] Specification Tests", () => {
     describe("first refinement creation (Requirement 21.6)", () => {

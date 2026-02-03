@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-18
 /**
  * A cache interface for memoization, compatible with Map and custom implementations (LRU, TTL, etc.).
  *

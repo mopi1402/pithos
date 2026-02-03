@@ -5,7 +5,6 @@ import { parse } from "../../core/parser";
 import { ERROR_MESSAGES_COMPOSITION } from "../../core/consts/messages";
 import { unknown } from "../../schemas/primitives/unknown";
 
-// AI_OK : Code Review by Claude Opus 4.5, 2025-12-06
 describe("addArrayConstraints", () => {
   const createBaseSchema = () => ({
     type: "array" as const,

@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-16
 /**
  * Parses a string to a float, returning default if invalid.
  *

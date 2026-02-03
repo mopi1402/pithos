@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-31
 /**
  * Creates an array of unique values that is the symmetric difference of the given arrays.
  *

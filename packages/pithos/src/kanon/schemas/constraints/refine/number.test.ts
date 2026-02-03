@@ -7,7 +7,6 @@ import { ERROR_MESSAGES_COMPOSITION } from "../../../core/consts/messages";
 import type { NumberSchema } from "@kanon/types/primitives";
 import type { NumberConstraint } from "@kanon/types/constraints";
 
-// AI_OK : Code Review by Claude Opus 4.5, 2025-12-06
 describe("refineNumber", () => {
   describe("[🎯] Specification Tests", () => {
     describe("first refinement creation (Requirement 21.5)", () => {

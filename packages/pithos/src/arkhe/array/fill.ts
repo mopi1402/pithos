@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-30
 /**
  * Fills elements of array with value from start up to, but not including, end.
  *

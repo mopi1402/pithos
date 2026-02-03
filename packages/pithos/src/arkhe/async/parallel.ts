@@ -1,6 +1,5 @@
 import { clamp } from "../number/clamp";
 
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-16
 /**
  * Executes multiple async functions in parallel with concurrency control.
  *

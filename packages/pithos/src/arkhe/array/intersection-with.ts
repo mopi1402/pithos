@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-16
 /**
  * Creates an array of unique values present in all arrays, using a comparator for equality.
  *

@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-16
 import { Nullish } from "@arkhe/types/common/nullish";
 import { parseFloat } from "./parse-float";
 

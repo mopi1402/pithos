@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-16
 /**
  * Creates an array of values from the first array that are not present in the second array,
  * using an iteratee to compute the comparison value.

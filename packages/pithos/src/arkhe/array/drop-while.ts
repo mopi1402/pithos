@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-16
 /**
  * Creates a slice of array excluding elements dropped from the beginning.
  * Elements are dropped until predicate returns falsey.

@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-31
 /**
  * Creates a duplicate-free version of an array using an iteratee for comparison.
  *

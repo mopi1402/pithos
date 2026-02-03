@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-16
 // INTENTIONAL: Encapsulating globalThis access to avoid repeating type casts
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const _globalThis = globalThis as any;

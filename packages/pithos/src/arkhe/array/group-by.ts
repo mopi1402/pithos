@@ -1,4 +1,3 @@
-//AI_OK Code Review OK by Claude Opus 4.5, 2025-12-17
 /**
  * Groups array elements by a key derived from each element.
  *
