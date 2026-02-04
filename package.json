@@ -99,11 +99,6 @@
   },
   "pnpm": {
     "overrides": {
-      "@stryker-mutator/core": "link:vendor/stryker-js/packages/core",
-      "@stryker-mutator/vitest-runner": "link:vendor/stryker-js/packages/vitest-runner",
-      "@stryker-mutator/api": "link:vendor/stryker-js/packages/api",
-      "@stryker-mutator/util": "link:vendor/stryker-js/packages/util",
-      "@stryker-mutator/instrumenter": "link:vendor/stryker-js/packages/instrumenter",
       "sharp": "^0.34.5"
     }
   },
