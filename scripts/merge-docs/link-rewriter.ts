@@ -202,10 +202,15 @@ export function markLinkResolved(tracker: UnresolvedLinks, targetName: string): 
 
 /**
  * Logs any unresolved links that weren't fixed later.
+ * 
+ * @param tracker - The unresolved links tracker
+ * @param ignoredNames - Optional list of target names to ignore (e.g., merged types)
  */
-export function logUnresolvedLinks(tracker: UnresolvedLinks): void {
+export function logUnresolvedLinks(tracker: UnresolvedLinks, ignoredNames?: string[]): void {
+    const ignoredSet = ignoredNames ? new Set(ignoredNames.map(n => n.toLowerCase())) : new Set();
+    
     for (const [linkPath, { targetName, resolved }] of tracker) {
-        if (!resolved) {
+        if (!resolved && !ignoredSet.has(targetName.toLowerCase())) {
             console.warn(`  ⚠️  Link target not found: ${linkPath} (looking for "${targetName}")`);
         }
     }

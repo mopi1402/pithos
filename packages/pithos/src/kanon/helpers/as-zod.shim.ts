@@ -42,27 +42,66 @@ import {
 import type { Schema, GenericSchema, AnySchema } from "@kanon";
 import { ERROR_MESSAGES_COMPOSITION } from "@kanon/core/consts/messages";
 
-type AdapterOf<T> = ReturnType<typeof asZod<T>>;
+/**
+ * Shorthand for the return type of `asZod` with a given type.
+ *
+ * @template T - The schema output type.
+ * @public
+ * @since 3.0.0
+ */
+export type AdapterOf<T> = ReturnType<typeof asZod<T>>;
+
+/**
+ * Adapter accepting any value, used for heterogeneous collections.
+ *
+ * @since 3.0.0
+ */
 // INTENTIONAL: Use 'any' to allow heterogeneous unions without TS conflicts
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AdapterUnknown = AdapterOf<any>;
+
+/**
+ * Extracts the output type from an adapter.
+ *
+ * @template A - The adapter to infer from.
+ * @since 3.0.0
+ */
 type InferAdapter<A> = A extends AdapterOf<infer U> ? U : never;
+
+/**
+ * Maps each property of a record to its corresponding adapter.
+ *
+ * @template T - The record shape.
+ * @since 3.0.0
+ */
 type ShapeAdapters<T extends Record<string, unknown>> = {
   [K in keyof T]: AdapterOf<T[K]>;
 };
 /**
  * Extracts the inferred TypeScript type from a Kanon adapter.
  *
- * @template A - The adapter type to extract from
+ * @template A - The adapter type to extract from.
  * @since 3.0.0
  */
 export type Infer<A> = A extends AdapterOf<infer U> ? U : never;
 
-// Helper types for tuple inference
+/**
+ * Infers a tuple of output types from a tuple of adapters.
+ *
+ * @template T - Readonly tuple of adapters.
+ * @since 3.0.0
+ */
 type InferTupleItems<T extends readonly AdapterUnknown[]> = {
   readonly [K in keyof T]: T[K] extends AdapterOf<infer U> ? U : never;
 };
 
+/**
+ * Infers a tuple type with a rest element from adapters.
+ *
+ * @template T - Readonly tuple of fixed-position adapters.
+ * @template R - Adapter for the rest element.
+ * @since 3.0.0
+ */
 type InferTupleWithRest<
   T extends readonly AdapterUnknown[],
   R extends AdapterUnknown
@@ -77,57 +116,103 @@ type InferTupleWithRest<
       readonly [K in keyof T]: T[K] extends AdapterOf<infer U> ? U : never;
     } & { readonly length: T["length"] };
 
-// Object methods type for z.object() return
-// INTENTIONAL: Use simplified types for object methods to avoid complex generic constraints
+/**
+ * Boolean mask selecting keys of a record.
+ *
+ * @template T - The record type to mask.
+ * @since 3.0.0
+ */
 type Mask<T> = { [K in keyof T]?: true };
 
+/**
+ * Chainable object transform methods returned by `z.object()`.
+ *
+ * @template T - The inferred object shape.
+ * @since 3.0.0
+ */
 type ObjectMethods<T> = {
+  /** Returns a strict variant that rejects unknown keys. */
   strict: () => ObjectAdapter<T>;
+  /** Returns a loose variant that allows unknown keys. */
   passthrough: () => ObjectAdapter<T>;
+  /** Makes all properties optional. */
   partial: () => ObjectAdapter<Partial<T>>;
+  /** Makes all properties required. */
   required: () => ObjectAdapter<Required<T>>;
+  /** Picks a subset of properties by mask. */
   pick: <M extends Mask<T>>(mask: M) => ObjectAdapter<Pick<T, Extract<keyof T, keyof M>>>;
+  /** Omits a subset of properties by mask. */
   omit: <M extends Mask<T>>(mask: M) => ObjectAdapter<Omit<T, Extract<keyof T, keyof M>>>;
+  /** Returns an adapter for the string keys of the object. */
   keyof: () => AdapterOf<keyof T & string>;
 };
 
+/**
+ * Adapter for object schemas, combining parsing and transform methods.
+ *
+ * @template T - The inferred object shape.
+ * @since 3.0.0
+ */
 type ObjectAdapter<T> = AdapterOf<T> & ObjectMethods<T>;
 
-type ZShim = {
-  // Primitives
+/**
+ * Shape of the Zod-compatible `z` shim object.
+ *
+ * Defines all factory methods for creating adapted Kanon schemas
+ * through a Zod-like API.
+ *
+ * @public
+ * @since 3.0.0
+ */
+export type ZShim = {
+  /** Creates an adapter accepting any value. */
   any: () => AdapterOf<unknown>;
+  /** Creates an adapter accepting any value (typed as `unknown`). */
   unknown: () => AdapterOf<unknown>;
+  /** Creates an adapter that never succeeds. */
   never: () => AdapterOf<never>;
+  /** Creates an adapter accepting `void`. */
   void: () => AdapterOf<void>;
+  /** Creates an adapter accepting `undefined`. */
   undefined: () => AdapterOf<undefined>;
+  /** Creates an adapter accepting `null`. */
   null: () => AdapterOf<null>;
+  /** Creates a string adapter. */
   string: () => AdapterOf<string>;
+  /** Creates a number adapter with optional `.int()` refinement. */
   number: () => AdapterOf<number> & { int: () => AdapterOf<number> };
+  /** Creates a boolean adapter. */
   boolean: () => AdapterOf<boolean>;
+  /** Creates a bigint adapter. */
   bigint: () => AdapterOf<bigint>;
+  /** Creates a symbol adapter. */
   symbol: () => AdapterOf<symbol>;
+  /** Creates a Date adapter. */
   date: () => AdapterOf<Date>;
 
-  // Literals
+  /** Creates a literal adapter for a specific value. */
   literal: <T extends string | number | boolean>(v: T) => AdapterOf<T>;
 
-  // Enums
+  /** Creates a string enum adapter from a readonly tuple. */
   enum: (vals: readonly string[]) => AdapterOf<string>;
+  /** Creates an adapter from a TypeScript native enum. */
   nativeEnum: <E extends Record<string, string | number>>(
     e: E
   ) => AdapterOf<E[keyof E]>;
 
-  // Objects
+  /** Creates an object adapter with transform methods. */
   object: <T extends Record<string, unknown>>(
     shape: ShapeAdapters<T>
   ) => ObjectAdapter<T>;
+  /** Creates a record adapter with key and value schemas. */
   record: <K, V>(
     key: AdapterOf<K>,
     value: AdapterOf<V>
   ) => AdapterOf<Record<string, V>>;
 
-  // Arrays / tuples / collections
+  /** Creates an array adapter from an element adapter. */
   array: <T>(schema: AdapterOf<T>) => AdapterOf<T[]>;
+  /** Creates a tuple adapter with optional rest element. */
   tuple: <T extends readonly AdapterUnknown[]>(
     items: T
   ) => AdapterOf<InferTupleItems<T>> & {
@@ -135,32 +220,41 @@ type ZShim = {
       rest: R
     ) => AdapterOf<InferTupleWithRest<T, R>>;
   };
+  /** Creates a `Map` adapter from key and value adapters. */
   map: <K, V>(key: AdapterOf<K>, value: AdapterOf<V>) => AdapterOf<Map<K, V>>;
+  /** Creates a `Set` adapter from a value adapter. */
   set: <T>(value: AdapterOf<T>) => AdapterOf<Set<T>>;
 
-  // Unions / intersections
+  /** Creates a union adapter from an array of adapters. */
   union: (schemas: AdapterUnknown[]) => AdapterOf<unknown>;
+  /** Creates a discriminated union adapter. */
   discriminatedUnion: <D extends string>(
     discriminator: D,
     schemas: AdapterUnknown[]
   ) => AdapterOf<unknown>;
+  /** Creates an intersection adapter from two adapters. */
   intersection: <A extends AdapterUnknown, B extends AdapterUnknown>(
     a: A,
     b: B
   ) => AdapterOf<InferAdapter<A> & InferAdapter<B>>;
 
-  // Modifiers (via lazy for Zod compatibility)
+  /** Creates a lazy adapter for recursive schemas. */
   lazy: <T>(getSchema: () => AdapterOf<T>) => AdapterOf<T>;
 
-  // Promise
+  /** Creates a promise adapter that validates the resolved value. */
   promise: <T>(schema: AdapterOf<T>) => AdapterOf<Awaited<T>>;
 
-  // Coercion
+  /** Namespace for coercion adapters that convert input before validating. */
   coerce: {
+    /** Coerces input to string before validating. */
     string: () => AdapterOf<string>;
+    /** Coerces input to number before validating. */
     number: () => AdapterOf<number>;
+    /** Coerces input to boolean before validating. */
     boolean: () => AdapterOf<boolean>;
+    /** Coerces input to bigint before validating. */
     bigint: () => AdapterOf<bigint>;
+    /** Coerces input to Date before validating. */
     date: () => AdapterOf<Date>;
   };
 };
@@ -402,16 +496,54 @@ export const z: ZShim = {
   },
 };
 
-// Minimal type namespace to mirror Zod's value/type merge for tests
+/**
+ * Type namespace mirroring Zod's value/type merge for type helpers.
+ *
+ * @since 3.0.0
+ */
 // INTENTIONAL: merge namespace with value export for type helpers
 // eslint-disable-next-line @typescript-eslint/no-namespace, @typescript-eslint/no-redeclare
 export namespace z {
+  /**
+   * Any adapter type, equivalent to Zod's `ZodTypeAny`.
+   *
+   * @since 3.0.0
+   */
   export type ZodTypeAny = AdapterUnknown;
+
+  /**
+   * Typed adapter, equivalent to Zod's `ZodType`.
+   *
+   * @template T - The output type.
+   * @since 3.0.0
+   */
   export type ZodType<T = unknown> = AdapterOf<T>;
+
+  /**
+   * Literal adapter type, equivalent to Zod's `ZodLiteral`.
+   *
+   * @template T - The literal value type.
+   * @since 3.0.0
+   */
   export type ZodLiteral<T> = AdapterOf<T>;
+
+  /**
+   * Union adapter type, equivalent to Zod's `ZodUnion`.
+   *
+   * @template T - Tuple of at least two adapters.
+   * @since 3.0.0
+   */
   export type ZodUnion<
     T extends [AdapterUnknown, AdapterUnknown, ...AdapterUnknown[]]
   > = AdapterOf<unknown> & { rest?: never; _input?: T };
+
+  /**
+   * Tuple adapter type, equivalent to Zod's `ZodTuple`.
+   *
+   * @template T - Tuple of fixed-position adapters.
+   * @template Rest - Optional rest element adapter.
+   * @since 3.0.0
+   */
   export type ZodTuple<
     T extends [AdapterUnknown, ...AdapterUnknown[]],
     Rest extends AdapterUnknown = AdapterUnknown
@@ -422,10 +554,22 @@ export namespace z {
         _items?: T;
         _rest?: Rest;
       });
+
+  /**
+   * Number adapter type with optional `.int()`, equivalent to Zod's `ZodNumber`.
+   *
+   * @since 3.0.0
+   */
   export type ZodNumber =
     | AdapterOf<number>
     | (AdapterOf<number> & {
         int: () => AdapterOf<number>;
       });
+
+  /**
+   * Record shape where each value is an adapter, equivalent to Zod's `ZodRawShape`.
+   *
+   * @since 3.0.0
+   */
   export type ZodRawShape = Record<string, AdapterUnknown>;
 }

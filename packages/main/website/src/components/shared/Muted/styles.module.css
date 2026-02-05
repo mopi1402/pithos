@@ -1,0 +1,13 @@
+.muted {
+  opacity: 0.75;
+  font-weight: 300;
+}
+
+.muted li {
+  font-weight: 100;
+}
+
+.muted code {
+  font-weight: 100;
+  opacity: 0.6;
+}

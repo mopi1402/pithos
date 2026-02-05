@@ -7,7 +7,7 @@
  *
  * @note Handles kebab-case, snake_case, PascalCase, space-separated strings, and acronyms.
  *
- * @performance O(n) where n is string length. Multiple regex passes.
+ * @performance O(n) single-pass charCode traversal, no regex.
  *
  * @example
  * ```typescript
@@ -20,23 +20,69 @@
  * ```
  */
 export function camelCase(str: string): string {
-  // Stryker disable next-line ConditionalExpression: Early return optimization - pipeline handles empty string identically
-  if (str.length === 0) return "";
+  const len = str.length;
+  // Stryker disable next-line ConditionalExpression: Early return optimization — loop on empty string produces identical empty result
+  if (len === 0) return "";
 
-  // Stryker disable next-line ConditionalExpression,EqualityOperator,MethodExpression: Pipeline normalization makes mutations equivalent
-  const normalized = str.replace(/[A-Z]+/g, (match) =>
-    // Stryker disable next-line ConditionalExpression,EqualityOperator,MethodExpression: Pipeline normalization makes mutations equivalent
-    match.length > 1
-      ? match.charAt(0) + match.slice(1).toLowerCase()
-      : " " + match.toLowerCase()
-  );
+  let result = "";
+  let wordStart = false;
+  let hasOutput = false;
 
-  const result = normalized
-    .replace(/[_\-\s]+(.)?/g, (_, c: string | undefined) =>
-      c ? c.toUpperCase() : ""
-    )
-    .replace(/^[A-Z]/, (c) => c.toLowerCase());
+  for (let i = 0; i < len; i++) {
+    const code = str.charCodeAt(i);
 
-  // Stryker disable next-line Regex,StringLiteral: Spaces consumed by previous replace - safety net
-  return result.replace(/^\s+/, "");
+    // Separators: - (45), _ (95), whitespace (<=32 covers space, tab, newline, etc.)
+    if (code === 45 || code === 95 || code <= 32) {
+      if (hasOutput) wordStart = true;
+      continue;
+    }
+
+    // Unicode whitespace (rare path)
+    if (
+      code === 160 ||
+      code === 5760 ||
+      (code >= 8192 && code <= 8202) ||
+      code === 8232 ||
+      code === 8233 ||
+      code === 8239 ||
+      code === 8287 ||
+      code === 12288 ||
+      code === 65279
+    ) {
+      if (hasOutput) wordStart = true;
+      continue;
+    }
+
+    if (code >= 65 && code <= 90) {
+      // Uppercase A-Z
+      // Stryker disable next-line ConditionalExpression,EqualityOperator: At i=0, charCodeAt(-1) returns NaN which fails the >= 65 check identically
+      if (i > 0 && str.charCodeAt(i - 1) >= 65 && str.charCodeAt(i - 1) <= 90) {
+        // Continuation of uppercase group: lowercase
+        result += String.fromCharCode(code + 32);
+      } else if (!hasOutput) {
+        // First output: lowercase
+        result += String.fromCharCode(code + 32);
+        hasOutput = true;
+      } else {
+        // First of uppercase group (word boundary): keep uppercase
+        result += str[i];
+      }
+      wordStart = false;
+    } else if (code >= 97 && code <= 122) {
+      // Lowercase a-z
+      if (wordStart) {
+        result += String.fromCharCode(code - 32);
+        wordStart = false;
+      } else {
+        result += str[i];
+      }
+      hasOutput = true;
+    } else {
+      // Digit or other
+      result += str[i];
+      hasOutput = true;
+    }
+  }
+
+  return result;
 }

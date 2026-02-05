@@ -3,11 +3,15 @@ sidebar_position: 1
 title: Arkhe
 ---
 
-# Arkhe
+import ModuleName from '@site/src/components/shared/badges/ModuleName';
+
+# 🅰 <ModuleName name="Arkhe" />
 
 _ἀρχή - "origin"_
 
-Modern, lightweight alternative to lodash. Data manipulation, type guards, and function utilities — with TypeScript-first design and optimal tree-shaking.
+Modern, lightweight alternative to lodash. Data manipulation, type guards, and function utilities with TypeScript-first design and optimal tree-shaking.
+
+---
 
 ## Quick Example
 
@@ -23,6 +27,8 @@ get(user, "profile.name", "Anonymous"); // Safe nested access
 debounce(handleSearch, 300);         // Rate-limited function
 ```
 
+---
+
 ## When to Use
 
 - **Arrays**: chunk, groupBy, partition, difference, intersection, orderBy...
@@ -32,12 +38,16 @@ debounce(handleSearch, 300);         // Rate-limited function
 - **Async**: retry, parallel, defer, sleep...
 - **Types**: Nullable, Arrayable, PartialKeys, type guards...
 
+---
+
 ## When NOT to Use
 
 | Need | Use Instead |
 |------|-------------|
 | Schema validation | [Kanon](./kanon.md) |
 | Error handling (Result/Either) | [Zygos](./zygos.md) |
+
+---
 
 ## API Reference
 

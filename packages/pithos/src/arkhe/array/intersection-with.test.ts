@@ -56,6 +56,42 @@ describe("intersectionWith", () => {
     expect(intersectionWith([arr1, arr2], (a, b) => a.id === b.id)).toEqual([]);
   });
 
+  // --- Single array (arrays.length === 1): deduplication path ---
+
+  it("[🎯] single array returns deduplicated elements", () => {
+    expect(
+      intersectionWith([[1, 2, 2, 3, 3, 3]], (a, b) => a === b)
+    ).toEqual([1, 2, 3]);
+  });
+
+  it("[🎯] single array with all unique returns same elements", () => {
+    expect(
+      intersectionWith([[1, 2, 3]], (a, b) => a === b)
+    ).toEqual([1, 2, 3]);
+  });
+
+  it("[🎯] single empty array returns empty", () => {
+    expect(
+      intersectionWith([[]], (a: number, b: number) => a === b)
+    ).toEqual([]);
+  });
+
+  // --- 3+ arrays: third array empty triggers early return ---
+
+  it("[🎯] returns empty when third array is empty", () => {
+    expect(
+      intersectionWith([[1, 2], [1, 2], []], (a, b) => a === b)
+    ).toEqual([]);
+  });
+
+  // --- 3+ arrays: result becomes empty mid-iteration ---
+
+  it("[🎯] returns empty when no match survives third array", () => {
+    expect(
+      intersectionWith([[1, 2], [1, 2], [99]], (a, b) => a === b)
+    ).toEqual([]);
+  });
+
   it("[🎯] returns empty for empty second array", () => {
     expect(
       intersectionWith([[{ id: 1 }], []], (a, b) => a.id === b.id)

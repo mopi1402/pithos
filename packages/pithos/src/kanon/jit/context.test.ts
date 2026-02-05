@@ -245,3 +245,33 @@ describe("GeneratorContext", () => {
     });
   });
 });
+
+
+describe("[👾] Mutation: formatPath regex and reduce initial", () => {
+  it("[👾] multi-digit index is treated as numeric (not single digit only)", () => {
+    let ctx = createGeneratorContext();
+    ctx = pushPath(ctx, "items");
+    ctx = pushPath(ctx, "10");
+    expect(formatPath(ctx)).toBe("items[10]");
+  });
+
+  it("[👾] segment starting with digits but containing letters is not numeric", () => {
+    let ctx = createGeneratorContext();
+    ctx = pushPath(ctx, "123abc");
+    expect(formatPath(ctx)).toBe("123abc");
+  });
+
+  it("[👾] segment ending with digits but starting with letters is not numeric", () => {
+    let ctx = createGeneratorContext();
+    ctx = pushPath(ctx, "items");
+    ctx = pushPath(ctx, "abc123");
+    expect(formatPath(ctx)).toBe("items.abc123");
+  });
+
+  it("[👾] reduce initial value is empty string (first segment has no prefix)", () => {
+    let ctx = createGeneratorContext();
+    ctx = pushPath(ctx, "0");
+    // If initial value is not "", the result would be "Stryker was here![0]" instead of "[0]"
+    expect(formatPath(ctx)).toBe("[0]");
+  });
+});

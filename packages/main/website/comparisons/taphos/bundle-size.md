@@ -5,9 +5,9 @@ title: "Taphos Bundle Size"
 description: "Compare Pithos Taphos bundle size with Lodash, es-toolkit, Remeda and Radashi"
 ---
 
-import { ArkheBundleTable, GeneratedDate, TLDR, Legend } from '@site/src/components/ArkheBundleSizeTable';
+import { ArkheBundleTable, GeneratedDate, TLDR, Legend } from '@site/src/components/comparisons/arkhe/BundleSizeTable';
 
-# Taphos Bundle Size
+# 📦 Taphos Bundle Size
 
 Real numbers. No marketing fluff. **Data auto-generated on <GeneratedDate />.**
 
@@ -36,15 +36,15 @@ Individual function sizes, minified + gzipped. Pithos is the baseline (gold). Gr
 import { flatten } from "pithos/taphos/array/flatten";
 ```
 
-## Lodash: The Elephant
+## Why Lodash is Larger
 
-Lodash was built for ES5 compatibility. Every function carries internal utilities and polyfills. Even simple functions like `head` pull in hundreds of bytes of overhead.
+Lodash pioneered the JavaScript utility ecosystem and remains widely used. Its larger bundle size comes from a deliberate choice: broad compatibility across environments, including ES5 and older runtimes. Every function carries internal utilities and polyfills to ensure consistent behavior everywhere.
 
-**Lodash is 10-50x larger** than Pithos for most utilities.
+That legacy support has a cost. **Lodash is 10-50x larger** than Pithos for most utilities. Not because it's poorly written, but because it solves a different problem: universal compatibility vs. modern-first.
 
-## es-toolkit: Close, But Not Quite
+## es-toolkit
 
-es-toolkit is a modern Lodash replacement with decent tree-shaking. But Pithos consistently edges it out — often by 10-30% smaller bundles.
+es-toolkit is a modern Lodash replacement with good tree-shaking. Pithos is generally 10-30% smaller on individual functions.
 
 **es-toolkit/compat** is their Lodash compatibility layer — significantly larger due to legacy API support.
 

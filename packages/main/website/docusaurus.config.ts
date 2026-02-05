@@ -1,5 +1,6 @@
 import type { Config } from "@docusaurus/types";
 import type * as Preset from "@docusaurus/preset-classic";
+import remarkCustomEmoji from "./plugins/remark-custom-emoji";
 
 const languages: string[] = ["en"]; //["en", "fr"];
 
@@ -29,7 +30,7 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: "https://pithos.dev",
+  url: process.env.SITE_URL || "https://pithos.dev",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
@@ -62,6 +63,7 @@ const config: Config = {
           path: "./docs",
           routeBasePath: "guide",
           sidebarCollapsed: true,
+          remarkPlugins: [remarkCustomEmoji],
         },
         theme: {
           customCss: "./src/css/custom.css",
@@ -72,23 +74,13 @@ const config: Config = {
 
   plugins: [
     [
-      "@docusaurus/plugin-client-redirects",
-      {
-        redirects: [
-          {
-            from: "/api",
-            to: "/api/arkhe/",
-          },
-        ],
-      },
-    ],
-    [
       "@docusaurus/plugin-content-docs",
       {
         id: "api",
         path: "../documentation/_generated/final",
         routeBasePath: "api",
         sidebarPath: "./sidebarsApi.ts",
+        remarkPlugins: [remarkCustomEmoji],
       },
     ],
     [
@@ -98,6 +90,7 @@ const config: Config = {
         path: "./comparisons",
         routeBasePath: "comparisons",
         sidebarPath: "./sidebarsComparisons.ts",
+        remarkPlugins: [remarkCustomEmoji],
       },
     ],
     // Exclude client-only modules from SSR bundle
@@ -122,7 +115,7 @@ const config: Config = {
   themes: ["@docusaurus/theme-mermaid"],
   themeConfig: {
     // Replace with your project's social card
-    image: "img/docusaurus-social-card.jpg",
+    image: "img/pithos-social-card.jpg",
     colorMode: {
       respectPrefersColorScheme: true,
     },
@@ -167,6 +160,7 @@ const config: Config = {
           href: "https://github.com/mopi1402/pithos",
           label: "GitHub",
           position: "right",
+          className: "header-github-link",
         },
         ...(languages.length > 1
           ? [
@@ -180,7 +174,7 @@ const config: Config = {
     },
     footer: {
       style: "dark",
-      copyright: `© ${new Date().getFullYear()} <a href="https://www.linkedin.com/in/mopi1402/" target="_blank" rel="noopener noreferrer">Pierre Moati</a> · <a href="https://github.com/mopi1402/pithos/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a> · <a href="/guide/basics/changelog/">Changelog</a>`,
+      copyright: `© ${new Date().getFullYear()} <a href="https://www.linkedin.com/in/mopi1402/" target="_blank" rel="noopener noreferrer">Pierre Moati</a> · <a href="https://github.com/mopi1402/pithos/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a> · <a href="/guide/basics/changelog/">Changelog</a> — <span style="opacity: 0.7;">Website built with <a href="https://docusaurus.io/" target="_blank" rel="noopener noreferrer" style="color: hsl(167, 68%, 45%);">Docusaurus</a></span> <img src="/img/external/docusaurus_logo.svg" alt="Docusaurus" style="height: 1em; vertical-align: middle;" />`,
     },
     prism: {
       // Using empty theme - colors are defined via CSS variables in custom.css

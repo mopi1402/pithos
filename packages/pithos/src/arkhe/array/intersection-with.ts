@@ -30,18 +30,75 @@ export function intersectionWith<T>(
 ): T[] {
   if (arrays.length === 0) return [];
 
-  const [first, ...rest] = arrays;
+  const first = arrays[0];
+  const firstLen = first.length;
 
   // Stryker disable next-line ConditionalExpression: equivalent mutant, filter on empty array returns []
-  if (first.length === 0) return [];
+  if (firstLen === 0) return [];
 
-  const isInAllArrays = (item: T): boolean =>
-    rest.every((arr) => arr.some((other) => comparator(item, other)));
+  if (arrays.length === 1) {
+    const unique: T[] = [];
+    for (let i = 0; i < firstLen; i++) {
+      const item = first[i];
+      let isDuplicate = false;
+      let j = unique.length;
+      while (j--) {
+        if (comparator(unique[j], item)) {
+          isDuplicate = true;
+          break;
+        }
+      }
+      if (!isDuplicate) unique.push(item);
+    }
+    return unique;
+  }
 
-  const isUnique = (item: T, index: number): boolean =>
-    first.findIndex((other) => comparator(item, other)) === index;
+  let result: T[] = [];
+  const second = arrays[1];
+  const secondLen = second.length;
 
-  return first.filter(
-    (item, index) => isUnique(item, index) && isInAllArrays(item)
-  );
+  for (let i = 0; i < firstLen; i++) {
+    const item = first[i];
+    let foundInSecond = false;
+    for (let j = 0; j < secondLen; j++) {
+      if (comparator(item, second[j])) {
+        foundInSecond = true;
+        break;
+      }
+    }
+    if (!foundInSecond) continue;
+    let alreadyAdded = false;
+    let k = result.length;
+    while (k--) {
+      if (comparator(result[k], item)) {
+        alreadyAdded = true;
+        break;
+      }
+    }
+    if (!alreadyAdded) result.push(item);
+  }
+
+  for (let k = 2; k < arrays.length; k++) {
+    const arr = arrays[k];
+    const arrLen = arr.length;
+    // Stryker disable next-line ConditionalExpression: empty intersection with empty array = []
+    if (arrLen === 0) return [];
+
+    const nextResult: T[] = [];
+    const resultLen = result.length;
+    for (let i = 0; i < resultLen; i++) {
+      const item = result[i];
+      for (let j = 0; j < arrLen; j++) {
+        if (comparator(item, arr[j])) {
+          nextResult.push(item);
+          break;
+        }
+      }
+    }
+    result = nextResult;
+    // Stryker disable next-line ConditionalExpression,EqualityOperator: Early return optimization — iterating over empty result in next loop produces identical empty array
+    if (result.length === 0) return [];
+  }
+
+  return result;
 }

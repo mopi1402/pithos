@@ -1,0 +1,7 @@
+/* Zygos-specific styles — shared styles are in BenchmarkTable/styles.module.css */
+
+/* TL;DR highlight (used in zygosResultConfig/zygosOptionConfig tldrContent) */
+.highlight {
+  color: var(--pithos-color-highlight);
+  font-weight: var(--pithos-font-weight-semibold);
+}

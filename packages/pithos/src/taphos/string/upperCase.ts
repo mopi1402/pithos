@@ -28,11 +28,11 @@ export function upperCase(str: string | null | undefined): string {
   // Stryker disable next-line ConditionalExpression,EqualityOperator,MethodExpression,Regex,StringLiteral: Multiple equivalent transformations due to final toUpperCase() and trim() normalizing the result
   return str
     // Stryker disable next-line ConditionalExpression,EqualityOperator,MethodExpression,Regex,StringLiteral: Multiple equivalent transformations due to final toUpperCase() and trim() normalizing the result
-    .replace(/[A-Z]+/g, (match, offset) =>
+    .replace(/* Stryker disable next-line Regex */ /[A-Z]+/g, (match, offset) =>
+      // Stryker disable next-line ConditionalExpression,EqualityOperator,MethodExpression: offset check and toLowerCase are normalized by final toUpperCase() and trim()
       (offset > 0 ? " " : "") + match.toLowerCase()
     )
-    // Stryker disable next-line Regex,StringLiteral,MethodExpression: Multiple equivalent transformations due to final toUpperCase() and trim() normalizing the result
-    .replace(/[_-]+/g, " ")
+    .replace(/* Stryker disable next-line Regex,StringLiteral */ /[_-]+/g, " ")
     // Stryker disable next-line Regex,StringLiteral,MethodExpression: Multiple equivalent transformations due to final toUpperCase() and trim() normalizing the result
     .replace(/\s+/g, " ")
     .trim()

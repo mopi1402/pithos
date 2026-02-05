@@ -1,0 +1,217 @@
+{
+  "generatedAt": "2026-02-10T20:35:41.074Z",
+  "versions": {
+    "pithos": "1.1.0",
+    "neverthrow": "8.2.0",
+    "fp-ts": "2.16.11"
+  },
+  "results": [
+    {
+      "module": "result",
+      "variant": "zygos",
+      "category": "result-pattern",
+      "description": "Result monad (ok, err, safeTry)",
+      "rawBytes": 2263,
+      "gzipBytes": 732,
+      "brotliBytes": 667
+    },
+    {
+      "module": "result-async",
+      "variant": "zygos",
+      "category": "result-pattern",
+      "description": "ResultAsync monad (okAsync, errAsync, fromPromise)",
+      "rawBytes": 2276,
+      "gzipBytes": 709,
+      "brotliBytes": 630
+    },
+    {
+      "module": "result-all",
+      "variant": "zygos",
+      "category": "result-pattern",
+      "description": "Result + ResultAsync combined",
+      "rawBytes": 2415,
+      "gzipBytes": 774,
+      "brotliBytes": 700
+    },
+    {
+      "module": "safe",
+      "variant": "zygos",
+      "category": "result-pattern",
+      "description": "Safe wrapper for try/catch",
+      "rawBytes": 2237,
+      "gzipBytes": 712,
+      "brotliBytes": 642
+    },
+    {
+      "module": "result",
+      "variant": "neverthrow",
+      "category": "result-pattern",
+      "description": "Result monad (ok, err)",
+      "rawBytes": 6579,
+      "gzipBytes": 1984,
+      "brotliBytes": 1828
+    },
+    {
+      "module": "result-async",
+      "variant": "neverthrow",
+      "category": "result-pattern",
+      "description": "ResultAsync monad (okAsync, errAsync, fromPromise)",
+      "rawBytes": 6660,
+      "gzipBytes": 2006,
+      "brotliBytes": 1841
+    },
+    {
+      "module": "result-all",
+      "variant": "neverthrow",
+      "category": "result-pattern",
+      "description": "Result + ResultAsync combined",
+      "rawBytes": 6677,
+      "gzipBytes": 2008,
+      "brotliBytes": 1850
+    },
+    {
+      "module": "safe",
+      "variant": "neverthrow",
+      "category": "result-pattern",
+      "description": "No equivalent in Neverthrow",
+      "rawBytes": 6580,
+      "gzipBytes": 1987,
+      "brotliBytes": 1820
+    },
+    {
+      "module": "option",
+      "variant": "zygos",
+      "category": "fp-monads",
+      "description": "Option monad (some, none, map, flatMap, fold)",
+      "rawBytes": 361,
+      "gzipBytes": 226,
+      "brotliBytes": 213
+    },
+    {
+      "module": "either",
+      "variant": "zygos",
+      "category": "fp-monads",
+      "description": "Either monad (left, right, map, flatMap, fold)",
+      "rawBytes": 373,
+      "gzipBytes": 230,
+      "brotliBytes": 212
+    },
+    {
+      "module": "task",
+      "variant": "zygos",
+      "category": "fp-monads",
+      "description": "Task monad (of, map, flatMap)",
+      "rawBytes": 161,
+      "gzipBytes": 116,
+      "brotliBytes": 106
+    },
+    {
+      "module": "task-either",
+      "variant": "zygos",
+      "category": "fp-monads",
+      "description": "TaskEither monad (left, right, tryCatch, map, flatMap, fold)",
+      "rawBytes": 509,
+      "gzipBytes": 268,
+      "brotliBytes": 242
+    },
+    {
+      "module": "option",
+      "variant": "fp-ts",
+      "category": "fp-monads",
+      "description": "Option monad (fp-ts/Option)",
+      "rawBytes": 10287,
+      "gzipBytes": 2981,
+      "brotliBytes": 2734
+    },
+    {
+      "module": "either",
+      "variant": "fp-ts",
+      "category": "fp-monads",
+      "description": "Either monad (fp-ts/Either)",
+      "rawBytes": 12277,
+      "gzipBytes": 3546,
+      "brotliBytes": 3237
+    },
+    {
+      "module": "task",
+      "variant": "fp-ts",
+      "category": "fp-monads",
+      "description": "Task monad (fp-ts/Task)",
+      "rawBytes": 6672,
+      "gzipBytes": 1903,
+      "brotliBytes": 1714
+    },
+    {
+      "module": "task-either",
+      "variant": "fp-ts",
+      "category": "fp-monads",
+      "description": "TaskEither monad (fp-ts/TaskEither)",
+      "rawBytes": 20017,
+      "gzipBytes": 5725,
+      "brotliBytes": 5228
+    },
+    {
+      "module": "full-result",
+      "variant": "zygos",
+      "category": "combined",
+      "description": "All Result modules (Result + ResultAsync + Safe)",
+      "rawBytes": 2528,
+      "gzipBytes": 822,
+      "brotliBytes": 745
+    },
+    {
+      "module": "full-fp",
+      "variant": "zygos",
+      "category": "combined",
+      "description": "All FP monads (Option + Either + Task + TaskEither)",
+      "rawBytes": 1166,
+      "gzipBytes": 489,
+      "brotliBytes": 450
+    },
+    {
+      "module": "full-library",
+      "variant": "zygos",
+      "category": "combined",
+      "description": "All Zygos modules combined",
+      "rawBytes": 3647,
+      "gzipBytes": 1212,
+      "brotliBytes": 1108
+    },
+    {
+      "module": "full-result",
+      "variant": "neverthrow",
+      "category": "combined",
+      "description": "Full Neverthrow library",
+      "rawBytes": 6800,
+      "gzipBytes": 2050,
+      "brotliBytes": 1882
+    },
+    {
+      "module": "full-library",
+      "variant": "neverthrow",
+      "category": "combined",
+      "description": "Full Neverthrow library",
+      "rawBytes": 6800,
+      "gzipBytes": 2050,
+      "brotliBytes": 1882
+    },
+    {
+      "module": "full-fp",
+      "variant": "fp-ts",
+      "category": "combined",
+      "description": "All FP monads (Option + Either + Task + TaskEither)",
+      "rawBytes": 34595,
+      "gzipBytes": 9553,
+      "brotliBytes": 8335
+    },
+    {
+      "module": "full-library",
+      "variant": "fp-ts",
+      "category": "combined",
+      "description": "All FP monads + pipe (Option + Either + Task + TaskEither + function)",
+      "rawBytes": 34605,
+      "gzipBytes": 9559,
+      "brotliBytes": 8352
+    }
+  ]
+}

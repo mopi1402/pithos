@@ -3,6 +3,7 @@ export interface CommandFlagCheckbox {
   name: string;
   flag?: string;        // CLI flag to append (e.g. "--watch")
   script?: string;      // Alternative script to run instead
+  suffix?: string;      // Suffix to append to script name (e.g. ":zip")
   args?: string[];      // Arguments to append
   description: string;
 }
@@ -45,6 +46,7 @@ export interface CommandHelp {
 export interface CategoryInfo {
   description: string;
   group: string;
+  order?: number;
 }
 
 export interface HelpData {

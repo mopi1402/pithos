@@ -1,0 +1,38 @@
+.categoryBadge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--pithos-radius-md);
+  font-size: var(--pithos-font-size-sm);
+  font-weight: var(--pithos-font-weight-semibold);
+  text-transform: uppercase;
+}
+
+.categoryCritical {
+  background: var(--pithos-color-critical-bg);
+  color: var(--pithos-color-critical);
+}
+
+.categoryHigh {
+  background: var(--pithos-color-high-bg);
+  color: var(--pithos-color-high);
+}
+
+.categoryMedium {
+  background: var(--pithos-color-medium-bg);
+  color: var(--pithos-color-medium);
+}
+
+.categoryLow {
+  background: var(--pithos-color-low-bg);
+  color: var(--pithos-color-low);
+}
+
+.perfMattersHint {
+  font-size: var(--pithos-font-size-sm);
+  color: var(--ifm-color-secondary-darkest);
+  margin-top: 3px;
+}
+
+.topAlign td {
+  vertical-align: top;
+}

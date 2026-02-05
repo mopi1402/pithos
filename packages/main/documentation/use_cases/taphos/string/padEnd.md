@@ -20,3 +20,19 @@ Align text in columns.
 const label = name.padEnd(20, ' ');
 console.log(`${label}${value}`);
 ```
+
+### **Format** currency amounts with trailing zeros
+
+@keywords: currency, amount, decimal, trailing, zeros, price
+
+Ensure decimal amounts always display the expected number of digits.
+
+```typescript
+const formatPrice = (amount: string) => {
+  const [integer, decimal = ''] = amount.split('.');
+  return `${integer}.${decimal.padEnd(2, '0')}`;
+};
+
+formatPrice('9.5');  // '9.50'
+formatPrice('12');   // '12.00'
+```

@@ -6,9 +6,9 @@ description: "Build a real-world feature combining multiple Pithos modules"
 slug: practical-example
 ---
 
-import { DashboardPlayground } from '@site/src/components/DashboardPlayground';
+import { DashboardPlayground } from '@site/src/components/playground/DashboardPlayground';
 
-# Practical Example
+# 🛠️ Practical Example
 
 Let's build something real: a **user dashboard loader** that fetches data from an API, validates it, transforms it, and handles errors gracefully.
 
@@ -18,6 +18,8 @@ This example combines:
 - **Kanon** → Schema validation
 - **Arkhe** → Data transformation utilities
 
+---
+
 ## The scenario
 
 You need to load a user's dashboard data from an API. The response might be malformed, the network might fail, and you need to transform the raw data before displaying it.
@@ -26,7 +28,7 @@ You need to load a user's dashboard data from an API. The response might be malf
 
 **Pithos approach:** composable, type-safe, elegant.
 
-## Step 1: Define your schema
+### Step 1: Define your schema
 
 First, define what valid data looks like using Kanon:
 
@@ -95,7 +97,7 @@ const UserSchema = z.object({
 
 :::
 
-## Step 2: Create safe API helpers
+### Step 2: Create safe API helpers
 
 Wrap fetch operations with Zygos for safe error handling:
 
@@ -121,7 +123,7 @@ const safeJson = <T>(response: Response) =>
   )();
 ```
 
-## Step 3: Add data transformation
+### Step 3: Add data transformation
 
 Use Arkhe utilities to transform the validated data:
 
@@ -179,7 +181,7 @@ function formatPosts(posts: Post[]) {
 }
 ```
 
-## Step 4: Compose everything together
+### Step 4: Compose everything together
 
 Now combine all pieces into a single, composable pipeline:
 
@@ -221,7 +223,7 @@ function loadDashboard(userId: string): ResultAsync<DashboardData, string> {
 }
 ```
 
-## Step 5: Use it in your app
+### Step 5: Use it in your app
 
 ```typescript
 // src/components/Dashboard.tsx
@@ -244,6 +246,8 @@ async function initDashboard() {
 }
 ```
 
+---
+
 ## Live Demo
 
 <DashboardPlayground />
@@ -254,19 +258,23 @@ The demo above is more complete than the code snippets: it's embedded in a React
 The complete source code is available on [GitHub](https://github.com/mopi1402/pithos/tree/main/packages/pithos/examples/practical-example).
 :::
 
+--- 
+
 ## What you've achieved
 
-With ~50 lines of actual logic, you have:
+With minimal code, you have:
 
-✅ **Type-safe API calls** — No more `any` from `response.json()`
+✅ **Type-safe API calls** - No more `any` from `response.json()`
 
-✅ **Validated data** — Kanon ensures the API response matches your schema
+✅ **Validated data** - Kanon ensures the API response matches your schema
 
-✅ **Graceful error handling** — Every failure point is captured and typed
+✅ **Graceful error handling** - Every failure point is captured and typed
 
-✅ **Clean transformations** — Arkhe utilities make data shaping readable
+✅ **Clean transformations** - Arkhe utilities make data shaping readable
 
-✅ **Composable pipeline** — Easy to add caching, retries, or logging
+✅ **Composable pipeline** - Easy to add caching, retries, or logging
+
+---
 
 ## Compare to traditional code
 
@@ -300,6 +308,8 @@ async function loadDashboard(userId: string) {
   }
 }
 ```
+
+--- 
 
 ## Next steps
 

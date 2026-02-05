@@ -28,5 +28,5 @@ let idCounter = 0;
  * ```
  */
 export function uniqueId(prefix = ""): string {
-  return prefix + String(++idCounter);
+  return prefix + ++idCounter;
 }

@@ -19,3 +19,17 @@ Standardize form field labels or button text.
 const label = capitalize('submit'); // 'Submit'
 const button = capitalize('CANCEL'); // 'Cancel' (if it lowercases first)
 ```
+
+### **Display** enum values as readable text
+
+@keywords: enum, display, readable, status, constant, format
+
+Convert constant-style enum values into human-readable labels for UI display.
+
+```typescript
+const statuses = ['PENDING_REVIEW', 'IN_PROGRESS', 'COMPLETED'];
+const labels = statuses.map((s) =>
+  capitalize(s.toLowerCase().replace(/_/g, ' '))
+);
+// ['Pending review', 'In progress', 'Completed']
+```

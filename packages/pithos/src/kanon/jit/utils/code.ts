@@ -1,4 +1,6 @@
 /**
+ * @module kanon/jit/utils/code
+ *
  * Common utilities for JIT code builders.
  *
  * @since 3.3.0
@@ -71,15 +73,14 @@ export function debugComment(ctx: GeneratorContext, comment: string): string {
  * @param ctx - The generator context
  * @param comment - The comment text
  * @returns The formatted comment with preceding blank line, or empty string if not in debug mode
+ * @since 3.3.0
  */
-function debugSectionComment(ctx: GeneratorContext, comment: string): string {
+export function debugSectionComment(ctx: GeneratorContext, comment: string): string {
   if (!ctx.debug) return "";
   const indent = getIndent(ctx);
   return `\n${indent}// ${comment}`;
 }
 
-// Keep for potential future use
-void debugSectionComment;
 
 /**
  * Wraps code lines with debug comments indicating the validation being performed.
@@ -89,8 +90,9 @@ void debugSectionComment;
  * @param description - Description of what is being validated
  * @param lines - The code lines to wrap
  * @returns Array of code lines, potentially with debug comments
+ * @since 3.3.0
  */
-function wrapWithDebugComment(
+export function wrapWithDebugComment(
   ctx: GeneratorContext,
   description: string,
   lines: string[]
@@ -99,6 +101,3 @@ function wrapWithDebugComment(
   const comment = debugComment(ctx, description);
   return [comment, ...lines];
 }
-
-// Keep for potential future use
-void wrapWithDebugComment;

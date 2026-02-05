@@ -9,7 +9,7 @@
  * @since 1.1.0
  *
  * @note Does not mutate original. Duplicate transformed keys: last value wins.
- * @note Symbol keys are included via Reflect.ownKeys.
+ * @note Only enumerable string keys are included (Symbol keys are ignored).
  *
  * @performance O(n) time & space.
  *
@@ -40,11 +40,12 @@ export function mapKeys<
   transform: (value: T[keyof T], key: keyof T, object: T) => K
 ): Record<K, T[keyof T]> {
   const result = {} as Record<K, T[keyof T]>;
+  const keys = Object.keys(object) as Array<keyof T>;
 
-  for (const key of Reflect.ownKeys(object)) {
-    const value = object[key as keyof T];
-    const newKey = transform(value, key as keyof T, object);
-    result[newKey] = value;
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    const value = object[key];
+    result[transform(value, key, object)] = value;
   }
 
   return result;

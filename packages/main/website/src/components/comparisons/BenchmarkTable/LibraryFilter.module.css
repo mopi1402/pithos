@@ -1,0 +1,141 @@
+/* Library filter toggle */
+.filterContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--pithos-spacing-lg);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 2px 0;
+}
+
+.filterContainer::-webkit-scrollbar {
+  height: 4px;
+}
+
+.filterContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.filterContainer::-webkit-scrollbar-thumb {
+  background: var(--ifm-color-emphasis-300);
+  border-radius: 2px;
+}
+
+.filterToggleGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--pithos-spacing-sm);
+  flex-shrink: 0;
+}
+
+.filterLabel {
+  font-size: 0.8rem;
+  font-weight: var(--pithos-font-weight-medium);
+  color: var(--ifm-color-content-secondary);
+  flex-shrink: 0;
+}
+
+.filterToggleList {
+  display: flex;
+  align-items: center;
+  gap: var(--pithos-spacing-sm);
+}
+
+.filterToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem var(--pithos-spacing-sm);
+  font-size: var(--pithos-font-size-sm);
+  color: var(--ifm-color-content-secondary);
+  background-color: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-global-radius);
+  cursor: pointer;
+  user-select: none;
+  transition: all var(--pithos-transition-base);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.filterToggle:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+.filterToggle input[type="checkbox"] {
+  width: 0.8rem;
+  height: 0.8rem;
+  accent-color: var(--ifm-color-primary);
+  cursor: pointer;
+}
+
+.filterDivider {
+  width: 1px;
+  height: 24px;
+  background: var(--ifm-color-emphasis-300);
+  flex-shrink: 0;
+}
+
+.filterLibrariesGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--pithos-spacing-sm);
+  flex-shrink: 0;
+}
+
+.filterLibrariesList {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.filterLibrary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pithos-spacing-xs);
+  padding: var(--pithos-spacing-xs) var(--pithos-spacing-sm);
+  font-size: var(--pithos-font-size-sm);
+  color: var(--ifm-color-content-secondary);
+  background-color: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-global-radius);
+  cursor: pointer;
+  user-select: none;
+  transition: all var(--pithos-transition-fast);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.filterLibrary:hover {
+  border-color: var(--ifm-color-emphasis-400);
+  color: var(--ifm-color-content);
+}
+
+.filterLibraryActive {
+  background-color: var(--ifm-background-surface-color);
+  border-color: var(--ifm-color-emphasis-400);
+  color: var(--ifm-color-content);
+}
+
+.filterLibrary input[type="checkbox"] {
+  width: 0.75rem;
+  height: 0.75rem;
+  accent-color: var(--ifm-color-primary);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .filterLabel {
+    display: none;
+  }
+
+  .filterContainer {
+    gap: var(--pithos-spacing-sm);
+  }
+
+  .filterToggleGroup,
+  .filterLibrariesGroup {
+    gap: 0.4rem;
+  }
+}

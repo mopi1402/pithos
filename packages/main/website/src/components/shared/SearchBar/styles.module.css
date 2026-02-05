@@ -1,0 +1,50 @@
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: var(--pithos-spacing-sm);
+  padding: var(--pithos-spacing-sm) var(--pithos-spacing-md);
+  border: 1px solid var(--ifm-table-border-color);
+  border-radius: var(--pithos-radius-lg);
+  background: var(--ifm-background-surface-color);
+  transition: border-color var(--pithos-transition-base);
+}
+
+.searchBar:focus-within {
+  border-color: var(--ifm-color-primary);
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  color: var(--ifm-color-content-secondary);
+  flex-shrink: 0;
+}
+
+.input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--ifm-color-content);
+  font-size: var(--pithos-font-size-base);
+  outline: none;
+  min-width: 0;
+}
+
+.input::placeholder {
+  color: var(--ifm-color-content-secondary);
+}
+
+.clear {
+  border: none;
+  background: transparent;
+  color: var(--ifm-color-content-secondary);
+  cursor: pointer;
+  padding: 0 2px;
+  font-size: var(--pithos-font-size-sm);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.clear:hover {
+  color: var(--ifm-color-content);
+}

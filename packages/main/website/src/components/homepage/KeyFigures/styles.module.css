@@ -1,0 +1,108 @@
+.keyFigures {
+  padding: var(--pithos-spacing-3xl) 0;
+  position: relative;
+}
+
+.keyFigures::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: var(--pithos-max-width-narrow);
+  height: 1px;
+  background: var(--pithos-golden-gradient);
+}
+
+.figuresGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--pithos-spacing-2xl);
+  max-width: var(--pithos-max-width-narrow);
+  margin: 0 auto;
+}
+
+.figureCard {
+  text-align: center;
+  padding: var(--pithos-spacing-xl) var(--pithos-spacing-lg);
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform var(--pithos-transition-bounce);
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.figureCard:hover {
+  transform: scale(1.05);
+  text-decoration: none;
+  color: inherit;
+}
+
+.figureValue {
+  font-family: var(--greek-font), serif;
+  font-size: var(--pithos-font-size-4xl);
+  font-weight: var(--pithos-font-weight-bold);
+  color: var(--golden-color, #d4a574);
+  line-height: 1;
+  margin-bottom: var(--pithos-spacing-sm);
+}
+
+.prefix,
+.suffix {
+  font-size: 3.5rem;
+}
+
+.figureLabel {
+  font-size: var(--pithos-spacing-lg);
+  font-weight: var(--pithos-font-weight-medium);
+  color: var(--ifm-font-color-base);
+  margin-bottom: var(--pithos-spacing-xs);
+}
+
+.figureHighlight {
+  font-size: 0.875rem;
+  color: var(--ifm-font-color-secondary);
+  opacity: 0.8;
+}
+
+/* Tablet: 2x2 grid */
+@media (max-width: 996px) {
+  .figuresGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--pithos-spacing-xl);
+  }
+}
+
+/* Mobile: 2x2 grid with smaller spacing */
+@media (max-width: 576px) {
+  .keyFigures {
+    padding: var(--pithos-spacing-2xl) 0;
+  }
+
+  .figuresGrid {
+    gap: var(--pithos-spacing-lg);
+  }
+
+  .figureCard {
+    padding: var(--pithos-spacing-lg) var(--pithos-spacing-sm);
+  }
+
+  .figureValue {
+    font-size: 2.25rem;
+  }
+
+  .prefix,
+  .suffix {
+    font-size: 1.5rem;
+  }
+
+  .figureLabel {
+    font-size: 0.875rem;
+  }
+
+  .figureHighlight {
+    font-size: var(--pithos-font-size-sm);
+  }
+}

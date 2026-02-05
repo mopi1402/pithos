@@ -23,7 +23,7 @@ type UnzipResult<T extends readonly unknown[]> = {
  * @see zip
  * @since 1.1.0
  *
- * @performance O(n × m) time & space where n = tuple length, m = number of tuples. Pre-allocates result arrays using Array.from.
+ * @performance O(n × m) time & space where n = tuple length, m = number of tuples. Pre-allocates result arrays with `new Array(n)` for minimal allocation overhead.
  *
  * @example
  * ```typescript
@@ -43,12 +43,15 @@ export function unzip<T extends readonly unknown[]>(
   if (tuples.length === 0) return [] as UnzipResult<T>;
 
   const tupleLength = tuples[0].length;
-  const result = Array.from(
-    { length: tupleLength },
-    () => []
-  ) as UnzipResult<T>;
+  const numTuples = tuples.length;
+  const result = new Array(tupleLength) as UnzipResult<T>;
 
-  for (let i = 0; i < tuples.length; i++) {
+  for (let i = 0; i < tupleLength; i++) {
+    // Stryker disable next-line ArrayDeclaration: Preallocation optimization — all indices are assigned in the transpose loop below
+    result[i] = new Array(numTuples);
+  }
+
+  for (let i = 0; i < numTuples; i++) {
     const tuple = tuples[i];
 
     if (tuple.length !== tupleLength) {

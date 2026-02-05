@@ -34,3 +34,26 @@ Security critical for preventing mass assignment vulnerabilities.
 const safeInput = pick(req.body, ['title', 'content', 'authorId']);
 db.create(safeInput);
 ```
+
+### **Extract** safe fields for logging
+
+@keywords: logging, safe, fields, sanitize, sensitive, PII, audit
+
+Pick only non-sensitive fields before writing to logs.
+Critical for compliance (GDPR, HIPAA) and preventing PII leaks in log systems.
+
+```typescript
+const request = {
+  userId: "u-123",
+  endpoint: "/api/checkout",
+  method: "POST",
+  creditCard: "4111-1111-1111-1111",
+  ip: "192.168.1.1",
+  timestamp: 1703001200,
+};
+
+const safeLog = pick(request, ["userId", "endpoint", "method", "timestamp"]);
+logger.info("API request", safeLog);
+// Logs: { userId: "u-123", endpoint: "/api/checkout", method: "POST", timestamp: 1703001200 }
+// Credit card and IP never reach the logs
+```

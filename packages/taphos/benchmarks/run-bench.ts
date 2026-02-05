@@ -389,12 +389,110 @@ function generateSummary(results: BenchResult[]): string {
   return summary;
 }
 
+// Merge new benchmark results into an existing report
+async function mergeIntoExistingReport(
+  newResults: BenchResult[],
+  reportPath: string
+): Promise<void> {
+  // Read existing report
+  let existingReport: BenchmarkReport;
+  try {
+    const content = await fs.readFile(reportPath, "utf-8");
+    existingReport = JSON.parse(content);
+  } catch {
+    console.log(
+      colors.yellow +
+        "⚠️  No existing report found, generating full report instead." +
+        colors.reset
+    );
+    const report = await generateReport(newResults);
+    await fs.writeFile(reportPath, JSON.stringify(report, null, 2));
+    return;
+  }
+
+  // Generate report from new results only
+  const newReport = await generateReport(newResults);
+
+  // Build a map of new scenarios by name
+  const newScenarioMap = new Map<string, ScenarioData>();
+  for (const scenario of newReport.scenarios) {
+    newScenarioMap.set(scenario.name, scenario);
+  }
+
+  // Replace matching scenarios in existing report
+  let updatedCount = 0;
+  for (let i = 0; i < existingReport.scenarios.length; i++) {
+    const existing = existingReport.scenarios[i];
+    if (newScenarioMap.has(existing.name)) {
+      existingReport.scenarios[i] = newScenarioMap.get(existing.name)!;
+      newScenarioMap.delete(existing.name);
+      updatedCount++;
+    }
+  }
+
+  // Add any new scenarios that didn't exist before
+  for (const scenario of newScenarioMap.values()) {
+    existingReport.scenarios.push(scenario);
+  }
+
+  // Re-sort scenarios alphabetically
+  existingReport.scenarios.sort((a, b) => {
+    const nameA = a.name.split("\n")[0].toLowerCase();
+    const nameB = b.name.split("\n")[0].toLowerCase();
+    if (nameA !== nameB) return nameA.localeCompare(nameB);
+    const detailA = a.name.split("\n")[1] || "";
+    const detailB = b.name.split("\n")[1] || "";
+    return detailA.localeCompare(detailB);
+  });
+
+  // Recalculate summary across ALL scenarios
+  const winsCount = new Map<string, number>();
+  const allLibraries = new Set<string>();
+
+  for (const scenario of existingReport.scenarios) {
+    for (const result of scenario.results) {
+      allLibraries.add(result.library);
+      if (result.isFastest) {
+        winsCount.set(result.library, (winsCount.get(result.library) || 0) + 1);
+      }
+    }
+  }
+
+  existingReport.libraries = Array.from(allLibraries).sort();
+
+  const libraryRankings: LibrarySummary[] = existingReport.libraries
+    .map((lib) => ({
+      library: lib,
+      wins: winsCount.get(lib) || 0,
+      totalTests: existingReport.scenarios.length,
+    }))
+    .sort((a, b) => b.wins - a.wins);
+
+  existingReport.summary = {
+    totalScenarios: existingReport.scenarios.length,
+    libraryRankings,
+    winner: libraryRankings[0]?.library || "",
+  };
+
+  // Update timestamp
+  existingReport.generatedAt = new Date().toISOString();
+
+  // Save
+  await fs.writeFile(reportPath, JSON.stringify(existingReport, null, 2));
+
+  console.log(
+    colors.green +
+      `\n📄 Report updated: ${updatedCount} scenario(s) merged into ${reportPath}` +
+      colors.reset
+  );
+}
+
 async function runBenchmark() {
   console.log(colors.yellow + "🚀 Running Taphos benchmarks..." + colors.reset);
 
   const args = process.argv.slice(2).filter(arg => arg !== '--');
   let shouldGenerateReport = false;
-  let specificFile: string | undefined;
+  const benchFiles: string[] = [];
 
   // Check for --report flag
   const reportIndex = args.indexOf("--report");
@@ -403,17 +501,38 @@ async function runBenchmark() {
     args.splice(reportIndex, 1);
   }
 
-  // Check for specific file
-  if (args[0] && args[0].endsWith(".ts")) {
-    specificFile = args[0];
+  // Resolve remaining args to bench files
+  for (const arg of args) {
+    if (arg.endsWith(".bench.ts") || arg.endsWith(".ts")) {
+      // Direct file path
+      benchFiles.push(arg);
+    } else {
+      // Utility name → resolve to bench file
+      const benchPath = `packages/taphos/benchmarks/${arg}.bench.ts`;
+      const fullPath = path.resolve(process.cwd(), benchPath);
+      try {
+        await fs.access(fullPath);
+        benchFiles.push(benchPath);
+      } catch {
+        console.error(
+          colors.red + `❌ Benchmark file not found: ${benchPath}` + colors.reset
+        );
+        process.exit(1);
+      }
+    }
   }
+
+  const isPartialRun = benchFiles.length > 0;
 
   console.log(
     colors.blue +
-      "ℹ️  Usage: pnpm benchmark:taphos [options]\n" +
+      "ℹ️  Usage: pnpm benchmark:taphos [options] [utilities...]\n" +
       "    Options:\n" +
       "      <file.bench.ts>     Run specific benchmark file\n" +
+      "      <utilityName>       Run benchmark for a specific utility (e.g. head, castArray)\n" +
       "      --report            Generate JSON report for website\n" +
+      "                          With utilities: merges into existing report\n" +
+      "                          Without utilities: generates full report\n" +
       colors.reset +
       "\n"
   );
@@ -423,7 +542,7 @@ async function runBenchmark() {
     "exec",
     "vitest",
     "bench",
-    specificFile || "packages/taphos/benchmarks",
+    ...(isPartialRun ? benchFiles : ["packages/taphos/benchmarks"]),
     "--run",
     "--reporter=default",
     "--color",
@@ -467,15 +586,20 @@ async function runBenchmark() {
           console.log(summary);
 
           if (shouldGenerateReport) {
-            const report = await generateReport(finalResults);
             const reportPath = path.resolve(
               process.cwd(),
-              "packages/main/website/src/data/taphos-benchmark.json"
+              "packages/main/website/src/data/benchmarks/taphos-benchmark.json"
             );
-            await fs.writeFile(reportPath, JSON.stringify(report, null, 2));
-            console.log(
-              colors.green + `\n📄 Report saved to ${reportPath}` + colors.reset
-            );
+
+            if (isPartialRun) {
+              await mergeIntoExistingReport(finalResults, reportPath);
+            } else {
+              const report = await generateReport(finalResults);
+              await fs.writeFile(reportPath, JSON.stringify(report, null, 2));
+              console.log(
+                colors.green + `\n📄 Report saved to ${reportPath}` + colors.reset
+              );
+            }
           }
         } else {
           console.log(colors.yellow + "⚠️  No benchmark results parsed" + colors.reset);

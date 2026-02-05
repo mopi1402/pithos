@@ -1,0 +1,128 @@
+.featuresSection {
+  padding: var(--pithos-spacing-4xl) 0;
+  position: relative;
+}
+
+.featuresSection::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: var(--pithos-max-width-narrow);
+  height: 1px;
+  background: var(--pithos-golden-gradient);
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--pithos-spacing-2xl);
+  max-width: var(--pithos-max-width);
+  margin: 0 auto;
+}
+
+.featureCard {
+  display: block;
+  background: transparent;
+  border-radius: var(--pithos-radius-2xl);
+  padding: var(--pithos-spacing-2xl);
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform var(--pithos-transition-bounce);
+}
+
+.featureCard:hover {
+  transform: scale(1.05);
+  text-decoration: none;
+  color: inherit;
+}
+
+.featureIcon {
+  font-size: 3rem;
+  margin-bottom: var(--pithos-spacing-lg);
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.featureIcon img {
+  width: 125px;
+  height: 125px;
+  object-fit: contain;
+}
+
+.featureTitle {
+  font-size: var(--pithos-font-size-2xl);
+  font-weight: var(--pithos-font-weight-semibold);
+  margin-bottom: var(--pithos-spacing-md);
+  color: var(--ifm-color-primary);
+}
+
+.featureDescription {
+  font-size: var(--pithos-font-size-lg);
+  color: var(--ifm-font-color-secondary);
+  line-height: var(--pithos-line-height-loose);
+  margin-bottom: var(--pithos-spacing-lg);
+}
+
+.featureLink {
+  display: inline-block;
+  font-size: var(--pithos-font-size-base);
+  font-weight: var(--pithos-font-weight-medium);
+  color: var(--golden-color, #d4a574);
+  text-decoration: none;
+  transition: opacity var(--pithos-transition-base);
+}
+
+.featureLink:hover {
+  opacity: 0.8;
+  text-decoration: none;
+  color: var(--golden-color, #d4a574);
+}
+
+/* Tablet: 2x3 grid */
+@media (max-width: 996px) {
+  .featuresGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--pithos-spacing-xl);
+  }
+}
+
+/* Mobile: vertical stack */
+@media (max-width: 576px) {
+  .featuresSection {
+    padding: var(--pithos-spacing-3xl) 0;
+  }
+
+  .featuresGrid {
+    grid-template-columns: 1fr;
+    gap: var(--pithos-spacing-lg-plus);
+  }
+
+  .featureCard {
+    padding: var(--pithos-spacing-xl);
+  }
+
+  .featureIcon {
+    font-size: 2.5rem;
+  }
+
+  .featureIcon img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .featureTitle {
+    font-size: 1.125rem;
+  }
+
+  .featureDescription {
+    font-size: var(--pithos-font-size-base);
+  }
+}

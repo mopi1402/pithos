@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Translate from "@docusaurus/Translate";
 import Link from "@docusaurus/Link";
+import { Picture } from "@site/src/components/shared/Picture";
 
 import styles from "../styles.module.css";
 
@@ -9,8 +10,8 @@ export default function NotFoundContent(): ReactNode {
     <main className={styles.container}>
       <div className={styles.content}>
         <div className={styles.titleRow}>
-          <img
-            src="/img/not_found.png"
+          <Picture
+            src="/img/generated/not_found"
             alt="Icarus falling"
             className={styles.illustration}
           />
@@ -36,13 +37,13 @@ export default function NotFoundContent(): ReactNode {
           </p>
           <div className={styles.links}>
             <Link to="/use-cases" className={styles.link}>
-              Use Cases Explorer
+              🗺️ Use Cases Explorer
             </Link>
-            <Link to="/guide/quick_start/" className={styles.link}>
-              Quick Start
+            <Link to="/guide/quick-start/" className={styles.link}>
+              ⚡️ Quick Start
             </Link>
             <Link to="/api" className={styles.link}>
-              API Reference
+              📔 API Reference
             </Link>
           </div>
         </div>

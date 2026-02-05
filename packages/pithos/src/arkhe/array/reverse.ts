@@ -1,7 +1,7 @@
 /**
  * Reverses array so that the first element becomes the last, the second element becomes the second to last, and so on.
  *
- * @info Why wrapping native?: Unlike the native `Array.reverse()` which mutates the original array, this function returns a new array, preserving immutability. See [Design Philosophy](/guide/design-principles/design-philosophy/)
+ * @info Why wrapping native?: Unlike the native `Array.reverse()` which mutates the original array, this function returns a new array, preserving immutability. See [Design Philosophy](/guide/contribution/design-principles/design-philosophy/)
  * @note For ES2023+, consider using `Array.toReversed()`.
  *
  * @template T - The type of elements in the array.

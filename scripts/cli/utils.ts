@@ -42,6 +42,8 @@ export function buildCommand(
       if (isOn) {
         if (flag.script) {
           script = flag.script;
+        } else if (flag.suffix) {
+          script = script + flag.suffix;
         } else if (flag.flag) {
           args.push(flag.flag);
         } else if (flag.args) {

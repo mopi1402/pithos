@@ -5,10 +5,10 @@ title: "Kanon Performance Benchmarks"
 description: "Runtime performance comparison between Kanon JIT and other validation libraries (Zod, Valibot, AJV, TypeBox...)"
 ---
 
-import { BenchmarkResultsTable, VersionsTable, PerformanceSummary, WeightedSummary, DetailedStats, GeneratedDate, FilterableBenchmarkSection, KanonPerfTLDR } from '@site/src/components/PerformanceTable';
-import { WeightedScoringTable } from '@site/src/components/WeightedScoringTable';
+import { BenchmarkResultsTable, VersionsTable, PerformanceSummary, WeightedSummary, DetailedStats, GeneratedDate, FilterableBenchmarkSection, KanonPerfTLDR } from '@site/src/components/comparisons/kanon/PerformanceTable';
+import { WeightedScoringTable } from '@site/src/components/comparisons/WeightedScoringTable';
 
-# Kanon Performance Benchmarks
+# 🚅 Kanon Performance Benchmarks
 
 Real-world validation benchmarks. **Data auto-generated on <GeneratedDate />.**
 
@@ -29,13 +29,13 @@ Each benchmark:
 
 The "fastest" label is only awarded when the winner is **≥10% faster** than the runner-up. Otherwise, it's considered a statistical tie.
 
-### Weighted Scoring
+### Does Performance Matter?
 
 Not all validations matter equally for performance. Validating an API response called 1000x/sec matters more than a one-time config check. We assign weights based on real-world usage patterns:
 
 <WeightedScoringTable />
 
-This weighted scoring gives a more realistic picture of which library will actually make your app faster.
+This scoring gives a more realistic picture of which library will actually make your app faster.
 
 ## Libraries Tested
 

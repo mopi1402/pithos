@@ -11,24 +11,74 @@ import {
 import type { Schema, AnySchema } from "../index";
 import { isCoerced } from "@kanon/types/base";
 
+/**
+ * Validation issue with a message and path.
+ *
+ * @since 3.1.0
+ */
 type Issue = { message: string; path: (string | number)[] };
+
+/**
+ * Zod-compatible validation issue with optional error code.
+ *
+ * @since 3.1.0
+ */
 type ZodLikeIssue = Issue & { code?: string };
 
+/**
+ * Discriminated union result type for safe parsing.
+ *
+ * @template T - The expected output type on success.
+ * @since 3.1.0
+ */
 type ZodResult<T> =
   | { success: true; data: T }
   | { success: false; error: { issues: ZodLikeIssue[] } };
 
+/**
+ * Refinement function returning `true` on success or an error message.
+ *
+ * @template T - The type of value being refined.
+ * @since 3.1.0
+ */
 type RefinementFn<T> = (value: T) => true | string;
+
+/**
+ * Super-refinement function with context for adding multiple issues.
+ *
+ * @template T - The type of value being refined.
+ * @since 3.1.0
+ */
 type SuperRefineFn<T> = (
   value: T,
   ctx: { addIssue: (issue: ZodLikeIssue) => void }
 ) => void;
+
+/**
+ * Transform function mapping an unknown value to another.
+ *
+ * @since 3.1.0
+ */
 type TransformFn = (value: unknown) => unknown;
 
+/**
+ * Creates a Zod-compatible error object from a message string.
+ *
+ * @param message - The error message.
+ * @returns An object containing a single issue with an empty path.
+ * @since 3.1.0
+ */
 const createError = (message: string): { issues: ZodLikeIssue[] } => ({
   issues: [{ message, path: [] }],
 });
 
+/**
+ * Type guard checking whether a value is an `Issue` object.
+ *
+ * @param v - The value to check.
+ * @returns `true` if the value has `message` and `path` properties.
+ * @since 3.1.0
+ */
 const isIssue = (v: unknown): v is Issue =>
   typeof v === "object" &&
   v !== null &&
@@ -38,8 +88,12 @@ const isIssue = (v: unknown): v is Issue =>
 
 /**
  * Opt-in Zod v4-style facade around a Kanon schema.
+ *
  * Does not mutate the original schema; tree-shakable and minimal.
  *
+ * @template T - The output type of the wrapped schema.
+ * @param schema - The Kanon schema to wrap.
+ * @returns A Zod-compatible adapter with safeParse, parse, and other Zod methods.
  * @since 3.1.0
  */
 export function asZod<T>(schema: Schema<T>): Adapter<T> {
@@ -53,6 +107,12 @@ export function asZod<T>(schema: Schema<T>): Adapter<T> {
   });
 }
 
+/**
+ * Internal state carried by each adapter instance.
+ *
+ * @template Out - The output type of the adapter.
+ * @since 3.1.0
+ */
 type AdapterState<Out> = {
   schema: Schema<unknown>;
   refinements: RefinementFn<Out>[] | null;
@@ -62,35 +122,181 @@ type AdapterState<Out> = {
   hasCatch: boolean;
 };
 
-type Adapter<T> = {
-  // Parsing (Zod v4 compatible)
+/**
+ * Zod v4-compatible adapter wrapping a Kanon schema.
+ *
+ * Exposes parsing, wrapper, refinement, and operator methods
+ * that mirror the Zod API surface.
+ *
+ * @template T - The output type produced by this adapter.
+ * @public
+ * @since 3.1.0
+ */
+export type Adapter<T> = {
+  /**
+   * Parses a value and returns the result or throws on failure.
+   *
+   * @param value - The value to validate.
+   * @returns The validated and possibly coerced value.
+   * @throws Zod-compatible error object when validation fails.
+   * @since 3.1.0
+   */
   parse(value: unknown): T;
+
+  /**
+   * Parses a value and returns a discriminated result without throwing.
+   *
+   * @param value - The value to validate.
+   * @returns A `ZodResult` with `success` flag and data or error.
+   * @since 3.1.0
+   */
   safeParse(value: unknown): ZodResult<T>;
+
+  /**
+   * Async variant of `parse`.
+   *
+   * @param value - The value to validate.
+   * @returns Promise resolving to the validated value.
+   * @throws Zod-compatible error object when validation fails.
+   * @since 3.1.0
+   */
   parseAsync(value: unknown): Promise<T>;
+
+  /**
+   * Async variant of `safeParse`.
+   *
+   * @param value - The value to validate.
+   * @returns Promise resolving to a `ZodResult`.
+   * @since 3.1.0
+   */
   safeParseAsync(value: unknown): Promise<ZodResult<T>>;
 
-  // Wrappers (Zod v4 compatible)
+  /**
+   * Wraps the schema to also accept `undefined`.
+   *
+   * @returns A new adapter accepting `T | undefined`.
+   * @since 3.1.0
+   */
   optional(): Adapter<T | undefined>;
+
+  /**
+   * Wraps the schema to also accept `null`.
+   *
+   * @param message - Optional custom error message.
+   * @returns A new adapter accepting `T | null`.
+   * @since 3.1.0
+   */
   nullable(message?: string): Adapter<T | null>;
+
+  /**
+   * Wraps the schema to also accept `null` and `undefined`.
+   *
+   * @returns A new adapter accepting `T | null | undefined`.
+   * @since 3.1.0
+   */
   nullish(): Adapter<T | null | undefined>;
+
+  /**
+   * Provides a default value when parsing fails.
+   *
+   * @param value - Static value or factory function.
+   * @returns A new adapter that falls back to the default.
+   * @since 3.1.0
+   */
   default(value: T | (() => T)): Adapter<T>;
+
+  /**
+   * Catches validation errors and returns a fallback value.
+   *
+   * @param value - Static value or factory function.
+   * @returns A new adapter that catches errors.
+   * @since 3.1.0
+   */
   catch(value: T | (() => T)): Adapter<T>;
+
+  /**
+   * Wraps the schema into an array schema.
+   *
+   * @returns A new adapter validating `T[]`.
+   * @since 3.1.0
+   */
   array(): Adapter<T[]>;
+
+  /**
+   * Marks the schema output as readonly.
+   *
+   * @returns A new adapter with readonly semantics.
+   * @since 3.1.0
+   */
   readonly(): Adapter<T>;
 
-  // Refinements (Zod v4 compatible)
+  /**
+   * Adds a refinement check to the adapter.
+   *
+   * @param check - Predicate returning `true` if the value is valid.
+   * @param message - Optional error message on failure.
+   * @returns A new adapter with the refinement applied.
+   * @since 3.1.0
+   */
   refine(check: (value: T) => boolean, message?: string): Adapter<T>;
+
+  /**
+   * Adds a super-refinement with context for complex validations.
+   *
+   * @param fn - Refinement function receiving the value and a context.
+   * @returns A new adapter with the super-refinement applied.
+   * @since 3.1.0
+   */
   superRefine(fn: SuperRefineFn<T>): Adapter<T>;
+
+  /**
+   * Applies a transform to the validated value.
+   *
+   * @template NewOut - The output type after transformation.
+   * @param fn - Transform function.
+   * @returns A new adapter producing the transformed type.
+   * @since 3.1.0
+   */
   transform<NewOut>(fn: (value: T) => NewOut): Adapter<NewOut>;
 
-  // Operators (Zod v4 compatible)
+  /**
+   * Creates a union of this adapter with another.
+   *
+   * @template U - The output type of the other adapter.
+   * @param other - The adapter to union with.
+   * @returns A new adapter accepting `T | U`.
+   * @since 3.1.0
+   */
   or<U>(other: Adapter<U>): Adapter<T | U>;
+
+  /**
+   * Creates an intersection of this adapter with another.
+   *
+   * @template U - The output type of the other adapter.
+   * @param other - The adapter to intersect with.
+   * @returns A new adapter producing `T & U`.
+   * @since 3.1.0
+   */
   and<U>(other: Adapter<U>): Adapter<T & U>;
 
-  /** @internal - Used by shim for schema composition */
+  /**
+   * Returns the underlying Kanon schema.
+   *
+   * @returns The wrapped Kanon schema.
+   * @internal Used by shim for schema composition.
+   * @since 3.1.0
+   */
   _schema(): Schema<T>;
 };
 
+/**
+ * Creates an `Adapter` instance from the given internal state.
+ *
+ * @template Out - The output type of the adapter.
+ * @param state - Internal adapter state with schema, refinements, and transforms.
+ * @returns A fully wired `Adapter` instance.
+ * @since 3.1.0
+ */
 function createAdapter<Out>(state: AdapterState<Out>): Adapter<Out> {
   const {
     schema,
@@ -326,13 +532,18 @@ function createAdapter<Out>(state: AdapterState<Out>): Adapter<Out> {
       const currentSchema = schema;
       const otherSchema = other._schema() as AnySchema;
 
-      // Stryker disable next-line ConditionalExpression,LogicalOperator,EqualityOperator,StringLiteral,BlockStatement: Type guards are redundant - schemas are always objects with 'type' property, only type === "intersection" matters
+      // Stryker disable next-line ConditionalExpression,LogicalOperator,EqualityOperator,StringLiteral,BlockStatement: Flattening optimization - fallback intersection() produces identical behavior
       if (
+        // Stryker disable next-line ConditionalExpression,LogicalOperator,EqualityOperator,StringLiteral: Type guard for intersection flattening - fallback handles all cases identically
         typeof currentSchema === "object" &&
+        // Stryker disable next-line ConditionalExpression,LogicalOperator,EqualityOperator: Type guard for intersection flattening - fallback handles all cases identically
         currentSchema !== null &&
+        // Stryker disable next-line ConditionalExpression,LogicalOperator,StringLiteral: Type guard for intersection flattening - fallback handles all cases identically
         "type" in currentSchema &&
+        // Stryker disable next-line StringLiteral: Type guard for intersection flattening - fallback handles all cases identically
         currentSchema.type === "intersection"
-      ) {
+      // Stryker disable next-line BlockStatement: Flattening optimization - fallback intersection() produces identical behavior
+      ) /* Stryker disable next-line BlockStatement */ {
         // Flatten nested intersections for better performance
         const currentIntersection = currentSchema as Schema<unknown> & {
           schemas: readonly AnySchema[];

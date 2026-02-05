@@ -23,13 +23,39 @@
 export function intersection<T>(...arrays: readonly (readonly T[])[]): T[] {
   if (arrays.length === 0) return [];
 
-  const [first, ...rest] = arrays;
+  const first = arrays[0];
   // Stryker disable next-line ConditionalExpression: equivalent mutant, filter on empty array returns []
   if (first.length === 0) return [];
 
-  const sets = rest.map((arr) => new Set(arr));
+  const setCount = arrays.length - 1;
+  // Stryker disable next-line ArrayDeclaration: Preallocation optimization — all indices are assigned in the loop below
+  const sets = new Array(setCount);
+  // Stryker disable next-line EqualityOperator: Extra Set from undefined is never accessed by the check loop (j < setCount)
+  for (let i = 0; i < setCount; i++) {
+    sets[i] = new Set(arrays[i + 1]);
+  }
 
-  return [
-    ...new Set(first.filter((item) => sets.every((set) => set.has(item)))),
-  ];
+  const result: T[] = [];
+  const seen = new Set<T>();
+
+  for (let i = 0; i < first.length; i++) {
+    const item = first[i];
+
+    if (seen.has(item)) continue;
+    seen.add(item);
+
+    let inAll = true;
+    for (let j = 0; j < setCount; j++) {
+      if (!sets[j].has(item)) {
+        inAll = false;
+        break;
+      }
+    }
+
+    if (inAll) {
+      result.push(item);
+    }
+  }
+
+  return result;
 }

@@ -20,8 +20,11 @@ import {
     reformatParameters,
     escapeGenericTypesForMDX,
     getInlineBadgeHtml,
+    mergeOverloadSignatures,
+    insertSectionSeparators,
+    insertDescriptionSeparator,
 } from "../doc-formatters/index.js";
-import type { FunctionUseCases, CollectedDocItem } from "./types.js";
+import type { FunctionUseCases, CollectedDocItem, MergeGroupsConfig } from "./types.js";
 import { loadOverride, loadHowItWorks, loadUseCasesContent, parseUseCasesFromMarkdown } from "./loaders.js";
 import { extractErrorTypesFromSource } from "./error-types.js";
 import {
@@ -33,7 +36,7 @@ import {
 } from "./section-generators.js";
 import { extractName, extractType } from "./extractors.js";
 import { collectModule } from "./collectors.js";
-import { rewriteInternalLinks, createUnresolvedLinksTracker, markLinkResolved, logUnresolvedLinks } from "./link-rewriter.js";
+import { rewriteInternalLinks, computeRelativePath, createUnresolvedLinksTracker, markLinkResolved, logUnresolvedLinks } from "./link-rewriter.js";
 
 // Load doc modules configuration
 const __filename = fileURLToPath(import.meta.url);
@@ -74,8 +77,23 @@ export function processApiDocs(
     // Log duplicates that were filtered
     const duplicatesFiltered = new Set<string>();
 
-    // Pass: Merge Options interfaces into their functions
+    // Pass: Merge Options interfaces into their functions (automatic heuristics)
     mergeOptions(collectedItems);
+
+    // Pass: Apply custom merge groups from configuration
+    applyMergeGroups(collectedItems);
+
+    // Build merge redirect map: childName → { parentOutputDir, parentName }
+    // Used to fix cross-page links to items that were merged into other pages
+    const mergeRedirects = new Map<string, { parentOutputDir: string; parentName: string }>();
+    for (const [_key, item] of collectedItems) {
+        if (item.mergedTypes) {
+            const parentName = path.basename(item.filePath, ".md");
+            for (const childName of item.mergedTypes) {
+                mergeRedirects.set(childName, { parentOutputDir: item.outputDir, parentName });
+            }
+        }
+    }
 
     // Second pass: process only the collected (deduplicated) items
     for (const [key, item] of collectedItems) {
@@ -88,7 +106,8 @@ export function processApiDocs(
             collectedItems,
             item.providedType,
             item.mergedContent,
-            item.mergedTypes
+            item.mergedTypes,
+            mergeRedirects
         );
     }
 
@@ -126,7 +145,7 @@ function mergeOptions(collectedItems: Map<string, CollectedDocItem>) {
 
     // Identify and merge items
     for (const [dirPath, items] of itemsByDir) {
-        // The module name is the name of the directory (e.g. "retry", "order-by")
+        // The module name is the name of the directory (e.g. "retry", "order-by", "parser")
         const moduleName = path.basename(dirPath);
 
         // Find the main function
@@ -151,53 +170,225 @@ function mergeOptions(collectedItems: Map<string, CollectedDocItem>) {
             );
 
             for (const aux of auxTypes) {
-                // Read content
-                const auxContent = fs.readFileSync(aux.filePath, "utf-8");
-                let cleanAux = cleanMarkdown(removeThrowsAndSeeSections(auxContent));
-                
-                // Reformat parameters BEFORE merging
-                cleanAux = reformatParameters(cleanAux);
-                
+                mergeItemIntoParent(aux, mainFn, collectedItems);
+            }
+        } else {
+            // No main function matching the module name found.
+            // Try to match types with functions/variables by name prefix.
+            // E.g., ParseBulkOptions → parseBulk, ZShim → z
+            const functions = items.filter((i) => i.filePath.includes("/functions/"));
+            const variables = items.filter((i) => i.filePath.includes("/variables/"));
+            const auxTypes = items.filter(
+                (i) =>
+                    (i.filePath.includes("/interfaces/") ||
+                        i.filePath.includes("/type-aliases/") ||
+                        i.filePath.includes("interfaces/") ||
+                        i.filePath.includes("type-aliases/"))
+            );
+
+            for (const aux of auxTypes) {
                 const auxName = path.basename(aux.filePath, ".md");
-
-                // Determine badge label
-                const isInterface =
-                    aux.filePath.includes("/interfaces/") ||
-                    aux.filePath.includes("interfaces/");
-                const badgeLabel = isInterface ? "Interface" : "Type";
-
-                // Replace the title with markdown ## header + inline badge
-                // Use markdown header so it appears in table of contents
-                // Add explicit anchor ID using just the type name (without generics) for easier linking
-                cleanAux = cleanAux.replace(/^#\s+(.+)$/m, (match, title) => {
-                    return `## ${title} {#${auxName.toLowerCase()}}\n\n${getInlineBadgeHtml(badgeLabel)}`;
-                });
-
-                // Store merged content in the main function item
-                // Store merged content in the main function item
-                if (!mainFn.mergedContent) {
-                    mainFn.mergedContent = "";
-                }
-                if (!mainFn.mergedTypes) {
-                    mainFn.mergedTypes = [];
-                }
-
-                // Add separator and content
-                // We rely on the header's auto-generated ID for linking
-                mainFn.mergedContent += `\n\n***\n\n${cleanAux}`;
-                mainFn.mergedTypes.push(auxName);
-
-                // Remove the auxiliary item from collectedItems so it's not written separately
-                for (const [k, v] of collectedItems) {
-                    if (v === aux) {
-                        collectedItems.delete(k);
-                        console.log(`  📎 Merged ${auxName} (${badgeLabel}) → ${path.basename(mainFn.filePath, ".md")}`);
-                        break;
+                
+                // Try to find a function/variable whose name is a prefix of the type name
+                // E.g., ParseBulkOptions → parseBulk, MemoizeOptions → memoize, ZShim → z
+                // Find the longest matching prefix (most specific match)
+                let matchingItem: CollectedDocItem | undefined;
+                let longestMatchLength = 0;
+                
+                // Check functions first
+                for (const fn of functions) {
+                    const fnName = path.basename(fn.filePath, ".md");
+                    const normalizedFnName = normalizeName(fnName);
+                    const normalizedAuxName = normalizeName(auxName);
+                    
+                    // Check if the function name is a prefix of the type name
+                    if (normalizedAuxName.startsWith(normalizedFnName) && normalizedFnName.length > longestMatchLength) {
+                        matchingItem = fn;
+                        longestMatchLength = normalizedFnName.length;
                     }
+                }
+                
+                // Also check variables (e.g., z → ZShim)
+                for (const variable of variables) {
+                    const varName = path.basename(variable.filePath, ".md");
+                    const normalizedVarName = normalizeName(varName);
+                    const normalizedAuxName = normalizeName(auxName);
+                    
+                    // Check if the variable name is a prefix of the type name
+                    if (normalizedAuxName.startsWith(normalizedVarName) && normalizedVarName.length > longestMatchLength) {
+                        matchingItem = variable;
+                        longestMatchLength = normalizedVarName.length;
+                    }
+                }
+
+                if (matchingItem) {
+                    mergeItemIntoParent(aux, matchingItem, collectedItems);
                 }
             }
         }
     }
+}
+
+/**
+ * Load merge groups configuration from JSON file.
+ */
+function loadMergeGroupsConfig(): MergeGroupsConfig {
+    const configPath = path.join(__dirname, "../data/merge-groups.json");
+    if (!fs.existsSync(configPath)) {
+        return { mergeGroups: [] };
+    }
+    return JSON.parse(fs.readFileSync(configPath, "utf-8")) as MergeGroupsConfig;
+}
+
+/**
+ * Apply custom merge groups from configuration.
+ * Merges specified children into their parent items.
+ * Must run AFTER mergeOptions() to avoid conflicts with automatic merging.
+ */
+function applyMergeGroups(collectedItems: Map<string, CollectedDocItem>) {
+    const config = loadMergeGroupsConfig();
+
+    for (const group of config.mergeGroups) {
+        const parentKey = `${group.module}/${group.parent}`;
+        const parentItem = collectedItems.get(parentKey);
+
+        if (!parentItem) {
+            console.warn(`  ⚠️  Merge group parent not found: ${parentKey}`);
+            continue;
+        }
+
+        // Process children in config order (determines display order)
+        for (const childName of group.children) {
+            const childKey = `${group.module}/${childName}`;
+            const childItem = collectedItems.get(childKey);
+
+            if (!childItem) {
+                // Child may have already been merged by mergeOptions() — skip silently
+                const alreadyMerged = parentItem.mergedTypes?.includes(childName);
+                if (!alreadyMerged) {
+                    console.warn(`  ⚠️  Merge group child not found: ${childKey}`);
+                }
+                continue;
+            }
+
+            mergeItemIntoParent(childItem, parentItem, collectedItems);
+        }
+    }
+}
+
+/**
+ * Determines the badge label for a documentation item.
+ * Uses providedType first, falls back to filepath heuristics.
+ */
+function resolveBadgeLabel(item: CollectedDocItem): string {
+    if (item.providedType) {
+        const labelMap: Record<string, string> = {
+            "function": "Function",
+            "interface": "Interface",
+            "type": "Type",
+            "variable": "Variable",
+            "class": "Class",
+            "enum": "Enum",
+        };
+        return labelMap[item.providedType] || item.providedType;
+    }
+
+    // Fallback: filepath heuristic
+    if (item.filePath.includes("/interfaces/")) return "Interface";
+    if (item.filePath.includes("/functions/")) return "Function";
+    if (item.filePath.includes("/variables/")) return "Variable";
+    return "Type";
+}
+
+/**
+ * Merge a documentation item into a parent item's page.
+ * Supports merging functions, variables, interfaces, and type aliases.
+ */
+function mergeItemIntoParent(
+    child: CollectedDocItem,
+    parent: CollectedDocItem,
+    collectedItems: Map<string, CollectedDocItem>
+) {
+    // Read content
+    const childContent = fs.readFileSync(child.filePath, "utf-8");
+    let cleanChild = cleanMarkdown(removeThrowsAndSeeSections(childContent));
+
+    // Reformat parameters BEFORE merging
+    cleanChild = reformatParameters(cleanChild);
+
+    const childName = path.basename(child.filePath, ".md");
+
+    // Determine badge label from providedType or filepath
+    const badgeLabel = resolveBadgeLabel(child);
+
+    // Replace the title with markdown ## header + inline badge
+    // Use markdown header so it appears in table of contents
+    // Add explicit anchor ID using just the type name (without generics) for easier linking
+    cleanChild = cleanChild.replace(/^#\s+(.+)$/m, (match, title) => {
+        return `## ${title} {#${childName.toLowerCase()}}\n\n${getInlineBadgeHtml(badgeLabel)}`;
+    });
+
+    // Store merged content in the parent item
+    if (!parent.mergedContent) {
+        parent.mergedContent = "";
+    }
+    if (!parent.mergedTypes) {
+        parent.mergedTypes = [];
+    }
+
+    // Add separator and content
+    parent.mergedContent += `\n\n<div className="merged-type-separator"></div>\n\n${cleanChild}`;
+    parent.mergedTypes.push(childName);
+
+    // Remove the child item from collectedItems so it's not written separately
+    for (const [k, v] of collectedItems) {
+        if (v === child) {
+            collectedItems.delete(k);
+            console.log(`  📎 Merged ${childName} (${badgeLabel}) → ${path.basename(parent.filePath, ".md")}`);
+            break;
+        }
+    }
+}
+
+/**
+ * Resolves plain function name references in See sections to markdown links.
+ * Transforms patterns like "before - description" or "escape for the inverse" into links.
+ */
+function resolveSeeFunctionReferences(
+    seeContent: string,
+    collectedItems: Map<string, CollectedDocItem>,
+    currentModuleKey: string
+): string {
+    // Build a reverse lookup: fnName → URL slug
+    // Use outputDir (which includes category subdirs like "parsers/")
+    // rather than moduleKey (which stops at the submodule level).
+    const fnNameToSlug = new Map<string, string>();
+    for (const [key, item] of collectedItems) {
+        const fnName = key.split("/").pop()!;
+        if (!fnNameToSlug.has(fnName)) {
+            // outputDir is e.g. "packages/main/documentation/_generated/final/arkhe/number/parsers"
+            // Extract the part after "final/" to get the doc-site path
+            const finalIdx = item.outputDir.indexOf("final/");
+            const relativePath = finalIdx !== -1
+                ? item.outputDir.slice(finalIdx + "final/".length)
+                : `${item.moduleKey}`;
+            fnNameToSlug.set(fnName, `/api/${relativePath}/${fnName}`);
+        }
+    }
+
+    return seeContent.replace(
+        /^([^\S\n]*(?:-[^\S\n]+)?)(\w+)((?:[^\S\n]+-[^\S\n]+|[^\S\n]+)(.*))?$/gm,
+        (match, leading, fnName, rest) => {
+            // Skip headings and already-linked content
+            if (match.includes("[") || match.trimStart().startsWith("#")) return match;
+
+            const slug = fnNameToSlug.get(fnName);
+            if (slug) {
+                return `${leading}[${fnName}](${slug})${rest || ""}`;
+            }
+            return match;
+        }
+    );
 }
 
 /**
@@ -212,7 +403,8 @@ export function processFile(
     collectedItems: Map<string, CollectedDocItem>,
     providedType?: string,
     mergedContent?: string,
-    mergedTypes?: string[]
+    mergedTypes?: string[],
+    mergeRedirects?: Map<string, { parentOutputDir: string; parentName: string }>
 ) {
     let content = fs.readFileSync(filePath, "utf-8");
 
@@ -223,6 +415,16 @@ export function processFile(
 
     // Create tracker for unresolved links (warnings deferred until end)
     const unresolvedLinks = createUnresolvedLinksTracker();
+    
+    // Mark merged types as resolved upfront to avoid false warnings
+    if (mergedTypes && mergedTypes.length > 0) {
+        for (const typeName of mergedTypes) {
+            markLinkResolved(unresolvedLinks, typeName);
+        }
+    }
+
+    // Merge overloaded Call Signatures into a single clean structure
+    content = mergeOverloadSignatures(content);
 
     // Extract all special sections before cleaning (they will be reinserted later)
     let throwsSection = extractThrowsSection(content);
@@ -280,6 +482,8 @@ export function processFile(
     }
     if (seeSection) {
         seeSection = rewriteInternalLinks(seeSection, outputDir, moduleKey, collectedItems, unresolvedLinks);
+        // Resolve plain function name references to links (e.g. "before - description" → "[before](../before) - description")
+        seeSection = resolveSeeFunctionReferences(seeSection, collectedItems, moduleKey);
     }
     if (internalSection) {
         internalSection = rewriteInternalLinks(internalSection, outputDir, moduleKey, collectedItems, unresolvedLinks);
@@ -287,14 +491,34 @@ export function processFile(
 
     // Rewrite links for merged types (and mark them as resolved in tracker)
     if (mergedTypes && mergedTypes.length > 0) {
+        // Mark all merged types as resolved FIRST to avoid warnings
+        for (const typeName of mergedTypes) {
+            markLinkResolved(unresolvedLinks, typeName);
+        }
+        
+        // Then rewrite the links
         for (const typeName of mergedTypes) {
             // Replace [TypeName](.../TypeName.md) or [`TypeName`](.../TypeName.md) with [TypeName](#typename)
             // Case insensitive for filename matching but use typeName for label
             // The backticks are optional around the link text
             const regex = new RegExp(`\\[\`?${typeName}\`?\\]\\([^)]*${typeName}\\.md\\)`, "gi");
             content = content.replace(regex, `[${typeName}](#${typeName.toLowerCase()})`);
-            // Mark this type as resolved in the tracker
-            markLinkResolved(unresolvedLinks, typeName);
+        }
+    }
+
+    // Redirect links to items that were merged into other pages
+    // e.g., [CompiledValidator](./CompiledValidator.md) → [CompiledValidator](./compile.md#compiledvalidator)
+    if (mergeRedirects && mergeRedirects.size > 0) {
+        const ownMerged = new Set(mergedTypes?.map(t => t.toLowerCase()) ?? []);
+        for (const [childName, { parentOutputDir, parentName }] of mergeRedirects) {
+            // Skip items already handled as same-page anchors
+            if (ownMerged.has(childName.toLowerCase())) continue;
+            // Case-sensitive match on filename to avoid confusing Left.md (interface) with left.md (function)
+            const regex = new RegExp(`\\[(\`?${childName}\`?)\\]\\([^)]*${childName}\\.md\\)`, "g");
+            const parentPath = computeRelativePath(outputDir, path.join(parentOutputDir, `${parentName}.md`));
+            content = content.replace(regex, `[$1](${parentPath}#${childName.toLowerCase()})`);
+            // Mark as resolved so no warning is logged
+            markLinkResolved(unresolvedLinks, childName);
         }
     }
 
@@ -327,6 +551,9 @@ export function processFile(
         content = insertAdmonitionAfterDescription(content, tipSection);
     }
 
+    // Insert separator after main description (including admonitions) and before technical sections
+    content = insertDescriptionSeparator(content);
+
     // Reinsert all special sections after Returns (except admonitions which are already inserted)
     content = insertSpecialSections(content, {
         throwsSection,
@@ -357,16 +584,23 @@ export function processFile(
         // Also rewrite links to merged types as internal anchors
         if (mergedTypes && mergedTypes.length > 0) {
             for (const typeName of mergedTypes) {
-                // Replace [TypeName](.../TypeName.md) or [`TypeName`](.../TypeName.md) with [TypeName](#typename)
-                // Case insensitive for filename matching but use typeName for label
-                // The backticks are optional around the link text
                 const regex = new RegExp(`\\[\`?${typeName}\`?\\]\\([^)]*${typeName}\\.md\\)`, "gi");
                 rewrittenMergedContent = rewrittenMergedContent.replace(regex, `[${typeName}](#${typeName.toLowerCase()})`);
-                // Mark this type as resolved in the tracker
-                markLinkResolved(unresolvedLinks, typeName);
             }
         }
-        
+
+        // Redirect links to items merged into other pages
+        if (mergeRedirects && mergeRedirects.size > 0) {
+            const ownMerged = new Set(mergedTypes?.map(t => t.toLowerCase()) ?? []);
+            for (const [childName, { parentOutputDir, parentName }] of mergeRedirects) {
+                if (ownMerged.has(childName.toLowerCase())) continue;
+                // Case-sensitive match on filename to avoid confusing Left.md (interface) with left.md (function)
+                const regex = new RegExp(`\\[(\`?${childName}\`?)\\]\\([^)]*${childName}\\.md\\)`, "g");
+                const parentPath = computeRelativePath(outputDir, path.join(parentOutputDir, `${parentName}.md`));
+                rewrittenMergedContent = rewrittenMergedContent.replace(regex, `[$1](${parentPath}#${childName.toLowerCase()})`);
+            }
+        }
+
         content += rewrittenMergedContent;
     }
 
@@ -394,6 +628,10 @@ sidebar_custom_props:
 
     content = frontmatter + content;
 
+    // Insert thin horizontal rules between ## sections for visual separation
+    // Skip the first ## heading (it directly follows the title/description)
+    content = insertSectionSeparators(content);
+
     // Ensure output directory exists
     fs.mkdirSync(outputDir, { recursive: true });
 
@@ -402,7 +640,7 @@ sidebar_custom_props:
     fs.writeFileSync(outputPath, content);
 
     // Log any unresolved links that weren't fixed by merged types handling
-    logUnresolvedLinks(unresolvedLinks);
+    logUnresolvedLinks(unresolvedLinks, mergedTypes);
 }
 
 /**

@@ -8,7 +8,7 @@
  *
  * Usage: npx tsx scripts/generate-bundle-data.ts
  *
- * The output is written to src/data/bundle-sizes.json
+ * The output is written to src/data/generated/kanon-bundle-sizes.json
  */
 
 import { execSync } from "node:child_process";
@@ -19,8 +19,8 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const tmpDir = join(__dirname, ".tmp");
-const outputDir = join(__dirname, "../src/data");
-const outputPath = join(outputDir, "bundle-sizes.json");
+const outputDir = join(__dirname, "../src/data/generated");
+const outputPath = join(outputDir, "kanon-bundle-sizes.json");
 
 // Paths
 const projectRoot = join(__dirname, "../../../..");

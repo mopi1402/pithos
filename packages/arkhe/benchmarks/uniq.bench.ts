@@ -1,16 +1,14 @@
 // Based on es-toolkit benchmark, adapted to include lodash-es and arkhe
-// Note: arkhe doesn't have a simple uniq, using uniqBy with identity
 import { bench, describe } from 'vitest';
 import { uniq as uniqToolkit_ } from 'es-toolkit';
 import { uniq as uniqCompatToolkit_ } from 'es-toolkit/compat';
 import { uniq as uniqLodashEs_ } from 'lodash-es';
-import { uniqBy as uniqByArkhe_ } from '../../pithos/src/arkhe/array/uniq-by';
+import { uniq as uniqArkhe_ } from '../../pithos/src/arkhe/array/uniq';
 
 const uniqToolkit = uniqToolkit_;
 const uniqCompatToolkit = uniqCompatToolkit_;
 const uniqLodashEs = uniqLodashEs_;
-const uniqByArkhe = uniqByArkhe_;
-const identity = <T>(x: T) => x;
+const uniqArkhe = uniqArkhe_;
 
 describe('uniq', () => {
   bench('es-toolkit/uniq', () => {
@@ -25,8 +23,8 @@ describe('uniq', () => {
     uniqLodashEs([11, 2, 3, 44, 11, 2, 3]);
   });
 
-  bench('arkhe/uniqBy (identity)', () => {
-    uniqByArkhe([11, 2, 3, 44, 11, 2, 3], identity);
+  bench('arkhe/uniq', () => {
+    uniqArkhe([11, 2, 3, 44, 11, 2, 3]);
   });
 });
 
@@ -45,7 +43,7 @@ describe('uniq/largeArray', () => {
     uniqLodashEs(largeArray);
   });
 
-  bench('arkhe/uniqBy (identity)', () => {
-    uniqByArkhe(largeArray, identity);
+  bench('arkhe/uniq', () => {
+    uniqArkhe(largeArray);
   });
 });

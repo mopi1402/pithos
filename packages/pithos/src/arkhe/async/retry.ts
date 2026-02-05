@@ -23,7 +23,7 @@ export interface RetryOptions {
 /**
  * Retries an async function with configurable backoff and error filtering.
  *
- * @info Why wrapping native?: We prefer to wrap this to improve resilience against transient failures, adhering to **Fail Fast** principles by managing retries declaratively. See [Design Philosophy](/guide/design-principles/design-philosophy/)
+ * @info Why wrapping native?: We prefer to wrap this to improve resilience against transient failures, adhering to **Fail Fast** principles by managing retries declaratively. See [Design Philosophy](/guide/contribution/design-principles/design-philosophy/)
  *
  * 
  * @template T - The return type of the function.

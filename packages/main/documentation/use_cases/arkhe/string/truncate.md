@@ -34,3 +34,20 @@ Use custom omission strings for branded "read more" indicators.
 truncate(post, { length: 50, omission: '… [voir plus]' });
 // => "This is a very long social… [voir plus]"
 ```
+
+### **Truncate** file names in a file explorer
+
+@keywords: file, name, explorer, path, overflow, UI
+
+Shorten long file names in a file tree or upload list while keeping the extension visible.
+
+```typescript
+const truncateFileName = (name: string, maxLen: number) => {
+  const ext = name.slice(name.lastIndexOf('.'));
+  if (name.length <= maxLen) return name;
+  return truncate(name.slice(0, -ext.length), { length: maxLen - ext.length }) + ext;
+};
+
+truncateFileName('my-very-long-document-name-final-v2.pdf', 25);
+// => "my-very-long-docum....pdf"
+```

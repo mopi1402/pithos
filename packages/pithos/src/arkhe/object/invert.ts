@@ -7,7 +7,7 @@
  * @since 1.1.0
  *
  * @note Duplicate values: last key wins.
- * @note Symbol keys are included via Reflect.ownKeys.
+ * @note Only enumerable string keys are included (Symbol keys are ignored).
  *
  * @performance O(n) time & space.
  *
@@ -28,10 +28,11 @@ export function invert<T extends Record<PropertyKey, PropertyKey>>(
   object: T
 ): Record<T[keyof T], keyof T> {
   const result = {} as Record<PropertyKey, PropertyKey>;
+  const keys = Object.keys(object);
 
-  for (const key of Reflect.ownKeys(object)) {
-    const value = object[key as keyof T];
-    result[value] = key;
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    result[object[key as keyof T]] = key;
   }
 
   return result as Record<T[keyof T], keyof T>;

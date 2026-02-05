@@ -107,23 +107,27 @@ export function extractDefaultSection(content: string): string | null {
  * @returns The formatted Info admonition, or `null` if not found.
  */
 export function extractInfoSection(content: string): string | null {
-    const infoMatch = content.match(INFO_SECTION_REGEX);
-    if (!infoMatch) return null;
+    const regex = new RegExp(INFO_SECTION_REGEX.source, "g");
+    const results: string[] = [];
+    let match: RegExpExecArray | null;
 
-    let infoContent = infoMatch[2].trim();
-    if (!infoContent) return null;
+    while ((match = regex.exec(content)) !== null) {
+        const infoContent = match[2].trim();
+        if (!infoContent) continue;
 
-    // Check if first 1-5 words are followed by ":"
-    // Pattern: 1 to 5 words (letters, numbers, spaces) followed by ":"
-    const titleMatch = infoContent.match(/^((?:\S+\s+){0,4}\S+):\s*([\s\S]*)$/);
-    
-    if (titleMatch) {
-        const title = titleMatch[1].toUpperCase();
-        const body = titleMatch[2].trim();
-        return `\n:::info[${title}]\n\n${body}\n\n:::\n`;
+        // Check if first 1-5 words are followed by ":"
+        const titleMatch = infoContent.match(/^((?:\S+\s+){0,4}\S+):\s*([\s\S]*)$/);
+
+        if (titleMatch) {
+            const title = titleMatch[1].toUpperCase();
+            const body = titleMatch[2].trim();
+            results.push(`\n:::info[${title}]\n\n${body}\n\n:::\n`);
+        } else {
+            results.push(`\n:::info\n\n${infoContent}\n\n:::\n`);
+        }
     }
 
-    return `\n:::info\n\n${infoContent}\n\n:::\n`;
+    return results.length > 0 ? results.join("") : null;
 }
 
 /**

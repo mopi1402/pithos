@@ -29,6 +29,18 @@ describe("fill", () => {
     expect(fill([1, 2, 3], 0, 2, 1)).toEqual([1, 2, 3]);
   });
 
+  it("[🎯] handles negative end", () => {
+    expect(fill([1, 2, 3, 4], 0, 0, -2)).toEqual([0, 0, 3, 4]);
+  });
+
+  it("[🎯] clamps negative end that exceeds array length", () => {
+    expect(fill([1, 2, 3], 0, 0, -100)).toEqual([1, 2, 3]);
+  });
+
+  it("[👾] end === 0 fills nothing", () => {
+    expect(fill([1, 2, 3], 0, 0, 0)).toEqual([1, 2, 3]);
+  });
+
   itProp.prop([
     fc.array(fc.integer(), { minLength: 1 }),
     fc.integer(),

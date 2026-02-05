@@ -60,9 +60,9 @@ export function removeThrowsAndSeeSections(content: string): string {
         ""
     );
 
-    // Remove Info section (## or ###)
+    // Remove Info section (## or ###) — global to handle multiple @info tags
     content = content.replace(
-        /(?:^|\n)(##+\s+Info)\n\n[\s\S]*?(?=\n##+\s|\n*$)/,
+        /(?:^|\n)(##+\s+Info)\n\n[\s\S]*?(?=\n##+\s|\n*$)/g,
         ""
     );
 
@@ -88,4 +88,71 @@ export function removeThrowsAndSeeSections(content: string): string {
     content = content.replace(MULTIPLE_BLANK_LINES_REGEX, "\n\n");
 
     return content;
+}
+
+
+/**
+ * Inserts horizontal rules (`---`) between `## ` sections for visual separation.
+ * Skips the first `## ` heading (directly after the title/description area).
+ * Also skips if a merged-type-separator div or another --- precedes the heading.
+ */
+export function insertSectionSeparators(content: string): string {
+    let count = 0;
+    // Match 1-2 newlines before ## to normalize spacing and avoid Setext heading
+    // interpretation (text\n--- becomes an h2 in markdown).
+    return content.replace(/\n{1,2}(## )/g, (match, heading, offset) => {
+        count++;
+        // Skip the first ## heading — it follows the title naturally
+        if (count === 1) return match;
+        
+        // Skip if preceded by merged-type-separator (check last 200 chars before match)
+        const precedingContent = content.slice(Math.max(0, offset - 200), offset);
+        if (precedingContent.includes('merged-type-separator')) {
+            return match;
+        }
+        
+        // Skip if there's already a --- separator right before (within last 20 chars)
+        const recentContent = content.slice(Math.max(0, offset - 20), offset);
+        if (recentContent.trim().endsWith('---')) {
+            return match;
+        }
+        
+        return `\n\n---\n\n${heading}`;
+    });
+}
+
+/**
+ * Inserts a horizontal rule after the main description (including admonitions)
+ * and before the first technical section (Type Parameters, Parameters, Returns).
+ * 
+ * This creates visual separation between the introductory content and the API reference.
+ * Skips insertion if a separator already exists right before the technical section.
+ */
+export function insertDescriptionSeparator(content: string): string {
+    // Match the first occurrence of Type Parameters, Parameters, or Returns heading
+    // These mark the start of the technical API reference section
+    const technicalSectionRegex = /\n(##+\s+(?:Type Parameters|Parameters|Returns):?[^\n]*\n)/;
+    const match = content.match(technicalSectionRegex);
+    
+    if (!match || match.index === undefined) {
+        // No technical sections found, don't insert separator
+        return content;
+    }
+    
+    const insertPosition = match.index;
+    
+    // Check if there's already a separator (---) right before the technical section
+    // Look back up to 50 chars to see if there's already a --- separator
+    const precedingContent = content.slice(Math.max(0, insertPosition - 50), insertPosition);
+    if (precedingContent.includes('---')) {
+        // Already has a separator, skip insertion
+        return content;
+    }
+    
+    // Insert the separator before the technical section
+    return (
+        content.slice(0, insertPosition) +
+        "\n\n---\n" +
+        content.slice(insertPosition)
+    );
 }

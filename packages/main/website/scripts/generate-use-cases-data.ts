@@ -22,7 +22,7 @@ import type { Root, Heading } from "mdast";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const useCasesDir = join(__dirname, "../../documentation/use_cases");
-const outputDir = join(__dirname, "../src/data");
+const outputDir = join(__dirname, "../src/data/generated");
 const staticUseCasesDir = join(__dirname, "../static/use_cases");
 const outputPath = join(outputDir, "use-cases.json");
 const embeddingsOutputPath = join(staticUseCasesDir, "use-cases-embeddings.json");

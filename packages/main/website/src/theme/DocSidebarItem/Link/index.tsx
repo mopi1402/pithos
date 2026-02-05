@@ -1,6 +1,7 @@
 import { type ReactNode } from "react";
 import clsx from "clsx";
 import { ThemeClassNames } from "@docusaurus/theme-common";
+import { translate } from "@docusaurus/Translate";
 import { isActiveSidebarItem } from "@docusaurus/plugin-content-docs/client";
 import Link from "@docusaurus/Link";
 import isInternalUrl from "@docusaurus/isInternalUrl";
@@ -74,7 +75,7 @@ export default function DocSidebarItemLink({
               marginLeft: "0.5rem",
               fontSize: "0.875rem",
             }}
-            title="Top pick"
+            title={translate({ id: 'shared.badge.topPick', message: 'Top pick' })}
           >
             👑
           </span>
@@ -87,7 +88,7 @@ export default function DocSidebarItemLink({
               marginLeft: "0.5rem",
               fontSize: "0.875rem",
             }}
-            title="Hidden gem"
+            title={translate({ id: 'shared.badge.hiddenGem', message: 'Hidden gem' })}
           >
             💎
           </span>

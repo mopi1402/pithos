@@ -26,6 +26,25 @@ if (inRange(index, 0, items.length)) {
 }
 ```
 
+### **Categorize** values into tiers
+
+@keywords: tier, band, category, pricing, grade, classification
+
+Map a numeric value to a named tier or grade.
+Useful for pricing plans, performance ratings, or gamification levels.
+
+```typescript
+const getPricingTier = (monthlySpend: number) => {
+  if (inRange(monthlySpend, 0, 100)) return 'free';
+  if (inRange(monthlySpend, 100, 500)) return 'starter';
+  if (inRange(monthlySpend, 500, 2000)) return 'pro';
+  return 'enterprise';
+};
+
+getPricingTier(250);  // => 'starter'
+getPricingTier(1500); // => 'pro'
+```
+
 ### **Detect heart rate zones** for fitness training
 
 @keywords: sports, fitness, heart rate, zones, training, athletes, cardio, wearable

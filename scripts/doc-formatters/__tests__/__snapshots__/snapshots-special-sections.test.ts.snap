@@ -1,0 +1,4213 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Special sections > camelCase (also known as) 1`] = `
+"# camelCase()
+
+> **camelCase**(\`str\`): \`string\`
+
+Converts a string to camelCase.
+
+:::note
+
+Handles kebab-case, snake_case, PascalCase, space-separated strings, and acronyms.
+
+:::
+
+
+---
+
+## Parameters
+
+### str: \`string\`
+
+The string to convert.
+
+---
+
+## Returns: \`string\`
+
+The string in camelCase.
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Performance
+
+O(n) single-pass charCode traversal, no regex.
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":{"name":"camelCase","group":"String"},"ramda":null,"radashi":{"name":"camel","group":"String"},"remeda":{"name":"toCamelCase","group":"String"},"moderndash":{"name":"camelCase","group":"String"},"antfu":null,"effect":null,"es-toolkit":{"name":"camelCase","group":"string"},"python":null,"kotlin":null}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+camelCase('background-color'); // => 'backgroundColor'
+camelCase('font_size');        // => 'fontSize'
+camelCase('Hello World');      // => 'helloWorld'
+camelCase('PascalCase');       // => 'pascalCase'
+camelCase('HTTPRequest');      // => 'httpRequest'
+camelCase('--foo--bar--');     // => 'fooBar'
+\`\`\`
+
+---
+
+## How it works?
+
+Converts a string to camelCase format.
+First word lowercase, subsequent words capitalized, no separators.
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["'background-color'"] --> B["camelCase(_)"]
+    B --> C["'backgroundColor'"]\`}
+  mobile={\`flowchart TB
+    A["'background-color'"] --> B["camelCase(_)"]
+    B --> C["'backgroundColor'"]\`}
+/>
+
+### Conversion Examples
+
+| Input | Output |
+|-------|--------|
+| \`background-color\` | \`backgroundColor\` |
+| \`font_size\` | \`fontSize\` |
+| \`Hello World\` | \`helloWorld\` |
+| \`PascalCase\` | \`pascalCase\` |
+| \`HTTPRequest\` | \`httpRequest\` |
+
+### Process
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["Input: 'Hello-World'"] --> B["Split on separators"]
+    B --> C["['Hello', 'World']"]
+    C --> D["Lowercase first word"]
+    D --> E["'hello'"]
+    C --> F["Capitalize rest"]
+    F --> G["'World'"]
+    E --> H["Join"]
+    G --> H
+    H --> I["'helloWorld'"]\`}
+  mobile={\`flowchart TB
+    A["Input: 'Hello-World'"] --> B["Split on separators"]
+    B --> C["['Hello', 'World']"]
+    C --> D["Lowercase first word"]
+    D --> E["'hello'"]
+    C --> F["Capitalize rest"]
+    F --> G["'World'"]
+    E --> H["Join"]
+    G --> H
+    H --> I["'helloWorld'"]\`}
+/>
+
+---
+
+## Use Cases
+
+### Normalize keys 📌
+
+Convert property names or identifiers to standard JavaScript \`camelCase\`.
+Essential for API response normalization and consistent coding style.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=normalize" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#normalize</a>
+  <a href="/use-cases?q=keys" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#keys</a>
+  <a href="/use-cases?q=camelCase" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#camelCase</a>
+  <a href="/use-cases?q=identifiers" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#identifiers</a>
+  <a href="/use-cases?q=API" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#API</a>
+  <a href="/use-cases?q=properties" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#properties</a>
+</div>
+
+\`\`\`typescript
+const key = camelCase('user-id'); // 'userId'
+const prop = camelCase('first_name'); // 'firstName'
+\`\`\`
+
+### Ensure identifier safety
+
+Ensure a string is a valid variable identifier.
+Useful when generating code or dynamic property accessors.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=ensure" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#ensure</a>
+  <a href="/use-cases?q=identifier" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#identifier</a>
+  <a href="/use-cases?q=safety" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#safety</a>
+  <a href="/use-cases?q=variables" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#variables</a>
+  <a href="/use-cases?q=code-generation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#code-generation</a>
+  <a href="/use-cases?q=valid" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#valid</a>
+</div>
+
+\`\`\`typescript
+const varName = camelCase('My Class Name'); // 'myClassName'
+\`\`\`
+
+### Convert API response keys from snake_case
+
+Transform snake_case keys from a backend API into JavaScript-standard camelCase.
+The most common real-world use case, especially with Python/Ruby/Go backends.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=convert" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#convert</a>
+  <a href="/use-cases?q=API" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#API</a>
+  <a href="/use-cases?q=response" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#response</a>
+  <a href="/use-cases?q=snake_case" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#snake_case</a>
+  <a href="/use-cases?q=camelCase" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#camelCase</a>
+  <a href="/use-cases?q=keys" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#keys</a>
+  <a href="/use-cases?q=normalize" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#normalize</a>
+  <a href="/use-cases?q=backend" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#backend</a>
+</div>
+
+\`\`\`typescript
+const apiResponse = {
+  user_id: 42,
+  first_name: "Alice",
+  created_at: "2025-01-15",
+  is_active: true,
+};
+
+// Combined with mapKeys for full object transformation
+const normalized = mapKeys(apiResponse, (_, key) => camelCase(key));
+// => { userId: 42, firstName: "Alice", createdAt: "2025-01-15", isActive: true }
+\`\`\`
+
+"
+`;
+
+exports[`Special sections > debounce (how it works, mermaid, use cases) 1`] = `
+"# debounce()
+
+> **debounce**\\<\`Args\`, \`Context\`\\>(\`func\`, \`wait\`, \`immediate\`): (\`this\`, ...\`args\`) => \`void\` & \`object\`
+
+Creates a debounced function that delays execution until after a wait period.
+
+
+---
+
+## Type Parameters
+
+### Args: \`Args extends unknown[]\`
+
+The argument types of the function.
+
+### Context: \`Context = unknown\`
+
+The type of \`this\` context.
+
+---
+
+## Parameters
+
+### func: \`(this, ...args) => void\`
+
+The function to debounce.
+
+### wait: \`number\`
+
+The number of milliseconds to delay.
+
+### immediate: \`boolean = false\`
+
+If \`true\`, trigger on leading edge instead of trailing edge.
+
+---
+
+## Returns: \`(this, ...args) => void & object\`
+
+The debounced function with \`cancel()\` and \`flush()\` methods.
+
+
+---
+
+## Throws
+
+\`RangeError\` If wait is negative or not finite.
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Performance
+
+Clears previous timeout on each call to prevent multiple pending executions.
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":{"name":"debounce","group":"Function"},"ramda":null,"radashi":{"name":"debounce","group":"Curry"},"remeda":{"name":"debounce","group":"Function"},"moderndash":{"name":"debounce","group":"Function"},"antfu":null,"effect":null,"es-toolkit":{"name":"debounce","group":"function"},"python":null,"kotlin":null}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+// Trailing edge (default)
+const search = debounce((query: string) => {
+  console.log(\`Searching: \${query}\`);
+}, 300);
+
+search('abc'); // After 300ms: "Searching: abc"
+
+// Leading edge
+const save = debounce(() => console.log('Saved'), 1000, true);
+save(); // Immediately: "Saved"
+
+// Cancel pending
+search.cancel();
+
+// Force immediate execution
+search('urgent');
+search.flush(); // Immediately: "Searching: urgent"
+\`\`\`
+
+---
+
+## How it works?
+
+Debounce delays execution until the user **stops calling** for a specified duration.
+Each call resets the timer — only the *last* call triggers the function.
+\`\`\`mermaid
+sequenceDiagram
+    participant U as User
+    participant D as debounce
+    participant F as func()
+    U->>D: call
+    Note right of D: ⏱️ start timer
+    U->>D: call
+    Note right of D: 🔄 reset timer
+    U->>D: call
+    Note right of D: 🔄 reset timer
+    Note right of D: ⏳ wait...
+    D->>F: ✅ execute (once)
+\`\`\`
+
+### Debounce vs Throttle
+
+**Debounce** waits for silence — resets on every call.
+**Throttle** enforces rhythm — fires at fixed intervals.
+
+![Debounce vs Throttle comparison](/img/how-it-works/debounce-vs-throttle.svg)
+
+| | Debounce | Throttle |
+|--|----------|----------|
+| **Fires** | Once, after silence | Periodically |
+| **Best for** | Search input | Scroll events |
+
+---
+
+## Use Cases
+
+### Optimize search input performance 📌
+
+Delay search execution until user stops typing to reduce API calls and improve performance.
+Essential for search interfaces and autocomplete functionality.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=optimize" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#optimize</a>
+  <a href="/use-cases?q=search" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#search</a>
+  <a href="/use-cases?q=input" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#input</a>
+  <a href="/use-cases?q=typing" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#typing</a>
+  <a href="/use-cases?q=autocomplete" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#autocomplete</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
+</div>
+
+\`\`\`typescript
+const search = debounce((query) => {
+  api.search(query);
+}, 300);
+
+// User types "hello"... only one API call after 300ms
+input.on("input", (e) => search(e.target.value));
+\`\`\`
+
+### Delay API calls until idle 📌
+
+Delay API requests until user stops interacting to prevent server overload.
+Critical for API optimization and reducing unnecessary network traffic.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=delay" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#delay</a>
+  <a href="/use-cases?q=API" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#API</a>
+  <a href="/use-cases?q=idle" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#idle</a>
+  <a href="/use-cases?q=optimization" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#optimization</a>
+  <a href="/use-cases?q=network" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#network</a>
+  <a href="/use-cases?q=throttle" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#throttle</a>
+</div>
+
+\`\`\`typescript
+const saveData = debounce((data) => {
+  api.save(data);
+}, 1000);
+
+// Save only after user stops editing for 1 second
+editor.on("change", (data) => saveData(data));
+\`\`\`
+
+### Prevent rapid button clicks
+
+Debounce button clicks to prevent accidental multiple submissions.
+Useful for form submissions and user interface interactions.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=prevent" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#prevent</a>
+  <a href="/use-cases?q=rapid" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#rapid</a>
+  <a href="/use-cases?q=clicks" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#clicks</a>
+  <a href="/use-cases?q=submission" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#submission</a>
+  <a href="/use-cases?q=forms" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#forms</a>
+  <a href="/use-cases?q=duplicate" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#duplicate</a>
+</div>
+
+\`\`\`typescript
+const submitForm = debounce(() => {
+  form.submit();
+}, 500, true); // Immediate = true
+
+// Only first click triggers action
+button.on("click", submitForm);
+\`\`\`
+
+### Rate-limit WebSocket messages in real-time apps
+
+Debounce high-frequency WebSocket messages to prevent UI overload.
+Critical for trading platforms, live dashboards, and real-time collaboration tools.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=websocket" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#websocket</a>
+  <a href="/use-cases?q=realtime" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#realtime</a>
+  <a href="/use-cases?q=messages" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#messages</a>
+  <a href="/use-cases?q=rate-limit" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#rate-limit</a>
+  <a href="/use-cases?q=trading" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#trading</a>
+  <a href="/use-cases?q=chat" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#chat</a>
+  <a href="/use-cases?q=streaming" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#streaming</a>
+</div>
+
+\`\`\`typescript
+// Debounce price updates from trading WebSocket
+const handlePriceUpdate = debounce((priceData) => {
+  updateTradingChart(priceData);
+  recalculatePortfolioValue(priceData);
+}, 100);
+
+websocket.on("price_update", (data) => {
+  handlePriceUpdate(data);
+});
+
+// For live chat typing indicators
+const sendTypingIndicator = debounce(() => {
+  socket.emit("user_typing", { roomId, userId });
+}, 500);
+
+messageInput.on("input", sendTypingIndicator);
+\`\`\`
+
+### Auto-save documents while editing
+
+Save document or form content automatically after the user stops typing.
+Essential for rich text editors, note-taking apps, and any "Google Docs-like" experience.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=auto-save" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#auto-save</a>
+  <a href="/use-cases?q=document" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#document</a>
+  <a href="/use-cases?q=editor" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#editor</a>
+  <a href="/use-cases?q=draft" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#draft</a>
+  <a href="/use-cases?q=Google%20Docs" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#Google Docs</a>
+  <a href="/use-cases?q=persistence" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#persistence</a>
+  <a href="/use-cases?q=form" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#form</a>
+</div>
+
+\`\`\`typescript
+const autoSave = debounce(async (content: string) => {
+  await api.saveDraft({ content, updatedAt: Date.now() });
+  showSaveIndicator("Saved");
+}, 2000);
+
+editor.on("change", (content) => {
+  showSaveIndicator("Saving...");
+  autoSave(content);
+});
+\`\`\`
+
+"
+`;
+
+exports[`Special sections > findBest (hidden gem) 1`] = `
+"# findBest()
+
+> **findBest**\\<\`T\`, \`Criterion\`\\>(\`array\`, \`iteratee\`, \`compareFn\`): \`T\` \\| \`undefined\`
+
+Finds the element that produces the extreme value according to a comparator.
+
+<details>
+<summary>💎 Why is this a Hidden Gem?</summary>
+
+Finds the best item without sorting. Instead of \`sort()[0]\` (O(n log n)) or complex reduces, get the min/max/best item in O(n). Perfect for finding cheapest products, nearest locations, or highest-rated items with custom comparison logic.
+
+</details>
+
+
+
+---
+
+## Type Parameters
+
+### T: \`T\`
+
+The type of elements in the array.
+
+### Criterion: \`Criterion\`
+
+The type of the comparison criterion.
+
+---
+
+## Parameters
+
+### array: \`readonly T[]\`
+
+The array to search.
+
+### iteratee: \`(value) => Criterion\`
+
+A function that returns the comparison value for each element.
+
+### compareFn: \`(a, b) => boolean\`
+
+Returns true if the first criterion should replace the current extreme.
+
+---
+
+## Returns: \`T | undefined\`
+
+The element with the extreme value, or \`undefined\` if array is empty.
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Performance
+
+O(n) time, O(1) space, uses \`for\` loop with early return for empty arrays.
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":null,"ramda":null,"radashi":{"name":"boil","group":"Array"},"remeda":null,"moderndash":null,"antfu":null,"effect":null,"es-toolkit":null,"python":null,"kotlin":null}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+findBest(
+  [{ name: 'John', age: 25 }, { name: 'Bob', age: 20 }],
+  (u) => u.age,
+  (a, b) => a < b
+);
+// => { name: 'Bob', age: 20 }
+
+findBest(['hi', 'hello', 'hey'], (s) => s.length, (a, b) => a > b);
+// => 'hello'
+\`\`\`
+
+---
+
+## How it works?
+
+Generic extremum finder — finds the element that produces the best value according to a custom comparator.
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["[{age:25},
+    {age:20},
+    {age:30}]"] --> B["u => u.age"]
+    B --> C["(a,b) => a < b"]
+    C --> D["25 vs 20
+    ↓
+    20"]
+    D --> E["20 vs 30
+    ↓
+    20"]
+    E --> F["{age: 20}"]\`}
+  mobile={\`flowchart TB
+    A["[{age:25},
+    {age:20},
+    {age:30}]"] --> B["u => u.age"]
+    B --> C["(a,b) => a < b"]
+    C --> D["25 vs 20
+    ↓
+    20"]
+    D --> E["20 vs 30
+    ↓
+    20"]
+    E --> F["{age: 20}"]\`}
+/>
+
+### How comparator works
+
+| Comparator | Finds | Example |
+|------------|-------|---------|
+| \`(a, b) => a < b\` | Minimum | Youngest user |
+| \`(a, b) => a > b\` | Maximum | Oldest user |
+
+---
+
+## Use Cases
+
+### Find best match with custom criteria 📌
+
+Select the optimal item from a collection based on any comparable property.
+Perfect for finding the cheapest product, nearest location, or highest-rated item.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=find" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#find</a>
+  <a href="/use-cases?q=best" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#best</a>
+  <a href="/use-cases?q=optimal" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#optimal</a>
+  <a href="/use-cases?q=comparison" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#comparison</a>
+  <a href="/use-cases?q=cheapest" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#cheapest</a>
+  <a href="/use-cases?q=highest" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#highest</a>
+</div>
+
+\`\`\`typescript
+const products = [
+  { name: "Laptop", price: 999, rating: 4.5 },
+  { name: "Phone", price: 699, rating: 4.8 },
+  { name: "Tablet", price: 449, rating: 4.2 },
+];
+
+const cheapest = findBest(
+  products,
+  (p) => p.price,
+  (a, b) => a < b
+);
+// => { name: "Tablet", price: 449, rating: 4.2 }
+
+const bestRated = findBest(
+  products,
+  (p) => p.rating,
+  (a, b) => a > b
+);
+// => { name: "Phone", price: 699, rating: 4.8 }
+\`\`\`
+
+### Find nearest or furthest element
+
+Locate items closest to or furthest from a reference point.
+Essential for geolocation, scheduling, or any proximity-based searches.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=find" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#find</a>
+  <a href="/use-cases?q=nearest" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#nearest</a>
+  <a href="/use-cases?q=furthest" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#furthest</a>
+  <a href="/use-cases?q=proximity" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#proximity</a>
+  <a href="/use-cases?q=geolocation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#geolocation</a>
+  <a href="/use-cases?q=distance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#distance</a>
+</div>
+
+\`\`\`typescript
+const events = [
+  { name: "Meeting", date: new Date("2025-01-15") },
+  { name: "Conference", date: new Date("2025-01-05") },
+  { name: "Workshop", date: new Date("2025-01-22") },
+];
+
+const now = new Date("2025-01-10");
+
+const nextEvent = findBest(
+  events.filter((e) => e.date > now),
+  (e) => e.date.getTime(),
+  (a, b) => a < b
+);
+// => { name: "Meeting", date: 2025-01-15 }
+\`\`\`
+
+### Priority-based selection with complex rules
+
+Select items using multi-factor comparisons or business-specific logic.
+Ideal for task scheduling, resource allocation, or weighted scoring systems.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=priority" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#priority</a>
+  <a href="/use-cases?q=selection" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#selection</a>
+  <a href="/use-cases?q=scheduling" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#scheduling</a>
+  <a href="/use-cases?q=allocation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#allocation</a>
+  <a href="/use-cases?q=scoring" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#scoring</a>
+  <a href="/use-cases?q=weighted" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#weighted</a>
+</div>
+
+\`\`\`typescript
+const tasks = [
+  { name: "Bug fix", priority: 2, deadline: 1 },
+  { name: "Feature", priority: 1, deadline: 3 },
+  { name: "Refactor", priority: 3, deadline: 2 },
+];
+
+// Custom logic: lower priority number wins, then earlier deadline
+const mostUrgent = findBest(
+  tasks,
+  (t) => t,
+  (a, b) =>
+    a.priority < b.priority ||
+    (a.priority === b.priority && a.deadline < b.deadline)
+);
+// => { name: "Feature", priority: 1, deadline: 3 }
+\`\`\`
+
+### Find best matching organ donor for transplant
+
+Find the most compatible organ donor from a pool of candidates.
+Critical for transplant coordination systems optimizing patient outcomes.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=medical" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#medical</a>
+  <a href="/use-cases?q=organ" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#organ</a>
+  <a href="/use-cases?q=donor" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#donor</a>
+  <a href="/use-cases?q=transplant" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#transplant</a>
+  <a href="/use-cases?q=matching" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#matching</a>
+  <a href="/use-cases?q=healthcare" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#healthcare</a>
+  <a href="/use-cases?q=compatibility" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#compatibility</a>
+  <a href="/use-cases?q=patient" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#patient</a>
+</div>
+
+\`\`\`typescript
+type DonorMatch = {
+  donorId: string;
+  bloodType: string;
+  hlaMatch: number;      // 0-6 antigens matched
+  distance: number;       // km from recipient hospital
+  organQuality: number;   // 1-10 scale
+  waitTime: number;       // days recipient has waited
+};
+
+const potentialDonors: DonorMatch[] = [
+  { donorId: "D001", bloodType: "O-", hlaMatch: 5, distance: 120, organQuality: 9, waitTime: 450 },
+  { donorId: "D002", bloodType: "O-", hlaMatch: 6, distance: 350, organQuality: 8, waitTime: 450 },
+  { donorId: "D003", bloodType: "O-", hlaMatch: 4, distance: 80, organQuality: 10, waitTime: 450 },
+];
+
+// Complex matching: prioritize HLA match, then quality, then proximity
+const bestMatch = findBest(
+  potentialDonors,
+  (d) => d,
+  (a, b) => {
+    // Higher HLA match wins
+    if (a.hlaMatch !== b.hlaMatch) return a.hlaMatch > b.hlaMatch;
+    // Then higher organ quality
+    if (a.organQuality !== b.organQuality) return a.organQuality > b.organQuality;
+    // Then shorter distance
+    return a.distance < b.distance;
+  }
+);
+
+console.log(\`Best match: \${bestMatch?.donorId} (HLA: \${bestMatch?.hlaMatch}/6)\`);
+// => Best match: D002 (HLA: 6/6)
+\`\`\`
+
+"
+`;
+
+exports[`Special sections > memoize (merged interface) 1`] = `
+"# memoize()
+
+> **memoize**\\<\`Args\`, \`Result\`\\>(\`fn\`, \`keyResolver?\`): [MemoizedFunction](#memoizedfunction)\\<\`Args\`, \`Result\`\\>
+
+> **memoize**\\<\`Args\`, \`Result\`\\>(\`fn\`, \`options?\`): [MemoizedFunction](#memoizedfunction)\\<\`Args\`, \`Result\`\\>
+
+Creates a memoized version of a function that caches results based on arguments.
+By default, uses the first argument as the cache key (like lodash/es-toolkit).
+For multi-argument caching or complex keys, provide a custom \`keyResolver\`.
+
+
+---
+
+## Type Parameters
+
+#### Args: \`Args extends unknown[]\`
+
+The argument types of the function.
+
+#### Result: \`Result\`
+
+The return type of the function.
+
+---
+
+## Parameters
+
+**Overload 1:**
+
+#### fn: \`(...args) => Result\`
+
+The function to memoize.
+
+#### keyResolver?: \`(...args) => unknown\`
+
+Optional function to generate cache keys (for first overload).
+
+**Overload 2:**
+
+#### fn: \`(...args) => Result\`
+
+The function to memoize.
+
+#### options?: <code>[MemoizeOptions](#memoizeoptions)&lt;Args, Result&gt;</code>
+
+Memoization options (for second overload).
+
+---
+
+## Returns: <code>[MemoizedFunction](#memoizedfunction)&lt;Args, Result&gt;</code>
+
+The memoized function with \`clear()\`, \`delete()\` methods and \`cache\` property.
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Performance
+
+Uses first argument as cache key by default (no serialization). Single \`Map.get()\` lookup on cache hit. Custom cache allows LRU/TTL strategies.
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":{"name":"memoize","group":"Function"},"ramda":{"name":"memoizeWith","group":"Function"},"radashi":{"name":"memo","group":"Curry"},"remeda":null,"moderndash":{"name":"memoize","group":"Function"},"antfu":null,"effect":null,"es-toolkit":{"name":"memoize","group":"function"},"python":{"name":"lru_cache","group":"functools"},"kotlin":null}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+const square = memoize((n: number) => n * n);
+square(5); // 25 (computed)
+square(5); // 25 (cached)
+square.delete(5); // Invalidate specific entry
+square.clear(); // Clear all
+
+// With custom key resolver for multi-arg functions
+const add = memoize(
+  (a: number, b: number) => a + b,
+  (a, b) => \`\${a},\${b}\`
+);
+
+// With custom cache (e.g., LRU)
+const fetchUser = memoize(
+  (id: string) => fetch(\`/api/users/\${id}\`),
+  { cache: new LRUCache(100) }
+);
+\`\`\`
+
+---
+
+## How it works?
+
+Caches function results based on arguments.
+Same arguments return cached result — different arguments compute and cache new result.
+\`\`\`mermaid
+sequenceDiagram
+    participant C as Caller
+    participant M as memoize(fn)
+    participant Cache
+    participant F as fn()
+    
+    C->>M: call(5)
+    M->>Cache: has("5")?
+    Cache-->>M: ❌ miss
+    M->>F: compute
+    F-->>M: 25
+    M->>Cache: set("5", 25)
+    M-->>C: 25
+    
+    C->>M: call(5)
+    M->>Cache: has("5")?
+    Cache-->>M: ✅ hit
+    M-->>C: 25 (cached)
+\`\`\`
+
+### Cache Flow
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["memoize(square)"] --> B{"cache.has(key)?"}
+    B -->|"❌ miss"| C["compute fn(args)"]
+    C --> D["cache.set(key, result)"]
+    D --> E["return result"]
+    B -->|"✅ hit"| F["cache.get(key)"]
+    F --> E\`}
+  mobile={\`flowchart TB
+    A["memoize(square)"] --> B{"cache.has(key)?"}
+    B -->|"❌ miss"| C["compute fn(args)"]
+    C --> D["cache.set(key, result)"]
+    D --> E["return result"]
+    B -->|"✅ hit"| F["cache.get(key)"]
+    F --> E\`}
+/>
+
+### Methods
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    subgraph "memoized function"
+        A["memoized(args)"] --> B["returns cached/computed result"]
+        C["memoized.delete(args)"] --> D["invalidates specific entry"]
+        E["memoized.clear()"] --> F["clears entire cache"]
+        G["memoized.cache"] --> H["access underlying cache"]
+    end\`}
+  mobile={\`flowchart TB
+    subgraph "memoized function"
+        A["memoized(args)"] --> B["returns cached/computed result"]
+        C["memoized.delete(args)"] --> D["invalidates specific entry"]
+        E["memoized.clear()"] --> F["clears entire cache"]
+        G["memoized.cache"] --> H["access underlying cache"]
+    end\`}
+/>
+
+---
+
+## Use Cases
+
+### Cache expensive calculations 📌
+
+Store results of expensive operations to avoid redundant computation.
+Essential for performance optimization and reducing computational overhead.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=cache" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#cache</a>
+  <a href="/use-cases?q=expensive" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#expensive</a>
+  <a href="/use-cases?q=calculations" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#calculations</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
+  <a href="/use-cases?q=optimization" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#optimization</a>
+  <a href="/use-cases?q=memoization" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#memoization</a>
+</div>
+
+\`\`\`typescript
+const factorial = memoize((n) => {
+  if (n <= 1) return 1;
+  return n * factorial(n - 1);
+});
+
+factorial(5); // Computed
+factorial(5); // Cached result returned instantly
+\`\`\`
+
+### Cache API responses 📌
+
+Store API responses to avoid duplicate requests.
+Critical for API optimization and reducing network traffic.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=cache" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#cache</a>
+  <a href="/use-cases?q=API" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#API</a>
+  <a href="/use-cases?q=responses" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#responses</a>
+  <a href="/use-cases?q=optimization" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#optimization</a>
+  <a href="/use-cases?q=network" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#network</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
+</div>
+
+\`\`\`typescript
+const fetchUser = memoize(async (id) => {
+  const res = await fetch(\`/api/users/\${id}\`);
+  return res.json();
+});
+
+// Second call returns same promise/result without network request
+await fetchUser("123");
+await fetchUser("123"); 
+\`\`\`
+
+### Cache DOM queries
+
+Store DOM element references to avoid repeated queries.
+Essential for DOM manipulation and performance optimization.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=cache" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#cache</a>
+  <a href="/use-cases?q=DOM" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#DOM</a>
+  <a href="/use-cases?q=queries" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#queries</a>
+  <a href="/use-cases?q=selectors" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#selectors</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
+  <a href="/use-cases?q=optimization" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#optimization</a>
+</div>
+
+\`\`\`typescript
+const getElement = memoize((selector) => document.querySelector(selector));
+
+// Only queries DOM once per selector
+const btn = getElement("#submit-btn");
+const btnAgain = getElement("#submit-btn"); // Cached
+\`\`\`
+
+### Cache credit score calculations for loan processing
+
+Cache expensive credit score calculations to speed up loan application workflows.
+Critical for banking systems processing high volumes of loan applications.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=financial" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#financial</a>
+  <a href="/use-cases?q=credit" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#credit</a>
+  <a href="/use-cases?q=score" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#score</a>
+  <a href="/use-cases?q=cache" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#cache</a>
+  <a href="/use-cases?q=banking" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#banking</a>
+  <a href="/use-cases?q=loan" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#loan</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
+  <a href="/use-cases?q=calculation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#calculation</a>
+</div>
+
+\`\`\`typescript
+// Credit score calculation is expensive (calls multiple APIs, runs ML models)
+const calculateCreditScore = memoize(async (applicantId: string) => {
+  // Aggregate data from multiple sources
+  const [paymentHistory, debtRatio, creditAge, inquiries] = await Promise.all([
+    creditBureau.getPaymentHistory(applicantId),
+    creditBureau.getDebtRatio(applicantId),
+    creditBureau.getCreditAge(applicantId),
+    creditBureau.getRecentInquiries(applicantId),
+  ]);
+
+  // Complex scoring algorithm
+  let score = 300;
+  score += paymentHistory.onTimeRate * 200;
+  score += (1 - debtRatio) * 150;
+  score += Math.min(creditAge / 10, 1) * 100;
+  score -= inquiries * 5;
+
+  return Math.round(Math.min(Math.max(score, 300), 850));
+});
+
+// Same applicant checking multiple loan products - reuses cached score
+const autoLoanEligibility = await checkEligibility(
+  await calculateCreditScore("APP-12345"),
+  "auto"
+);
+
+const mortgageEligibility = await checkEligibility(
+  await calculateCreditScore("APP-12345"), // Cache hit!
+  "mortgage"
+);
+\`\`\`
+
+### Cache parsed templates or markdown
+
+Avoid re-parsing the same template or markdown content on every render.
+Important for SSR, documentation sites, and any repeated content transformation.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=cache" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#cache</a>
+  <a href="/use-cases?q=parse" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#parse</a>
+  <a href="/use-cases?q=template" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#template</a>
+  <a href="/use-cases?q=markdown" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#markdown</a>
+  <a href="/use-cases?q=regex" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#regex</a>
+  <a href="/use-cases?q=SSR" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#SSR</a>
+  <a href="/use-cases?q=rendering" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#rendering</a>
+  <a href="/use-cases?q=compilation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#compilation</a>
+</div>
+
+\`\`\`typescript
+const parseMarkdown = memoize((source: string) => {
+  // Expensive: tokenize, parse AST, render HTML
+  return markdownCompiler.render(source);
+});
+
+// Same content parsed once, cached for subsequent renders
+const html1 = parseMarkdown(readmeContent); // Parsed
+const html2 = parseMarkdown(readmeContent); // Cache hit
+\`\`\`
+
+
+
+<div className="merged-type-separator"></div>
+
+## MemoizeCache\\<K, V\\> {#memoizecache}
+
+<span title="Type: Interface" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Interface</span>
+
+A cache interface for memoization, compatible with Map and custom implementations (LRU, TTL, etc.).
+
+---
+
+## Since
+
+1.2.0
+
+---
+
+## Type Parameters
+
+### K: \`K\`
+
+The key type.
+
+### V: \`V\`
+
+The value type.
+
+---
+
+## Properties
+
+<a id="size"></a>
+
+### size: <code>number</code>
+
+The number of entries in the cache.
+
+---
+
+## Methods
+
+### set()
+
+Stores a value in the cache.
+
+> **key**: \`K\`<br />
+> **value**: \`V\`<br />
+> **Returns**: \`void\`
+
+
+
+### get()
+
+Retrieves a value from the cache, or undefined if not found.
+
+> **key**: \`K\`<br />
+> **Returns**: \`V | undefined\`
+
+
+
+### has()
+
+Checks if a key exists in the cache.
+
+> **key**: \`K\`<br />
+> **Returns**: \`boolean\`
+
+
+
+### delete()
+
+Removes a key from the cache.
+
+> **key**: \`K\`<br />
+> **Returns**: \`boolean | void\`
+
+
+
+### clear()
+
+Clears all entries from the cache.
+
+#### Returns
+
+\`void\`
+
+<div className="merged-type-separator"></div>
+
+## MemoizeOptions\\<Args, Result\\> {#memoizeoptions}
+
+<span title="Type: Interface" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Interface</span>
+
+Options for the memoize function.
+
+---
+
+## Since
+
+1.2.0
+
+---
+
+## Type Parameters
+
+### Args: \`Args extends unknown[]\`
+
+The argument types of the function.
+
+### Result: \`Result\`
+
+The return type of the function.
+
+---
+
+## Properties
+
+<a id="cache"></a>
+
+### cache?: <code>[MemoizeCache](#memoizecache)&lt;unknown, Result&gt;</code>
+
+Custom cache implementation.
+
+<a id="keyResolver"></a>
+
+### keyResolver()?: <code>(...args) =&gt; unknown</code>
+
+Function to generate cache keys.
+
+> **args**: \`...Args\`<br />
+> **Returns**: \`unknown\`
+
+
+
+<div className="merged-type-separator"></div>
+
+## MemoizedFunction\\<Args, Result\\> {#memoizedfunction}
+
+<span title="Type: Type" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Type</span>
+
+> **MemoizedFunction**\\<\`Args\`, \`Result\`\\> = (...\`args\`) => \`Result\` & \`object\`
+
+A memoized function with cache management methods.
+
+---
+
+## Type Declaration
+
+<a id="clear"></a>
+
+### clear(): <code>() =&gt; void</code>
+
+Clears all cached results.
+
+#### Returns: \`void\`
+
+<a id="delete"></a>
+
+### delete(): <code>(...args) =&gt; boolean</code>
+
+Removes a specific cached result.
+
+> **args**: \`...Args\`<br />
+> **Returns**: \`boolean\`
+
+
+
+<a id="cache"></a>
+
+### cache: <code>[MemoizeCache](#memoizecache)&lt;unknown, Result&gt;</code>
+
+The underlying cache instance.
+
+---
+
+## Type Parameters
+
+### Args: \`Args extends unknown[]\`
+
+The argument types of the function.
+
+### Result: \`Result\`
+
+The return type of the function.
+
+---
+
+## Since
+
+1.2.0"
+`;
+
+exports[`Special sections > parallel (@defaultValue) 1`] = `
+"# parallel()
+
+> **parallel**\\<\`T\`\\>(\`functions\`, \`concurrency\`): \`Promise\`\\<\`T\`[]\\>
+
+Executes multiple async functions in parallel with concurrency control.
+
+:::note
+
+Results preserve input order. Fails fast like \`Promise.all()\`.
+
+:::
+
+
+---
+
+## Type Parameters
+
+### T: \`T\`
+
+The return type of the functions.
+
+---
+
+## Parameters
+
+### functions: \`() => Promise<T>[]\`
+
+Array of async functions to execute.
+
+### concurrency: \`number = Infinity\`
+
+Maximum number of concurrent executions. Defaults to \`Infinity\`.
+
+---
+
+## Returns: \`Promise<T[]>\`
+
+Promise that resolves to array of results in original order.
+
+
+---
+
+## Throws
+
+Rejects if any function rejects (remaining operations are aborted).
+
+---
+
+## Default Value
+
+\`\`\`ts
+Infinity
+\`\`\`
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Performance
+
+Early abort on first error prevents unnecessary work.
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":null,"ramda":null,"radashi":{"name":"parallel","group":"Async"},"remeda":null,"moderndash":null,"antfu":null,"effect":{"name":"forEach","group":"Effect"},"es-toolkit":null,"python":{"name":"TaskGroup","group":"asyncio"},"kotlin":{"name":"async","group":"coroutines"}}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+const results = await parallel([
+  () => fetchUser(1),
+  () => fetchUser(2),
+  () => fetchUser(3)
+], 2);
+\`\`\`
+
+---
+
+## How it works?
+
+Executes async functions in parallel with concurrency control.
+Limits how many functions run simultaneously — results preserve original order.
+
+\`\`\`mermaid
+sequenceDiagram
+    participant P as parallel(fns, 2)
+    participant W1 as Worker 1
+    participant W2 as Worker 2
+    
+    Note over P: concurrency = 2
+    P->>W1: fn[0]
+    P->>W2: fn[1]
+    W1-->>P: ✅ result[0]
+    P->>W1: fn[2]
+    W2-->>P: ✅ result[1]
+    W1-->>P: ✅ result[2]
+    Note over P: [result[0], result[1], result[2]]
+\`\`\`
+
+### Concurrency Visualization
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["4 tasks, concurrency=2"] --> B["Batch 1"]
+    B --> T1["⏱️ Task 1 ✅"]
+    B --> T2["⏱️ Task 2 ✅"]
+    T1 --> B2["Batch 2"]
+    T2 --> B2
+    B2 --> T3["⏱️ Task 3 ✅"]
+    B2 --> T4["⏱️ Task 4 ✅"]\`}
+  mobile={\`flowchart TB
+    A["4 tasks, concurrency=2"] --> B["Batch 1"]
+    B --> T1["⏱️ Task 1 ✅"]
+    B --> T2["⏱️ Task 2 ✅"]
+    T1 --> B2["Batch 2"]
+    T2 --> B2
+    B2 --> T3["⏱️ Task 3 ✅"]
+    B2 --> T4["⏱️ Task 4 ✅"]\`}
+/>
+
+### Fail-Fast Behavior
+
+On first error, remaining operations are aborted:
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["parallel(fns, 2)"] --> B["🔄 fn[0]"]
+    A --> C["❌ fn[1] throws"]
+    C --> D["⛔ abort remaining"]
+    D --> E["rejects"]\`}
+  mobile={\`flowchart TB
+    A["parallel(fns, 2)"] --> B["🔄 fn[0]"]
+    A --> C["❌ fn[1] throws"]
+    C --> D["⛔ abort remaining"]
+    D --> E["rejects"]\`}
+/>
+
+---
+
+## Use Cases
+
+### Control API rate limits 📌
+
+Execute multiple API calls with controlled concurrency to respect rate limits.
+Essential for working with APIs that have strict rate limiting.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=control" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#control</a>
+  <a href="/use-cases?q=concurrency" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#concurrency</a>
+  <a href="/use-cases?q=rate-limiting" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#rate-limiting</a>
+  <a href="/use-cases?q=throttle" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#throttle</a>
+  <a href="/use-cases?q=API" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#API</a>
+  <a href="/use-cases?q=requests" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#requests</a>
+</div>
+
+\`\`\`typescript
+// Controlled API calls to respect rate limits
+const userData = await parallel(
+  [
+    () => fetchUser(1),
+    () => fetchUser(2),
+    () => fetchUser(3),
+    () => fetchUser(4),
+    () => fetchUser(5),
+  ],
+  2
+); // Max 2 concurrent requests
+
+console.log("Users loaded:", userData);
+\`\`\`
+
+### Manage resource-intensive operations
+
+Limit concurrent operations to prevent system overload.
+Critical for operations that consume significant system resources.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=manage" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#manage</a>
+  <a href="/use-cases?q=resources" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#resources</a>
+  <a href="/use-cases?q=intensive" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#intensive</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
+  <a href="/use-cases?q=optimization" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#optimization</a>
+  <a href="/use-cases?q=memory" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#memory</a>
+</div>
+
+\`\`\`typescript
+// Controlled image processing
+const processedImages = await parallel(
+  [
+    () => processImage("image1.jpg"),
+    () => processImage("image2.jpg"),
+    () => processImage("image3.jpg"),
+    () => processImage("image4.jpg"),
+  ],
+  2
+); // Process max 2 images at a time
+
+console.log("Images processed:", processedImages);
+\`\`\`
+
+### Optimize database operations
+
+Execute database queries with controlled concurrency for optimal performance.
+Essential for maintaining database performance and preventing connection exhaustion.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=optimize" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#optimize</a>
+  <a href="/use-cases?q=database" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#database</a>
+  <a href="/use-cases?q=queries" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#queries</a>
+  <a href="/use-cases?q=connections" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#connections</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
+  <a href="/use-cases?q=concurrency" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#concurrency</a>
+</div>
+
+\`\`\`typescript
+// Controlled database operations
+const results = await parallel(
+  [
+    () => db.query("SELECT * FROM users WHERE active = 1"),
+    () => db.query("SELECT * FROM posts WHERE published = 1"),
+    () => db.query("SELECT * FROM comments WHERE approved = 1"),
+    () => db.query("SELECT * FROM categories WHERE visible = 1"),
+  ],
+  3
+); // Max 3 concurrent queries
+
+console.log("Database queries completed:", results);
+\`\`\`
+
+### Handle file operations efficiently
+
+Process multiple files with controlled concurrency to prevent I/O overload.
+Critical for file processing systems and batch operations.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=handle" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#handle</a>
+  <a href="/use-cases?q=files" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#files</a>
+  <a href="/use-cases?q=operations" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#operations</a>
+  <a href="/use-cases?q=processing" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#processing</a>
+  <a href="/use-cases?q=batch" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#batch</a>
+  <a href="/use-cases?q=IO" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#IO</a>
+</div>
+
+\`\`\`typescript
+// Controlled file processing
+const processedFiles = await parallel(
+  [
+    () => processFile("file1.txt"),
+    () => processFile("file2.txt"),
+    () => processFile("file3.txt"),
+    () => processFile("file4.txt"),
+    () => processFile("file5.txt"),
+  ],
+  2
+); // Process max 2 files at a time
+
+console.log("Files processed:", processedFiles);
+\`\`\`
+
+### Implement progressive loading
+
+Load content progressively with controlled concurrency for better user experience.
+Essential for large applications with multiple content sections.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=implement" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#implement</a>
+  <a href="/use-cases?q=progressive" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#progressive</a>
+  <a href="/use-cases?q=loading" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#loading</a>
+  <a href="/use-cases?q=content" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#content</a>
+  <a href="/use-cases?q=sections" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#sections</a>
+  <a href="/use-cases?q=UX" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#UX</a>
+</div>
+
+\`\`\`typescript
+// Progressive content loading
+const content = await parallel(
+  [
+    () => loadHeaderContent(),
+    () => loadSidebarContent(),
+    () => loadMainContent(),
+    () => loadFooterContent(),
+  ],
+  2
+); // Load max 2 sections at a time
+
+renderPage(content);
+\`\`\`
+
+### Scrape pages with politeness
+
+Crawl multiple URLs while limiting concurrent requests to avoid overwhelming servers.
+Essential for web scraping, link checking, or sitemap validation.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=scrape" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#scrape</a>
+  <a href="/use-cases?q=crawl" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#crawl</a>
+  <a href="/use-cases?q=politeness" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#politeness</a>
+  <a href="/use-cases?q=rate-limiting" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#rate-limiting</a>
+  <a href="/use-cases?q=concurrent" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#concurrent</a>
+  <a href="/use-cases?q=web" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#web</a>
+</div>
+
+\`\`\`typescript
+const urls = [
+  "https://example.com/page1",
+  "https://example.com/page2",
+  // ... 100 more URLs
+];
+
+const results = await parallel(
+  urls.map((url) => () => fetch(url).then((r) => r.text())),
+  5 // Max 5 concurrent requests - be polite!
+);
+
+console.log(\`Scraped \${results.length} pages\`);
+\`\`\`
+
+### Fetch lab results in parallel for patient dashboards
+
+Fetch multiple lab test results concurrently with controlled parallelism.
+Essential for healthcare portals displaying comprehensive patient diagnostics.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=medical" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#medical</a>
+  <a href="/use-cases?q=lab" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#lab</a>
+  <a href="/use-cases?q=results" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#results</a>
+  <a href="/use-cases?q=parallel" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#parallel</a>
+  <a href="/use-cases?q=healthcare" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#healthcare</a>
+  <a href="/use-cases?q=diagnostics" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#diagnostics</a>
+  <a href="/use-cases?q=patient" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#patient</a>
+</div>
+
+\`\`\`typescript
+const patientTests = [
+  { testId: "CBC-001", type: "Complete Blood Count" },
+  { testId: "LFT-002", type: "Liver Function" },
+  { testId: "RFT-003", type: "Renal Function" },
+  { testId: "TFT-004", type: "Thyroid Function" },
+  { testId: "LIP-005", type: "Lipid Panel" },
+  { testId: "GLU-006", type: "Glucose Tolerance" },
+];
+
+// Fetch results with concurrency limit to avoid overwhelming lab API
+const labResults = await parallel(
+  patientTests.map((test) => async () => {
+    const result = await labAPI.getResult(test.testId);
+    return {
+      ...test,
+      result: result.values,
+      status: result.abnormal ? "ABNORMAL" : "NORMAL",
+      date: result.completedAt,
+    };
+  }),
+  3 // Max 3 concurrent requests to lab system
+);
+
+// Flag abnormal results for physician review
+const abnormalResults = labResults.filter((r) => r.status === "ABNORMAL");
+console.log(\`\${abnormalResults.length} results require review\`);
+\`\`\`
+
+"
+`;
+
+exports[`Special sections > retry (merged interface) 1`] = `
+"# retry()
+
+> **retry**\\<\`T\`\\>(\`fn\`, \`options\`): \`Promise\`\\<\`T\`\\>
+
+Retries an async function with configurable backoff and error filtering.
+
+:::info[WHY WRAPPING NATIVE?]
+
+We prefer to wrap this to improve resilience against transient failures, adhering to **Fail Fast** principles by managing retries declaratively. See [Design Philosophy](/guide/contribution/design-principles/design-philosophy/)
+
+:::
+
+
+---
+
+## Type Parameters
+
+### T: \`T\`
+
+The return type of the function.
+
+---
+
+## Parameters
+
+### fn: \`() => Promise<T>\`
+
+The async function to retry.
+
+### options: <code>[RetryOptions](#retryoptions) = &#123;&#125;</code>
+
+Retry configuration options.
+
+---
+
+## Returns: \`Promise<T>\`
+
+Promise that resolves to the function's return value.
+
+
+---
+
+## Throws
+
+The last error thrown by \`fn\` if all retries fail.
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Performance
+
+Exponential backoff with \`maxDelay\` cap prevents excessive wait times.
+             Jitter prevents thundering herd problem in distributed systems.
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":null,"ramda":null,"radashi":{"name":"retry","group":"Async"},"remeda":null,"moderndash":{"name":"retry","group":"Promise"},"antfu":null,"effect":{"name":"retry","group":"Schedule"},"es-toolkit":null,"python":{"name":"retry","group":"tenacity"},"kotlin":null}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+const result = await retry(() => fetchData(), { attempts: 3 });
+
+const result = await retry(() => apiCall(), {
+  attempts: 5,
+  delay: 1000,
+  backoff: 2,
+  jitter: 0.5,
+  until: (error) => error.code !== 'PERMANENT_ERROR'
+});
+\`\`\`
+
+---
+
+## How it works?
+
+Retries a failed async function with configurable backoff and jitter.
+Exponential backoff increases delay between attempts — jitter adds randomness to prevent thundering herd.
+\`\`\`mermaid
+sequenceDiagram
+    participant R as retry
+    participant F as fn()
+    
+    R->>F: attempt 1
+    F-->>R: ❌ error
+    Note right of R: ⏳ delay (1000ms)
+    R->>F: attempt 2
+    F-->>R: ❌ error
+    Note right of R: ⏳ delay × backoff (2000ms)
+    R->>F: attempt 3
+    F-->>R: ✅ success
+\`\`\`
+
+### Exponential Backoff
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["❌ Attempt 1"] -->|"1000ms"| B["❌ Attempt 2"]
+    B -->|"2000ms"| C["❌ Attempt 3"]
+    C -->|"4000ms"| D["✅ Attempt 4"]\`}
+  mobile={\`flowchart TB
+    A["❌ Attempt 1"] -->|"1000ms"| B["❌ Attempt 2"]
+    B -->|"2000ms"| C["❌ Attempt 3"]
+    C -->|"4000ms"| D["✅ Attempt 4"]\`}
+/>
+
+### Jitter Visualization
+
+Jitter adds randomness to delay to avoid synchronized retries:
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    subgraph "Without Jitter"
+        A1["Server 1: 1000ms"] --> B1["1000ms"] --> C1["1000ms"]
+        A2["Server 2: 1000ms"] --> B2["1000ms"] --> C2["1000ms"]
+    end\`}
+  mobile={\`flowchart TB
+    subgraph "Without Jitter"
+        A1["Server 1: 1000ms"] --> B1["1000ms"] --> C1["1000ms"]
+        A2["Server 2: 1000ms"] --> B2["1000ms"] --> C2["1000ms"]
+    end\`}
+/>
+
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    subgraph "With Jitter (0.5)"
+        A3["Server 1: 1200ms"] --> B3["1800ms"] --> C3["2100ms"]
+        A4["Server 2: 900ms"] --> B4["2200ms"] --> C4["1950ms"]
+    end\`}
+  mobile={\`flowchart TB
+    subgraph "With Jitter (0.5)"
+        A3["Server 1: 1200ms"] --> B3["1800ms"] --> C3["2100ms"]
+        A4["Server 2: 900ms"] --> B4["2200ms"] --> C4["1950ms"]
+    end\`}
+/>
+
+### Until (Error Filter)
+
+The \`until\` option aborts retry if error is permanent:
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["❌ TEMPORARY_ERROR"] -->|"retry"| B["❌ PERMANENT_ERROR"]
+    B -->|"until returns false"| C["⛔ abort, throw"]\`}
+  mobile={\`flowchart TB
+    A["❌ TEMPORARY_ERROR"] -->|"retry"| B["❌ PERMANENT_ERROR"]
+    B -->|"until returns false"| C["⛔ abort, throw"]\`}
+/>
+
+---
+
+## Use Cases
+
+### Handle network failures gracefully 📌
+
+Implement robust retry logic for network operations with exponential backoff.
+Essential for handling transient network issues and improving reliability.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=handle" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#handle</a>
+  <a href="/use-cases?q=network" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#network</a>
+  <a href="/use-cases?q=failures" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#failures</a>
+  <a href="/use-cases?q=retry" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#retry</a>
+  <a href="/use-cases?q=backoff" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#backoff</a>
+  <a href="/use-cases?q=resilience" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#resilience</a>
+</div>
+
+\`\`\`typescript
+// Retry API calls with exponential backoff
+const userData = await retry(
+  async () => {
+    const response = await fetch("/api/users/123");
+    if (!response.ok) {
+      throw new Error(\`HTTP \${response.status}\`);
+    }
+    return response.json();
+  },
+  {
+    attempts: 5,
+    delay: 1000,
+    backoff: 2,
+    maxDelay: 10000,
+    until: (error) => error.message.includes("HTTP 5"),
+  }
+);
+
+console.log("User data loaded:", userData);
+\`\`\`
+
+### Recover from temporary service unavailability
+
+Handle temporary service outages with intelligent retry mechanisms.
+Critical for maintaining service availability and user experience.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=recover" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#recover</a>
+  <a href="/use-cases?q=temporary" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#temporary</a>
+  <a href="/use-cases?q=outages" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#outages</a>
+  <a href="/use-cases?q=resilience" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#resilience</a>
+  <a href="/use-cases?q=retry" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#retry</a>
+  <a href="/use-cases?q=availability" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#availability</a>
+</div>
+
+\`\`\`typescript
+// Retry database operations
+const result = await retry(
+  async () => {
+    return await database.query("SELECT * FROM users WHERE active = ?", [true]);
+  },
+  {
+    attempts: 3,
+    delay: 500,
+    backoff: 1.5,
+    until: (error) => error.code === "CONNECTION_TIMEOUT",
+  }
+);
+
+console.log(\`Found \${result.length} active users\`);
+\`\`\`
+
+### Implement file upload resilience
+
+Retry file uploads with progressive delays for better success rates.
+Essential for handling large file uploads and network instability.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=implement" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#implement</a>
+  <a href="/use-cases?q=upload" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#upload</a>
+  <a href="/use-cases?q=files" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#files</a>
+  <a href="/use-cases?q=resilience" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#resilience</a>
+  <a href="/use-cases?q=retry" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#retry</a>
+  <a href="/use-cases?q=network" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#network</a>
+</div>
+
+\`\`\`typescript
+// Retry file upload with custom error handling
+const uploadResult = await retry(
+  async () => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(\`Upload failed: \${response.status}\`);
+    }
+
+    return response.json();
+  },
+  {
+    attempts: 4,
+    delay: 2000,
+    backoff: 2,
+    until: (error) => error.message.includes("Upload failed"),
+  }
+);
+
+console.log("File uploaded successfully:", uploadResult);
+\`\`\`
+
+### Manage rate-limited API calls
+
+Handle API rate limiting with intelligent retry strategies.
+Critical for working with external APIs that have rate limits.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=manage" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#manage</a>
+  <a href="/use-cases?q=rate-limiting" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#rate-limiting</a>
+  <a href="/use-cases?q=throttle" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#throttle</a>
+  <a href="/use-cases?q=backoff" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#backoff</a>
+  <a href="/use-cases?q=API" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#API</a>
+  <a href="/use-cases?q=retry" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#retry</a>
+</div>
+
+\`\`\`typescript
+// Retry with rate limit handling
+const apiData = await retry(
+  async () => {
+    const response = await fetch("/external-api/data");
+
+    if (response.status === 429) {
+      throw new Error("RATE_LIMITED");
+    }
+
+    return response.json();
+  },
+  {
+    attempts: 3,
+    delay: 5000, // Wait 5 seconds for rate limit reset
+    backoff: 1,
+    until: (error) => error.message === "RATE_LIMITED",
+  }
+);
+
+console.log("API data retrieved:", apiData);
+\`\`\`
+
+### Ensure critical operations succeed
+
+Guarantee execution of critical operations with comprehensive retry logic.
+Essential for payment processing, data synchronization, and critical business operations.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=ensure" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#ensure</a>
+  <a href="/use-cases?q=critical" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#critical</a>
+  <a href="/use-cases?q=operations" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#operations</a>
+  <a href="/use-cases?q=reliability" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#reliability</a>
+  <a href="/use-cases?q=payments" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#payments</a>
+  <a href="/use-cases?q=transactions" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#transactions</a>
+</div>
+
+\`\`\`typescript
+// Retry critical payment processing
+const paymentResult = await retry(
+  async () => {
+    return await processPayment({
+      amount: 100.0,
+      currency: "USD",
+      paymentMethod: "card",
+    });
+  },
+  {
+    attempts: 5,
+    delay: 1000,
+    backoff: 2,
+    maxDelay: 30000,
+    until: (error) => error.code !== "INVALID_CARD",
+  }
+);
+
+console.log("Payment processed:", paymentResult);
+\`\`\`
+
+### Multi-gateway payment failover for financial systems
+
+Retry payment processing across multiple gateways for maximum success rate.
+Critical for fintech applications and e-commerce platforms handling payments.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=payment" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#payment</a>
+  <a href="/use-cases?q=gateway" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#gateway</a>
+  <a href="/use-cases?q=failover" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#failover</a>
+  <a href="/use-cases?q=financial" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#financial</a>
+  <a href="/use-cases?q=banking" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#banking</a>
+  <a href="/use-cases?q=transaction" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#transaction</a>
+  <a href="/use-cases?q=resilience" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#resilience</a>
+</div>
+
+\`\`\`typescript
+const gateways = ["stripe", "paypal", "adyen"];
+let currentGatewayIndex = 0;
+
+const processPaymentWithFailover = await retry(
+  async () => {
+    const gateway = gateways[currentGatewayIndex];
+    
+    const result = await paymentAPI.process({
+      gateway,
+      amount: 150.00,
+      currency: "EUR",
+      cardToken: encryptedToken,
+    });
+
+    if (!result.success && result.error === "GATEWAY_UNAVAILABLE") {
+      currentGatewayIndex = (currentGatewayIndex + 1) % gateways.length;
+      throw new Error("GATEWAY_DOWN");
+    }
+
+    return result;
+  },
+  {
+    attempts: gateways.length * 2,
+    delay: 500,
+    backoff: 1.5,
+    until: (error) => error.message === "GATEWAY_DOWN",
+  }
+);
+
+console.log("Payment completed via:", gateways[currentGatewayIndex]);
+\`\`\`
+
+
+
+<div className="merged-type-separator"></div>
+
+## RetryOptions {#retryoptions}
+
+<span title="Type: Interface" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Interface</span>
+
+Configuration options for retry behavior.
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Properties
+
+<a id="attempts"></a>
+
+### attempts?: <code>number</code>
+
+Number of retry attempts. Defaults to \`3\`.
+
+<a id="delay"></a>
+
+### delay?: <code>number</code>
+
+Initial delay between retries in milliseconds. Defaults to \`1000\`.
+
+<a id="backoff"></a>
+
+### backoff?: <code>number</code>
+
+Backoff multiplier for delay. Defaults to \`1\` (no backoff).
+
+<a id="maxDelay"></a>
+
+### maxDelay?: <code>number</code>
+
+Maximum delay between retries in milliseconds. Defaults to \`10000\`.
+
+<a id="jitter"></a>
+
+### jitter?: <code>number</code>
+
+Random jitter factor (0-1) to add variation to delay. Defaults to \`0\`.
+
+<a id="until"></a>
+
+### until()?: <code>(error) =&gt; boolean</code>
+
+Function to determine if error should trigger retry. Return \`false\` to abort.
+
+> **error**: \`unknown\`<br />
+> **Returns**: \`boolean\`
+
+"
+`;
+
+exports[`Special sections > truncate (merged interface) 1`] = `
+"# truncate()
+
+> **truncate**(\`str\`, \`options\`): \`string\`
+
+Truncates string if it's longer than the given maximum length.
+
+
+---
+
+## Parameters
+
+### str: \`string\`
+
+The string to truncate.
+
+### options: <code>[TruncateOptions](#truncateoptions) = &#123;&#125;</code>
+
+The options object.
+
+---
+
+## Returns: \`string\`
+
+The truncated string.
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":{"name":"truncate","group":"String"},"ramda":null,"radashi":null,"remeda":{"name":"truncate","group":"String"},"moderndash":{"name":"truncate","group":"String"},"antfu":null,"effect":null,"es-toolkit":{"name":"truncate","group":"string"},"python":null,"kotlin":null}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+truncate('hi-diddly-ho there, neighborino');
+// => 'hi-diddly-ho there, neighbo...'
+
+truncate('hi-diddly-ho there, neighborino', { length: 24 });
+// => 'hi-diddly-ho there, n...'
+
+truncate('hi-diddly-ho there, neighborino', {
+  length: 24,
+  separator: ' '
+});
+// => 'hi-diddly-ho there,...'
+
+truncate('hi-diddly-ho there, neighborino', {
+  length: 24,
+  separator: /,? +/
+});
+// => 'hi-diddly-ho there...'
+
+truncate('hi-diddly-ho there, neighborino', {
+  omission: ' [...]'
+});
+// => 'hi-diddly-ho there, neig [...]'
+\`\`\`
+
+---
+
+## How it works?
+
+Truncates string to a maximum length with customizable omission.
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["'hi-diddly-ho there, neighborino'"] --> B["truncate(_, {length: 24})"]
+    B --> C["'hi-diddly-ho there, n...'"]\`}
+  mobile={\`flowchart TB
+    A["'hi-diddly-ho there, neighborino'"] --> B["truncate(_, {length: 24})"]
+    B --> C["'hi-diddly-ho there, n...'"]\`}
+/>
+
+### Options
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| \`length\` | 30 | Max string length |
+| \`omission\` | \`'...'\` | Truncation indicator |
+| \`separator\` | — | Break at word boundary |
+
+### Word Boundary
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["'hi there neighbor'"] --> B["truncate(_, {separator: ' '})"]
+    B --> C["'hi there...'"]\`}
+  mobile={\`flowchart TB
+    A["'hi there neighbor'"] --> B["truncate(_, {separator: ' '})"]
+    B --> C["'hi there...'"]\`}
+/>
+
+Without separator, cuts mid-word. With separator, breaks at last occurrence.
+
+### Custom Omission
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["'long text here'"] --> B["truncate(_, {omission: ' [...]'})"]
+    B --> C["'long text [...]'"]\`}
+  mobile={\`flowchart TB
+    A["'long text here'"] --> B["truncate(_, {omission: ' [...]'})"]
+    B --> C["'long text [...]'"]\`}
+/>
+
+---
+
+## Use Cases
+
+### Preview text for content cards 📌
+
+Display short previews of long content in cards or lists.
+Essential for article listings, product descriptions, or comment previews.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=preview" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#preview</a>
+  <a href="/use-cases?q=text" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#text</a>
+  <a href="/use-cases?q=cards" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#cards</a>
+  <a href="/use-cases?q=excerpt" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#excerpt</a>
+  <a href="/use-cases?q=summary" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#summary</a>
+  <a href="/use-cases?q=blog" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#blog</a>
+</div>
+
+\`\`\`typescript
+const preview = truncate(article.content, { length: 80 });
+// => "TypeScript generics provide a way to create reusable components..."
+\`\`\`
+
+### Word-boundary truncation for readable excerpts 📌
+
+Truncate at word boundaries for more natural reading.
+Avoids cutting words in half.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=word" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#word</a>
+  <a href="/use-cases?q=boundary" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#boundary</a>
+  <a href="/use-cases?q=readable" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#readable</a>
+  <a href="/use-cases?q=natural" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#natural</a>
+  <a href="/use-cases?q=separator" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#separator</a>
+</div>
+
+\`\`\`typescript
+truncate(description, { length: 30, separator: ' ' });
+// => "The quick brown fox jumps..."
+\`\`\`
+
+### Custom omission for branded experiences
+
+Use custom omission strings for branded "read more" indicators.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=custom" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#custom</a>
+  <a href="/use-cases?q=omission" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#omission</a>
+  <a href="/use-cases?q=ellipsis" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#ellipsis</a>
+  <a href="/use-cases?q=branding" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#branding</a>
+  <a href="/use-cases?q=UX" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#UX</a>
+</div>
+
+\`\`\`typescript
+truncate(post, { length: 50, omission: '… [voir plus]' });
+// => "This is a very long social… [voir plus]"
+\`\`\`
+
+### Truncate file names in a file explorer
+
+Shorten long file names in a file tree or upload list while keeping the extension visible.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=file" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#file</a>
+  <a href="/use-cases?q=name" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#name</a>
+  <a href="/use-cases?q=explorer" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#explorer</a>
+  <a href="/use-cases?q=path" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#path</a>
+  <a href="/use-cases?q=overflow" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#overflow</a>
+  <a href="/use-cases?q=UI" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#UI</a>
+</div>
+
+\`\`\`typescript
+const truncateFileName = (name: string, maxLen: number) => {
+  const ext = name.slice(name.lastIndexOf('.'));
+  if (name.length <= maxLen) return name;
+  return truncate(name.slice(0, -ext.length), { length: maxLen - ext.length }) + ext;
+};
+
+truncateFileName('my-very-long-document-name-final-v2.pdf', 25);
+// => "my-very-long-docum....pdf"
+\`\`\`
+
+
+
+<div className="merged-type-separator"></div>
+
+## TruncateOptions {#truncateoptions}
+
+<span title="Type: Interface" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Interface</span>
+
+Options for the truncate function.
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Properties
+
+<a id="length"></a>
+
+### length?: <code>number</code>
+
+Maximum string length (default: 30).
+
+<a id="omission"></a>
+
+### omission?: <code>string</code>
+
+The string to indicate text is omitted (default: '...').
+
+<a id="separator"></a>
+
+### separator?: <code>string \\| RegExp</code>
+
+The separator pattern to truncate to."
+`;

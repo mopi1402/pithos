@@ -1,0 +1,41 @@
+{
+  "mergeGroups": [
+    {
+      "module": "kanon/jit",
+      "parent": "compile",
+      "children": [
+        "CompiledValidator",
+        "CompiledValidatorFn",
+        "isJITAvailable",
+        "clearCache"
+      ]
+    },
+    {
+      "module": "kanon/jit",
+      "parent": "GeneratorContext",
+      "children": [
+        "GeneratorContextOptions",
+        "ExternalValue",
+        "createGeneratorContext",
+        "nextVar",
+        "pushPath",
+        "popPath",
+        "addExternal",
+        "markVisited",
+        "hasVisited",
+        "increaseIndent",
+        "decreaseIndent",
+        "getIndent",
+        "formatPath"
+      ]
+    },
+    {
+      "module": "kanon/jit",
+      "parent": "ValidatorCache",
+      "children": [
+        "createValidatorCache",
+        "globalValidatorCache"
+      ]
+    }
+  ]
+}

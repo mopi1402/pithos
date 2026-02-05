@@ -493,7 +493,6 @@ This enables a fluent API with complete TypeScript autocompletion.
 
 ## Next Steps
 
-- [Architecture & Evolution](./architecture) - Learn about the V1→V2→V3 evolution
-- [Design Innovations](./innovations) - Explore theoretical evolutions and why they were abandoned
-- [Integration](./integration) - Combine with other Pithos modules
+- [Architecture & Evolution](./architecture.md) - Learn about the V1→V2→V3 evolution
+- [Design Innovations](./innovations.md) - Explore theoretical evolutions and why they were abandoned
 - [API Reference](/api/kanon) - Detailed API documentation

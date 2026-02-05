@@ -74,3 +74,22 @@ const sendTypingIndicator = debounce(() => {
 messageInput.on("input", sendTypingIndicator);
 ```
 
+
+### **Auto-save** documents while editing
+
+@keywords: auto-save, document, editor, draft, Google Docs, persistence, form
+
+Save document or form content automatically after the user stops typing.
+Essential for rich text editors, note-taking apps, and any "Google Docs-like" experience.
+
+```typescript
+const autoSave = debounce(async (content: string) => {
+  await api.saveDraft({ content, updatedAt: Date.now() });
+  showSaveIndicator("Saved");
+}, 2000);
+
+editor.on("change", (content) => {
+  showSaveIndicator("Saving...");
+  autoSave(content);
+});
+```

@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "prestart": "cd ../../.. && pnpm doc:copy:changelog && cd packages/main/website && pnpm run generate:bundle-data && pnpm run generate:use-cases && pnpm run generate:embeddings && pnpm run build:demo",
+    "prestart": "cd ../../.. && pnpm doc:copy:changelog && cd packages/main/website && pnpm run generate:images && pnpm run generate:bundle-data && pnpm run generate:use-cases && pnpm run generate:embeddings && pnpm run build:demo",
     "start": "docusaurus start",
-    "prebuild": "cd ../../../ && pnpm build && cd packages/main/website && pnpm run generate:docs && pnpm run generate:bundle-data && pnpm run generate:embeddings && pnpm run build:demo",
+    "prebuild": "cd ../../../ && pnpm build && cd packages/main/website && pnpm run generate:images && pnpm run generate:docs && pnpm run generate:bundle-data && pnpm run generate:embeddings && pnpm run build:demo",
     "generate:docs": "cd ../.. && pnpm doc:generate",
     "generate:use-cases": "pnpm exec tsx scripts/generate-use-cases-data.ts",
     "generate:embeddings": "pnpm exec tsx scripts/generate-embeddings.ts",
@@ -19,11 +19,11 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc",
+    "generate:images": "pnpm exec tsx scripts/generate-images.ts",
     "generate:bundle-data": "pnpm exec tsx scripts/generate-bundle-data.ts"
   },
   "dependencies": {
     "@docusaurus/core": "3.9.2",
-    "@docusaurus/plugin-client-redirects": "3.9.2",
     "@docusaurus/plugin-content-docs": "3.9.2",
     "@docusaurus/preset-classic": "3.9.2",
     "@docusaurus/theme-common": "3.9.2",

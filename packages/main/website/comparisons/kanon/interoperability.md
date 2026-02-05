@@ -5,10 +5,10 @@ title: "Kanon ↔ Zod Interoperability"
 description: "Compare Kanon and Zod APIs: compatible features, missing features, additional features, and migration guide"
 ---
 
-import { Accordion } from '@site/src/components/Accordion';
-import { Code } from '@site/src/components/Code';
+import { Accordion } from '@site/src/components/shared/Accordion';
+import { Code } from '@site/src/components/shared/Code';
 
-# Kanon ↔ Zod Interoperability
+# ⛓️‍💥 Kanon ↔ Zod Interoperability
 
 Real compatibility data. No guesswork. **Analyzed against Zod v4 Classic.**
 
@@ -26,9 +26,10 @@ If you use Zod Mini, consider using Kanon's [direct imports](./bundle-size.md#di
 
 | Metric | Value |
 |--------|-------|
-| **Primitives** | 14/14 (100%) |
+| **Primitives** | 15/15 (100%) |
 | **Composites** | 6/6 (100%) |
 | **Operators** | 3/3 (100%) |
+| **Object Modes** | 3/3 (100%) |
 | **Migration Effort** | Import changes only (for most schemas) |
 
 :::tip[Bottom line]
@@ -58,9 +59,9 @@ const schema = z.object({
 
 Click to expand each category and see the supported features:
 
-<Accordion title="Primitives (100%)" badge="14/14">
+<Accordion title="Primitives (100%)" badge="15/15">
 
-<Code>z.string()</Code>, <Code>z.number()</Code>, <Code>z.boolean()</Code>, <Code>z.bigint()</Code>, <Code>z.date()</Code>, <Code>z.symbol()</Code>, <Code>z.undefined()</Code>, <Code>z.null()</Code>, <Code>z.void()</Code>, <Code>z.any()</Code>, <Code>z.unknown()</Code>, <Code>z.never()</Code>, <Code>z.literal()</Code>, <Code>z.enum()</Code>
+<Code>z.string()</Code>, <Code>z.number()</Code>, <Code>z.boolean()</Code>, <Code>z.bigint()</Code>, <Code>z.date()</Code>, <Code>z.symbol()</Code>, <Code>z.undefined()</Code>, <Code>z.null()</Code>, <Code>z.void()</Code>, <Code>z.any()</Code>, <Code>z.unknown()</Code>, <Code>z.never()</Code>, <Code>z.literal()</Code>, <Code>z.enum()</Code>, <Code>z.nativeEnum()</Code>
 
 </Accordion>
 
@@ -88,6 +89,12 @@ Click to expand each category and see the supported features:
 
 </Accordion>
 
+<Accordion title="Object Modes (100%)" badge="3/3">
+
+<Code>z.object()</Code> (strip by default), <Code>.strict()</Code>, <Code>.passthrough()</Code>
+
+</Accordion>
+
 <Accordion title="Coercion (100%)" badge="5/5">
 
 <Code>z.coerce.string()</Code>, <Code>z.coerce.number()</Code>, <Code>z.coerce.boolean()</Code>, <Code>z.coerce.bigint()</Code>, <Code>z.coerce.date()</Code>
@@ -103,6 +110,18 @@ Click to expand each category and see the supported features:
 <Accordion title="Transforms (100%)" badge="2/2">
 
 <Code>.transform()</Code>, <Code>.array()</Code>
+
+</Accordion>
+
+<Accordion title="String Constraints (100%)" badge="10/10">
+
+<Code>.min()</Code>, <Code>.max()</Code>, <Code>.length()</Code>, <Code>.email()</Code>, <Code>.url()</Code>, <Code>.uuid()</Code>, <Code>.regex()</Code>, <Code>.includes()</Code>, <Code>.startsWith()</Code>, <Code>.endsWith()</Code>
+
+</Accordion>
+
+<Accordion title="Number Constraints (100%)" badge="10/10">
+
+<Code>.min()</Code>, <Code>.max()</Code>, <Code>.int()</Code>, <Code>.positive()</Code>, <Code>.negative()</Code>, <Code>.gt()</Code>, <Code>.gte()</Code>, <Code>.lt()</Code>, <Code>.lte()</Code>, <Code>.multipleOf()</Code>
 
 </Accordion>
 
@@ -221,7 +240,7 @@ Beyond Zod compatibility, Kanon brings unique features:
 | 📥 **Direct imports** | Import only what you use for maximum tree-shaking |
 
 :::tip[After migration]
-Once you've migrated with the `z` shim, you can gradually refactor to direct imports for even smaller bundles. See the [API documentation](/docs/kanon/v3) for the native Kanon API.
+Once you've migrated with the `z` shim, you can gradually refactor to direct imports for even smaller bundles. See the [API documentation](/api/kanon) for the native Kanon API.
 :::
 
 <Accordion title="Migration Guide">

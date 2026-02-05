@@ -1,0 +1,17 @@
+.picture {
+  display: block;
+}
+
+.inline {
+  display: inline;
+}
+
+.img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.inlineImg {
+  display: inline;
+}

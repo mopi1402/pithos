@@ -73,21 +73,36 @@ export function collectSubModule(
                 // Determine if it's a "Leaf Module" (contains docs to be flattened) or a "Category" (folder structure to keep)
 
                 // Check for presence of TypeDoc standard folders
-                const docTypes = ["functions", "classes", "interfaces", "type-aliases", "variables", "enums"];
+                const docTypes = ["functions", "classes", "interfaces", "type-aliases", "variables", "enums", "namespaces"];
                 const hasDocContent = docTypes.some(type => fs.existsSync(path.join(srcPath, type)));
 
                 if (hasDocContent) {
                     // LEAF MODULE - process all doc types in this leaf
+                    // Preserve hierarchy for organizational folders (types, schemas, etc.)
+                    // but flatten for technical wrappers (individual function folders)
+                    const shouldPreserveHierarchy = 
+                        entry.name === "primitives" ||
+                        entry.name === "wrappers" ||
+                        entry.name === "composites" ||
+                        entry.name === "operators" ||
+                        entry.name === "transforms" ||
+                        entry.name === "constraints" ||
+                        entry.name === "guards" ||
+                        entry.name === "base";
+                    
+                    const leafOutputDir = shouldPreserveHierarchy ? path.join(outputDir, entry.name) : outputDir;
+                    const leafModuleKey = shouldPreserveHierarchy ? `${moduleKey}/${entry.name}` : moduleKey;
+                    
                     for (const type of docTypes) {
                         const typePath = path.join(srcPath, type);
                         if (fs.existsSync(typePath)) {
                             collectFlattenedDir(
                                 typePath,
-                                outputDir, // Flatten into CURRENT output dir (parent)
-                                moduleKey,
+                                leafOutputDir,
+                                leafModuleKey,
                                 collectedItems,
                                 type,
-                                depth + 1 // Increase depth for items in leaf modules
+                                depth + 1
                             );
                         }
                     }
@@ -100,8 +115,8 @@ export function collectSubModule(
                     for (const mdFile of mdFiles) {
                         collectFile(
                             path.join(srcPath, mdFile),
-                            outputDir,
-                            moduleKey,
+                            leafOutputDir,
+                            leafModuleKey,
                             collectedItems,
                             undefined,
                             depth + 1
@@ -110,10 +125,11 @@ export function collectSubModule(
                 } else {
                     // CATEGORY - recurse into it creating a new subdirectory in output
                     const nextOutputDir = path.join(outputDir, entry.name);
+                    const nextModuleKey = `${moduleKey}/${entry.name}`;
                     collectSubModule(
                         srcPath,
                         nextOutputDir,
-                        moduleKey,
+                        nextModuleKey,
                         collectedItems,
                         depth + 1
                     );
@@ -144,6 +160,7 @@ export function collectFlattenedDir(
         "type-aliases": "type",
         variables: "variable",
         enums: "enum",
+        namespaces: "namespace",
     };
     const normalizedType = typeMap[type] || type;
 

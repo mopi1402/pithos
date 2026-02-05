@@ -101,4 +101,49 @@ describe("get", () => {
     expect(get(obj, ["a", "toFixed"], "default")).toBe("default");
   });
 
+  it("[🎯] returns default via array path when final value is undefined", () => {
+    const obj = { a: { b: undefined } };
+    expect(get(obj, ["a", "b"], "fallback")).toBe("fallback");
+  });
+
+  // --- Coverage: direct access fast path (simple key, no dot/bracket) ---
+
+  it("[🎯] direct access for simple existing key", () => {
+    expect(get({ a: 1 }, "a")).toBe(1);
+    expect(get({ foo: "bar" }, "foo")).toBe("bar");
+  });
+
+  it("[🎯] returns default for simple non-existent key (no dot/bracket)", () => {
+    expect(get({ a: 1 }, "z", "default")).toBe("default");
+    expect(get({ a: 1 }, "z")).toBeUndefined();
+  });
+
+  // --- Coverage: security check on intermediate segment in dot path ---
+
+  it("[🎯] blocks __proto__ as intermediate segment in dot path", () => {
+    expect(get({ a: 1 }, "__proto__.toString", "safe")).toBe("safe");
+  });
+
+  it("[🎯] blocks constructor as intermediate segment in dot path", () => {
+    expect(get({ a: 1 }, "constructor.name", "safe")).toBe("safe");
+    expect(get({ x: { constructor: { y: 1 } } }, "x.constructor.y", "safe")).toBe("safe");
+  });
+
+  it("[🎯] blocks prototype as intermediate segment in dot path", () => {
+    expect(get({ a: 1 }, "prototype.foo", "safe")).toBe("safe");
+    expect(get({ x: { prototype: { y: 1 } } }, "x.prototype.y", "safe")).toBe("safe");
+  });
+
+  it("[🎯] returns defaultValue when intermediate dot-path segment is non-object", () => {
+    // "a" resolves to 42 (number), then traversal hits non-object mid-loop → line 94
+    expect(get({ a: 42 }, "a.b.c", "fallback")).toBe("fallback");
+  });
+
+  it("[👾] blocks prototype as last segment in dot path even if property exists", () => {
+    expect(get({ a: { prototype: "hacked" } }, "a.prototype", "safe")).toBe("safe");
+  });
+
+  it("[👾] blocks prototype in array path even if property exists", () => {
+    expect(get({ a: { prototype: "hacked" } }, ["a", "prototype"], "safe")).toBe("safe");
+  });
 });

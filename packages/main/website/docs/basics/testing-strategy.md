@@ -5,11 +5,14 @@ title: "Testing Strategy"
 description: "A multi-layered testing approach where each level catches bugs the others miss"
 ---
 
-import { Table } from "@site/src/components/Table";
+import { Table } from "@site/src/components/shared/Table";
+import { Picture } from "@site/src/components/shared/Picture";
 
-# Testing Strategy
+# 🛡️ Testing Strategy
 
 100% code coverage is a starting point, not a finish line. A test suite can achieve full coverage while still missing critical bugs. Pithos uses a **multi-layered testing strategy** where each level catches bugs that the others miss.
+
+--- 
 
 ## The Problem with Coverage Alone
 
@@ -30,6 +33,8 @@ it("divides two numbers", () => {
 ```
 
 But what happens with `divide(10, 0)`? The test passes, coverage is complete, yet the function silently returns `Infinity`. **Coverage tells you code executed, not that it works correctly.**
+
+--- 
 
 ## The Four Levels
 
@@ -95,6 +100,7 @@ Each level of testing answers a different question:
 3. **Mutation tests** verify your tests are actually checking something
 4. **Property-based tests** explore the input space you didn't think of
 
+---
 
 ## A Complete Example: `evolve`
 
@@ -217,9 +223,11 @@ Property-based tests found bugs in Pithos that hundreds of manual tests missed, 
 
 Running the tests shows all levels working together:
 
-![Vitest output showing evolve tests with prefixes](/img/evolve-tests-output.png)
+<Picture src="/img/generated/evolve-tests-output" alt="Vitest output showing evolve tests with prefixes" />
 
 Each test has a clear purpose. No redundancy, no gaps.
+
+--- 
 
 ## When to Use Each Level
 
@@ -264,6 +272,8 @@ Each test has a clear purpose. No redundancy, no gaps.
   allowWrapOnMobile={true}
 />
 
+---
+
 ## Tools
 
 <Table
@@ -306,6 +316,8 @@ Each test has a clear purpose. No redundancy, no gaps.
   keyExtractor={(item) => item.tool}
 />
 
+---
+
 ## Running Tests
 
 ```bash
@@ -321,6 +333,8 @@ pnpm test:mutation
 # Run mutation tests on a specific file
 pnpm stryker run --mutate 'packages/pithos/src/arkhe/object/evolve.ts'
 ```
+
+---
 
 ## Coverage Goals
 
@@ -368,6 +382,8 @@ pnpm stryker run --mutate 'packages/pithos/src/arkhe/object/evolve.ts'
   ]}
   keyExtractor={(item) => item.metric}
 />
+
+---
 
 ## The Philosophy
 

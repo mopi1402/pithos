@@ -1,4 +1,6 @@
 /**
+ * @module kanon/jit/builders/primitives/number
+ *
  * Number Code Builder - Complete Implementation
  *
  * Generates inline JavaScript code for number type validation
@@ -13,20 +15,8 @@
 
 import type { GeneratorContext } from "../../context";
 import { formatPath, getIndent } from "../../context";
-import { escapeString, debugComment } from "../../utils/code";
+import { escapeString, debugComment, type CodeGenResult } from "../../utils/code";
 import { ERROR_MESSAGES_COMPOSITION } from "../../../core/consts/messages";
-
-/**
- * Result of code generation containing the generated code and updated context.
- *
- * @since 3.3.0
- */
-export interface CodeGenResult {
-  /** Generated JavaScript code */
-  code: string;
-  /** Updated generator context */
-  ctx: GeneratorContext;
-}
 
 /**
  * Number constraint metadata for JIT compilation.
@@ -95,6 +85,11 @@ export function generateNumberTypeCheck(
 /**
  * Generates inline code for the min constraint (inclusive).
  *
+ * @param varName - The variable name to check
+ * @param min - Minimum value (inclusive)
+ * @param ctx - The generator context
+ * @param customMessage - Optional custom error message
+ * @returns Generated code and updated context
  * @since 3.3.0
  */
 export function generateMinCheck(
@@ -122,6 +117,11 @@ export function generateMinCheck(
 /**
  * Generates inline code for the max constraint (inclusive).
  *
+ * @param varName - The variable name to check
+ * @param max - Maximum value (inclusive)
+ * @param ctx - The generator context
+ * @param customMessage - Optional custom error message
+ * @returns Generated code and updated context
  * @since 3.3.0
  */
 export function generateMaxCheck(
@@ -149,6 +149,11 @@ export function generateMaxCheck(
 /**
  * Generates inline code for the lt constraint (exclusive less than).
  *
+ * @param varName - The variable name to check
+ * @param lessThan - Upper bound (exclusive)
+ * @param ctx - The generator context
+ * @param customMessage - Optional custom error message
+ * @returns Generated code and updated context
  * @since 3.3.0
  */
 export function generateLtCheck(
@@ -176,6 +181,11 @@ export function generateLtCheck(
 /**
  * Generates inline code for the lte constraint (inclusive less than or equal).
  *
+ * @param varName - The variable name to check
+ * @param lessThanOrEqual - Upper bound (inclusive)
+ * @param ctx - The generator context
+ * @param customMessage - Optional custom error message
+ * @returns Generated code and updated context
  * @since 3.3.0
  */
 export function generateLteCheck(
@@ -204,6 +214,11 @@ export function generateLteCheck(
 /**
  * Generates inline code for the gt constraint (exclusive greater than).
  *
+ * @param varName - The variable name to check
+ * @param greaterThan - Lower bound (exclusive)
+ * @param ctx - The generator context
+ * @param customMessage - Optional custom error message
+ * @returns Generated code and updated context
  * @since 3.3.0
  */
 export function generateGtCheck(
@@ -231,6 +246,11 @@ export function generateGtCheck(
 /**
  * Generates inline code for the gte constraint (inclusive greater than or equal).
  *
+ * @param varName - The variable name to check
+ * @param greaterThanOrEqual - Lower bound (inclusive)
+ * @param ctx - The generator context
+ * @param customMessage - Optional custom error message
+ * @returns Generated code and updated context
  * @since 3.3.0
  */
 export function generateGteCheck(

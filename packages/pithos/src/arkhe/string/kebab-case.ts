@@ -1,4 +1,13 @@
 /**
+ * Pattern to split strings into words for case conversion.
+ * Matches: lowercase sequences (with trailing digits), uppercase sequences, uppercase followed by lowercase, standalone digits.
+ *
+ * @internal
+ */
+const WORD_PATTERN =
+  /[A-Z]{2,}(?=[A-Z][a-z]|[0-9]|[^a-zA-Z0-9]|$)|[A-Z]?[a-z]+[0-9]*|[A-Z]+|[0-9]+/g;
+
+/**
  * Converts a string to kebab-case.
  *
  * @param str - The string to convert.
@@ -7,7 +16,7 @@
  *
  * @note Handles camelCase, PascalCase, acronyms, snake_case, and spaces.
  *
- * @performance O(n) where n is string length. Multiple regex passes.
+ * @performance O(n) where n is string length. Single regex pass with match + join.
  *
  * @example
  * ```typescript
@@ -22,15 +31,9 @@ export function kebabCase(str: string): string {
   // Stryker disable next-line ConditionalExpression: equivalent mutant - empty string operations return "" anyway
   if (str.length === 0) return "";
 
-  // Stryker disable next-line Regex,StringLiteral,MethodExpression: equivalent mutants in regex patterns
-  return str
-    // Stryker disable next-line Regex,StringLiteral,MethodExpression: equivalent mutants in regex patterns
-    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2")
-    // Stryker disable next-line Regex,StringLiteral,MethodExpression: equivalent mutants in regex patterns
-    .replace(/([a-z\d])([A-Z])/g, "$1-$2")
-    // Stryker disable next-line Regex,StringLiteral,MethodExpression: equivalent mutants in regex patterns
-    .replace(/[\s_-]+/g, "-")
-    // Stryker disable next-line Regex,StringLiteral,MethodExpression: equivalent mutants in regex patterns
-    .replace(/^-+|-+$/g, "")
-    .toLowerCase();
+  const words = str.match(WORD_PATTERN);
+  // Stryker disable next-line ConditionalExpression: no words means empty result
+  if (!words) return "";
+
+  return words.map((word) => word.toLowerCase()).join("-");
 }

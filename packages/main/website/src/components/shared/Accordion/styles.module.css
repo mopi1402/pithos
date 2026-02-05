@@ -1,0 +1,76 @@
+.accordion {
+  margin-bottom: var(--pithos-spacing-sm);
+  border: 1px solid var(--ifm-table-border-color);
+  border-radius: var(--pithos-radius-lg);
+  overflow: hidden;
+}
+
+/* Card variant: no border, subtle background */
+.card {
+  border: none;
+  border-radius: var(--pithos-radius-xl);
+  background: var(--ifm-background-surface-color);
+}
+
+.summary {
+  padding: var(--pithos-spacing-md) var(--pithos-spacing-lg);
+  background: var(--ifm-background-surface-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--pithos-spacing-md);
+  list-style: none;
+}
+
+.summary::-webkit-details-marker {
+  display: none;
+}
+
+.summary::before {
+  content: "▶";
+  font-size: var(--pithos-font-size-2xs);
+  color: var(--ifm-color-content-secondary);
+  transition: transform var(--pithos-transition-base);
+  flex-shrink: 0;
+}
+
+.accordion[open] > .summary::before {
+  transform: rotate(90deg);
+}
+
+.summary:hover {
+  background: var(--ifm-hover-overlay);
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-weight: var(--pithos-font-weight-medium);
+  color: var(--ifm-color-emphasis-700);
+}
+
+/* Card variant: primary color title */
+.titleCard {
+  color: var(--ifm-color-primary);
+  font-weight: var(--pithos-font-weight-semibold);
+}
+
+.description {
+  font-size: var(--pithos-font-size-md);
+  opacity: 0.7;
+  color: var(--ifm-font-color-base);
+}
+
+.content {
+  padding: var(--pithos-spacing-md) var(--pithos-spacing-lg);
+}

@@ -45,14 +45,101 @@ export function get<T = any>(
     return defaultValue;
   }
 
-  const keys = Array.isArray(path) ? path : parsePath(path);
+  // Fast path: if path is an array, use it directly
+  if (Array.isArray(path)) {
+    return getWithKeys(object, path, defaultValue);
+  }
+
+  // Security check
+  if (path === "__proto__" || path === "constructor" || path === "prototype") {
+    return defaultValue;
+  }
+
+  // Try direct access first (works for simple keys)
+  const directResult = object[path];
+  if (directResult !== undefined) {
+    return directResult;
+  }
+
+  // Check for complex path characters
+  // Stryker disable next-line ConditionalExpression,StringLiteral: Fast-path optimization — getByDotPath handles simple keys identically
+  const hasDot = path.indexOf(".") !== -1;
+  // Stryker disable next-line ConditionalExpression,StringLiteral: Fast-path optimization — parsePath handles dot-only paths identically
+  const hasBracket = path.indexOf("[") !== -1;
+
+  // If direct access failed and path has no dots/brackets, it's just undefined
+  // Stryker disable next-line ConditionalExpression,BlockStatement: Fast-path optimization — getByDotPath returns defaultValue for simple non-existent keys
+  if (!hasDot && !hasBracket) {
+    return defaultValue;
+  }
+
+  // Fast path: simple dot notation (no brackets) — inline traversal, no array allocation
+  // Stryker disable next-line ConditionalExpression,BlockStatement: Fast-path optimization — parsePath handles dot-only paths identically
+  if (!hasBracket) {
+    return getByDotPath(object, path, defaultValue);
+  }
+
+  // Slow path: parse complex path with brackets
+  return getWithKeys(object, parsePath(path), defaultValue);
+}
+
+function getByDotPath<T>(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  object: any,
+  path: string,
+  defaultValue?: T
+): T | undefined {
+  let current = object;
+  let start = 0;
+  let dot: number;
+
+  while ((dot = path.indexOf(".", start)) !== -1) {
+    // Stryker disable next-line ConditionalExpression,LogicalOperator,BlockStatement: Early exit optimization — final segment guard (after loop) catches non-object intermediates identically
+    if (current == null || typeof current !== "object") {
+      return defaultValue;
+    }
+    const segment = path.substring(start, dot);
+    if (
+      segment === "__proto__" ||
+      segment === "constructor" ||
+      segment === "prototype"
+    ) {
+      return defaultValue;
+    }
+    current = current[segment];
+    start = dot + 1;
+  }
+
+  // Last segment
+  if (current == null || typeof current !== "object") {
+    return defaultValue;
+  }
+  const lastKey = path.substring(start);
+  if (
+    lastKey === "__proto__" ||
+    lastKey === "constructor" ||
+    lastKey === "prototype"
+  ) {
+    return defaultValue;
+  }
+  const result = current[lastKey];
+  return result === undefined ? defaultValue : result;
+}
+
+function getWithKeys<T>(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  object: any,
+  keys: readonly (string | number | symbol)[],
+  defaultValue?: T
+): T | undefined {
   let current = object;
 
-  for (const key of keys) {
+  for (let i = 0; i < keys.length; i++) {
     if (current == null || typeof current !== "object") {
       return defaultValue;
     }
 
+    const key = keys[i];
     if (
       // Stryker disable next-line ConditionalExpression: typeof guard is optimization - non-string keys can never equal "__proto__" string literals  
       typeof key === "string" &&

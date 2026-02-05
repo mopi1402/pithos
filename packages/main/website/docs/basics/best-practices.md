@@ -6,9 +6,9 @@ description: "The Pithos contract: validate at boundaries, trust the types"
 slug: best-practices
 ---
 
-import ResponsiveMermaid from "@site/src/components/ResponsiveMermaid";
+import ResponsiveMermaid from "@site/src/components/shared/ResponsiveMermaid";
 
-# Best Practices
+# ✅ Best Practices
 
 > **The Pithos Contract**: Validate at boundaries, then trust the types.
 
@@ -16,7 +16,7 @@ Pithos is built on a simple premise: TypeScript guarantees your types at compile
 
 ---
 
-## The Contract
+## ✍️ The Contract
 
 <ResponsiveMermaid
   desktop={`flowchart LR
@@ -195,7 +195,7 @@ function updateConfig(patch: DeepPartial<Config>) {
 
 ---
 
-## The Payoff
+## 🎁 The Payoff
 
 When you follow the contract:
 
@@ -207,7 +207,7 @@ When you follow the contract:
 
 ---
 
-## Learn More
+## 🕯️ Learn More
 
 - [Core Philosophy](/guide/basics/core-philosophy): The "why" behind these practices
 - [Kanon API](/api/kanon): Schema validation at boundaries

@@ -37,3 +37,23 @@ export interface CollectedDocItem {
     mergedContent?: string; // Content merged from auxiliary items (e.g. Options interfaces)
     mergedTypes?: string[]; // Names of types that were merged into this item
 }
+
+/**
+ * A custom merge group configuration.
+ * Defines a parent item and an ordered list of children to merge into it.
+ */
+export interface MergeGroup {
+    /** Module key prefix, e.g. "kanon/jit" */
+    module: string;
+    /** Name of the parent item (must exist in collectedItems as module/parent) */
+    parent: string;
+    /** Ordered list of child item names to merge into the parent */
+    children: string[];
+}
+
+/**
+ * Top-level configuration for custom merge groups.
+ */
+export interface MergeGroupsConfig {
+    mergeGroups: MergeGroup[];
+}

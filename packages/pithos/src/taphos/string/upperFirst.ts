@@ -1,21 +1,17 @@
-import { capitalize } from "../../arkhe/string/capitalize";
-
 /**
- * Converts the first character of a string to uppercase.
- *
- * Alias for {@link capitalize}.
+ * Converts the first character of a string to uppercase and the rest to lowercase.
  *
  * @param str - The string to convert.
- * @returns The string with its first character converted to uppercase.
+ * @returns The string with its first character converted to uppercase and the rest lowercased.
  * @deprecated Use `capitalize` from Arkhe directly instead.
- * Reason: Alias of {@link capitalize}
- * @see {@link capitalize}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase | String.toUpperCase() - MDN}
  * @since 1.1.0
  *
  * @example
  * ```typescript
  * // ❌ Deprecated approach
  * upperFirst('hello'); // => 'Hello'
+ * upperFirst('HELLO'); // => 'Hello'
  *
  * // ✅ Recommended approach
  * import { capitalize } from 'pithos/arkhe/string/capitalize';
@@ -23,5 +19,7 @@ import { capitalize } from "../../arkhe/string/capitalize";
  * ```
  */
 export function upperFirst(str: string): string {
-    return capitalize(str);
+    // Stryker disable next-line ConditionalExpression: Fast-path optimization - charAt(0) and slice(1) on empty string produce identical "" result
+    if (str.length === 0) return str;
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }

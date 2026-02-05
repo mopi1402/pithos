@@ -12,6 +12,45 @@ import {
 import { wrapFullType, looksLikeType, isSectionHeader } from "./type-utils.js";
 
 /**
+ * Removes TypeDoc blockquote signature lines from class methods and constructors.
+ *
+ * TypeDoc generates a blockquote signature line for each class method/constructor:
+ *   ### methodName()
+ *   > **methodName**<T>(param): ReturnType
+ *
+ * This line is redundant (the info is in the heading + Parameters/Returns subsections)
+ * and causes `reformatParameters` to misinterpret it as a type annotation, producing
+ * broken headings like `### isOk(): > *isOk*(): this is Ok<T, E>`.
+ *
+ * Does NOT touch property blockquotes (`> \`readonly\` **prop**: type`) since those
+ * carry the type information that INTERFACE_PROPERTY_REGEX / READONLY_PROPERTY_REGEX need.
+ *
+ * Must be called BEFORE `reformatParameters`.
+ */
+function removeClassMethodSignatureBlockquotes(content: string): string {
+    // Match method/constructor signatures: the blockquote contains **name**(...) with parentheses
+    // immediately after the bold name (no colon between name and parens).
+    // This distinguishes methods from properties:
+    //   Method:   > **methodName**<T>(param): ReturnType   — parens right after name/generics
+    //   Property: > **propName**: (param) => ReturnType     — colon after name, then function type
+    //
+    // Pattern: ### heading\n\n> [modifiers] **name**[<...>](...): ReturnType\n\n
+    // The key distinction: after **name** we expect \< or ( but NOT :
+    content = content.replace(
+        /(###+\s+(?:\w+(?:\(\))?|Constructor))\n\n>\s*(?:`\w+`\s*)*\*\*(?:new\s+)?\w+\*\*(?:\\<[^>]*\\>)*\s*\([^\n]*\)[^\n]*\n\n/g,
+        "$1\n\n"
+    );
+
+    // Same pattern but for #### Call Signature within class methods
+    content = content.replace(
+        /(####+\s+Call Signature)\n\n>\s*(?:`\w+`\s*)*\*\*(?:new\s+)?\w+\*\*(?:\\<[^>]*\\>)*\s*\([^\n]*\)[^\n]*\n\n/g,
+        "$1\n\n"
+    );
+    
+    return content;
+}
+
+/**
  * Reformats nested Parameters and Returns sections within method properties.
  * Must be called BEFORE other parameter reformatting.
  * Converts:
@@ -30,20 +69,26 @@ import { wrapFullType, looksLikeType, isSectionHeader } from "./type-utils.js";
  *   description
  */
 function reformatNestedMethodSections(content: string): string {
-    // Match: #### Parameters section, capture everything until #### Returns
+    // Match: ####+ Parameters section, capture everything until ####+ Returns
     // Use [\s\S]*? to capture multi-line content including descriptions
-    const regex = /(####\s+Parameters\n\n)([\s\S]*?)(####\s+Returns\n\n)([^\n]+)(?:\n\n([^\n#][^\n]*))?/g;
+    // The heading depth varies: #### for top-level methods, ##### for Call Signatures in classes
+    const regex = /(#{4,}\s+Parameters\n\n)([\s\S]*?)(#{4,}\s+Returns\n\n)([^\n]+)(?:\n\n([^\n#][^\n]*))?/g;
 
-    content = content.replace(regex, (match, _paramsHeader, paramsContent, _returnsHeader, returnType, returnDesc) => {
-        // Split by ##### to get individual parameter blocks
-        const paramBlocks = paramsContent.split(/(?=##### )/);
+    content = content.replace(regex, (match, paramsHeader, paramsContent, _returnsHeader, returnType, returnDesc) => {
+        // Detect the heading depth from the Parameters header to find param sub-headings
+        const paramsDepth = paramsHeader.match(/^(#+)/)?.[1].length ?? 4;
+        const paramHeadingPrefix = "#".repeat(paramsDepth + 1);
+        const paramRegex = new RegExp(`^${paramHeadingPrefix} (\\\\?\\w+\\??)\\n\\n([^\\n]+)(?:\\n\\n([\\s\\S]*))?$`);
+
+        // Split by param sub-headings
+        const splitRegex = new RegExp(`(?=${paramHeadingPrefix} )`);
+        const paramBlocks = paramsContent.split(splitRegex);
         let formattedLines: string[] = [];
 
         for (const block of paramBlocks) {
             if (!block.trim()) continue;
 
-            // Match: ##### paramName\n\ntype\n\n[optional description]
-            const paramMatch = block.match(/^##### (\w+\??)\n\n([^\n]+)(?:\n\n([\s\S]*))?$/);
+            const paramMatch = block.match(paramRegex);
             if (paramMatch) {
                 const [, paramName, rawType, description] = paramMatch;
                 // Use wrapFullType to handle links properly
@@ -84,7 +129,11 @@ function reformatNestedMethodSections(content: string): string {
  * @returns The reformatted markdown content.
  */
 export function reformatParameters(content: string): string {
-    // IMPORTANT: Reformat nested method sections FIRST, before other transformations
+    // IMPORTANT: Remove class method blockquote signatures FIRST to prevent
+    // them from being misinterpreted as type annotations by later regexes
+    content = removeClassMethodSignatureBlockquotes(content);
+
+    // Reformat nested method sections BEFORE other transformations
     content = reformatNestedMethodSections(content);
     // Handle interface property with blockquote type (TypeDoc format) - MUST BE FIRST
     // Format: ### propName?\n\n> `optional` **propName**: `type`\n\n
@@ -93,8 +142,9 @@ export function reformatParameters(content: string): string {
         INTERFACE_PROPERTY_REGEX,
         (match, heading, paramName, typePart) => {
             if (heading.includes(":")) return match;
-            if (isSectionHeader(paramName)) return match;
-            
+            // Note: no isSectionHeader check — the regex pattern is specific enough
+            // (requires `> [optional] **name**: type`) to never match a section header.
+
             // Extract optional marker (?) from heading
             const isOptional = heading.includes("?");
             const cleanHeading = heading.replace(/\?/, "");
@@ -118,7 +168,7 @@ export function reformatParameters(content: string): string {
             
             const optionalMarker = isOptional ? "?" : "";
             
-            return `${cleanHeading}${optionalMarker}: <code>${cleanType}</code>\n\n`;
+            return `<a id="${paramName}"></a>\n\n${cleanHeading}${optionalMarker}: <code>${cleanType}</code>\n\n`;
         }
     );
 
@@ -127,27 +177,28 @@ export function reformatParameters(content: string): string {
     // Transform to: ### propName: <code>type</code>\n\n
     content = content.replace(
         READONLY_PROPERTY_REGEX,
-        (match, heading, paramName, typePart) => {
+        (match, heading, _paramName, typePart) => {
             if (heading.includes(":")) return match;
-            if (isSectionHeader(paramName)) return match;
-            
+            // Note: no isSectionHeader check — the regex pattern is specific enough
+            // (requires `> \`readonly\` **name**: type`) to never match a section header.
+
             // Clean the type and wrap in <code>
             let cleanType = typePart.trim().replace(/`/g, "").trim();
-            
+
             // Unescape TypeDoc's markdown escapes before converting to HTML entities
             cleanType = cleanType
                 .replace(/\\</g, "<")
                 .replace(/\\>/g, ">")
                 .replace(/\\{/g, "{")
                 .replace(/\\}/g, "}");
-            
+
             // Escape special characters for MDX
             cleanType = cleanType
                 .replace(/</g, "&lt;")
                 .replace(/>/g, "&gt;")
                 .replace(/{/g, "&#123;")
                 .replace(/}/g, "&#125;");
-            
+
             return `${heading}: <code>${cleanType}</code>\n\n`;
         }
     );

@@ -25,13 +25,13 @@ describe("mapKeys", () => {
     expect(result).toEqual({ same: 3 });
   });
 
-  it("[🎯] handles symbol keys", () => {
+  it("[🎯] ignores symbol keys", () => {
     const sym = Symbol("test");
     const obj = { [sym]: 1, a: 2 };
     const result = mapKeys(obj, (_, key) =>
       typeof key === "symbol" ? "sym" : `_${String(key)}`
     );
-    expect(result).toEqual({ sym: 1, _a: 2 });
+    expect(result).toEqual({ _a: 2 });
   });
 
   itProp.prop([fc.dictionary(fc.string(), fc.integer())])(

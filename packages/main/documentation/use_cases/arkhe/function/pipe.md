@@ -34,3 +34,22 @@ const cleanInput = pipe(
 
 cleanInput("  Hello World  "); // "hello-world"
 ```
+
+### **Process** API response through a full pipeline
+
+@keywords: API, response, pipeline, fetch, parse, normalize, filter, processing
+
+Chain fetch, parse, normalize, and filter steps into a single readable pipeline.
+The real-world pattern developers write daily when consuming API data.
+
+```typescript
+const getActiveUsers = pipe(
+  (response: Response) => response.json(),
+  (data: { users: User[] }) => data.users,
+  (users) => users.filter((u) => u.isActive),
+  (users) => users.map((u) => ({ id: u.id, name: u.name, email: u.email })),
+);
+
+const users = await fetch("/api/users").then(getActiveUsers);
+// Raw response → parsed JSON → extracted array → filtered active → picked fields
+```

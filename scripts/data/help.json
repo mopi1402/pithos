@@ -140,37 +140,37 @@
     "check:types": {
       "description": "Check TypeScript types",
       "category": "Check",
-      "order": 2
+      "order": 3
     },
     "check:tsdoc": {
       "description": "Check TSDoc documentation",
       "category": "Check",
-      "order": 3
+      "order": 4
     },
     "check:multiple-jsdoc": {
       "description": "Check for functions with multiple JSDoc (overload issue)",
       "category": "Check",
-      "order": 3.5
+      "order": 5
     },
     "check:stryker-comments": {
       "description": "Check Stryker disable comments format",
       "category": "Check",
-      "order": 5
+      "order": 7
     },
     "check:dependencies": {
       "description": "Check project dependencies",
       "category": "Check",
-      "order": 6
+      "order": 8
     },
     "check:test-imports": {
       "description": "Check imports in tests",
       "category": "Check",
-      "order": 4
+      "order": 6
     },
     "check:all": {
-      "description": "Run all checks (lint → types → tsdoc → imports → stryker)",
+      "description": "Run all checks (lint → types → tsdoc → jsdoc → imports → stryker → deps)",
       "category": "Check",
-      "order": 7
+      "order": 1
     },
     "check:knip": {
       "description": "Detect unused code and dependencies",
@@ -203,6 +203,16 @@
       "category": "Documentation",
       "order": 10
     },
+    "doc:snapshots": {
+      "description": "Run doc pipeline snapshot tests",
+      "category": "Documentation",
+      "order": 10.1
+    },
+    "doc:snapshots:update": {
+      "description": "Update doc pipeline snapshots after intentional changes",
+      "category": "Documentation",
+      "order": 10.2
+    },
     "doc:generate:api": {
       "description": "Generate API documentation with TypeDoc",
       "category": "Documentation",
@@ -216,19 +226,64 @@
     "doc:build": {
       "description": "Build documentation website",
       "category": "Documentation",
-      "order": 20
+      "order": 20,
+      "flags": [
+        {
+          "type": "radio",
+          "name": "environment",
+          "description": "Target environment",
+          "options": [
+            { "label": "production", "value": "" },
+            { "label": "early-access", "value": "early-access", "suffix": ":early-access" }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "name": "zip",
+          "description": "Zip build output",
+          "suffix": ":zip"
+        }
+      ]
+    },
+    "doc:preview:emoji": {
+      "description": "Preview custom emoji images grid",
+      "category": "Documentation",
+      "order": 21
     },
     "doc:generate:kanon:benchmarks-results": {
       "description": "Generate Kanon benchmark results JSON for website",
-      "category": "Documentation"
+      "category": "Documentation",
+      "order": 30
     },
     "doc:generate:arkhe:benchmarks-results": {
       "description": "Generate Arkhe benchmark results JSON for website",
-      "category": "Documentation"
+      "category": "Documentation",
+      "order": 31
     },
     "doc:generate:taphos:benchmarks-results": {
       "description": "Generate Taphos benchmark results JSON for website",
-      "category": "Documentation"
+      "category": "Documentation",
+      "order": 32
+    },
+    "doc:generate:zygos:benchmarks-results": {
+      "description": "Generate Zygos benchmark results JSON for website",
+      "category": "Documentation",
+      "order": 33
+    },
+    "doc:generate:kanon:bundle-sizes": {
+      "description": "Generate Kanon bundle size comparison (vs Zod)",
+      "category": "Documentation",
+      "order": 40
+    },
+    "doc:generate-arkhe-bundle-sizes": {
+      "description": "Generate Arkhe bundle size comparison (vs lodash, es-toolkit, remeda, radashi)",
+      "category": "Documentation",
+      "order": 41
+    },
+    "doc:generate-zygos-bundle-sizes": {
+      "description": "Generate Zygos bundle size comparison (vs neverthrow, fp-ts)",
+      "category": "Documentation",
+      "order": 42
     },
     "generate:exports": {
       "description": "Generate export files",
@@ -248,7 +303,22 @@
     },
     "prepublishOnly": {
       "description": "Script executed before npm publish",
-      "category": "Publish"
+      "category": "Publish",
+      "order": 1
+    },
+    "publish:dry-run": {
+      "description": "Simulate full publish process without sending to npm",
+      "category": "Publish",
+      "order": 2,
+      "flags": [
+        { "type": "checkbox", "name": "no-git-checks", "script": "publish:dry-run:no-git-checks", "description": "Disable git checks" }
+      ]
+    },
+    "publish:pithos": {
+      "description": "⚠️  Publish pithos to npm (live)",
+      "category": "Publish",
+      "order": 100,
+      "separator": "─────────── production ───────────"
     },
     "benchmark:kanon": {
       "description": "Run benchmarks for kanon module",
@@ -330,11 +400,13 @@
     },
     "Build": {
       "description": "Compile TypeScript and build the project",
-      "group": "Build Pipeline"
+      "group": "Build Pipeline",
+      "order": 3
     },
     "Check": {
       "description": "Run type checks, linting and validation",
-      "group": "Build Pipeline"
+      "group": "Build Pipeline",
+      "order": 1
     },
     "Coverage": {
       "description": "Generate test coverage reports",
@@ -346,7 +418,8 @@
     },
     "Generate": {
       "description": "Generate exports and autocompletion files",
-      "group": "Build Pipeline"
+      "group": "Build Pipeline",
+      "order": 2
     },
     "Lint": {
       "description": "Check and fix code style with ESLint",
@@ -358,7 +431,8 @@
     },
     "Publish": {
       "description": "Prepare and publish to npm",
-      "group": "Build Pipeline"
+      "group": "Build Pipeline",
+      "order": 4
     },
     "Test": {
       "description": "Run unit tests with Vitest",

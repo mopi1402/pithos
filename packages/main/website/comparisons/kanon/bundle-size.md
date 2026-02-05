@@ -5,26 +5,15 @@ title: "Kanon Bundle Size"
 description: "Compare Kanon bundle size with Zod, Valibot and other validation libraries"
 ---
 
-import { BundleSizeComparisonTable, SingleLibraryTable, HelpersImpactTable, WhenToUseTable, ZodMiniComparisonTable, SummaryTable, DynamicSize, GeneratedDate, SavingsHighlight } from '@site/src/components/BundleSizeTable';
+import { BundleSizeComparisonTable, SingleLibraryTable, HelpersImpactTable, WhenToUseTable, ZodMiniComparisonTable, SummaryTable, DynamicSize, GeneratedDate, SavingsHighlight } from '@site/src/components/comparisons/BundleSizeTable';
 
-# Kanon Bundle Size
+# 📦 Kanon Bundle Size
 
 Real numbers. No marketing fluff. **Data auto-generated on <GeneratedDate />.**
 
 ## TL;DR
 
 For a complete app with all schema types: <SavingsHighlight test="full-app" />
-
-<details>
-<summary>💡 <strong>Why kilobytes matter</strong> — "it's just a few kB, who cares?"</summary>
-
-Every library makes the same excuse. Validation adds 20 kB. Dates add 15 kB. Utils add 25 kB. State adds 30 kB... Before you know it: **500+ kB of JavaScript** for users who just want to check their email.
-
-And every line of code is a **potential security vulnerability**. 1/4 the code = 1/4 the attack surface.
-
-**Kanon refuses to participate in this waste.**
-
-</details>
 
 ## Real-World Use Cases
 
@@ -55,7 +44,7 @@ These are actual validation scenarios you'll encounter in production:
 
 <SingleLibraryTable variant="kanon" category="real-world" />
 
-## Why Kanon is Smaller: True Tree-Shaking
+## Why Kanon is Smaller: True Tree-Shaking {#direct-imports}
 
 **Kanon uses pure functions. Zod uses classes.** This architectural difference is why Kanon tree-shakes perfectly.
 

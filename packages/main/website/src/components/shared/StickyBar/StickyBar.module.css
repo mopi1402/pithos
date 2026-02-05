@@ -1,0 +1,7 @@
+.stickyBar {
+  position: sticky;
+  top: var(--sticky-top-offset, var(--ifm-navbar-height));
+  z-index: 1000;
+  background: var(--ifm-background-color);
+  padding: var(--pithos-spacing-md) 0;
+}

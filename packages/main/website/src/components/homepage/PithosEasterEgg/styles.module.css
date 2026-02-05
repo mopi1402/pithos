@@ -1,0 +1,215 @@
+/* Easter egg: Hero-like jar transition */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0);
+  perspective: 800px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.jar {
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  will-change: transform;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Halo effect using pseudo-element to avoid iOS filter bugs */
+.jar::before {
+  content: '';
+  position: absolute;
+  inset: -30px;
+  background: radial-gradient(
+    ellipse 60% 60% at 50% 50%,
+    rgba(242, 111, 23, 0.4) 0%,
+    rgba(242, 111, 23, 0.25) 40%,
+    rgba(242, 111, 23, 0.1) 60%,
+    transparent 80%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+.jar img {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+}
+
+.fireworkCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform;
+}
+
+.closeButton {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10001;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 8px;
+  line-height: 1;
+  transition: color 0.2s;
+  animation: rollIn 0.6s ease-out both;
+}
+
+.closeButton:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@keyframes rollIn {
+  from {
+    transform: translateX(80px) rotate(360deg);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes rollOut {
+  from {
+    transform: translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(80px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.closeButtonLeaving {
+  animation: rollOut 0.4s ease-in both;
+}
+
+.backdropTitle {
+  position: fixed;
+  font-family: var(--greek-font), serif;
+  font-size: var(--pithos-font-size-4xl);
+  font-weight: var(--pithos-font-weight-bold);
+  text-transform: uppercase;
+  color: transparent;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: 0;
+  white-space: nowrap;
+  margin: 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-stroke: 2px transparent;
+}
+
+.backdropTagline {
+  position: fixed;
+  font-size: var(--pithos-font-size-hero-tagline);
+  font-weight: var(--pithos-font-weight-semibold);
+  color: transparent;
+  line-height: var(--pithos-line-height-tight);
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: 0;
+  margin: 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Tablet: match hero font sizes at this breakpoint */
+.backdropTextGroup {
+  display: contents;
+}
+
+@media screen and (max-width: 1024px) {
+  .backdropTitle {
+    font-size: 4.5rem;
+    -webkit-text-stroke: 1.5px transparent;
+  }
+
+  .backdropTagline {
+    font-size: 1.75rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .backdropTextGroup {
+    display: contents;
+  }
+
+  .backdropTitle {
+    top: 80px !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    font-size: 4rem;
+    -webkit-text-stroke: 1.5px transparent;
+    text-align: center;
+  }
+
+  .backdropTagline {
+    top: 150px !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 0 16px;
+  }
+}
+
+.landscapeNotice {
+  position: fixed;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 32px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+  animation: fadeIn 0.4s ease-out;
+  pointer-events: none;
+}
+
+.rotateIcon {
+  font-size: 2rem;
+  animation: wobble 2s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(90deg); }
+  50% { transform: rotate(90deg); }
+  75% { transform: rotate(0deg); }
+}

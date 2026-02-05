@@ -35,3 +35,18 @@ const fields = [{ error: null }, { error: "Required" }, { error: null }];
 fields.some(f => f.error !== null);
 // => true
 ```
+
+### **Check** if user has a required role
+
+@keywords: check, user, role, RBAC, authorization, access, permission
+
+Verify that a user holds at least one of the required roles for access control.
+Fundamental pattern for role-based authorization in any application.
+
+```typescript
+const userRoles = ["editor", "viewer"];
+const requiredRoles = ["admin", "editor"];
+
+const hasAccess = some(requiredRoles, (role) => userRoles.includes(role));
+// => true (user has "editor")
+```

@@ -35,6 +35,13 @@ describe("intersection", () => {
     expect(intersection([1, 2, 2, 3], [1, 2, 2, 3])).toEqual([1, 2, 3]);
   });
 
+  it("[👾] does not include out-of-bounds undefined element", () => {
+    // If i < first.length mutates to i <= first.length, first[first.length] is undefined
+    // and could be included if undefined exists in other arrays
+    const result = intersection([1, 2], [1, 2, undefined] as number[]);
+    expect(result).toEqual([1, 2]);
+  });
+
   itProp.prop([fc.array(fc.integer()), fc.array(fc.integer())])(
     "[🎲] result length <= min(arr1.length, arr2.length)",
     (arr1, arr2) => {

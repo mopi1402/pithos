@@ -7,12 +7,14 @@ description: "Get started with Pithos in 5 minutes"
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
+import { Highlight } from "@site/src/components/shared/Highlight";
+import { FeatureSection } from "@site/src/components/shared/FeatureSection";
 
-# Quick Start
+# ⚡️ Quick Start
 
 Everything you need to know about Pithos in 5 minutes.
 
-## Installation
+## 🖥️ Installation
 
 <Tabs groupId="package-managers">
   <TabItem value="npm" label="npm" default>
@@ -37,19 +39,23 @@ yarn add pithos
 
 That's it. Zero dependencies means zero headaches.
 
-## What's in the box?
+---
+
+## 🎰 What's in the box?
 
 Pithos is a complete utilities ecosystem. One package, five modules:
 
 | !Module     | What it does                                            |
 | ----------- | ------------------------------------------------------- |
-| **Arkhe**   | Data manipulation (arrays, objects, strings, functions) |
-| **Kanon**   | Schema validation                                       |
-| **Zygos**   | Monads & functional patterns                            |
-| **Sphalma** | Error factories                                         |
-| **Taphos**  | Deprecated utilities with migration paths               |
+| **Arkhe**   | Data manipulation (arrays, objects, strings, functions, ...) |
+| **Kanon**   | Schema validation with JIT support                      |
+| **Zygos**   | Functional error handling (Result, Option, Either, Task) |
+| **Sphalma** | Typed error factories with hex codes                    |
+| **Taphos**  | Migration guide & deprecated utilities with IDE hints   |
 
-## How to import
+---
+
+## 📎 How to import
 
 Direct imports for optimal tree-shaking:
 
@@ -62,12 +68,11 @@ import { object, string, number, optional } from "pithos/kanon";
 
 // Result pattern
 import { ok, err } from "pithos/zygos/result/result";
-
-// Types
-import { Arrayable } from "pithos/arkhe/types/common/arrayable";
 ```
 
-## Quick examples
+---
+
+## 🃏 Quick examples
 
 ### Data manipulation
 
@@ -133,17 +138,47 @@ if (result.isOk()) {
 }
 ```
 
-## Key principles
+---
 
-**Type it once, infer it everywhere.** Full TypeScript inference, no manual generics, no `any` leaks.
+## Why developers love it
 
-**Zero dependencies.** Complete supply chain security. What you install is what you get.
+<FeatureSection 
+  imageSrc="/img/quick-start/why-developers-love-it.png" 
+  imageAlt="Why developers love it"
+  imagePosition="left"
+>
 
-**Tree-shakable.** Import only what you use. Your bundle stays small.
+<Highlight>Full TypeScript inference.</Highlight> Type it once, infer it everywhere. No manual generics, no `any` leaks.
 
-**Modern JavaScript.** ES2020+, no legacy baggage.
+<Highlight>Zero dependencies.</Highlight> Complete supply chain security. What you install is what you get.
 
-## What's next?
+<Highlight>Tree-shakable by design.</Highlight> Import only what you use. Your bundle stays small.
+
+<Highlight>Modern JavaScript.</Highlight> ES2020+, no legacy baggage.
+
+</FeatureSection>
+
+## Why your users benefit
+
+<FeatureSection 
+  imageSrc="/img/quick-start/why-your-users-benefit.png" 
+  imageAlt="Why your users benefit"
+  imagePosition="right"
+>
+
+<Highlight>2-3× better performance.</Highlight> Optimized for modern JavaScript runtimes.
+
+<Highlight>Up to 97% smaller bundles.</Highlight> Less code to download, parse, and execute.
+
+<Highlight>Battle-tested reliability.</Highlight> 100% test coverage + 100% mutation testing.
+
+<Highlight>Production-ready.</Highlight> Used and validated in real-world applications.
+
+</FeatureSection>
+
+---
+
+## 🕯️ What's next?
 
 :::info Looking for use cases?
 Explore practical examples and find the right utility for your needs in the [Use Cases Explorer](/use-cases).

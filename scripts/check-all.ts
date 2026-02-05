@@ -9,8 +9,10 @@ const checks = [
   { name: "lint", command: "pnpm run lint" },
   { name: "types", command: "pnpm run check:types" },
   { name: "tsdoc", command: "pnpm run check:tsdoc" },
+  { name: "multiple-jsdoc", command: "pnpm run check:multiple-jsdoc" },
   { name: "test-imports", command: "pnpm run check:test-imports" },
   { name: "stryker-comments", command: "pnpm run check:stryker-comments" },
+  { name: "dependencies", command: "pnpm run check:dependencies" },
 ];
 
 const results: CheckResult[] = [];

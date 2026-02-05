@@ -5,10 +5,10 @@ title: "Zygos ↔ Neverthrow Interoperability"
 description: "Compare Zygos Result and Neverthrow APIs: 100% compatible, drop-in replacement, with additional features"
 ---
 
-import { Accordion } from '@site/src/components/Accordion';
-import { Code } from '@site/src/components/Code';
+import { Accordion } from '@site/src/components/shared/Accordion';
+import { Code } from '@site/src/components/shared/Code';
 
-# Zygos ↔ Neverthrow Interoperability
+# ⛓️‍💥 Zygos ↔ Neverthrow Interoperability
 
 Real compatibility data. No guesswork. **Analyzed against Neverthrow 8.2.0.**
 

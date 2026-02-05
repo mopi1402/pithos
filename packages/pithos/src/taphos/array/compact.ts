@@ -1,3 +1,5 @@
+type Truthy<T> = Exclude<T, false | null | 0 | 0n | '' | undefined>;
+
 /**
  * Removes all falsy values from an array.
  *
@@ -23,6 +25,16 @@
  * console.log(filtered); // [1, 'hello']
  * ```
  */
-export function compact<T>(array: T[]): T[] {
-  return array.filter(Boolean);
+export function compact<T>(array: readonly T[]): Truthy<T>[] {
+  const result: Truthy<T>[] = [];
+
+  // Stryker disable next-line EqualityOperator: out-of-bounds array[length] is undefined (falsy), always filtered out by the if(item) guard
+  for (let i = 0; i < array.length; i++) {
+    const item = array[i];
+    if (item) {
+      result.push(item as Truthy<T>);
+    }
+  }
+
+  return result;
 }

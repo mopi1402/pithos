@@ -22,3 +22,23 @@ Useful when generating code or dynamic property accessors.
 ```typescript
 const varName = camelCase('My Class Name'); // 'myClassName'
 ```
+
+### **Convert** API response keys from snake_case
+
+@keywords: convert, API, response, snake_case, camelCase, keys, normalize, backend
+
+Transform snake_case keys from a backend API into JavaScript-standard camelCase.
+The most common real-world use case, especially with Python/Ruby/Go backends.
+
+```typescript
+const apiResponse = {
+  user_id: 42,
+  first_name: "Alice",
+  created_at: "2025-01-15",
+  is_active: true,
+};
+
+// Combined with mapKeys for full object transformation
+const normalized = mapKeys(apiResponse, (_, key) => camelCase(key));
+// => { userId: 42, firstName: "Alice", createdAt: "2025-01-15", isActive: true }
+```

@@ -4,9 +4,9 @@ title: Core Philosophy
 slug: core-philosophy
 ---
 
-import ResponsiveMermaid from "@site/src/components/ResponsiveMermaid";
+import ResponsiveMermaid from "@site/src/components/shared/ResponsiveMermaid";
 
-# Core Philosophy
+# 👁️ Core Philosophy
 
 > **The vision that guides every architectural decision in Pithos**
 
@@ -14,7 +14,7 @@ import ResponsiveMermaid from "@site/src/components/ResponsiveMermaid";
 
 ## Cardinal Principle
 
-> _"The need guides me. Technology follows."_
+<MarbleQuote>The need guides me. Technology follows.</MarbleQuote>
 
 Everything stems from this principle. We don't choose a technology because it's trendy, elegant, or impressive. We choose it because it addresses the need.
 
@@ -144,9 +144,9 @@ Some things **cannot** be predicted and must be handled at runtime:
 
 Some compromises are **out of the question**:
 
-- ❌ Bloated bundles for developer comfort
-- ❌ Too many abstractions / overloads weighing on runtime
-- ❌ Sacrificing client-side performance for a "prettier" API
+❌ Bloated bundles for developer comfort  
+❌ Too many abstractions / overloads weighing on runtime  
+❌ Sacrificing client-side performance for a "prettier" API  
 
 :::warning[Server-Side (Node.js)]
 Performance matters even more server-side. Utilities like Arkhe and Kanon can be called thousands of times per request. Slow functions accumulate and block the event loop, impacting all users. That's why we obsess over benchmarks.
@@ -178,6 +178,8 @@ When a technical choice arises, ask these questions in order:
    → If yes: accept the compromise
    → If no: prioritize performance
 
+---
+
 ## What Pithos is NOT
 
 To avoid misunderstandings, let's be crystal clear about what Pithos **doesn't try to be**:
@@ -193,10 +195,10 @@ To avoid misunderstandings, let's be crystal clear about what Pithos **doesn't t
 
 Pithos follows a **pragmatic approach** inspired by the 80/20 rule:
 
-- ❌ We don't handle every bizarre edge case that rarely occurs in practice
-- ❌ We don't add runtime type checks (`typeof`, `instanceof`): TypeScript already guarantees types
-- ✅ We validate **values** (e.g., `size > 0`) but not **types** at runtime
-- ✅ When an error doesn't make sense to handle, we **throw** instead of silently masking it
+❌ We don't handle every bizarre edge case that rarely occurs in practice  
+❌ We don't add runtime type checks (`typeof`, `instanceof`): TypeScript already guarantees types  
+✅ We validate **values** (e.g., `size > 0`) but not **types** at runtime  
+✅ When an error doesn't make sense to handle, we **throw** instead of silently masking it  
 
 ```typescript
 // ❌ Lodash style: silent, defensive

@@ -2,21 +2,24 @@
 sidebar_position: 1
 title: About Pithos
 slug: about-pithos
+description: Pithos is a modern TypeScript utilities library and Lodash alternative with zero dependencies. Features schema validation, functional error handling, and tree-shakable utilities for optimal bundle size.
 ---
 
-import ModuleName from "@site/src/components/ModuleName";
+import ModuleName from "@site/src/components/shared/badges/ModuleName";
 
-# <span style={{display: 'inline-flex', alignItems: 'center', gap: '0.2em'}}><img src="/img/logos/logo.svg" alt="" style={{height: '0.9em'}} /> Pithos</span>
+# <span style={{display: 'inline-flex', alignItems: 'center', gap: '0.2em'}}><img src="/img/generated/logos/pithos-120.png" alt="pithos" style={{height: '1.2em'}} /> Pithos</span>
 
 ## Why this jar exists
 
-Pithos is the box you open when you're done rewriting the same helpers for the fifth time. It was built to keep the best utilities in one place, typed and battle-tested, so you spend time shipping instead of searching.
+Pithos is a modern TypeScript utilities library you open when you're done rewriting the same helpers for the fifth time. Built as a Lodash alternative with zero dependencies, it keeps the best utilities in one place, fully typed and battle-tested, so you spend time shipping instead of searching.
 
 :::info From Utils to Ecosystem
-Pithos started as a public utility library. While improving it, I realized utilities alone weren't enough. I needed a **coherent ecosystem**. So I merged two of my private packages into Pithos: **Kanon** (schema validation) and **Zygos** (safe error handling).
+Pithos started as a public utility library. While improving it, I realized utilities alone weren't enough. I needed a **coherent ecosystem**. So I merged two of my private packages into Pithos: **Kanon** (schema validation) and **Zygos** (functional error handling with Result/Option patterns).
 
-This marks the shift to a complete ecosystem with a unified philosophy: **trust TypeScript at compile-time, validate at boundaries**.
+This marks the shift to a complete TypeScript ecosystem with a unified philosophy: **trust TypeScript at compile-time, validate at boundaries**.
 :::
+
+---
 
 ## The problems that sparked it
 
@@ -25,16 +28,22 @@ This marks the shift to a complete ecosystem with a unified philosophy: **trust 
 - Great snippets scattered across projects, never improving.
 - Fear of supply-chain surprises from external dependencies.
 
+---
+
 ## The answer inside the jar
 
-- ✅ Centralize the proven pieces so they keep getting better.
-- ✅ Stay dependency-free to keep builds lean and predictable.
-- ✅ Let TypeScript do the heavy lifting: full inference, no `any` leaks.
-- ✅ Remain compatible with familiar patterns (Neverthrow/fp-ts style) so migration is easy.
+✅ Centralize the proven pieces so they keep getting better.  
+✅ Stay dependency-free to keep builds lean and predictable.  
+✅ Let TypeScript do the heavy lifting: full inference, no `any` leaks.  
+✅ Remain compatible with familiar patterns (Neverthrow/fp-ts style) so migration is easy.  
+
+---
 
 ## The myth behind the name
 
 Pandora's "box" was actually a large jar - _pithos_ in Greek. This project embraces that story: a single jar holding both the pains we faced and the solutions we crafted to solve them.
+
+---
 
 ## What you'll find
 
@@ -43,6 +52,8 @@ Pandora's "box" was actually a large jar - _pithos_ in Greek. This project embra
 - <ModuleName name="Zygos" to="/guide/modules/zygos/">Result/Either/Option/Task patterns for safe, composable flows.</ModuleName>
 - <ModuleName name="Sphalma" to="/guide/modules/sphalma/">Error factories for consistent, typed failures.</ModuleName>
 - <ModuleName name="Taphos" to="/guide/modules/taphos/">Deprecated utilities with clear migration paths to modern/native APIs.</ModuleName>
+
+---
 
 ## How it's meant to be used
 

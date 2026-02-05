@@ -1,0 +1,130 @@
+.moduleCard {
+  padding: var(--pithos-spacing-lg) var(--pithos-spacing-lg);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--pithos-card-bg-light);
+  border-radius: var(--pithos-radius-2xl);
+  border: 1px solid var(--pithos-golden-border);
+  transition: transform var(--pithos-transition-slow), box-shadow var(--pithos-transition-slow),
+    border-color var(--pithos-transition-slow), background var(--pithos-transition-slow);
+  position: relative;
+  overflow: visible;
+  cursor: pointer;
+}
+
+/* Override Infima grid for intermediate breakpoint: 2 columns between 600-996px */
+@media screen and (max-width: 996px) and (min-width: 600px) {
+  :global(.col.col--4) {
+    --ifm-col-width: 50%;
+    flex-basis: 50%;
+    max-width: 50%;
+  }
+}
+
+[data-theme="dark"] .moduleCard {
+  background: var(--pithos-card-bg-light);
+  border: 1px solid var(--pithos-golden-border);
+}
+
+.moduleCard h3 {
+  font-family: var(--greek-font), serif;
+  font-weight: var(--pithos-font-weight-bold);
+  text-transform: uppercase;
+  color: var(--golden-color);
+  position: relative;
+  padding: 0 7rem;
+  display: inline-block;
+}
+
+.moduleCard h3::before,
+.moduleCard h3::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 7.5rem;
+  height: 1px;
+  opacity: 0.6;
+}
+
+.moduleCard h3::before {
+  left: 0;
+  background: var(--pithos-golden-gradient-line);
+}
+
+.moduleCard h3::after {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    transparent 0%,
+    rgba(var(--pithos-golden-rgb), 0.3) 40%,
+    var(--golden-color) 70%,
+    transparent 100%
+  );
+}
+
+.moduleDescription {
+  margin: var(--pithos-spacing-lg) 0;
+  color: var(--ifm-color-content-secondary);
+}
+
+.moduleCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--pithos-shadow-card-hover);
+  border-color: var(--pithos-golden-border-hover);
+  background: var(--pithos-card-bg-hover-light);
+}
+
+[data-theme="dark"] .moduleCard:hover {
+  box-shadow: var(--pithos-shadow-card-hover);
+  background: var(--pithos-card-bg-hover-light);
+}
+
+.letterBurst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.letterBurst span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  color: var(--golden-color);
+  font-size: 1.4rem;
+  opacity: 0;
+  text-shadow: 0 0 8px rgba(var(--pithos-golden-rgb), 0.6), 0 0 16px rgba(var(--pithos-golden-rgb), 0.4);
+  animation: firework calc(var(--dur, 900ms) * var(--spd, 1)) ease-out forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+[data-theme="dark"] .letterBurst span {
+  color: var(--golden-color);
+  text-shadow: 0 0 10px rgba(var(--pithos-golden-rgb), 0.8),
+    0 0 18px rgba(var(--pithos-golden-rgb), 0.6);
+}
+
+@keyframes firework {
+  0% {
+    transform: translate3d(-50%, -50%, 0px) scale(0.6) rotateX(var(--rx, 0deg))
+      rotateY(var(--ry, 0deg));
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(
+        calc(-50% + var(--dx, 0px)),
+        calc(-50% + var(--dy, 0px)),
+        var(--dz, 0px)
+      )
+      scale(1);
+    opacity: 0;
+  }
+}

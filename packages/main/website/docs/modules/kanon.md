@@ -3,15 +3,18 @@ sidebar_position: 2
 title: Kanon
 ---
 
-import { SavingsHighlight } from '@site/src/components/BundleSizeTable';
+import ModuleName from '@site/src/components/shared/badges/ModuleName';
+import { SavingsHighlight } from '@site/src/components/comparisons/BundleSizeTable';
 
-# Kanon
+# 🅺 <ModuleName name="Kanon" />
 
 _κανών - "rule"_
 
 Lightweight alternative to Zod. Schema validation with TypeScript inference — pure validation, no transformations.
 
 **Bundle size**: <SavingsHighlight test="full-app" />
+
+---
 
 ## Quick Example
 
@@ -34,6 +37,8 @@ if (result.success) {
 }
 ```
 
+---
+
 ## Supported Types
 
 | Category | Types |
@@ -50,6 +55,8 @@ if (result.success) {
 :::
 
 **Refinements** : `.min()`, `.max()`, `.minLength()`, `.maxLength()`, `.email()`, `.url()`, `.regex()`, `.int()`, ...
+
+---
 
 ## V3 vs JIT
 
@@ -70,6 +77,8 @@ validator(data); // 2x faster
 ```
 
 JIT compiles schemas to optimized JavaScript at runtime. Falls back to standard if CSP blocks `new Function()`.
+
+---
 
 ## Key Difference with Zod
 
@@ -98,6 +107,8 @@ if (result.success) {
 :::info
 The `asZod()` helper provides Zod-compatible API for migration purposes, but transformations (`.transform()`, `.preprocess()`, etc.) are not a core feature of Kanon.
 :::
+
+---
 
 ## Helpers
 
@@ -185,6 +196,7 @@ schema.array();                  // T[]
 schema.union(otherSchema);       // T | U (alias: .or())
 schema.intersection(otherSchema); // T & U (alias: .and())
 ```
+---
 
 ## When NOT to Use
 
@@ -193,6 +205,8 @@ schema.intersection(otherSchema); // T & U (alias: .and())
 | Complex transformations | Zod native |
 | Data utilities | [Arkhe](./arkhe.md) |
 | Error handling (Result) | [Zygos](./zygos.md) |
+
+---
 
 ## API Reference
 

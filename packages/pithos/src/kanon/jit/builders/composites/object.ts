@@ -1,4 +1,6 @@
 /**
+ * @module kanon/jit/builders/composites/object
+ *
  * Object Code Builder
  *
  * Generates inline JavaScript code for object type validation including:
@@ -21,19 +23,7 @@ import {
   increaseIndent,
 } from "../../context";
 import type { GenericSchema } from "../../../types/base";
-import { escapeString, debugComment } from "../../utils/code";
-
-/**
- * Result of code generation containing the generated code and updated context.
- *
- * @since 3.3.0
- */
-export interface CodeGenResult {
-  /** Generated JavaScript code */
-  code: string;
-  /** Updated generator context */
-  ctx: GeneratorContext;
-}
+import { escapeString, debugComment, type CodeGenResult } from "../../utils/code";
 
 /**
  * Property definition for object schema.
@@ -142,6 +132,7 @@ export function generatePropertyValidation(
   const escapedPropName = escapeString(prop.name);
 
   // Add debug comment for property
+  // Stryker disable next-line StringLiteral: Debug comment suffix is cosmetic - doesn't affect validation
   const comment = debugComment(ctx, `Property: ${prop.name}${prop.optional ? " (optional)" : ""}`);
   if (comment) lines.push(comment);
 
@@ -226,6 +217,7 @@ export function generateStrictModeCheck(
 
   // Add debug comment for strict mode check
   const comment = debugComment(ctx, "Strict mode: check for unexpected properties");
+  // Stryker disable next-line ConditionalExpression: Debug comment is optional - code works identically without it
   if (comment) lines.push(comment);
 
   // Generate key check using for...in with hasOwnProperty

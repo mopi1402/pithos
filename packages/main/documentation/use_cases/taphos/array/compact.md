@@ -37,3 +37,24 @@ const values = results.map(r => r.status === "fulfilled" ? r.value : null);
 values.filter(Boolean);
 // => [user1, user3]
 ```
+
+### **Build** conditional CSS class lists
+
+@keywords: CSS, classes, conditional, classNames, React, UI, styling
+
+Construct a class string from conditional values, removing falsy entries.
+The classic `classNames` pattern used in virtually every React/Vue project.
+
+```typescript
+const isActive = true;
+const isDisabled = false;
+const hasError = true;
+
+const classes = compact([
+  "btn",
+  isActive && "btn-active",
+  isDisabled && "btn-disabled",
+  hasError && "btn-error",
+]).join(" ");
+// => "btn btn-active btn-error"
+```

@@ -1,4 +1,6 @@
 /**
+ * @module kanon/core/consts/patterns
+ *
  * Cached regex patterns for validation
  *
  * Pre-compiled regular expressions used throughout the validation system.

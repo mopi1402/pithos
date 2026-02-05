@@ -5,7 +5,7 @@ title: Equivalence Table
 description: Complete equivalence table between Pithos and popular utility, validation, and error handling libraries
 ---
 
-# Library Equivalence Tables
+# 🟰 Library Equivalence Tables
 
 This document provides comparison tables between Pithos modules and their equivalents in popular libraries. The comparisons are organized into three categories:
 

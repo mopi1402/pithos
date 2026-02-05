@@ -59,8 +59,7 @@ packages/main/documentation/.intermediate/
 packages/main/website/docs/basics/changelog.md
 
 # Auto-generated data files
-packages/main/website/src/data/bundle-sizes.json
-packages/main/website/src/data/use-cases.json
+packages/main/website/src/data/generated/
 
 # Local TODO files
 .todo/

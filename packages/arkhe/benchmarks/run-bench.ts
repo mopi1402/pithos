@@ -270,7 +270,7 @@ async function generateReport(results: BenchResult[]): Promise<BenchmarkReport> 
 
     const scenarioResults: ScenarioResult[] = sorted.map((result, index) => ({
       library: extractLibraryName(result.name),
-      opsPerSecond: Math.round(result.hz),
+      opsPerSecond: parseFloat(result.hz.toFixed(2)),
       rank: index + 1,
       ratio: maxOps > 0 ? parseFloat((maxOps / result.hz).toFixed(2)) : 0,
       isFastest: index === 0,
@@ -326,6 +326,64 @@ async function generateReport(results: BenchResult[]): Promise<BenchmarkReport> 
     scenarios,
     summary: {
       totalScenarios: scenarios.length,
+      libraryRankings,
+      winner: libraryRankings[0]?.library || "",
+    },
+  };
+}
+
+// Merge new benchmark results into an existing report (update only affected scenarios)
+async function mergeIntoExistingReport(newResults: BenchResult[], reportPath: string): Promise<BenchmarkReport> {
+  // Load existing report
+  const existingContent = await fs.readFile(reportPath, "utf-8");
+  const existing: BenchmarkReport = JSON.parse(existingContent);
+
+  // Generate a partial report from the new results
+  const partial = await generateReport(newResults);
+
+  // Determine which utility names were re-benchmarked
+  const newScenarioNames = new Set(partial.scenarios.map(s => s.name));
+
+  // Replace matching scenarios, keep the rest
+  const mergedScenarios = existing.scenarios
+    .filter(s => !newScenarioNames.has(s.name))
+    .concat(partial.scenarios);
+
+  // Re-sort alphabetically
+  mergedScenarios.sort((a, b) => {
+    const nameA = a.name.split('\n')[0].toLowerCase();
+    const nameB = b.name.split('\n')[0].toLowerCase();
+    if (nameA !== nameB) return nameA.localeCompare(nameB);
+    const detailA = a.name.split('\n')[1] || '';
+    const detailB = b.name.split('\n')[1] || '';
+    return detailA.localeCompare(detailB);
+  });
+
+  // Recompute wins from merged scenarios
+  const winsCount: Map<string, number> = new Map();
+  for (const s of mergedScenarios) {
+    const fastest = s.results.find(r => r.isFastest);
+    if (fastest) {
+      winsCount.set(fastest.library, (winsCount.get(fastest.library) || 0) + 1);
+    }
+  }
+
+  const libraries = Array.from(new Set(mergedScenarios.flatMap(s => s.results.map(r => r.library)))).sort();
+  const libraryRankings: LibrarySummary[] = libraries
+    .map(lib => ({
+      library: lib,
+      wins: winsCount.get(lib) || 0,
+      totalTests: mergedScenarios.length,
+    }))
+    .sort((a, b) => b.wins - a.wins);
+
+  return {
+    generatedAt: new Date().toISOString(),
+    versions: { ...existing.versions, ...partial.versions },
+    libraries,
+    scenarios: mergedScenarios,
+    summary: {
+      totalScenarios: mergedScenarios.length,
       libraryRankings,
       winner: libraryRankings[0]?.library || "",
     },
@@ -418,11 +476,14 @@ async function runBenchmark() {
   );
 
   const command = "pnpm";
+  const benchPath = specificFile
+    ? `packages/arkhe/benchmarks/${specificFile}`
+    : "packages/arkhe/benchmarks";
   const commandArgs = [
     "exec",
     "vitest",
     "bench",
-    specificFile || "packages/arkhe/benchmarks",
+    benchPath,
     "--run",
     "--reporter=default",
     "--color",
@@ -456,35 +517,53 @@ async function runBenchmark() {
     child.on("close", async (code) => {
       console.log("\n" + colors.blue + "=".repeat(60) + colors.reset);
 
+      const finalResults = parseVitestOutput(outputBuffer);
+
       if (code === 0) {
         console.log(colors.green + "✅ Benchmark completed successfully!" + colors.reset);
-
-        const finalResults = parseVitestOutput(outputBuffer);
-
-        if (finalResults.length > 0) {
-          const summary = generateSummary(finalResults);
-          console.log(summary);
-
-          if (shouldGenerateReport) {
-            const report = await generateReport(finalResults);
-            const reportPath = path.resolve(
-              process.cwd(),
-              "packages/main/website/src/data/arkhe-benchmark.json"
-            );
-            await fs.writeFile(reportPath, JSON.stringify(report, null, 2));
-            console.log(
-              colors.green + `\n📄 Report saved to ${reportPath}` + colors.reset
-            );
-          }
-        } else {
-          console.log(colors.yellow + "⚠️  No benchmark results parsed" + colors.reset);
-        }
-
-        resolve();
+      } else if (finalResults.length > 0) {
+        console.log(colors.yellow + `⚠️  Vitest exited with code ${code}, but results were collected` + colors.reset);
       } else {
         console.log(colors.red + `❌ Benchmark failed with code ${code}` + colors.reset);
         reject(new Error(`Benchmark failed with code ${code}`));
+        return;
       }
+
+      if (finalResults.length > 0) {
+        const summary = generateSummary(finalResults);
+        console.log(summary);
+
+        if (shouldGenerateReport) {
+          const reportPath = path.resolve(
+            process.cwd(),
+            "packages/main/website/src/data/benchmarks/arkhe-benchmark.json"
+          );
+
+          let report: BenchmarkReport;
+          if (specificFile) {
+            // Merge mode: update only the re-benchmarked scenarios in the existing report
+            try {
+              report = await mergeIntoExistingReport(finalResults, reportPath);
+              console.log(colors.blue + `\n🔀 Merged results into existing report` + colors.reset);
+            } catch {
+              // Fallback to full generation if existing report not found
+              report = await generateReport(finalResults);
+              console.log(colors.yellow + `\n⚠️  No existing report found, generating full report` + colors.reset);
+            }
+          } else {
+            report = await generateReport(finalResults);
+          }
+
+          await fs.writeFile(reportPath, JSON.stringify(report, null, 2));
+          console.log(
+            colors.green + `📄 Report saved to ${reportPath}` + colors.reset
+          );
+        }
+      } else {
+        console.log(colors.yellow + "⚠️  No benchmark results parsed" + colors.reset);
+      }
+
+      resolve();
     });
   });
 }

@@ -1,0 +1,192 @@
+.container {
+  margin: var(--pithos-spacing-xl) 0;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--pithos-radius-xl);
+  overflow: hidden;
+  container-type: inline-size;
+  container-name: playground;
+}
+
+/* Mobile toggle - hidden by default, shown when container is narrow */
+.mobileToggle {
+  display: none;
+  background: var(--ifm-color-emphasis-200);
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+}
+
+@container playground (max-width: 800px) {
+  .mobileToggle {
+    display: flex;
+  }
+}
+
+.toggleBtn {
+  flex: 1;
+  padding: var(--pithos-spacing-md) var(--pithos-spacing-lg);
+  border: none;
+  background: transparent;
+  font-size: var(--pithos-font-size-base);
+  font-weight: var(--pithos-font-weight-semibold);
+  color: var(--ifm-color-emphasis-600);
+  cursor: pointer;
+  transition: all var(--pithos-transition-base);
+}
+
+.toggleBtn:hover {
+  background: var(--ifm-color-emphasis-100);
+}
+
+.toggleBtn.active {
+  color: var(--ifm-color-primary);
+  background: var(--ifm-background-color);
+  box-shadow: inset 0 -2px 0 var(--ifm-color-primary);
+}
+
+.splitView {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: var(--pithos-playground-min-height);
+}
+
+@container playground (max-width: 800px) {
+  .splitView {
+    grid-template-columns: 1fr;
+  }
+
+  .mobileHidden {
+    display: none !important;
+  }
+
+  .mobileVisible {
+    display: flex !important;
+  }
+}
+
+.codePanel {
+  border-right: 1px solid var(--ifm-color-emphasis-300);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+@container playground (max-width: 800px) {
+  .codePanel {
+    border-right: none;
+  }
+}
+
+.codePanel [class*="tabs"] {
+  padding: 0 var(--pithos-spacing-sm);
+}
+
+.codePanel pre {
+  margin: 0;
+  border-radius: 0;
+  max-height: 650px;
+  overflow: auto;
+}
+
+.previewPanel {
+  display: flex;
+  flex-direction: column;
+  background: var(--ifm-color-emphasis-100);
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--pithos-spacing-sm) var(--pithos-spacing-lg);
+  min-height: 46px;
+  font-size: var(--pithos-font-size-md);
+  font-weight: var(--pithos-font-weight-semibold);
+  text-transform: uppercase;
+  color: var(--ifm-color-emphasis-600);
+  background: var(--ifm-color-emphasis-200);
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+}
+
+@container playground (max-width: 800px) {
+  .panelHeader {
+    display: none;
+  }
+}
+
+.fullscreenBtn {
+  padding: var(--pithos-spacing-xs) var(--pithos-spacing-sm);
+  border: none;
+  background: transparent;
+  font-size: var(--pithos-spacing-lg);
+  color: var(--ifm-color-emphasis-600);
+  cursor: pointer;
+  border-radius: var(--pithos-radius-md);
+  transition: all var(--pithos-transition-base);
+}
+
+.fullscreenBtn:hover {
+  background: var(--ifm-color-emphasis-300);
+  color: var(--ifm-color-emphasis-800);
+}
+
+.iframeWrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--pithos-spacing-lg);
+}
+
+.iframe {
+  width: 100%;
+  max-width: var(--pithos-iframe-max-width);
+  height: var(--pithos-iframe-height);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--pithos-radius-xl);
+  background: var(--pithos-color-surface-white);
+}
+
+/* Fullscreen overlay */
+.fullscreenOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background: var(--ifm-background-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.fullscreenHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--pithos-spacing-md) var(--pithos-spacing-lg);
+  font-weight: var(--pithos-font-weight-semibold);
+  background: var(--ifm-color-emphasis-200);
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+}
+
+.closeBtn {
+  padding: var(--pithos-spacing-sm) var(--pithos-spacing-md);
+  border: none;
+  background: transparent;
+  font-size: 1.2rem;
+  color: var(--ifm-color-emphasis-600);
+  cursor: pointer;
+  border-radius: var(--pithos-radius-md);
+  transition: all var(--pithos-transition-base);
+}
+
+.closeBtn:hover {
+  background: var(--ifm-color-emphasis-300);
+  color: var(--ifm-color-emphasis-800);
+}
+
+.fullscreenIframe {
+  flex: 1;
+  width: 100%;
+  border: none;
+  background: var(--pithos-color-surface-white);
+}

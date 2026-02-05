@@ -40,3 +40,21 @@ try {
   return defaultValue;
 }
 ```
+
+### **Parse** JSON safely from untrusted sources
+
+@keywords: parse, JSON, safe, localStorage, cookie, API, untrusted, fallback
+
+Parse JSON from localStorage, cookies, or API responses without crashing.
+The most common real-world use case for attempt — handling malformed data gracefully.
+
+```typescript
+const raw = localStorage.getItem("user-preferences");
+
+const preferences = attempt(() => JSON.parse(raw ?? ""));
+// Returns parsed object if valid JSON, or Error instance if malformed
+
+const safePrefs = isError(preferences)
+  ? { theme: "light", language: "en" }
+  : preferences;
+```

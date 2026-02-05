@@ -1,0 +1,28 @@
+.badge {
+  display: inline-block;
+  font-size: var(--pithos-font-size-md);
+  padding: 0.2rem var(--pithos-spacing-sm);
+  border-radius: var(--pithos-radius-md);
+  font-weight: var(--pithos-font-weight-medium);
+  white-space: nowrap;
+}
+
+.success {
+  background: var(--pithos-color-success-bg);
+  color: var(--pithos-color-success);
+}
+
+.warning {
+  background: var(--pithos-color-warning-bg);
+  color: var(--pithos-color-warning);
+}
+
+.error {
+  background: var(--pithos-color-error-bg);
+  color: var(--pithos-color-error);
+}
+
+.neutral {
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-emphasis-800);
+}

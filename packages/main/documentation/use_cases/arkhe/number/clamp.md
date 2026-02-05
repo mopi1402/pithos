@@ -36,6 +36,19 @@ const volume = clamp(userVolume, 0, 100);
 audioPlayer.setVolume(volume);
 ```
 
+### **Constrain** design tokens in a design system
+
+@keywords: design, system, tokens, font-size, spacing, z-index, CSS, constrain
+
+Ensure computed design token values stay within safe bounds.
+Prevents layout breakage from extreme user preferences or dynamic calculations.
+
+```typescript
+const fontSize = clamp(baseFontSize * userScale, 12, 32);
+const spacing = clamp(baseSpacing * density, 4, 48);
+const zIndex = clamp(computedZ, 0, 9999);
+```
+
 ### **Enforce premium bounds** for insurance calculations
 
 @keywords: insurance, premium, bounds, assurance, tarification, regulatory, pricing

@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { it as itProp, fc } from "@fast-check/vitest";
 import { refineBigInt } from "./bigint";
 import { bigint } from "../../primitives/bigint";
+import { coerceBigInt } from "../../coerce/bigint";
 import { parse } from "../../../core/parser";
 import { ERROR_MESSAGES_COMPOSITION } from "../../../core/consts/messages";
 import type { BigIntSchema } from "@kanon/types/primitives";
@@ -17,6 +18,12 @@ describe("refineBigInt", () => {
         const refinedSchema = refineBigInt(baseSchema, () => true);
         expect(refinedSchema.refinements).toBeDefined();
         expect(refinedSchema.refinements).toHaveLength(1);
+      });
+
+      it("[👾] should accumulate refinements when chaining", () => {
+        const schema1 = refineBigInt(bigint(), () => true);
+        const schema2 = refineBigInt(schema1, () => true);
+        expect(schema2.refinements).toHaveLength(2);
       });
     });
   });
@@ -218,6 +225,30 @@ describe("refineBigInt", () => {
       if (result.success) {
         expect(typeof result.data).toBe("bigint");
         expect(result.data).toBe(42n);
+      }
+    });
+
+    it("[🎯] should handle coerced bigint value passing refinement", () => {
+      const schema = refineBigInt(coerceBigInt(), (v) =>
+        v > 0n ? true : "Must be positive"
+      );
+
+      const result = parse(schema, "42");
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data).toBe(42n);
+      }
+    });
+
+    it("[🎯] should handle coerced bigint value failing refinement", () => {
+      const schema = refineBigInt(coerceBigInt(), (v) =>
+        v > 0n ? true : "Must be positive"
+      );
+
+      const result = parse(schema, "-5");
+      expect(result.success).toBe(false);
+      if (!result.success) {
+        expect(result.error).toBe("Must be positive");
       }
     });
   });

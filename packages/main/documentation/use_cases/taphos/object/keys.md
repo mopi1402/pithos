@@ -35,3 +35,21 @@ Object.fromEntries(
   Object.entries(obj).map(([k, v]) => [k, v * 2])
 );
 ```
+
+### **Count** object properties for validation
+
+@keywords: count, properties, size, validation, payload, limit, API
+
+Check the number of properties in an object to enforce limits.
+Useful for API payload validation, configuration checks, and form field counting.
+
+```typescript
+const payload = { name: "Alice", email: "alice@example.com", role: "admin" };
+
+const fieldCount = keys(payload).length;
+// => 3
+
+if (fieldCount > 50) {
+  throw new Error("Payload too large: max 50 fields allowed");
+}
+```

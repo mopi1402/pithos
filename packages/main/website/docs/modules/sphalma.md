@@ -3,7 +3,9 @@ sidebar_position: 4
 title: Sphalma
 ---
 
-# Sphalma
+import ModuleName from '@site/src/components/shared/badges/ModuleName';
+
+# 🆂 <ModuleName name="Sphalma" />
 
 _σφάλμα - "error"_
 
@@ -87,13 +89,13 @@ function getUser(id: string): Result<User, CodedError> {
 }
 ```
 
-## When to Use
+## ✅ When to Use
 
 - **Module errors** → Consistent error codes across a module
 - **API errors** → Frontend can map codes to UI messages
 - **Debugging** → `[Animation:0x1001]` is instantly identifiable in logs
 
-## When NOT to Use
+## ❌ When NOT to Use
 
 | Need | Use Instead |
 |------|-------------|

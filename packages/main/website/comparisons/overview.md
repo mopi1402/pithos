@@ -5,7 +5,9 @@ title: "Pithos Modules Overview"
 description: "A quick guide to Pithos modules: Arkhe (utilities), Kanon (validation), and Zygos (error handling) - when to use each and how they compare to alternatives"
 ---
 
-import { QuickComparisonTable } from '@site/src/components/QuickComparisonTable';
+import { QuickComparisonTable } from '@site/src/components/comparisons/QuickComparisonTable';
+import ModuleName from '@site/src/components/shared/badges/ModuleName';
+import Muted from '@site/src/components/shared/Muted';
 
 # Pithos Modules Overview
 
@@ -15,79 +17,97 @@ Pithos is organized into three focused modules. Each solves a specific problem w
 
 <QuickComparisonTable />
 
-## When to Use Each Module
+## ✅ When to Use Each Module
 
-### Arkhe — Utility Functions
+### <ModuleName name="Arkhe" /> - Utility Functions
 
-**Use Arkhe when:**
+**Use [Arkhe](/guide/modules/arkhe/) when:**
 - You want smaller bundles than Lodash
-- You're building a modern app (no IE11)
+- You're building a modern app
 - You want better TypeScript inference
 - You care about supply chain security
 
-**Use Lodash instead when:**
+<Muted>
+
+Use Lodash instead when:
 - You need IE11 support
 - Your codebase already uses it heavily
-- You need `_.cloneDeep` with circular references
 
-**Migration:** Many Lodash functions have native equivalents now. See [Taphos](/api/taphos) for guidance on what to replace with native JS vs Arkhe.
+</Muted>
 
-### Kanon — Schema Validation
+:::info Migration
+Many Lodash functions have native equivalents now. See [Taphos](/api/taphos) for guidance on what to replace with native JS vs Arkhe.
+:::
 
-**Use Kanon when:**
+### <ModuleName name="Kanon" /> - Schema Validation
+
+**Use [Kanon](/guide/modules/kanon/) when:**
 - You want smaller bundles than Zod
-- You need basic validation only
+- You need straightforward, type-safe validation without overhead
+- You want JIT-compiled validators for maximum performance
 - You want zero dependencies
 - You're already using Pithos
 
-**Use Zod instead when:**
+<Muted>
+
+Use Zod instead when:
 - You need complex transforms (`.transform()`)
 - You need async validation
-- You need refinements with custom errors
+- You need extensive built-in format validators (IP, JWT, CUID, ULID...)
 - You're already using it
 
-**API Comparison:**
+</Muted>
 
-```typescript
-// Zod
-import { z } from "zod";
-const schema = z.object({
-  name: z.string().min(1),
-  age: z.number().positive(),
-});
 
-// Kanon
-import { validation } from "pithos/kanon/validation";
-const schema = validation.object({
-  name: validation.string(),
-  age: validation.number(),
-});
-```
+### <ModuleName name="Zygos" /> - Error Handling
 
-### Zygos — Error Handling
-
-**Use Zygos when:**
+**Use [Zygos](/guide/modules/zygos/) when:**
 - You want smaller bundles
 - You also need Option/Either/Task monads
 - You're already using Pithos
+- You want generator-based error handling (`safeTry`)
 - You want a drop-in Neverthrow replacement
 
-**Use Neverthrow instead when:**
-- You installed Pithos only to replace Neverthrow (not worth it alone)
+<Muted>
+
+Use Neverthrow instead when:
+- If Neverthrow is your only Pithos use case, the migration cost may not justify it
 - You want the "original" implementation
 
-**Use fp-ts instead when:**
+Use fp-ts instead when:
 - You want full functional programming
 - You need Functor, Applicative, Monad abstractions
 - You're comfortable with Haskell-style FP
-- You need `pipe` with type-safe composition
+- You need `pipe` with full type class hierarchy
+
+</Muted>
+
+### <ModuleName name="Taphos" /> - Native Equivalence
+
+**Use [Taphos](/guide/modules/taphos/) when:**
+- You're migrating away from Lodash
+- You want to know which Arkhe functions have native equivalents
+- You want deprecation guidance before removing a dependency
 
 ## The Pithos Philosophy
+
+<details>
+<summary>💡 <strong>Why kilobytes matter</strong> — "it's just a few kB, who cares?"</summary>
+
+Every dependency adds up. Validation adds 20 kB. Dates add 15 kB. Utils add 25 kB. State adds 30 kB... Before you know it: **500+ kB of JavaScript** that the browser has to download, parse, and execute.
+
+This directly affects user experience. Every extra kilobyte of JavaScript increases parse and execution time, which may impact [Core Web Vitals](https://developers.google.com/search/docs/appearance/core-web-vitals) — particularly **LCP** (Largest Contentful Paint) and **INP** (Interaction to Next Paint). On mobile devices and slower connections, the difference is even more noticeable.
+
+Less code also means a smaller attack surface — fewer lines to audit, fewer places for vulnerabilities to hide.
+
+That's why every Pithos module is designed to ship only what you actually use.
+
+</details>
 
 We're not trying to replace everything. We're trying to:
 
 1. <span style={{color: '#e67e22', fontWeight: 600}}>**Cover 80% of needs**</span> with minimal bundle impact
-2. <span style={{color: '#e67e22', fontWeight: 600}}>**Stay compatible**</span> where it matters (Neverthrow API)
+2. <span style={{color: '#e67e22', fontWeight: 600}}>**Stay compatible**</span> where it matters (Neverthrow API, Zod shim)
 3. <span style={{color: '#e67e22', fontWeight: 600}}>**Point to native**</span> when JavaScript caught up (Taphos)
 4. <span style={{color: '#e67e22', fontWeight: 600}}>**Stay honest**</span> about when other libs are better
 

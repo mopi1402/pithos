@@ -1,0 +1,80 @@
+/* Kanon-specific styles — shared styles are in BenchmarkTable/styles.module.css */
+
+/* TL;DR highlight (used in kanonConfig.tldrContent) */
+.highlight {
+  color: var(--pithos-color-highlight);
+  font-weight: var(--pithos-font-weight-semibold);
+}
+
+/* Category badges — kanon-specific colors */
+.categoryBadge {
+  font-size: var(--pithos-font-size-2xs);
+  font-weight: var(--pithos-font-weight-bold);
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--pithos-radius-sm);
+  text-transform: uppercase;
+}
+
+.categoryCritical {
+  background: var(--pithos-color-kanon-critical);
+  color: var(--pithos-color-text-on-badge);
+}
+
+.categoryHigh {
+  background: var(--pithos-color-kanon-high);
+  color: var(--pithos-color-text-on-badge);
+}
+
+.categoryMedium {
+  background: var(--pithos-color-kanon-medium);
+  color: var(--pithos-color-text-on-badge);
+}
+
+.categoryOther {
+  background: var(--pithos-color-kanon-other);
+  color: var(--ifm-font-color-base);
+}
+
+/* Advantage note (used in WeightedSummaryInner) */
+.advantageNote {
+  margin-top: var(--pithos-spacing-xl);
+  font-size: var(--pithos-font-size-lg);
+  padding: var(--pithos-spacing-md);
+  background: var(--ifm-color-success-contrast-background);
+  border-radius: var(--pithos-radius-md);
+  border-left: var(--pithos-border-accent) solid var(--ifm-color-success);
+}
+
+/* Detailed stats table (used in DetailedStatsExported) */
+.statsTableWrapper {
+  overflow-x: auto;
+  padding: var(--pithos-spacing-sm);
+}
+
+.statsTable {
+  width: fit-content;
+  max-width: 100%;
+  border-collapse: collapse;
+  font-size: var(--pithos-font-size-detail);
+}
+
+.statsTable th,
+.statsTable td {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--ifm-table-border-color);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.statsTable th {
+  background: var(--ifm-table-head-background);
+  text-align: center;
+}
+
+.statsTable td:first-child {
+  text-align: left;
+}
+
+.fastestRow {
+  background: var(--pithos-color-success-bg-strong);
+}

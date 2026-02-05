@@ -108,6 +108,35 @@ describe("Object Code Builder", () => {
 
       expect(result.code[0]).toContain('prop\\"with\\"quotes');
     });
+
+    it("[🎯] includes debug comment and indentation in debug mode", () => {
+      const ctx = increaseIndent(createGeneratorContext({ debug: true }));
+      const result = generatePropertyValidation(
+        "value",
+        { name: "age", optional: false },
+        ctx
+      );
+      const code = result.code.join("\n");
+      expect(code).toContain("// Property: age");
+    });
+
+    it("[🎯] debug comment shows (optional) for optional properties", () => {
+      const ctx = createGeneratorContext({ debug: true });
+      const result = generatePropertyValidation(
+        "value",
+        {
+          name: "nick",
+          optional: true,
+          generateCode: (varName, innerCtx) => {
+            const check = generateStringTypeCheck(varName, innerCtx);
+            return { code: [check.code], ctx: check.ctx };
+          },
+        },
+        ctx
+      );
+      const code = result.code.join("\n");
+      expect(code).toContain("// Property: nick (optional)");
+    });
   });
 
   describe("generateStrictModeCheck", () => {
@@ -137,6 +166,20 @@ describe("Object Code Builder", () => {
 
       expect(result.code.join("\n")).toContain("Extra key found: ");
     });
+
+    it("[🎯] includes debug comment and indentation in debug mode", () => {
+      const ctx = createGeneratorContext({ debug: true });
+      const result = generateStrictModeCheck("value", ["name"], ctx);
+      const code = result.code.join("\n");
+      expect(code).toContain("// Strict mode: check for unexpected properties");
+    });
+
+    it("[🎯] includes path prefix in error message", () => {
+      const ctx = pushPath(createGeneratorContext(), "data");
+      const result = generateStrictModeCheck("value", ["name"], ctx);
+      const code = result.code.join("\n");
+      expect(code).toContain("Property 'data'");
+    });
   });
 
   describe("generateMinKeysCheck", () => {
@@ -154,6 +197,12 @@ describe("Object Code Builder", () => {
 
       expect(result.code).toContain("Need at least one property");
     });
+
+    it("[🎯] includes path and indentation in debug mode", () => {
+      const ctx = pushPath(createGeneratorContext({ debug: true }), "data");
+      const result = generateMinKeysCheck("value", 2, ctx);
+      expect(result.code).toContain("Property 'data'");
+    });
   });
 
   describe("generateMaxKeysCheck", () => {
@@ -163,6 +212,12 @@ describe("Object Code Builder", () => {
 
       expect(result.code).toContain("Object.keys(value).length > 5");
       expect(result.code).toContain("at most 5 keys");
+    });
+
+    it("[🎯] includes path and indentation in debug mode", () => {
+      const ctx = pushPath(createGeneratorContext({ debug: true }), "data");
+      const result = generateMaxKeysCheck("value", 3, ctx);
+      expect(result.code).toContain("Property 'data'");
     });
   });
 
@@ -875,5 +930,132 @@ describe("[🎲] Property 8: Strict Object Validation", () => {
         }).not.toThrow();
       }
     );
+  });
+});
+
+
+describe("[👾] Mutation: object code generation", () => {
+  it("[👾] generateObjectTypeCheck code lines joined with newline", () => {
+    const ctx = createGeneratorContext({ debug: true });
+    const result = generateObjectTypeCheck("value", ctx);
+    expect(result.code).toContain("\n");
+  });
+
+  it("[👾] debug comment for required property does not include (optional)", () => {
+    const ctx = createGeneratorContext({ debug: true });
+    const result = generatePropertyValidation(
+      "value",
+      { name: "age", optional: false },
+      ctx
+    );
+    const code = result.code.join("\n");
+    expect(code).toContain("// Property: age");
+    expect(code).not.toContain("(optional)");
+  });
+
+  it("[👾] optional property without generateCode does not execute validation", () => {
+    const ctx = createGeneratorContext();
+    const result = generatePropertyValidation(
+      "value",
+      { name: "extra", optional: true },
+      ctx
+    );
+    // Should only extract the property, no validation code
+    expect(result.code.length).toBe(1);
+    expect(result.code[0]).toContain('var v_0 = value["extra"]');
+    expect(result.code[0]).not.toContain("if");
+    
+    // Execute the generated code to verify it doesn't crash
+    const code = [...result.code, "return true;"].join("\n");
+    // eslint-disable-next-line no-new-func
+    const fn = new Function("value", code);
+    expect(fn({ extra: "anything" })).toBe(true);
+    expect(fn({})).toBe(true);
+  });
+
+  it("[👾] optional property with generateCode restores indent and path in context", () => {
+    let ctx = createGeneratorContext({ debug: true });
+    ctx = { ...ctx, indent: 2, path: ["root"] };
+    const result = generatePropertyValidation(
+      "value",
+      {
+        name: "nick",
+        optional: true,
+        generateCode: (varName, innerCtx) => {
+          // Inner context has different indent/path
+          return { code: [], ctx: { ...innerCtx, indent: 10, path: ["nested", "deep"] } };
+        },
+      },
+      ctx
+    );
+    // Returned context should restore original indent (not the inner 10)
+    expect(result.ctx.indent).toBe(2);
+    // Path should have the property name added, not the inner ["nested", "deep"]
+    expect(result.ctx.path).toEqual(["root", "nick"]);
+  });
+
+  it("[👾] required property with generateCode restores path in context", () => {
+    let ctx = createGeneratorContext();
+    ctx = { ...ctx, path: ["user"] };
+    const result = generatePropertyValidation(
+      "value",
+      {
+        name: "name",
+        optional: false,
+        generateCode: (varName, innerCtx) => {
+          // Inner context has different path
+          return { code: [], ctx: { ...innerCtx, path: ["changed", "path"] } };
+        },
+      },
+      ctx
+    );
+    // Returned context should have property name added, not the inner ["changed", "path"]
+    expect(result.ctx.path).toEqual(["user", "name"]);
+  });
+
+  it("[👾] generateStrictModeCheck errorPrefix is empty when no path", () => {
+    const ctx = createGeneratorContext();
+    const result = generateStrictModeCheck("value", ["name"], ctx);
+    const code = result.code.join("\n");
+    // No path → error should not have "Property" prefix
+    expect(code).toContain("Unexpected property: ");
+    expect(code).not.toContain("Property '");
+    
+    // Execute to verify the exact error format
+    const fullCode = `if (typeof value !== "object" || value === null) return "Expected object";\n${code}\nreturn true;`;
+    // eslint-disable-next-line no-new-func
+    const fn = new Function("value", fullCode);
+    const err = fn({ name: "ok", extra: "bad" });
+    expect(err).toBe("Unexpected property: extra");
+  });
+
+  it("[👾] generateMinKeysCheck errorPrefix is empty when no path", () => {
+    const ctx = createGeneratorContext();
+    const result = generateMinKeysCheck("value", 2, ctx);
+    // No path → error should not have "Property" prefix
+    expect(result.code).toContain("Object must have at least 2 keys");
+    expect(result.code).not.toContain("Property '");
+    
+    // Execute to verify the exact error format
+    const fullCode = `if (typeof value !== "object" || value === null) return "Expected object";\n${result.code}\nreturn true;`;
+    // eslint-disable-next-line no-new-func
+    const fn = new Function("value", fullCode);
+    const err = fn({ a: 1 });
+    expect(err).toBe("Object must have at least 2 keys");
+  });
+
+  it("[👾] generateMaxKeysCheck errorPrefix is empty when no path", () => {
+    const ctx = createGeneratorContext();
+    const result = generateMaxKeysCheck("value", 5, ctx);
+    // No path → error should not have "Property" prefix
+    expect(result.code).toContain("Object must have at most 5 keys");
+    expect(result.code).not.toContain("Property '");
+    
+    // Execute to verify the exact error format
+    const fullCode = `if (typeof value !== "object" || value === null) return "Expected object";\n${result.code}\nreturn true;`;
+    // eslint-disable-next-line no-new-func
+    const fn = new Function("value", fullCode);
+    const err = fn({ a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 });
+    expect(err).toBe("Object must have at most 5 keys");
   });
 });

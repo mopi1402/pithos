@@ -7,9 +7,9 @@
  * @returns A new object with only the properties that pass the predicate.
  * @since 1.1.0
  *
- * @note Symbol keys are included via Reflect.ownKeys.
+ * @note Only enumerable string keys are included (Symbol keys are ignored).
  *
- * @performance O(n) time & space where n is number of properties. Uses Reflect.ownKeys for full key support.
+ * @performance O(n) time & space where n is number of properties.
  *
  * @see pick
  * @see omit
@@ -40,11 +40,13 @@ export function pickBy<
   predicate: (value: T[keyof T], key: keyof T, object: T) => boolean
 ): Partial<T> {
   const result: Partial<T> = {};
+  const keys = Object.keys(object) as Array<keyof T>;
 
-  for (const key of Reflect.ownKeys(object)) {
-    const value = object[key as keyof T];
-    if (predicate(value, key as keyof T, object)) {
-      (result as Record<PropertyKey, unknown>)[key] = value;
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    const value = object[key];
+    if (predicate(value, key, object)) {
+      result[key] = value;
     }
   }
 

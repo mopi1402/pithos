@@ -31,3 +31,27 @@ const skeletons = range(pageSize).map((i) => (
   <Skeleton key={i} />
 ));
 ```
+
+### **Generate** dropdown options for forms
+
+@keywords: dropdown, select, options, form, hours, years, UI, input
+
+Create numeric options for time pickers, year selectors, or quantity inputs.
+Very common in form-heavy applications with numeric selection fields.
+
+```typescript
+// Hour picker: 0–23
+const hours = range(0, 24);
+// => [0, 1, 2, ..., 23]
+
+// Year selector: 2020–2030
+const years = range(2020, 2031);
+// => [2020, 2021, ..., 2030]
+
+// Quantity selector: 1–10
+const quantities = range(1, 11);
+// => [1, 2, 3, ..., 10]
+
+// Render as <select> options
+years.map((year) => <option key={year} value={year}>{year}</option>);
+```

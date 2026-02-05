@@ -1,0 +1,1429 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Classes — zygos > ResultAsync (class, async methods) 1`] = `
+"# ResultAsync\\<T, E\\>
+
+Represents an asynchronous Result that wraps a Promise.
+
+ResultAsync implements \`PromiseLike<Result<T, E>>\`, which means it can be awaited
+directly or used with .then() chains. It provides the same API as Result but
+for asynchronous operations.
+
+## Since
+
+1.1.0
+
+---
+
+## Example
+
+\`\`\`typescript
+const asyncResult = okAsync(Promise.resolve("hello"));
+
+// Can be awaited directly
+const result = await asyncResult;
+if (result.isOk()) {
+  console.log(result.value); // "hello"
+}
+
+// Or used with .then()
+asyncResult.then(result => {
+  if (result.isOk()) {
+    console.log(result.value);
+  }
+});
+\`\`\`
+
+
+---
+
+## Type Parameters
+
+### T: \`T\`
+
+The type of the success value
+
+### E: \`E\`
+
+The type of the error value
+
+---
+
+## Implements
+
+- \`PromiseLike\`\\<[\`Result\`](./Result.md)\\<\`T\`, \`E\`\\>\\>
+
+---
+
+## Constructors
+
+### Constructor
+
+Creates a new ResultAsync instance.
+
+> **res**: <code>Promise&lt;[Result](./Result.md)&lt;T, E&gt;&gt;</code> — Promise that resolves to a Result<br />
+> **Returns**: \`ResultAsync<T, E>\`
+
+
+
+---
+
+## Methods
+
+### fromSafePromise()
+
+Creates a ResultAsync from a Promise that is guaranteed to resolve successfully.
+This method assumes the Promise will never reject, so use with caution.
+
+#### Type Parameters
+
+##### T: \`T\`
+
+The type of the value in the Promise
+
+##### E: \`E = never\`
+
+The type of the error (defaults to never)
+
+> **promise**: \`Promise<T>\` — Promise that will resolve to a value<br />
+> **Returns**: \`ResultAsync<T, E>\` — A new ResultAsync that will resolve to Ok(value)
+
+
+
+#### Example
+
+\`\`\`typescript
+const promise = Promise.resolve(42);
+const result = ResultAsync.fromSafePromise(promise);
+
+const resolved = await result;
+// resolved is Ok(42)
+\`\`\`
+
+### fromPromise()
+
+Creates a ResultAsync from a Promise that may reject.
+The errorFn parameter is used to transform any rejection into an error value.
+
+#### Type Parameters
+
+##### T: \`T\`
+
+The type of the value in the Promise
+
+##### E: \`E\`
+
+The type of the error
+
+> **promise**: \`Promise<T>\` — Promise that may resolve or reject<br />
+> **errorFn**: \`(e) => E\` — Function to transform rejections into error values<br />
+> **Returns**: \`ResultAsync<T, E>\` — A new ResultAsync that will resolve to Ok(value) or Err(error)
+
+
+
+#### Example
+
+\`\`\`typescript
+const fetchUser = (id: string) =>
+  fetch(\`/api/users/\${id}\`).then(r => r.json());
+
+const result = ResultAsync.fromPromise(
+  fetchUser("123"),
+  (error) => \`Failed to fetch user: \${error}\`
+);
+
+const resolved = await result;
+if (resolved.isOk()) {
+  console.log(resolved.value); // User data
+} else {
+  console.log(resolved.error); // Error message
+}
+\`\`\`
+
+### fromThrowable()
+
+Wraps an async function with try-catch error handling, creating a new function
+that returns a ResultAsync instead of throwing exceptions.
+
+Uses \`unknown\` types for maximum type safety and modern TypeScript syntax.
+
+#### Type Parameters
+
+##### A: \`A extends unknown[]\`
+
+The types of the function arguments
+
+##### R: \`R\`
+
+The return type of the async function
+
+##### E: \`E = unknown\`
+
+The type of the error
+
+> **fn**: \`(...args) => Promise<R>\` — Async function to wrap with error handling<br />
+> **errorFn?**: \`(err) => E\` — Optional function to transform thrown errors<br />
+> **Returns**: \`A new function that returns a ResultAsync instead of throwing\` — > (...\`args\`): \`ResultAsync\`\\<\`R\`, \`E\`\\>
+
+
+
+> **args**: \`...A\`<br />
+> **Returns**: \`ResultAsync<R, E>\`
+
+
+
+#### Example
+
+\`\`\`typescript
+const fetchUser = async (id: string) => {
+  const response = await fetch(\`/api/users/\${id}\`);
+  if (!response.ok) {
+    throw new Error(\`HTTP \${response.status}\`);
+  }
+  return response.json();
+};
+
+const safeFetchUser = ResultAsync.fromThrowable(
+  fetchUser,
+  (error) => \`User fetch failed: \${error}\`
+);
+
+const result = await safeFetchUser("123");
+if (result.isOk()) {
+  console.log(result.value); // User data
+} else {
+  console.log(result.error); // Error message
+}
+\`\`\`
+
+### combine()
+
+Combines multiple ResultAsync instances into a single ResultAsync.
+Returns the first error encountered, or all values if all ResultAsyncs are Ok.
+
+Uses \`unknown\` types for maximum type safety and compatibility.
+
+#### Type Parameters
+
+##### T: \`T extends ResultAsync<unknown, unknown>[]\`
+
+The type of the ResultAsync array
+
+> **asyncResultList**: \`T\` — Array of ResultAsync instances to combine<br />
+> **Returns**: \`ResultAsync<unknown[], unknown>\` — A ResultAsync containing an array of all values, or the first error
+
+
+
+#### Example
+
+\`\`\`typescript
+const results = [
+  okAsync(Promise.resolve(1)),
+  okAsync(Promise.resolve(2)),
+  okAsync(Promise.resolve(3))
+];
+
+const combined = ResultAsync.combine(results);
+const resolved = await combined;
+// resolved is Ok([1, 2, 3])
+
+const withError = [
+  okAsync(Promise.resolve(1)),
+  errAsync("second failed"),
+  okAsync(Promise.resolve(3))
+];
+
+const failed = ResultAsync.combine(withError);
+const errorResult = await failed;
+// errorResult is Err("second failed")
+\`\`\`
+
+### combineWithAllErrors()
+
+Combines multiple ResultAsync instances into a single ResultAsync.
+Collects all errors encountered, or returns all values if all ResultAsyncs are Ok.
+
+Unlike \`combine()\`, this method doesn't stop at the first error but collects
+all errors from failed ResultAsyncs into an array.
+
+#### Type Parameters
+
+##### T: \`T extends ResultAsync<unknown, unknown>[]\`
+
+The type of the ResultAsync array
+
+> **asyncResultList**: \`T\` — Array of ResultAsync instances to combine<br />
+> **Returns**: \`ResultAsync<unknown[], unknown[]>\` — A ResultAsync containing an array of all values, or an array of all errors
+
+
+
+#### Example
+
+\`\`\`typescript
+const results = [
+  okAsync(1),
+  errAsync("error1"),
+  okAsync(3),
+  errAsync("error2")
+];
+
+const combined = ResultAsync.combineWithAllErrors(results);
+const resolved = await combined;
+// resolved is Err(["error1", "error2"])
+
+const allSuccess = [okAsync(1), okAsync(2), okAsync(3)];
+const success = ResultAsync.combineWithAllErrors(allSuccess);
+const values = await success;
+// values is Ok([1, 2, 3])
+\`\`\`
+
+### map()
+
+Transforms the success value using the provided function.
+If this resolves to an error result, the error is preserved unchanged.
+The transformation function can be synchronous or asynchronous.
+
+Optimized for efficient Promise handling and type safety.
+
+#### Type Parameters
+
+##### A: \`A\`
+
+The type of the transformed value
+
+> **f**: \`(t) => A | Promise<A>\` — Function to transform the success value (can return \`Promise<A>\`)<br />
+> **Returns**: \`ResultAsync<A, E>\` — A new ResultAsync with the transformed value or the original error
+
+
+
+#### Example
+
+\`\`\`typescript
+const result = okAsync(Promise.resolve(5));
+
+// Synchronous transformation
+const doubled = result.map(x => x * 2);
+const resolved = await doubled; // Ok(10)
+
+// Asynchronous transformation
+const fetched = result.map(async x => {
+  const response = await fetch(\`/api/data/\${x}\`);
+  return response.json();
+});
+
+const data = await fetched; // Ok(data)
+\`\`\`
+
+### mapErr()
+
+Transforms the error value using the provided function.
+If this resolves to a success result, the value is preserved unchanged.
+The transformation function can be synchronous or asynchronous.
+
+Optimized for efficient Promise handling and type safety.
+
+#### Type Parameters
+
+##### U: \`U\`
+
+The type of the transformed error
+
+> **f**: \`(e) => U | Promise<U>\` — Function to transform the error value (can return \`Promise<U>\`)<br />
+> **Returns**: \`ResultAsync<T, U>\` — A new ResultAsync with the original value or the transformed error
+
+
+
+#### Example
+
+\`\`\`typescript
+const error = errAsync("network error");
+
+// Synchronous transformation
+const enhanced = error.mapErr(e => \`Error: \${e}\`);
+const resolved = await enhanced; // Err("Error: network error")
+
+// Asynchronous transformation
+const logged = error.mapErr(async e => {
+  await logError(e);
+  return \`Logged: \${e}\`;
+});
+
+const result = await logged; // Err("Logged: network error")
+\`\`\`
+
+### andThen()
+
+Chains operations by applying the provided function to the success value.
+If this resolves to an error result, the error is propagated unchanged.
+
+Optimized for efficient Promise chaining and type safety.
+
+#### Type Parameters
+
+##### U: \`U\`
+
+The type of the success value in the returned ResultAsync
+
+##### F: \`F\`
+
+The type of the error value in the returned ResultAsync
+
+> **f**: \`(t) => ResultAsync<U, F>\` — Function that takes the success value and returns a new ResultAsync<br />
+> **Returns**: \`ResultAsync<U, E | F>\` — A new ResultAsync with combined error types
+
+
+
+#### Example
+
+\`\`\`typescript
+const result = okAsync(Promise.resolve(5));
+
+const chained = result.andThen(x =>
+  x > 0 ? okAsync(Promise.resolve(x * 2)) : errAsync("negative")
+);
+
+const resolved = await chained; // Ok(10)
+
+// Chain multiple operations
+const pipeline = result
+  .andThen(x => okAsync(Promise.resolve(x * 2)))
+  .andThen(x => okAsync(Promise.resolve(x.toString())));
+
+const final = await pipeline; // Ok("10")
+\`\`\`
+
+### unwrapOr()
+
+Returns the success value if this resolves to an Ok result, otherwise returns the default value.
+
+#### Type Parameters
+
+##### A: \`A\`
+
+The type of the default value
+
+> **v**: \`A\` — Default value to return if this resolves to an error result<br />
+> **Returns**: \`Promise<T | A>\` — A Promise that resolves to the success value or the default value
+
+
+
+#### Example
+
+\`\`\`typescript
+const success = okAsync(Promise.resolve(42));
+const value = await success.unwrapOr(0); // 42
+
+const error = errAsync("failed");
+const fallback = await error.unwrapOr(0); // 0
+\`\`\`
+
+### match()
+
+Pattern matching function that executes different code paths based on the resolved result state.
+
+#### Type Parameters
+
+##### A: \`A\`
+
+The return type for the success case
+
+##### B: \`B = A\`
+
+The return type for the error case (defaults to A)
+
+> **ok**: \`(t) => A\` — Function to execute if this resolves to a success result<br />
+> **err**: \`(e) => B\` — Function to execute if this resolves to an error result<br />
+> **Returns**: \`Promise<A | B>\` — A Promise that resolves to the result of executing the appropriate function
+
+
+
+#### Example
+
+\`\`\`typescript
+const result = okAsync(Promise.resolve(42));
+
+const message = await result.match(
+  value => \`Success: \${value}\`,
+  error => \`Error: \${error}\`
+); // "Success: 42"
+
+const processed = await result.match(
+  async value => {
+    const doubled = value * 2;
+    await saveToDatabase(doubled);
+    return doubled;
+  },
+  error => 0
+); // 84
+\`\`\`
+
+### orElse()
+
+Provides an alternative ResultAsync when this resolves to an error.
+If this resolves to a success result, the original value is returned unchanged.
+
+#### Type Parameters
+
+##### U: \`U\`
+
+The type of the success value in the returned ResultAsync
+
+##### F: \`F\`
+
+The type of the error value in the returned ResultAsync
+
+> **f**: \`(e) => ResultAsync<U, F>\` — Function that returns a ResultAsync to use as fallback<br />
+> **Returns**: \`ResultAsync<T | U, F>\` — A new ResultAsync with the original value or the fallback result
+
+
+
+#### Example
+
+\`\`\`typescript
+const result = errAsync("network error");
+const fallback = result.orElse(() => okAsync("cached data"));
+const resolved = await fallback; // Ok("cached data")
+
+const success = okAsync(42);
+const noFallback = success.orElse(() => errAsync("fallback"));
+const value = await noFallback; // Ok(42)
+\`\`\`
+
+### then()
+
+Implements the PromiseLike interface, allowing ResultAsync to be used
+with Promise methods like .then(), .catch(), and await.
+
+Provides seamless integration with native Promise APIs and async/await syntax.
+
+#### Type Parameters
+
+##### TResult1: <code>TResult1 = [Result](./Result.md)&lt;T, E&gt;</code>
+
+The type of the fulfilled result
+
+##### TResult2: \`TResult2 = never\`
+
+The type of the rejected result
+
+> **onfulfilled?**: \`Optional callback for when the Promise is fulfilled\` — (\`value\`) => \`TResult1\` \\| \`PromiseLike\`\\<\`TResult1\`\\> | \`null\`<br />
+> **onrejected?**: \`Optional callback for when the Promise is rejected\` — (\`reason\`) => \`TResult2\` \\| \`PromiseLike\`\\<\`TResult2\`\\> | \`null\`<br />
+> **Returns**: \`Promise<TResult1 | TResult2>\` — A Promise that resolves to the result of the callbacks
+
+
+
+#### Example
+
+\`\`\`typescript
+const result = okAsync(Promise.resolve("hello"));
+
+// Use with .then()
+result.then(
+  res => res.isOk() ? res.value : "error",
+  error => "promise rejected"
+);
+
+// Use with .catch()
+result.catch(error => console.error(error));
+\`\`\`
+
+#### Implementation of
+
+\`PromiseLike.then\`"
+`;
+
+exports[`Classes — zygos > err (class, properties, methods) 1`] = `
+"# Err\\<T, E\\>
+
+Represents an error result containing an error value.
+
+## Since
+
+1.1.0
+
+
+---
+
+## Type Parameters
+
+### T: \`T\`
+
+The type of the success value (unused in Err)
+
+### E: \`E\`
+
+The type of the error value
+
+---
+
+## Implements
+
+- \`IResult\`\\<\`T\`, \`E\`\\>
+
+---
+
+## Constructors
+
+### Constructor
+
+Creates a new Err result.
+
+> **error**: \`E\` — The error value to wrap<br />
+> **Returns**: \`Err<T, E>\`
+
+
+
+---
+
+## Properties
+
+### error: <code>E</code>
+
+The error value to wrap
+
+---
+
+## Methods
+
+### isOk()
+
+Always returns false for Err instances.
+
+#### Returns: \`this is Ok<T, E>\`
+
+\`false\`
+
+#### Implementation of: \`IResult.isOk\`
+
+### isErr()
+
+Always returns true for Err instances.
+Optimized to return the constant value directly.
+
+#### Returns: \`this is Err<T, E>\`
+
+\`true\`
+
+#### Implementation of: \`IResult.isErr\`
+
+### map()
+
+No-op for Err instances - the value transformation function is ignored.
+
+#### Type Parameters
+
+##### A: \`A\`
+
+The type of the transformed value (unused)
+
+> **\\_f**: \`(t) => A\` — Transformation function (ignored)<br />
+> **Returns**: <code>[Result](./Result.md)&lt;A, E&gt;</code> — A new Err result with the original error
+
+
+
+#### Implementation of: \`IResult.map\`
+
+### mapErr()
+
+Transforms the error value using the provided function.
+
+#### Type Parameters
+
+##### U: \`U\`
+
+The type of the transformed error
+
+> **f**: \`(e) => U\` — Function to transform the error value<br />
+> **Returns**: <code>[Result](./Result.md)&lt;T, U&gt;</code> — A new Err result with the transformed error
+
+
+
+#### Implementation of: \`IResult.mapErr\`
+
+### andThen()
+
+#### Call Signature
+
+No-op for Err instances - the chaining function is ignored.
+
+##### Type Parameters
+
+###### R: <code>R extends [Result](./Result.md)&lt;unknown, unknown&gt;</code>
+
+The type of the Result returned by the function (unused)
+
+> **\\_f**: \`(t) => R\` — Chaining function (ignored)<br />
+> **Returns**: <code>[Result](./Result.md)&lt;InferOkTypes&lt;R&gt;, E \\| InferErrTypes&lt;R&gt;&gt;</code> — A new Err result with the original error
+
+
+
+##### Implementation of: \`IResult.andThen\`
+
+#### Call Signature
+
+No-op for Err instances with explicit type parameters.
+
+##### Type Parameters
+
+###### U: \`U\`
+
+The type of the success value in the returned Result (unused)
+
+###### F: \`F\`
+
+The type of the error value in the returned Result (unused)
+
+> **\\_f**: <code>(t) =&gt; [Result](./Result.md)&lt;U, F&gt;</code> — Chaining function (ignored)<br />
+> **Returns**: <code>[Result](./Result.md)&lt;U, E \\| F&gt;</code> — A new Err result with the original error
+
+
+
+##### Implementation of: \`IResult.andThen\`
+
+### unwrapOr()
+
+Always returns the default value for Err instances.
+
+#### Type Parameters
+
+##### A: \`A\`
+
+The type of the default value
+
+> **v**: \`A\` — Default value to return<br />
+> **Returns**: \`T | A\` — The default value
+
+
+
+#### Implementation of: \`IResult.unwrapOr\`
+
+### match()
+
+Executes the error function with the error value.
+
+#### Type Parameters
+
+##### A: \`A\`
+
+The return type for the success case (unused)
+
+##### B: \`B = A\`
+
+The return type for the error case
+
+> **\\_ok**: \`(t) => A\` — Success function (ignored)<br />
+> **err**: \`(e) => B\` — Function to execute with the error value<br />
+> **Returns**: \`A | B\` — The result of executing the error function
+
+
+
+#### Implementation of
+
+\`IResult.match\`"
+`;
+
+exports[`Classes — zygos > ok (class, overloads) 1`] = `
+"# Ok\\<T, E\\>
+
+Represents a successful result containing a value.
+
+## Since
+
+1.1.0
+
+
+---
+
+## Type Parameters
+
+### T: \`T\`
+
+The type of the success value
+
+### E: \`E\`
+
+The type of the error value (unused in Ok)
+
+---
+
+## Implements
+
+- \`IResult\`\\<\`T\`, \`E\`\\>
+
+---
+
+## Constructors
+
+### Constructor
+
+Creates a new Ok result.
+
+> **value**: \`T\` — The success value to wrap<br />
+> **Returns**: \`Ok<T, E>\`
+
+
+
+---
+
+## Properties
+
+### value: <code>T</code>
+
+The success value to wrap
+
+---
+
+## Methods
+
+### isOk()
+
+Always returns true for Ok instances.
+
+#### Returns: \`this is Ok<T, E>\`
+
+\`true\`
+
+#### Implementation of: \`IResult.isOk\`
+
+### isErr()
+
+Always returns false for Ok instances.
+Optimized to return the constant value directly.
+
+#### Returns: \`this is Err<T, E>\`
+
+\`false\`
+
+#### Implementation of: \`IResult.isErr\`
+
+### map()
+
+Transforms the success value using the provided function.
+
+#### Type Parameters
+
+##### A: \`A\`
+
+The type of the transformed value
+
+> **f**: \`(t) => A\` — Function to transform the success value<br />
+> **Returns**: <code>[Result](./Result.md)&lt;A, E&gt;</code> — A new Ok result with the transformed value
+
+
+
+#### Implementation of: \`IResult.map\`
+
+### mapErr()
+
+No-op for Ok instances - the error transformation function is ignored.
+
+#### Type Parameters
+
+##### U: \`U\`
+
+The type of the transformed error (unused)
+
+> **\\_f**: \`(e) => U\` — Error transformation function (ignored)<br />
+> **Returns**: <code>[Result](./Result.md)&lt;T, U&gt;</code> — A new Ok result with the original value
+
+
+
+#### Implementation of: \`IResult.mapErr\`
+
+### andThen()
+
+#### Call Signature
+
+Chains operations by applying the provided function to the success value.
+
+##### Type Parameters
+
+###### R: <code>R extends [Result](./Result.md)&lt;unknown, unknown&gt;</code>
+
+The type of the Result returned by the function
+
+> **f**: \`(t) => R\` — Function that takes the success value and returns a new Result<br />
+> **Returns**: <code>[Result](./Result.md)&lt;InferOkTypes&lt;R&gt;, E \\| InferErrTypes&lt;R&gt;&gt;</code> — The Result returned by the function
+
+
+
+##### Implementation of: \`IResult.andThen\`
+
+#### Call Signature
+
+Chains operations with explicit type parameters.
+
+##### Type Parameters
+
+###### U: \`U\`
+
+The type of the success value in the returned Result
+
+###### F: \`F\`
+
+The type of the error value in the returned Result
+
+> **f**: <code>(t) =&gt; [Result](./Result.md)&lt;U, F&gt;</code> — Function that takes the success value and returns a new Result<br />
+> **Returns**: <code>[Result](./Result.md)&lt;U, E \\| F&gt;</code> — The Result returned by the function
+
+
+
+##### Implementation of: \`IResult.andThen\`
+
+### unwrapOr()
+
+Always returns the success value for Ok instances.
+
+#### Type Parameters
+
+##### A: \`A\`
+
+The type of the default value (unused)
+
+> **\\_v**: \`A\` — Default value (ignored)<br />
+> **Returns**: \`T | A\` — The success value
+
+
+
+#### Implementation of: \`IResult.unwrapOr\`
+
+### match()
+
+Executes the success function with the success value.
+
+#### Type Parameters
+
+##### A: \`A\`
+
+The return type for the success case
+
+##### B: \`B = A\`
+
+The return type for the error case (unused)
+
+> **ok**: \`(t) => A\` — Function to execute with the success value<br />
+> **\\_err**: \`(e) => B\` — Error function (ignored)<br />
+> **Returns**: \`A | B\` — The result of executing the success function
+
+
+
+#### Implementation of
+
+\`IResult.match\`"
+`;
+
+exports[`Interfaces — zygos > Either (type alias) 1`] = `
+"# Either\\<E, A\\>
+
+> **Either**\\<\`E\`, \`A\`\\> = [\`Left\`](./left.md)\\<\`E\`\\> \\| [\`Right\`](./right.md)\\<\`A\`\\>
+
+Either type representing a value that can be either Left (error) or Right (success).
+
+
+---
+
+## Type Parameters
+
+### E: \`E\`
+
+The error type.
+
+### A: \`A\`
+
+The success type.
+
+---
+
+## Since
+
+1.0.0"
+`;
+
+exports[`Interfaces — zygos > Result (type alias) 1`] = `
+"# Result\\<T, E\\>
+
+> **Result**\\<\`T\`, \`E\`\\> = [\`Ok\`](./ok.md)\\<\`T\`, \`E\`\\> \\| [\`Err\`](./err.md)\\<\`T\`, \`E\`\\>
+
+Union type representing either a successful result (Ok) or an error result (Err).
+
+
+---
+
+## Type Parameters
+
+### T: \`T\`
+
+The type of the success value
+
+### E: \`E\`
+
+The type of the error value
+
+---
+
+## Since
+
+1.1.0"
+`;
+
+exports[`Interfaces — zygos > left (interface, properties) 1`] = `
+"# left()
+
+> **left**\\<\`E\`, \`A\`\\>(\`e\`): [\`Either\`](./Either.md)\\<\`E\`, \`A\`\\>
+
+Creates a Left Either containing an error value.
+
+
+---
+
+## Type Parameters
+
+### E: \`E = never\`
+
+The error type.
+
+### A: \`A = never\`
+
+The success type.
+
+---
+
+## Parameters
+
+### e: \`E\`
+
+The error value.
+
+---
+
+## Returns: <code>[Either](./Either.md)&lt;E, A&gt;</code>
+
+A Left Either.
+
+---
+
+## Since
+
+1.0.0
+
+<div className="merged-type-separator"></div>
+
+## Left\\<E\\> {#left}
+
+<span title="Type: Interface" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Interface</span>
+
+Represents the Left variant of Either containing an error value.
+
+---
+
+## Since
+
+1.0.0
+
+---
+
+## Type Parameters
+
+### E: \`E\`
+
+The error type.
+
+---
+
+## Properties
+
+### \\_tag: \`> readonly *\\_tag*: "Left"\`
+
+### left
+
+> \`readonly\` **left**: \`E\`"
+`;
+
+exports[`Interfaces — zygos > right (interface, properties) 1`] = `
+"# right()
+
+> **right**\\<\`E\`, \`A\`\\>(\`a\`): [\`Either\`](./Either.md)\\<\`E\`, \`A\`\\>
+
+Creates a Right Either containing a success value.
+
+
+---
+
+## Type Parameters
+
+### E: \`E = never\`
+
+The error type.
+
+### A: \`A = never\`
+
+The success type.
+
+---
+
+## Parameters
+
+### a: \`A\`
+
+The success value.
+
+---
+
+## Returns: <code>[Either](./Either.md)&lt;E, A&gt;</code>
+
+A Right Either.
+
+---
+
+## Since
+
+1.0.0
+
+<div className="merged-type-separator"></div>
+
+## Right\\<A\\> {#right}
+
+<span title="Type: Interface" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Interface</span>
+
+Represents the Right variant of Either containing a success value.
+
+---
+
+## Since
+
+1.0.0
+
+---
+
+## Type Parameters
+
+### A: \`A\`
+
+The success type.
+
+---
+
+## Properties
+
+### \\_tag: \`> readonly *\\_tag*: "Right"\`
+
+### right
+
+> \`readonly\` **right**: \`A\`"
+`;
+
+exports[`Interfaces — zygos > some (interface, properties) 1`] = `
+"# some()
+
+> **some**\\<\`A\`\\>(\`a\`): [\`Option\`](./Option.md)\\<\`A\`\\>
+
+Creates a Some containing the given value.
+
+
+---
+
+## Type Parameters
+
+### A: \`A\`
+
+The value type.
+
+---
+
+## Parameters
+
+### a: \`A\`
+
+The value to wrap.
+
+---
+
+## Returns: <code>[Option](./Option.md)&lt;A&gt;</code>
+
+A Some containing the value.
+
+---
+
+## Since
+
+1.0.0
+
+<div className="merged-type-separator"></div>
+
+## Some\\<A\\> {#some}
+
+<span title="Type: Interface" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Interface</span>
+
+Represents the presence of a value.
+
+---
+
+## Since
+
+1.0.0
+
+---
+
+## Type Parameters
+
+### A: \`A\`
+
+The value type.
+
+---
+
+## Properties
+
+### \\_tag: \`> readonly *\\_tag*: "Some"\`
+
+### value
+
+> \`readonly\` **value**: \`A\`"
+`;
+
+exports[`Types — arkhe > ConsoleMock (interface) 1`] = `
+"# ConsoleMock
+
+Mock object for a single console method.
+
+## Since
+
+1.0.0
+
+---
+
+## Properties
+
+<a id="calls"></a>
+
+### calls: <code>[ConsoleCall](./ConsoleCall.md)[]</code>
+
+All recorded calls.
+
+<a id="callCount"></a>
+
+### callCount: <code>number</code>
+
+Number of times the method was called.
+
+<a id="clear"></a>
+
+### clear(): <code>() =&gt; void</code>
+
+Clears recorded calls.
+
+
+---
+
+#### Returns
+
+\`void\`"
+`;
+
+exports[`Types — arkhe > Interval (interface) 1`] = `
+"# Interval
+
+Represents a mathematical interval with start, end, and optional step.
+
+## Since
+
+1.0.0
+
+---
+
+## Example
+
+\`\`\`typescript
+const timeInterval: Interval = {
+  start: 0,
+  end: 10,
+  step: 1
+};
+\`\`\`
+
+---
+
+## Properties
+
+<a id="start"></a>
+
+### start: <code>number</code>
+
+Start value of the interval
+
+<a id="end"></a>
+
+### end: <code>number</code>
+
+End value of the interval
+
+<a id="step"></a>
+
+### step?: <code>number</code>
+
+Step size for progression (default: 1)"
+`;
+
+exports[`Types — arkhe > Point (interface) 1`] = `
+"# Point
+
+Represents a 2D point with x and y coordinates.
+
+## Since
+
+1.0.0
+
+---
+
+## Properties
+
+<a id="x"></a>
+
+### x: <code>number</code>
+
+X coordinate.
+
+<a id="y"></a>
+
+### y: <code>number</code>
+
+Y coordinate."
+`;
+
+exports[`Types — kanon > ObjectExtension (kanon, type) 1`] = `
+"# ObjectExtension\\<T\\>
+
+> **ObjectExtension**\\<\`T\`\\> = \`object\`
+
+Extension methods for object constraints.
+
+## Since
+
+3.0.0
+
+
+---
+
+## Type Parameters
+
+### T: <code>T extends Record&lt;string, [GenericSchema](../base/GenericSchema.md)&gt; = Record&lt;string, [GenericSchema](../base/GenericSchema.md)&gt;</code>
+
+The object entries type
+
+---
+
+## Properties
+
+<a id="minKeys"></a>
+
+### minKeys(): <code>(min, errorMessage?) =&gt; [ObjectConstraint](./ObjectConstraint.md)&lt;T&gt;</code>
+
+> **min**: \`number\`<br />
+> **errorMessage?**: \`string\`<br />
+> **Returns**: <code>[ObjectConstraint](./ObjectConstraint.md)&lt;T&gt;</code>
+
+
+
+<a id="maxKeys"></a>
+
+### maxKeys(): <code>(max, errorMessage?) =&gt; [ObjectConstraint](./ObjectConstraint.md)&lt;T&gt;</code>
+
+> **max**: \`number\`<br />
+> **errorMessage?**: \`string\`<br />
+> **Returns**: <code>[ObjectConstraint](./ObjectConstraint.md)&lt;T&gt;</code>
+
+
+
+<a id="strict"></a>
+
+### strict(): <code>(errorMessage?) =&gt; [ObjectConstraint](./ObjectConstraint.md)&lt;T&gt;</code>
+
+> **errorMessage?**: \`string\`<br />
+> **Returns**: <code>[ObjectConstraint](./ObjectConstraint.md)&lt;T&gt;</code>
+
+"
+`;
+
+exports[`Types — kanon > Schema (kanon, interface) 1`] = `
+"# Schema\\<T\\>
+
+Base interface for all Kanon schemas.
+
+## Since
+
+3.0.0
+
+
+---
+
+## Type Parameters
+
+### T: \`T = unknown\`
+
+The type that this schema validates
+
+---
+
+## Properties
+
+<a id="type"></a>
+
+### type: <code>[SchemaType](./SchemaType.md)</code>
+
+<a id="message"></a>
+
+### message?: <code>string</code>
+
+<a id="refinements"></a>
+
+### refinements?: <code>(value) =&gt; string \\| true[]</code>
+
+> **value**: \`T\`<br />
+> **Returns**: \`string | true\`
+
+
+
+<a id="validator"></a>
+
+### validator(): <code>(value) =&gt; [ValidatorResult](./ValidatorResult.md)&lt;T&gt;</code>
+
+> **value**: \`unknown\`<br />
+> **Returns**: <code>[ValidatorResult](./ValidatorResult.md)&lt;T&gt;</code>
+
+"
+`;
+
+exports[`Types — kanon > string schema (kanon) 1`] = `
+"# string()
+
+> **string**(\`message?\`): [\`StringConstraint\`](../../types/constraints/StringConstraint.md)
+
+String schema with 0 overhead after tsup + Terser build.
+
+Usage identical to before:
+- string()
+- string("Custom error")
+- string().minLength(5)
+- string().email()
+
+
+---
+
+## Parameters
+
+### message?: \`string\`
+
+Custom error message (optional).
+
+---
+
+## Returns: <code>[StringConstraint](../../types/constraints/StringConstraint.md)</code>
+
+StringConstraint with all constraints.
+
+---
+
+## Since
+
+3.0.0"
+`;

@@ -160,3 +160,90 @@ describe("refinements builder", () => {
     });
   });
 });
+
+
+describe("[👾] Mutation: refinements code generation", () => {
+  it("[👾] debug comment only appears when both debug=true AND index is provided", () => {
+    const refinement: RefinementFn<string> = () => true;
+
+    // debug=false + index provided → no comment
+    const ctx1 = createGeneratorContext({ debug: false });
+    const r1 = generateRefinementCall("value", refinement, ctx1, 0);
+    expect(r1.code).not.toContain("// Refinement");
+
+    // debug=true + no index → no comment
+    const ctx2 = createGeneratorContext({ debug: true });
+    const r2 = generateRefinementCall("value", refinement, ctx2);
+    expect(r2.code).not.toContain("// Refinement");
+  });
+
+  it("[👾] prefixPath with path prepends Property prefix to error", () => {
+    let ctx = createGeneratorContext();
+    ctx = { ...ctx, path: ["user", "name"] };
+    const refinement: RefinementFn<string> = () => true;
+
+    const result = generateRefinementCall("value", refinement, ctx, undefined, { prefixPath: true });
+
+    expect(result.code).toContain("Property 'user.name': ");
+    expect(result.code).toContain('return "Property');
+  });
+
+  it("[👾] prefixPath without path returns raw result (no prefix)", () => {
+    const ctx = createGeneratorContext();
+    const refinement: RefinementFn<string> = () => true;
+
+    const result = generateRefinementCall("value", refinement, ctx, undefined, { prefixPath: true });
+
+    // No path → should return raw result, not prefixed
+    expect(result.code).not.toContain("Property");
+    expect(result.code).toContain("return ref_result_0");
+  });
+
+  it("[👾] prefixPath with path generates executable error prefix code", () => {
+    let ctx = createGeneratorContext();
+    ctx = { ...ctx, path: ["items", "0"] };
+    const refinement: RefinementFn<string> = (v) => v.length > 0 || "Cannot be empty";
+
+    const result = generateRefinementCall("value", refinement, ctx, undefined, { prefixPath: true });
+
+    const code = `${result.code}\nreturn true;`;
+    // eslint-disable-next-line no-new-func
+    const fn = new Function("value", "externals", code);
+
+    // Valid value → true
+    expect(fn("hello", result.ctx.externals)).toBe(true);
+    // Invalid value → prefixed error
+    const err = fn("", result.ctx.externals);
+    expect(err).toContain("Property 'items[0]'");
+    expect(err).toContain("Cannot be empty");
+  });
+
+  it("[👾] code lines are joined with newline", () => {
+    const ctx = createGeneratorContext();
+    const refinement: RefinementFn<string> = () => true;
+
+    const result = generateRefinementCall("value", refinement, ctx);
+
+    expect(result.code).toContain("\n");
+  });
+});
+
+
+describe("[👾] Mutation: prefixPath false vs true", () => {
+  it("[👾] without prefixPath, error is NOT prefixed even when path exists", () => {
+    let ctx = createGeneratorContext();
+    ctx = { ...ctx, path: ["user", "name"] };
+    const refinement: RefinementFn<string> = (v) => v.length > 0 || "Cannot be empty";
+
+    // No prefixPath option → should NOT prefix
+    const result = generateRefinementCall("value", refinement, ctx);
+
+    const code = `${result.code}\nreturn true;`;
+    // eslint-disable-next-line no-new-func
+    const fn = new Function("value", "externals", code);
+
+    const err = fn("", result.ctx.externals);
+    expect(err).toBe("Cannot be empty");
+    expect(err).not.toContain("Property");
+  });
+});

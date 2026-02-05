@@ -214,8 +214,9 @@ async function computeEmbedding(text: string): Promise<number[]> {
     throw new Error("Model not loaded");
   }
 
-  const output = await extractor(text, { pooling: "mean", normalize: true });
-  return Array.from(output.data as Float32Array);
+  const output = await extractor(text, { pooling: "mean", normalize: true } as any);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return Array.from((output as any).data as Float32Array);
 }
 
 async function setEntries(newEntries: EmbeddingEntry[]): Promise<void> {

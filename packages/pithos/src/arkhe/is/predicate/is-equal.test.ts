@@ -193,4 +193,22 @@ describe("isEqual", () => {
     expect(isEqual(set1, set2)).toBe(false);
   });
 
+  it("[👾] nested null vs object returns false in deep comparison", () => {
+    // Exercises isEqualDeep guard: value === null, other is object
+    expect(isEqual({ a: null }, { a: {} })).toBe(false);
+    expect(isEqual({ a: {} }, { a: null })).toBe(false);
+  });
+
+  it("[👾] nested primitive vs object returns false in deep comparison", () => {
+    // Exercises isEqualDeep guard: typeof value !== "object"
+    expect(isEqual({ a: 1 }, { a: {} })).toBe(false);
+    expect(isEqual({ a: {} }, { a: 1 })).toBe(false);
+  });
+
+  it("[👾] nested string vs object returns false in deep comparison", () => {
+    // Exercises isEqualDeep guard: typeof other !== "object"
+    expect(isEqual({ a: "x" }, { a: {} })).toBe(false);
+    expect(isEqual({ a: {} }, { a: "x" })).toBe(false);
+  });
+
 });

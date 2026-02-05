@@ -7,7 +7,7 @@ export type SortOrder = "asc" | "desc";
 /**
  * Sorts an array by multiple criteria with configurable sort orders.
  *
- * @info Why wrapping native?: We prefer to wrap this method to ensure **Immutability** instead of the native `sort` which mutates. See [Design Philosophy](/guide/design-principles/design-philosophy/)
+ * @info Why wrapping native?: We prefer to wrap this method to ensure **Immutability** instead of the native `sort` which mutates. See [Design Philosophy](/guide/contribution/design-principles/design-philosophy/)
  *
  * @info Why dual iteratee signature?: Unlike other Arkhe functions that use function-only iteratees,
  * `orderBy` accepts both `keyof T` and functions. This exception exists because multi-criteria sorting

@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pithos-spacing-sm);
+}
+
+.resultCount {
+  font-size: var(--pithos-font-size-sm);
+  color: var(--ifm-color-content-secondary);
+  padding-left: var(--pithos-spacing-xs);
+}
+
+.empty {
+  padding: var(--pithos-spacing-xl);
+  text-align: center;
+  color: var(--ifm-color-content-secondary);
+  font-style: italic;
+}

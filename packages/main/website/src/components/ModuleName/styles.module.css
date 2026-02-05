@@ -1,9 +1,0 @@
-.moduleName {
-  font-family: var(--greek-font), serif;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.moduleName a {
-  color: var(--golden-color) !important;
-}

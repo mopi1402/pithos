@@ -1,38 +1,3 @@
-/**
- * Kanon namespace object - Zod-like API
- *
- * Provides a single entry point for all Kanon schemas, similar to Zod's `z` object.
- *
- * @note **Tree-shaking warning**: Importing `k` includes ALL Kanon schemas in your bundle,
- * even if you only use a subset. This is the same trade-off as Zod's `z` object.
- * For optimal bundle size, prefer direct imports:
- *
- * ```typescript
- * // ❌ No tree-shaking (imports everything)
- * import { k } from '@kanon/helpers/k';
- * k.string();
- *
- * // ✅ Tree-shakeable (imports only what you use)
- * import { string } from '@kanon/schemas/primitives/string';
- * string();
- * ```
- *
- * @example
- * ```typescript
- * import { k } from '@kanon/helpers/k';
- *
- * const userSchema = k.object({
- *   name: k.string().minLength(1),
- *   age: k.number().min(0),
- *   email: k.string().email(),
- * });
- *
- * const result = k.parse(userSchema, input);
- * ```
- *
- * @since 3.0.0
- */
-
 // Primitives
 import { string } from "@kanon/schemas/primitives/string";
 import { number } from "@kanon/schemas/primitives/number";
@@ -91,77 +56,150 @@ import { parse, parseBulk } from "@kanon/core/parser";
 /**
  * Kanon namespace object providing a single entry point for all schemas.
  *
+ * Similar to Zod's `z` object.
+ *
  * @since 3.0.0
+ *
+ * @note **Tree-shaking warning**: Importing `k` includes ALL Kanon schemas
+ * in your bundle, even if you only use a subset. For optimal bundle size,
+ * prefer direct imports.
+ *
+ * @example
+ * ```typescript
+ * import { k } from '@kanon/helpers/k';
+ *
+ * const userSchema = k.object({
+ *   name: k.string().minLength(1),
+ *   age: k.number().min(0),
+ *   email: k.string().email(),
+ * });
+ *
+ * const result = k.parse(userSchema, input);
+ * ```
  */
 export const k = {
   // Primitives
+  /** Creates a string schema. */
   string,
+  /** Creates a number schema. */
   number,
+  /** Creates a boolean schema. */
   boolean,
+  /** Creates a Date schema. */
   date,
+  /** Creates a bigint schema. */
   bigint,
+  /** Creates a symbol schema. */
   symbol,
+  /** Creates an integer schema. */
   int,
+  /** Creates a null schema. */
   null: null_,
+  /** Creates an undefined schema. */
   undefined: undefined_,
+  /** Creates a void schema. */
   void: void_,
+  /** Creates a never schema. */
   never,
+  /** Creates a schema accepting any value. */
   any,
+  /** Creates a schema accepting unknown values. */
   unknown,
+  /** Creates a literal schema for a specific value. */
   literal,
+  /** Creates a string enum schema. */
   enum: enum_,
+  /** Creates a number enum schema. */
   numberEnum,
+  /** Creates a boolean enum schema. */
   booleanEnum,
+  /** Creates a mixed enum schema. */
   mixedEnum,
+  /** Creates a schema from a TypeScript native enum. */
   nativeEnum,
 
   // Composites
+  /** Creates an object schema from a shape. */
   object,
+  /** Creates a strict object schema that rejects unknown keys. */
   strictObject,
+  /** Creates a loose object schema that allows unknown keys. */
   looseObject,
+  /** Creates an array schema. */
   array,
+  /** Creates a tuple schema from a list of schemas. */
   tuple,
+  /** Creates a typed 2-element tuple. */
   tupleOf,
+  /** Creates a typed 3-element tuple. */
   tupleOf3,
+  /** Creates a typed 4-element tuple. */
   tupleOf4,
+  /** Creates a tuple schema with a rest element. */
   tupleWithRest,
+  /** Creates a record schema with key and value schemas. */
   record,
+  /** Creates a `Map` schema. */
   map,
+  /** Creates a `Set` schema. */
   set,
 
   // Operators
+  /** Creates a union schema. Alias for `unionOf`. */
   union: unionOf,
+  /** Creates a union of 2 schemas. */
   unionOf,
+  /** Creates a union of 3 schemas. */
   unionOf3,
+  /** Creates a union of 4 schemas. */
   unionOf4,
+  /** Creates an intersection of 2 schemas. */
   intersection,
+  /** Creates an intersection of 3 schemas. */
   intersection3,
 
   // Transforms
+  /** Makes all properties of an object schema optional. */
   partial,
+  /** Makes all properties of an object schema required. */
   required,
+  /** Picks a subset of properties from an object schema. */
   pick,
+  /** Omits a subset of properties from an object schema. */
   omit,
+  /** Extracts the string keys of an object schema. */
   keyof,
 
   // Wrappers
+  /** Wraps a schema to also accept `undefined`. */
   optional,
+  /** Wraps a schema to also accept `null`. */
   nullable,
+  /** Provides a default value when validation fails. */
   default: default_,
+  /** Marks a schema output as readonly. */
   readonly,
+  /** Creates a lazy schema for recursive types. */
   lazy,
 
-  // Coerce namespace
+  /** Namespace for coercion schemas. */
   coerce: {
+    /** Coerces input to string before validating. */
     string: coerceString,
+    /** Coerces input to number before validating. */
     number: coerceNumber,
+    /** Coerces input to boolean before validating. */
     boolean: coerceBoolean,
+    /** Coerces input to Date before validating. */
     date: coerceDate,
+    /** Coerces input to bigint before validating. */
     bigint: coerceBigInt,
   },
 
   // Core
+  /** Validates a value against a schema. */
   parse,
+  /** Validates an array of values against a schema. */
   parseBulk,
 } as const;
 

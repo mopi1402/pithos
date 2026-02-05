@@ -1,9 +1,4 @@
-/**
- * Tests for Primitives Code Builder (null, undefined, any, unknown, never, void, symbol)
- */
-
 import { describe, it, expect } from "vitest";
-import { createGeneratorContext, pushPath } from "../../context";
 import {
   generateNullTypeCheck,
   generateNullValidation,
@@ -18,172 +13,166 @@ import {
   generateSymbolTypeCheck,
   generateSymbolValidation,
 } from "./others";
+import { createGeneratorContext, pushPath } from "../../context";
 
-describe("Primitives Code Builder", () => {
-  describe("generateNullTypeCheck", () => {
-    it("generates correct null check code", () => {
+describe("others builder", () => {
+  describe("[🎯] Coverage Tests", () => {
+    // ── Null ──
+
+    it("[🎯] generateNullTypeCheck with debug + path", () => {
+      let ctx = createGeneratorContext({ debug: true });
+      ctx = pushPath(ctx, "n");
+      const { code } = generateNullTypeCheck("v", ctx);
+      expect(code).toContain("Property 'n'");
+    });
+
+    it("[🎯] generateNullTypeCheck with custom message", () => {
       const ctx = createGeneratorContext();
-      const result = generateNullTypeCheck("value", ctx);
-      expect(result.code).toBe('if (value !== null) return "Expected null";');
+      const { code } = generateNullTypeCheck("v", ctx, "custom null");
+      expect(code).toContain("custom null");
     });
 
-    it("includes path in error message when path is set", () => {
-      const ctx = pushPath(createGeneratorContext(), "data");
-      const result = generateNullTypeCheck("v_0", ctx);
-      expect(result.code).toBe('if (v_0 !== null) return "Property \'data\': Expected null";');
-    });
-  });
-
-  describe("generateNullValidation", () => {
-    it("generates null validation code", () => {
+    it("[🎯] generateNullValidation wraps type check", () => {
       const ctx = createGeneratorContext();
-      const result = generateNullValidation("value", ctx);
-      expect(result.code).toHaveLength(1);
-      expect(result.code[0]).toContain("value !== null");
+      const { code } = generateNullValidation("v", ctx);
+      expect(code).toHaveLength(1);
+      expect(code[0]).toContain("v !== null");
     });
-  });
 
-  describe("generateUndefinedTypeCheck", () => {
-    it("generates correct undefined check code", () => {
+    // ── Undefined ──
+
+    it("[🎯] generateUndefinedTypeCheck with debug + path", () => {
+      let ctx = createGeneratorContext({ debug: true });
+      ctx = pushPath(ctx, "u");
+      const { code } = generateUndefinedTypeCheck("v", ctx);
+      expect(code).toContain("Property 'u'");
+    });
+
+    it("[🎯] generateUndefinedTypeCheck with custom message", () => {
       const ctx = createGeneratorContext();
-      const result = generateUndefinedTypeCheck("value", ctx);
-      expect(result.code).toBe('if (value !== undefined) return "Expected undefined";');
+      const { code } = generateUndefinedTypeCheck("v", ctx, "custom undef");
+      expect(code).toContain("custom undef");
     });
-  });
 
-  describe("generateUndefinedValidation", () => {
-    it("generates undefined validation code", () => {
+    it("[🎯] generateUndefinedValidation wraps type check", () => {
       const ctx = createGeneratorContext();
-      const result = generateUndefinedValidation("value", ctx);
-      expect(result.code).toHaveLength(1);
-      expect(result.code[0]).toContain("value !== undefined");
+      const { code } = generateUndefinedValidation("v", ctx);
+      expect(code).toHaveLength(1);
+      expect(code[0]).toContain("v !== undefined");
     });
-  });
 
-  describe("generateAnyValidation", () => {
-    it("generates no validation code for any type", () => {
+    // ── Any ──
+
+    it("[🎯] generateAnyValidation returns empty code", () => {
       const ctx = createGeneratorContext();
-      const result = generateAnyValidation("value", ctx);
-      expect(result.code).toHaveLength(0);
+      const { code } = generateAnyValidation("v", ctx);
+      expect(code).toHaveLength(0);
     });
-  });
 
-  describe("generateUnknownValidation", () => {
-    it("generates no validation code for unknown type", () => {
+    // ── Unknown ──
+
+    it("[🎯] generateUnknownValidation returns empty code", () => {
       const ctx = createGeneratorContext();
-      const result = generateUnknownValidation("value", ctx);
-      expect(result.code).toHaveLength(0);
+      const { code } = generateUnknownValidation("v", ctx);
+      expect(code).toHaveLength(0);
     });
-  });
 
-  describe("generateNeverTypeCheck", () => {
-    it("generates unconditional error for never type", () => {
+    // ── Never ──
+
+    it("[🎯] generateNeverTypeCheck with debug + path", () => {
+      let ctx = createGeneratorContext({ debug: true });
+      ctx = pushPath(ctx, "nv");
+      const { code } = generateNeverTypeCheck("v", ctx);
+      expect(code).toContain("Property 'nv'");
+    });
+
+    it("[🎯] generateNeverTypeCheck with custom message", () => {
       const ctx = createGeneratorContext();
-      const result = generateNeverTypeCheck("value", ctx);
-      expect(result.code).toBe('return "This value should never exist";');
+      const { code } = generateNeverTypeCheck("v", ctx, "custom never");
+      expect(code).toContain("custom never");
     });
-  });
 
-  describe("generateNeverValidation", () => {
-    it("generates never validation code", () => {
+    it("[🎯] generateNeverValidation wraps type check", () => {
       const ctx = createGeneratorContext();
-      const result = generateNeverValidation("value", ctx);
-      expect(result.code).toHaveLength(1);
-      expect(result.code[0]).toContain("This value should never exist");
+      const { code } = generateNeverValidation("v", ctx);
+      expect(code).toHaveLength(1);
+      expect(code[0]).toContain("return");
     });
-  });
 
-  describe("generateVoidTypeCheck", () => {
-    it("generates correct void check code (accepts undefined)", () => {
+    // ── Void ──
+
+    it("[🎯] generateVoidTypeCheck with debug + path", () => {
+      let ctx = createGeneratorContext({ debug: true });
+      ctx = pushPath(ctx, "vo");
+      const { code } = generateVoidTypeCheck("v", ctx);
+      expect(code).toContain("Property 'vo'");
+    });
+
+    it("[🎯] generateVoidTypeCheck with custom message", () => {
       const ctx = createGeneratorContext();
-      const result = generateVoidTypeCheck("value", ctx);
-      expect(result.code).toBe('if (value !== undefined) return "Expected void (undefined)";');
+      const { code } = generateVoidTypeCheck("v", ctx, "custom void");
+      expect(code).toContain("custom void");
     });
-  });
 
-  describe("generateVoidValidation", () => {
-    it("generates void validation code", () => {
+    it("[🎯] generateVoidValidation wraps type check", () => {
       const ctx = createGeneratorContext();
-      const result = generateVoidValidation("value", ctx);
-      expect(result.code).toHaveLength(1);
-      expect(result.code[0]).toContain("value !== undefined");
+      const { code } = generateVoidValidation("v", ctx);
+      expect(code).toHaveLength(1);
+      expect(code[0]).toContain("v !== undefined");
     });
-  });
 
-  describe("generateSymbolTypeCheck", () => {
-    it("generates correct symbol check code", () => {
+    // ── Symbol ──
+
+    it("[🎯] generateSymbolTypeCheck with debug + path", () => {
+      let ctx = createGeneratorContext({ debug: true });
+      ctx = pushPath(ctx, "s");
+      const { code } = generateSymbolTypeCheck("v", ctx);
+      expect(code).toContain("Property 's'");
+    });
+
+    it("[🎯] generateSymbolTypeCheck with custom message", () => {
       const ctx = createGeneratorContext();
-      const result = generateSymbolTypeCheck("value", ctx);
-      expect(result.code).toBe('if (typeof value !== "symbol") return "Expected symbol";');
+      const { code } = generateSymbolTypeCheck("v", ctx, "custom sym");
+      expect(code).toContain("custom sym");
     });
-  });
 
-  describe("generateSymbolValidation", () => {
-    it("generates symbol validation code", () => {
+    it("[🎯] generateSymbolValidation wraps type check", () => {
       const ctx = createGeneratorContext();
-      const result = generateSymbolValidation("value", ctx);
-      expect(result.code).toHaveLength(1);
-      expect(result.code[0]).toContain('typeof value !== "symbol"');
+      const { code } = generateSymbolValidation("v", ctx);
+      expect(code).toHaveLength(1);
+      expect(code[0]).toContain('typeof v !== "symbol"');
     });
-  });
-});
 
-describe("Primitives generated code execution", () => {
-  it("null check works correctly when executed", () => {
-    const ctx = createGeneratorContext();
-    const result = generateNullTypeCheck("value", ctx);
-    // eslint-disable-next-line no-new-func
-    const fn = new Function("value", `${result.code} return true;`);
-    
-    expect(fn(null)).toBe(true);
-    expect(fn(undefined)).toBe("Expected null");
-    expect(fn(0)).toBe("Expected null");
-    expect(fn("")).toBe("Expected null");
-  });
+    // ── [👾] Mutation tests: no-debug + no-path exact output ──
 
-  it("undefined check works correctly when executed", () => {
-    const ctx = createGeneratorContext();
-    const result = generateUndefinedTypeCheck("value", ctx);
-    // eslint-disable-next-line no-new-func
-    const fn = new Function("value", `${result.code} return true;`);
-    
-    expect(fn(undefined)).toBe(true);
-    expect(fn(null)).toBe("Expected undefined");
-    expect(fn(0)).toBe("Expected undefined");
-  });
+    it("[👾] generateNullTypeCheck without debug/path has no indent and exact error", () => {
+      const ctx = createGeneratorContext();
+      const { code } = generateNullTypeCheck("v", ctx);
+      expect(code).toBe('if (v !== null) return "Expected null";');
+    });
 
-  it("never check always fails when executed", () => {
-    const ctx = createGeneratorContext();
-    const result = generateNeverTypeCheck("value", ctx);
-    // eslint-disable-next-line no-new-func
-    const fn = new Function("value", `${result.code} return true;`);
-    
-    expect(fn(null)).toBe("This value should never exist");
-    expect(fn(undefined)).toBe("This value should never exist");
-    expect(fn(42)).toBe("This value should never exist");
-    expect(fn("hello")).toBe("This value should never exist");
-  });
+    it("[👾] generateUndefinedTypeCheck without debug/path has no indent and exact error", () => {
+      const ctx = createGeneratorContext();
+      const { code } = generateUndefinedTypeCheck("v", ctx);
+      expect(code).toBe('if (v !== undefined) return "Expected undefined";');
+    });
 
-  it("void check works correctly when executed", () => {
-    const ctx = createGeneratorContext();
-    const result = generateVoidTypeCheck("value", ctx);
-    // eslint-disable-next-line no-new-func
-    const fn = new Function("value", `${result.code} return true;`);
-    
-    expect(fn(undefined)).toBe(true);
-    expect(fn(null)).toBe("Expected void (undefined)");
-    expect(fn(0)).toBe("Expected void (undefined)");
-  });
+    it("[👾] generateNeverTypeCheck without debug/path has no indent and exact error", () => {
+      const ctx = createGeneratorContext();
+      const { code } = generateNeverTypeCheck("v", ctx);
+      expect(code).toBe('return "This value should never exist";');
+    });
 
-  it("symbol check works correctly when executed", () => {
-    const ctx = createGeneratorContext();
-    const result = generateSymbolTypeCheck("value", ctx);
-    // eslint-disable-next-line no-new-func
-    const fn = new Function("value", `${result.code} return true;`);
-    
-    expect(fn(Symbol("test"))).toBe(true);
-    expect(fn(Symbol.for("test"))).toBe(true);
-    expect(fn("symbol")).toBe("Expected symbol");
-    expect(fn(123)).toBe("Expected symbol");
+    it("[👾] generateVoidTypeCheck without debug/path has no indent and exact error", () => {
+      const ctx = createGeneratorContext();
+      const { code } = generateVoidTypeCheck("v", ctx);
+      expect(code).toBe('if (v !== undefined) return "Expected void (undefined)";');
+    });
+
+    it("[👾] generateSymbolTypeCheck without debug/path has no indent and exact error", () => {
+      const ctx = createGeneratorContext();
+      const { code } = generateSymbolTypeCheck("v", ctx);
+      expect(code).toBe('if (typeof v !== "symbol") return "Expected symbol";');
+    });
   });
 });

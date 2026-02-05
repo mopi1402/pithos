@@ -6,7 +6,7 @@ import Logo from "@theme/Logo";
 import CollapseButton from "@theme/DocSidebar/Desktop/CollapseButton";
 import Content from "@theme/DocSidebar/Desktop/Content";
 import { SidebarFilterProvider } from "@site/src/contexts/SidebarFilterContext";
-import SidebarTopbarFilter from "@site/src/components/SidebarTopbarFilter";
+import SidebarTopbarFilter from "@site/src/components/layout/SidebarTopbarFilter";
 import { SIDEBAR_CONFIG } from "@site/src/config/sidebar";
 import type { Props } from "@theme/DocSidebar/Desktop";
 

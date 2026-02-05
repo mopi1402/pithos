@@ -1,0 +1,197 @@
+.modulesSection {
+  padding: var(--pithos-spacing-4xl) 0;
+  position: relative;
+}
+
+.modulesSection::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: var(--pithos-max-width-narrow);
+  height: 1px;
+  background: var(--pithos-golden-gradient);
+}
+
+.sectionTitle {
+  text-align: center;
+  font-family: var(--greek-font), serif;
+  font-size: var(--pithos-font-size-3xl);
+  font-weight: var(--pithos-font-weight-bold);
+  color: var(--golden-color);
+  margin-bottom: var(--pithos-spacing-3xl);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.modulesGrid {
+  justify-content: center;
+}
+
+.moduleCard {
+  padding: var(--pithos-spacing-xl) var(--pithos-spacing-lg);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--pithos-card-bg-light);
+  border-radius: var(--pithos-radius-2xl);
+  border: 1px solid var(--pithos-golden-border);
+  transition: transform var(--pithos-transition-slow), box-shadow var(--pithos-transition-slow),
+    border-color var(--pithos-transition-slow), background var(--pithos-transition-slow);
+  position: relative;
+  overflow: visible;
+  cursor: pointer;
+  margin-bottom: var(--pithos-spacing-xl);
+}
+
+[data-theme="dark"] .moduleCard {
+  background: var(--pithos-card-bg-light);
+  border: 1px solid var(--pithos-golden-border);
+}
+
+.moduleCard h3 {
+  font-family: var(--greek-font), serif;
+  font-weight: var(--pithos-font-weight-bold);
+  text-transform: uppercase;
+  color: var(--golden-color);
+  position: relative;
+  padding: 0 4rem;
+  display: inline-block;
+  font-size: var(--pithos-font-size-2xl);
+}
+
+.moduleCard h3::before,
+.moduleCard h3::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 4rem;
+  height: 1px;
+  opacity: 0.6;
+}
+
+.moduleCard h3::before {
+  left: 0;
+  background: var(--pithos-golden-gradient-line);
+}
+
+.moduleCard h3::after {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    transparent 0%,
+    rgba(var(--pithos-golden-rgb), 0.3) 40%,
+    var(--golden-color) 70%,
+    transparent 100%
+  );
+}
+
+.moduleDescription {
+  margin: var(--pithos-spacing-lg) 0;
+  color: var(--ifm-color-content-secondary);
+  font-size: var(--pithos-font-size-base);
+  line-height: var(--pithos-line-height-relaxed);
+  flex-grow: 1;
+}
+
+.moduleLinks {
+  display: flex;
+  gap: var(--pithos-spacing-sm);
+  margin-top: auto;
+}
+
+.docsButton {
+  background: var(--pithos-color-highlight) !important;
+  border-color: var(--pithos-color-highlight) !important;
+  color: var(--pithos-text-white) !important;
+}
+
+.docsButton:hover {
+  background: var(--pithos-color-highlight-hover) !important;
+  border-color: var(--pithos-color-highlight-hover) !important;
+  color: var(--pithos-text-white) !important;
+}
+
+.apiButton {
+  background: transparent !important;
+  border: 1px solid var(--golden-color) !important;
+  color: var(--golden-color) !important;
+}
+
+.apiButton:hover {
+  background: rgba(var(--pithos-golden-rgb), 0.1) !important;
+  border-color: var(--golden-color) !important;
+  color: var(--golden-color) !important;
+}
+
+.betaBadge {
+  position: absolute;
+  top: var(--pithos-spacing-sm);
+  right: var(--pithos-spacing-sm);
+  background: var(--golden-color);
+  color: var(--pithos-color-text-on-golden);
+  font-size: var(--pithos-font-size-xs);
+  font-weight: var(--pithos-font-weight-semibold);
+  padding: 0.2rem var(--pithos-spacing-sm);
+  border-radius: var(--pithos-radius-md);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.moduleCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+  border-color: rgba(0, 0, 0, 0.15);
+  background: var(--pithos-card-bg-hover-light);
+}
+
+[data-theme="dark"] .moduleCard:hover {
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
+  background: var(--pithos-card-bg-hover-light);
+}
+
+/* 3 columns on desktop (6 modules = 2 rows of 3) */
+@media screen and (min-width: 997px) {
+  :global(.col.col--4) {
+    --ifm-col-width: 33.333%;
+    flex-basis: 33.333%;
+    max-width: 33.333%;
+  }
+}
+
+/* 2 columns on tablet */
+@media screen and (max-width: 996px) and (min-width: 600px) {
+  :global(.col.col--4) {
+    --ifm-col-width: 50%;
+    flex-basis: 50%;
+    max-width: 50%;
+  }
+}
+
+/* 1 column on mobile */
+@media screen and (max-width: 599px) {
+  :global(.col.col--4) {
+    --ifm-col-width: 100%;
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
+  .sectionTitle {
+    font-size: 2rem;
+    margin-bottom: var(--pithos-spacing-2xl);
+  }
+
+  .moduleCard h3 {
+    padding: 0 3rem;
+  }
+
+  .moduleCard h3::before,
+  .moduleCard h3::after {
+    width: 3rem;
+  }
+}

@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { memoize } from "./memoize";
 
 describe("memoize", () => {
-  it("caches results for identical arguments", () => {
+  it("caches results based on the first argument", () => {
     const fn = vi.fn((a: number, b: number) => a + b);
     const memoized = memoize(fn);
 
@@ -14,33 +14,72 @@ describe("memoize", () => {
     expect(fn).toHaveBeenCalledTimes(2);
   });
 
-  it("uses custom keyResolver when provided", () => {
+  it("uses first argument as cache key by default (ignores subsequent args)", () => {
+    const fn = vi.fn((a: number, b: number) => a + b);
+    const memoized = memoize(fn);
+
+    expect(memoized(1, 2)).toBe(3);
+    // Same first arg, different second arg → returns cached result
+    expect(memoized(1, 99)).toBe(3);
+    expect(fn).toHaveBeenCalledTimes(1);
+  });
+
+  it("uses custom keyResolver when provided as function", () => {
     const fn = vi.fn((obj: { id: number; name: string }) =>
       obj.name.toUpperCase()
     );
-    const memoized = memoize(fn, (obj) => String(obj.id));
+    const memoized = memoize(fn, (obj) => obj.id);
 
     expect(memoized({ id: 1, name: "alice" })).toBe("ALICE");
     expect(memoized({ id: 1, name: "bob" })).toBe("ALICE"); // same id = cached
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
-  it("serializes functions in default key generation", () => {
+  it("uses custom keyResolver when provided in options", () => {
+    const fn = vi.fn((a: number, b: number) => a + b);
+    const memoized = memoize(fn, {
+      keyResolver: (a, b) => `${a},${b}`,
+    });
+
+    expect(memoized(1, 2)).toBe(3);
+    expect(memoized(1, 2)).toBe(3);
+    expect(fn).toHaveBeenCalledTimes(1);
+
+    // Different second arg → different key → recomputed
+    expect(memoized(1, 99)).toBe(100);
+    expect(fn).toHaveBeenCalledTimes(2);
+  });
+
+  it("uses reference equality for object arguments", () => {
+    const fn = vi.fn((obj: { x: number }) => obj.x * 2);
+    const memoized = memoize(fn);
+
+    const obj = { x: 5 };
+    expect(memoized(obj)).toBe(10);
+    expect(memoized(obj)).toBe(10); // same reference = cached
+    expect(fn).toHaveBeenCalledTimes(1);
+
+    // Different reference, same shape → recomputed
+    expect(memoized({ x: 5 })).toBe(10);
+    expect(fn).toHaveBeenCalledTimes(2);
+  });
+
+  it("handles function arguments by reference", () => {
     const fn = vi.fn((callback: () => void) => callback.name);
     const memoized = memoize(fn);
 
     function namedFn() {}
-    const anonymous = function () {}; // truly anonymous
+    const anonymous = function () {};
 
     expect(memoized(namedFn)).toBe("namedFn");
-    expect(memoized(anonymous)).toBe("anonymous"); // V8 infers from variable name
+    expect(memoized(anonymous)).toBe("anonymous");
     expect(fn).toHaveBeenCalledTimes(2);
 
     memoized(namedFn);
     expect(fn).toHaveBeenCalledTimes(2); // cached
   });
 
-  it("serializes symbols in default key generation", () => {
+  it("handles symbol arguments by reference", () => {
     const fn = vi.fn((s: symbol) => s.toString());
     const memoized = memoize(fn);
 
@@ -50,7 +89,7 @@ describe("memoize", () => {
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
-  it("[👾] symbols with different descriptions have different cache keys", () => {
+  it("distinguishes different symbols", () => {
     const fn = vi.fn((s: symbol) => s.description);
     const memoized = memoize(fn);
 
@@ -59,56 +98,27 @@ describe("memoize", () => {
 
     expect(memoized(sym1)).toBe("foo");
     expect(memoized(sym2)).toBe("bar");
-    // If symbol serialization is removed (mutant), both would serialize to undefined/null
-    // and would share the same cache key, so fn would only be called once
     expect(fn).toHaveBeenCalledTimes(2);
   });
 
-  it("serializes functions with empty name as anonymous", () => {
-    const fn = vi.fn((cb: () => void) => cb());
+  it("handles primitive arguments with value equality", () => {
+    const fn = vi.fn((x: number) => x * 2);
     const memoized = memoize(fn);
 
-    const noName = Object.defineProperty(() => "result", "name", { value: "" });
-
-    memoized(noName);
-    memoized(noName);
-
+    expect(memoized(5)).toBe(10);
+    expect(memoized(5)).toBe(10); // same value = cached
     expect(fn).toHaveBeenCalledTimes(1);
+
+    expect(memoized(3)).toBe(6);
+    expect(fn).toHaveBeenCalledTimes(2);
   });
 
-  it("[👾] empty function name uses 'anonymous' not empty string", () => {
-    const fn = vi.fn((_cb: () => void) => "result");
+  it("correctly caches undefined return values", () => {
+    const fn = vi.fn((_x: number) => undefined);
     const memoized = memoize(fn);
 
-    // Create two functions with empty names - they should have identical cache keys
-    // because both should serialize to [Function: anonymous]
-    const noName1 = Object.defineProperty(() => {}, "name", { value: "" });
-    const noName2 = Object.defineProperty(() => {}, "name", { value: "" });
-
-    memoized(noName1);
-    memoized(noName2);
-
-    // If mutant changes "anonymous" to "", both would still have same key [Function: ]
-    // But the cache entry from noName1 would be used for noName2
-    // This test actually passes with either behavior...
-
-    // Create a function named "anonymous" to match what empty name should produce
-    const namedAnonymous = Object.defineProperty(() => {}, "name", {
-      value: "anonymous",
-    });
-
-    // Reset the mock to test clean
-    fn.mockClear();
-    memoized.clear();
-
-    memoized(noName1);
-    memoized(namedAnonymous);
-
-    // noName1 -> [Function: anonymous]
-    // namedAnonymous -> [Function: anonymous]
-    // They should share the same cache key, so fn called only once
-    // If mutant used "", noName1 would be [Function: ] and namedAnonymous [Function: anonymous]
-    // They would have different keys, fn called twice
+    expect(memoized(1)).toBeUndefined();
+    expect(memoized(1)).toBeUndefined();
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
@@ -161,7 +171,7 @@ describe("memoize", () => {
     const fn = vi.fn((obj: { id: number; name: string }) =>
       obj.name.toUpperCase()
     );
-    const memoized = memoize(fn, (obj) => String(obj.id));
+    const memoized = memoize(fn, (obj) => obj.id);
 
     expect(memoized({ id: 1, name: "alice" })).toBe("ALICE");
     expect(memoized({ id: 2, name: "bob" })).toBe("BOB");
@@ -192,22 +202,18 @@ describe("memoize", () => {
 
   it("delete returns false when cache.delete returns undefined (tests ?? false)", () => {
     const fn = vi.fn((x: number) => x * 2);
-    // Custom cache that returns undefined instead of boolean for delete
-    // This tests the ?? false fallback in memoized.delete
     class CustomCache {
-      private readonly map = new Map<string, number>();
-      set(key: string, value: number): void {
+      private readonly map = new Map<unknown, number>();
+      set(key: unknown, value: number): void {
         this.map.set(key, value);
       }
-      get(key: string): number | undefined {
+      get(key: unknown): number | undefined {
         return this.map.get(key);
       }
-      has(key: string): boolean {
+      has(key: unknown): boolean {
         return this.map.has(key);
       }
-      delete(_key: string): void {
-        // Intentionally returns void (undefined) instead of boolean
-        // This tests the ?? false conversion in memoized.delete
+      delete(_key: unknown): void {
         this.map.delete(_key);
       }
       clear(): void {
@@ -220,11 +226,73 @@ describe("memoize", () => {
 
     const memoized = memoize(fn, { cache: new CustomCache() });
 
-    // Delete on non-existent key: cache.delete returns undefined, memoized.delete converts to false via ?? false
     expect(memoized.delete(5)).toBe(false);
 
-    // Delete on existing key: cache.delete returns undefined, memoized.delete converts to false via ?? false
-    memoized(5); // Cache the value
+    memoized(5);
     expect(memoized.delete(5)).toBe(false); // undefined ?? false = false
+  });
+
+  it("preserves this binding", () => {
+    const fn = function (this: { multiplier: number }, x: number) {
+      return x * this.multiplier;
+    };
+    const memoized = memoize(fn);
+
+    const obj = { multiplier: 3, compute: memoized };
+    expect(obj.compute(5)).toBe(15);
+  });
+
+  it("exposes cache property", () => {
+    const fn = (x: number) => x * 2;
+    const memoized = memoize(fn);
+
+    memoized(5);
+    expect(memoized.cache.size).toBe(1);
+    expect(memoized.cache.has(5)).toBe(true);
+    expect(memoized.cache.get(5)).toBe(10);
+  });
+
+  it("supports custom cache implementation", () => {
+    class LimitedCache<K, V> {
+      private readonly map = new Map<K, V>();
+      private readonly limit: number;
+      constructor(limit: number) {
+        this.limit = limit;
+      }
+      set(key: K, value: V): void {
+        if (this.map.size >= this.limit) {
+          const firstKey = this.map.keys().next().value;
+          if (firstKey !== undefined) this.map.delete(firstKey);
+        }
+        this.map.set(key, value);
+      }
+      get(key: K): V | undefined {
+        return this.map.get(key);
+      }
+      has(key: K): boolean {
+        return this.map.has(key);
+      }
+      delete(key: K): boolean {
+        return this.map.delete(key);
+      }
+      clear(): void {
+        this.map.clear();
+      }
+      get size(): number {
+        return this.map.size;
+      }
+    }
+
+    const fn = vi.fn((x: number) => x * 2);
+    const memoized = memoize(fn, { cache: new LimitedCache(2) });
+
+    memoized(1);
+    memoized(2);
+    memoized(3); // evicts 1
+
+    expect(memoized.cache.size).toBe(2);
+    expect(memoized.cache.has(1)).toBe(false);
+    expect(memoized.cache.has(2)).toBe(true);
+    expect(memoized.cache.has(3)).toBe(true);
   });
 });

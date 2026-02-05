@@ -5,13 +5,15 @@ import Layout from "@theme/Layout";
 import Heading from "@theme/Heading";
 import CodeBlock from "@theme/CodeBlock";
 import Admonition from "@theme/Admonition";
+import { translate } from "@docusaurus/Translate";
 import { useLocation, useHistory } from "@docusaurus/router";
 import { useSmartSearch } from "@site/src/hooks/useSmartSearch";
+import { Picture } from "@site/src/components/shared/Picture";
 
 import styles from "./styles.module.css";
 
 // Import generated data (will be generated at build time)
-import useCasesData from "@site/src/data/use-cases.json";
+import useCasesData from "@site/src/data/generated/use-cases.json";
 // embeddingsData will be loaded via fetch to avoid bloating the bundle
 
 type UseCase = {
@@ -146,8 +148,8 @@ function SearchBar({
       return loadingStatus;
     }
     return isMobile 
-      ? "Search use cases..."
-      : "Search use cases... (e.g., 'pagination', 'API calls', 'I want to manage pages')";
+      ? translate({ id: 'useCases.search.placeholderShort', message: 'Search use cases...' })
+      : translate({ id: 'useCases.search.placeholderFull', message: 'Search use cases... (e.g., \'pagination\', \'API calls\', \'I want to manage pages\')' });
   };
 
   return (
@@ -195,7 +197,10 @@ function SearchBar({
     <div className={styles.searchFooter}>
       {!showLoading && (
         <span className={styles.searchResultCount}>
-          {resultCount} use cases
+          {translate(
+            { id: 'useCases.search.resultCount', message: '{count} use cases' },
+            { count: String(resultCount) }
+          )}
         </span>
       )}
     </div>
@@ -240,13 +245,13 @@ function FilterBar({
           className={`${styles.filterButton} ${styles.filterToggle} ${filters.topPicks ? styles.filterButtonActive : ""}`}
           onClick={() => onFiltersChange({ ...filters, topPicks: !filters.topPicks })}
         >
-          ⭐ Top Picks
+          ⭐ {translate({ id: 'useCases.filter.topPicks', message: 'Top Picks' })}
         </button>
         <button
           className={`${styles.filterButton} ${styles.filterToggle} ${filters.hiddenGems ? styles.filterButtonActive : ""}`}
           onClick={() => onFiltersChange({ ...filters, hiddenGems: !filters.hiddenGems })}
         >
-          💎 Hidden Gems
+          💎 {translate({ id: 'useCases.filter.hiddenGems', message: 'Hidden Gems' })}
         </button>
       </div>
     </div>
@@ -282,8 +287,8 @@ function UseCaseCard({
             href={`/api/${util.module}/${util.category}/${util.name}/`}
             className={styles.utilName}
           >
-            {isTopPick && <span title="Top Pick">⭐ </span>}
-            {isHiddenGem && !isTopPick && <span title="Hidden Gem">💎 </span>}
+            {isTopPick && <span title={translate({ id: 'useCases.card.topPick', message: 'Top Pick' })}>⭐ </span>}
+            {isHiddenGem && !isTopPick && <span title={translate({ id: 'useCases.card.hiddenGem', message: 'Hidden Gem' })}>💎 </span>}
             {util.name}()
           </a>
           <span className={styles.moduleBadge}>
@@ -296,8 +301,8 @@ function UseCaseCard({
         {useCase.code}
       </CodeBlock>
       {isTaphos && (
-        <Admonition type="info" title="Note">
-          This example shows the recommended approach, not the deprecated <code>taphos</code> version.
+        <Admonition type="info" title={translate({ id: 'useCases.card.noteTitle', message: 'Note' })}>
+          {translate({ id: 'useCases.card.taphosNote', message: 'This example shows the recommended approach, not the deprecated taphos version.' })}
         </Admonition>
       )}
       
@@ -582,14 +587,24 @@ export default function UseCasesPage(): ReactNode {
 
   return (
     <Layout
-      title="Use Cases"
-      description="Find the right Pithos utility for your needs"
+      title={translate({ id: 'useCases.meta.title', message: 'Use Cases' })}
+      description={translate({ id: 'useCases.meta.description', message: 'Find the right Pithos utility for your needs' })}
     >
       <main className={styles.main}>
         <div className={styles.header}>
-          <Heading as="h1">Use Cases Explorer</Heading>
+          <Heading as="h1">
+            <Picture 
+              src="/img/generated/emoji/treasure-map" 
+              alt="treasure map" 
+              widths={[32, 48, 64]} 
+              sizes="64px"
+              inline={true}
+              className={styles.headingEmoji}
+            />
+            {translate({ id: 'useCases.heading', message: 'Use Cases Explorer' })}
+          </Heading>
           <p className={styles.subtitle}>
-            Find the right utility for your needs. Search by problem, not by function name.
+            {translate({ id: 'useCases.subtitle', message: 'Find the right utility for your needs. Search by problem, not by function name.' })}
           </p>
         </div>
 
@@ -702,9 +717,12 @@ export default function UseCasesPage(): ReactNode {
         <div ref={parentRef} className={styles.virtualContainer} style={{ height: `${virtualizer.getTotalSize()}px`, overflow: "hidden" }}>
           {flatItems.length === 0 ? (
             <div className={styles.noResults}>
-              <p>No use cases found for "{searchQuery}"</p>
+              <p>{translate(
+                { id: 'useCases.noResults', message: 'No use cases found for "{query}"' },
+                { query: searchQuery }
+              )}</p>
               <p className={styles.noResultsHint}>
-                Try different keywords or clear filters
+                {translate({ id: 'useCases.noResultsHint', message: 'Try different keywords or clear filters' })}
               </p>
             </div>
           ) : (
@@ -748,7 +766,7 @@ export default function UseCasesPage(): ReactNode {
         <button
           className={`${styles.scrollToTop} ${showScrollTop ? styles.scrollToTopVisible : ""}`}
           onClick={scrollToTop}
-          aria-label="Scroll to top"
+          aria-label={translate({ id: 'useCases.scrollToTop', message: 'Scroll to top' })}
         >
           ↑
         </button>

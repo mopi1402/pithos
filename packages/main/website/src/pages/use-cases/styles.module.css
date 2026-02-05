@@ -11,6 +11,19 @@
   margin-bottom: 1rem;
 }
 
+.header h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.headingEmoji {
+  width: 1.2em;
+  height: 1.2em;
+  flex-shrink: 0;
+}
+
 .subtitle {
   color: var(--ifm-color-emphasis-600);
   font-size: 1.2rem;
@@ -46,7 +59,7 @@
 
 .searchInput:disabled::placeholder {
   color: var(--ifm-color-primary);
-  font-weight: 500;
+  font-weight: var(--pithos-font-weight-medium);
 }
 
 .searchIcon {
@@ -142,7 +155,7 @@
 
 .filterSeparator {
   color: var(--ifm-color-emphasis-400);
-  font-weight: 300;
+  font-weight: var(--pithos-font-weight-light);
   margin: 0 0.5rem;
 }
 
@@ -252,7 +265,7 @@
 }
 
 .useCaseTitle {
-  font-weight: 600;
+  font-weight: var(--pithos-font-weight-semibold);
   font-size: 1.1rem;
   display: flex;
   align-items: center;
@@ -346,7 +359,7 @@
 
 .smartSearchBadge {
   color: var(--ifm-color-primary);
-  font-weight: 500;
+  font-weight: var(--pithos-font-weight-medium);
 }
 
 /* Dark mode adjustments */
@@ -363,6 +376,10 @@
 @media (max-width: 768px) {
   .main {
     padding: 0.5rem 1rem 0;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
   }
 
   .subtitle {
@@ -430,7 +447,7 @@
 .searchResultCount {
   font-size: 0.8rem;
   color: var(--ifm-color-emphasis-500);
-  font-weight: 500;
+  font-weight: var(--pithos-font-weight-medium);
 }
 
 .scrollToTop {

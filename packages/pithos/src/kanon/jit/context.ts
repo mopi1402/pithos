@@ -1,4 +1,6 @@
 /**
+ * @module kanon/jit/context
+ *
  * Generator Context for JIT Compilation
  *
  * Provides the context needed during code generation, including:
@@ -289,6 +291,7 @@ export function getIndent(ctx: GeneratorContext): string {
  * ```
  */
 export function formatPath(ctx: GeneratorContext): string {
+  // Stryker disable next-line ConditionalExpression: Early return optimization — reduce with "" initial produces "" for empty array identically
   if (ctx.path.length === 0) return "";
 
   return ctx.path.reduce((acc, segment, index) => {

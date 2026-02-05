@@ -9,7 +9,7 @@
  *
  * @note Uses strict equality (===). Preserves duplicates from the source array.
  *
- * @performance O(n + m) — uses Set for constant-time lookups.
+ * @performance O(n·m) for small exclusion sets (≤16), O(n + m) with hash map for larger ones.
  *
  * @example
  * ```typescript
@@ -21,6 +21,39 @@
  * ```
  */
 export function difference<T>(array: readonly T[], values: readonly T[]): T[] {
-  const excludeSet = new Set(values);
-  return array.filter((item) => !excludeSet.has(item));
+  const aLen = array.length;
+  const vLen = values.length;
+
+  // Stryker disable next-line ConditionalExpression,EqualityOperator,BlockStatement: Performance optimization — both paths (loop and Set) produce identical results
+  if (vLen <= 16) {
+    const result: T[] = [];
+    for (let i = 0; i < aLen; i++) {
+      const item = array[i];
+      let excluded = false;
+      for (let j = 0; j < vLen; j++) {
+        if (item === values[j]) {
+          excluded = true;
+          break;
+        }
+      }
+      if (!excluded) {
+        result.push(item);
+      }
+    }
+    return result;
+  }
+
+  const excludeMap = new Set<T>();
+  for (let i = 0; i < vLen; i++) {
+    excludeMap.add(values[i]);
+  }
+
+  const result: T[] = [];
+  for (let i = 0; i < aLen; i++) {
+    if (!excludeMap.has(array[i])) {
+      result.push(array[i]);
+    }
+  }
+
+  return result;
 }

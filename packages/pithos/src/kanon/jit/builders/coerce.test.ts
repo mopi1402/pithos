@@ -266,6 +266,29 @@ describe("Coerce Code Builder", () => {
 
       expect(result.code).not.toMatch(/^\s+if/);
     });
+
+    it("[🎯] generateCoerceNumberCheck includes path and indentation in debug mode", () => {
+      let ctx = createGeneratorContext({ debug: true });
+      ctx = { ...ctx, path: ["user", "age"], indent: 1 };
+      const result = generateCoerceNumberCheck("value", ctx);
+      expect(result.code).toContain("Property 'user.age'");
+      expect(result.code).toMatch(/^\s{2}if/);
+    });
+
+    it("[🎯] generateCoerceBooleanCheck includes indentation in debug mode", () => {
+      let ctx = createGeneratorContext({ debug: true });
+      ctx = { ...ctx, indent: 1 };
+      const result = generateCoerceBooleanCheck("value", ctx);
+      expect(result.code).toMatch(/^\s{2}if/);
+    });
+
+    it("[🎯] generateCoerceDateCheck includes path and indentation in debug mode", () => {
+      let ctx = createGeneratorContext({ debug: true });
+      ctx = { ...ctx, path: ["event", "date"], indent: 1 };
+      const result = generateCoerceDateCheck("value", ctx);
+      expect(result.code).toContain("Property 'event.date'");
+      expect(result.code).toMatch(/^\s{2}if/);
+    });
   });
 
   describe("generated code execution", () => {
@@ -810,5 +833,66 @@ describe("[🎲] Property 6: Coercion Round-trip", () => {
         }
       }
     );
+  });
+});
+
+
+describe("[👾] Mutation: coerce code generation", () => {
+  it("[👾] coerce.string errorPrefix is empty when no path", () => {
+    const ctx = createGeneratorContext();
+    const result = generateCoerceStringCheck("value", ctx);
+    // If errorPrefix is "Stryker was here!" instead of "", the error message would be wrong
+    // eslint-disable-next-line no-new-func
+    const fn = new Function("value", result.code);
+    const errorResult = fn({ toString() { throw new Error("broken"); } });
+    expect(typeof errorResult).toBe("string");
+    expect(errorResult).not.toContain("Stryker");
+    expect(errorResult).toBe("Cannot coerce to string");
+  });
+
+  it("[👾] coerce.string code lines are joined with newline", () => {
+    const ctx = createGeneratorContext();
+    const result = generateCoerceStringCheck("value", ctx);
+    expect(result.code).toContain("\n");
+  });
+
+  it("[👾] coerce.number declares coerced_num variable", () => {
+    const ctx = createGeneratorContext();
+    const result = generateCoerceNumberCheck("value", ctx);
+    expect(result.code).toContain("var coerced_num");
+  });
+
+  it("[👾] coerce.number code lines are joined with newline", () => {
+    const ctx = createGeneratorContext();
+    const result = generateCoerceNumberCheck("value", ctx);
+    expect(result.code).toContain("\n");
+  });
+
+  it("[👾] coerce.boolean code lines are joined with newline", () => {
+    const ctx = createGeneratorContext();
+    const result = generateCoerceBooleanCheck("value", ctx);
+    expect(result.code).toContain("\n");
+  });
+
+  it("[👾] coerce.date declares coerced_date variable", () => {
+    const ctx = createGeneratorContext();
+    const result = generateCoerceDateCheck("value", ctx);
+    expect(result.code).toContain("var coerced_date");
+  });
+
+  it("[👾] coerce.date handles object input via String fallback", () => {
+    const ctx = createGeneratorContext();
+    const result = generateCoerceDateCheck("value", ctx);
+    // eslint-disable-next-line no-new-func
+    const fn = new Function("value", result.code);
+    // Without the else branch, passing an object would throw because coerced_date is undefined
+    const errorResult = fn({});
+    expect(typeof errorResult).toBe("string");
+  });
+
+  it("[👾] coerce.date code lines are joined with newline", () => {
+    const ctx = createGeneratorContext();
+    const result = generateCoerceDateCheck("value", ctx);
+    expect(result.code).toContain("\n");
   });
 });

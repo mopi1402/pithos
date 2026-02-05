@@ -534,7 +534,7 @@ V3 représente une évolution majeure de Kanon vers une architecture fonctionnel
 V3 représente une refonte architectural majeure par rapport à V2, passant d'une approche orientée dataset avec compilation JIT à une architecture fonctionnelle pure avec early abort et API fluide.
 
 :::info
-Des évolutions théoriques (V3.1, V3.2, V3.5) ont été envisagées mais finalement abandonnées car elles n'apportaient pas les gains escomptés. Voir [Design Innovations](./innovations) pour les détails de ces évolutions théoriques et pourquoi elles n'ont pas été retenues.
+Des évolutions théoriques (V3.1, V3.2, V3.5) ont été envisagées mais finalement abandonnées car elles n'apportaient pas les gains escomptés. Voir [Design Innovations](./innovations.md) pour les détails de ces évolutions théoriques et pourquoi elles n'ont pas été retenues.
 :::
 
 ## Tableau comparatif des fonctionnalités
@@ -779,5 +779,5 @@ Des évolutions théoriques (V3.1, V3.2, V3.5) ont été envisagées mais finale
 ---
 
 :::info
-Pour les détails sur les évolutions théoriques V3.1, V3.2, V3.5 qui ont été envisagées mais abandonnées, consultez [Design Innovations](./innovations).
+Pour les détails sur les évolutions théoriques V3.1, V3.2, V3.5 qui ont été envisagées mais abandonnées, consultez [Design Innovations](./innovations.md).
 :::

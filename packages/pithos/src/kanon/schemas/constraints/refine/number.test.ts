@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { it as itProp, fc } from "@fast-check/vitest";
 import { refineNumber } from "./number";
 import { number } from "../../primitives/number";
+import { coerceNumber } from "../../coerce/number";
 import { parse } from "../../../core/parser";
 import { ERROR_MESSAGES_COMPOSITION } from "../../../core/consts/messages";
 import type { NumberSchema } from "@kanon/types/primitives";
@@ -263,6 +264,30 @@ describe("refineNumber", () => {
         expect(result.data).toBe(42);
       }
     });
+
+    it("[🎯] should handle coerced number value passing refinement", () => {
+      const schema = refineNumber(coerceNumber(), (v) =>
+        v > 0 ? true : "Must be positive"
+      );
+
+      const result = parse(schema, "42");
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data).toBe(42);
+      }
+    });
+
+    it("[🎯] should handle coerced number value failing refinement", () => {
+      const schema = refineNumber(coerceNumber(), (v) =>
+        v > 0 ? true : "Must be positive"
+      );
+
+      const result = parse(schema, "-5");
+      expect(result.success).toBe(false);
+      if (!result.success) {
+        expect(result.error).toBe("Must be positive");
+      }
+    });
   });
 
   describe("[🎲] Property-Based Tests", () => {
@@ -313,5 +338,55 @@ describe("refineNumber", () => {
         expect(result.success).toBe(num % 2 === 0);
       }
     );
+  });
+});
+
+
+describe("[👾] Mutation: refineNumber", () => {
+  it("[👾] preserves previous refinements when adding new one", () => {
+    const schema1 = refineNumber(number(), (v) => (v > 0 ? true : "Error 1"));
+    const schema2 = refineNumber(schema1, (v) => (v < 100 ? true : "Error 2"));
+    
+    // Verify both refinements are in the array
+    expect(schema2.refinements).toHaveLength(2);
+    
+    // Verify first refinement still works
+    const result1 = parse(schema2, -5);
+    expect(result1.success).toBe(false);
+    if (!result1.success) {
+      expect(result1.error).toBe("Error 1");
+    }
+    
+    // Verify second refinement works
+    const result2 = parse(schema2, 150);
+    expect(result2.success).toBe(false);
+    if (!result2.success) {
+      expect(result2.error).toBe("Error 2");
+    }
+  });
+
+  it("[👾] returns true (not coerced result) for non-coerced valid number", () => {
+    const schema = refineNumber(number(), (v) => (v > 0 ? true : "Must be positive"));
+    
+    // Direct number input (no coercion)
+    const result = schema.validator(42);
+    
+    // Should return true, not { coerced: 42 }
+    expect(result).toBe(true);
+    expect(typeof result).toBe("boolean");
+  });
+
+  it("[👾] returns coerced result for coerced valid number", () => {
+    const schema = refineNumber(coerceNumber(), (v) => (v > 0 ? true : "Must be positive"));
+    
+    // String input (coercion happens)
+    const result = schema.validator("42");
+    
+    // Should return { coerced: 42 }, not true
+    expect(result).not.toBe(true);
+    expect(typeof result).toBe("object");
+    if (typeof result === "object" && result !== null && "coerced" in result) {
+      expect(result.coerced).toBe(42);
+    }
   });
 });

@@ -29,10 +29,10 @@ export function lowerCase(str: string | null | undefined): string {
   return str
     // Stryker disable next-line ConditionalExpression,EqualityOperator,MethodExpression,Regex,StringLiteral: Multiple equivalent transformations due to final toLowerCase() and trim() normalizing the result
     .replace(/[A-Z]+/g, (match, offset) =>
+      // Stryker disable next-line ConditionalExpression,EqualityOperator,MethodExpression: offset check and toLowerCase are normalized by final toLowerCase() and trim()
       (offset > 0 ? " " : "") + match.toLowerCase()
     )
-    // Stryker disable next-line Regex,StringLiteral,MethodExpression: Multiple equivalent transformations due to final toLowerCase() and trim() normalizing the result
-    .replace(/[_-]+/g, " ")
+    .replace(/* Stryker disable next-line Regex,StringLiteral */ /[_-]+/g, " ")
     // Stryker disable next-line Regex,StringLiteral,MethodExpression: Multiple equivalent transformations due to final toLowerCase() and trim() normalizing the result
     .replace(/\s+/g, " ")
     .trim()

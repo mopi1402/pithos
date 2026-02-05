@@ -60,7 +60,7 @@ export const RETURNS_DESCRIPTION_FIRST_REGEX =
  * Regex pattern for matching nested Parameters and Returns subsections after Returns.
  */
 export const RETURNS_NESTED_SUBSECTIONS_REGEX =
-    /(##+\s+Returns:?[^\n]*\n\n[\s\S]*?\n\n)(###+\s+Parameters[\s\S]*?)(###+\s+Returns[\s\S]*?)(?=\n##|\n##\s+Since|\n##\s+Example|$)/g;
+    /(##+\s+Returns:?[^\n]*\n\n[\s\S]*?\n\n)(?:>\s*[^\n]+\n\n)?(###+\s+Parameters[\s\S]*?)(###+\s+Returns[\s\S]*?)(?=\n##|\n##\s+Since|\n##\s+Example|$)/g;
 
 /**
  * Regex pattern for matching simple Returns section with type only.

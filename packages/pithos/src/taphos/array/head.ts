@@ -1,5 +1,3 @@
-import { first } from "./first";
-
 /**
  * Gets the first element of array.
  *
@@ -32,5 +30,5 @@ import { first } from "./first";
  * ```
  */
 export function head<T>(array: T[]): T | undefined {
-    return first(array);
+    return array[0];
 }

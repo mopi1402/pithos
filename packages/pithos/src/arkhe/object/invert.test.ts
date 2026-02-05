@@ -21,11 +21,17 @@ describe("invert", () => {
     expect(invert(obj)).toEqual({ ownVal: "own" });
   });
 
-  it("[🎯] handles symbol keys", () => {
+  it("[🎯] ignores symbol keys", () => {
     const sym = Symbol("test");
     const obj = { [sym]: "value", a: "x" };
     const result = invert(obj);
-    expect(result).toEqual({ value: sym, x: "a" });
+    expect(result).toEqual({ x: "a" });
+  });
+
+  it("[👾] result has exactly as many keys as unique values", () => {
+    // If i <= keys.length, an extra "undefined" key is added
+    const result = invert({ a: "x", b: "y" });
+    expect(Object.keys(result)).toHaveLength(2);
   });
 
   itProp.prop([fc.dictionary(fc.string(), fc.string())])(

@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { createGeneratorContext, pushPath, increaseIndent } from "../../context";
+import { createGeneratorContext, pushPath, increaseIndent, formatPath } from "../../context";
 import {
   generateArrayTypeCheck,
   generateArrayMinLengthCheck,
@@ -61,6 +61,13 @@ describe("Array Code Builder", () => {
       const result = generateArrayMinLengthCheck("value", 1, ctx, "Need at least one item");
       expect(result.code).toBe('if (value.length < 1) return "Need at least one item";');
     });
+
+    it("[🎯] includes path and debug comment in debug mode", () => {
+      const ctx = pushPath(createGeneratorContext({ debug: true }), "items");
+      const result = generateArrayMinLengthCheck("value", 2, ctx);
+      expect(result.code).toContain("// Constraint: minLength(2)");
+      expect(result.code).toContain("Property 'items'");
+    });
   });
 
   describe("generateArrayMaxLengthCheck", () => {
@@ -77,6 +84,13 @@ describe("Array Code Builder", () => {
       const result = generateArrayMaxLengthCheck("value", 5, ctx, "Too many items");
       expect(result.code).toBe('if (value.length > 5) return "Too many items";');
     });
+
+    it("[🎯] includes path and debug comment in debug mode", () => {
+      const ctx = pushPath(createGeneratorContext({ debug: true }), "items");
+      const result = generateArrayMaxLengthCheck("value", 10, ctx);
+      expect(result.code).toContain("// Constraint: maxLength(10)");
+      expect(result.code).toContain("Property 'items'");
+    });
   });
 
   describe("generateArrayLengthCheck", () => {
@@ -86,6 +100,13 @@ describe("Array Code Builder", () => {
       expect(result.code).toBe(
         'if (value.length !== 5) return "Array must have exactly 5 items";'
       );
+    });
+
+    it("[🎯] includes path and debug comment in debug mode", () => {
+      const ctx = pushPath(createGeneratorContext({ debug: true }), "items");
+      const result = generateArrayLengthCheck("value", 3, ctx);
+      expect(result.code).toContain("// Constraint: length(3)");
+      expect(result.code).toContain("Property 'items'");
     });
   });
 
@@ -115,6 +136,17 @@ describe("Array Code Builder", () => {
       expect(code).toMatch(/var v_\d+ = arr\.length/);
       // Loop should use the cached variable
       expect(code).toMatch(/v_\d+ < v_\d+/);
+    });
+
+    it("[🎯] includes debug comment and indentation in debug mode", () => {
+      const ctx = createGeneratorContext({ debug: true });
+      const result = generateSimpleArrayItemsLoop("value", ctx, (itemVar, indexVar, innerCtx) => {
+        return { code: [], ctx: innerCtx };
+      });
+
+      const code = result.code.join("\n");
+      expect(code).toContain("// Validate array items");
+      expect(code).toContain("  var");
     });
   });
 
@@ -351,6 +383,102 @@ describe("Array generated code execution", () => {
     expect(fn(["a", 2, 3])).toContain("Index");
     expect(fn([1, "b", 3])).toContain("Index");
     expect(fn([1, 2, "c"])).toContain("Index");
+  });
+});
+
+// ============================================================================
+// Coverage tests for generateArrayItemsLoop regex branches
+// ============================================================================
+
+describe("[🎯] generateArrayItemsLoop - regex path replacement branches", () => {
+  it("[🎯] fallback branch: no parent path (prefix='' and suffix='')", () => {
+    // No parent path → formatPath produces `" + v_N + "` → Property '" + v_N + "': ...
+    // regex captures prefix="" suffix="" → fallback branch
+    const ctx = createGeneratorContext();
+    const result = generateArrayItemsLoop(
+      "value",
+      ctx,
+      (itemVar, innerCtx) => {
+        const path = formatPath(innerCtx);
+        const line = `if (typeof ${itemVar} !== "string") return "Property '${path}': Expected string";`;
+        return { code: [line], ctx: innerCtx };
+      }
+    );
+
+    const code = result.code.join("\n");
+    // The regex should have replaced Property path with Index format
+    expect(code).toContain("Index");
+  });
+
+  it("[🎯] prefix-only branch: parent path without sub-path (prefix='foo.' suffix='')", () => {
+    // Parent path "foo" + index placeholder
+    // regex captures prefix="foo." suffix="" -> else if (prefix) branch
+    const ctx = pushPath(createGeneratorContext(), "foo");
+    const result = generateArrayItemsLoop(
+      "value",
+      ctx,
+      (itemVar, innerCtx) => {
+        const path = formatPath(innerCtx);
+        const line = `if (typeof ${itemVar} !== "string") return "Property '${path}': Expected string";`;
+        return { code: [line], ctx: innerCtx };
+      }
+    );
+
+    const code = result.code.join("\n");
+    expect(code).toContain("Index");
+    expect(code).not.toContain("Property 'foo.");
+  });
+
+  it("[🎯] prefix+suffix branch: parent path with sub-path (prefix='foo.' suffix='.name')", () => {
+    // Parent path "foo" + index placeholder + "name" sub-path
+    // regex captures prefix="foo." suffix=".name" -> if (prefix && suffix) branch
+    const ctx = pushPath(createGeneratorContext(), "foo");
+    const result = generateArrayItemsLoop(
+      "value",
+      ctx,
+      (itemVar, innerCtx) => {
+        const subCtx = pushPath(innerCtx, "name");
+        const path = formatPath(subCtx);
+        const line = `if (typeof ${itemVar} !== "string") return "Property '${path}': Expected string";`;
+        return { code: [line], ctx: subCtx };
+      }
+    );
+
+    const code = result.code.join("\n");
+    expect(code).toContain("Index");
+    expect(code).toContain(".name");
+    // The suffix ".name" should be preserved after the index
+    expect(code).toMatch(/Index " \+ v_\d+ \+ "\.\.name'/);
+  });
+
+  it("[🎯] supportsCoercion=false does not pre-allocate result array", () => {
+    const ctx = createGeneratorContext();
+    const result = generateArrayItemsLoop(
+      "value",
+      ctx,
+      (itemVar, innerCtx) => {
+        return { code: [], ctx: innerCtx };
+      },
+      false
+    );
+
+    const code = result.code.join("\n");
+    expect(code).not.toContain("new Array");
+  });
+
+  it("[🎯] includes indentation in debug mode", () => {
+    const ctx = createGeneratorContext({ debug: true });
+    const result = generateArrayItemsLoop(
+      "value",
+      ctx,
+      (itemVar, innerCtx) => {
+        return { code: [], ctx: innerCtx };
+      }
+    );
+
+    const code = result.code.join("\n");
+    // Debug mode adds indentation to loop body and variables
+    expect(code).toContain("  var");
   });
 });
 
@@ -871,5 +999,250 @@ describe("[🎲] Property 9: Array Validation with Index", () => {
         }
       }
     );
+  });
+});
+
+
+describe("[👾] Mutation: array code generation", () => {
+  it("[👾] generateArrayTypeCheck code lines joined with newline", () => {
+    const ctx = createGeneratorContext({ debug: true });
+    const result = generateArrayTypeCheck("value", ctx);
+    expect(result.code).toContain("\n");
+  });
+
+  it("[👾] generateArrayMinLengthCheck code lines joined with newline", () => {
+    const ctx = createGeneratorContext({ debug: true });
+    const result = generateArrayMinLengthCheck("value", 3, ctx);
+    expect(result.code).toContain("\n");
+  });
+
+  it("[👾] generateArrayMaxLengthCheck code lines joined with newline", () => {
+    const ctx = createGeneratorContext({ debug: true });
+    const result = generateArrayMaxLengthCheck("value", 10, ctx);
+    expect(result.code).toContain("\n");
+  });
+
+  it("[👾] generateArrayLengthCheck code lines joined with newline", () => {
+    const ctx = createGeneratorContext({ debug: true });
+    const result = generateArrayLengthCheck("value", 5, ctx);
+    expect(result.code).toContain("\n");
+  });
+
+  it("[👾] generateArrayItemsLoop indent is empty string in non-debug mode", () => {
+    const ctx = createGeneratorContext({ debug: false });
+    const result = generateArrayItemsLoop(
+      "value",
+      ctx,
+      (itemVar, innerCtx) => {
+        return { code: [], ctx: innerCtx };
+      }
+    );
+    const code = result.code.join("\n");
+    // No indentation in non-debug mode
+    expect(code).not.toMatch(/^\s+var/);
+    expect(code).toMatch(/^var/);
+  });
+
+  it("[👾] generateArrayItemsLoop innerIndent is empty string in non-debug mode", () => {
+    const ctx = createGeneratorContext({ debug: false });
+    const result = generateArrayItemsLoop(
+      "value",
+      ctx,
+      (itemVar, innerCtx) => {
+        const check = generateStringTypeCheck(itemVar, innerCtx);
+        return { code: [check.code], ctx: check.ctx };
+      }
+    );
+    const code = result.code.join("\n");
+    // Inner code should not have extra indentation in non-debug mode
+    expect(code).toContain("var v_0 = value.length");
+    expect(code).toContain("for (var v_1 = 0");
+  });
+
+  it("[👾] generateArrayItemsLoop generates length cache variable", () => {
+    const ctx = createGeneratorContext();
+    const result = generateArrayItemsLoop(
+      "value",
+      ctx,
+      (itemVar, innerCtx) => {
+        return { code: [], ctx: innerCtx };
+      }
+    );
+    const code = result.code.join("\n");
+    expect(code).toContain("var v_0 = value.length");
+  });
+
+  it("[👾] generateArrayItemsLoop generates for loop opening", () => {
+    const ctx = createGeneratorContext();
+    const result = generateArrayItemsLoop(
+      "value",
+      ctx,
+      (itemVar, innerCtx) => {
+        return { code: [], ctx: innerCtx };
+      }
+    );
+    const code = result.code.join("\n");
+    expect(code).toContain("for (var v_1 = 0; v_1 < v_0; v_1++) {");
+  });
+
+  it("[👾] generateArrayItemsLoop generates closing brace", () => {
+    const ctx = createGeneratorContext();
+    const result = generateArrayItemsLoop(
+      "value",
+      ctx,
+      (itemVar, innerCtx) => {
+        return { code: [], ctx: innerCtx };
+      }
+    );
+    const code = result.code.join("\n");
+    expect(code).toContain("}");
+  });
+
+  it("[👾] generateArrayItemsLoop regex branch: prefix && suffix both present", () => {
+    // Test the if (prefix && suffix) branch specifically
+    const ctx = pushPath(createGeneratorContext(), "items");
+    const result = generateArrayItemsLoop(
+      "value",
+      ctx,
+      (itemVar, innerCtx) => {
+        const subCtx = pushPath(innerCtx, "name");
+        const path = formatPath(subCtx);
+        const line = `if (typeof ${itemVar} !== "string") return "Property '${path}': Expected string";`;
+        return { code: [line], ctx: subCtx };
+      }
+    );
+    const code = result.code.join("\n");
+    // Should have both prefix (items) and suffix (.name) → Index N.name format
+    expect(code).toContain("Index");
+    expect(code).toContain(".name");
+  });
+
+  it("[👾] generateArrayItemsLoop regex branch: prefix only (no suffix)", () => {
+    // Test the else if (prefix) branch
+    const ctx = pushPath(createGeneratorContext(), "items");
+    const result = generateArrayItemsLoop(
+      "value",
+      ctx,
+      (itemVar, innerCtx) => {
+        const path = formatPath(innerCtx);
+        const line = `if (typeof ${itemVar} !== "string") return "Property '${path}': Expected string";`;
+        return { code: [line], ctx: innerCtx };
+      }
+    );
+    const code = result.code.join("\n");
+    // Should have prefix only → Index N format
+    expect(code).toContain("Index");
+    expect(code).not.toContain(".name");
+  });
+
+  it("[👾] generateArrayItemsLoop restores original indent and path in returned context", () => {
+    let ctx = createGeneratorContext({ debug: true });
+    ctx = { ...ctx, indent: 2, path: ["root"] };
+    const result = generateArrayItemsLoop(
+      "value",
+      ctx,
+      (itemVar, innerCtx) => {
+        // Inner context has different indent/path
+        return { code: [], ctx: { ...innerCtx, indent: 5, path: ["nested", "deep"] } };
+      }
+    );
+    // Returned context should restore original indent and path
+    expect(result.ctx.indent).toBe(2);
+    expect(result.ctx.path).toEqual(["root"]);
+  });
+
+  it("[👾] generateSimpleArrayItemsLoop restores original indent and path in returned context", () => {
+    let ctx = createGeneratorContext({ debug: true });
+    ctx = { ...ctx, indent: 1, path: ["items"] };
+    const result = generateSimpleArrayItemsLoop(
+      "value",
+      ctx,
+      (itemVar, indexVar, innerCtx) => {
+        // Inner context has different indent/path
+        return { code: [], ctx: { ...innerCtx, indent: 10, path: ["changed"] } };
+      }
+    );
+    // Returned context should restore original indent and path
+    expect(result.ctx.indent).toBe(1);
+    expect(result.ctx.path).toEqual(["items"]);
+  });
+
+  it("[👾] generateArrayValidation with exact length constraint", () => {
+    const ctx = createGeneratorContext();
+    const result = generateArrayValidation("value", ctx, {
+      length: { value: 5 },
+    });
+    const code = result.code.join("\n");
+    expect(code).toContain("value.length !== 5");
+    expect(code).toContain("exactly 5 items");
+  });
+
+  it("[👾] generateArrayValidation error regex: errorMsg.startsWith('Index ')", () => {
+    const ctx = createGeneratorContext();
+    const result = generateArrayValidation("value", ctx, {
+      itemGenerator: (varName, innerCtx) => {
+        // Return error that already starts with "Index "
+        const line = `if (typeof ${varName} !== "string") return "Index 0: Expected string";`;
+        return { code: [line], ctx: innerCtx };
+      },
+    });
+    const code = result.code.join("\n");
+    // Error already has "Index " prefix, should not be modified
+    expect(code).toContain('return "Index 0: Expected string"');
+  });
+
+  it("[👾] generateArrayValidation error regex: errorMsg.includes(\"Property '\")", () => {
+    const ctx = createGeneratorContext();
+    const result = generateArrayValidation("value", ctx, {
+      itemGenerator: (varName, innerCtx) => {
+        // Return error that includes "Property '"
+        const line = `if (typeof ${varName} !== "string") return "Property 'foo': Expected string";`;
+        return { code: [line], ctx: innerCtx };
+      },
+    });
+    const code = result.code.join("\n");
+    // Error already has "Property '" prefix, should not be modified
+    expect(code).toContain("Property 'foo': Expected string");
+  });
+
+  it("[👾] generateArrayValidation error regex: plain error gets Index prefix", () => {
+    const ctx = createGeneratorContext();
+    const result = generateArrayValidation("value", ctx, {
+      itemGenerator: (varName, innerCtx) => {
+        // Return plain error without Index or Property
+        const line = `if (typeof ${varName} !== "string") return "Expected string";`;
+        return { code: [line], ctx: innerCtx };
+      },
+    });
+    const code = result.code.join("\n");
+    // Plain error should get Index prefix added
+    expect(code).toContain('return "Index " + v_1 + ": Expected string"');
+  });
+});
+
+
+describe("[👾] Mutation: innerIndent fallback", () => {
+  it("[👾] generateArrayItemsLoop innerIndent fallback is empty string in non-debug mode", () => {
+    const ctx = createGeneratorContext({ debug: false });
+    const result = generateArrayItemsLoop(
+      "value",
+      ctx,
+      (itemVar, innerCtx) => {
+        // Generate code that would use innerIndent
+        const check = generateStringTypeCheck(itemVar, innerCtx);
+        return { code: [check.code], ctx: check.ctx };
+      }
+    );
+    const code = result.code.join("\n");
+    // In non-debug mode, the item extraction line should not have indentation
+    // It should be "var v_2 = value[v_1];" not "  var v_2 = value[v_1];"
+    expect(code).toContain("var v_2 = value[v_1];");
+    // Check that the line doesn't start with spaces (no innerIndent)
+    const lines = code.split("\n");
+    const itemLine = lines.find(l => l.includes("var v_2 = value[v_1]"));
+    expect(itemLine).toBeDefined();
+    expect(itemLine).not.toMatch(/^\s+var v_2/);
+    // More specific: check the exact line format
+    expect(itemLine).toBe("var v_2 = value[v_1];");
   });
 });

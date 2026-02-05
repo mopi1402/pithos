@@ -46,3 +46,23 @@ const deck = ["A♠", "K♠", "Q♠", "J♠", "10♠", /* ... */];
 const shuffledDeck = shuffle(deck);
 // => Randomly ordered deck
 ```
+
+### **Randomize display order** to avoid position bias
+
+@keywords: randomize, display, position, bias, A/B testing, marketplace, ads, fairness
+
+Shuffle product or ad listings to ensure fair exposure and prevent position bias.
+Important for marketplaces, ad platforms, and A/B testing where order influences clicks.
+
+```typescript
+const sponsoredListings = [
+  { id: "ad-1", advertiser: "Nike", bid: 2.50 },
+  { id: "ad-2", advertiser: "Adidas", bid: 2.50 },
+  { id: "ad-3", advertiser: "Puma", bid: 2.50 },
+  { id: "ad-4", advertiser: "Reebok", bid: 2.50 },
+];
+
+// Same bid tier → randomize to give equal exposure
+const fairOrder = shuffle(sponsoredListings);
+// => Random order each page load, no advertiser is always first
+```

@@ -1,0 +1,3443 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Functions — core formatting > after (@throws, @see) 1`] = `
+"# after()
+
+> **after**\\<\`Args\`, \`Return\`\\>(\`func\`, \`n\`): (...\`args\`) => \`Return\` \\| \`undefined\`
+
+Creates a function that invokes func after it's called n or more times.
+
+
+---
+
+## Type Parameters
+
+### Args: \`Args extends unknown[]\`
+
+The argument types of the function.
+
+### Return: \`Return\`
+
+The return type of the function.
+
+---
+
+## Parameters
+
+### func: \`(...args) => Return\`
+
+The function to restrict.
+
+### n: \`number\`
+
+The number of calls before func is invoked.
+
+---
+
+## Returns
+
+The new restricted function. Returns \`undefined\` for the first \`n-1\` calls.
+
+
+---
+
+## Throws
+
+\`RangeError\` If n is negative or not an integer.
+
+---
+
+## See Also
+
+[before](/api/arkhe/function/before) - Inverse operation: invokes func at most n-1 times.
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":{"name":"after","group":"Function"},"ramda":null,"radashi":null,"remeda":null,"moderndash":null,"antfu":null,"effect":null,"es-toolkit":{"name":"after","group":"function"},"python":null,"kotlin":null}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+let attempts = 0;
+const saveData = after(() => {
+  attempts++;
+  console.log(\`Data saved! Attempt #\${attempts}\`);
+}, 3);
+
+saveData(); // Nothing happens
+saveData(); // Nothing happens
+saveData(); // "Data saved! Attempt #1"
+saveData(); // "Data saved! Attempt #2"
+saveData(); // "Data saved! Attempt #3"
+
+// Use case: Only start logging after initial setup calls
+const logger = after((message: string) => {
+  console.log(\`[LOG] \${message}\`);
+}, 2);
+
+logger('Initializing...'); // Nothing (setup call)
+logger('Loading config...'); // "[LOG] Loading config..."
+logger('Ready!'); // "[LOG] Ready!"
+\`\`\`
+
+---
+
+## How it works?
+
+Creates a function that only invokes after being called \`n\` times.
+The first \`n-1\` calls return \`undefined\` — starting from call \`n\`, the function executes normally.
+\`\`\`mermaid
+sequenceDiagram
+    participant C as Caller
+    participant A as after(fn, 3)
+    participant F as fn()
+    
+    C->>A: call 1
+    Note right of A: count: 1 < 3
+    A-->>C: undefined
+    C->>A: call 2
+    Note right of A: count: 2 < 3
+    A-->>C: undefined
+    C->>A: call 3
+    Note right of A: count: 3 ≥ 3 ✅
+    A->>F: execute
+    F-->>A: result
+    A-->>C: result
+    C->>A: call 4
+    A->>F: execute
+    F-->>A: result
+\`\`\`
+
+### Visual Timeline
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["call 1"] -->|"❌ skip"| B["call 2"]
+    B -->|"❌ skip"| C["call 3"]
+    C -->|"✅ execute"| D["call 4"]
+    D -->|"✅ execute"| E["..."]\`}
+  mobile={\`flowchart TB
+    A["call 1"] -->|"❌ skip"| B["call 2"]
+    B -->|"❌ skip"| C["call 3"]
+    C -->|"✅ execute"| D["call 4"]
+    D -->|"✅ execute"| E["..."]\`}
+/>
+
+---
+
+## Use Cases
+
+### Trigger after warmup period 📌
+
+Execute only after a certain number of preliminary calls have occurred.
+Perfect for waiting until a system stabilizes or data accumulates.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=trigger" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#trigger</a>
+  <a href="/use-cases?q=warmup" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#warmup</a>
+  <a href="/use-cases?q=threshold" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#threshold</a>
+  <a href="/use-cases?q=accumulate" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#accumulate</a>
+  <a href="/use-cases?q=stabilize" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#stabilize</a>
+  <a href="/use-cases?q=delay" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#delay</a>
+</div>
+
+\`\`\`typescript
+// Only start calculating average after 5 data points
+const updateAverage = after(5, (values) => {
+  const avg = values.reduce((a, b) => a + b, 0) / values.length;
+  displayAverage(avg);
+});
+
+sensor.on("reading", (value) => {
+  readings.push(value);
+  updateAverage(readings);
+});
+// First 4 readings: nothing happens
+// 5th reading onward: average is displayed
+\`\`\`
+
+### Confirm after multiple signals 📌
+
+Require multiple confirmations before executing a destructive action.
+Essential for safety mechanisms and preventing accidental triggers.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=confirm" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#confirm</a>
+  <a href="/use-cases?q=multiple" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#multiple</a>
+  <a href="/use-cases?q=signals" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#signals</a>
+  <a href="/use-cases?q=safety" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#safety</a>
+  <a href="/use-cases?q=destructive" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#destructive</a>
+  <a href="/use-cases?q=double-check" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#double-check</a>
+</div>
+
+\`\`\`typescript
+const confirmDelete = after(2, () => {
+  deleteAllData();
+  console.log("Data deleted after double confirmation");
+});
+
+// User must click "Delete" twice
+deleteButton.on("click", confirmDelete);
+\`\`\`
+
+### Batch notifications after threshold 📌
+
+Send a summary notification only after N events accumulate.
+Useful for reducing notification spam while still alerting users.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=batch" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#batch</a>
+  <a href="/use-cases?q=notifications" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#notifications</a>
+  <a href="/use-cases?q=threshold" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#threshold</a>
+  <a href="/use-cases?q=accumulate" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#accumulate</a>
+  <a href="/use-cases?q=summary" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#summary</a>
+  <a href="/use-cases?q=alerts" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#alerts</a>
+</div>
+
+\`\`\`typescript
+const notifyBatch = after(10, (errors) => {
+  sendAlert(\`\${errors.length} errors occurred in the last hour\`);
+});
+
+errorStream.on("error", (err) => {
+  errorLog.push(err);
+  notifyBatch(errorLog);
+});
+// Alert sent only after 10+ errors
+\`\`\`
+
+"
+`;
+
+exports[`Functions — core formatting > before (nested return) 1`] = `
+"# before()
+
+> **before**\\<\`Args\`, \`Return\`\\>(\`func\`, \`n\`): (...\`args\`) => \`Return\` \\| \`undefined\`
+
+Creates a function that invokes func at most n-1 times.
+Subsequent calls return the result of the last invocation.
+
+:::note
+
+When n ≤ 1, func is never invoked and \`undefined\` is always returned.
+
+:::
+
+
+---
+
+## Type Parameters
+
+### Args: \`Args extends unknown[]\`
+
+The argument types of the function.
+
+### Return: \`Return\`
+
+The return type of the function.
+
+---
+
+## Parameters
+
+### func: \`(...args) => Return\`
+
+The function to restrict.
+
+### n: \`number\`
+
+The number of calls at which func is no longer invoked.
+
+---
+
+## Returns
+
+The new restricted function. Returns \`undefined\` until func is first invoked.
+
+
+---
+
+## Throws
+
+\`RangeError\` If n is negative or not an integer.
+
+---
+
+## See Also
+
+[after](/api/arkhe/function/after) - Inverse operation: invokes func only after n calls.
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":{"name":"before","group":"Function"},"ramda":null,"radashi":null,"remeda":null,"moderndash":null,"antfu":null,"effect":null,"es-toolkit":{"name":"before","group":"function"},"python":null,"kotlin":null}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+let count = 0;
+const increment = before(() => ++count, 3);
+
+increment(); // => 1
+increment(); // => 2
+increment(); // => 2 (no longer invoked)
+increment(); // => 2
+
+// Use case: Initialize only once
+const initialize = before(() => {
+  console.log('Initializing...');
+  return { ready: true };
+}, 2);
+
+initialize(); // "Initializing..." => { ready: true }
+initialize(); // => { ready: true } (cached)
+\`\`\`
+
+---
+
+## How it works?
+
+Creates a function that invokes at most \`n-1\` times.
+After \`n-1\` invocations, subsequent calls return the last result.
+\`\`\`mermaid
+sequenceDiagram
+    participant C as Caller
+    participant B as before(fn, 3)
+    participant F as fn()
+    
+    C->>B: call 1
+    Note right of B: count: 1 < 3
+    B->>F: execute
+    F-->>B: result 1
+    B-->>C: result 1
+    C->>B: call 2
+    Note right of B: count: 2 < 3
+    B->>F: execute
+    F-->>B: result 2
+    B-->>C: result 2
+    C->>B: call 3
+    Note right of B: count: 3 ≥ 3 🔒
+    B-->>C: result 2 (cached)
+    C->>B: call 4
+    B-->>C: result 2 (cached)
+\`\`\`
+
+### before vs after
+
+| | before(fn, 3) | after(fn, 3) |
+|--|---------------|--------------|
+| **Call 1** | ✅ executes | ❌ skips |
+| **Call 2** | ✅ executes | ❌ skips |
+| **Call 3+** | 🔒 cached | ✅ executes |
+
+---
+
+## Use Cases
+
+### Limited Retries for operations 📌
+
+Limit the number of retry attempts for operations.
+Essential for resilient error handling.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=retry" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#retry</a>
+  <a href="/use-cases?q=limit" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#limit</a>
+  <a href="/use-cases?q=attempts" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#attempts</a>
+  <a href="/use-cases?q=operations" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#operations</a>
+  <a href="/use-cases?q=resilience" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#resilience</a>
+</div>
+
+\`\`\`typescript
+import { before } from "pithos/arkhe/function/before";
+
+const attemptConnection = async () => {
+  const response = await fetch("/api/health");
+  if (!response.ok) throw new Error("Connection failed");
+  return response.json();
+};
+
+// Allow only 3 attempts (calls on 1st, 2nd, 3rd - returns last result after)
+const limitedRetry = before(attemptConnection, 4);
+
+async function connectWithRetry() {
+  for (let i = 0; i < 5; i++) {
+    try {
+      const result = await limitedRetry();
+      if (result) return result;
+    } catch (e) {
+      console.log(\`Attempt \${i + 1} failed\`);
+    }
+  }
+  throw new Error("All retries exhausted");
+}
+\`\`\`
+
+### One-time Initialization 📌
+
+Ensure initialization code runs only once.
+Critical for singleton patterns and setup.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=initialization" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#initialization</a>
+  <a href="/use-cases?q=setup" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#setup</a>
+  <a href="/use-cases?q=one-time" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#one-time</a>
+  <a href="/use-cases?q=singleton" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#singleton</a>
+  <a href="/use-cases?q=configuration" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#configuration</a>
+</div>
+
+\`\`\`typescript
+import { before } from "pithos/arkhe/function/before";
+
+const initializeApp = () => {
+  console.log("Initializing application...");
+  // Heavy setup: load config, connect to DB, etc.
+  return { initialized: true, timestamp: Date.now() };
+};
+
+// Only actually initialize on first call
+const safeInit = before(initializeApp, 2);
+
+// First call initializes
+const result1 = safeInit(); // Logs "Initializing application..."
+console.log(result1); // { initialized: true, timestamp: ... }
+
+// Subsequent calls return the cached result
+const result2 = safeInit(); // No log, returns same result
+console.log(result1 === result2); // true (same reference)
+\`\`\`
+
+### Rate Limited Actions for user interactions
+
+Limit how many times a user action can trigger.
+Important for preventing spam clicks.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=rate%20limit" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#rate limit</a>
+  <a href="/use-cases?q=user%20actions" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#user actions</a>
+  <a href="/use-cases?q=clicks" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#clicks</a>
+  <a href="/use-cases?q=interactions" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#interactions</a>
+  <a href="/use-cases?q=throttle" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#throttle</a>
+</div>
+
+\`\`\`typescript
+import { before } from "pithos/arkhe/function/before";
+
+const submitForm = (data: FormData) => {
+  console.log("Submitting form...");
+  return fetch("/api/submit", { method: "POST", body: data });
+};
+
+// Allow only 1 submission (before 2nd call)
+const limitedSubmit = before(submitForm, 2);
+
+// In form handler
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = new FormData(form);
+
+  // Only first click actually submits
+  const result = await limitedSubmit(data);
+  if (result) {
+    console.log("Form submitted successfully");
+  } else {
+    console.log("Form already submitted");
+  }
+});
+\`\`\`
+
+"
+`;
+
+exports[`Functions — core formatting > camelCase (string util) 1`] = `
+"# camelCase()
+
+> **camelCase**(\`str\`): \`string\`
+
+Converts a string to camelCase.
+
+:::note
+
+Handles kebab-case, snake_case, PascalCase, space-separated strings, and acronyms.
+
+:::
+
+
+---
+
+## Parameters
+
+### str: \`string\`
+
+The string to convert.
+
+---
+
+## Returns: \`string\`
+
+The string in camelCase.
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Performance
+
+O(n) single-pass charCode traversal, no regex.
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":{"name":"camelCase","group":"String"},"ramda":null,"radashi":{"name":"camel","group":"String"},"remeda":{"name":"toCamelCase","group":"String"},"moderndash":{"name":"camelCase","group":"String"},"antfu":null,"effect":null,"es-toolkit":{"name":"camelCase","group":"string"},"python":null,"kotlin":null}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+camelCase('background-color'); // => 'backgroundColor'
+camelCase('font_size');        // => 'fontSize'
+camelCase('Hello World');      // => 'helloWorld'
+camelCase('PascalCase');       // => 'pascalCase'
+camelCase('HTTPRequest');      // => 'httpRequest'
+camelCase('--foo--bar--');     // => 'fooBar'
+\`\`\`
+
+---
+
+## How it works?
+
+Converts a string to camelCase format.
+First word lowercase, subsequent words capitalized, no separators.
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["'background-color'"] --> B["camelCase(_)"]
+    B --> C["'backgroundColor'"]\`}
+  mobile={\`flowchart TB
+    A["'background-color'"] --> B["camelCase(_)"]
+    B --> C["'backgroundColor'"]\`}
+/>
+
+### Conversion Examples
+
+| Input | Output |
+|-------|--------|
+| \`background-color\` | \`backgroundColor\` |
+| \`font_size\` | \`fontSize\` |
+| \`Hello World\` | \`helloWorld\` |
+| \`PascalCase\` | \`pascalCase\` |
+| \`HTTPRequest\` | \`httpRequest\` |
+
+### Process
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["Input: 'Hello-World'"] --> B["Split on separators"]
+    B --> C["['Hello', 'World']"]
+    C --> D["Lowercase first word"]
+    D --> E["'hello'"]
+    C --> F["Capitalize rest"]
+    F --> G["'World'"]
+    E --> H["Join"]
+    G --> H
+    H --> I["'helloWorld'"]\`}
+  mobile={\`flowchart TB
+    A["Input: 'Hello-World'"] --> B["Split on separators"]
+    B --> C["['Hello', 'World']"]
+    C --> D["Lowercase first word"]
+    D --> E["'hello'"]
+    C --> F["Capitalize rest"]
+    F --> G["'World'"]
+    E --> H["Join"]
+    G --> H
+    H --> I["'helloWorld'"]\`}
+/>
+
+---
+
+## Use Cases
+
+### Normalize keys 📌
+
+Convert property names or identifiers to standard JavaScript \`camelCase\`.
+Essential for API response normalization and consistent coding style.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=normalize" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#normalize</a>
+  <a href="/use-cases?q=keys" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#keys</a>
+  <a href="/use-cases?q=camelCase" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#camelCase</a>
+  <a href="/use-cases?q=identifiers" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#identifiers</a>
+  <a href="/use-cases?q=API" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#API</a>
+  <a href="/use-cases?q=properties" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#properties</a>
+</div>
+
+\`\`\`typescript
+const key = camelCase('user-id'); // 'userId'
+const prop = camelCase('first_name'); // 'firstName'
+\`\`\`
+
+### Ensure identifier safety
+
+Ensure a string is a valid variable identifier.
+Useful when generating code or dynamic property accessors.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=ensure" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#ensure</a>
+  <a href="/use-cases?q=identifier" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#identifier</a>
+  <a href="/use-cases?q=safety" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#safety</a>
+  <a href="/use-cases?q=variables" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#variables</a>
+  <a href="/use-cases?q=code-generation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#code-generation</a>
+  <a href="/use-cases?q=valid" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#valid</a>
+</div>
+
+\`\`\`typescript
+const varName = camelCase('My Class Name'); // 'myClassName'
+\`\`\`
+
+### Convert API response keys from snake_case
+
+Transform snake_case keys from a backend API into JavaScript-standard camelCase.
+The most common real-world use case, especially with Python/Ruby/Go backends.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=convert" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#convert</a>
+  <a href="/use-cases?q=API" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#API</a>
+  <a href="/use-cases?q=response" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#response</a>
+  <a href="/use-cases?q=snake_case" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#snake_case</a>
+  <a href="/use-cases?q=camelCase" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#camelCase</a>
+  <a href="/use-cases?q=keys" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#keys</a>
+  <a href="/use-cases?q=normalize" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#normalize</a>
+  <a href="/use-cases?q=backend" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#backend</a>
+</div>
+
+\`\`\`typescript
+const apiResponse = {
+  user_id: 42,
+  first_name: "Alice",
+  created_at: "2025-01-15",
+  is_active: true,
+};
+
+// Combined with mapKeys for full object transformation
+const normalized = mapKeys(apiResponse, (_, key) => camelCase(key));
+// => { userId: 42, firstName: "Alice", createdAt: "2025-01-15", isActive: true }
+\`\`\`
+
+"
+`;
+
+exports[`Functions — core formatting > flip (function manipulation) 1`] = `
+"# flip()
+
+> **flip**\\<\`First\`, \`Second\`, \`Rest\`, \`Result\`\\>(\`fn\`): (\`b\`, \`a\`, ...\`rest\`) => \`Result\`
+
+Creates a function with its first two arguments reversed.
+
+
+---
+
+## Type Parameters
+
+### First: \`First\`
+
+The first argument type.
+
+### Second: \`Second\`
+
+The second argument type.
+
+### Rest: \`Rest extends unknown[]\`
+
+The remaining argument types.
+
+### Result: \`Result\`
+
+The return type.
+
+---
+
+## Parameters
+
+### fn: \`(a, b, ...rest) => Result\`
+
+The function to flip.
+
+---
+
+## Returns
+
+The flipped function.
+
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":{"name":"flip","group":"Function"},"ramda":{"name":"flip","group":"Function"},"radashi":{"name":"flip","group":"Curry"},"remeda":{"name":"flip","group":"Function"},"moderndash":null,"antfu":null,"effect":{"name":"flip","group":"Function"},"es-toolkit":{"name":"flip","group":"compat"},"python":null,"kotlin":null}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+const divide = (a: number, b: number) => a / b;
+const divideBy = flip(divide);
+
+divide(10, 2);   // => 5
+divideBy(2, 10); // => 5
+\`\`\`
+
+---
+
+## How it works?
+
+Creates a function with its first two arguments reversed.
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    subgraph "Original: divide(a, b)"
+        A1["divide(10, 2)"] --> B1["10 ÷ 2 = 5"]
+    end\`}
+  mobile={\`flowchart TB
+    subgraph "Original: divide(a, b)"
+        A1["divide(10, 2)"] --> B1["10 ÷ 2 = 5"]
+    end\`}
+/>
+
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    subgraph "Flipped: divideBy(b, a)"
+        A2["divideBy(2, 10)"] --> B2["10 ÷ 2 = 5"]
+    end\`}
+  mobile={\`flowchart TB
+    subgraph "Flipped: divideBy(b, a)"
+        A2["divideBy(2, 10)"] --> B2["10 ÷ 2 = 5"]
+    end\`}
+/>
+
+### Argument Swap
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["fn(a, b, ...rest)"] --> B["flip(fn)"]
+    B --> C["fn(b, a, ...rest)"]\`}
+  mobile={\`flowchart TB
+    A["fn(a, b, ...rest)"] --> B["flip(fn)"]
+    B --> C["fn(b, a, ...rest)"]\`}
+/>
+
+---
+
+## Use Cases
+
+### Create natural APIs 📌
+
+Reverse function parameters to create more intuitive and readable function interfaces.
+Essential for API design and improving code readability.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=natural" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#natural</a>
+  <a href="/use-cases?q=APIs" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#APIs</a>
+  <a href="/use-cases?q=parameters" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#parameters</a>
+  <a href="/use-cases?q=reverse" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#reverse</a>
+  <a href="/use-cases?q=readability" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#readability</a>
+  <a href="/use-cases?q=intuitive" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#intuitive</a>
+</div>
+
+\`\`\`typescript
+const greet = (name, greeting) => \`\${greeting}, \${name}!\`;
+const greetReverse = flip(greet);
+
+greetReverse("Hello", "World"); // "Hello, World!" (flipped)
+\`\`\`
+
+### Enable currying patterns
+
+Reverse parameters to enable currying and partial application for functional programming.
+Critical for functional programming and creating reusable function components.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=currying" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#currying</a>
+  <a href="/use-cases?q=patterns" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#patterns</a>
+  <a href="/use-cases?q=functional" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#functional</a>
+  <a href="/use-cases?q=partial" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#partial</a>
+  <a href="/use-cases?q=composition" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#composition</a>
+  <a href="/use-cases?q=reusable" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#reusable</a>
+</div>
+
+\`\`\`typescript
+const map = (fn, array) => array.map(fn);
+const mapFlipped = flip(map);
+
+// Now data comes last, easier to curry or pipe
+const doubleAll = (arr) => mapFlipped(arr, n => n * 2);
+\`\`\`
+
+"
+`;
+
+exports[`Functions — core formatting > negate (higher-order) 1`] = `
+"# negate()
+
+> **negate**\\<\`Args\`\\>(\`predicate\`): (...\`args\`) => \`boolean\`
+
+Creates a function that negates the result of the predicate.
+
+
+---
+
+## Type Parameters
+
+### Args: \`Args extends unknown[]\`
+
+The argument types of the predicate.
+
+---
+
+## Parameters
+
+### predicate: \`(...args) => unknown\`
+
+The predicate to negate.
+
+---
+
+## Returns
+
+The new negated function.
+
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":{"name":"negate","group":"Function"},"ramda":{"name":"complement","group":"Logic"},"radashi":null,"remeda":null,"moderndash":null,"antfu":null,"effect":{"name":"not","group":"Boolean"},"es-toolkit":{"name":"negate","group":"function"},"python":null,"kotlin":null}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+const isEven = (n: number) => n % 2 === 0;
+const isOdd = negate(isEven);
+
+isOdd(1); // => true
+isOdd(2); // => false
+
+// Use with array methods
+[1, 2, 3, 4, 5].filter(negate(isEven));
+// => [1, 3, 5]
+
+// With multiple arguments
+const includes = (arr: number[], val: number) => arr.includes(val);
+const excludes = negate(includes);
+excludes([1, 2, 3], 4); // => true
+\`\`\`
+
+---
+
+## How it works?
+
+Creates a function that returns the logical negation of the predicate result.
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["isEven(4)"] --> B["true"]
+    C["negate(isEven)(4)"] --> D["false"]\`}
+  mobile={\`flowchart TB
+    A["isEven(4)"] --> B["true"]
+    C["negate(isEven)(4)"] --> D["false"]\`}
+/>
+
+### Transformation
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    subgraph "Original"
+        A1["predicate(x)"] --> B1["true/false"]
+    end
+    subgraph "Negated"
+        A2["negate(predicate)(x)"] --> B2["!result"]
+    end\`}
+  mobile={\`flowchart TB
+    subgraph "Original"
+        A1["predicate(x)"] --> B1["true/false"]
+    end
+    subgraph "Negated"
+        A2["negate(predicate)(x)"] --> B2["!result"]
+    end\`}
+/>
+
+### Array Filter Example
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["[1, 2, 3, 4, 5]"] --> B["filter(negate(isEven))"]
+    B --> C["[1, 3, 5]"]\`}
+  mobile={\`flowchart TB
+    A["[1, 2, 3, 4, 5]"] --> B["filter(negate(isEven))"]
+    B --> C["[1, 3, 5]"]\`}
+/>
+
+---
+
+## Use Cases
+
+### Filter Inversion for array operations 📌
+
+Invert predicates for filtering operations.
+Essential for creating opposite filter conditions.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=negate" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#negate</a>
+  <a href="/use-cases?q=filter" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#filter</a>
+  <a href="/use-cases?q=inversion" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#inversion</a>
+  <a href="/use-cases?q=array" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#array</a>
+  <a href="/use-cases?q=predicate" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#predicate</a>
+</div>
+
+\`\`\`typescript
+import { negate } from "pithos/arkhe/function/negate";
+
+const isEven = (n: number) => n % 2 === 0;
+const isOdd = negate(isEven);
+
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+console.log(numbers.filter(isEven)); // [2, 4, 6, 8, 10]
+console.log(numbers.filter(isOdd));  // [1, 3, 5, 7, 9]
+\`\`\`
+
+### Validation Negation for form checks 📌
+
+Create opposite validation conditions.
+Critical for form validation logic.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=validation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#validation</a>
+  <a href="/use-cases?q=negation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#negation</a>
+  <a href="/use-cases?q=form" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#form</a>
+  <a href="/use-cases?q=checks" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#checks</a>
+  <a href="/use-cases?q=conditions" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#conditions</a>
+</div>
+
+\`\`\`typescript
+import { negate } from "pithos/arkhe/function/negate";
+
+const isEmpty = (value: string) => value.trim().length === 0;
+const isNotEmpty = negate(isEmpty);
+
+const hasErrors = (errors: string[]) => errors.length > 0;
+const isValid = negate(hasErrors);
+
+// Use in form validation
+const formFields = ["username", "email", "password"];
+const values = { username: "john", email: "", password: "secret" };
+
+const emptyFields = formFields.filter(field => isEmpty(values[field]));
+const filledFields = formFields.filter(field => isNotEmpty(values[field]));
+
+console.log(emptyFields);  // ["email"]
+console.log(filledFields); // ["username", "password"]
+\`\`\`
+
+### Access Control logic
+
+Invert permission checks for access control.
+Important for authorization systems.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=access%20control" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#access control</a>
+  <a href="/use-cases?q=permissions" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#permissions</a>
+  <a href="/use-cases?q=authorization" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#authorization</a>
+  <a href="/use-cases?q=security" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#security</a>
+  <a href="/use-cases?q=roles" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#roles</a>
+</div>
+
+\`\`\`typescript
+import { negate } from "pithos/arkhe/function/negate";
+
+interface User {
+  id: string;
+  role: string;
+  suspended: boolean;
+}
+
+const isAdmin = (user: User) => user.role === "admin";
+const isSuspended = (user: User) => user.suspended;
+
+const isNotAdmin = negate(isAdmin);
+const isActive = negate(isSuspended);
+
+const users: User[] = [
+  { id: "1", role: "admin", suspended: false },
+  { id: "2", role: "user", suspended: true },
+  { id: "3", role: "user", suspended: false },
+];
+
+// Find active non-admin users
+const regularActiveUsers = users.filter(u => isNotAdmin(u) && isActive(u));
+console.log(regularActiveUsers); // [{ id: "3", role: "user", suspended: false }]
+\`\`\`
+
+"
+`;
+
+exports[`Functions — core formatting > noop (minimal) 1`] = `
+"# noop()
+
+> **noop**(): \`void\`
+
+A function that does nothing and returns undefined.
+
+Useful as a default callback or placeholder.
+
+
+---
+
+## Returns: \`void\`
+
+Always returns \`undefined\`.
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":{"name":"noop","group":"Util"},"ramda":{"name":"always","group":"Function"},"radashi":{"name":"noop","group":"Function"},"remeda":{"name":"doNothing","group":"Function"},"moderndash":null,"antfu":{"name":"noop","group":"function"},"effect":{"name":"constVoid","group":"Function"},"es-toolkit":{"name":"noop","group":"function"},"python":null,"kotlin":null}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+// Default callback to avoid null checks
+function fetchData(onSuccess: () => void = noop) {
+  // No need for: if (onSuccess) onSuccess()
+  onSuccess();
+}
+
+// In tests
+const handler: Arrayable<() => void> = [noop, noop];
+expect(processItems(handler)).toHaveLength(2);
+\`\`\`
+
+---
+
+## How it works?
+
+A function that does nothing and returns \`undefined\`.
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["noop()"] --> B["undefined"]\`}
+  mobile={\`flowchart TB
+    A["noop()"] --> B["undefined"]\`}
+/>
+
+### Use Case: Default Callback
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    subgraph "Without noop"
+        A1["if (callback)"] --> B1["callback()"]
+    end\`}
+  mobile={\`flowchart TB
+    subgraph "Without noop"
+        A1["if (callback)"] --> B1["callback()"]
+    end\`}
+/>
+
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    subgraph "With noop"
+        A2["callback = noop"] --> B2["callback()"]
+    end\`}
+  mobile={\`flowchart TB
+    subgraph "With noop"
+        A2["callback = noop"] --> B2["callback()"]
+    end\`}
+/>
+
+---
+
+## Use Cases
+
+### Provide default callbacks 📌
+
+Use as a placeholder for optional callback functions to avoid null checks.
+Essential for cleaner code and avoiding "if (callback)" checks.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=default" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#default</a>
+  <a href="/use-cases?q=callbacks" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#callbacks</a>
+  <a href="/use-cases?q=placeholder" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#placeholder</a>
+  <a href="/use-cases?q=optional" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#optional</a>
+  <a href="/use-cases?q=safety" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#safety</a>
+  <a href="/use-cases?q=null-checks" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#null-checks</a>
+</div>
+
+\`\`\`typescript
+function fetchData(onSuccess = noop) {
+  // Safe to call even if not provided
+  onSuccess();
+}
+
+fetchData(); // No error
+\`\`\`
+
+### Stub functions for testing 📌
+
+Use as a placeholder for dependencies during unit testing.
+Useful for mocking functions that don't need to return values.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=stub" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#stub</a>
+  <a href="/use-cases?q=testing" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#testing</a>
+  <a href="/use-cases?q=mocking" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#mocking</a>
+  <a href="/use-cases?q=placeholder" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#placeholder</a>
+  <a href="/use-cases?q=unit-tests" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#unit-tests</a>
+  <a href="/use-cases?q=dependencies" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#dependencies</a>
+</div>
+
+\`\`\`typescript
+const mockLogger = {
+  info: noop,
+  warn: noop,
+  error: noop,
+};
+
+// Test logic without filling console with logs
+processData(data, mockLogger);
+\`\`\`
+
+### Disable event handlers temporarily
+
+Replace active handlers with noop to "mute" functionality without removing listeners.
+Useful for feature flags or temporary disabling during maintenance.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=disable" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#disable</a>
+  <a href="/use-cases?q=handlers" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#handlers</a>
+  <a href="/use-cases?q=events" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#events</a>
+  <a href="/use-cases?q=mute" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#mute</a>
+  <a href="/use-cases?q=temporary" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#temporary</a>
+  <a href="/use-cases?q=feature-flags" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#feature-flags</a>
+</div>
+
+\`\`\`typescript
+let onNotification = showToast;
+
+// Mute notifications during focus mode
+function enableFocusMode() {
+  onNotification = noop;
+}
+
+function disableFocusMode() {
+  onNotification = showToast;
+}
+
+// Code doesn't need to check if handler exists
+socket.on("notification", (msg) => onNotification(msg));
+\`\`\`
+
+"
+`;
+
+exports[`Functions — core formatting > once (wrapper) 1`] = `
+"# once()
+
+> **once**\\<\`Args\`, \`Result\`\\>(\`fn\`): (...\`args\`) => \`Result\`
+
+Creates a function that can only be called once.
+
+:::note
+
+Subsequent calls return the cached result and ignore new arguments.
+
+:::
+
+
+---
+
+## Type Parameters
+
+### Args: \`Args extends unknown[]\`
+
+The argument types of the function.
+
+### Result: \`Result\`
+
+The return type of the function.
+
+---
+
+## Parameters
+
+### fn: \`(...args) => Result\`
+
+The function to restrict to one execution.
+
+---
+
+## Returns
+
+The restricted function that caches the first call's result.
+
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Performance
+
+O(1) lookup after first call. Single boolean flag check for optimal performance.
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":{"name":"once","group":"Function"},"ramda":{"name":"once","group":"Function"},"radashi":{"name":"once","group":"Curry"},"remeda":{"name":"once","group":"Function"},"moderndash":null,"antfu":null,"effect":null,"es-toolkit":{"name":"once","group":"function"},"python":null,"kotlin":null}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+// Basic usage
+const initialize = once(() => {
+  console.log('Initializing...');
+  return 'initialized';
+});
+
+initialize(); // "Initializing..." -> "initialized"
+initialize(); // "initialized" (cached)
+
+// With parameters (ignores new args after first call)
+const createUser = once((name: string) => ({ id: 1, name }));
+
+createUser('John'); // { id: 1, name: 'John' }
+createUser('Jane'); // { id: 1, name: 'John' } (cached)
+
+// Async functions
+const fetchData = once(async () => fetch('/api/data'));
+await fetchData(); // Fetches
+await fetchData(); // Cached promise
+\`\`\`
+
+---
+
+## How it works?
+
+Creates a function that executes only once — subsequent calls return the cached result.
+\`\`\`mermaid
+sequenceDiagram
+    participant C as Caller
+    participant O as once(fn)
+    participant F as fn()
+    
+    C->>O: call 1
+    Note right of O: called = false
+    O->>F: execute
+    F-->>O: result
+    Note right of O: called = true, cache result
+    O-->>C: result
+    
+    C->>O: call 2
+    Note right of O: called = true 🔒
+    O-->>C: result (cached)
+    
+    C->>O: call 3
+    O-->>C: result (cached)
+\`\`\`
+
+### Simple Flow
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["once(init)"] --> B{"called?"}
+    B -->|"❌ first"| C["execute fn"]
+    C --> D["cache result"]
+    D --> E["return result"]
+    B -->|"✅ subsequent"| E\`}
+  mobile={\`flowchart TB
+    A["once(init)"] --> B{"called?"}
+    B -->|"❌ first"| C["execute fn"]
+    C --> D["cache result"]
+    D --> E["return result"]
+    B -->|"✅ subsequent"| E\`}
+/>
+
+### Key Behavior
+
+New arguments are ignored after the first call:
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["createUser('John')"] -->|"first call"| B["{ name: 'John' }"]
+    C["createUser('Jane')"] -->|"cached"| B\`}
+  mobile={\`flowchart TB
+    A["createUser('John')"] -->|"first call"| B["{ name: 'John' }"]
+    C["createUser('Jane')"] -->|"cached"| B\`}
+/>
+
+---
+
+## Use Cases
+
+### Initialize resources only once 📌
+
+Ensure initialization code runs only once to prevent duplicate setup.
+Essential for resource management and preventing initialization errors.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=initialize" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#initialize</a>
+  <a href="/use-cases?q=once" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#once</a>
+  <a href="/use-cases?q=singleton" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#singleton</a>
+  <a href="/use-cases?q=setup" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#setup</a>
+  <a href="/use-cases?q=resources" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#resources</a>
+  <a href="/use-cases?q=idempotent" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#idempotent</a>
+</div>
+
+\`\`\`typescript
+const initApp = once(() => {
+  console.log("App initialized");
+  // ... setup code
+});
+
+initApp(); // "App initialized"
+initApp(); // (ignored)
+\`\`\`
+
+### Create singletons safely
+
+Ensure singleton instances are created only once.
+Essential for state management and ensuring single instance patterns.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=singleton" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#singleton</a>
+  <a href="/use-cases?q=pattern" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#pattern</a>
+  <a href="/use-cases?q=instance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#instance</a>
+  <a href="/use-cases?q=state" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#state</a>
+  <a href="/use-cases?q=management" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#management</a>
+  <a href="/use-cases?q=unique" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#unique</a>
+</div>
+
+\`\`\`typescript
+const getDb = once(() => new DatabaseConnection());
+const db1 = getDb();
+const db2 = getDb(); 
+
+console.log(db1 === db2); // true
+\`\`\`
+
+### Lazy-initialize an SDK or API client
+
+Initialize a third-party SDK on first use instead of at app startup.
+The standard pattern for Stripe, Firebase, Analytics, or any heavy client library.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=lazy" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#lazy</a>
+  <a href="/use-cases?q=initialize" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#initialize</a>
+  <a href="/use-cases?q=SDK" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#SDK</a>
+  <a href="/use-cases?q=client" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#client</a>
+  <a href="/use-cases?q=Stripe" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#Stripe</a>
+  <a href="/use-cases?q=Firebase" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#Firebase</a>
+  <a href="/use-cases?q=Analytics" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#Analytics</a>
+  <a href="/use-cases?q=singleton" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#singleton</a>
+  <a href="/use-cases?q=setup" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#setup</a>
+</div>
+
+\`\`\`typescript
+const getStripe = once(() => {
+  return loadStripe(process.env.STRIPE_PUBLIC_KEY);
+});
+
+const getAnalytics = once(() => {
+  return initializeAnalytics({ trackingId: "UA-XXXXX" });
+});
+
+// Called from multiple components — SDK loads only on first call
+async function handleCheckout() {
+  const stripe = await getStripe();
+  stripe.redirectToCheckout({ sessionId });
+}
+\`\`\`
+
+"
+`;
+
+exports[`Functions — taphos (lodash compat) > add (taphos, math) 1`] = `
+"# ~~add()~~
+
+> **add**(\`augend\`, \`addend\`): \`number\`
+
+Adds two numbers.
+
+:::warning DEPRECATED
+
+Use the \`+\` operator directly instead.
+
+:::
+
+
+---
+
+## Parameters
+
+### augend: \`number\`
+
+The first number in an addition.
+
+### addend: \`number\`
+
+The second number in an addition.
+
+---
+
+## Returns: \`number\`
+
+The sum.
+
+
+---
+
+## See Also
+
+[Addition (+) - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Addition)
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":{"name":"add","group":"Math"},"ramda":{"name":"add","group":"Math"},"radashi":null,"remeda":null,"moderndash":null,"antfu":null,"effect":null,"es-toolkit":null,"python":{"name":"+","group":"builtins"},"kotlin":{"name":"+","group":"kotlin"}}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+// ❌ Deprecated approach
+add(6, 4);   // => 10
+
+// ✅ Recommended approach
+6 + 4;       // => 10
+\`\`\`
+
+---
+
+## How it works?
+
+Adds two numbers.
+**Deprecated**: Use the \`+\` operator directly.
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["add(6, 4)"] --> B["10"]\`}
+  mobile={\`flowchart TB
+    A["add(6, 4)"] --> B["10"]\`}
+/>
+
+### Native Equivalent
+
+\`\`\`typescript
+// ❌ add(6, 4)
+// ✅ 6 + 4
+\`\`\`
+
+---
+
+## Use Cases
+
+### Add numbers 📌
+
+Add two numbers.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=add" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#add</a>
+  <a href="/use-cases?q=sum" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#sum</a>
+  <a href="/use-cases?q=plus" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#plus</a>
+  <a href="/use-cases?q=arithmetic" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#arithmetic</a>
+</div>
+
+\`\`\`typescript
+a + b;
+\`\`\`
+
+### Accumulate values
+
+Sum array of numbers.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=accumulate" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#accumulate</a>
+  <a href="/use-cases?q=reduce" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#reduce</a>
+  <a href="/use-cases?q=sum" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#sum</a>
+  <a href="/use-cases?q=total" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#total</a>
+</div>
+
+\`\`\`typescript
+const total = numbers.reduce((a, b) => a + b, 0);
+\`\`\`
+
+"
+`;
+
+exports[`Functions — taphos (lodash compat) > eq (taphos, lang) 1`] = `
+"# ~~eq()~~
+
+> **eq**(\`value\`, \`other\`): \`boolean\`
+
+Performs a SameValueZero comparison between two values to determine if they are equivalent.
+
+:::warning DEPRECATED
+
+Use \`Object.is()\` or \`===\` directly instead.
+
+:::
+
+
+---
+
+## Parameters
+
+### value: \`unknown\`
+
+The value to compare.
+
+### other: \`unknown\`
+
+The other value to compare.
+
+---
+
+## Returns: \`boolean\`
+
+\`true\` if the values are equivalent, else \`false\`.
+
+
+---
+
+## See Also
+
+- [Object.is() - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is)
+ - [Browser support - Can I Use](https://caniuse.com/mdn-javascript_builtins_object_is)
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":{"name":"eq","group":"Lang"},"ramda":{"name":"equals","group":"Relation"},"radashi":null,"remeda":null,"moderndash":null,"antfu":null,"effect":{"name":"equals","group":"Equal"},"es-toolkit":null,"python":{"name":"==","group":"builtins"},"kotlin":{"name":"==","group":"kotlin"}}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+// ❌ Deprecated approach
+eq(1, 1);         // => true
+eq('a', 'a');     // => true
+eq(NaN, NaN);     // => true
+
+// ✅ Recommended approach
+Object.is(1, 1);        // => true
+Object.is('a', 'a');    // => true
+Object.is(NaN, NaN);    // => true (unlike ===)
+
+// Or simply use === for most cases
+1 === 1;          // => true
+'a' === 'a';      // => true
+\`\`\`
+
+---
+
+## How it works?
+
+Performs SameValueZero comparison between two values.
+**Deprecated**: Use \`===\` or \`Object.is()\` directly.
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["eq(1, 1)"] --> B["true"]
+    C["eq(NaN, NaN)"] --> D["true"]\`}
+  mobile={\`flowchart TB
+    A["eq(1, 1)"] --> B["true"]
+    C["eq(NaN, NaN)"] --> D["true"]\`}
+/>
+
+### Native Equivalent
+
+\`\`\`typescript
+// ❌ eq(a, b)
+// ✅ a === b
+// ✅ Object.is(a, b)  // for NaN handling
+\`\`\`
+
+---
+
+## Use Cases
+
+### Compare values 📌
+
+Strict equality comparison.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=equal" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#equal</a>
+  <a href="/use-cases?q=compare" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#compare</a>
+  <a href="/use-cases?q=strict" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#strict</a>
+  <a href="/use-cases?q=equality" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#equality</a>
+</div>
+
+\`\`\`typescript
+a === b;
+\`\`\`
+
+### Check identity
+
+Check if two values are identical.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=identity" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#identity</a>
+  <a href="/use-cases?q=same" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#same</a>
+  <a href="/use-cases?q=reference" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#reference</a>
+</div>
+
+\`\`\`typescript
+const obj = { id: 1 };
+const ref = obj;
+obj === ref;  // true
+\`\`\`
+
+"
+`;
+
+exports[`Functions — taphos (lodash compat) > flatten (taphos) 1`] = `
+"# ~~flatten()~~
+
+> **flatten**\\<\`T\`\\>(\`array\`): (\`T\` \\| \`T\`[])[]
+
+Flattens array a single level deep.
+
+:::warning DEPRECATED
+
+Use \`array.flat()\` directly instead.
+
+> **Reason**:<br/>
+> Native equivalent method now available
+
+:::
+
+
+---
+
+## Type Parameters
+
+### T: \`T\`
+
+The type of elements in the array.
+
+---
+
+## Parameters
+
+### array: \`(T | T[])[]\`
+
+The array to flatten.
+
+---
+
+## Returns: \`(T | T[])[]\`
+
+A new flattened array.
+
+
+---
+
+## See Also
+
+- [Array.flat() - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
+ - [Browser support - Can I Use](https://caniuse.com/mdn-javascript_builtins_array_flat)
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":{"name":"flatten","group":"Array"},"ramda":{"name":"flatten","group":"List"},"radashi":{"name":"flat","group":"Array"},"remeda":{"name":"flat","group":"Array"},"moderndash":null,"antfu":{"name":"flattenArrayable","group":"array"},"effect":{"name":"flatten","group":"Array"},"es-toolkit":{"name":"flatten","group":"array"},"python":{"name":"chain.from_iterable","group":"itertools"},"kotlin":{"name":"flatten","group":"collections"}}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+const nested = [1, [2, 3], [4, [5, 6]]];
+
+// ❌ Deprecated approach
+const flattened = flatten(nested);
+console.log(flattened); // [1, 2, 3, 4, [5, 6]]
+
+// ✅ Recommended approach
+const flattenedNative = nested.flat();
+console.log(flattenedNative); // [1, 2, 3, 4, [5, 6]]
+\`\`\`
+
+---
+
+## How it works?
+
+Flattens array a single level deep.
+**Deprecated**: Use \`array.flat()\` directly (ES2019).
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["[1, [2, 3], [4, [5, 6]]]"] --> B["flatten(_)"]
+    B --> C["[1, 2, 3, 4, [5, 6]]"]\`}
+  mobile={\`flowchart TB
+    A["[1, [2, 3], [4, [5, 6]]]"] --> B["flatten(_)"]
+    B --> C["[1, 2, 3, 4, [5, 6]]"]\`}
+/>
+
+### Single Level Only
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    subgraph "Before"
+        A["[1, [2, 3], [4, [5]]]"]
+    end
+    subgraph "After flatten()"
+        B["[1, 2, 3, 4, [5]]"]
+    end
+    A --> B\`}
+  mobile={\`flowchart TB
+    subgraph "Before"
+        A["[1, [2, 3], [4, [5]]]"]
+    end
+    subgraph "After flatten()"
+        B["[1, 2, 3, 4, [5]]"]
+    end
+    A --> B\`}
+/>
+
+### Native Equivalent
+
+\`\`\`typescript
+// ❌ flatten(arr)
+// ✅ arr.flat()
+\`\`\`
+
+---
+
+## Use Cases
+
+### Flatten nested arrays one level 📌
+
+Flatten one level of nesting in arrays.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=flatten" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#flatten</a>
+  <a href="/use-cases?q=nested" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#nested</a>
+  <a href="/use-cases?q=arrays" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#arrays</a>
+  <a href="/use-cases?q=level" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#level</a>
+  <a href="/use-cases?q=normalize" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#normalize</a>
+</div>
+
+\`\`\`typescript
+const nested = [[1, 2], [3, 4], [5]];
+nested.flat();
+// => [1, 2, 3, 4, 5]
+\`\`\`
+
+### Merge grouped results
+
+Combine results from grouped operations.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=merge" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#merge</a>
+  <a href="/use-cases?q=grouped" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#grouped</a>
+  <a href="/use-cases?q=results" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#results</a>
+  <a href="/use-cases?q=combine" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#combine</a>
+</div>
+
+\`\`\`typescript
+const grouped = [users.slice(0, 10), users.slice(10, 20)];
+grouped.flat();
+// => all users in single array
+\`\`\`
+
+### Normalize API responses
+
+Flatten nested response structures.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=normalize" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#normalize</a>
+  <a href="/use-cases?q=API" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#API</a>
+  <a href="/use-cases?q=responses" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#responses</a>
+  <a href="/use-cases?q=structure" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#structure</a>
+</div>
+
+\`\`\`typescript
+const responses = [apiPage1.items, apiPage2.items];
+responses.flat();
+\`\`\`
+
+"
+`;
+
+exports[`Functions — taphos (lodash compat) > head (taphos, simple) 1`] = `
+"# ~~head()~~
+
+> **head**\\<\`T\`\\>(\`array\`): \`T\` \\| \`undefined\`
+
+Gets the first element of array.
+
+Alias for first.
+
+:::warning DEPRECATED
+
+Use \`array[0]\` or \`array.at(0)\` directly instead.
+
+> **Reason**:<br/>
+> Alias of first
+
+:::
+
+
+---
+
+## Type Parameters
+
+### T: \`T\`
+
+The type of elements in the array.
+
+---
+
+## Parameters
+
+### array: \`T[]\`
+
+The array to query.
+
+---
+
+## Returns: \`T | undefined\`
+
+The first element of the array, or \`undefined\` if empty.
+
+
+---
+
+## See Also
+
+- [Array.at() - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at)
+ - [Browser support - Can I Use](https://caniuse.com/mdn-javascript_builtins_array_at)
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":{"name":"head","group":"Array"},"ramda":{"name":"head","group":"List"},"radashi":{"name":"first","group":"Array"},"remeda":{"name":"first","group":"Array"},"moderndash":null,"antfu":{"name":"at(arr, 0)","group":"array"},"effect":{"name":"head","group":"Array"},"es-toolkit":{"name":"head","group":"array"},"python":{"name":"list[0]","group":"builtins"},"kotlin":{"name":"first","group":"collections"}}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+const numbers = [1, 2, 3, 4, 5];
+
+// ❌ Deprecated approach
+const firstElement = head(numbers);
+console.log(firstElement); // 1
+
+// ✅ Recommended approach
+const firstNative = numbers[0];
+console.log(firstNative); // 1
+
+// ✅ Modern approach with ES2022
+const firstModern = numbers.at(0);
+console.log(firstModern); // 1
+\`\`\`
+
+---
+
+## How it works?
+
+Gets the first element of an array.
+**Deprecated**: Use \`array[0]\` or \`array.at(0)\` directly.
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["[1, 2, 3, 4, 5]"] --> B["head(_)"]
+    B --> C["1"]\`}
+  mobile={\`flowchart TB
+    A["[1, 2, 3, 4, 5]"] --> B["head(_)"]
+    B --> C["1"]\`}
+/>
+
+### Empty Array
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["[]"] --> B["head(_)"]
+    B --> C["undefined"]\`}
+  mobile={\`flowchart TB
+    A["[]"] --> B["head(_)"]
+    B --> C["undefined"]\`}
+/>
+
+### Native Equivalent
+
+\`\`\`typescript
+// ❌ head(arr)
+// ✅ arr[0]
+// ✅ arr.at(0)
+\`\`\`
+
+---
+
+## Use Cases
+
+### Get first element 📌
+
+Get the first element of an array.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=head" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#head</a>
+  <a href="/use-cases?q=first" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#first</a>
+  <a href="/use-cases?q=element" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#element</a>
+  <a href="/use-cases?q=array" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#array</a>
+</div>
+
+\`\`\`typescript
+const items = [1, 2, 3, 4];
+items[0];
+// => 1
+\`\`\`
+
+### Get element at position
+
+Access element at a specific index.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=nth" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#nth</a>
+  <a href="/use-cases?q=index" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#index</a>
+  <a href="/use-cases?q=position" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#position</a>
+  <a href="/use-cases?q=element" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#element</a>
+</div>
+
+\`\`\`typescript
+const items = ["a", "b", "c", "d"];
+items[2];
+// => "c"
+\`\`\`
+
+### Get element from end
+
+Access elements from the end using negative index.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=negative" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#negative</a>
+  <a href="/use-cases?q=index" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#index</a>
+  <a href="/use-cases?q=last" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#last</a>
+  <a href="/use-cases?q=end" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#end</a>
+</div>
+
+\`\`\`typescript
+const items = [1, 2, 3, 4, 5];
+items.at(-2);
+// => 4
+\`\`\`
+
+"
+`;

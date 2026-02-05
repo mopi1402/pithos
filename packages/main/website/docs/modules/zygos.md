@@ -3,11 +3,15 @@ sidebar_position: 3
 title: Zygos
 ---
 
-# Zygos
+import ModuleName from '@site/src/components/shared/badges/ModuleName';
+
+# 🆉 <ModuleName name="Zygos" />  
 
 _ζυγός - "balance"_
 
 Functional error handling. Lightweight alternatives to Neverthrow and fp-ts (Either, Task, TaskEither).
+
+---
 
 ## Quick Example
 
@@ -28,6 +32,8 @@ if (result.isOk()) {
 }
 ```
 
+---
+
 ## Available Monads
 
 | Monad | Description | Use Case |
@@ -37,6 +43,8 @@ if (result.isOk()) {
 | **Either** | `Left<E>` or `Right<A>` | Generic two-case branching |
 | **Task** | Lazy async computation | Deferred async operations |
 | **TaskEither** | Async Either | Async operations that can fail |
+
+--- 
 
 ## Result
 
@@ -84,6 +92,8 @@ const asyncResult = ResultAsync.fromPromise(
 );
 ```
 
+--- 
+
 ## Option
 
 Handle optional values without null/undefined.
@@ -107,6 +117,8 @@ some(5)
   |> map(x => x * 2)      // Some(10)
   |> flatMap(x => some(x + 1)); // Some(11)
 ```
+
+---
 
 ## Either, Task, TaskEither
 
@@ -147,6 +159,8 @@ Search & replace `from "fp-ts/Either"` → `from "pithos/zygos/either"`, etc. Al
 | **Task** | `of`, `map`, `flatMap`, `ap` |
 | **TaskEither** | `left`, `right`, `tryCatch`, `fromEither`, `fromTask`, `fromOption`, `map`, `mapLeft`, `flatMap`, `chain`, `fold`, `match`, `getOrElse`, `orElse`, `swap`... |
 
+---
+
 ## safe() - Convert throwing functions
 
 Wrap any function that might throw into a Result-returning function.
@@ -163,20 +177,26 @@ const invalid = safeJsonParse('not json');
 // Err(SyntaxError: ...)
 ```
 
-## When to Use
+---
+
+## ✅ When to Use
 
 - **API calls** → `ResultAsync` for typed error handling
 - **Validation chains** → `Result` with `andThen`
 - **Optional data** → `Option` instead of `null | undefined`
 - **Wrapping unsafe code** → `safe()` for try/catch elimination
 
-## When NOT to Use
+---
+
+## ❌ When NOT to Use
 
 | Need | Use Instead |
 |------|-------------|
 | Schema validation | [Kanon](./kanon.md) |
 | Data transformation | [Arkhe](./arkhe.md) |
 | Typed error factories | [Sphalma](./sphalma.md) |
+
+---
 
 ## API Reference
 

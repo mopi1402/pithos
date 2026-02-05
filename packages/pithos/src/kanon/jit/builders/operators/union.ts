@@ -1,4 +1,6 @@
 /**
+ * @module kanon/jit/builders/operators/union
+ *
  * Union Code Builder
  *
  * Generates inline JavaScript code for union type validation including:
@@ -280,6 +282,8 @@ export function generateUnionValidation(
 /**
  * Creates a branch metadata for a string type.
  *
+ * @param generateCode - Code generator function for this branch.
+ * @returns Branch metadata with type information and code generator.
  * @since 3.3.0
  */
 export function createStringBranch(
@@ -295,6 +299,8 @@ export function createStringBranch(
 /**
  * Creates a branch metadata for a number type.
  *
+ * @param generateCode - Code generator function for this branch.
+ * @returns Branch metadata with type information and code generator.
  * @since 3.3.0
  */
 export function createNumberBranch(
@@ -310,6 +316,8 @@ export function createNumberBranch(
 /**
  * Creates a branch metadata for a boolean type.
  *
+ * @param generateCode - Code generator function for this branch.
+ * @returns Branch metadata with type information and code generator.
  * @since 3.3.0
  */
 export function createBooleanBranch(
@@ -325,6 +333,7 @@ export function createBooleanBranch(
 /**
  * Creates a branch metadata for a null type.
  *
+ * @returns Branch metadata for null type with inline === check.
  * @since 3.3.0
  */
 export function createNullBranch(): UnionBranchMeta {
@@ -344,11 +353,7 @@ export function createNullBranch(): UnionBranchMeta {
 /**
  * Creates a branch metadata for an undefined type.
  *
- * @since 3.3.0
- */
-/**
- * Creates a branch metadata for an undefined type.
- *
+ * @returns Branch metadata for undefined type with typeof check.
  * @since 3.3.0
  */
 export function createUndefinedBranch(): UnionBranchMeta {

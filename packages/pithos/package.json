@@ -79,13 +79,13 @@
     "url": "https://github.com/mopi1402/pithos/issues"
   },
   "homepage": "https://github.com/mopi1402/pithos#readme",
+  "scripts": {
+    "prepublishOnly": "pnpm -w run check:dependencies && pnpm -w run check:all && pnpm -w run generate:autocompletion && pnpm -w run generate:exports && pnpm -w run build"
+  },
   "engines": {
     "node": ">=20.0.0"
   },
   "peerDependencies": {
     "typescript": ">=4.9.0"
-  },
-  "devDependencies": {
-    "neverthrow": "^8.2.0"
   }
 }

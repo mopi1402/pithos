@@ -1,4 +1,6 @@
 /**
+ * @module kanon/jit/builders/primitives/boolean
+ *
  * Boolean Code Builder
  *
  * Generates inline JavaScript code for boolean type validation.
@@ -10,20 +12,8 @@
 
 import type { GeneratorContext } from "../../context";
 import { formatPath, getIndent } from "../../context";
-import { escapeString, debugComment } from "../../utils/code";
+import { escapeString, debugComment, type CodeGenResult } from "../../utils/code";
 import { ERROR_MESSAGES_COMPOSITION } from "../../../core/consts/messages";
-
-/**
- * Result of code generation containing the generated code and updated context.
- *
- * @since 3.3.0
- */
-export interface CodeGenResult {
-  /** Generated JavaScript code */
-  code: string;
-  /** Updated generator context */
-  ctx: GeneratorContext;
-}
 
 /**
  * Generates the type check code for a boolean value.

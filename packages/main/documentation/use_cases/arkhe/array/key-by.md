@@ -79,3 +79,28 @@ const enrichedOrders = orders.map((order) => ({
   total: (productsBySku[order.productId]?.price ?? 0) * order.quantity,
 }));
 ```
+
+### **Normalize** API response for a Redux/Zustand store 📍
+
+@keywords: normalize, Redux, Zustand, store, entities, state, API, response
+
+Convert an array of entities into a normalized `{ byId, allIds }` structure for state management.
+The most common real-world pattern for keyBy in any app using Redux, Zustand, or similar stores.
+
+```typescript
+const apiResponse = [
+  { id: "p1", title: "Build UI", status: "done" },
+  { id: "p2", title: "Write tests", status: "in-progress" },
+  { id: "p3", title: "Deploy", status: "todo" },
+];
+
+const normalized = {
+  byId: keyBy(apiResponse, (item) => item.id),
+  allIds: apiResponse.map((item) => item.id),
+};
+// normalized.byId["p2"] => { id: "p2", title: "Write tests", status: "in-progress" }
+// normalized.allIds => ["p1", "p2", "p3"]
+
+// Fast update without scanning the array
+normalized.byId["p2"] = { ...normalized.byId["p2"], status: "done" };
+```

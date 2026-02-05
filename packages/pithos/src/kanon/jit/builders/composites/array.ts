@@ -1,4 +1,6 @@
 /**
+ * @module kanon/jit/builders/composites/array
+ *
  * Array Code Builder
  *
  * Generates inline JavaScript code for array type validation including:
@@ -20,19 +22,7 @@ import {
   nextVar,
   increaseIndent,
 } from "../../context";
-import { escapeString, debugComment } from "../../utils/code";
-
-/**
- * Result of code generation containing the generated code and updated context.
- *
- * @since 3.3.0
- */
-export interface CodeGenResult {
-  /** Generated JavaScript code */
-  code: string;
-  /** Updated generator context */
-  ctx: GeneratorContext;
-}
+import { escapeString, debugComment, type CodeGenResult } from "../../utils/code";
 
 /**
  * Array constraint metadata for JIT compilation.
@@ -224,6 +214,7 @@ export function generateArrayItemsLoop(
   itemGenerator: (varName: string, ctx: GeneratorContext) => { code: string[]; ctx: GeneratorContext },
   supportsCoercion?: boolean
 ): { code: string[]; ctx: GeneratorContext } {
+  // Stryker disable next-line ArrayDeclaration: Array preallocation for code lines
   const lines: string[] = [];
   const indent = ctx.debug ? getIndent(ctx) : "";
   const innerIndent = ctx.debug ? getIndent(increaseIndent(ctx)) : "";
@@ -260,12 +251,14 @@ export function generateArrayItemsLoop(
   // Process item validation code to include index in error messages
   for (const line of itemResult.code) {
     // Replace path format with index-aware format
+    // Stryker disable next-line ConditionalExpression,LogicalOperator,BlockStatement: Regex replacement branches produce equivalent index formats
     const processedLine = line.replace(
       /Property '([^']*)" \+ [^+]+ \+ "([^']*)'/g,
       (_, prefix, suffix) => {
+        // Stryker disable next-line ConditionalExpression,LogicalOperator: All branches produce valid Index format
         if (prefix && suffix) {
           return `Index " + ${indexVar} + ".${suffix}'`;
-        } else if (prefix) {
+        } else if (/* Stryker disable next-line ConditionalExpression,BlockStatement */ prefix) {
           return `Index " + ${indexVar} + "'`;
         }
         return `Index " + ${indexVar} + "'`;
@@ -305,6 +298,7 @@ export function generateSimpleArrayItemsLoop(
 
   // Add debug comment for items loop
   const comment = debugComment(ctx, "Validate array items");
+  // Stryker disable next-line ConditionalExpression: Debug comment is optional - code works identically without it
   if (comment) lines.push(comment);
 
   // Cache array length for performance

@@ -5,25 +5,28 @@ title: "Zygos Bundle Size Comparison"
 description: "Compare Pithos Zygos bundle size with Neverthrow, fp-ts and other Result/Either libraries"
 ---
 
-# Bundle Size
+import {
+  ZygosResultBundleTable,
+  ZygosFpBundleTable,
+  ZygosCombinedBundleTable,
+  ZygosBundleSummary,
+  ZygosGeneratedDate,
+  ZygosVersionInfo,
+} from '@site/src/components/comparisons/zygos/BundleSizeTable';
 
-Real numbers. No marketing fluff.
+# 📦 Zygos Bundle Size
 
-## Result/Either Libraries (minified + gzipped)
+Real numbers. No marketing fluff. **Data auto-generated on <ZygosGeneratedDate />.**
 
-| Library | Size | Notes |
-|---------|------|-------|
-| **fp-ts** | 42 KB | Full FP toolkit |
-| **Neverthrow** | ~6 KB | Result pattern |
-| **Pithos Zygos** | ~2 KB | Result + Option + Either |
+## TL;DR
 
-## vs Neverthrow
+<ZygosBundleSummary />
 
-| Aspect | Neverthrow | Pithos Zygos |
-|--------|------------|--------------|
-| **Bundle size** | ~6 KB | ~2 KB |
-| **API** | Result, ResultAsync | Result, ResultAsync, Option, Either |
-| **Compatibility** | — | 100% Neverthrow compatible |
+## Result Pattern (vs Neverthrow)
+
+Individual module sizes, minified + gzipped. Zygos is the baseline (gold).
+
+<ZygosResultBundleTable />
 
 Zygos is **100% API compatible** with Neverthrow, making migration seamless:
 
@@ -37,14 +40,9 @@ import { ok, err, Result, ResultAsync } from "pithos/zygos/result";
 // Your code works unchanged
 ```
 
-## vs fp-ts
+## FP Monads (vs fp-ts)
 
-| Aspect | fp-ts | Pithos Zygos |
-|--------|-------|--------------|
-| **Bundle size** | 42 KB | ~2 KB |
-| **Scope** | Full FP toolkit | Result/Option/Either only |
-| **Learning curve** | Steep | Gentle |
-| **Haskell-style** | Yes | No |
+<ZygosFpBundleTable />
 
 ### Philosophy Difference
 
@@ -73,11 +71,17 @@ ok(5)
   );
 ```
 
+## Combined Comparison
+
+Full library bundles when importing all modules.
+
+<ZygosCombinedBundleTable />
+
 ## Why the Difference?
 
-**fp-ts** provides a complete functional programming toolkit with Functor, Applicative, Monad abstractions. If you only need Result/Either for error handling, you're shipping 40 KB of unused code.
+**fp-ts** provides a complete functional programming toolkit with Functor, Applicative, Monad abstractions. If you only need Result/Either for error handling, you're shipping unused code.
 
-**Neverthrow** is focused on the Result pattern but still carries some overhead from its class-based implementation.
+**Neverthrow** is focused on the Result pattern but still carries some overhead from its class-based implementation. Importing any function pulls in the full library.
 
 **Zygos** is designed from the ground up for tree-shaking. Each function is standalone, so you only ship what you use.
 
@@ -85,7 +89,11 @@ ok(5)
 
 ```bash
 # Using esbuild
-echo 'import { ok, err } from "pithos/zygos/result"' | esbuild --bundle --minify | gzip -c | wc -c
+echo 'import { ok, err } from "pithos/zygos/result"' | \
+  esbuild --bundle --minify | gzip -c | wc -c
+
+# Regenerate this data
+pnpm doc:generate-zygos-bundle-sizes
 ```
 
 ## Zero Dependencies
@@ -93,9 +101,11 @@ echo 'import { ok, err } from "pithos/zygos/result"' | esbuild --bundle --minify
 Every KB you add from Pithos is Pithos code. No transitive dependencies, no surprises:
 
 ```bash
-# Pithos dependency tree  
+# Pithos dependency tree
 pithos (varies by import)
 └── (nothing else)
 ```
 
 This also means **zero supply chain risk** from third-party packages.
+
+<ZygosVersionInfo />

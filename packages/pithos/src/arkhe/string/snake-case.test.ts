@@ -86,4 +86,8 @@ describe("snakeCase", () => {
     const twice = snakeCase(once);
     expect(twice).toBe(once);
   });
+
+  it("[👾] returns empty string when input has no matchable words", () => {
+    expect(snakeCase("---")).toBe("");
+  });
 });

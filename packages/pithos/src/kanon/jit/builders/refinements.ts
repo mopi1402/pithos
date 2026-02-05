@@ -1,4 +1,6 @@
 /**
+ * @module kanon/jit/builders/refinements
+ *
  * Refinements Code Builder
  *
  * Generates inline JavaScript code for refinement function calls.

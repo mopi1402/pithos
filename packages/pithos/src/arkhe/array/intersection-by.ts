@@ -7,7 +7,7 @@
  * @returns A new array containing elements present in all input arrays.
  * @since 1.1.0
  *
- * @performance O(n × m) where n = first array length, m = number of arrays.
+ * @performance O(n × m) — builds Sets directly (no intermediate arrays), uses delete for dedup.
  *
  * @example
  * ```typescript
@@ -25,20 +25,62 @@ export function intersectionBy<T>(
   arrays: readonly (readonly T[])[],
   iteratee: (item: T) => unknown
 ): T[] {
-  if (arrays.length === 0) return [];
+  const arrCount = arrays.length;
+  if (arrCount === 0) return [];
 
-  const [first, ...rest] = arrays;
+  const first = arrays[0];
+  const fLen = first.length;
+  // Stryker disable next-line ConditionalExpression,EqualityOperator: Early return optimization — main loop produces identical empty result when fLen === 0
+  if (fLen === 0) return [];
 
-  // Stryker disable next-line ConditionalExpression: equivalent mutant, filter on empty array returns []
-  if (first.length === 0) return [];
+  // Build Sets directly without intermediate .map() arrays
+  const sets: Set<unknown>[] = [];
+  for (let a = 1; a < arrCount; a++) {
+    const arr = arrays[a];
+    const s = new Set<unknown>();
+    for (let j = 0; j < arr.length; j++) {
+      s.add(iteratee(arr[j]));
+    }
+    sets.push(s);
+  }
 
-  const sets = rest.map((arr) => new Set(arr.map(iteratee)));
-  const seen = new Set<unknown>();
+  const setCount = sets.length;
 
-  return first.filter((item) => {
+  // Single array: return deduplicated version
+  if (setCount === 0) {
+    const seen = new Set<unknown>();
+    const result: T[] = [];
+    for (let i = 0; i < fLen; i++) {
+      const value = iteratee(first[i]);
+      if (!seen.has(value)) {
+        seen.add(value);
+        result.push(first[i]);
+      }
+    }
+    return result;
+  }
+
+  const result: T[] = [];
+  const firstSet = sets[0];
+
+  for (let i = 0; i < fLen; i++) {
+    const item = first[i];
     const value = iteratee(item);
-    if (seen.has(value)) return false;
-    seen.add(value);
-    return sets.every((set) => set.has(value));
-  });
+    if (!firstSet.has(value)) continue;
+
+    let inAll = true;
+    for (let s = 1; s < setCount; s++) {
+      if (!sets[s].has(value)) {
+        inAll = false;
+        break;
+      }
+    }
+
+    if (inAll) {
+      firstSet.delete(value);
+      result.push(item);
+    }
+  }
+
+  return result;
 }

@@ -9,7 +9,7 @@
  * @returns A new array containing elements whose computed values are not in `values`.
  * @since 1.1.0
  *
- * @performance O(n + m) time & space, uses Set for constant-time lookups.
+ * @performance O(n + m) time & space, uses hash map for constant-time lookups.
  *
  * @example
  * ```typescript
@@ -32,7 +32,20 @@ export function differenceBy<T>(
   const getValue: (item: T) => unknown =
     typeof iteratee === "function" ? iteratee : (item) => item[iteratee];
 
-  const excludeSet = new Set(values.map(getValue));
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const excludeMap: Record<any, true> = Object.create(null);
 
-  return array.filter((item) => !excludeSet.has(getValue(item)));
+  for (let i = 0; i < values.length; i++) {
+    excludeMap[getValue(values[i]) as string] = true;
+  }
+
+  const result: T[] = [];
+
+  for (let i = 0; i < array.length; i++) {
+    if (!excludeMap[getValue(array[i]) as string]) {
+      result.push(array[i]);
+    }
+  }
+
+  return result;
 }

@@ -27,6 +27,59 @@ describe("difference", () => {
     expect(difference([1, 1, 2], [2])).toEqual([1, 1]);
   });
 
+  // --- Large exclusion set (vLen > 16): Set-based path ---
+
+  it("uses Set path when exclusion array has >16 elements", () => {
+    const values = Array.from({ length: 20 }, (_, i) => i); // [0..19]
+    expect(difference([0, 5, 10, 20, 25], values)).toEqual([20, 25]);
+  });
+
+  it("returns empty via Set path when all excluded", () => {
+    const values = Array.from({ length: 17 }, (_, i) => i);
+    expect(difference([0, 1, 2, 3], values)).toEqual([]);
+  });
+
+  it("returns all via Set path when no overlap", () => {
+    const values = Array.from({ length: 17 }, (_, i) => i);
+    expect(difference([100, 200, 300], values)).toEqual([100, 200, 300]);
+  });
+
+  it("preserves duplicates via Set path", () => {
+    const values = Array.from({ length: 17 }, (_, i) => i);
+    expect(difference([0, 0, 100, 100], values)).toEqual([100, 100]);
+  });
+
+  it("handles empty source array via Set path", () => {
+    const values = Array.from({ length: 17 }, (_, i) => i);
+    expect(difference([], values)).toEqual([]);
+  });
+
+  // --- Mutation tests ---
+
+  it("[👾] uses loop path when exclusion has exactly 16 elements", () => {
+    const values = Array.from({ length: 16 }, (_, i) => i); // exactly 16 → loop path
+    expect(difference([0, 5, 16, 20], values)).toEqual([16, 20]);
+  });
+
+  it("[👾] uses Set path when exclusion has exactly 17 elements", () => {
+    const values = Array.from({ length: 17 }, (_, i) => i); // exactly 17 → Set path
+    expect(difference([0, 5, 17, 20], values)).toEqual([17, 20]);
+  });
+
+  it("[👾] loop path does not exclude undefined when not in values", () => {
+    // If j < vLen mutates to j <= vLen, values[vLen] is undefined → would wrongly exclude undefined
+    const arr: (number | undefined)[] = [1, undefined, 3];
+    const values: (number | undefined)[] = [1];
+    expect(difference(arr, values)).toEqual([undefined, 3]);
+  });
+
+  it("[👾] Set path does not add undefined to exclude set", () => {
+    // If i < vLen mutates to i <= vLen, values[vLen] is undefined → added to Set → would wrongly exclude undefined
+    const values: (number | undefined)[] = Array.from({ length: 17 }, (_, i) => i);
+    const arr: (number | undefined)[] = [undefined, 100, 200];
+    expect(difference(arr, values)).toEqual([undefined, 100, 200]);
+  });
+
   itProp.prop([fc.array(fc.integer()), fc.array(fc.integer())])(
     "[🎲] result length <= first array length",
     (arr1, arr2) => {

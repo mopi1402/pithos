@@ -33,3 +33,26 @@ Use numeric indices in the path to create or update array elements.
 const list = set([], '[0].name', 'First');
 // [{ name: 'First' }]
 ```
+
+### **Update** dynamic form fields by path
+
+@keywords: form, dynamic, field, path, onChange, nested, input, state
+
+Handle `onChange` events for deeply nested form fields using a dynamic path.
+The standard pattern for complex forms with nested objects (address, billing, etc.).
+
+```typescript
+const [formData, setFormData] = useState({
+  name: "",
+  address: { street: "", city: "", zip: "" },
+  billing: { card: "", expiry: "" },
+});
+
+const handleChange = (path: string, value: string) => {
+  setFormData((prev) => set(prev, path, value));
+};
+
+// In JSX:
+// <input onChange={(e) => handleChange("address.city", e.target.value)} />
+// <input onChange={(e) => handleChange("billing.card", e.target.value)} />
+```

@@ -62,6 +62,10 @@ describe("kebabCase", () => {
     expect(kebabCase("HTMLElement")).toBe("html-element");
   });
 
+  it("[👾] returns empty string when input has no matchable words", () => {
+    expect(kebabCase("---")).toBe("");
+  });
+
   itProp.prop([fc.string()])("[🎲] always returns a string", (str) => {
     expect(typeof kebabCase(str)).toBe("string");
   });

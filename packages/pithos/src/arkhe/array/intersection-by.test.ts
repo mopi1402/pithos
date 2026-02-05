@@ -46,6 +46,18 @@ describe("intersectionBy", () => {
     expect(intersectionBy([[], [{ id: 1 }]], (x) => x.id)).toEqual([]);
   });
 
+  it("[👾] single array returns deduplicated elements", () => {
+    expect(intersectionBy([[1, 2, 2, 3, 3, 3]], (x) => x)).toEqual([1, 2, 3]);
+  });
+
+  it("[👾] single array deduplicates by iteratee", () => {
+    const arr = [{ id: 1, v: "a" }, { id: 1, v: "b" }, { id: 2, v: "c" }];
+    expect(intersectionBy([arr], (x) => x.id)).toEqual([
+      { id: 1, v: "a" },
+      { id: 2, v: "c" },
+    ]);
+  });
+
   it("[🎯] intersection of array with itself returns unique elements", () => {
     expect(
       intersectionBy(

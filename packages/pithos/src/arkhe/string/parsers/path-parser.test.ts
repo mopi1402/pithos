@@ -88,6 +88,11 @@ describe("parsePath", () => {
     expect(parsePath(`a["b'c"]`)).toEqual(["a", "b'c"]);
   });
 
+  it("[🎯] handles escaped quotes inside quoted keys", () => {
+    expect(parsePath('a["b\\"c"]')).toEqual(["a", 'b"c']);
+    expect(parsePath("a['b\\'c']")).toEqual(["a", "b'c"]);
+  });
+
   it("[👾] mutation: number detection in dot notation", () => {
     expect(parsePath("a.123.b")).toEqual(["a", 123, "b"]);
   });
@@ -106,6 +111,14 @@ describe("parsePath", () => {
     expect(parsePath("a.abc123.b")).toEqual(["a", "abc123", "b"]);
     // Kills mutant: /^\d+$/ → /^\d+/ (removes end anchor)
     expect(parsePath("a.123abc.b")).toEqual(["a", "123abc", "b"]);
+  });
+
+  it("[🎯] numeric key before bracket is converted to number", () => {
+    expect(parsePath("123[0]")).toEqual([123, 0]);
+  });
+
+  it("[🎯] bracket with empty content pushes empty string", () => {
+    expect(parsePath("a[]")).toEqual(["a", ""]);
   });
 
   it("[🎯] handles single character key", () => {
@@ -138,5 +151,23 @@ describe("parsePath", () => {
     result.forEach((element) => {
       expect(typeof element === "string" || typeof element === "number").toBe(true);
     });
+  });
+
+  it("[👾] trailing backslash in quoted key does not read out of bounds", () => {
+    // backslash is the very last char — escape guard must not skip past end
+    // With the guard, '\' is treated as literal; without it, path[length] = undefined
+    const result = parsePath('["abc\\');
+    expect(result[0]).toBe("abc\\");
+  });
+
+  it("[👾] key with char below ASCII 48 is not treated as numeric", () => {
+    // '!' is charCode 33, below '0' (48) — must stay as string, not be treated as number
+    expect(parsePath("a[!]")).toEqual(["a", "!"]);
+  });
+
+  it("[👾] key ending in 9 is treated as numeric", () => {
+    // '9' is charCode 57 — must not be rejected by > 57 boundary
+    expect(parsePath("a.9")).toEqual(["a", 9]);
+    expect(parsePath("a[9]")).toEqual(["a", 9]);
   });
 });

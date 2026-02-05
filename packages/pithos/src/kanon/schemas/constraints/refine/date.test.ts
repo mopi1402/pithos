@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { it as itProp, fc } from "@fast-check/vitest";
 import { refineDate } from "./date";
 import { date } from "../../primitives/date";
+import { coerceDate } from "../../coerce/date";
 import { parse } from "../../../core/parser";
 import { ERROR_MESSAGES_COMPOSITION } from "../../../core/consts/messages";
 import type { DateSchema } from "@kanon/types/primitives";
@@ -226,6 +227,47 @@ describe("refineDate", () => {
         expect(result.data instanceof Date).toBe(true);
         expect(result.data.getTime()).toBe(testDate.getTime());
       }
+    });
+
+    it("[🎯] should handle coerced date value passing refinement", () => {
+      const schema = refineDate(coerceDate(), (v) =>
+        v.getFullYear() >= 2020 ? true : "Too early"
+      );
+
+      const result = parse(schema, "2024-01-15");
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data instanceof Date).toBe(true);
+        expect(result.data.getFullYear()).toBe(2024);
+      }
+    });
+
+    it("[🎯] should handle coerced date value failing refinement", () => {
+      const schema = refineDate(coerceDate(), (v) =>
+        v.getFullYear() >= 2020 ? true : "Too early"
+      );
+
+      const result = parse(schema, "2019-06-01");
+      expect(result.success).toBe(false);
+      if (!result.success) {
+        expect(result.error).toBe("Too early");
+      }
+    });
+  });
+
+  describe("[👾] Mutation Tests", () => {
+    it("[👾] chaining preserves previous refinements in array", () => {
+      const schema1 = refineDate(date(), () => true);
+      const schema2 = refineDate(schema1, () => true);
+
+      expect(schema2.refinements).toHaveLength(2);
+    });
+
+    it("[👾] validator returns true (not coerced) for non-coerced date schema", () => {
+      const schema = refineDate(date(), () => true);
+      const result = schema.validator(new Date(2024, 0, 1));
+
+      expect(result).toBe(true);
     });
   });
 

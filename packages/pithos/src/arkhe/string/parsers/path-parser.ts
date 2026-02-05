@@ -24,19 +24,85 @@
  */
 export function parsePath(path: string): (string | number)[] {
   const result: (string | number)[] = [];
-  // Stryker disable next-line Regex: \D+ mutant produces identical results - unmatched bracket falls back to first group with same outcome
-  const regex = /([^.[\]]+)|\[(\d+|"[^"]*"|'[^']*')\]/g;
-  let match;
+  const length = path.length;
 
-  while ((match = regex.exec(path)) !== null) {
-    const key = match[1] ?? match[2];
-    // Stryker disable next-line Regex: Anchor ^ is redundant here - quote anywhere vs quote at start produces same result for this input set
-    const isQuoted = /^["']/.test(key);
-    const unquoted = key.replace(/^["']|["']$/g, "");
-    result.push(
-      !isQuoted && /^\d+$/.test(unquoted) ? Number(unquoted) : unquoted
-    );
+  // Stryker disable next-line ConditionalExpression,BlockStatement: Fast-path optimization - while loop doesn't execute on empty string, result stays []
+  if (length === 0) {
+    return result;
+  }
+
+  let index = 0;
+  let key = '';
+  let quoteChar = '';
+  let bracket = false;
+  let wasQuoted = false;
+
+  while (index < length) {
+    const char = path[index];
+
+    if (quoteChar) {
+      if (char === '\\' && index + 1 < length) {
+        // Escape character
+        index++;
+        key += path[index];
+      } else if (char === quoteChar) {
+        // End of quote
+        quoteChar = '';
+        wasQuoted = true;
+      } else {
+        key += char;
+      }
+    } else if (bracket) {
+      if (char === '"' || char === "'") {
+        // Start of quoted string inside brackets
+        quoteChar = char;
+      } else if (char === ']') {
+        // End of bracketed segment
+        bracket = false;
+        // Convert to number only if not quoted and all digits
+        result.push(!wasQuoted && isNumericString(key) ? Number(key) : key);
+        key = '';
+        wasQuoted = false;
+      } else {
+        key += char;
+      }
+    } else {
+      if (char === '[') {
+        // Start of bracketed segment
+        bracket = true;
+        if (key) {
+          // Dot notation keys: convert to number if all digits
+          result.push(isNumericString(key) ? Number(key) : key);
+          key = '';
+        }
+      } else if (char === '.') {
+        if (key) {
+          // Dot notation keys: convert to number if all digits
+          result.push(isNumericString(key) ? Number(key) : key);
+          key = '';
+        }
+      } else {
+        key += char;
+      }
+    }
+
+    index++;
+  }
+
+  if (key) {
+    // Final key: convert to number if all digits
+    result.push(isNumericString(key) ? Number(key) : key);
   }
 
   return result;
+}
+
+function isNumericString(str: string): boolean {
+  if (str.length === 0) return false;
+  // Stryker disable next-line EqualityOperator: out-of-bounds charCodeAt returns NaN which fails both comparisons, equivalent to returning true for already-validated chars
+  for (let i = 0; i < str.length; i++) {
+    const code = str.charCodeAt(i);
+    if (code < 48 || code > 57) return false; // '0' = 48, '9' = 57
+  }
+  return true;
 }

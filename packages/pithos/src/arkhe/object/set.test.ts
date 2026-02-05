@@ -122,6 +122,30 @@ describe("set", () => {
     expect(result.a[12]).toEqual({ b: 1 });
   });
 
+  it("[👾] creates array for key '9' via array path", () => {
+    // Kills isAllDigits mutant c > 57 → c >= 57 (charCode of '9' is 57)
+    const result = set({} as { a: unknown[] }, ["a", "9", "b"], 1);
+    expect(Array.isArray(result.a)).toBe(true);
+    expect(result.a[9]).toEqual({ b: 1 });
+  });
+
+  it("[👾] replaces null intermediate via array path", () => {
+    // Kills current[key] == null || typeof ... mutants in the array-path loop
+    const result = set({ a: null } as unknown as { a: { b: number } }, ["a", "b"], 1);
+    expect(result).toEqual({ a: { b: 1 } });
+  });
+
+  it("[👾] replaces primitive intermediate via array path", () => {
+    // Kills current[key] == null || false mutant — typeof "string" !== "object" must trigger
+    const result = set({ a: "str" } as unknown as { a: { b: number } }, ["a", "b"], 1);
+    expect(result).toEqual({ a: { b: 1 } });
+  });
+
+  it("[🎯] empty string key in array path creates object (isAllDigits guard)", () => {
+    const result = set({}, ["a", "", "b"], 1);
+    expect(result).toEqual({ a: { "": { b: 1 } } });
+  });
+
   itProp.prop([
     fc.dictionary(fc.string(), fc.integer()),
     fc.string(),

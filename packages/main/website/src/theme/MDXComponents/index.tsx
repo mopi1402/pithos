@@ -10,14 +10,15 @@ import MDXLi from "@theme/MDXComponents/Li";
 import MDXImg from "@theme/MDXComponents/Img";
 import Admonition from "@theme/Admonition";
 import Mermaid from "@theme/Mermaid";
-import ImportantBadge from "@site/src/components/ImportantBadge";
-import TypeBadge from "@site/src/components/TypeBadge";
-import AlsoKnownAs from "@site/src/components/AlsoKnownAs";
-import ResponsiveMermaid from "@site/src/components/ResponsiveMermaid";
-import { Table } from "@site/src/components/Table";
-import { MDXTable } from "@site/src/components/Table/MDXTable";
-import { TableConfig } from "@site/src/components/Table/TableConfigContext";
-import { FilterableTable } from "@site/src/components/Table/FilterableTable";
+import ImportantBadge from "@site/src/components/shared/badges/ImportantBadge";
+import TypeBadge from "@site/src/components/shared/badges/TypeBadge";
+import AlsoKnownAs from "@site/src/components/shared/badges/AlsoKnownAs";
+import ResponsiveMermaid from "@site/src/components/shared/ResponsiveMermaid";
+import { Table } from "@site/src/components/shared/Table";
+import { MDXTable } from "@site/src/components/shared/Table/MDXTable";
+import { TableConfig } from "@site/src/components/shared/Table/TableConfigContext";
+import { FilterableTable } from "@site/src/components/shared/Table/FilterableTable";
+import MarbleQuote from "@site/src/components/shared/MarbleQuote";
 
 import type { MDXComponentsObject } from "@theme/MDXComponents";
 
@@ -47,6 +48,7 @@ const MDXComponents: MDXComponentsObject = {
   TableConfig,
   FilterableTable,
   table: MDXTable,
+  MarbleQuote,
 };
 
 export default MDXComponents;

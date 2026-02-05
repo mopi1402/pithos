@@ -1,7 +1,7 @@
 /**
  * Guards an async function with error handling and optional fallback.
  *
- * @info Why wrapping native?: We prefer to wrap this to provide a safe wrapper around **Throws**, allowing controlled failure handling without verbose try/catch blocks. See [Design Philosophy](/guide/design-principles/design-philosophy/)
+ * @info Why wrapping native?: We prefer to wrap this to provide a safe wrapper around **Throws**, allowing controlled failure handling without verbose try/catch blocks. See [Design Philosophy](/guide/contribution/design-principles/design-philosophy/)
  *
  *
  * @template T - The return type of the function.

@@ -91,3 +91,26 @@ const updateLeaderboard = (newResult) => {
 };
 ```
 
+
+### **Sort notifications** by unread status then by date
+
+@keywords: notifications, unread, sort, inbox, priority, date, messaging
+
+Display unread notifications first, then sort by most recent.
+Universal pattern for any app with a notification center or inbox.
+
+```typescript
+const notifications = [
+  { id: 1, message: "New comment", read: true, date: "2025-06-10T09:00:00Z" },
+  { id: 2, message: "Mention in #general", read: false, date: "2025-06-09T14:00:00Z" },
+  { id: 3, message: "PR approved", read: false, date: "2025-06-10T11:00:00Z" },
+  { id: 4, message: "Build failed", read: true, date: "2025-06-10T10:00:00Z" },
+];
+
+const sorted = orderBy(
+  notifications,
+  [(n) => (n.read ? 1 : 0), "date"],
+  ["asc", "desc"]
+);
+// => [PR approved (unread, Jun 10), Mention (unread, Jun 9), Build failed (read), New comment (read)]
+```

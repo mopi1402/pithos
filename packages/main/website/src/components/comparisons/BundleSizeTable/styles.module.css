@@ -1,0 +1,213 @@
+.tableContainer {
+  margin: var(--pithos-spacing-xl) 0;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.tableWrapper {
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+
+.bundleTable {
+  border-spacing: 0;
+  font-size: var(--pithos-font-size-lg);
+
+  overflow: hidden;
+  border-collapse: separate;
+  border: 1px solid var(--ifm-table-border-color);
+  border-radius: var(--ifm-global-radius);
+
+  /* Column width variable for sticky positioning */
+  --first-column-width: 145px;
+
+  --ifm-table-head-background: var(--ifm-color-gray-50);
+  --ifm-table-background: var(--pithos-color-surface-white);
+  --ifm-table-stripe-background: var(--ifm-table-head-background);
+}
+
+[data-theme="dark"] .bundleTable {
+  --ifm-table-head-background: var(--ifm-color-gray-885);
+  --ifm-table-background: var(--ifm-color-gray-900);
+  --ifm-table-stripe-background: var(--ifm-table-head-background);
+}
+
+/* Sticky first column */
+.bundleTable th:first-child,
+.bundleTable td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  box-shadow: var(--pithos-shadow-sticky);
+}
+
+/* Sticky second column */
+.stickySecondColumn {
+  position: sticky;
+  left: var(--first-column-width);
+  z-index: 2;
+  background: var(--ifm-table-background);
+  box-shadow: var(--pithos-shadow-sticky);
+}
+
+.bundleTable thead .stickySecondColumn {
+  background: var(--ifm-table-head-background);
+  z-index: 3;
+}
+
+.bundleTable tbody tr:nth-child(even) .stickySecondColumn {
+  background: var(--ifm-table-stripe-background);
+}
+
+.bundleTable td:first-child {
+  background-color: var(--ifm-table-background);
+}
+
+.bundleTable tbody tr:nth-child(even) td:first-child {
+  background-color: var(--ifm-table-stripe-background);
+}
+
+.bundleTable th,
+.bundleTable td {
+  white-space: nowrap;
+}
+
+.bundleTable td:first-child {
+  white-space: nowrap;
+  min-width: var(--first-column-width);
+}
+
+/* Allow wrapping on mobile only */
+@media (max-width: 768px) {
+  .bundleTable td:first-child {
+    white-space: normal;
+    width: var(--first-column-width);
+  }
+}
+
+.bundleTable th,
+.bundleTable td {
+  padding: var(--pithos-spacing-md) var(--pithos-spacing-lg);
+  text-align: left;
+  border: solid var(--ifm-color-gray-100);
+  border-width: 0 0 1px 0;
+}
+
+[data-theme="dark"] .bundleTable th,
+[data-theme="dark"] .bundleTable td {
+  border: solid var(--ifm-color-gray-870);
+  border-width: 0 0 1px 0;
+}
+
+.bundleTable th:last-child,
+.bundleTable td:last-child {
+  border-right: none;
+}
+
+.bundleTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.bundleTable th {
+  font-weight: var(--pithos-font-weight-semibold);
+}
+
+.bundleTable tbody tr:hover td:first-child,
+.bundleTable tbody tr:hover .stickySecondColumn,
+.bundleTable tbody tr:hover {
+  background: color-mix(in srgb, var(--ifm-color-primary) 5%, var(--ifm-background-color)) !important;
+}
+
+.sizeCell {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: var(--pithos-font-size-base);
+}
+
+.size {
+  display: inline-block;
+}
+
+.diff {
+  display: inline-block;
+  font-size: var(--pithos-font-size-md);
+  padding: 0.2rem var(--pithos-spacing-sm);
+  border-radius: var(--pithos-radius-md);
+  font-weight: var(--pithos-font-weight-medium);
+  white-space: nowrap;
+}
+
+.diffSmaller,
+.diffBaseline {
+  background: var(--pithos-color-diff-smaller);
+  color: var(--pithos-color-success);
+}
+
+.diffLarger {
+  background: var(--pithos-color-diff-larger);
+  color: var(--pithos-color-error);
+}
+
+.highlight td {
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.highlight td:first-child {
+  border-left: var(--pithos-border-highlight) solid var(--ifm-color-primary);
+}
+
+/* Ensure opaque background matching the highlight color for sticky column */
+.bundleTable tbody tr.highlight td:first-child {
+  background-color: color-mix(in srgb, var(--pithos-color-highlight-row) 8%, var(--ifm-table-background));
+}
+
+.bundleTable tbody tr.highlight:hover td:first-child {
+  background-color: color-mix(in srgb, var(--pithos-color-highlight-row) 12%, var(--ifm-table-background));
+}
+
+.base {
+  font-weight: var(--pithos-font-weight-semibold);
+}
+
+.naCell {
+  color: var(--ifm-color-secondary-dark);
+  font-style: italic;
+}
+
+.description {
+  color: var(--ifm-color-secondary-darkest);
+  font-size: var(--pithos-font-size-md);
+}
+
+.whenToUse {
+  display: inline-block;
+  margin-top: var(--pithos-spacing-xs);
+  padding: 0.15rem 0.4rem;
+  font-size: var(--pithos-font-size-sm);
+  background: var(--ifm-color-info-contrast-background);
+  color: var(--ifm-color-info-dark);
+  border-radius: var(--pithos-radius-md);
+  border-left: var(--pithos-border-thin) solid var(--ifm-color-info);
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .whenToUse {
+    white-space: normal;
+    word-break: break-word;
+  }
+}
+
+.generatedAt {
+  font-size: var(--pithos-font-size-md);
+  color: var(--ifm-color-secondary-dark);
+  font-style: italic;
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .bundleTable th,
+  .bundleTable td {
+    padding: var(--pithos-spacing-md) var(--pithos-spacing-md);
+  }
+}

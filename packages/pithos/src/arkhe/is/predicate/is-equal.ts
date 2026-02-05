@@ -39,6 +39,20 @@
  * ```
  */
 export function isEqual(value: unknown, other: unknown): boolean {
+  if (Object.is(value, other)) return true;
+  // Stryker disable next-line ConditionalExpression,LogicalOperator,BlockStatement: Early return optimization — isEqualDeep has identical guard for non-object/null values
+  if (
+    // Stryker disable next-line ConditionalExpression,LogicalOperator: Early return optimization — isEqualDeep has identical guard
+    typeof value !== "object" ||
+    // Stryker disable next-line ConditionalExpression,LogicalOperator: Early return optimization — isEqualDeep has identical guard
+    typeof other !== "object" ||
+    // Stryker disable next-line ConditionalExpression,LogicalOperator: Early return optimization — isEqualDeep has identical guard
+    value === null ||
+    // Stryker disable next-line ConditionalExpression: Early return optimization — isEqualDeep has identical guard
+    other === null
+  ) /* Stryker disable next-line BlockStatement: Early return optimization — isEqualDeep has identical guard */ {
+    return false;
+  }
   return isEqualDeep(value, other, new Map());
 }
 
@@ -59,6 +73,7 @@ function isEqualDeep(
     other === null ||
     // Stryker disable next-line ConditionalExpression: Optimization - constructor check handles primitives
     typeof value !== "object" ||
+    // Stryker disable next-line ConditionalExpression: Optimization - constructor check handles primitives via auto-boxing
     typeof other !== "object"
   ) {
     return false;

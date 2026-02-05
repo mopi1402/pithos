@@ -48,6 +48,179 @@
   --ifm-color-gray-890: #202226;
   --ifm-color-gray-900: #1c1e21;
   --ifm-color-gray-950: #0e0f11;
+
+  /* ── Pithos Design Tokens ── */
+
+  /* Typography */
+  --pithos-font-size-xs: 0.65rem;
+  --pithos-font-size-sm: 0.75rem;
+  --pithos-font-size-md: 0.85rem;
+  --pithos-font-size-base: 0.9rem;
+  --pithos-font-size-lg: 0.95rem;
+  --pithos-font-size-xl: 1.1rem;
+  --pithos-font-size-2xl: 1.25rem;
+  --pithos-font-size-3xl: 2.5rem;
+  --pithos-font-size-4xl: 5.5rem;
+  --pithos-font-size-hero-tagline: 2.5rem;
+
+  /* Font weights */
+  --pithos-font-weight-light: 300;
+  --pithos-font-weight-normal: 400;
+  --pithos-font-weight-medium: 500;
+  --pithos-font-weight-semibold: 600;
+  --pithos-font-weight-bold: 700;
+
+  /* Spacing */
+  --pithos-spacing-xs: 0.25rem;
+  --pithos-spacing-sm: 0.5rem;
+  --pithos-spacing-md: 0.75rem;
+  --pithos-spacing-lg: 1rem;
+  --pithos-spacing-xl: 1.5rem;
+  --pithos-spacing-2xl: 2rem;
+  --pithos-spacing-3xl: 3rem;
+  --pithos-spacing-4xl: 4rem;
+
+  /* Border radius */
+  --pithos-radius-sm: 3px;
+  --pithos-radius-md: 4px;
+  --pithos-radius-lg: 6px;
+  --pithos-radius-xl: 8px;
+  --pithos-radius-2xl: 12px;
+  --pithos-radius-pill: 2rem;
+
+  /* Shadows */
+  --pithos-shadow-sticky: 2px 0 5px -2px rgba(0, 0, 0, 0.1);
+  --pithos-shadow-card-hover: 0 10px 30px rgba(201, 169, 98, 0.25), 0 0 25px rgba(201, 169, 98, 0.35);
+  --pithos-shadow-stuck: 0 4px 12px -4px rgba(0, 0, 0, 0.15);
+  --pithos-shadow-tooltip: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --pithos-shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.2);
+
+  /* Golden accent (used across cards, borders, text) */
+  --pithos-golden-rgb: 201, 169, 98;
+  --pithos-golden-border: rgba(var(--pithos-golden-rgb), 0.08);
+  --pithos-golden-border-hover: rgba(var(--pithos-golden-rgb), 0.5);
+  --pithos-golden-glow-light: rgba(var(--pithos-golden-rgb), 0.6);
+  --pithos-golden-glow-strong: rgba(var(--pithos-golden-rgb), 0.8);
+  --pithos-golden-gradient: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(var(--pithos-golden-rgb), 0.3) 20%,
+    var(--golden-color) 50%,
+    rgba(var(--pithos-golden-rgb), 0.3) 80%,
+    transparent 100%
+  );
+  --pithos-golden-gradient-line: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(var(--pithos-golden-rgb), 0.3) 40%,
+    var(--golden-color) 70%,
+    transparent 100%
+  );
+
+  /* Status / semantic colors */
+  --pithos-color-success: #00c853;
+  --pithos-color-success-bg: rgba(0, 200, 83, 0.15);
+  --pithos-color-success-bg-strong: rgba(0, 200, 83, 0.1);
+  --pithos-color-warning: #ffc107;
+  --pithos-color-warning-bg: rgba(255, 193, 7, 0.15);
+  --pithos-color-error: #ff5252;
+  --pithos-color-error-bg: rgba(255, 82, 82, 0.15);
+  --pithos-color-highlight: #e67e22;
+  --pithos-color-highlight-hover: #d35400;
+
+  /* Badge / comparison colors */
+  --pithos-color-baseline: #22c55e;
+  --pithos-color-baseline-bg: rgba(22, 101, 52, 0.2);
+  --pithos-color-baseline-border: #166534;
+  --pithos-color-smaller: #16a34a;
+  --pithos-color-smaller-bg: rgba(34, 197, 94, 0.2);
+  --pithos-color-equal-bg: rgba(156, 163, 175, 0.2);
+  --pithos-color-equal-border: #9ca3af;
+  --pithos-color-larger: #dc2626;
+  --pithos-color-larger-bg: rgba(239, 68, 68, 0.2);
+  --pithos-color-diff-smaller: rgba(0, 200, 83, 0.15);
+  --pithos-color-diff-larger: rgba(255, 82, 82, 0.15);
+
+  /* Category priority colors */
+  --pithos-color-critical: #dc2626;
+  --pithos-color-critical-bg: rgba(220, 38, 38, 0.15);
+  --pithos-color-high: #d97706;
+  --pithos-color-high-bg: rgba(245, 158, 11, 0.15);
+  --pithos-color-medium: #2563eb;
+  --pithos-color-medium-bg: rgba(59, 130, 246, 0.15);
+  --pithos-color-low: #6b7280;
+  --pithos-color-low-bg: rgba(107, 114, 128, 0.15);
+
+  /* Layout */
+  --pithos-max-width: 1200px;
+  --pithos-max-width-narrow: 1000px;
+  --pithos-bar-height-sm: 20px;
+  --pithos-bar-height-md: 24px;
+
+  /* Transitions */
+  --pithos-transition-fast: 0.15s ease;
+  --pithos-transition-base: 0.2s ease;
+  --pithos-transition-slow: 0.25s ease;
+  --pithos-transition-bounce: 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Overlay / backdrop */
+  --pithos-overlay-bg: rgba(0, 0, 0, 0.5);
+  --pithos-card-bg-light: rgba(0, 0, 0, 0.01);
+  --pithos-card-bg-hover-light: rgba(0, 0, 0, 0.02);
+
+  /* Text colors (non-theme) */
+  --pithos-text-dark: #1c1e21;
+  --pithos-text-muted: #606770;
+  --pithos-text-white: #ffffff;
+
+  /* Iframe / playground */
+  --pithos-iframe-max-width: 400px;
+  --pithos-iframe-height: 650px;
+  --pithos-playground-min-height: 700px;
+
+  /* Additional font sizes (orphan values) */
+  --pithos-font-size-2xs: 0.7rem;
+  --pithos-font-size-detail: 0.82rem;
+
+  /* Line heights */
+  --pithos-line-height-tight: 1.2;
+  --pithos-line-height-snug: 1.3;
+  --pithos-line-height-normal: 1.4;
+  --pithos-line-height-relaxed: 1.5;
+  --pithos-line-height-loose: 1.6;
+
+  /* Opacities */
+  --pithos-opacity-muted: 0.7;
+  --pithos-opacity-dimmed: 0.6;
+  --pithos-opacity-faint: 0.5;
+
+  /* Border widths (accent borders) */
+  --pithos-border-accent: 4px;
+  --pithos-border-highlight: 3px;
+  --pithos-border-thin: 2px;
+
+  /* Neutral surface colors */
+  --pithos-color-surface-white: #ffffff;
+  --pithos-color-surface-dark: #1a1a1a;
+  --pithos-color-text-on-golden: #1a1a1a;
+  --pithos-color-text-on-badge: #000;
+  --pithos-color-highlight-row: #2563eb;
+  --pithos-color-footer-dark: #050505;
+
+  /* Kanon-specific badge colors (high-contrast style) */
+  --pithos-color-kanon-critical: rgba(255, 100, 100, 0.9);
+  --pithos-color-kanon-high: rgba(255, 200, 100, 0.9);
+  --pithos-color-kanon-medium: rgba(100, 180, 255, 0.9);
+  --pithos-color-kanon-other: rgba(150, 150, 150, 0.5);
+
+  /* Legend swatch opacity */
+  --pithos-color-baseline-swatch: rgba(22, 101, 52, 0.4);
+  --pithos-color-smaller-swatch: rgba(34, 197, 94, 0.4);
+  --pithos-color-equal-swatch: rgba(156, 163, 175, 0.4);
+  --pithos-color-larger-swatch: rgba(239, 68, 68, 0.4);
+
+  /* Spacing (additional) */
+  --pithos-spacing-lg-plus: 1.25rem;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -79,6 +252,15 @@
   --ifm-background-color: #0a0a0a;
   --ifm-background-surface-color: #111111;
   --light-grey: #b0b3b8;
+
+  /* Pithos dark overrides */
+  --pithos-shadow-card-hover: 0 10px 30px rgba(var(--pithos-golden-rgb), 0.35), 0 0 25px rgba(var(--pithos-golden-rgb), 0.45);
+  --pithos-shadow-stuck: 0 4px 12px -4px rgba(0, 0, 0, 0.5);
+  --pithos-shadow-sticky: 2px 0 5px -2px rgba(0, 0, 0, 0.4);
+  --pithos-golden-border: rgba(var(--pithos-golden-rgb), 0.14);
+  --pithos-card-bg-light: rgba(255, 255, 255, 0.01);
+  --pithos-card-bg-hover-light: rgba(255, 255, 255, 0.02);
+  --pithos-color-surface-white: var(--ifm-background-color);
 }
 
 table {
@@ -124,7 +306,7 @@ body::before {
   pointer-events: none;
   opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  z-index: 1;
+  z-index: 9999;
 }
 
 body::after {
@@ -162,14 +344,14 @@ body::after {
 /* Apply Cormorant Garamond font to Pithos text */
 .navbar__title {
   font-family: var(--greek-font), serif;
-  font-weight: 700;
+  font-weight: var(--pithos-font-weight-bold);
   text-transform: uppercase;
   color: var(--golden-color);
 }
 
 .hero__title {
   font-family: var(--greek-font), serif;
-  font-weight: 700;
+  font-weight: var(--pithos-font-weight-bold);
   text-transform: uppercase;
 }
 
@@ -179,15 +361,58 @@ body::after {
   box-shadow: 0 1px 5px rgba(255, 255, 255, 0.1);
 }
 
+.navbar--fixed-top {
+  z-index: 2000;
+}
+
+/* GitHub link: golden style, vertically centered */
+.header-github-link {
+  display: flex !important;
+  align-items: center;
+  gap: 0.4rem;
+  background: linear-gradient(
+    180deg,
+    #e7c25a 0%,
+    #fcff94 35%,
+    #e7c25a 50%,
+    #b17e22 60%,
+    #fcff94 70%,
+    #e7c25a 80%
+  );
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent;
+}
+
+.header-github-link:hover {
+  text-shadow: none;
+  filter: drop-shadow(0 0 4px rgba(var(--pithos-golden-rgb), 0.5));
+}
+
+.header-github-link::before {
+  content: '';
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  background: url('/img/external/github.png') no-repeat center / contain;
+}
+
+.header-github-link [class*="iconExternalLink"] {
+  color: #e7c25a;
+}
+
 /* Apply same style to footer */
 .footer {
   border-top: 1px solid rgba(201, 169, 98, 0.1);
   box-shadow: 0 -1px 5px rgba(255, 255, 255, 0.1);
+  position: sticky;
+  bottom: 0;
+  z-index: 10000;
 }
 
 /* Darker footer in dark mode */
 [data-theme="dark"] .footer {
-  background-color: #050505;
+  background-color: var(--pithos-color-footer-dark);
 }
 
 div.container div.row>div.col {
@@ -334,4 +559,431 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
   :root {
     --ifm-spacing-horizontal: 0.5rem;
   }
+
+  .footer {
+    position: static;
+  }
+}
+
+/* Pagination nav (prev/next) */
+.pagination-nav__link {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="light"] .pagination-nav__link {
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Hide default « » text arrows */
+.pagination-nav__link--prev .pagination-nav__label::before,
+.pagination-nav__link--next .pagination-nav__label::after {
+  content: none;
+}
+
+.pagination-nav__link--prev {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+}
+
+.pagination-nav__link--prev::before {
+  content: "";
+  grid-row: 1 / 3;
+  grid-column: 1;
+  align-self: stretch;
+  width: 3em;
+  margin-right: 0.75em;
+  background: url("/img/emoji/previous.png") center / contain no-repeat;
+}
+
+.pagination-nav__link--next {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  text-align: right;
+}
+
+.pagination-nav__link--next::after {
+  content: "";
+  grid-row: 1 / 3;
+  grid-column: 2;
+  align-self: stretch;
+  width: 3em;
+  margin-left: 0.75em;
+  background: url("/img/emoji/next.png") center / contain no-repeat;
+}
+
+/* Subtle gradient horizontal rules in API doc pages */
+.theme-doc-markdown hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(128, 128, 128, 0.3) 20%,
+    rgba(128, 128, 128, 0.5) 50%,
+    rgba(128, 128, 128, 0.3) 80%,
+    transparent 100%
+  );
+  margin: 3rem 0 1.5rem 0;
+}
+
+/* Dashed gradient separator above h3 method headings in doc pages */
+.theme-doc-markdown h3 {
+  position: relative;
+  padding-top: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+/* Hide separator on first h3 right after an h2 */
+.theme-doc-markdown h2 + h3 {
+  padding-top: 0;
+  margin-top: 0.75rem;
+}
+
+.theme-doc-markdown h3::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent 5px,
+    rgba(128, 128, 128, 0.4) 5px,
+    rgba(128, 128, 128, 0.4) 7px
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 20%,
+    black 80%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 20%,
+    black 80%,
+    transparent 100%
+  );
+}
+
+.theme-doc-markdown h2 + h3::before,
+.theme-doc-markdown hr + h3::before {
+  display: none;
+}
+
+/* Basics overview cards */
+.basics-card {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+  text-decoration: none !important;
+  transition: box-shadow 0.2s ease;
+}
+
+.basics-card:hover {
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] .basics-card:hover {
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+}
+
+.basics-card:hover .basics-card__text strong {
+  text-decoration: underline;
+}
+
+.basics-card__emoji {
+  font-size: 4rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.basics-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.basics-card__text strong {
+  font-size: 1.05rem;
+  color: var(--ifm-color-primary);
+}
+
+.basics-card__text span {
+  font-size: var(--pithos-font-size-md);
+  opacity: 0.8;
+  color: var(--ifm-font-color-base);
+}
+
+/* Custom emoji replacements */
+.custom-emoji {
+  display: inline;
+  vertical-align: -0.22em;
+  margin: 0 0.15em;
+  width: 1.2em;
+  height: 1.2em;
+}
+
+.custom-emoji--flash {
+  vertical-align: -0.30em;
+  margin-right: 0;
+}
+
+.custom-emoji--basics {
+  vertical-align: -0.30em;
+  margin-right: 0;
+}
+
+/* Align error type badges vertically in Throws sections */
+.theme-admonition-danger code {
+  vertical-align: baseline;
+}
+
+/* Orange separator for merged types (interfaces/type aliases) */
+.merged-type-separator {
+  border: none;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(242, 111, 23, 0.3) 20%,
+    rgba(242, 111, 23, 0.5) 50%,
+    rgba(242, 111, 23, 0.3) 80%,
+    transparent 100%
+  );
+  margin: 3rem 0 1.5rem 0;
+}
+
+/* ── TOC Timeline ─────────────────────────────────────── */
+.toc-timeline {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: 0;
+  --toc-icon: 1.2em;
+  --toc-pad: 0.15em;
+  --toc-circle: calc(var(--toc-icon) + var(--toc-pad) + 0.4em);
+  --toc-center: calc(var(--toc-circle) / 2);
+  --toc-indent: calc(var(--toc-circle) + 0.5em);
+}
+
+/* Remove Docusaurus default left border */
+.toc-timeline.table-of-contents__left-border {
+  border-left: none !important;
+}
+
+/* Each item */
+.toc-timeline__item {
+  position: relative;
+  padding-left: var(--toc-indent);
+}
+
+/* Vertical line */
+.toc-timeline__item::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--toc-center) - 0.1em);
+  top: 0;
+  bottom: calc(-1 * var(--toc-circle) / 2);
+  width: 1px;
+  background: color-mix(in srgb, var(--light-grey, #b0b3b8) 20%, transparent);
+  transform: translateX(-50%);
+}
+
+/* First item: no line above circle */
+.toc-timeline > .toc-timeline__item:first-child::before {
+  top: calc(var(--toc-circle) / 2 + 0.25em);
+}
+
+/* Last item: line only above circle */
+.toc-timeline > .toc-timeline__item:last-child::before {
+  bottom: auto;
+  height: calc(var(--toc-circle) / 2);
+}
+
+/* Last item that is a parent: extend line to cover children */
+.toc-timeline > .toc-timeline__item--parent:last-child::before {
+  bottom: 0;
+  height: auto;
+}
+
+/* Single item: no line */
+.toc-timeline > .toc-timeline__item:only-child::before {
+  display: none;
+}
+
+/* Parent items (with children) */
+.toc-timeline__item--parent::before {
+  width: 1px !important;
+  background: color-mix(in srgb, var(--light-grey, #b0b3b8) 20%, transparent) !important;
+}
+
+/* Row: marker + link */
+.toc-timeline__row {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.25em 0.5em;
+  margin: 0 -0.5em;
+  border-radius: var(--pithos-radius-md);
+  transition: background var(--ifm-transition-fast) ease;
+}
+
+.toc-timeline__row:hover {
+  background: var(--ifm-menu-color-background-hover, rgba(0, 0, 0, 0.05));
+}
+
+/* Circle marker */
+.toc-timeline__marker {
+  flex-shrink: 0;
+  width: var(--toc-icon);
+  height: var(--toc-icon);
+  padding: var(--toc-pad);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: calc(-1 * var(--toc-indent));
+  border: 1.5px solid transparent;
+  border-radius: 50%;
+  background: var(--ifm-background-color);
+  box-sizing: content-box;
+  position: relative;
+  z-index: 1;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+/* Active: glow around marker (top-level only) */
+.toc-timeline > .toc-timeline__item--active > .toc-timeline__row > .toc-timeline__marker {
+  border-color: transparent;
+  box-shadow: none;
+  background: var(--ifm-color-primary);
+  animation: toc-marker-pop 0.25s ease-out;
+}
+
+/* Hide dot inside active top-level marker for a clean orange circle */
+.toc-timeline > .toc-timeline__item--active > .toc-timeline__row > .toc-timeline__marker .toc-timeline__dot {
+  display: none;
+}
+
+@keyframes toc-marker-pop {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+/* Active child marker: hide orange circle beyond first level */
+.toc-timeline__children .toc-timeline__item--active > .toc-timeline__row > .toc-timeline__marker {
+  background: transparent;
+}
+
+/* Default dot */
+.toc-timeline__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ifm-color-emphasis-400);
+}
+
+/* Emoji inside marker */
+.toc-timeline__marker .custom-emoji {
+  width: var(--toc-icon);
+  height: var(--toc-icon);
+  margin: 0;
+  display: block;
+}
+
+/* Link text */
+.toc-timeline__link {
+  flex: 1;
+  min-width: 0;
+}
+
+.toc-timeline__link:hover {
+  color: inherit;
+}
+
+/* Hide inline emojis in link (already in marker) */
+.toc-timeline__link .custom-emoji {
+  display: none;
+}
+
+/* ── Children (h3 items) ── */
+.toc-timeline__children {
+  list-style: none !important;
+  padding-left: 1em !important;
+  margin: 0;
+  position: relative;
+}
+
+.toc-timeline__children .toc-timeline__item {
+  padding-left: 0;
+}
+
+.toc-timeline__children .toc-timeline__item::before {
+  display: none;
+}
+
+/* Children markers: simple dot instead of circle */
+.toc-timeline__children .toc-timeline__marker {
+  border: none !important;
+  background: none;
+  padding: 0;
+  width: 8px;
+  height: 8px;
+  min-height: 8px;
+  margin-left: calc(-1 * (var(--toc-center) + 0.15em) - 2px);
+}
+
+.toc-timeline__children .toc-timeline__dot {
+  display: none;
+}
+
+/* Children don't need the marker indent */
+.toc-timeline__children .toc-timeline__row {
+  padding-left: 0;
+}
+
+/* Active child: single sliding orange bar in root ul */
+.toc-timeline__slider {
+  position: absolute;
+  left: 16.5px;
+  width: 3px;
+  background: var(--ifm-color-primary);
+  z-index: -1;
+  opacity: 0;
+  transition: top 0.2s ease, height 0.2s ease, opacity 0.15s ease;
+  pointer-events: none;
+}
+
+.toc-timeline__slider::before,
+.toc-timeline__slider::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  pointer-events: none;
+}
+
+.toc-timeline__slider::before {
+  bottom: 100%;
+  background: linear-gradient(to top, var(--ifm-color-primary), transparent);
+}
+
+.toc-timeline__slider--first::before {
+  display: none;
+}
+
+.toc-timeline__slider--last::after {
+  display: none;
+}
+
+.toc-timeline__slider::after {
+  top: 100%;
+  background: linear-gradient(to bottom, var(--ifm-color-primary), transparent);
 }

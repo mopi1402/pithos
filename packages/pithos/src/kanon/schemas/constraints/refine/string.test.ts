@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { it as itProp, fc } from "@fast-check/vitest";
 import { refineString } from "./string";
 import { string } from "../../primitives/string";
+import { coerceString } from "../../coerce/string";
 import { parse } from "../../../core/parser";
 import { ERROR_MESSAGES_COMPOSITION } from "../../../core/consts/messages";
 import type { StringSchema } from "@kanon/types/primitives";
@@ -326,6 +327,30 @@ describe("refineString", () => {
     });
   });
 
+  describe("[🎯] Coercion path", () => {
+    it("[🎯] should extract coerced value and pass refinement", () => {
+      const schema = refineString(coerceString(), (v) =>
+        v.length > 0 ? true : "empty"
+      );
+      const result = parse(schema, 42);
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data).toBe("42");
+      }
+    });
+
+    it("[🎯] should extract coerced value and fail refinement", () => {
+      const schema = refineString(coerceString(), (v) =>
+        v.length > 5 ? true : "too short"
+      );
+      const result = parse(schema, 42);
+      expect(result.success).toBe(false);
+      if (!result.success) {
+        expect(result.error).toBe("too short");
+      }
+    });
+  });
+
   describe("[🎲] Property-Based Tests", () => {
     itProp.prop([fc.string()])(
       "[🎲] should be idempotent - parsing twice yields same result",
@@ -374,5 +399,32 @@ describe("refineString", () => {
         expect(result.success).toBe(true);
       }
     );
+  });
+});
+
+describe("[👾] Mutation: refineString", () => {
+  it("[👾] returns true (not coerced result) for non-coerced valid string", () => {
+    const schema = refineString(string(), (v) => (v.length > 0 ? true : "Must not be empty"));
+    
+    // Direct string input (no coercion)
+    const result = schema.validator("test");
+    
+    // Should return true, not { coerced: "test" }
+    expect(result).toBe(true);
+    expect(typeof result).toBe("boolean");
+  });
+
+  it("[👾] returns coerced result for coerced valid string", () => {
+    const schema = refineString(coerceString(), (v) => (v.length > 0 ? true : "Must not be empty"));
+    
+    // Number input (coercion happens)
+    const result = schema.validator(42);
+    
+    // Should return { coerced: "42" }, not true
+    expect(result).not.toBe(true);
+    expect(typeof result).toBe("object");
+    if (typeof result === "object" && result !== null && "coerced" in result) {
+      expect(result.coerced).toBe("42");
+    }
   });
 });

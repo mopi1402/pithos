@@ -1,0 +1,196 @@
+.warningContainer {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.warningIcon {
+  font-size: 0.85em;
+  line-height: 1;
+}
+
+/* Tooltip (desktop) */
+.tooltip {
+  position: fixed;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-table-border-color);
+  border-radius: var(--pithos-radius-lg);
+  padding: var(--pithos-spacing-md) var(--pithos-spacing-lg);
+  font-size: var(--pithos-font-size-md);
+  font-weight: var(--pithos-font-weight-normal);
+  line-height: var(--pithos-line-height-normal);
+  white-space: normal;
+  width: max-content;
+  max-width: 320px;
+  box-shadow: var(--pithos-shadow-tooltip);
+  z-index: 99999;
+  pointer-events: none;
+}
+
+/* Hidden during measurement */
+.tooltipMeasuring {
+  visibility: hidden;
+}
+
+.tooltip p {
+  margin: 0 0 var(--pithos-spacing-sm) 0;
+}
+
+.tooltip p:last-child {
+  margin-bottom: 0;
+}
+
+.tooltip ul {
+  margin: 0.4rem 0;
+  padding-left: 1.1rem;
+}
+
+.tooltip li {
+  margin: 0.2rem 0;
+}
+
+.tooltip code {
+  background: var(--ifm-code-background);
+  padding: 0.1rem var(--pithos-spacing-xs);
+  border-radius: var(--pithos-radius-sm);
+  font-size: 0.9em;
+}
+
+.tooltip strong {
+  color: var(--ifm-color-primary);
+}
+
+/* Arrow pointing down (tooltip above icon) */
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--ifm-table-border-color);
+}
+
+.tooltip::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--ifm-background-surface-color);
+  z-index: 1;
+}
+
+/* Arrow pointing up (tooltip below icon) */
+.tooltipBottom::after {
+  top: -12px;
+  bottom: auto;
+  border-top-color: transparent;
+  border-bottom-color: var(--ifm-table-border-color);
+}
+
+.tooltipBottom::before {
+  top: -10px;
+  bottom: auto;
+  border-top-color: transparent;
+  border-bottom-color: var(--ifm-background-surface-color);
+}
+
+/* Modal (mobile/tablet) */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--pithos-overlay-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: var(--pithos-spacing-lg);
+}
+
+.modal {
+  background: var(--ifm-background-color);
+  border-radius: var(--pithos-radius-2xl);
+  max-width: var(--pithos-iframe-max-width);
+  width: 100%;
+  box-shadow: var(--pithos-shadow-modal);
+  overflow: hidden;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--pithos-spacing-sm);
+  padding: var(--pithos-spacing-lg) var(--pithos-spacing-lg-plus);
+  background: var(--ifm-background-surface-color);
+  border-bottom: 1px solid var(--ifm-table-border-color);
+}
+
+.modalIcon {
+  font-size: 1.2rem;
+}
+
+.modalTitle {
+  font-weight: var(--pithos-font-weight-semibold);
+  flex: 1;
+}
+
+.modalClose {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--ifm-color-secondary-darkest);
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--pithos-radius-md);
+}
+
+.modalClose:hover {
+  background: var(--ifm-hover-overlay);
+}
+
+.modalContent {
+  padding: var(--pithos-spacing-lg-plus);
+  font-size: var(--pithos-font-size-lg);
+  line-height: var(--pithos-line-height-relaxed);
+}
+
+.modalContent p {
+  margin: 0 0 var(--pithos-spacing-md) 0;
+}
+
+.modalContent p:last-child {
+  margin-bottom: 0;
+}
+
+.modalContent ul {
+  margin: var(--pithos-spacing-sm) 0;
+  padding-left: var(--pithos-spacing-lg-plus);
+}
+
+.modalContent li {
+  margin: var(--pithos-spacing-xs) 0;
+}
+
+.modalContent code {
+  background: var(--ifm-code-background);
+  padding: 0.1rem 0.3rem;
+  border-radius: var(--pithos-radius-sm);
+  font-size: 0.85em;
+}
+
+.modalContent strong {
+  color: var(--ifm-color-primary);
+}

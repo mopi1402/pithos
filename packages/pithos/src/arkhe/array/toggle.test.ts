@@ -34,11 +34,15 @@ describe("toggle", () => {
   });
 
   itProp.prop([fc.array(fc.integer()), fc.integer()])(
-    "[🎲] toggling twice returns to original",
+    "[🎲] toggling twice returns to original when element appears at most once",
     (arr, value) => {
+      // Property only holds when element has 0 or 1 occurrences
+      const count = arr.filter((x) => x === value).length;
+      fc.pre(count <= 1);
       const once = toggle(arr, value);
       const twice = toggle(once, value);
-      expect(twice.sort()).toEqual([...arr].sort());
+      expect(twice.slice().sort()).toEqual(arr.slice().sort());
+      expect(twice).toHaveLength(arr.length);
     }
   );
 

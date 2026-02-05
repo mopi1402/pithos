@@ -28,6 +28,14 @@ describe("Boolean Code Builder", () => {
       const result = generateBooleanTypeCheck("value", ctx, "Must be true or false");
       expect(result.code).toBe('if (typeof value !== "boolean") return "Must be true or false";');
     });
+
+    it("[👾] includes debug comment with newline separator when debug is enabled", () => {
+      const ctx = createGeneratorContext({ debug: true });
+      const result = generateBooleanTypeCheck("value", ctx);
+      // Debug comment on first line, type check on second line, separated by \n
+      expect(result.code).toContain("// Type check: boolean");
+      expect(result.code).toContain("\n");
+    });
   });
 
   describe("generateBooleanValidation", () => {

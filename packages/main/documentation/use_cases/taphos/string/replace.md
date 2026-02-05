@@ -32,3 +32,20 @@ Use regex for complex replacements.
 "hello123world".replace(/\d+/g, "-");
 // => "hello-world"
 ```
+
+### **Mask** sensitive data for display
+
+@keywords: mask, sensitive, data, PII, credit card, email, privacy, security
+
+Partially hide sensitive information before displaying it to users.
+Essential for payment UIs, account pages, and audit logs.
+
+```typescript
+const cardNumber = "4111222233334444";
+const masked = replace(cardNumber, /\d{12}/, "************");
+// => "************4444"
+
+const email = "alice@example.com";
+const maskedEmail = replace(email, /^(.{2}).*(@.*)$/, "$1***$2");
+// => "al***@example.com"
+```

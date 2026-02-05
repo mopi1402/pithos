@@ -33,6 +33,13 @@ export function rest<Result>(
 ): (...args: unknown[]) => Result {
   const startIndex = start === undefined ? Math.max(func.length - 1, 0) : start;
 
+  // Stryker disable next-line ConditionalExpression,BlockStatement: Fast-path optimization - generic fallback with slice(0) produces identical result
+  if (startIndex === 0) {
+    return function (this: unknown, ...args: unknown[]): Result {
+      return func.call(this, args);
+    };
+  }
+
   return function (this: unknown, ...args: unknown[]): Result {
     const leadingArgs = args.slice(0, startIndex);
     const restArgs = args.slice(startIndex);

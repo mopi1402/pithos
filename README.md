@@ -278,6 +278,11 @@ pnpm run lint:fix                # Lint and auto-fix issues
 pnpm run check:types             # Type-check without emitting files
 pnpm run check:all               # Run all checks (lint + types + tsdoc)
 
+# Documentation
+pnpm run doc:generate            # Generate docs (runs snapshot tests at the end)
+pnpm run doc:snapshots           # Run doc snapshot tests only
+pnpm run doc:snapshots:update    # Update snapshots after intentional changes
+
 # Analysis
 pnpm run analyze:bundle          # Analyze bundle size
 pnpm run benchmark:kanon        # Run benchmarks (supports filtering: pnpm run benchmark:kanon kanon,zod)

@@ -6,11 +6,11 @@ import Heading from "@theme/Heading";
 import MDXContent from "@theme/MDXContent";
 import ImportantBadge, {
   importantBadgeStyles,
-} from "@site/src/components/ImportantBadge";
+} from "@site/src/components/shared/badges/ImportantBadge";
 import HiddenGemBadge, {
   hiddenGemBadgeStyles,
-} from "@site/src/components/HiddenGemBadge";
-import TypeBadge from "@site/src/components/TypeBadge";
+} from "@site/src/components/shared/badges/HiddenGemBadge";
+import TypeBadge from "@site/src/components/shared/badges/TypeBadge";
 import type { Props } from "@theme/DocItem/Content";
 
 /**

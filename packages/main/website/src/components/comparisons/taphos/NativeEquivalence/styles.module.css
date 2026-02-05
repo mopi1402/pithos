@@ -1,0 +1,35 @@
+.categoryGroup {
+  margin-bottom: var(--pithos-spacing-md);
+  line-height: 2.4;
+}
+
+.categoryGroup:last-child {
+  margin-bottom: 0;
+}
+
+/* Override WarningTooltip wrapper to behave as inline text */
+.categoryGroup [class*="warningContainer"] {
+  display: inline;
+  margin-left: 0;
+}
+
+.warningCode {
+  cursor: pointer;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.9em;
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--pithos-radius-md);
+  background: var(--prism-background);
+  color: var(--prism-color);
+}
+
+.warningCode:hover {
+  outline: 1px solid var(--ifm-color-warning-dark);
+  outline-offset: 1px;
+}
+
+.warningBadge {
+  font-size: 0.75em;
+  margin-left: 2px;
+  vertical-align: middle;
+}

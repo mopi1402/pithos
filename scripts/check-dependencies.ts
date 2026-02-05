@@ -3,8 +3,8 @@
 /**
  * Dependency verification script before publication
  *
- * This script verifies that there are no 'dependencies' in the package.json
- * to avoid external dependencies. Only 'devDependencies' are allowed.
+ * This script verifies that there are no 'dependencies' or 'devDependencies'
+ * in the pithos package.json to avoid any external dependencies.
  */
 
 import { readFileSync } from "fs";
@@ -51,15 +51,33 @@ function checkDependencies() {
       process.exit(1);
     }
 
-    // Check devDependencies (optional)
+    // Check devDependencies
     if (
       packageJson.devDependencies &&
       Object.keys(packageJson.devDependencies).length > 0
     ) {
-      console.log("✅ devDependencies found (allowed):");
+      console.error(
+        "❌ ERROR: devDependencies found in packages/pithos/package.json:"
+      );
+      console.error("");
+
       Object.entries(packageJson.devDependencies).forEach(([name, version]) => {
-        console.log(`  - ${name}: ${version}`);
+        console.error(`  - ${name}: ${version}`);
       });
+
+      console.error("");
+      console.error("🚫 Publication blocked!");
+      console.error("");
+      console.error("💡 Solution:");
+      console.error(
+        "  1. Remove devDependencies from packages/pithos/package.json"
+      );
+      console.error(
+        "  2. Move them to root package.json devDependencies if necessary"
+      );
+      console.error("");
+
+      process.exit(1);
     }
 
     console.log("✅ No dependencies found in pithos - Publication allowed!");

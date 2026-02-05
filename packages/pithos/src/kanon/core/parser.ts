@@ -3,11 +3,13 @@ import { Schema, isCoerced } from "../types/base";
 /**
  * Core parsing logic for Kanon V3 validation system.
  *
+ * @template T - The expected output type of the schema.
  * @param schema - Schema to validate against.
  * @param input - Value to validate.
  * @returns Result object with success flag and data or error.
- * @performance Optimization: Fast paths for success/error cases
  * @since 3.0.0
+ *
+ * @performance Optimization: Fast paths for success/error cases.
  */
 export function parse<T>(
   schema: Schema<T>,
@@ -31,23 +33,26 @@ export function parse<T>(
  */
 export interface ParseBulkOptions {
   /**
-   * If true, stops at first validation failure (fastest mode)
-   * If false (default), collects all errors (comprehensive mode)
+   * If true, stops at first validation failure (fastest mode).
+   * If false, collects all errors (comprehensive mode).
+   * @defaultValue false
    */
   earlyAbort?: boolean;
 }
 
 /**
  * Bulk validation with two modes:
- * - Early abort: stops at first validation failure (fastest)
- * - Complete: collects all errors (comprehensive)
+ * - Early abort: stops at first validation failure (fastest).
+ * - Complete: collects all errors (comprehensive).
  *
+ * @template T - The expected output type of the schema.
  * @param schema - Schema to validate against.
  * @param values - Array of values to validate.
  * @param options - Bulk validation options.
  * @returns Result object with success flag and data array or errors array.
- * @performance Optimization: Pre-allocation and early abort mode
  * @since 3.0.0
+ *
+ * @performance Optimization: Pre-allocation and early abort mode.
  */
 export function parseBulk<T>(
   schema: Schema<T>,

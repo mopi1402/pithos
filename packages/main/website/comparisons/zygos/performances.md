@@ -5,9 +5,9 @@ title: "Zygos Performance Benchmarks"
 description: "Runtime performance comparison between Zygos, Neverthrow and fp-ts for Result and Option patterns"
 ---
 
-import { ZygosResultBenchmarkTable, ZygosOptionBenchmarkTable, ZygosVersionsTable, ZygosPerformanceSummary, ZygosDetailedStats, ZygosGeneratedDate, ZygosPerfTLDR } from '@site/src/components/ZygosPerformanceTable';
+import { ZygosResultBenchmarkTable, ZygosOptionBenchmarkTable, ZygosVersionsTable, ZygosPerformanceSummary, ZygosDetailedStats, ZygosGeneratedDate, ZygosPerfTLDR } from '@site/src/components/comparisons/zygos/PerformanceTable';
 
-# Zygos Performance Benchmarks
+# 🚅 Zygos Performance Benchmarks
 
 Performance comparison between **Zygos**, **Neverthrow** (Result) and **fp-ts** (Option).
 

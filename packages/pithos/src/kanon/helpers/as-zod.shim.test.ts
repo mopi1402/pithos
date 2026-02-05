@@ -913,5 +913,28 @@ describe("[👾] Mutation Tests", () => {
       expect(keyofSchema.parse("age")).toBe("age");
       expect(keyofSchema.safeParse("unknown").success).toBe(false);
     });
+
+    it("[🎯] pick() ignores keys not in shape", () => {
+      const schema = z.object({ name: z.string(), age: z.number() });
+      // Pick a key that doesn't exist in the shape — the false branch of "key in currentEntries"
+      const picked = schema.pick({ name: true, nonExistent: true } as Record<string, true>);
+      // nonExistent is picked but has no entry, so only name is validated
+      expect(picked.safeParse({ name: "Alice", nonExistent: "x" }).success).toBe(true);
+    });
+  });
+
+  describe("z.promise() edge cases", () => {
+    it("[🎯] parseAsync with non-Promise value", async () => {
+      const schema = z.promise(z.number());
+      const result = await schema.parseAsync(42);
+      expect(result).toBe(42);
+    });
+
+    it("[🎯] safeParseAsync with non-Promise value", async () => {
+      const schema = z.promise(z.string());
+      const result = await schema.safeParseAsync("hello");
+      expect(result.success).toBe(true);
+      if (result.success) expect(result.data).toBe("hello");
+    });
   });
 });

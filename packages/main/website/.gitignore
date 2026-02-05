@@ -8,6 +8,9 @@
 .docusaurus
 .cache-loader
 
+# Generated images (regenerated from assets/ at build time)
+/static/img/generated/
+
 # Generated use cases data (should be regenerated at build time)
 /static/use_cases/*.json
 

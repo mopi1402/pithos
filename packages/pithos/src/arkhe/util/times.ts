@@ -35,18 +35,21 @@ export function times<T>(
     throw new RangeError("n must be an integer");
   }
 
-  // Stryker disable next-line BlockStatement,ConditionalExpression: Early return optimization - loop handles n=0 correctly  
+  // Stryker disable next-line BlockStatement,ConditionalExpression: Early return optimization - loop handles n=0 correctly
   if (n === 0) {
     return [];
   }
 
-  const result: T[] | number[] = [];
+  // Stryker disable next-line ArrayDeclaration: preallocation optimization - loop fills array identically
+  const result = new Array(n);
 
-  for (let i = 0; i < n; i++) {
-    if (iteratee) {
-      (result as T[]).push(iteratee(i));
-    } else {
-      (result as number[]).push(i);
+  if (iteratee) {
+    for (let i = 0; i < n; i++) {
+      result[i] = iteratee(i);
+    }
+  } else {
+    for (let i = 0; i < n; i++) {
+      result[i] = i;
     }
   }
 

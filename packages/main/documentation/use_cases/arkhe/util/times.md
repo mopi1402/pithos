@@ -34,3 +34,22 @@ const grid = times(rows, (row) =>
   times(cols, (col) => ({ row, col, value: null }))
 );
 ```
+
+### **Render** skeleton loading placeholders
+
+@keywords: skeleton, loading, placeholder, shimmer, UI, design-system
+
+Generate placeholder components while data is loading.
+Cleaner than manually repeating JSX elements.
+
+```typescript
+const SkeletonList = ({ count }: { count: number }) => (
+  <ul>
+    {times(count, (i) => (
+      <li key={i} className="skeleton-row" aria-hidden="true" />
+    ))}
+  </ul>
+);
+
+// Usage: <SkeletonList count={5} />
+```

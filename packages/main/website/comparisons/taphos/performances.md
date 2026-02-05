@@ -5,10 +5,10 @@ title: "Taphos Performance Benchmarks"
 description: "Runtime performance comparison between Taphos, es-toolkit, and Lodash for utility functions"
 ---
 
-import { TaphosBenchmarkResultsTable, TaphosVersionsTable, TaphosPerformanceSummary, TaphosWeightedSummary, TaphosDetailedStats, TaphosGeneratedDate, TaphosPerfTLDR } from '@site/src/components/TaphosPerformanceTable';
-import { WeightedScoringTable } from '@site/src/components/WeightedScoringTable';
+import { TaphosBenchmarkResultsTable, TaphosVersionsTable, TaphosPerformanceSummary, TaphosWeightedSummary, TaphosDetailedStats, TaphosGeneratedDate, TaphosPerfTLDR } from '@site/src/components/comparisons/taphos/PerformanceTable';
+import { WeightedScoringTable } from '@site/src/components/comparisons/WeightedScoringTable';
 
-# Taphos Performance Benchmarks
+# 🚅 Taphos Performance Benchmarks
 
 Performance comparison between **taphos**, **es-toolkit**, **lodash** and **lodash-es**.
 
@@ -24,13 +24,13 @@ Operations per second. Higher is better.
 
 To ensure a fair comparison, benchmarks are adapted from [es-toolkit's benchmark suite](https://github.com/toss/es-toolkit/tree/main/benchmarks/performance). Using a well-known, third-party benchmark suite avoids any bias in our favor.
 
-### Weighted Scoring
+### Does Performance Matter?
 
 Not all functions matter equally for performance. A `map` called 10,000 times in a loop matters more than a `debounce` called once at setup. We assign weights based on real-world usage patterns:
 
 <WeightedScoringTable />
 
-This weighted scoring gives a more realistic picture of which library will actually make your app faster.
+This scoring gives a more realistic picture of which library will actually make your app faster.
 
 :::note Benchmark adjustments
 We made minor adjustments to some benchmarks to ensure they measure actual function execution:
@@ -86,7 +86,7 @@ Taphos exists to make your Lodash migration painless. But the real performance g
 3. Migrate function by function to native equivalents
 4. Remove Taphos entirely when you're done
 
-## When to Use Native
+## ✅ When to Use Native
 
 | Lodash/Taphos | Native Equivalent |
 |---------------|-------------------|

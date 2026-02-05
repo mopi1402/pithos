@@ -1,0 +1,2679 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Overloads > castComparator (overloads + merged interface) 1`] = `
+"# castComparator()
+
+> **castComparator**\\<\`Item\`, \`Key\`\\>(\`key\`, \`options?\`): (\`a\`, \`b\`) => \`number\`
+
+> **castComparator**\\<\`Item\`, \`MappedValue\`\\>(\`mapper\`, \`options?\`): (\`a\`, \`b\`) => \`number\`
+
+Creates a comparator function for Array.sort() with flexible mapping and comparison options.
+
+:::note
+
+Null/undefined values sort last. Dates compare by timestamp. Uses \`localeCompare\` for strings.
+
+:::
+
+
+---
+
+## Type Parameters
+
+#### Item: \`Item\`
+
+The type of items being sorted.
+
+#### Key: \`Key extends string | number | symbol\`
+
+The type of the property key.
+
+#### MappedValue: \`MappedValue\`
+
+The type of the mapped value.
+
+---
+
+## Parameters
+
+**Overload 1:**
+
+#### key: \`Key\`
+
+#### options?: <code>[ComparatorOptions](#comparatoroptions)&lt;Item\\[Key\\]&gt;</code>
+
+Comparison options.
+
+**Overload 2:**
+
+#### mapper: \`(item) => MappedValue\`
+
+#### options?: <code>[ComparatorOptions](#comparatoroptions)&lt;MappedValue&gt;</code>
+
+Comparison options.
+
+---
+
+## Returns: \`(a, b): number\`
+
+A comparator function for Array.sort().
+
+> **a**: \`Item\`<br />
+> **b**: \`Item\`<br />
+> **Returns**: \`number\`
+
+
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":null,"ramda":{"name":"comparator","group":"Function"},"radashi":{"name":"castComparator","group":"Function"},"remeda":null,"moderndash":null,"antfu":null,"effect":null,"es-toolkit":null,"python":{"name":"cmp_to_key","group":"functools"},"kotlin":null}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+const users = [{ name: 'John', age: 25 }, { name: 'Jane', age: 30 }];
+
+users.sort(castComparator('age'));
+// Sorted by age ascending
+
+users.sort(castComparator((u) => u.name.length));
+// Sorted by name length
+
+users.sort(castComparator('age', { reverse: true }));
+// Sorted by age descending
+\`\`\`
+
+---
+
+## How it works?
+
+Creates a comparator function for \`Array.sort()\` from a property key or mapper function.
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["castComparator('age')"] --> B["(a, b) => compare(a.age, b.age)"]\`}
+  mobile={\`flowchart TB
+    A["castComparator('age')"] --> B["(a, b) => compare(a.age, b.age)"]\`}
+/>
+
+### Property Key vs Mapper Function
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A1["castComparator('age')"] --> B1["users.sort(...)"]
+    B1 --> C1["sorted by age"]\`}
+  mobile={\`flowchart TB
+    A1["castComparator('age')"] --> B1["users.sort(...)"]
+    B1 --> C1["sorted by age"]\`}
+/>
+
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A2["castComparator(u => u.name.length)"] --> B2["users.sort(...)"]
+    B2 --> C2["sorted by name length"]\`}
+  mobile={\`flowchart TB
+    A2["castComparator(u => u.name.length)"] --> B2["users.sort(...)"]
+    B2 --> C2["sorted by name length"]\`}
+/>
+
+### Options
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["[30, 25, 35]"] --> B["sort(castComparator('age'))"]
+    B --> C["[25, 30, 35] (ascending)"]\`}
+  mobile={\`flowchart TB
+    A["[30, 25, 35]"] --> B["sort(castComparator('age'))"]
+    B --> C["[25, 30, 35] (ascending)"]\`}
+/>
+
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["[30, 25, 35]"] --> B["sort(castComparator('age', {reverse: true}))"]
+    B --> C["[35, 30, 25] (descending)"]\`}
+  mobile={\`flowchart TB
+    A["[30, 25, 35]"] --> B["sort(castComparator('age', {reverse: true}))"]
+    B --> C["[35, 30, 25] (descending)"]\`}
+/>
+
+### Default Comparison
+
+| Type | Comparison |
+|------|------------|
+| \`number\` | Numeric subtraction |
+| \`string\` | \`localeCompare\` |
+| \`Date\` | Timestamp comparison |
+| \`null\`/\`undefined\` | Sorted last |
+
+---
+
+## Use Cases
+
+### Sort arrays by property 📌
+
+Create reusable comparators for Array.sort() with property names.
+Essential for clean, readable sorting code.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=sort" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#sort</a>
+  <a href="/use-cases?q=arrays" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#arrays</a>
+  <a href="/use-cases?q=property" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#property</a>
+  <a href="/use-cases?q=comparator" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#comparator</a>
+  <a href="/use-cases?q=ordering" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#ordering</a>
+  <a href="/use-cases?q=reusable" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#reusable</a>
+</div>
+
+\`\`\`typescript
+const users = [
+  { name: "John", age: 25 }, 
+  { name: "Jane", age: 30 }
+];
+
+users.sort(castComparator("age"));
+// [{ name: "John", age: 25 }, { name: "Jane", age: 30 }]
+\`\`\`
+
+### Sort arrays by computed values
+
+Sort by computed values, custom comparison functions, and reverse order.
+Essential for complex sorting requirements.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=sort" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#sort</a>
+  <a href="/use-cases?q=computed" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#computed</a>
+  <a href="/use-cases?q=values" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#values</a>
+  <a href="/use-cases?q=transformation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#transformation</a>
+  <a href="/use-cases?q=custom" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#custom</a>
+  <a href="/use-cases?q=comparison" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#comparison</a>
+</div>
+
+\`\`\`typescript
+const files = ["report.pdf", "image.png", "data.json"];
+
+// Sort by extension length
+files.sort(castComparator((f) => f.split(".").pop()?.length));
+\`\`\`
+
+### Sort in reverse order
+
+Sort arrays in descending order with simple parameter.
+Essential for common reverse sorting needs.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=sort" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#sort</a>
+  <a href="/use-cases?q=reverse" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#reverse</a>
+  <a href="/use-cases?q=descending" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#descending</a>
+  <a href="/use-cases?q=order" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#order</a>
+  <a href="/use-cases?q=direction" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#direction</a>
+  <a href="/use-cases?q=flip" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#flip</a>
+</div>
+
+\`\`\`typescript
+users.sort(castComparator("age", { reverse: true }));
+// [{ name: "Jane", age: 30 }, { name: "John", age: 25 }]
+\`\`\`
+
+
+
+<div className="merged-type-separator"></div>
+
+## ComparatorOptions\\<ComparedValue\\> {#comparatoroptions}
+
+<span title="Type: Interface" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Interface</span>
+
+Options for the comparator function.
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Type Parameters
+
+### ComparedValue: \`ComparedValue\`
+
+The type of values being compared.
+
+---
+
+## Properties
+
+<a id="compare"></a>
+
+### compare()?: <code>(a, b) =&gt; number</code>
+
+Custom comparison function.
+
+> **a**: \`ComparedValue\`<br />
+> **b**: \`ComparedValue\`<br />
+> **Returns**: \`number\`
+
+
+
+<a id="reverse"></a>
+
+### reverse?: <code>boolean</code>
+
+If true, reverses the sort order."
+`;
+
+exports[`Overloads > every (@deprecated, overloads) 1`] = `
+"# ~~every()~~
+
+> **every**\\<\`T\`\\>(\`collection\`, \`predicate\`): \`boolean\`
+
+> **every**\\<\`T\`\\>(\`collection\`, \`predicate\`): \`boolean\`
+
+Checks if predicate returns truthy for all elements of collection.
+
+:::warning DEPRECATED
+
+Use \`array.every()\` or \`Object.values().every()\` directly instead.
+
+:::
+
+
+---
+
+## Type Parameters
+
+#### T: \`T\`
+
+The type of elements in the array, or the object type.
+
+---
+
+## Parameters
+
+**Overload 1:**
+
+#### collection: \`T[]\`
+
+The collection to iterate over.
+
+#### predicate: \`(value, index, array) => boolean\`
+
+The function invoked per iteration.
+
+**Overload 2:**
+
+#### collection: \`T\`
+
+The collection to iterate over.
+
+#### predicate: \`(value, key, object) => boolean\`
+
+The function invoked per iteration.
+
+---
+
+## Returns: \`boolean\`
+
+\`true\` if all elements pass the predicate check, else \`false\`.
+
+
+---
+
+## See Also
+
+- [Array.every() - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
+ - [Browser support - Can I Use](https://caniuse.com/mdn-javascript_builtins_array_every)
+ - [Object.values() - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/values)
+ - [Browser support - Can I Use](https://caniuse.com/mdn-javascript_builtins_object_values)
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":{"name":"every","group":"Collection"},"ramda":{"name":"all","group":"List"},"radashi":null,"remeda":null,"moderndash":null,"antfu":null,"effect":{"name":"every","group":"Array"},"es-toolkit":{"name":"every","group":"array"},"python":{"name":"all","group":"builtins"},"kotlin":{"name":"all","group":"collections"}}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+const numbers = [1, 2, 3, 4, 5];
+
+// ❌ Deprecated approach
+const allPositive = every(numbers, n => n > 0);
+console.log(allPositive); // true
+
+// ✅ Recommended approach (for arrays)
+const allPositiveNative = numbers.every(n => n > 0);
+console.log(allPositiveNative); // true
+
+// ✅ Recommended approach (for objects)
+const obj = { a: 1, b: 2, c: 3 };
+const allPositiveObj = Object.values(obj).every(n => n > 0);
+console.log(allPositiveObj); // true
+\`\`\`
+
+---
+
+## How it works?
+
+Checks if all elements pass the predicate.
+**Deprecated**: Use \`array.every()\` directly.
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["[2, 4, 6]"] --> B["every(_, n => n % 2 === 0)"]
+    B --> C["true"]\`}
+  mobile={\`flowchart TB
+    A["[2, 4, 6]"] --> B["every(_, n => n % 2 === 0)"]
+    B --> C["true"]\`}
+/>
+
+### Native Equivalent
+
+\`\`\`typescript
+// ❌ every(arr, fn)
+// ✅ arr.every(fn)
+\`\`\`
+
+---
+
+## Use Cases
+
+### Validate all items match criteria 📌
+
+Check if all elements satisfy a condition.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=validate" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#validate</a>
+  <a href="/use-cases?q=every" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#every</a>
+  <a href="/use-cases?q=all" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#all</a>
+  <a href="/use-cases?q=criteria" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#criteria</a>
+  <a href="/use-cases?q=check" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#check</a>
+</div>
+
+\`\`\`typescript
+const ages = [18, 25, 30, 22];
+ages.every(age => age >= 18);
+// => true
+\`\`\`
+
+### Check form validity
+
+Verify all form fields are valid.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=check" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#check</a>
+  <a href="/use-cases?q=form" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#form</a>
+  <a href="/use-cases?q=validity" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#validity</a>
+  <a href="/use-cases?q=required" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#required</a>
+</div>
+
+\`\`\`typescript
+const fields = [{ value: "a" }, { value: "b" }, { value: "" }];
+fields.every(f => f.value.length > 0);
+// => false
+\`\`\`
+
+### Ensure permissions granted
+
+Check if all required permissions are granted.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=ensure" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#ensure</a>
+  <a href="/use-cases?q=permissions" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#permissions</a>
+  <a href="/use-cases?q=granted" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#granted</a>
+  <a href="/use-cases?q=access" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#access</a>
+</div>
+
+\`\`\`typescript
+const permissions = ["read", "write", "execute"];
+const granted = ["read", "write", "execute"];
+permissions.every(p => granted.includes(p));
+// => true
+\`\`\`
+
+### Validate uploaded files meet constraints
+
+Check that all files in an upload batch respect size and type limits.
+Essential for file upload forms, document management, and media libraries.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=validate" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#validate</a>
+  <a href="/use-cases?q=upload" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#upload</a>
+  <a href="/use-cases?q=files" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#files</a>
+  <a href="/use-cases?q=size" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#size</a>
+  <a href="/use-cases?q=type" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#type</a>
+  <a href="/use-cases?q=MIME" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#MIME</a>
+  <a href="/use-cases?q=constraints" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#constraints</a>
+  <a href="/use-cases?q=form" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#form</a>
+</div>
+
+\`\`\`typescript
+const maxSize = 5 * 1024 * 1024; // 5MB
+const allowedTypes = ["image/png", "image/jpeg", "application/pdf"];
+
+const files = [
+  { name: "photo.jpg", size: 2_000_000, type: "image/jpeg" },
+  { name: "doc.pdf", size: 1_500_000, type: "application/pdf" },
+  { name: "huge.png", size: 8_000_000, type: "image/png" },
+];
+
+const allValid = every(files, (f) => f.size <= maxSize && allowedTypes.includes(f.type));
+// => false (huge.png exceeds 5MB)
+\`\`\`
+
+"
+`;
+
+exports[`Overloads > flowRight (overloads) 1`] = `
+"# flowRight()
+
+> **flowRight**(): \\<\`T\`\\>(\`x\`) => \`T\`
+
+> **flowRight**\\<\`A\`, \`B\`\\>(\`f\`): (\`a\`) => \`B\`
+
+> **flowRight**\\<\`A\`, \`B\`, \`C\`\\>(\`f\`, \`g\`): (\`a\`) => \`C\`
+
+> **flowRight**\\<\`A\`, \`B\`, \`C\`, \`D\`\\>(\`f\`, \`g\`, \`h\`): (\`a\`) => \`D\`
+
+<details>
+<summary>Show 3 more signatures</summary>
+
+> **flowRight**\\<\`A\`, \`B\`, \`C\`, \`D\`, \`E\`\\>(\`f\`, \`g\`, \`h\`, \`i\`): (\`a\`) => \`E\`
+
+> **flowRight**\\<\`A\`, \`B\`, \`C\`, \`D\`, \`E\`, \`F\`\\>(\`f\`, \`g\`, \`h\`, \`i\`, \`j\`): (\`a\`) => \`F\`
+
+> **flowRight**\\<\`A\`, \`B\`, \`C\`, \`D\`, \`E\`, \`F\`, \`G\`\\>(\`f\`, \`g\`, \`h\`, \`i\`, \`j\`, \`k\`): (\`a\`) => \`G\`
+
+</details>
+
+Composes functions right-to-left, passing the result of each to the previous.
+This is the opposite of \`pipe\` (also known as \`compose\`).
+
+:::note[ALIAS]
+
+\`compose\`
+
+:::
+
+
+---
+
+## Type Parameters
+
+#### A: \`A\`
+
+#### B: \`B\`
+
+#### C: \`C\`
+
+#### D: \`D\`
+
+#### E: \`E\`
+
+#### F: \`F\`
+
+#### G: \`G\`
+
+---
+
+## Parameters
+
+**Overload 1:**
+
+#### f: \`(a) => B\`
+
+**Overload 2:**
+
+#### f: \`(b) => C\`
+
+#### g: \`(a) => B\`
+
+**Overload 3:**
+
+#### f: \`(c) => D\`
+
+#### g: \`(b) => C\`
+
+#### h: \`(a) => B\`
+
+**Overload 4:**
+
+#### f: \`(d) => E\`
+
+#### g: \`(c) => D\`
+
+#### h: \`(b) => C\`
+
+#### i: \`(a) => B\`
+
+<details>
+
+<summary>Show 2 more overloads</summary>
+
+**Overload 5:**
+
+#### f: \`(e) => F\`
+
+#### g: \`(d) => E\`
+
+#### h: \`(c) => D\`
+
+#### i: \`(b) => C\`
+
+#### j: \`(a) => B\`
+
+**Overload 6:**
+
+#### f: \`(e) => G\`
+
+#### g: \`(d) => F\`
+
+#### h: \`(c) => E\`
+
+#### i: \`(b) => D\`
+
+#### j: \`(a) => C\`
+
+#### k: \`(a) => B\`
+
+</details>
+
+---
+
+## Returns
+
+The composed function.
+
+> \\<\`T\`\\>(\`x\`): \`T\`
+
+#### Type Parameters
+
+##### T: \`T\`
+
+> **x**: \`T\`<br />
+> **Returns**: \`T\`
+
+
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Performance
+
+Uses reduce for composition. Overhead is minimal for typical use.
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":{"name":"flowRight","group":"Util"},"ramda":{"name":"compose","group":"Function"},"radashi":null,"remeda":null,"moderndash":null,"antfu":null,"effect":null,"es-toolkit":{"name":"flowRight","group":"function"},"python":null,"kotlin":null}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+const add10 = (x: number) => x + 10;
+const multiply2 = (x: number) => x * 2;
+const square = (x: number) => x * x;
+
+// Right to left: square(multiply2(add10(5)))
+const composed = flowRight(square, multiply2, add10);
+composed(5); // => 900 (5 + 10 = 15, 15 * 2 = 30, 30 * 30 = 900)
+
+// Compare with pipe (left to right)
+// pipe would be: add10(multiply2(square(5)))
+
+// String transformation
+const trim = (s: string) => s.trim();
+const upper = (s: string) => s.toUpperCase();
+const exclaim = (s: string) => s + '!';
+
+const shout = flowRight(exclaim, upper, trim);
+shout('  hello  '); // => 'HELLO!'
+\`\`\`
+
+---
+
+## How it works?
+
+Composes functions right-to-left (mathematical composition).
+Also known as \`compose\` — the rightmost function executes first.
+
+\`\`\`mermaid
+flowchart RL
+    E["900"] --> D["square"]
+    D --> C["30"] --> B["× 2"]
+    B --> A["15"] --> F["+ 10"]
+    F --> G["5"]
+\`\`\`
+
+### Step-by-Step
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    I["Input: 5"] --> F1["add10(5) → 15"]
+    F1 --> F2["double(15) → 30"]
+    F2 --> F3["square(30) → 900"]
+    F3 --> R["Result: 900"]\`}
+  mobile={\`flowchart TB
+    I["Input: 5"] --> F1["add10(5) → 15"]
+    F1 --> F2["double(15) → 30"]
+    F2 --> F3["square(30) → 900"]
+    F3 --> R["Result: 900"]\`}
+/>
+
+### flowRight vs pipe
+
+| | flowRight | pipe |
+|--|-----------|------|
+| **Direction** | Right → Left | Left → Right |
+| **Math notation** | f(g(h(x))) | h then g then f |
+| **First executed** | Last argument | First function |
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    P1["5"] --> P2["a"] --> P3["b"] --> P4["c"]\`}
+  mobile={\`flowchart TB
+    P1["5"] --> P2["a"] --> P3["b"] --> P4["c"]\`}
+/>
+
+\`\`\`mermaid
+flowchart RL
+    F1["c"] --> F2["b"] --> F3["a"] --> F4["5"]
+\`\`\`
+
+---
+
+## Use Cases
+
+### Data Transformation pipelines (right-to-left) 📌
+
+Compose functions from right to left (traditional compose).
+Essential for mathematical function composition.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=compose" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#compose</a>
+  <a href="/use-cases?q=pipeline" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#pipeline</a>
+  <a href="/use-cases?q=transformation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#transformation</a>
+  <a href="/use-cases?q=functional" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#functional</a>
+  <a href="/use-cases?q=right-to-left" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#right-to-left</a>
+</div>
+
+\`\`\`typescript
+import { flowRight } from "pithos/arkhe/function/flow-right";
+
+const double = (x: number) => x * 2;
+const addOne = (x: number) => x + 1;
+const square = (x: number) => x * x;
+
+// Reads right-to-left: square, then addOne, then double
+const transform = flowRight(double, addOne, square);
+
+console.log(transform(3)); // double(addOne(square(3))) = double(addOne(9)) = double(10) = 20
+\`\`\`
+
+### String Processing chains 📌
+
+Compose string transformations in logical order.
+Critical for text processing pipelines.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=string" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#string</a>
+  <a href="/use-cases?q=processing" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#processing</a>
+  <a href="/use-cases?q=compose" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#compose</a>
+  <a href="/use-cases?q=text" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#text</a>
+  <a href="/use-cases?q=transformation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#transformation</a>
+</div>
+
+\`\`\`typescript
+import { flowRight } from "pithos/arkhe/function/flow-right";
+
+const trim = (s: string) => s.trim();
+const toLowerCase = (s: string) => s.toLowerCase();
+const removeSpaces = (s: string) => s.replace(/\\s+/g, "-");
+
+// Create a slug generator: removeSpaces(toLowerCase(trim(input)))
+const slugify = flowRight(removeSpaces, toLowerCase, trim);
+
+console.log(slugify("  Hello World  ")); // "hello-world"
+console.log(slugify(" My Blog Post ")); // "my-blog-post"
+\`\`\`
+
+### Validation Chains composition
+
+Compose validators that run in sequence.
+Important for form and data validation.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=validation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#validation</a>
+  <a href="/use-cases?q=chain" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#chain</a>
+  <a href="/use-cases?q=compose" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#compose</a>
+  <a href="/use-cases?q=middleware" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#middleware</a>
+  <a href="/use-cases?q=checks" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#checks</a>
+</div>
+
+\`\`\`typescript
+import { flowRight } from "pithos/arkhe/function/flow-right";
+
+type ValidationResult = { valid: boolean; errors: string[] };
+
+const checkRequired = (field: string) => (result: ValidationResult) => ({
+  ...result,
+  valid: result.valid && field.length > 0,
+  errors: field.length === 0 ? [...result.errors, "Required"] : result.errors,
+});
+
+const checkMinLength = (min: number) => (field: string) => (result: ValidationResult) => ({
+  ...result,
+  valid: result.valid && field.length >= min,
+  errors: field.length < min ? [...result.errors, \`Min \${min} chars\`] : result.errors,
+});
+
+// Compose validators (right-to-left execution)
+const validateUsername = (username: string) => {
+  const validate = flowRight(
+    checkMinLength(3)(username),
+    checkRequired(username)
+  );
+  return validate({ valid: true, errors: [] });
+};
+
+console.log(validateUsername("ab")); // { valid: false, errors: ["Min 3 chars"] }
+\`\`\`
+
+"
+`;
+
+exports[`Overloads > partition (overloads, type guard) 1`] = `
+"# partition()
+
+> **partition**\\<\`T\`, \`U\`\\>(\`array\`, \`predicate\`): \\[\`U\`[], \`Exclude\`\\<\`T\`, \`U\`\\>[]\\]
+
+> **partition**\\<\`T\`\\>(\`array\`, \`predicate\`): \\[\`T\`[], \`T\`[]\\]
+
+Splits an array into two groups based on a predicate function.
+
+
+---
+
+## Type Parameters
+
+#### T: \`T\`
+
+The type of elements in the array.
+
+#### U: \`U\`
+
+The type being filtered for (when using type guard).
+
+---
+
+## Parameters
+
+**Overload 1:**
+
+#### array: \`readonly T[]\`
+
+The array to partition.
+
+#### predicate: \`(value, index, array) => value is U\`
+
+A function that returns true for elements in the first group.
+
+**Overload 2:**
+
+#### array: \`readonly T[]\`
+
+The array to partition.
+
+#### predicate: \`(value, index, array) => boolean\`
+
+A function that returns true for elements in the first group.
+
+---
+
+## Returns: \`[U[], Exclude<T, U>[]]\`
+
+A tuple of [matching, non-matching] elements.
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Performance
+
+O(n) — single pass through the array.
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":{"name":"partition","group":"Collection"},"ramda":{"name":"partition","group":"List"},"radashi":{"name":"fork","group":"Array"},"remeda":{"name":"partition","group":"Array"},"moderndash":null,"antfu":{"name":"partition","group":"array"},"effect":{"name":"partition","group":"Array"},"es-toolkit":{"name":"partition","group":"array"},"python":{"name":"partition","group":"more-itertools"},"kotlin":{"name":"partition","group":"collections"}}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+partition([1, 2, 3, 4], (n) => n % 2 === 0);
+// => [[2, 4], [1, 3]]
+
+partition(
+  [{ active: true }, { active: false }, { active: true }],
+  (u) => u.active
+);
+// => [[{ active: true }, { active: true }], [{ active: false }]]
+\`\`\`
+
+---
+
+## How it works?
+
+Splits an array into two groups: elements matching the predicate and elements that don't.
+Single pass through the array.
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["[1, 2, 3, 4, 5]"] --> B["partition
+    ( _, n => n % 2 === 0 )"]
+    B --> C{{"Even?"}}
+    C --> D["[[2, 4], [1, 3, 5]]"]\`}
+  mobile={\`flowchart TB
+    A["[1, 2, 3, 4, 5]"] --> B["partition
+    ( _, n => n % 2 === 0 )"]
+    B --> C{{"Even?"}}
+    C --> D["[[2, 4], [1, 3, 5]]"]\`}
+/>
+
+### Element routing
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    E1["1"] -->|"❌ odd"| F["Falsy: [1, 3, 5]"]
+    E2["2"] -->|"✅ even"| T["Truthy: [2, 4]"]
+    E3["3"] -->|"❌ odd"| F
+    E4["4"] -->|"✅ even"| T
+    E5["5"] -->|"❌ odd"| F\`}
+  mobile={\`flowchart TB
+    E1["1"] -->|"❌ odd"| F["Falsy: [1, 3, 5]"]
+    E2["2"] -->|"✅ even"| T["Truthy: [2, 4]"]
+    E3["3"] -->|"❌ odd"| F
+    E4["4"] -->|"✅ even"| T
+    E5["5"] -->|"❌ odd"| F\`}
+/>
+
+### partition vs filter
+
+| Function | Returns | Use case |
+|----------|---------|----------|
+| \`filter\` | Matching only | Don't need rejected |
+| \`partition\` | [matching, rejected] | Need both groups |
+
+---
+
+## Use Cases
+
+### Separate active and inactive users 📌
+
+Split user lists based on status for targeted actions.
+Perfect for CRM systems, email campaigns, or user analytics.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=partition" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#partition</a>
+  <a href="/use-cases?q=users" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#users</a>
+  <a href="/use-cases?q=active" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#active</a>
+  <a href="/use-cases?q=inactive" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#inactive</a>
+  <a href="/use-cases?q=CRM" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#CRM</a>
+</div>
+
+\`\`\`typescript
+const users = [
+  { name: "Alice", isActive: true },
+  { name: "Bob", isActive: false },
+  { name: "Charlie", isActive: true },
+  { name: "Diana", isActive: false },
+];
+
+const [activeUsers, inactiveUsers] = partition(users, (u) => u.isActive);
+// activeUsers => [Alice, Charlie]
+// inactiveUsers => [Bob, Diana]
+\`\`\`
+
+### Split valid and invalid form submissions 📌
+
+Separate successful entries from errors for batch handling.
+Ideal for form validation, data imports, or API request processing.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=validation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#validation</a>
+  <a href="/use-cases?q=form" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#form</a>
+  <a href="/use-cases?q=submissions" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#submissions</a>
+  <a href="/use-cases?q=errors" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#errors</a>
+  <a href="/use-cases?q=batch%20processing" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#batch processing</a>
+</div>
+
+\`\`\`typescript
+const submissions = [
+  { id: "S1", email: "user1@mail.com", age: 25 },
+  { id: "S2", email: "invalid-email", age: 30 },
+  { id: "S3", email: "user3@mail.com", age: 17 },
+  { id: "S4", email: "user4@mail.com", age: 22 },
+];
+
+const isValid = (s) => s.email.includes("@") && s.age >= 18;
+
+const [valid, invalid] = partition(submissions, isValid);
+// valid => [S1, S4]
+// invalid => [S2, S3]
+\`\`\`
+
+### Categorize transactions as income vs expenses
+
+Split financial data for budgeting and reporting.
+Useful for banking apps, expense trackers, or accounting systems.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=transactions" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#transactions</a>
+  <a href="/use-cases?q=income" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#income</a>
+  <a href="/use-cases?q=expenses" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#expenses</a>
+  <a href="/use-cases?q=financial" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#financial</a>
+  <a href="/use-cases?q=budgeting" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#budgeting</a>
+</div>
+
+\`\`\`typescript
+const transactions = [
+  { description: "Salary", amount: 5000 },
+  { description: "Rent", amount: -1500 },
+  { description: "Freelance", amount: 800 },
+  { description: "Groceries", amount: -250 },
+];
+
+const [income, expenses] = partition(transactions, (t) => t.amount > 0);
+// income => [Salary, Freelance]
+// expenses => [Rent, Groceries]
+
+const totalIncome = income.reduce((sum, t) => sum + t.amount, 0);
+// => 5800
+\`\`\`
+
+### Separate approved vs rejected insurance claims
+
+Split insurance claims for streamlined processing workflows.
+Essential for insurance companies managing claim approvals and appeals.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=insurance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#insurance</a>
+  <a href="/use-cases?q=claims" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#claims</a>
+  <a href="/use-cases?q=approved" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#approved</a>
+  <a href="/use-cases?q=rejected" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#rejected</a>
+  <a href="/use-cases?q=assurance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#assurance</a>
+  <a href="/use-cases?q=sinistre" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#sinistre</a>
+  <a href="/use-cases?q=processing" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#processing</a>
+</div>
+
+\`\`\`typescript
+const claims = [
+  { id: "CLM-001", type: "auto", amount: 5000, status: "approved", riskScore: 0.2 },
+  { id: "CLM-002", type: "home", amount: 15000, status: "rejected", riskScore: 0.9 },
+  { id: "CLM-003", type: "health", amount: 3200, status: "approved", riskScore: 0.3 },
+  { id: "CLM-004", type: "auto", amount: 8500, status: "pending", riskScore: 0.6 },
+  { id: "CLM-005", type: "home", amount: 25000, status: "rejected", riskScore: 0.85 },
+];
+
+// Separate approved claims for payment processing
+const [approved, needsReview] = partition(claims, (c) => c.status === "approved");
+// approved => [CLM-001, CLM-003] - Ready for payout
+// needsReview => [CLM-002, CLM-004, CLM-005] - Requires further action
+
+// Separate high-risk claims for fraud investigation
+const [highRisk, standard] = partition(claims, (c) => c.riskScore > 0.7);
+// highRisk => [CLM-002, CLM-005] - Flag for investigation
+// standard => [CLM-001, CLM-003, CLM-004] - Normal processing
+\`\`\`
+
+"
+`;
+
+exports[`Overloads > pipe (many overloads, collapsed) 1`] = `
+"# pipe()
+
+> **pipe**\\<\`A\`\\>(\`a\`): \`A\`
+
+> **pipe**\\<\`A\`, \`B\`\\>(\`a\`, \`ab\`): \`B\`
+
+> **pipe**\\<\`A\`, \`B\`, \`C\`\\>(\`a\`, \`ab\`, \`bc\`): \`C\`
+
+> **pipe**\\<\`A\`, \`B\`, \`C\`, \`D\`\\>(\`a\`, \`ab\`, \`bc\`, \`cd\`): \`D\`
+
+<details>
+<summary>Show 16 more signatures</summary>
+
+> **pipe**\\<\`A\`, \`B\`, \`C\`, \`D\`, \`E\`\\>(\`a\`, \`ab\`, \`bc\`, \`cd\`, \`de\`): \`E\`
+
+> **pipe**\\<\`A\`, \`B\`, \`C\`, \`D\`, \`E\`, \`F\`\\>(\`a\`, \`ab\`, \`bc\`, \`cd\`, \`de\`, \`ef\`): \`F\`
+
+> **pipe**\\<\`A\`, \`B\`, \`C\`, \`D\`, \`E\`, \`F\`, \`G\`\\>(\`a\`, \`ab\`, \`bc\`, \`cd\`, \`de\`, \`ef\`, \`fg\`): \`G\`
+
+> **pipe**\\<\`A\`, \`B\`, \`C\`, \`D\`, \`E\`, \`F\`, \`G\`, \`H\`\\>(\`a\`, \`ab\`, \`bc\`, \`cd\`, \`de\`, \`ef\`, \`fg\`, \`gh\`): \`H\`
+
+> **pipe**\\<\`A\`, \`B\`, \`C\`, \`D\`, \`E\`, \`F\`, \`G\`, \`H\`, \`I\`\\>(\`a\`, \`ab\`, \`bc\`, \`cd\`, \`de\`, \`ef\`, \`fg\`, \`gh\`, \`hi\`): \`I\`
+
+> **pipe**\\<\`A\`, \`B\`, \`C\`, \`D\`, \`E\`, \`F\`, \`G\`, \`H\`, \`I\`, \`J\`\\>(\`a\`, \`ab\`, \`bc\`, \`cd\`, \`de\`, \`ef\`, \`fg\`, \`gh\`, \`hi\`, \`ij\`): \`J\`
+
+> **pipe**\\<\`A\`, \`B\`, \`C\`, \`D\`, \`E\`, \`F\`, \`G\`, \`H\`, \`I\`, \`J\`, \`K\`\\>(\`a\`, \`ab\`, \`bc\`, \`cd\`, \`de\`, \`ef\`, \`fg\`, \`gh\`, \`hi\`, \`ij\`, \`jk\`): \`K\`
+
+> **pipe**\\<\`A\`, \`B\`, \`C\`, \`D\`, \`E\`, \`F\`, \`G\`, \`H\`, \`I\`, \`J\`, \`K\`, \`L\`\\>(\`a\`, \`ab\`, \`bc\`, \`cd\`, \`de\`, \`ef\`, \`fg\`, \`gh\`, \`hi\`, \`ij\`, \`jk\`, \`kl\`): \`L\`
+
+> **pipe**\\<\`A\`, \`B\`, \`C\`, \`D\`, \`E\`, \`F\`, \`G\`, \`H\`, \`I\`, \`J\`, \`K\`, \`L\`, \`M\`\\>(\`a\`, \`ab\`, \`bc\`, \`cd\`, \`de\`, \`ef\`, \`fg\`, \`gh\`, \`hi\`, \`ij\`, \`jk\`, \`kl\`, \`lm\`): \`M\`
+
+> **pipe**\\<\`A\`, \`B\`, \`C\`, \`D\`, \`E\`, \`F\`, \`G\`, \`H\`, \`I\`, \`J\`, \`K\`, \`L\`, \`M\`, \`N\`\\>(\`a\`, \`ab\`, \`bc\`, \`cd\`, \`de\`, \`ef\`, \`fg\`, \`gh\`, \`hi\`, \`ij\`, \`jk\`, \`kl\`, \`lm\`, \`mn\`): \`N\`
+
+> **pipe**\\<\`A\`, \`B\`, \`C\`, \`D\`, \`E\`, \`F\`, \`G\`, \`H\`, \`I\`, \`J\`, \`K\`, \`L\`, \`M\`, \`N\`, \`O\`\\>(\`a\`, \`ab\`, \`bc\`, \`cd\`, \`de\`, \`ef\`, \`fg\`, \`gh\`, \`hi\`, \`ij\`, \`jk\`, \`kl\`, \`lm\`, \`mn\`, \`no\`): \`O\`
+
+> **pipe**\\<\`A\`, \`B\`, \`C\`, \`D\`, \`E\`, \`F\`, \`G\`, \`H\`, \`I\`, \`J\`, \`K\`, \`L\`, \`M\`, \`N\`, \`O\`, \`P\`\\>(\`a\`, \`ab\`, \`bc\`, \`cd\`, \`de\`, \`ef\`, \`fg\`, \`gh\`, \`hi\`, \`ij\`, \`jk\`, \`kl\`, \`lm\`, \`mn\`, \`no\`, \`op\`): \`P\`
+
+> **pipe**\\<\`A\`, \`B\`, \`C\`, \`D\`, \`E\`, \`F\`, \`G\`, \`H\`, \`I\`, \`J\`, \`K\`, \`L\`, \`M\`, \`N\`, \`O\`, \`P\`, \`Q\`\\>(\`a\`, \`ab\`, \`bc\`, \`cd\`, \`de\`, \`ef\`, \`fg\`, \`gh\`, \`hi\`, \`ij\`, \`jk\`, \`kl\`, \`lm\`, \`mn\`, \`no\`, \`op\`, \`pq\`): \`Q\`
+
+> **pipe**\\<\`A\`, \`B\`, \`C\`, \`D\`, \`E\`, \`F\`, \`G\`, \`H\`, \`I\`, \`J\`, \`K\`, \`L\`, \`M\`, \`N\`, \`O\`, \`P\`, \`Q\`, \`R\`\\>(\`a\`, \`ab\`, \`bc\`, \`cd\`, \`de\`, \`ef\`, \`fg\`, \`gh\`, \`hi\`, \`ij\`, \`jk\`, \`kl\`, \`lm\`, \`mn\`, \`no\`, \`op\`, \`pq\`, \`qr\`): \`R\`
+
+> **pipe**\\<\`A\`, \`B\`, \`C\`, \`D\`, \`E\`, \`F\`, \`G\`, \`H\`, \`I\`, \`J\`, \`K\`, \`L\`, \`M\`, \`N\`, \`O\`, \`P\`, \`Q\`, \`R\`, \`S\`\\>(\`a\`, \`ab\`, \`bc\`, \`cd\`, \`de\`, \`ef\`, \`fg\`, \`gh\`, \`hi\`, \`ij\`, \`jk\`, \`kl\`, \`lm\`, \`mn\`, \`no\`, \`op\`, \`pq\`, \`qr\`, \`rs\`): \`S\`
+
+> **pipe**\\<\`A\`, \`B\`, \`C\`, \`D\`, \`E\`, \`F\`, \`G\`, \`H\`, \`I\`, \`J\`, \`K\`, \`L\`, \`M\`, \`N\`, \`O\`, \`P\`, \`Q\`, \`R\`, \`S\`, \`T\`\\>(\`a\`, \`ab\`, \`bc\`, \`cd\`, \`de\`, \`ef\`, \`fg\`, \`gh\`, \`hi\`, \`ij\`, \`jk\`, \`kl\`, \`lm\`, \`mn\`, \`no\`, \`op\`, \`pq\`, \`qr\`, \`rs\`, \`st\`): \`T\`
+
+</details>
+
+Composes functions left-to-right, passing the result of each to the next.
+
+:::note
+
+Supports up to 20 functions with full type inference.
+
+:::
+
+
+---
+
+## Type Parameters
+
+#### A: \`A\`
+
+The type of the initial value.
+
+#### B: \`B\`
+
+#### C: \`C\`
+
+#### D: \`D\`
+
+#### E: \`E\`
+
+#### F: \`F\`
+
+#### G: \`G\`
+
+#### H: \`H\`
+
+#### I: \`I\`
+
+#### J: \`J\`
+
+#### K: \`K\`
+
+#### L: \`L\`
+
+#### M: \`M\`
+
+#### N: \`N\`
+
+#### O: \`O\`
+
+#### P: \`P\`
+
+#### Q: \`Q\`
+
+#### R: \`R\`
+
+#### S: \`S\`
+
+#### T: \`T\`
+
+---
+
+## Parameters
+
+**Overload 1:**
+
+#### a: \`A\`
+
+**Overload 2:**
+
+#### a: \`A\`
+
+#### ab: \`(a) => B\`
+
+**Overload 3:**
+
+#### a: \`A\`
+
+#### ab: \`(a) => B\`
+
+#### bc: \`(b) => C\`
+
+**Overload 4:**
+
+#### a: \`A\`
+
+#### ab: \`(a) => B\`
+
+#### bc: \`(b) => C\`
+
+#### cd: \`(c) => D\`
+
+<details>
+
+<summary>Show 16 more overloads</summary>
+
+**Overload 5:**
+
+#### a: \`A\`
+
+#### ab: \`(a) => B\`
+
+#### bc: \`(b) => C\`
+
+#### cd: \`(c) => D\`
+
+#### de: \`(d) => E\`
+
+**Overload 6:**
+
+#### a: \`A\`
+
+#### ab: \`(a) => B\`
+
+#### bc: \`(b) => C\`
+
+#### cd: \`(c) => D\`
+
+#### de: \`(d) => E\`
+
+#### ef: \`(e) => F\`
+
+**Overload 7:**
+
+#### a: \`A\`
+
+#### ab: \`(a) => B\`
+
+#### bc: \`(b) => C\`
+
+#### cd: \`(c) => D\`
+
+#### de: \`(d) => E\`
+
+#### ef: \`(e) => F\`
+
+#### fg: \`(f) => G\`
+
+**Overload 8:**
+
+#### a: \`A\`
+
+#### ab: \`(a) => B\`
+
+#### bc: \`(b) => C\`
+
+#### cd: \`(c) => D\`
+
+#### de: \`(d) => E\`
+
+#### ef: \`(e) => F\`
+
+#### fg: \`(f) => G\`
+
+#### gh: \`(g) => H\`
+
+**Overload 9:**
+
+#### a: \`A\`
+
+#### ab: \`(a) => B\`
+
+#### bc: \`(b) => C\`
+
+#### cd: \`(c) => D\`
+
+#### de: \`(d) => E\`
+
+#### ef: \`(e) => F\`
+
+#### fg: \`(f) => G\`
+
+#### gh: \`(g) => H\`
+
+#### hi: \`(h) => I\`
+
+**Overload 10:**
+
+#### a: \`A\`
+
+#### ab: \`(a) => B\`
+
+#### bc: \`(b) => C\`
+
+#### cd: \`(c) => D\`
+
+#### de: \`(d) => E\`
+
+#### ef: \`(e) => F\`
+
+#### fg: \`(f) => G\`
+
+#### gh: \`(g) => H\`
+
+#### hi: \`(h) => I\`
+
+#### ij: \`(i) => J\`
+
+**Overload 11:**
+
+#### a: \`A\`
+
+#### ab: \`(a) => B\`
+
+#### bc: \`(b) => C\`
+
+#### cd: \`(c) => D\`
+
+#### de: \`(d) => E\`
+
+#### ef: \`(e) => F\`
+
+#### fg: \`(f) => G\`
+
+#### gh: \`(g) => H\`
+
+#### hi: \`(h) => I\`
+
+#### ij: \`(i) => J\`
+
+#### jk: \`(j) => K\`
+
+**Overload 12:**
+
+#### a: \`A\`
+
+#### ab: \`(a) => B\`
+
+#### bc: \`(b) => C\`
+
+#### cd: \`(c) => D\`
+
+#### de: \`(d) => E\`
+
+#### ef: \`(e) => F\`
+
+#### fg: \`(f) => G\`
+
+#### gh: \`(g) => H\`
+
+#### hi: \`(h) => I\`
+
+#### ij: \`(i) => J\`
+
+#### jk: \`(j) => K\`
+
+#### kl: \`(k) => L\`
+
+**Overload 13:**
+
+#### a: \`A\`
+
+#### ab: \`(a) => B\`
+
+#### bc: \`(b) => C\`
+
+#### cd: \`(c) => D\`
+
+#### de: \`(d) => E\`
+
+#### ef: \`(e) => F\`
+
+#### fg: \`(f) => G\`
+
+#### gh: \`(g) => H\`
+
+#### hi: \`(h) => I\`
+
+#### ij: \`(i) => J\`
+
+#### jk: \`(j) => K\`
+
+#### kl: \`(k) => L\`
+
+#### lm: \`(l) => M\`
+
+**Overload 14:**
+
+#### a: \`A\`
+
+#### ab: \`(a) => B\`
+
+#### bc: \`(b) => C\`
+
+#### cd: \`(c) => D\`
+
+#### de: \`(d) => E\`
+
+#### ef: \`(e) => F\`
+
+#### fg: \`(f) => G\`
+
+#### gh: \`(g) => H\`
+
+#### hi: \`(h) => I\`
+
+#### ij: \`(i) => J\`
+
+#### jk: \`(j) => K\`
+
+#### kl: \`(k) => L\`
+
+#### lm: \`(l) => M\`
+
+#### mn: \`(m) => N\`
+
+**Overload 15:**
+
+#### a: \`A\`
+
+#### ab: \`(a) => B\`
+
+#### bc: \`(b) => C\`
+
+#### cd: \`(c) => D\`
+
+#### de: \`(d) => E\`
+
+#### ef: \`(e) => F\`
+
+#### fg: \`(f) => G\`
+
+#### gh: \`(g) => H\`
+
+#### hi: \`(h) => I\`
+
+#### ij: \`(i) => J\`
+
+#### jk: \`(j) => K\`
+
+#### kl: \`(k) => L\`
+
+#### lm: \`(l) => M\`
+
+#### mn: \`(m) => N\`
+
+#### no: \`(n) => O\`
+
+**Overload 16:**
+
+#### a: \`A\`
+
+#### ab: \`(a) => B\`
+
+#### bc: \`(b) => C\`
+
+#### cd: \`(c) => D\`
+
+#### de: \`(d) => E\`
+
+#### ef: \`(e) => F\`
+
+#### fg: \`(f) => G\`
+
+#### gh: \`(g) => H\`
+
+#### hi: \`(h) => I\`
+
+#### ij: \`(i) => J\`
+
+#### jk: \`(j) => K\`
+
+#### kl: \`(k) => L\`
+
+#### lm: \`(l) => M\`
+
+#### mn: \`(m) => N\`
+
+#### no: \`(n) => O\`
+
+#### op: \`(o) => P\`
+
+**Overload 17:**
+
+#### a: \`A\`
+
+#### ab: \`(a) => B\`
+
+#### bc: \`(b) => C\`
+
+#### cd: \`(c) => D\`
+
+#### de: \`(d) => E\`
+
+#### ef: \`(e) => F\`
+
+#### fg: \`(f) => G\`
+
+#### gh: \`(g) => H\`
+
+#### hi: \`(h) => I\`
+
+#### ij: \`(i) => J\`
+
+#### jk: \`(j) => K\`
+
+#### kl: \`(k) => L\`
+
+#### lm: \`(l) => M\`
+
+#### mn: \`(m) => N\`
+
+#### no: \`(n) => O\`
+
+#### op: \`(o) => P\`
+
+#### pq: \`(p) => Q\`
+
+**Overload 18:**
+
+#### a: \`A\`
+
+#### ab: \`(a) => B\`
+
+#### bc: \`(b) => C\`
+
+#### cd: \`(c) => D\`
+
+#### de: \`(d) => E\`
+
+#### ef: \`(e) => F\`
+
+#### fg: \`(f) => G\`
+
+#### gh: \`(g) => H\`
+
+#### hi: \`(h) => I\`
+
+#### ij: \`(i) => J\`
+
+#### jk: \`(j) => K\`
+
+#### kl: \`(k) => L\`
+
+#### lm: \`(l) => M\`
+
+#### mn: \`(m) => N\`
+
+#### no: \`(n) => O\`
+
+#### op: \`(o) => P\`
+
+#### pq: \`(p) => Q\`
+
+#### qr: \`(q) => R\`
+
+**Overload 19:**
+
+#### a: \`A\`
+
+#### ab: \`(a) => B\`
+
+#### bc: \`(b) => C\`
+
+#### cd: \`(c) => D\`
+
+#### de: \`(d) => E\`
+
+#### ef: \`(e) => F\`
+
+#### fg: \`(f) => G\`
+
+#### gh: \`(g) => H\`
+
+#### hi: \`(h) => I\`
+
+#### ij: \`(i) => J\`
+
+#### jk: \`(j) => K\`
+
+#### kl: \`(k) => L\`
+
+#### lm: \`(l) => M\`
+
+#### mn: \`(m) => N\`
+
+#### no: \`(n) => O\`
+
+#### op: \`(o) => P\`
+
+#### pq: \`(p) => Q\`
+
+#### qr: \`(q) => R\`
+
+#### rs: \`(r) => S\`
+
+**Overload 20:**
+
+#### a: \`A\`
+
+#### ab: \`(a) => B\`
+
+#### bc: \`(b) => C\`
+
+#### cd: \`(c) => D\`
+
+#### de: \`(d) => E\`
+
+#### ef: \`(e) => F\`
+
+#### fg: \`(f) => G\`
+
+#### gh: \`(g) => H\`
+
+#### hi: \`(h) => I\`
+
+#### ij: \`(i) => J\`
+
+#### jk: \`(j) => K\`
+
+#### kl: \`(k) => L\`
+
+#### lm: \`(l) => M\`
+
+#### mn: \`(m) => N\`
+
+#### no: \`(n) => O\`
+
+#### op: \`(o) => P\`
+
+#### pq: \`(p) => Q\`
+
+#### qr: \`(q) => R\`
+
+#### rs: \`(r) => S\`
+
+#### st: \`(s) => T\`
+
+</details>
+
+---
+
+## Returns: \`A\`
+
+The result of applying all transformations.
+
+---
+
+## Since
+
+1.1.0
+
+---
+
+## Performance
+
+Inline execution for 0-5 functions (~2x faster), loop for 6+.
+
+---
+
+## Also known as
+
+<AlsoKnownAs data={{"lodash":{"name":"flow","group":"Util"},"ramda":{"name":"pipe","group":"Function"},"radashi":{"name":"chain","group":"Curry"},"remeda":{"name":"pipe","group":"Function"},"moderndash":null,"antfu":null,"effect":{"name":"pipe","group":"Function"},"es-toolkit":{"name":"flow","group":"compat"},"python":null,"kotlin":null}} />
+
+
+---
+
+## Example
+
+\`\`\`typescript
+pipe(5, (x) => x * 2, (x) => x + 1);
+// => 11
+
+pipe(
+  'hello',
+  (s) => s.toUpperCase(),
+  (s) => s.split(''),
+  (arr) => arr.reverse(),
+  (arr) => arr.join('')
+);
+// => 'OLLEH'
+\`\`\`
+
+---
+
+## How it works?
+
+Composes functions left-to-right, passing each result to the next function.
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["5"] --> B["× 2"] --> C["10"] --> D["+ 1"] --> E["11"]\`}
+  mobile={\`flowchart TB
+    A["5"] --> B["× 2"] --> C["10"] --> D["+ 1"] --> E["11"]\`}
+/>
+
+### Step-by-Step
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    subgraph "pipe(5, double, addOne)"
+        I["5"]
+        F1["double"]
+        R1["10"]
+        F2["addOne"]
+        R2["11"]
+        
+        I --> F1 --> R1 --> F2 --> R2
+    end\`}
+  mobile={\`flowchart TB
+    subgraph "pipe(5, double, addOne)"
+        I["5"]
+        F1["double"]
+        R1["10"]
+        F2["addOne"]
+        R2["11"]
+        
+        I --> F1 --> R1 --> F2 --> R2
+    end\`}
+/>
+
+### String Transformation Example
+<ResponsiveMermaid
+  desktop={\`flowchart LR
+    A["'hello'"] --> B["toUpperCase"] --> C["'HELLO'"]
+    C --> D["split('')"] --> E["['H','E','L','L','O']"]
+    E --> F["reverse"] --> G["['O','L','L','E','H']"]
+    G --> H["join('')"] --> I["'OLLEH'"]\`}
+  mobile={\`flowchart TB
+    A["'hello'"] --> B["toUpperCase"] --> C["'HELLO'"]
+    C --> D["split('')"] --> E["['H','E','L','L','O']"]
+    E --> F["reverse"] --> G["['O','L','L','E','H']"]
+    G --> H["join('')"] --> I["'OLLEH'"]\`}
+/>
+
+### pipe vs flowRight
+
+| | pipe | flowRight |
+|--|------|-----------|
+| **Direction** | Left → Right | Right → Left |
+| **First arg** | Initial value | Last function |
+| **Mental model** | Data flows through | Math composition |
+
+---
+
+## Use Cases
+
+### Function composition and chaining 📌
+
+Compose multiple functions in a readable left-to-right manner.
+Essential for functional programming and clean data processing workflows.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=composition" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#composition</a>
+  <a href="/use-cases?q=chaining" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#chaining</a>
+  <a href="/use-cases?q=functional" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#functional</a>
+  <a href="/use-cases?q=pipeline" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#pipeline</a>
+  <a href="/use-cases?q=transformation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#transformation</a>
+  <a href="/use-cases?q=flow" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#flow</a>
+</div>
+
+\`\`\`typescript
+const add = (n) => n + 1;
+const double = (n) => n * 2;
+const square = (n) => n * n;
+
+const process = pipe(add, double, square);
+// ((n + 1) * 2) ^ 2
+
+process(2); // ((2+1)*2)^2 = 36
+\`\`\`
+
+### Data transformation pipelines
+
+Transform data through multiple steps with type-safe function composition.
+Essential for complex data processing and ETL operations.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=transformation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#transformation</a>
+  <a href="/use-cases?q=pipelines" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#pipelines</a>
+  <a href="/use-cases?q=processing" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#processing</a>
+  <a href="/use-cases?q=ETL" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#ETL</a>
+  <a href="/use-cases?q=data" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#data</a>
+  <a href="/use-cases?q=flow" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#flow</a>
+</div>
+
+\`\`\`typescript
+const cleanInput = pipe(
+  (s) => s.trim(),
+  (s) => s.toLowerCase(),
+  (s) => s.replace(/\\s+/g, "-")
+);
+
+cleanInput("  Hello World  "); // "hello-world"
+\`\`\`
+
+### Process API response through a full pipeline
+
+Chain fetch, parse, normalize, and filter steps into a single readable pipeline.
+The real-world pattern developers write daily when consuming API data.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=API" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#API</a>
+  <a href="/use-cases?q=response" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#response</a>
+  <a href="/use-cases?q=pipeline" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#pipeline</a>
+  <a href="/use-cases?q=fetch" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#fetch</a>
+  <a href="/use-cases?q=parse" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#parse</a>
+  <a href="/use-cases?q=normalize" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#normalize</a>
+  <a href="/use-cases?q=filter" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#filter</a>
+  <a href="/use-cases?q=processing" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#processing</a>
+</div>
+
+\`\`\`typescript
+const getActiveUsers = pipe(
+  (response: Response) => response.json(),
+  (data: { users: User[] }) => data.users,
+  (users) => users.filter((u) => u.isActive),
+  (users) => users.map((u) => ({ id: u.id, name: u.name, email: u.email })),
+);
+
+const users = await fetch("/api/users").then(getActiveUsers);
+// Raw response → parsed JSON → extracted array → filtered active → picked fields
+\`\`\`
+
+"
+`;

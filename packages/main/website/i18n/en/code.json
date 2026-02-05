@@ -1,0 +1,909 @@
+{
+  "comparison.common.header.library": {
+    "message": "Library",
+    "description": "Column header for library name in comparison tables"
+  },
+  "comparison.common.header.version": {
+    "message": "Version",
+    "description": "Column header for library version"
+  },
+  "comparison.common.header.description": {
+    "message": "Description",
+    "description": "Column header for library description"
+  },
+  "comparison.common.header.test": {
+    "message": "Test",
+    "description": "Column header for test/benchmark name"
+  },
+  "comparison.common.header.ops": {
+    "message": "ops/s",
+    "description": "Column header for operations per second"
+  },
+  "comparison.common.header.min": {
+    "message": "min",
+    "description": "Column header for minimum time in detailed stats"
+  },
+  "comparison.common.header.max": {
+    "message": "max",
+    "description": "Column header for maximum time in detailed stats"
+  },
+  "comparison.common.header.mean": {
+    "message": "mean",
+    "description": "Column header for mean time in detailed stats"
+  },
+  "comparison.common.header.p75": {
+    "message": "p75",
+    "description": "Column header for 75th percentile in detailed stats"
+  },
+  "comparison.common.header.p99": {
+    "message": "p99",
+    "description": "Column header for 99th percentile in detailed stats"
+  },
+  "comparison.common.header.p995": {
+    "message": "p995",
+    "description": "Column header for 99.5th percentile in detailed stats"
+  },
+  "comparison.common.header.p999": {
+    "message": "p999",
+    "description": "Column header for 99.9th percentile in detailed stats"
+  },
+  "comparison.common.header.rme": {
+    "message": "rme",
+    "description": "Column header for relative margin of error in detailed stats"
+  },
+  "comparison.common.header.samples": {
+    "message": "samples",
+    "description": "Column header for number of samples in detailed stats"
+  },
+
+  "comparison.common.fastest": {
+    "message": "fastest",
+    "description": "Label shown for the fastest library in a benchmark"
+  },
+  "comparison.common.na": {
+    "message": "N/A",
+    "description": "Displayed when data is not available"
+  },
+  "comparison.common.baseline": {
+    "message": "baseline",
+    "description": "Label for the baseline library in comparisons"
+  },
+  "comparison.common.opsUnit": {
+    "message": "ops/s",
+    "description": "Unit label for operations per second displayed next to values"
+  },
+  "comparison.common.wins": {
+    "message": "{wins} wins",
+    "description": "Number of benchmark wins for a library"
+  },
+  "comparison.common.percentage": {
+    "message": "({percentage}%)",
+    "description": "Percentage display in parentheses for win rate"
+  },
+  "comparison.common.points": {
+    "message": "({points} pts)",
+    "description": "Points display in parentheses for weighted score"
+  },
+  "comparison.common.searchPlaceholder": {
+    "message": "Search utility...",
+    "description": "Placeholder text for the utility search input in detailed stats"
+  },
+  "comparison.common.categoryAll": {
+    "message": "All",
+    "description": "Label for the 'All' category when no category grouping is defined"
+  },
+  "comparison.common.categoryOther": {
+    "message": "Other",
+    "description": "Label for uncategorized functions in benchmark tables"
+  },
+
+  "comparison.benchmark.footer": {
+    "message": "Data generated on {date} • Vitest bench",
+    "description": "Footer text for benchmark results tables"
+  },
+  "comparison.benchmark.versionsFooter": {
+    "message": "Benchmarks run on {date}",
+    "description": "Footer text for versions table"
+  },
+  "comparison.benchmark.error.title": {
+    "message": "⚠️ Benchmark data not found",
+    "description": "Error title when benchmark JSON file is missing"
+  },
+  "comparison.benchmark.error.missing": {
+    "message": "The benchmark results file {fileName} is missing.",
+    "description": "Error message indicating which benchmark file is missing"
+  },
+  "comparison.benchmark.error.generate": {
+    "message": "Generate it by running:",
+    "description": "Instruction text before the generate command"
+  },
+  "comparison.benchmark.summary.title": {
+    "message": "📊 Performance Summary",
+    "description": "Title for the performance summary ranking chart"
+  },
+  "comparison.benchmark.weightedSummary.title": {
+    "message": "📈 Weighted Performance Summary",
+    "description": "Title for the weighted performance summary ranking chart"
+  },
+  "comparison.benchmark.weightedSummary.subtitle": {
+    "message": "Scores weighted by real-world importance: CRITICAL (5 pts) > HIGH (3 pts) > MEDIUM (1 pt) > LOW (0.5 pts).",
+    "description": "Subtitle explaining the weighted scoring methodology"
+  },
+  "comparison.benchmark.weightedSummary.announcement": {
+    "message": "🏆 {library} leads with {points} pts ({percentage}% of max)",
+    "description": "Announcement text for the weighted summary winner"
+  },
+  "comparison.benchmark.winsByCategory": {
+    "message": "Wins by Category",
+    "description": "Title for the category breakdown section in weighted summary"
+  },
+  "comparison.benchmark.categoryWins": {
+    "message": "{count} {category}",
+    "description": "Category win count display (e.g. '3 CRITICAL')"
+  },
+
+  "comparison.benchmark.category.critical": {
+    "message": "Critical",
+    "description": "Label for CRITICAL priority category in benchmark tables"
+  },
+  "comparison.benchmark.category.high": {
+    "message": "High",
+    "description": "Label for HIGH priority category in benchmark tables"
+  },
+  "comparison.benchmark.category.medium": {
+    "message": "Medium",
+    "description": "Label for MEDIUM priority category in benchmark tables"
+  },
+  "comparison.benchmark.category.low": {
+    "message": "Low",
+    "description": "Label for LOW priority category in benchmark tables"
+  },
+  "comparison.benchmark.category.other": {
+    "message": "Other",
+    "description": "Label for OTHER/uncategorized items in benchmark tables"
+  },
+
+  "comparison.bundle.header.useCase": {
+    "message": "Use Case",
+    "description": "Column header for test/use case name in bundle size tables"
+  },
+  "comparison.bundle.header.raw": {
+    "message": "Raw",
+    "description": "Column header for raw (uncompressed) bundle size"
+  },
+  "comparison.bundle.header.gzip": {
+    "message": "Gzip",
+    "description": "Column header for gzip-compressed bundle size"
+  },
+  "comparison.bundle.header.brotli": {
+    "message": "Brotli",
+    "description": "Column header for brotli-compressed bundle size"
+  },
+  "comparison.bundle.header.importStyle": {
+    "message": "Import Style",
+    "description": "Column header for import style in helpers impact table"
+  },
+  "comparison.bundle.header.bundleImpact": {
+    "message": "Bundle Impact",
+    "description": "Column header for bundle size impact in when-to-use table"
+  },
+  "comparison.bundle.header.whenToUse": {
+    "message": "When to use",
+    "description": "Column header for usage recommendation in when-to-use table"
+  },
+  "comparison.bundle.header.helper": {
+    "message": "Helper",
+    "description": "Column header for helper name in when-to-use table"
+  },
+  "comparison.bundle.header.scenario": {
+    "message": "Scenario",
+    "description": "Column header for scenario name in Zod comparison table"
+  },
+  "comparison.bundle.footer": {
+    "message": "Data generated on {date} • Measured with esbuild + gzip",
+    "description": "Footer text for bundle size comparison tables"
+  },
+  "comparison.bundle.footer.kanonBaseline": {
+    "message": "Kanon baseline: Login Form with direct imports",
+    "description": "Footer text for helpers impact table"
+  },
+  "comparison.bundle.footer.gzipEsbuild": {
+    "message": "Data generated on {date} • gzip sizes • esbuild --minify",
+    "description": "Footer text for arkhe bundle size table"
+  },
+  "comparison.bundle.footer.generatedOn": {
+    "message": "Data generated on {date}",
+    "description": "Simple footer with generation date for single library tables"
+  },
+  "comparison.bundle.minimal": {
+    "message": "Minimal",
+    "description": "Label for minimal bundle impact in when-to-use table"
+  },
+  "comparison.bundle.directImports": {
+    "message": "Direct imports",
+    "description": "Label for direct import style (best practice)"
+  },
+  "comparison.bundle.alwaysProduction": {
+    "message": "Always (production)",
+    "description": "Recommendation text for direct imports usage"
+  },
+
+  "comparison.bundle.validationHelper": {
+    "message": "validation helper",
+    "description": "Display name for the validation helper import style"
+  },
+  "comparison.bundle.kNamespace": {
+    "message": "k namespace",
+    "description": "Display name for the k namespace import style"
+  },
+  "comparison.bundle.zShim": {
+    "message": "z shim",
+    "description": "Display name for the z shim (Zod compat) import style"
+  },
+  "comparison.bundle.whenToUse.validation": {
+    "message": "When you need .safeParse() style",
+    "description": "Usage recommendation for the validation helper"
+  },
+  "comparison.bundle.whenToUse.kNamespace": {
+    "message": "Prototyping, small projects",
+    "description": "Usage recommendation for the k namespace"
+  },
+  "comparison.bundle.whenToUse.zShim": {
+    "message": "Migrating from Zod",
+    "description": "Usage recommendation for the z shim"
+  },
+  "comparison.bundle.helperDesc.validation": {
+    "message": "validation(schema).safeParse(data)",
+    "description": "Description of the validation helper usage pattern"
+  },
+  "comparison.bundle.helperDesc.kNamespace": {
+    "message": "Zod-like syntax: k.string(), k.object()...",
+    "description": "Description of the k namespace usage pattern"
+  },
+  "comparison.bundle.helperDesc.zShim": {
+    "message": "Migrating from Zod",
+    "description": "Description of the z shim usage pattern"
+  },
+  "comparison.bundle.codeExample.directComment": {
+    "message": "✅ BEST: Direct imports ({size} for login form)",
+    "description": "Comment in code example for direct imports"
+  },
+  "comparison.bundle.codeExample.kNamespaceComment": {
+    "message": "⚠️ CONVENIENT: k namespace ({size} - includes ALL schemas)",
+    "description": "Comment in code example for k namespace"
+  },
+  "comparison.bundle.codeExample.zShimComment": {
+    "message": "⚠️ ZOD COMPAT: z shim ({size} - Zod API adapter)",
+    "description": "Comment in code example for z shim"
+  },
+
+  "comparison.bundle.summary.header.aspect": {
+    "message": "Aspect",
+    "description": "Column header for aspect name in summary comparison table"
+  },
+  "comparison.bundle.summary.header.kanon": {
+    "message": "Kanon",
+    "description": "Column header for Kanon in summary comparison table"
+  },
+  "comparison.bundle.summary.header.zod": {
+    "message": "Zod",
+    "description": "Column header for Zod in summary comparison table"
+  },
+  "comparison.bundle.summary.architecture": {
+    "message": "Architecture",
+    "description": "Row label for architecture comparison (Functions vs Classes)"
+  },
+  "comparison.bundle.summary.architectureKanon": {
+    "message": "Functions",
+    "description": "Kanon architecture type in summary table"
+  },
+  "comparison.bundle.summary.architectureZod": {
+    "message": "Classes",
+    "description": "Zod architecture type in summary table"
+  },
+  "comparison.bundle.summary.treeShaking": {
+    "message": "Tree-shaking",
+    "description": "Row label for tree-shaking support comparison"
+  },
+  "comparison.bundle.summary.treeShakingKanon": {
+    "message": "✅ Full",
+    "description": "Kanon tree-shaking support level"
+  },
+  "comparison.bundle.summary.treeShakingZod": {
+    "message": "❌ Limited",
+    "description": "Zod tree-shaking support level"
+  },
+  "comparison.bundle.summary.minBundle": {
+    "message": "Min bundle",
+    "description": "Row label for minimum bundle size comparison"
+  },
+  "comparison.bundle.summary.scalesWithUsage": {
+    "message": "Scales with usage",
+    "description": "Row label for bundle scaling behavior comparison"
+  },
+  "comparison.bundle.summary.scalesYes": {
+    "message": "✅ Yes",
+    "description": "Positive scaling behavior indicator"
+  },
+  "comparison.bundle.summary.scalesMostlyFixed": {
+    "message": "❌ Mostly fixed",
+    "description": "Negative scaling behavior indicator"
+  },
+  "comparison.bundle.summary.migrationPath": {
+    "message": "Migration path",
+    "description": "Row label for migration path comparison"
+  },
+  "comparison.bundle.summary.migrationKanon": {
+    "message": "z shim available",
+    "description": "Kanon migration path description"
+  },
+
+  "comparison.bundle.zodComparison.simpleLoginForm": {
+    "message": "Simple login form",
+    "description": "Row label for simple login form scenario in Zod comparison"
+  },
+  "comparison.bundle.zodComparison.fullAppSchemas": {
+    "message": "Full app schemas",
+    "description": "Row label for full app schemas scenario in Zod comparison"
+  },
+  "comparison.bundle.zodComparison.growthRate": {
+    "message": "Growth rate",
+    "description": "Row label for bundle growth rate in Zod comparison"
+  },
+  "comparison.bundle.zodComparison.almostFlat": {
+    "message": "Almost flat",
+    "description": "Growth rate description when growth is minimal"
+  },
+  "comparison.bundle.versionInfo": {
+    "message": "Kanon v{kanonVersion} vs Zod v{zodVersion}",
+    "description": "Version info footer for Zod comparison table"
+  },
+  "comparison.bundle.versionInfoShort": {
+    "message": "Kanon v{kanonVersion} / Zod v{zodVersion}",
+    "description": "Short version info display for VersionInfo component"
+  },
+  "comparison.bundle.savingsHighlight": {
+    "message": "vs Zod Mini (+{vsMini}%) / Zod Classic ({vsClassic}x larger)",
+    "description": "Savings highlight text comparing Kanon to Zod variants"
+  },
+
+  "comparison.bundle.variant.kanon": {
+    "message": "Kanon v3",
+    "description": "Display name for Kanon v3 variant in bundle size tables"
+  },
+  "comparison.bundle.variant.zod4Classic": {
+    "message": "Zod 4 Classic",
+    "description": "Display name for Zod 4 Classic variant in bundle size tables"
+  },
+  "comparison.bundle.variant.zod4Mini": {
+    "message": "Zod 4 Mini",
+    "description": "Display name for Zod 4 Mini variant in bundle size tables"
+  },
+  "comparison.bundle.variant.zod3": {
+    "message": "Zod 3",
+    "description": "Display name for Zod 3 variant in bundle size tables"
+  },
+  "comparison.bundle.test.loginForm": {
+    "message": "Login Form",
+    "description": "Display name for login form test case in bundle size tables"
+  },
+  "comparison.bundle.test.userProfile": {
+    "message": "User Profile",
+    "description": "Display name for user profile test case in bundle size tables"
+  },
+  "comparison.bundle.test.apiResponse": {
+    "message": "API Response",
+    "description": "Display name for API response test case in bundle size tables"
+  },
+  "comparison.bundle.test.configValidation": {
+    "message": "Config Validation",
+    "description": "Display name for config validation test case in bundle size tables"
+  },
+  "comparison.bundle.test.formWithCoercion": {
+    "message": "Form + Coercion",
+    "description": "Display name for form with coercion test case in bundle size tables"
+  },
+  "comparison.bundle.test.fullApp": {
+    "message": "Full App",
+    "description": "Display name for full app test case in bundle size tables"
+  },
+  "comparison.bundle.test.string": {
+    "message": "String",
+    "description": "Display name for string test case in bundle size tables"
+  },
+  "comparison.bundle.test.simpleObject": {
+    "message": "Simple object",
+    "description": "Display name for simple object test case in bundle size tables"
+  },
+  "comparison.bundle.test.fullSchema": {
+    "message": "Full schema",
+    "description": "Display name for full schema test case in bundle size tables"
+  },
+  "comparison.bundle.test.kNamespace": {
+    "message": "k namespace",
+    "description": "Display name for k namespace test case in bundle size tables"
+  },
+  "comparison.bundle.test.zShim": {
+    "message": "z shim (Zod compat)",
+    "description": "Display name for z shim test case in bundle size tables"
+  },
+  "comparison.bundle.test.validationHelper": {
+    "message": "validation helper",
+    "description": "Display name for validation helper test case in bundle size tables"
+  },
+
+  "comparison.bundle.arkhe.header.utility": {
+    "message": "Utility",
+    "description": "Column header for utility name in arkhe bundle size table"
+  },
+  "comparison.bundle.arkhe.legend.baseline": {
+    "message": "Pithos (baseline)",
+    "description": "Legend label for Pithos baseline color in arkhe bundle table"
+  },
+  "comparison.bundle.arkhe.legend.smaller": {
+    "message": "Smaller than Pithos",
+    "description": "Legend label for libraries smaller than Pithos"
+  },
+  "comparison.bundle.arkhe.legend.equal": {
+    "message": "Exactly equal",
+    "description": "Legend label for libraries with same size as Pithos"
+  },
+  "comparison.bundle.arkhe.legend.larger": {
+    "message": "Larger than Pithos",
+    "description": "Legend label for libraries larger than Pithos"
+  },
+  "comparison.bundle.arkhe.tldr": {
+    "message": "Pithos is smallest or equal in {winRate}% of utilities, and within 10% in {comparableRate}% of cases. Always smaller than Lodash. Competitive with es-toolkit and Radashi.",
+    "description": "TL;DR summary for arkhe bundle size comparison"
+  },
+  "comparison.bundle.arkhe.lib.pithos": {
+    "message": "Pithos",
+    "description": "Display name for Pithos library in arkhe bundle table"
+  },
+  "comparison.bundle.arkhe.lib.lodash": {
+    "message": "Lodash",
+    "description": "Display name for Lodash library in arkhe bundle table"
+  },
+  "comparison.bundle.arkhe.lib.esToolkit": {
+    "message": "es-toolkit",
+    "description": "Display name for es-toolkit library in arkhe bundle table"
+  },
+  "comparison.bundle.arkhe.lib.esToolkitCompat": {
+    "message": "es-toolkit/compat",
+    "description": "Display name for es-toolkit/compat library in arkhe bundle table"
+  },
+  "comparison.bundle.arkhe.lib.remeda": {
+    "message": "Remeda",
+    "description": "Display name for Remeda library in arkhe bundle table"
+  },
+  "comparison.bundle.arkhe.lib.radashi": {
+    "message": "Radashi",
+    "description": "Display name for Radashi library in arkhe bundle table"
+  },
+
+  "comparison.kanon.lib.kanon": {
+    "message": "Pithos validation module (schema-first + JIT)",
+    "description": "Description for Kanon library in performance table"
+  },
+  "comparison.kanon.lib.zod": {
+    "message": "Schema-first validation with TypeScript inference",
+    "description": "Description for Zod library in kanon performance table"
+  },
+  "comparison.kanon.lib.valibot": {
+    "message": "Modular schema validation, tree-shakeable",
+    "description": "Description for Valibot library in kanon performance table"
+  },
+  "comparison.kanon.lib.superstruct": {
+    "message": "Composable validation with custom types",
+    "description": "Description for Superstruct library in kanon performance table"
+  },
+  "comparison.kanon.lib.ajv": {
+    "message": "JSON Schema validator with JIT compilation",
+    "description": "Description for AJV library in kanon performance table"
+  },
+  "comparison.kanon.lib.typebox": {
+    "message": "JSON Schema with TypeScript inference + JIT",
+    "description": "Description for TypeBox library in kanon performance table"
+  },
+  "comparison.kanon.lib.fastestValidator": {
+    "message": "High-performance validator with JIT",
+    "description": "Description for fastest-validator library in kanon performance table"
+  },
+  "comparison.kanon.category.critical": {
+    "message": "Critical",
+    "description": "Category label for critical priority in kanon performance table"
+  },
+  "comparison.kanon.category.high": {
+    "message": "High",
+    "description": "Category label for high priority in kanon performance table"
+  },
+  "comparison.kanon.category.medium": {
+    "message": "Medium",
+    "description": "Category label for medium priority in kanon performance table"
+  },
+  "comparison.kanon.category.other": {
+    "message": "Other",
+    "description": "Category label for other/uncategorized in kanon performance table"
+  },
+  "comparison.kanon.tldr": {
+    "message": "Kanon JIT dominates on discriminated unions and complex schemas. TypeBox/AJV win on simple validations. For typical API/form validation, Kanon is 2-3x faster than Zod/Valibot.",
+    "description": "TL;DR summary for kanon performance comparison"
+  },
+  "comparison.kanon.tldr.highlight": {
+    "message": "Kanon is 2-3x faster",
+    "description": "Highlighted portion of the kanon TL;DR summary"
+  },
+
+  "comparison.kanon.error.title": {
+    "message": "⚠️ Benchmark data not found",
+    "description": "Error title when kanon benchmark data is missing"
+  },
+  "comparison.kanon.error.missing": {
+    "message": "The benchmark results file kanon-benchmark-realworld.json is missing.",
+    "description": "Error message for missing kanon benchmark file"
+  },
+  "comparison.kanon.error.generate": {
+    "message": "Generate it by running:",
+    "description": "Instruction to generate kanon benchmark data"
+  },
+  "comparison.kanon.detailedStats.title": {
+    "message": "Detailed Statistics",
+    "description": "Section title for detailed statistics in kanon performance page"
+  },
+  "comparison.kanon.detailedStats.subtitle": {
+    "message": "For the skeptics who want to see the raw numbers:",
+    "description": "Subtitle text for detailed statistics section"
+  },
+  "comparison.kanon.weightedSummary.title": {
+    "message": "📈 Weighted Summary",
+    "description": "Title for kanon weighted summary ranking chart"
+  },
+  "comparison.kanon.weightedSummary.announcement": {
+    "message": "🏆 {winner} dominates real-world scenarios!",
+    "description": "Winner announcement in kanon weighted summary"
+  },
+  "comparison.kanon.weightedSummary.advantageNote": {
+    "message": "On critical + high priority tasks, {winner} is {advantage}x ahead.",
+    "description": "Advantage note showing how far ahead the winner is"
+  },
+
+  "comparison.kanon.filter.schemaFirst.label": {
+    "message": "Schema-first",
+    "description": "Filter group label for schema-first validation libraries"
+  },
+  "comparison.kanon.filter.schemaFirst.description": {
+    "message": "Developer-friendly schema definition libraries",
+    "description": "Filter group description for schema-first libraries"
+  },
+  "comparison.kanon.filter.compiled.label": {
+    "message": "Compiled / JIT",
+    "description": "Filter group label for compiled/JIT validation libraries"
+  },
+  "comparison.kanon.filter.compiled.description": {
+    "message": "Performance-focused libraries with code generation",
+    "description": "Filter group description for compiled/JIT libraries"
+  },
+
+  "comparison.arkhe.lib.arkhe": {
+    "message": "This module",
+    "description": "Description for Arkhe library in performance table"
+  },
+  "comparison.arkhe.lib.esToolkit": {
+    "message": "Modern utility library",
+    "description": "Description for es-toolkit library in arkhe performance table"
+  },
+  "comparison.arkhe.lib.esToolkitCompat": {
+    "message": "es-toolkit with lodash compat",
+    "description": "Description for es-toolkit/compat library in arkhe performance table"
+  },
+  "comparison.arkhe.lib.lodashEs": {
+    "message": "ES modules lodash",
+    "description": "Description for lodash-es library in arkhe performance table"
+  },
+  "comparison.arkhe.category.array": {
+    "message": "Array",
+    "description": "Category label for array functions in arkhe performance table"
+  },
+  "comparison.arkhe.category.function": {
+    "message": "Function",
+    "description": "Category label for function utilities in arkhe performance table"
+  },
+  "comparison.arkhe.category.is": {
+    "message": "Is",
+    "description": "Category label for type guard functions in arkhe performance table"
+  },
+  "comparison.arkhe.category.number": {
+    "message": "Number",
+    "description": "Category label for number utilities in arkhe performance table"
+  },
+  "comparison.arkhe.category.object": {
+    "message": "Object",
+    "description": "Category label for object utilities in arkhe performance table"
+  },
+  "comparison.arkhe.category.string": {
+    "message": "String",
+    "description": "Category label for string utilities in arkhe performance table"
+  },
+  "comparison.arkhe.category.util": {
+    "message": "Util",
+    "description": "Category label for general utilities in arkhe performance table"
+  },
+  "comparison.arkhe.tldr": {
+    "message": "Arkhe wins ~{winRate}% of benchmarks. Fastest for typical use cases (small to medium arrays). Lodash can be faster on very large arrays (10K+ items) thanks to internal hash-based caching.",
+    "description": "TL;DR summary for arkhe performance comparison"
+  },
+
+  "comparison.taphos.lib.taphos": {
+    "message": "Pithos utility module (modern ES2020+)",
+    "description": "Description for Taphos library in performance table"
+  },
+  "comparison.taphos.lib.native": {
+    "message": "Native JavaScript equivalent",
+    "description": "Description for native JS in taphos performance table"
+  },
+  "comparison.taphos.lib.esToolkit": {
+    "message": "Modern utility library",
+    "description": "Description for es-toolkit library in taphos performance table"
+  },
+  "comparison.taphos.lib.esToolkitCompat": {
+    "message": "es-toolkit with lodash compat",
+    "description": "Description for es-toolkit/compat library in taphos performance table"
+  },
+  "comparison.taphos.lib.lodashEs": {
+    "message": "ES modules lodash",
+    "description": "Description for lodash-es library in taphos performance table"
+  },
+  "comparison.taphos.category.array": {
+    "message": "Array",
+    "description": "Category label for array functions in taphos performance table"
+  },
+  "comparison.taphos.category.collection": {
+    "message": "Collection",
+    "description": "Category label for collection functions in taphos performance table"
+  },
+  "comparison.taphos.category.function": {
+    "message": "Function",
+    "description": "Category label for function utilities in taphos performance table"
+  },
+  "comparison.taphos.category.lang": {
+    "message": "Lang",
+    "description": "Category label for language utilities in taphos performance table"
+  },
+  "comparison.taphos.category.math": {
+    "message": "Math",
+    "description": "Category label for math utilities in taphos performance table"
+  },
+  "comparison.taphos.category.object": {
+    "message": "Object",
+    "description": "Category label for object utilities in taphos performance table"
+  },
+  "comparison.taphos.category.string": {
+    "message": "String",
+    "description": "Category label for string utilities in taphos performance table"
+  },
+  "comparison.taphos.category.util": {
+    "message": "Util",
+    "description": "Category label for general utilities in taphos performance table"
+  },
+  "comparison.taphos.tldr": {
+    "message": "Native JavaScript wins {nativeWinRate}% of benchmarks. That's the point — Taphos helps you migrate from Lodash, but the real goal is native JS. Among libraries, Taphos is competitive with {taphosWins} wins.",
+    "description": "TL;DR summary for taphos performance comparison"
+  },
+
+  "comparison.taphos.nanWarning.difference": {
+    "message": "Difference:",
+    "description": "Title for the NaN warning difference explanation"
+  },
+  "comparison.taphos.nanWarning.cannotFind": {
+    "message": "NaN values cannot be found with native.",
+    "description": "NaN warning explanation text"
+  },
+  "comparison.taphos.nanWarning.sameValueZero": {
+    "message": "taphos/lodash use SameValueZero → can find NaN",
+    "description": "NaN warning: taphos/lodash behavior explanation"
+  },
+  "comparison.taphos.nanWarning.nativeStrict": {
+    "message": "native uses === → NaN !== NaN returns -1",
+    "description": "NaN warning: native JS behavior explanation"
+  },
+  "comparison.taphos.nanWarning.safeToMigrate": {
+    "message": "Safe to migrate if you don't search for NaN values.",
+    "description": "NaN warning: migration safety note"
+  },
+
+  "comparison.zygos.lib.zygos": {
+    "message": "Pithos Result/Option module (lightweight, tree-shakeable)",
+    "description": "Description for Zygos library in performance table"
+  },
+  "comparison.zygos.lib.neverthrow": {
+    "message": "Popular Result library for TypeScript",
+    "description": "Description for Neverthrow library in zygos performance table"
+  },
+  "comparison.zygos.lib.fpTs": {
+    "message": "Functional programming library with Option/Either",
+    "description": "Description for fp-ts library in zygos performance table"
+  },
+  "comparison.zygos.tldr.result": {
+    "message": "Zygos wins {winRate}% of Result benchmarks vs Neverthrow. Up to 3x faster on object creation, 2-3x faster on chained operations. Similar performance on simple operations like isOk() and unwrapOr().",
+    "description": "TL;DR summary for zygos Result performance comparison"
+  },
+  "comparison.zygos.tldr.result.highlight": {
+    "message": "Zygos wins {winRate}% of Result benchmarks vs Neverthrow.",
+    "description": "Highlighted portion of zygos Result TL;DR"
+  },
+  "comparison.zygos.tldr.option": {
+    "message": "Zygos wins {winRate}% of Option benchmarks vs fp-ts. Lightweight and tree-shakeable alternative to fp-ts Option.",
+    "description": "TL;DR summary for zygos Option performance comparison"
+  },
+  "comparison.zygos.tldr.option.highlight": {
+    "message": "Zygos wins {winRate}% of Option benchmarks vs fp-ts.",
+    "description": "Highlighted portion of zygos Option TL;DR"
+  },
+  "comparison.zygos.error.title": {
+    "message": "⚠️ Benchmark data not found",
+    "description": "Error title when zygos benchmark data is missing"
+  },
+  "comparison.zygos.error.missing": {
+    "message": "The benchmark results file zygos-benchmark.json is missing.",
+    "description": "Error message for missing zygos benchmark file"
+  },
+  "comparison.zygos.error.generate": {
+    "message": "Generate it by running:",
+    "description": "Instruction to generate zygos benchmark data"
+  },
+  "comparison.zygos.summary.resultLabel": {
+    "message": "Result (vs Neverthrow)",
+    "description": "Label for Result comparison in zygos performance summary"
+  },
+  "comparison.zygos.summary.optionLabel": {
+    "message": "Option (vs fp-ts)",
+    "description": "Label for Option comparison in zygos performance summary"
+  },
+  "comparison.zygos.summary.zygosWins": {
+    "message": "🏆 Zygos: {wins}/{total}",
+    "description": "Win count display for Zygos in performance summary"
+  },
+
+  "comparison.quick.header.module": {
+    "message": "Module",
+    "description": "Column header for module name in quick comparison table"
+  },
+  "comparison.quick.header.vs": {
+    "message": "vs",
+    "description": "Column header for competitor name in quick comparison table"
+  },
+  "comparison.quick.header.bundleSize": {
+    "message": "Bundle Size (average)",
+    "description": "Column header for average bundle size in quick comparison table"
+  },
+  "comparison.quick.header.performance": {
+    "message": "Performance (average)",
+    "description": "Column header for average performance in quick comparison table"
+  },
+  "comparison.quick.result.faster": {
+    "message": "{ratio}x faster",
+    "description": "Performance result when library is faster than competitor"
+  },
+  "comparison.quick.result.slower": {
+    "message": "{ratio}x slower",
+    "description": "Performance result when library is slower than competitor"
+  },
+  "comparison.quick.result.smaller": {
+    "message": "{ratio}x smaller",
+    "description": "Bundle size result when library is smaller than competitor"
+  },
+  "comparison.quick.result.similar": {
+    "message": "Similar",
+    "description": "Result when performance is similar between libraries"
+  },
+  "comparison.quick.result.na": {
+    "message": "N/A",
+    "description": "Result when data is not available for comparison"
+  },
+  "comparison.quick.result.percentSmaller": {
+    "message": "~{percent}% smaller",
+    "description": "Bundle size result as percentage smaller"
+  },
+
+  "comparison.scoring.header.category": {
+    "message": "Perf matters?",
+    "description": "Column header for category name in weighted scoring table"
+  },
+  "comparison.scoring.header.weight": {
+    "message": "Weight",
+    "description": "Column header for weight value in weighted scoring table"
+  },
+  "comparison.scoring.header.description": {
+    "message": "Description",
+    "description": "Column header for category description in weighted scoring table"
+  },
+  "comparison.scoring.header.examples": {
+    "message": "Examples",
+    "description": "Column header for function examples in weighted scoring table"
+  },
+  "comparison.scoring.critical.weight": {
+    "message": "5 pts",
+    "description": "Weight value for CRITICAL category"
+  },
+  "comparison.scoring.critical.description": {
+    "message": "Hot path functions called in tight loops",
+    "description": "Description for CRITICAL category in weighted scoring table"
+  },
+  "comparison.scoring.critical.examples": {
+    "message": "map, filter, reduce, groupBy, chunk",
+    "description": "Example functions for CRITICAL category"
+  },
+  "comparison.scoring.high.weight": {
+    "message": "3 pts",
+    "description": "Weight value for HIGH category"
+  },
+  "comparison.scoring.high.description": {
+    "message": "Frequently used utilities, but not in tight loops",
+    "description": "Description for HIGH category in weighted scoring table"
+  },
+  "comparison.scoring.high.examples": {
+    "message": "get, set, pick, omit, cloneDeep",
+    "description": "Example functions for HIGH category"
+  },
+  "comparison.scoring.medium.weight": {
+    "message": "1 pt",
+    "description": "Weight value for MEDIUM category"
+  },
+  "comparison.scoring.medium.description": {
+    "message": "Occasional utilities",
+    "description": "Description for MEDIUM category in weighted scoring table"
+  },
+  "comparison.scoring.medium.examples": {
+    "message": "Type guards (isArray, isString), string formatting",
+    "description": "Example functions for MEDIUM category"
+  },
+  "comparison.scoring.low.weight": {
+    "message": "0.5 pts",
+    "description": "Weight value for LOW category"
+  },
+  "comparison.scoring.low.description": {
+    "message": "Setup-only functions where runtime perf is irrelevant",
+    "description": "Description for LOW category in weighted scoring table"
+  },
+  "comparison.scoring.low.examples": {
+    "message": "debounce, throttle, once, memoize",
+    "description": "Example functions for LOW category"
+  },
+
+  "comparison.filter.groups": {
+    "message": "Groups:",
+    "description": "Label for the library filter groups section"
+  },
+  "comparison.filter.libraries": {
+    "message": "Libraries:",
+    "description": "Label for the library filter individual libraries section"
+  },
+  "comparison.filter.show": {
+    "message": "Show:",
+    "description": "Label for the filter toggle show section"
+  },
+  "comparison.filter.native.label": {
+    "message": "Native / One-liners",
+    "description": "Filter toggle label for native/one-liner functions"
+  },
+  "comparison.filter.native.description": {
+    "message": "Functions with native JS equivalents",
+    "description": "Filter toggle description for native/one-liner functions"
+  },
+  "comparison.filter.niche.label": {
+    "message": "Niche / Rare",
+    "description": "Filter toggle label for niche/rare functions"
+  },
+  "comparison.filter.niche.description": {
+    "message": "Rarely used or very specific functions",
+    "description": "Filter toggle description for niche/rare functions"
+  },
+  "comparison.filter.mutable.label": {
+    "message": "Mutable",
+    "description": "Filter toggle label for mutable functions"
+  },
+  "comparison.filter.mutable.description": {
+    "message": "Functions that encourage mutation",
+    "description": "Filter toggle description for mutable functions"
+  }
+}

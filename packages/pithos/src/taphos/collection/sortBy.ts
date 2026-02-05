@@ -60,7 +60,6 @@ export function sortBy<T>(
       value: value as T,
       criteria: iteratee(value as T, key, collection)
     }))
-    // Stryker disable next-line ConditionalExpression,EqualityOperator: The second ternary is redundant - returning -1 for a<b is sufficient for correct sorting
-    .sort((a, b) => (a.criteria < b.criteria ? -1 : a.criteria > b.criteria ? 1 : 0))
+    .sort((a, b) => (a.criteria < b.criteria ? -1 : /* Stryker disable next-line ConditionalExpression,EqualityOperator */ a.criteria > b.criteria ? 1 : 0))
     .map((item) => item.value);
 }

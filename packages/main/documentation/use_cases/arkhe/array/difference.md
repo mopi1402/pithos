@@ -44,3 +44,39 @@ const currentUsers = ["alice", "bob", "charlie", "david", "emma"];
 const newUsers = difference(currentUsers, previousUsers);
 // => ["david", "emma"]
 ```
+
+### **Detect missing permissions** for access control
+
+@keywords: permissions, missing, access, control, authorization, RBAC, security
+
+Compare required permissions against granted ones to identify gaps.
+Essential for role-based access control and security audit systems.
+
+```typescript
+const requiredPermissions = ["read", "write", "deploy", "audit"];
+const userPermissions = ["read", "write"];
+
+const missingPermissions = difference(requiredPermissions, userPermissions);
+// => ["deploy", "audit"]
+
+if (missingPermissions.length > 0) {
+  throw new Error(`Missing permissions: ${missingPermissions.join(", ")}`);
+}
+```
+
+### **Find missing dependencies** in a project
+
+@keywords: dependencies, missing, imports, tooling, package, audit, CI
+
+Compare required packages against installed ones to detect missing dependencies.
+Useful for CI pipelines, project scaffolding, and dependency audit tools.
+
+```typescript
+const requiredPackages = ["react", "react-dom", "typescript", "vitest", "eslint"];
+const installedPackages = ["react", "react-dom", "typescript"];
+
+const missingPackages = difference(requiredPackages, installedPackages);
+// => ["vitest", "eslint"]
+
+console.log(`Install missing: pnpm add -D ${missingPackages.join(" ")}`);
+```

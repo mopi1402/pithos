@@ -90,3 +90,21 @@ const mortgageEligibility = await checkEligibility(
 );
 ```
 
+
+### **Cache** parsed templates or markdown
+
+@keywords: cache, parse, template, markdown, regex, SSR, rendering, compilation
+
+Avoid re-parsing the same template or markdown content on every render.
+Important for SSR, documentation sites, and any repeated content transformation.
+
+```typescript
+const parseMarkdown = memoize((source: string) => {
+  // Expensive: tokenize, parse AST, render HTML
+  return markdownCompiler.render(source);
+});
+
+// Same content parsed once, cached for subsequent renders
+const html1 = parseMarkdown(readmeContent); // Parsed
+const html2 = parseMarkdown(readmeContent); // Cache hit
+```

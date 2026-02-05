@@ -83,11 +83,16 @@ export function buildMenuItems(categories: string[], helpData: HelpData): MenuIt
   const items: MenuItem[] = [];
 
   for (const group of groups) {
-    const cats = byGroup.get(group) ?? [];
+    const cats = (byGroup.get(group) ?? []).sort((a, b) => {
+      const orderA = helpData.categories[a]?.order ?? 0;
+      const orderB = helpData.categories[b]?.order ?? 0;
+      if (orderA !== orderB) return orderA - orderB;
+      return a.localeCompare(b);
+    });
     if (cats.length === 0) continue;
 
     items.push({ label: group, description: '', type: 'separator' });
-    
+
     for (const cat of cats) {
       const desc = helpData.categories[cat]?.description ?? '';
       items.push({ label: cat, description: desc, type: 'category', category: cat });

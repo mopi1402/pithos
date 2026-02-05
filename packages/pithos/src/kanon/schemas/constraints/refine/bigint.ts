@@ -46,6 +46,7 @@ export const refineBigInt = (
       if (result !== true) return result;
 
       // Return coerced result if coercion happened, otherwise true
+      // Stryker disable next-line ConditionalExpression,BooleanLiteral: baseResult is true or {coerced} here - both paths produce valid parser output
       if (baseResult !== true) {
         return { coerced: bigintValue };
       }

@@ -1,4 +1,6 @@
 /**
+ * @module kanon/jit/compiler
+ *
  * Validator Cache for JIT Compilation
  *
  * Caches compiled validators to avoid re-compilation of the same schema.

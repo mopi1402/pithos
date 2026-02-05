@@ -22,15 +22,13 @@ export function constantCase(str: string): string {
   // Stryker disable next-line ConditionalExpression: equivalent mutant - empty string operations return "" anyway
   if (str.length === 0) return "";
 
-  // Stryker disable next-line Regex,StringLiteral,MethodExpression: equivalent mutants in regex patterns
+  // Stryker disable next-line StringLiteral,MethodExpression: equivalent mutants in regex replacement strings
   return str
-    // Stryker disable next-line Regex,StringLiteral,MethodExpression: equivalent mutants in regex patterns
+    // Stryker disable next-line StringLiteral,MethodExpression: equivalent mutants in regex replacement strings
     .replace(/([a-z])([A-Z])/g, "$1_$2")
-    // Stryker disable next-line Regex,StringLiteral,MethodExpression: equivalent mutants in regex patterns
-    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1_$2")
-    // Stryker disable next-line Regex,StringLiteral,MethodExpression: equivalent mutants in regex patterns
+    .replace(/* Stryker disable next-line Regex */ /([A-Z]+)([A-Z][a-z])/g, "$1_$2")
+    // Stryker disable next-line StringLiteral,MethodExpression: equivalent mutants in regex replacement strings
     .replace(/[\s\-_]+/g, "_")
-    // Stryker disable next-line Regex,StringLiteral,MethodExpression: equivalent mutants in regex patterns
-    .replace(/^_+|_+$/g, "")
+    .replace(/* Stryker disable next-line Regex */ /^_+|_+$/g, "")
     .toUpperCase();
 }

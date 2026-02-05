@@ -3,29 +3,37 @@ sidebar_position: 7
 title: Taphos
 ---
 
-# Taphos
+import { Picture } from "@site/src/components/shared/Picture";
+import ModuleName from '@site/src/components/shared/badges/ModuleName';
 
-*τάφος - "tomb" - The resting place of utilities*
+# 🆃 <ModuleName name="Taphos" />
+
+*τάφος - "tomb"  
+
+The resting place of utilities*
 
 ## What is Taphos?
 
-Taphos is Pithos's "tomb" module — a place where utilities come to rest. Named after the Greek word for "tomb," Taphos serves two main purposes:
+Taphos is Pithos's "tomb" module ; a place where utilities come to rest. Named after the Greek word for "tomb," Taphos serves two main purposes:
 
 1. **A strategic migration guide** helping you transition from Lodash utilities to their proper replacements
 2. **IDE-integrated deprecation warnings** showing the migration path directly in your editor
 
-Think of Taphos as both a cemetery and a memorial. Like any tomb, it marks the end of something — but it also honors what came before and guides visitors toward the future.
+Think of Taphos as both a cemetery and a memorial. Like any tomb, it marks the end of something, but it also honors what came before and guides visitors toward the future.
 
 <details>
 <summary>Why a Tomb?</summary>
 
 The metaphor is intentional and meaningful:
 
-**Dead Code** — When a utility ends up in Taphos, it means the code is **dead**. There's a better way now — whether native JavaScript, a Pithos alternative, or simply a different approach. The message is clear: don't use this anymore.
+**Dead Code**  
+When a utility ends up in Taphos, it means the code is **dead**. There's a better way now: Whether native JavaScript, a Pithos alternative, or simply a different approach. The message is clear: don't use this anymore.
 
-**A Ceremony** — These utilities served us well. Lodash, Underscore, and similar libraries carried the JavaScript ecosystem for years. Taphos is a way to **honor their service** while acknowledging it's time to move on. It's a respectful farewell, not an unceremonious deletion.
+**A Ceremony**  
+These utilities served us well. Lodash, Underscore, and similar libraries carried the JavaScript ecosystem for years. Taphos is a way to **honor their service** while acknowledging it's time to move on. It's a respectful farewell, not an unceremonious deletion.
 
-**A Memorial to Visit** — Like a memorial, Taphos is a place you can **visit to learn**. Want to know how to do something in modern JavaScript? Want to understand why a certain pattern is discouraged? Taphos documents these use-cases and points you to the right solution.
+**A Memorial to Visit**  
+Like a memorial, Taphos is a place you can **visit to learn**. Want to know how to do something in modern JavaScript? Want to understand why a certain pattern is discouraged? Taphos documents these use-cases and points you to the right solution.
 
 </details>
 
@@ -113,7 +121,7 @@ When you hover over a Taphos function or see the deprecation warning, the TSDoc 
 - **What** to use instead
 - **How** to migrate with code examples
 
-![TSDoc migration hints in IDE](/img/taphos/ide-hint.png)
+<Picture src="/img/generated/taphos/ide-hint" alt="TSDoc migration hints in IDE" />
 
 This makes migration progressive and frictionless — you can keep using Taphos functions while gradually replacing them, guided by your IDE at each step.
 

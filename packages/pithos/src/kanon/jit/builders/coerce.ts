@@ -1,4 +1,6 @@
 /**
+ * @module kanon/jit/builders/coerce
+ *
  * Coerce Code Builder
  *
  * Generates inline JavaScript code for coercion type validation.

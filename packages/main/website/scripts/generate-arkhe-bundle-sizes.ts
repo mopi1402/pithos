@@ -11,7 +11,7 @@
  *
  * Usage: npx tsx scripts/generate-arkhe-bundle-sizes.ts
  *
- * The output is written to src/data/arkhe-bundle-sizes.json
+ * The output is written to src/data/comparisons/arkhe-bundle-sizes.json
  */
 
 import { execSync } from "node:child_process";
@@ -22,7 +22,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const tmpDir = join(__dirname, ".tmp-bundle");
-const outputDir = join(__dirname, "../src/data");
+const outputDir = join(__dirname, "../src/data/comparisons");
 const outputPath = join(outputDir, "arkhe-bundle-sizes.json");
 const aliasDir = join(__dirname, "../../documentation/alias");
 

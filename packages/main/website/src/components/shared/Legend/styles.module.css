@@ -1,0 +1,37 @@
+/* Legend */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pithos-spacing-lg);
+  margin: var(--pithos-spacing-lg) 0;
+  padding: var(--pithos-spacing-md) var(--pithos-spacing-lg);
+  background: var(--ifm-background-color);
+  font-size: var(--pithos-font-size-md);
+  position: sticky;
+  top: 60px;
+  z-index: 1000;
+  transition: opacity var(--pithos-transition-base), transform var(--pithos-transition-base);
+}
+
+.legendHidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+}
+
+[data-theme="dark"] .legend {
+  background: var(--ifm-background-color);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.legendColor {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: var(--pithos-radius-sm);
+}

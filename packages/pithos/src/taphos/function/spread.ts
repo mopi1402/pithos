@@ -28,6 +28,13 @@ export function spread<Result>(
   func: (...args: unknown[]) => Result,
   start = 0
 ): (args: unknown[]) => Result {
+  // Stryker disable next-line ConditionalExpression,BlockStatement,EqualityOperator: Fast-path optimization - generic fallback with slice(0) produces identical result
+  if (start === 0) {
+    return function (this: unknown, args: unknown[]): Result {
+      return func.apply(this, args);
+    };
+  }
+
   return function (this: unknown, args: unknown[]): Result {
     const leadingArgs = args.slice(0, start);
     const spreadArgs = args.slice(start);

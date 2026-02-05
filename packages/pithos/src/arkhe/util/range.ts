@@ -35,17 +35,12 @@ export function range(start: number, end?: number, step?: number): number[] {
     throw new RangeError("Step must not be zero");
   }
 
-  const result: number[] = [];
+  const length = Math.max(Math.ceil((end - start) / step), 0);
+  // Stryker disable next-line ArrayDeclaration: preallocation optimization - loop fills array identically
+  const result = new Array(length);
 
-  // Stryker disable next-line EqualityOperator: step === 0 already throws above, so >= is equivalent to >  
-  if (step > 0) {
-    for (let i = start; i < end; i += step) {
-      result.push(i);
-    }
-  } else {
-    for (let i = start; i > end; i += step) {
-      result.push(i);
-    }
+  for (let i = 0; i < length; i++) {
+    result[i] = start + i * step;
   }
 
   return result;
