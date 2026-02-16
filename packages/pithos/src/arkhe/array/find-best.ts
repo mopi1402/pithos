@@ -7,7 +7,7 @@
  * @param iteratee - A function that returns the comparison value for each element.
  * @param compareFn - Returns true if the first criterion should replace the current extreme.
  * @returns The element with the extreme value, or `undefined` if array is empty.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n) time, O(1) space, uses `for` loop with early return for empty arrays.
  *

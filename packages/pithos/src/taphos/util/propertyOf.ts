@@ -5,7 +5,7 @@
  * @param object - The object to query.
  * @returns A function that returns the property value for a given key.
  * @deprecated Use an inline arrow function `(key) => obj[key]` instead.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

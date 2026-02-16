@@ -1,0 +1,7 @@
+.typeRef {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: var(--ifm-code-font-size);
+  padding: var(--ifm-code-padding-vertical) var(--ifm-code-padding-horizontal);
+  border-radius: var(--ifm-code-border-radius);
+  background-color: var(--ifm-code-background);
+}

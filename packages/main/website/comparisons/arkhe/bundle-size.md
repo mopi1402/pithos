@@ -1,11 +1,12 @@
 ---
 sidebar_label: "Bundle Size"
 sidebar_position: 1
-title: "Arkhe Bundle Size"
+title: "Arkhe vs Lodash, es-toolkit, Remeda & Radashi - Bundle Size Comparison"
 description: "Compare Pithos Arkhe bundle size with Lodash, es-toolkit, Remeda and Radashi"
 ---
 
 import { ArkheBundleTable, GeneratedDate, TLDR, Legend } from '@site/src/components/comparisons/arkhe/BundleSizeTable';
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 # 📦 Arkhe Bundle Size
 
@@ -15,13 +16,17 @@ Real numbers. No marketing fluff. **Data auto-generated on <GeneratedDate />.**
 
 <TLDR module="arkhe" />
 
+--- 
+
 ## Arkhe Utilities Comparison
 
-Individual function sizes, minified + gzipped. Pithos is the baseline (gold). Green = smaller, gray = similar (±5%), red = larger.
+Individual function sizes, minified + gzipped.
 
 <Legend />
 
 <ArkheBundleTable module="arkhe" />
+
+---
 
 ## Why Pithos is Competitive
 
@@ -36,25 +41,35 @@ Individual function sizes, minified + gzipped. Pithos is the baseline (gold). Gr
 import { chunk } from "pithos/arkhe/array/chunk";
 ```
 
+---
+
 ## Why Lodash is Larger
 
 Lodash pioneered the JavaScript utility ecosystem and remains widely used. Its larger bundle size comes from a deliberate choice: broad compatibility across environments, including ES5 and older runtimes. Every function carries internal utilities and polyfills to ensure consistent behavior everywhere.
 
 That legacy support has a cost. **Lodash is 10-50x larger** than Pithos for most utilities. Not because it's poorly written, but because it solves a different problem: universal compatibility vs. modern-first.
 
+---
+
 ## es-toolkit
 
 es-toolkit is a modern Lodash replacement with good tree-shaking. Pithos is generally 10-30% smaller on individual functions.
 
-**es-toolkit/compat** is their Lodash compatibility layer — significantly larger due to legacy API support.
+**es-toolkit/compat** is their Lodash compatibility layer, significantly larger due to legacy API support.
 
-## Measure It Yourself
+---
 
-```bash
-# Using esbuild
-echo 'import { chunk } from "pithos/arkhe/array/chunk"' | \
-  esbuild --bundle --minify | gzip -c | wc -c
+## Reproduce These Results
 
-# Regenerate this data
-pnpm doc:generate-arkhe-bundle-sizes
-```
+Want to verify these results? See [how to reproduce our data](../reproduce.md).
+
+--- 
+
+<RelatedLinks>
+
+- [Arkhe vs Lodash](./arkhe-vs-lodash.md) — Full comparison: philosophy, API, migration
+- [Taphos — Bundle Size](../taphos/bundle-size.md) — Deprecated utilities size comparison
+- [Equivalence Table](/comparisons/equivalence-table/) — Full library equivalence across all modules
+- [Comparison Overview](/comparisons/overview/) — When to use each Pithos module
+
+</RelatedLinks>

@@ -190,7 +190,7 @@ export const taphosConfig: ModuleConfig<TaphosCategory> = {
     for (const s of data.scenarios) { const w = s.results.find(r => r.isFastest); if (!w) continue; total++; if (w.library === "native") nativeWins++; if (w.library === "taphos") taphosWins++; }
     const nativeWinRate = Math.round((nativeWins / total) * 100);
     const text = translate(
-      { id: 'comparison.taphos.tldr', message: 'Native JavaScript wins {nativeWinRate}% of benchmarks. That\'s the point — Taphos helps you migrate from Lodash, but the real goal is native JS. Among libraries, Taphos is competitive with {taphosWins} wins.' },
+      { id: 'comparison.taphos.tldr', message: 'Native JavaScript wins {nativeWinRate}% of benchmarks. That\'s the point: Taphos helps you migrate from Lodash, but the real goal is native JS. Among libraries, Taphos is competitive with {taphosWins} wins.' },
       { nativeWinRate: String(nativeWinRate), taphosWins: String(taphosWins) }
     );
     const firstDot = text.indexOf('.');

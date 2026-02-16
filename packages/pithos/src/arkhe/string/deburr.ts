@@ -42,7 +42,7 @@ const LIGATURE_REGEX = new RegExp(`[${Object.keys(LIGATURES).join("")}]`, "g");
  *
  * @param str - The string to deburr.
  * @returns The deburred string.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Uses NFD normalization. Expands ligatures (œ→oe, ß→ss, æ→ae, Þ→Th, etc.).
  *

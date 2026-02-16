@@ -28,55 +28,52 @@ describe("wrapFullType", () => {
         expect(wrapFullType("Promise<*T*>")).toBe("`Promise<T>`");
     });
 
-    it("should wrap types with links in HTML code tag with escaped angle brackets", () => {
-        // Types with links use <code> with &lt; &gt; for MDX compatibility
+    it("should strip links and wrap in backticks for types with markdown links", () => {
+        // Links are preserved in <TypeRef> for clickable navigation
+        // ALL bare <> are escaped to &lt;&gt; for MDX safety
         expect(
             wrapFullType(
                 "[Arrayable](../../../types/common/arrayable/type-aliases/Arrayable.md)<T>"
             )
-        ).toBe("<code>[Arrayable](../../../types/common/arrayable/type-aliases/Arrayable.md)&lt;T&gt;</code>");
+        ).toBe("<TypeRef>[Arrayable](../../../types/common/arrayable/type-aliases/Arrayable.md)&lt;T&gt;</TypeRef>");
     });
 
-    it("should wrap Returns types with links in HTML code tag with escaped angle brackets", () => {
-        // Returns with link - uses <code> with HTML entities for MDX
+    it("should strip links from Returns types and wrap in backticks", () => {
         expect(
             wrapFullType(
                 "[`Evolved`](../type-aliases/Evolved.md)\\<`T`, `Tr`\\>"
             )
-        ).toBe("<code>[Evolved](../type-aliases/Evolved.md)&lt;T, Tr&gt;</code>");
+        ).toBe("<TypeRef>[Evolved](../type-aliases/Evolved.md)&lt;T, Tr&gt;</TypeRef>");
     });
 
-    it("should wrap type constraints with extends in HTML code tag", () => {
-        // Type parameter with extends and link - uses <code> for styling
+    it("should strip links from type constraints with extends", () => {
         expect(
             wrapFullType(
                 "`KeySchema` *extends* [`GenericSchema`](../../types/GenericSchema.md)"
             )
-        ).toBe("<code>KeySchema extends [GenericSchema](../../types/GenericSchema.md)</code>");
+        ).toBe("<TypeRef>KeySchema extends [GenericSchema](../../types/GenericSchema.md)</TypeRef>");
 
         expect(
             wrapFullType(
                 "`T` *extends* [`AnyRecord`](../../../types/object/merge-deep/type-aliases/AnyRecord.md)"
             )
-        ).toBe("<code>T extends [AnyRecord](../../../types/object/merge-deep/type-aliases/AnyRecord.md)</code>");
+        ).toBe("<TypeRef>T extends [AnyRecord](../../../types/object/merge-deep/type-aliases/AnyRecord.md)</TypeRef>");
     });
 
-    it("should escape angle brackets but preserve curly braces inside HTML code tag", () => {
-        // Type with link - angle brackets escaped, curly braces preserved
+    it("should strip links and preserve curly braces in backtick-wrapped types", () => {
         expect(
             wrapFullType(
                 "[`Schema`](link.md)\\<`T`\\> & `{ [K in D]: LiteralSchema }`"
             )
-        ).toBe("<code>[Schema](link.md)&lt;T&gt; & { [K in D]: LiteralSchema }</code>");
+        ).toBe("<TypeRef>[Schema](link.md)&lt;T&gt; & &#123; [K in D]: LiteralSchema &#125;</TypeRef>");
     });
 
-    it("should escape generic type parameters for MDX compatibility", () => {
-        // Function type with generics - must escape < and > for MDX
+    it("should strip links from function types with generics", () => {
         expect(
             wrapFullType(
                 "(a) => [`TaskEither`](./TaskEither.md)\\<`E2`, `B`\\>"
             )
-        ).toBe("<code>(a) =&gt; [TaskEither](./TaskEither.md)&lt;E2, B&gt;</code>");
+        ).toBe("<TypeRef>(a) =&gt; [TaskEither](./TaskEither.md)&lt;E2, B&gt;</TypeRef>");
     });
 
     it("should handle complex types", () => {

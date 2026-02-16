@@ -7,7 +7,7 @@
  * @param predicate - Function that returns true to apply transformation.
  * @param transformation - The function to apply when predicate is true.
  * @returns The transformed value if predicate is true, otherwise the original value.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Logical opposite of `unless`.
  *

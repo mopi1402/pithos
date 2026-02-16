@@ -1,6 +1,6 @@
 /**
  * Interface for objects that can be attached to and detached from DOM elements.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export interface Attachable {
   /** Whether the object is currently attached to an element. */

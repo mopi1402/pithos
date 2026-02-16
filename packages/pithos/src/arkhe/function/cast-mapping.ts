@@ -6,7 +6,7 @@
  * @template Result - The type of the mapping result.
  * @param input - Property key, mapping function, or nullish (identity).
  * @returns A mapping function.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

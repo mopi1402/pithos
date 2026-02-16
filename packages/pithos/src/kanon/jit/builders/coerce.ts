@@ -9,7 +9,7 @@
  * Coercion schemas transform input values to the target type and return
  * `{ coerced: value }` for successful coercions.
  *
- * @since 3.3.0
+ * @since 2.0.0
  * @experimental
  */
 
@@ -44,7 +44,7 @@ const COERCE_ERRORS = {
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -89,7 +89,7 @@ export function generateCoerceStringCheck(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -143,7 +143,7 @@ export function generateCoerceNumberCheck(
  * @param varName - The variable name to coerce
  * @param ctx - The generator context
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -190,7 +190,7 @@ export function generateCoerceBooleanCheck(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -243,7 +243,7 @@ export function generateCoerceDateCheck(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code lines and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateCoerceStringValidation(
   varName: string,
@@ -261,7 +261,7 @@ export function generateCoerceStringValidation(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code lines and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateCoerceNumberValidation(
   varName: string,
@@ -278,7 +278,7 @@ export function generateCoerceNumberValidation(
  * @param varName - The variable name to validate
  * @param ctx - The generator context
  * @returns Generated code lines and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateCoerceBooleanValidation(
   varName: string,
@@ -295,7 +295,7 @@ export function generateCoerceBooleanValidation(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code lines and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateCoerceDateValidation(
   varName: string,
@@ -309,7 +309,7 @@ export function generateCoerceDateValidation(
 /**
  * Coercion type for schema detection.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export type CoerceType = "coerce_string" | "coerce_number" | "coerce_boolean" | "coerce_date";
 
@@ -318,7 +318,7 @@ export type CoerceType = "coerce_string" | "coerce_number" | "coerce_boolean" | 
  *
  * @param type - The schema type to check
  * @returns True if the type is a coercion type
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function isCoerceType(type: string): type is CoerceType {
   return (

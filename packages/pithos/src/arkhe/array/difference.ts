@@ -5,7 +5,7 @@
  * @param array - The source array to inspect.
  * @param values - The array of values to exclude.
  * @returns A new array of filtered values.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Uses strict equality (===). Preserves duplicates from the source array.
  *

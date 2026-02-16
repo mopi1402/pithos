@@ -8,7 +8,7 @@ import { parsePath } from "../string/parsers/path-parser";
  * @param path - Property path as dot notation string or array of keys (string, number, or symbol).
  * @param defaultValue - Value returned if resolved value is undefined.
  * @returns The resolved value or defaultValue.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Handles null/undefined objects and intermediate properties safely.
  * @note Supports bracket notation for arrays (e.g., 'items[0].name').

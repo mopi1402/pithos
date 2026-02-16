@@ -5,7 +5,7 @@
  * @param object - The object to inspect.
  * @param predicate - The function invoked per iteration.
  * @returns The key of the matched element, or `undefined` if not found.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n) where n is the number of own enumerable properties.
  *

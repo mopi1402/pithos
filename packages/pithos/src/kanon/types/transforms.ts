@@ -1,7 +1,7 @@
 /**
  * Specialized types for V3 schema transforms (partial, required, pick, omit, keyof).
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 
 import { Schema, GenericSchema, Infer } from "./base";
@@ -10,7 +10,7 @@ import { Schema, GenericSchema, Infer } from "./base";
  * Schema for keyof transform.
  *
  * @template ObjectSchema - The object schema type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type KeyofSchema<ObjectSchema extends GenericSchema> = Schema<
   keyof Infer<ObjectSchema> & string
@@ -23,7 +23,7 @@ export type KeyofSchema<ObjectSchema extends GenericSchema> = Schema<
  * Schema for partial transform.
  *
  * @template Inner - The inner schema type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type PartialSchema<Inner extends GenericSchema> = Schema<
   Partial<Infer<Inner>>
@@ -36,7 +36,7 @@ export type PartialSchema<Inner extends GenericSchema> = Schema<
  * Schema for required transform.
  *
  * @template Inner - The inner schema type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type RequiredSchema<Inner extends GenericSchema> = Schema<
   Required<Infer<Inner>>
@@ -50,7 +50,7 @@ export type RequiredSchema<Inner extends GenericSchema> = Schema<
  *
  * @template Inner - The inner schema type
  * @template Keys - The keys to pick
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type PickSchema<
   Inner extends GenericSchema,
@@ -66,7 +66,7 @@ export type PickSchema<
  *
  * @template Inner - The inner schema type
  * @template Keys - The keys to omit
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type OmitSchema<
   Inner extends GenericSchema,

@@ -4,7 +4,7 @@
  * @param ms - Duration to sleep in milliseconds (must be non-negative).
  * @returns Promise that resolves after the specified duration.
  * @throws {RangeError} If ms is negative.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

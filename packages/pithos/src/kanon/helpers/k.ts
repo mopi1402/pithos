@@ -58,7 +58,7 @@ import { parse, parseBulk } from "@kanon/core/parser";
  *
  * Similar to Zod's `z` object.
  *
- * @since 3.0.0
+ * @since 2.0.0
  *
  * @note **Tree-shaking warning**: Importing `k` includes ALL Kanon schemas
  * in your bundle, even if you only use a subset. For optimal bundle size,

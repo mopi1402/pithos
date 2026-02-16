@@ -1,0 +1,26 @@
+.separator {
+  border: none;
+  height: 1px;
+  margin: 2rem 0;
+  background: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent 5px,
+    rgba(128, 128, 128, 0.4) 5px,
+    rgba(128, 128, 128, 0.4) 7px
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 20%,
+    black 80%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 20%,
+    black 80%,
+    transparent 100%
+  );
+}

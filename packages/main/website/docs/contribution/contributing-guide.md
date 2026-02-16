@@ -1,9 +1,10 @@
 ---
 sidebar_position: 6
 title: Contributing Guide
+description: "Practical guide for contributing code, documentation, and improvements to Pithos. Covers setup, testing, code style, and pull request workflow."
 ---
 
-# Contributing Guide
+# 📙 Contributing Guide
 
 Thank you for considering contributing to Pithos! This guide covers the practical aspects of contributing code, documentation, and improvements.
 
@@ -138,7 +139,7 @@ pnpm build
 
 ### PR Title Format
 
-```
+```text
 type(scope): brief description
 
 Examples:

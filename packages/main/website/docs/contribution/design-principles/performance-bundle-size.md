@@ -1,7 +1,12 @@
 ---
 sidebar_position: 8
 title: Performance & Bundle Size
+description: "Performance and bundle size strategies in Pithos: tree-shaking, zero dependencies, modern APIs, and granular exports for minimal footprint."
+keyword_stuffing_ignore:
+  - native
 ---
+
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 # Performance & Bundle Size
 
@@ -49,7 +54,7 @@ export function difference<T>(array: readonly T[], values: readonly T[]): T[] {
 import { chunk } from "pithos/arkhe/array/chunk";
 import { isString } from "pithos/arkhe/is/isString";
 
-// ⚠️ Grouped import (acceptable, tree-shakeable)
+// ⚠️ Grouped import (acceptable, tree-shakable)
 import { chunk, map, filter } from "pithos/arkhe/array";
 
 // ❌ Global import (avoid, includes everything)
@@ -75,3 +80,13 @@ Array.prototype.flat()  // instead of custom flatten
 Document the native alternative in Taphos (deprecated utilities).
 
 :::
+
+---
+
+<RelatedLinks>
+
+- [API Design](./api-design.md) — Naming conventions and function signatures
+- [Arkhe vs Lodash — Bundle Size](/comparisons/arkhe/bundle-size) — Real bundle size comparisons
+- [Taphos — Native Equivalence](/comparisons/taphos/native-equivalence/) — When native JS is enough
+
+</RelatedLinks>

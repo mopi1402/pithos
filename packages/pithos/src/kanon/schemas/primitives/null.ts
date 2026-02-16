@@ -41,7 +41,7 @@ const DEFAULT_NULL_SCHEMA = Object.freeze(createNullSchema());
  *
  * @param message - Custom error message (optional).
  * @returns NullSchema
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function null_(message?: string): NullSchema {
   return message ? createNullSchema(message) : DEFAULT_NULL_SCHEMA;

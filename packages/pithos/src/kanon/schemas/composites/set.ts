@@ -10,7 +10,7 @@ import { SetConstraint } from "@kanon/types/constraints";
  * @param itemSchema - Schema to validate each item.
  * @param message - Custom error message.
  * @returns Schema that validates a Set with typed items and constraints.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function set<ItemSchema extends GenericSchema>(
   itemSchema: ItemSchema,

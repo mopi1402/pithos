@@ -1,7 +1,7 @@
 /**
  * Specialized types for V3 composite schemas.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 
 import { GenericSchema, Schema, Infer } from "./base";
@@ -10,7 +10,7 @@ import { GenericSchema, Schema, Infer } from "./base";
  * Schema for object values with typed entries.
  *
  * @template T - The object entries type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type ObjectSchema<
   T extends Record<string, GenericSchema> = Record<string, GenericSchema>
@@ -23,7 +23,7 @@ export type ObjectSchema<
  * Schema for array values with typed items.
  *
  * @template T - The item schema type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type ArraySchema<T extends GenericSchema = GenericSchema> =
   Schema<Infer<T>[]> & {
@@ -35,7 +35,7 @@ export type ArraySchema<T extends GenericSchema = GenericSchema> =
  * Schema for tuple values with typed items.
  *
  * @template T - The tuple items type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type TupleSchema<
   T extends readonly GenericSchema[] = readonly GenericSchema[]
@@ -49,7 +49,7 @@ export type TupleSchema<
  *
  * @template T - The tuple items type
  * @template Rest - The rest element schema type
- * @since 3.0.0
+ * @since 2.0.0
  * @note To distinguish from `TupleSchema` at runtime, use the `hasTupleRest` type guard:
  * ```typescript
  * if (hasTupleRest(schema)) {
@@ -71,7 +71,7 @@ export type TupleWithRestSchema<
  *
  * @param schema - Schema to check
  * @returns True if the schema is a TupleWithRestSchema
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function hasTupleRest<
   T extends readonly GenericSchema[],
@@ -87,7 +87,7 @@ export function hasTupleRest<
  *
  * @template KeySchema - The key schema type
  * @template ValueSchema - The value schema type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type RecordSchema<
   KeySchema extends GenericSchema,
@@ -103,7 +103,7 @@ export type RecordSchema<
  *
  * @template KeySchema - The key schema type
  * @template ValueSchema - The value schema type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type MapSchema<
   KeySchema extends GenericSchema = GenericSchema,
@@ -118,7 +118,7 @@ export type MapSchema<
  * Schema for Set values with typed items.
  *
  * @template ItemSchema - The item schema type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type SetSchema<ItemSchema extends GenericSchema = GenericSchema> = Schema<
   Set<Infer<ItemSchema>>

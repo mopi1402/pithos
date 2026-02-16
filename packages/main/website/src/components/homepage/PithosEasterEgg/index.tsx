@@ -116,7 +116,7 @@ export default function PithosEasterEgg({
   const fromX = startRect.left;
   const fromY = startRect.top;
 
-  // Jar target position — recalculated on resize
+  // Jar target position, recalculated on resize
   const computeTarget = useCallback(() => ({
     x: window.innerWidth / 2 - startRect.width / 2,
     y: window.innerHeight * 0.95 - startRect.height,

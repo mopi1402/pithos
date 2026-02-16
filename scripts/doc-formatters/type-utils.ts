@@ -1,45 +1,45 @@
 /**
  * Wraps a type string in backticks, cleaning escape characters and markdown formatting.
+ * If the original type contains markdown links, wraps in `<TypeRef>` to preserve
+ * clickable links while maintaining monospace styling.
  *
  * @param typeStr - The type string to wrap.
- * @returns The type string wrapped in backticks.
+ * @returns The type string wrapped in backticks or `<TypeRef>`.
  */
 export function wrapFullType(typeStr: string): string {
-    // Check if the type contains markdown links - preserve them for link-rewriter
-    const hasLinks = /\[([^\]]+)\]\([^)]+\)/.test(typeStr);
+    const hasLinks = /\[([^\]]+)\]\([^)]*\.md[^)]*\)/.test(typeStr);
 
     if (hasLinks) {
-        // For types with links, use <code> HTML tag to preserve both:
-        // - Code styling (dashed border)
-        // - Clickable links for navigation
-        let cleanType = typeStr
-            .replace(/\\`/g, "") // Remove escaped backticks
-            .replace(/`/g, "") // Remove regular backticks
-            .replace(/\*([^*]+)\*/g, "$1") // Remove markdown italics
-            .trim();
-
-        // Unescape special chars
-        cleanType = cleanType
-            .replace(/\\</g, "<")
-            .replace(/\\>/g, ">")
-            .replace(/\\{/g, "{")
-            .replace(/\\}/g, "}");
-
-        // Convert ALL < > { } to HTML entities to avoid MDX interpreting them as JSX
-        // Markdown links use [text](url), not < >, so this is safe
-        cleanType = cleanType
+        // Preserve links but clean escape characters and backticks
+        const cleanType = typeStr
+            .replace(/\\`/g, "")
+            .replace(/`/g, "")
+            // Escape \< and \> FIRST (before the general unescape)
+            .replace(/\\</g, "&lt;")
+            .replace(/\\>/g, "&gt;")
+            // Then unescape remaining backslash sequences (but NOT < > which are already handled)
+            .replace(/\\([\[\]|=])/g, "$1")
+            .replace(/\\{/g, "&#123;")
+            .replace(/\\}/g, "&#125;")
+            .replace(/\*([^*]+)\*/g, "$1")
+            .trim()
+            // Escape any remaining bare < > and { } that are NOT inside markdown links [text](url)
+            // First protect links, then escape, then restore
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "%%LINK[$1]($2)%%")
             .replace(/</g, "&lt;")
             .replace(/>/g, "&gt;")
-            .replace(/{/g, "&#123;")
-            .replace(/}/g, "&#125;");
+            .replace(/\{/g, "&#123;")
+            .replace(/\}/g, "&#125;")
+            .replace(/%%LINK\[([^\]]+)\]\(([^)]+)\)%%/g, "[$1]($2)");
 
-        return `<code>${cleanType}</code>`;
+        return `<TypeRef>${cleanType}</TypeRef>`;
     }
 
-    // For types without links, clean everything and wrap in backticks
+    // No links — strip everything and wrap in backticks
     let cleanType = typeStr
-        .replace(/\\`/g, "") // Remove escaped backticks first
-        .replace(/`/g, "") // Then remove regular backticks
+        .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+        .replace(/\\`/g, "")
+        .replace(/`/g, "")
         .replace(/\\([\[\]|=>])/g, "$1")
         .replace(/\\</g, "<")
         .replace(/\\>/g, ">")
@@ -76,6 +76,10 @@ export function looksLikeType(line: string): boolean {
     // Descriptions: start with capital, are longer, and look like sentences
     // Types: start with capital but are short or have obvious type syntax
     if (/^[A-Z]/.test(trimmed) && !trimmed.startsWith("`")) {
+        // Lines ending with a period are almost certainly descriptions, not types
+        if (trimmed.endsWith(".")) {
+            return false;
+        }
         // Short lines with type chars are likely types (e.g., "T | U", "Promise<T>")
         if (trimmed.length <= 30) {
             // Allow short type expressions

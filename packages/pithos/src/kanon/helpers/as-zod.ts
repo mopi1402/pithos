@@ -14,14 +14,14 @@ import { isCoerced } from "@kanon/types/base";
 /**
  * Validation issue with a message and path.
  *
- * @since 3.1.0
+ * @since 2.0.0
  */
 type Issue = { message: string; path: (string | number)[] };
 
 /**
  * Zod-compatible validation issue with optional error code.
  *
- * @since 3.1.0
+ * @since 2.0.0
  */
 type ZodLikeIssue = Issue & { code?: string };
 
@@ -29,7 +29,7 @@ type ZodLikeIssue = Issue & { code?: string };
  * Discriminated union result type for safe parsing.
  *
  * @template T - The expected output type on success.
- * @since 3.1.0
+ * @since 2.0.0
  */
 type ZodResult<T> =
   | { success: true; data: T }
@@ -39,7 +39,7 @@ type ZodResult<T> =
  * Refinement function returning `true` on success or an error message.
  *
  * @template T - The type of value being refined.
- * @since 3.1.0
+ * @since 2.0.0
  */
 type RefinementFn<T> = (value: T) => true | string;
 
@@ -47,7 +47,7 @@ type RefinementFn<T> = (value: T) => true | string;
  * Super-refinement function with context for adding multiple issues.
  *
  * @template T - The type of value being refined.
- * @since 3.1.0
+ * @since 2.0.0
  */
 type SuperRefineFn<T> = (
   value: T,
@@ -57,7 +57,7 @@ type SuperRefineFn<T> = (
 /**
  * Transform function mapping an unknown value to another.
  *
- * @since 3.1.0
+ * @since 2.0.0
  */
 type TransformFn = (value: unknown) => unknown;
 
@@ -66,7 +66,7 @@ type TransformFn = (value: unknown) => unknown;
  *
  * @param message - The error message.
  * @returns An object containing a single issue with an empty path.
- * @since 3.1.0
+ * @since 2.0.0
  */
 const createError = (message: string): { issues: ZodLikeIssue[] } => ({
   issues: [{ message, path: [] }],
@@ -77,7 +77,7 @@ const createError = (message: string): { issues: ZodLikeIssue[] } => ({
  *
  * @param v - The value to check.
  * @returns `true` if the value has `message` and `path` properties.
- * @since 3.1.0
+ * @since 2.0.0
  */
 const isIssue = (v: unknown): v is Issue =>
   typeof v === "object" &&
@@ -94,7 +94,7 @@ const isIssue = (v: unknown): v is Issue =>
  * @template T - The output type of the wrapped schema.
  * @param schema - The Kanon schema to wrap.
  * @returns A Zod-compatible adapter with safeParse, parse, and other Zod methods.
- * @since 3.1.0
+ * @since 2.0.0
  */
 export function asZod<T>(schema: Schema<T>): Adapter<T> {
   return createAdapter<T>({
@@ -111,7 +111,7 @@ export function asZod<T>(schema: Schema<T>): Adapter<T> {
  * Internal state carried by each adapter instance.
  *
  * @template Out - The output type of the adapter.
- * @since 3.1.0
+ * @since 2.0.0
  */
 type AdapterState<Out> = {
   schema: Schema<unknown>;
@@ -130,7 +130,7 @@ type AdapterState<Out> = {
  *
  * @template T - The output type produced by this adapter.
  * @public
- * @since 3.1.0
+ * @since 2.0.0
  */
 export type Adapter<T> = {
   /**
@@ -139,7 +139,7 @@ export type Adapter<T> = {
    * @param value - The value to validate.
    * @returns The validated and possibly coerced value.
    * @throws Zod-compatible error object when validation fails.
-   * @since 3.1.0
+   * @since 2.0.0
    */
   parse(value: unknown): T;
 
@@ -148,7 +148,7 @@ export type Adapter<T> = {
    *
    * @param value - The value to validate.
    * @returns A `ZodResult` with `success` flag and data or error.
-   * @since 3.1.0
+   * @since 2.0.0
    */
   safeParse(value: unknown): ZodResult<T>;
 
@@ -158,7 +158,7 @@ export type Adapter<T> = {
    * @param value - The value to validate.
    * @returns Promise resolving to the validated value.
    * @throws Zod-compatible error object when validation fails.
-   * @since 3.1.0
+   * @since 2.0.0
    */
   parseAsync(value: unknown): Promise<T>;
 
@@ -167,7 +167,7 @@ export type Adapter<T> = {
    *
    * @param value - The value to validate.
    * @returns Promise resolving to a `ZodResult`.
-   * @since 3.1.0
+   * @since 2.0.0
    */
   safeParseAsync(value: unknown): Promise<ZodResult<T>>;
 
@@ -175,7 +175,7 @@ export type Adapter<T> = {
    * Wraps the schema to also accept `undefined`.
    *
    * @returns A new adapter accepting `T | undefined`.
-   * @since 3.1.0
+   * @since 2.0.0
    */
   optional(): Adapter<T | undefined>;
 
@@ -184,7 +184,7 @@ export type Adapter<T> = {
    *
    * @param message - Optional custom error message.
    * @returns A new adapter accepting `T | null`.
-   * @since 3.1.0
+   * @since 2.0.0
    */
   nullable(message?: string): Adapter<T | null>;
 
@@ -192,7 +192,7 @@ export type Adapter<T> = {
    * Wraps the schema to also accept `null` and `undefined`.
    *
    * @returns A new adapter accepting `T | null | undefined`.
-   * @since 3.1.0
+   * @since 2.0.0
    */
   nullish(): Adapter<T | null | undefined>;
 
@@ -201,7 +201,7 @@ export type Adapter<T> = {
    *
    * @param value - Static value or factory function.
    * @returns A new adapter that falls back to the default.
-   * @since 3.1.0
+   * @since 2.0.0
    */
   default(value: T | (() => T)): Adapter<T>;
 
@@ -210,7 +210,7 @@ export type Adapter<T> = {
    *
    * @param value - Static value or factory function.
    * @returns A new adapter that catches errors.
-   * @since 3.1.0
+   * @since 2.0.0
    */
   catch(value: T | (() => T)): Adapter<T>;
 
@@ -218,7 +218,7 @@ export type Adapter<T> = {
    * Wraps the schema into an array schema.
    *
    * @returns A new adapter validating `T[]`.
-   * @since 3.1.0
+   * @since 2.0.0
    */
   array(): Adapter<T[]>;
 
@@ -226,7 +226,7 @@ export type Adapter<T> = {
    * Marks the schema output as readonly.
    *
    * @returns A new adapter with readonly semantics.
-   * @since 3.1.0
+   * @since 2.0.0
    */
   readonly(): Adapter<T>;
 
@@ -236,7 +236,7 @@ export type Adapter<T> = {
    * @param check - Predicate returning `true` if the value is valid.
    * @param message - Optional error message on failure.
    * @returns A new adapter with the refinement applied.
-   * @since 3.1.0
+   * @since 2.0.0
    */
   refine(check: (value: T) => boolean, message?: string): Adapter<T>;
 
@@ -245,7 +245,7 @@ export type Adapter<T> = {
    *
    * @param fn - Refinement function receiving the value and a context.
    * @returns A new adapter with the super-refinement applied.
-   * @since 3.1.0
+   * @since 2.0.0
    */
   superRefine(fn: SuperRefineFn<T>): Adapter<T>;
 
@@ -255,7 +255,7 @@ export type Adapter<T> = {
    * @template NewOut - The output type after transformation.
    * @param fn - Transform function.
    * @returns A new adapter producing the transformed type.
-   * @since 3.1.0
+   * @since 2.0.0
    */
   transform<NewOut>(fn: (value: T) => NewOut): Adapter<NewOut>;
 
@@ -265,7 +265,7 @@ export type Adapter<T> = {
    * @template U - The output type of the other adapter.
    * @param other - The adapter to union with.
    * @returns A new adapter accepting `T | U`.
-   * @since 3.1.0
+   * @since 2.0.0
    */
   or<U>(other: Adapter<U>): Adapter<T | U>;
 
@@ -275,7 +275,7 @@ export type Adapter<T> = {
    * @template U - The output type of the other adapter.
    * @param other - The adapter to intersect with.
    * @returns A new adapter producing `T & U`.
-   * @since 3.1.0
+   * @since 2.0.0
    */
   and<U>(other: Adapter<U>): Adapter<T & U>;
 
@@ -284,7 +284,7 @@ export type Adapter<T> = {
    *
    * @returns The wrapped Kanon schema.
    * @internal Used by shim for schema composition.
-   * @since 3.1.0
+   * @since 2.0.0
    */
   _schema(): Schema<T>;
 };
@@ -295,7 +295,7 @@ export type Adapter<T> = {
  * @template Out - The output type of the adapter.
  * @param state - Internal adapter state with schema, refinements, and transforms.
  * @returns A fully wired `Adapter` instance.
- * @since 3.1.0
+ * @since 2.0.0
  */
 function createAdapter<Out>(state: AdapterState<Out>): Adapter<Out> {
   const {

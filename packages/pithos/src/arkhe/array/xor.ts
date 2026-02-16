@@ -4,7 +4,7 @@
  * @template T - The type of elements in the arrays.
  * @param arrays - The arrays to inspect.
  * @returns A new array of filtered values.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Returns values from all arrays that appear in exactly one array.
  *

@@ -3,7 +3,7 @@
  * @template A - The value type.
  * @param fa - The value to validate.
  * @returns True if the value is a valid Some Option.
- * @since 1.0.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * if (isSomeOption(fa)) {

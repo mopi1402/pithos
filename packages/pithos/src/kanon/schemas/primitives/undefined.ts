@@ -41,7 +41,7 @@ const DEFAULT_UNDEFINED_SCHEMA = Object.freeze(createUndefinedSchema());
  *
  * @param message - Custom error message (optional).
  * @returns UndefinedSchema
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function undefined_(message?: string): UndefinedSchema {
   return message ? createUndefinedSchema(message) : DEFAULT_UNDEFINED_SCHEMA;

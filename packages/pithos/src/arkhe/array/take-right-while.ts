@@ -5,7 +5,7 @@
  * @param array - The array to query.
  * @param predicate - The function invoked per iteration.
  * @returns A new array of taken elements.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n) time, stops at first falsy predicate result from end.
  *

@@ -5,7 +5,7 @@
  * `DeepPartial<T>` makes nested object properties optional as well.
  *
  * @template T - The type to make deeply partial
- * @since 1.0.13
+ * @since 2.0.0
  *
  * @example
  * ```typescript

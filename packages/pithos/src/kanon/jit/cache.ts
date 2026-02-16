@@ -6,7 +6,7 @@
  * Caches compiled validators to avoid re-compilation of the same schema.
  * Uses WeakMap to allow garbage collection of unused schemas.
  *
- * @since 3.3.0
+ * @since 2.0.0
  * @experimental
  */
 
@@ -20,7 +20,7 @@ import type { Schema, ValidatorResult } from "../types/base";
  * or a coerced result object.
  *
  * @template T - The type being validated
- * @since 3.3.0
+ * @since 2.0.0
  */
 export type CompiledValidatorFn<T> = (value: unknown) => ValidatorResult<T>;
 
@@ -28,7 +28,7 @@ export type CompiledValidatorFn<T> = (value: unknown) => ValidatorResult<T>;
  * Compiled validator with metadata.
  *
  * @template T - The type being validated
- * @since 3.3.0
+ * @since 2.0.0
  */
 export interface CompiledValidator<T> extends CompiledValidatorFn<T> {
   /** Generated source code (only in debug mode) */
@@ -44,7 +44,7 @@ export interface CompiledValidator<T> extends CompiledValidatorFn<T> {
  * Using WeakMap ensures that schemas can be garbage collected when
  * no longer referenced elsewhere.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export interface ValidatorCache {
   /**
@@ -112,7 +112,7 @@ class ValidatorCacheImpl implements ValidatorCache {
  * Creates a new validator cache instance.
  *
  * @returns A new ValidatorCache
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -139,6 +139,6 @@ export function createValidatorCache(): ValidatorCache {
  * This is the default cache used by the JIT compiler.
  * It can be cleared using `globalValidatorCache.clear()`.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export const globalValidatorCache: ValidatorCache = createValidatorCache();

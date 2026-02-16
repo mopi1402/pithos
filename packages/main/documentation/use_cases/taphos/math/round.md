@@ -1,4 +1,4 @@
-## `ceil` / `floor` / `round`
+## `ceil` / `floor` / `round` ⭐
 
 ### **Round** numbers 📍
 

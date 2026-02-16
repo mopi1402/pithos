@@ -6,7 +6,7 @@
  * Generates inline JavaScript code for boolean type validation.
  * Boolean schemas have no additional constraints beyond type checking.
  *
- * @since 3.3.0
+ * @since 2.0.0
  * @experimental
  */
 
@@ -22,7 +22,7 @@ import { ERROR_MESSAGES_COMPOSITION } from "../../../core/consts/messages";
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -59,7 +59,7 @@ export function generateBooleanTypeCheck(
  * @param ctx - The generator context
  * @param customTypeMessage - Optional custom type error message
  * @returns Generated code lines and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

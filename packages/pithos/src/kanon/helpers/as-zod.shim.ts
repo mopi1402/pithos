@@ -47,14 +47,14 @@ import { ERROR_MESSAGES_COMPOSITION } from "@kanon/core/consts/messages";
  *
  * @template T - The schema output type.
  * @public
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type AdapterOf<T> = ReturnType<typeof asZod<T>>;
 
 /**
  * Adapter accepting any value, used for heterogeneous collections.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 // INTENTIONAL: Use 'any' to allow heterogeneous unions without TS conflicts
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -64,7 +64,7 @@ type AdapterUnknown = AdapterOf<any>;
  * Extracts the output type from an adapter.
  *
  * @template A - The adapter to infer from.
- * @since 3.0.0
+ * @since 2.0.0
  */
 type InferAdapter<A> = A extends AdapterOf<infer U> ? U : never;
 
@@ -72,7 +72,7 @@ type InferAdapter<A> = A extends AdapterOf<infer U> ? U : never;
  * Maps each property of a record to its corresponding adapter.
  *
  * @template T - The record shape.
- * @since 3.0.0
+ * @since 2.0.0
  */
 type ShapeAdapters<T extends Record<string, unknown>> = {
   [K in keyof T]: AdapterOf<T[K]>;
@@ -81,7 +81,7 @@ type ShapeAdapters<T extends Record<string, unknown>> = {
  * Extracts the inferred TypeScript type from a Kanon adapter.
  *
  * @template A - The adapter type to extract from.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type Infer<A> = A extends AdapterOf<infer U> ? U : never;
 
@@ -89,7 +89,7 @@ export type Infer<A> = A extends AdapterOf<infer U> ? U : never;
  * Infers a tuple of output types from a tuple of adapters.
  *
  * @template T - Readonly tuple of adapters.
- * @since 3.0.0
+ * @since 2.0.0
  */
 type InferTupleItems<T extends readonly AdapterUnknown[]> = {
   readonly [K in keyof T]: T[K] extends AdapterOf<infer U> ? U : never;
@@ -100,7 +100,7 @@ type InferTupleItems<T extends readonly AdapterUnknown[]> = {
  *
  * @template T - Readonly tuple of fixed-position adapters.
  * @template R - Adapter for the rest element.
- * @since 3.0.0
+ * @since 2.0.0
  */
 type InferTupleWithRest<
   T extends readonly AdapterUnknown[],
@@ -120,7 +120,7 @@ type InferTupleWithRest<
  * Boolean mask selecting keys of a record.
  *
  * @template T - The record type to mask.
- * @since 3.0.0
+ * @since 2.0.0
  */
 type Mask<T> = { [K in keyof T]?: true };
 
@@ -128,7 +128,7 @@ type Mask<T> = { [K in keyof T]?: true };
  * Chainable object transform methods returned by `z.object()`.
  *
  * @template T - The inferred object shape.
- * @since 3.0.0
+ * @since 2.0.0
  */
 type ObjectMethods<T> = {
   /** Returns a strict variant that rejects unknown keys. */
@@ -151,7 +151,7 @@ type ObjectMethods<T> = {
  * Adapter for object schemas, combining parsing and transform methods.
  *
  * @template T - The inferred object shape.
- * @since 3.0.0
+ * @since 2.0.0
  */
 type ObjectAdapter<T> = AdapterOf<T> & ObjectMethods<T>;
 
@@ -162,7 +162,7 @@ type ObjectAdapter<T> = AdapterOf<T> & ObjectMethods<T>;
  * through a Zod-like API.
  *
  * @public
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type ZShim = {
   /** Creates an adapter accepting any value. */
@@ -264,7 +264,7 @@ export type ZShim = {
  *
  * Provides a drop-in replacement for Zod's `z` object using Kanon schemas.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export const z: ZShim = {
   any: () => asZod(anySchema()),
@@ -499,7 +499,7 @@ export const z: ZShim = {
 /**
  * Type namespace mirroring Zod's value/type merge for type helpers.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 // INTENTIONAL: merge namespace with value export for type helpers
 // eslint-disable-next-line @typescript-eslint/no-namespace, @typescript-eslint/no-redeclare
@@ -507,7 +507,7 @@ export namespace z {
   /**
    * Any adapter type, equivalent to Zod's `ZodTypeAny`.
    *
-   * @since 3.0.0
+   * @since 2.0.0
    */
   export type ZodTypeAny = AdapterUnknown;
 
@@ -515,7 +515,7 @@ export namespace z {
    * Typed adapter, equivalent to Zod's `ZodType`.
    *
    * @template T - The output type.
-   * @since 3.0.0
+   * @since 2.0.0
    */
   export type ZodType<T = unknown> = AdapterOf<T>;
 
@@ -523,7 +523,7 @@ export namespace z {
    * Literal adapter type, equivalent to Zod's `ZodLiteral`.
    *
    * @template T - The literal value type.
-   * @since 3.0.0
+   * @since 2.0.0
    */
   export type ZodLiteral<T> = AdapterOf<T>;
 
@@ -531,7 +531,7 @@ export namespace z {
    * Union adapter type, equivalent to Zod's `ZodUnion`.
    *
    * @template T - Tuple of at least two adapters.
-   * @since 3.0.0
+   * @since 2.0.0
    */
   export type ZodUnion<
     T extends [AdapterUnknown, AdapterUnknown, ...AdapterUnknown[]]
@@ -542,7 +542,7 @@ export namespace z {
    *
    * @template T - Tuple of fixed-position adapters.
    * @template Rest - Optional rest element adapter.
-   * @since 3.0.0
+   * @since 2.0.0
    */
   export type ZodTuple<
     T extends [AdapterUnknown, ...AdapterUnknown[]],
@@ -558,7 +558,7 @@ export namespace z {
   /**
    * Number adapter type with optional `.int()`, equivalent to Zod's `ZodNumber`.
    *
-   * @since 3.0.0
+   * @since 2.0.0
    */
   export type ZodNumber =
     | AdapterOf<number>
@@ -569,7 +569,7 @@ export namespace z {
   /**
    * Record shape where each value is an adapter, equivalent to Zod's `ZodRawShape`.
    *
-   * @since 3.0.0
+   * @since 2.0.0
    */
   export type ZodRawShape = Record<string, AdapterUnknown>;
 }

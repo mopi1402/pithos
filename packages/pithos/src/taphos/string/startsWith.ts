@@ -8,7 +8,7 @@
  * @deprecated Use `string.startsWith()` directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith | String.startsWith() - MDN}
  * @see {@link https://caniuse.com/mdn-javascript_builtins_string_startswith | Browser support - Can I Use}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

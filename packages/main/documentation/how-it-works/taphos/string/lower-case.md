@@ -1,14 +1,3 @@
-Converts string to space-separated lowercase words.
-**Deprecated**: Use words + join manually.
-```mermaid
-flowchart LR
-    A["'Foo Bar'"] --> B["lowerCase(_)"]
-    B --> C["'foo bar'"]
-```
+Moved to arkhe. See [lowerCase — Arkhe String](/api/arkhe/string/lower-case).
 
-### Native Equivalent
-
-```typescript
-// ❌ lowerCase(str)
-// ✅ str.toLowerCase().replace(/[_-]+/g, ' ')
-```
+**Deprecated**: Use `lowerCase` from `@pithos/arkhe/string/lower-case` instead.

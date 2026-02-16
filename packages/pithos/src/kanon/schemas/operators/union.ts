@@ -34,7 +34,7 @@ function createUnionValidator<Schemas extends readonly GenericSchema[]>(
  * @param schema2 - Second schema.
  * @param message - Custom error message (optional).
  * @returns UnionSchema with two schemas.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function unionOf<S1 extends GenericSchema, S2 extends GenericSchema>(
   schema1: S1,
@@ -59,7 +59,7 @@ export function unionOf<S1 extends GenericSchema, S2 extends GenericSchema>(
  * @param schema3 - Third schema.
  * @param message - Custom error message (optional).
  * @returns UnionSchema with three schemas.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function unionOf3<
   S1 extends GenericSchema,
@@ -90,7 +90,7 @@ export function unionOf3<
  * @param schema4 - Fourth schema.
  * @param message - Custom error message (optional).
  * @returns UnionSchema with four schemas.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function unionOf4<
   S1 extends GenericSchema,
@@ -127,7 +127,7 @@ export function unionOf4<
  * @returns DiscriminatedUnionSchema with O(1) lookup.
  * @throws {Error} If a schema doesn't have a literal discriminator field.
  * @throws {Error} If duplicate discriminator values are found.
- * @since 3.0.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

@@ -26,7 +26,7 @@ function createIntersectionValidator<Schemas extends readonly GenericSchema[]>(
  * @param schema2 - Second schema.
  * @param message - Custom error message.
  * @returns Schema that validates the intersection of both schemas.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function intersection<
   S1 extends GenericSchema,
@@ -55,7 +55,7 @@ export function intersection<
  * @param schema3 - Third schema.
  * @param message - Custom error message (optional).
  * @returns IntersectionSchema with three schemas.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function intersection3<
   S1 extends GenericSchema,

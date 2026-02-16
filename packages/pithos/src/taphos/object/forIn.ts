@@ -6,7 +6,7 @@
  * @param iteratee - The function invoked per iteration.
  * @deprecated Use `for...in` loop directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in | for...in - MDN}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

@@ -1,10 +1,27 @@
 ---
 sidebar_position: 7
-title: Taphos
+sidebar_label: "Taphos"
+title: "Taphos - Lodash Migration Guide | Modern JavaScript Replacements"
+description: "Strategic migration guide from Lodash to modern JavaScript and TypeScript. IDE-integrated deprecation warnings with clear migration paths."
+keywords:
+  - lodash migration guide
+  - lodash to modern javascript
+  - deprecated utilities
+  - javascript native replacements
+  - typescript migration
+image: /img/social/taphos-card.jpg
 ---
 
 import { Picture } from "@site/src/components/shared/Picture";
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 import ModuleName from '@site/src/components/shared/badges/ModuleName';
+import { ModuleSchema } from '@site/src/components/seo/ModuleSchema';
+
+<ModuleSchema
+  name="Taphos"
+  description="Strategic migration guide from Lodash to modern JavaScript and TypeScript. IDE-integrated deprecation warnings with clear migration paths."
+  url="https://pithos.dev/guide/modules/taphos"
+/>
 
 # 🆃 <ModuleName name="Taphos" />
 
@@ -14,7 +31,7 @@ The resting place of utilities*
 
 ## What is Taphos?
 
-Taphos is Pithos's "tomb" module ; a place where utilities come to rest. Named after the Greek word for "tomb," Taphos serves two main purposes:
+Taphos is Pithos's "tomb" module: a place where utilities come to rest. Named after the Greek word for "tomb," Taphos serves two main purposes:
 
 1. **A strategic migration guide** helping you transition from Lodash utilities to their proper replacements
 2. **IDE-integrated deprecation warnings** showing the migration path directly in your editor
@@ -50,7 +67,7 @@ These utilities have been replaced by native JavaScript/TypeScript APIs. The nat
 import { flatten } from "pithos/taphos/array/flatten";
 const flat = flatten([[1, 2], [3, 4]]);
 
-// ✅ Native replacement
+// ✅ Native replacement, see Array.prototype.flat() on MDN
 const flat = [[1, 2], [3, 4]].flat();
 ```
 
@@ -58,7 +75,7 @@ const flat = [[1, 2], [3, 4]].flat();
 
 ### 2. Native Exists but Violates Pithos Principles
 
-Some native JavaScript functions exist but go against Pithos's design principles — typically because they **mutate** data. These are buried to discourage their use in favor of immutable Pithos alternatives.
+Some native JavaScript functions exist but go against Pithos's design principles, typically because they **mutate** data. These are buried to discourage their use in favor of immutable Pithos alternatives.
 
 ```typescript
 // ❌ Native sort mutates
@@ -74,7 +91,7 @@ const sorted = sort([3, 1, 2]); // Returns new array, original unchanged
 
 ### 3. Aliases for Migration Convenience
 
-Some functions in Taphos aren't truly "dead" — they're **aliases** that redirect to the canonical Pithos function. These exist to help developers coming from other libraries (Lodash, Ramda, etc.) find the right function.
+Some functions in Taphos aren't truly "dead": they're **aliases** that redirect to the canonical Pithos function. These exist to help developers coming from other libraries (Lodash, Ramda, etc.) find the right function.
 
 ```typescript
 // Alias in Taphos (Lodash naming)
@@ -86,13 +103,13 @@ import { toArray } from "pithos/arkhe/array/toArray";
 // Both do the same thing, but 'toArray' is the canonical name in Pithos
 ```
 
-This isn't a real burial — it's a **signpost** saying "you're looking for X? It's over here now."
+This isn't a real burial, it's a **signpost** saying "you're looking for X? It's over here now."
 
 **Migration direction:** Taphos alias → Canonical Pithos function
 
 ### 4. Marked for Future Burial
 
-Some utilities are still in Arkhe but have a known native replacement that's too recent to use. They're living on borrowed time — once the target ES version allows it, they'll be moved to Taphos.
+Some utilities are still in Arkhe but have a known native replacement that's too recent to use. They're living on borrowed time: once the target ES version allows it, they'll be moved to Taphos.
 
 Think of it as a reserved plot in the cemetery. We know who's going there, just not when.
 
@@ -109,7 +126,7 @@ const grouped = groupBy(users, (user) => user.role);
 
 ## IDE-Guided Migration
 
-Every function in Taphos is marked `@deprecated` and includes its migration path directly in the TSDoc. This means your IDE shows you exactly what to use instead — no need to open the documentation.
+Every function in Taphos is marked `@deprecated` and includes its migration path directly in the TSDoc. This means your IDE shows you exactly what to use instead, no need to open the documentation.
 
 ```typescript
 import { at } from "pithos/taphos/array/at";
@@ -121,10 +138,18 @@ When you hover over a Taphos function or see the deprecation warning, the TSDoc 
 - **What** to use instead
 - **How** to migrate with code examples
 
-<Picture src="/img/generated/taphos/ide-hint" alt="TSDoc migration hints in IDE" />
+<Picture src="/img/generated/taphos/ide-hint" alt="Taphos TSDoc migration hints showing deprecation warnings and replacement suggestions in IDE" />
 
-This makes migration progressive and frictionless — you can keep using Taphos functions while gradually replacing them, guided by your IDE at each step.
+This makes migration progressive and frictionless: you can keep using Taphos functions while gradually replacing them, guided by your IDE at each step.
 
-## API Reference
+---
 
-[Browse Taphos functions →](/api/taphos)
+<RelatedLinks title="Related Resources">
+
+- [When to use Taphos](/comparisons/overview/) — Compare Pithos modules with alternatives and find when each is the right choice
+- [Taphos bundle size & performance](/comparisons/taphos/bundle-size/) — Detailed bundle size data for Taphos
+- [Taphos API Reference](/api/taphos) — Complete API documentation for all Taphos functions
+- [Taphos native equivalence table](/comparisons/taphos/native-equivalence/) — Detailed classification of which functions have direct native equivalents, compositions, or custom implementations
+- [Full Lodash-to-Pithos equivalence table](/comparisons/equivalence-table/) — Maps every Lodash function to its Pithos replacement
+
+</RelatedLinks>

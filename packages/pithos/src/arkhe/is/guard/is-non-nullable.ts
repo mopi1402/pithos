@@ -4,7 +4,7 @@
  * @template T - The type of the value.
  * @param value - The value to check.
  * @returns `true` if the value is not null or undefined, `false` otherwise.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Narrows `T` to `NonNullable<T>`. Uses loose equality (`!= null`) to check both.
  *

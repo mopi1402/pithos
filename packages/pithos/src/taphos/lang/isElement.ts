@@ -5,7 +5,7 @@
  * @returns `true` if value is a DOM element, else `false`.
  * @deprecated Use `instanceof Element` directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element | Element - MDN}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

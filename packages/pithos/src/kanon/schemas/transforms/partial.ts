@@ -10,7 +10,7 @@ import { PartialSchema } from "@kanon/types/transforms";
  * @param schema - Object schema to make partial.
  * @param message - Custom error message.
  * @returns Schema with all properties optional.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function partial<T extends Record<string, GenericSchema>>(
   schema: ObjectSchema<T> | ObjectConstraint<T> | { entries: T },

@@ -32,7 +32,7 @@ The string in camelCase.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -415,7 +415,7 @@ The debounced function with \`cancel()\` and \`flush()\` methods.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -966,7 +966,7 @@ The element with the extreme value, or \`undefined\` if array is empty.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -1442,11 +1442,11 @@ For multi-argument caching or complex keys, provide a custom \`keyResolver\`.
 
 ## Type Parameters
 
-#### Args: \`Args extends unknown[]\`
+### Args: \`Args extends unknown[]\`
 
 The argument types of the function.
 
-#### Result: \`Result\`
+### Result: \`Result\`
 
 The return type of the function.
 
@@ -1456,27 +1456,27 @@ The return type of the function.
 
 **Overload 1:**
 
-#### fn: \`(...args) => Result\`
+### fn: \`(...args) => Result\`
 
 The function to memoize.
 
-#### keyResolver?: \`(...args) => unknown\`
+### keyResolver?: \`(...args) => unknown\`
 
 Optional function to generate cache keys (for first overload).
 
 **Overload 2:**
 
-#### fn: \`(...args) => Result\`
+### fn: \`(...args) => Result\`
 
 The function to memoize.
 
-#### options?: <code>[MemoizeOptions](#memoizeoptions)&lt;Args, Result&gt;</code>
+### options?: <TypeRef>[MemoizeOptions](#memoizeoptions)&lt;Args, Result&gt;</TypeRef>
 
 Memoization options (for second overload).
 
 ---
 
-## Returns: <code>[MemoizedFunction](#memoizedfunction)&lt;Args, Result&gt;</code>
+## Returns: <TypeRef>[MemoizedFunction](#memoizedfunction)&lt;Args, Result&gt;</TypeRef>
 
 The memoized function with \`clear()\`, \`delete()\` methods and \`cache\` property.
 
@@ -1484,7 +1484,7 @@ The memoized function with \`clear()\`, \`delete()\` methods and \`cache\` prope
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -2047,7 +2047,11 @@ const html2 = parseMarkdown(readmeContent); // Cache hit
 
 <div className="merged-type-separator"></div>
 
+<div className="as-h1">
+
 ## MemoizeCache\\<K, V\\> {#memoizecache}
+
+</div>
 
 <span title="Type: Interface" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Interface</span>
 
@@ -2057,7 +2061,7 @@ A cache interface for memoization, compatible with Map and custom implementation
 
 ## Since
 
-1.2.0
+2.0.0
 
 ---
 
@@ -2077,7 +2081,7 @@ The value type.
 
 <a id="size"></a>
 
-### size: <code>number</code>
+### size: \`number\`
 
 The number of entries in the cache.
 
@@ -2132,7 +2136,11 @@ Clears all entries from the cache.
 
 <div className="merged-type-separator"></div>
 
+<div className="as-h1">
+
 ## MemoizeOptions\\<Args, Result\\> {#memoizeoptions}
+
+</div>
 
 <span title="Type: Interface" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Interface</span>
 
@@ -2142,7 +2150,7 @@ Options for the memoize function.
 
 ## Since
 
-1.2.0
+2.0.0
 
 ---
 
@@ -2162,13 +2170,13 @@ The return type of the function.
 
 <a id="cache"></a>
 
-### cache?: <code>[MemoizeCache](#memoizecache)&lt;unknown, Result&gt;</code>
+### cache?: <TypeRef>[MemoizeCache](#memoizecache)&lt;unknown, Result&gt;</TypeRef>
 
 Custom cache implementation.
 
 <a id="keyResolver"></a>
 
-### keyResolver()?: <code>(...args) =&gt; unknown</code>
+### keyResolver()?: \`(...args) => unknown\`
 
 Function to generate cache keys.
 
@@ -2179,7 +2187,11 @@ Function to generate cache keys.
 
 <div className="merged-type-separator"></div>
 
+<div className="as-h1">
+
 ## MemoizedFunction\\<Args, Result\\> {#memoizedfunction}
+
+</div>
 
 <span title="Type: Type" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Type</span>
 
@@ -2193,7 +2205,7 @@ A memoized function with cache management methods.
 
 <a id="clear"></a>
 
-### clear(): <code>() =&gt; void</code>
+### clear(): \`() => void\`
 
 Clears all cached results.
 
@@ -2201,7 +2213,7 @@ Clears all cached results.
 
 <a id="delete"></a>
 
-### delete(): <code>(...args) =&gt; boolean</code>
+### delete(): \`(...args) => boolean\`
 
 Removes a specific cached result.
 
@@ -2212,7 +2224,7 @@ Removes a specific cached result.
 
 <a id="cache"></a>
 
-### cache: <code>[MemoizeCache](#memoizecache)&lt;unknown, Result&gt;</code>
+### cache: <TypeRef>[MemoizeCache](#memoizecache)&lt;unknown, Result&gt;</TypeRef>
 
 The underlying cache instance.
 
@@ -2232,7 +2244,7 @@ The return type of the function.
 
 ## Since
 
-1.2.0"
+2.0.0"
 `;
 
 exports[`Special sections > parallel (@defaultValue) 1`] = `
@@ -3024,7 +3036,7 @@ The return type of the function.
 
 The async function to retry.
 
-### options: <code>[RetryOptions](#retryoptions) = &#123;&#125;</code>
+### options: <TypeRef>[RetryOptions](#retryoptions) = &#123;&#125;</TypeRef>
 
 Retry configuration options.
 
@@ -3723,7 +3735,11 @@ console.log("Payment completed via:", gateways[currentGatewayIndex]);
 
 <div className="merged-type-separator"></div>
 
+<div className="as-h1">
+
 ## RetryOptions {#retryoptions}
+
+</div>
 
 <span title="Type: Interface" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Interface</span>
 
@@ -3733,7 +3749,7 @@ Configuration options for retry behavior.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -3741,37 +3757,37 @@ Configuration options for retry behavior.
 
 <a id="attempts"></a>
 
-### attempts?: <code>number</code>
+### attempts?: \`number\`
 
 Number of retry attempts. Defaults to \`3\`.
 
 <a id="delay"></a>
 
-### delay?: <code>number</code>
+### delay?: \`number\`
 
 Initial delay between retries in milliseconds. Defaults to \`1000\`.
 
 <a id="backoff"></a>
 
-### backoff?: <code>number</code>
+### backoff?: \`number\`
 
 Backoff multiplier for delay. Defaults to \`1\` (no backoff).
 
 <a id="maxDelay"></a>
 
-### maxDelay?: <code>number</code>
+### maxDelay?: \`number\`
 
 Maximum delay between retries in milliseconds. Defaults to \`10000\`.
 
 <a id="jitter"></a>
 
-### jitter?: <code>number</code>
+### jitter?: \`number\`
 
 Random jitter factor (0-1) to add variation to delay. Defaults to \`0\`.
 
 <a id="until"></a>
 
-### until()?: <code>(error) =&gt; boolean</code>
+### until()?: \`(error) => boolean\`
 
 Function to determine if error should trigger retry. Return \`false\` to abort.
 
@@ -3797,7 +3813,7 @@ Truncates string if it's longer than the given maximum length.
 
 The string to truncate.
 
-### options: <code>[TruncateOptions](#truncateoptions) = &#123;&#125;</code>
+### options: <TypeRef>[TruncateOptions](#truncateoptions) = &#123;&#125;</TypeRef>
 
 The options object.
 
@@ -3811,7 +3827,7 @@ The truncated string.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -4177,7 +4193,11 @@ truncateFileName('my-very-long-document-name-final-v2.pdf', 25);
 
 <div className="merged-type-separator"></div>
 
+<div className="as-h1">
+
 ## TruncateOptions {#truncateoptions}
+
+</div>
 
 <span title="Type: Interface" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Interface</span>
 
@@ -4187,7 +4207,7 @@ Options for the truncate function.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -4195,19 +4215,19 @@ Options for the truncate function.
 
 <a id="length"></a>
 
-### length?: <code>number</code>
+### length?: \`number\`
 
 Maximum string length (default: 30).
 
 <a id="omission"></a>
 
-### omission?: <code>string</code>
+### omission?: \`string\`
 
 The string to indicate text is omitted (default: '...').
 
 <a id="separator"></a>
 
-### separator?: <code>string \\| RegExp</code>
+### separator?: \`string | RegExp\`
 
 The separator pattern to truncate to."
 `;

@@ -465,7 +465,7 @@ The arrays to intersect.`;
 
 The value to convert to an array.`;
         const result = reformatParameters(input);
-        expect(result).toContain("### value: `Arrayable<T>`");
+        expect(result).toContain("### value: <TypeRef>[Arrayable](../../../types/common/arrayable/type-aliases/Arrayable.md)&lt;T&gt;</TypeRef>");
         expect(result).toContain("The value to convert to an array.");
     });
 
@@ -595,7 +595,7 @@ The collection to iterate over.`;
 
 The iteratee to transform keys.`;
         const result = reformatParameters(input);
-        expect(result).toContain("### iteratee: `CountByIteratee<T>`");
+        expect(result).toContain("### iteratee: <TypeRef>[CountByIteratee](../../../types/collection/count-by/type-aliases/CountByIteratee.md)&lt;T&gt;</TypeRef>");
         expect(result).toContain("The iteratee to transform keys.");
     });
 
@@ -936,7 +936,7 @@ The type of the input object.`;
 
 The type of the output object (inferred from transformations).`;
         const result = reformatParameters(input);
-        expect(result).toContain("### Tr: `Tr extends Transformations<T>`");
+        expect(result).toContain("### Tr: <TypeRef>Tr extends [Transformations](../../../types/object/evolve/type-aliases/Transformations.md)&lt;T&gt;</TypeRef>");
         expect(result).toContain(
             "The type of the output object (inferred from transformations)."
         );
@@ -994,7 +994,7 @@ Returns a new object with keys and values swapped.`;
 
 The type of the left object.`;
         const result = reformatParameters(input);
-        expect(result).toContain("### T: `T extends AnyRecord`");
+        expect(result).toContain("### T: <TypeRef>T extends [AnyRecord](../../../types/object/merge-deep/type-aliases/AnyRecord.md)</TypeRef>");
         expect(result).toContain("The type of the left object.");
     });
 
@@ -1007,7 +1007,7 @@ The type of the left object.`;
 
 The type of the right object.`;
         const result = reformatParameters(input);
-        expect(result).toContain("### U: `U extends AnyRecord`");
+        expect(result).toContain("### U: <TypeRef>U extends [AnyRecord](../../../types/object/merge-deep/type-aliases/AnyRecord.md)</TypeRef>");
         expect(result).toContain("The type of the right object.");
     });
 
@@ -1274,7 +1274,7 @@ Error message for string validation.
 
 `;
         const result = reformatParameters(input);
-        expect(result).toContain('### string: <code>"Expected string"</code>');
+        expect(result).toContain('### string: `"Expected string"`');
         expect(result).toContain("Error message for string validation.");
         expect(result).not.toContain("> `readonly`");
         expect(result).not.toContain("**string**");
@@ -1290,7 +1290,7 @@ Function to generate min length error message.
 
 `;
         const result = reformatParameters(input);
-        expect(result).toContain("### minLength(): <code>(min) =&gt; string</code>");
+        expect(result).toContain("### minLength(): `(min) => string`");
         expect(result).toContain("Function to generate min length error message.");
         expect(result).not.toContain("> `readonly`");
         expect(result).not.toContain("**minLength**");
@@ -1305,7 +1305,7 @@ Error message for number validation.
 
 `;
         const result = reformatParameters(input);
-        expect(result).toContain('### number: <code>"Expected number"</code>');
+        expect(result).toContain('### number: `"Expected number"`');
         expect(result).toContain("Error message for number validation.");
         expect(result).not.toContain("> `readonly`");
     });
@@ -1329,10 +1329,10 @@ Error message for number validation.
 
 `;
         const result = reformatParameters(input);
-        expect(result).toContain('### string: <code>"Expected string"</code>');
-        expect(result).toContain('### number: <code>"Expected number"</code>');
-        expect(result).toContain("### minLength(): <code>(min) =&gt; string</code>");
-        expect(result).toContain("### maxLength(): <code>(max) =&gt; string</code>");
+        expect(result).toContain('### string: `"Expected string"`');
+        expect(result).toContain('### number: `"Expected number"`');
+        expect(result).toContain("### minLength(): `(min) => string`");
+        expect(result).toContain("### maxLength(): `(max) => string`");
         expect(result).not.toContain("> `readonly`");
         expect(result).not.toContain("**string**");
         expect(result).not.toContain("**minLength**");
@@ -1373,11 +1373,11 @@ Error message for number validation.
 
 `;
         const result = reformatParameters(input);
-        expect(result).toContain('### string: <code>"Expected string"</code>');
-        expect(result).toContain('### number: <code>"Expected number"</code>');
-        expect(result).toContain('### boolean: <code>"Expected boolean"</code>');
-        expect(result).toContain("### minLength(): <code>(min) =&gt; string</code>");
-        expect(result).toContain("### maxLength(): <code>(max) =&gt; string</code>");
+        expect(result).toContain('### string: `"Expected string"`');
+        expect(result).toContain('### number: `"Expected number"`');
+        expect(result).toContain('### boolean: `"Expected boolean"`');
+        expect(result).toContain("### minLength(): `(min) => string`");
+        expect(result).toContain("### maxLength(): `(max) => string`");
         expect(result).not.toContain("> `readonly`");
         expect(result).not.toContain('= `"Expected string"`');
     });
@@ -1391,8 +1391,7 @@ Property with generic type.
 
 `;
         const result = reformatParameters(input);
-        expect(result).toContain("### genericProp: <code>Record&lt;string, unknown&gt;</code>");
-        expect(result).not.toContain("<string, unknown>");
+        expect(result).toContain("### genericProp: `Record<string, unknown>`");
     });
 });
 
@@ -1569,11 +1568,11 @@ Some description`;
 
     const expected = `### function()
 
-> **schema**: \`Schema<T>\` - Schema to validate against.<br />
-> **input**: \`unknown\` - Value to validate.<br />
-> **Returns**: \`Result\`
+> **schema**: \`Schema<T>\` — Schema to validate against.<br />
+> **input**: \`unknown\` — Value to validate.<br />
+> **Returns**: \`Result\` — Some description
 
-Some description`;
+`;
 
     const result = reformatParameters(input);
     expect(result).toBe(expected);
@@ -1600,7 +1599,9 @@ Some description`;
 
 > **schema**: \`Schema<T>\`<br />
 > **input**: \`unknown\`<br />
-> **Returns**: \`Result\``;
+> **Returns**: \`Result\`
+
+`;
 
     const result = reformatParameters(input);
     expect(result).toBe(expected);
@@ -1623,15 +1624,13 @@ Schema to validate.
 
 ### Next Section`;
 
-    const expected = `### function()
-
-> **schema**: \`Schema<T>\` - Schema to validate.<br />
-> **input**: \`unknown\`
-
-### Next Section`;
-
     const result = reformatParameters(input);
-    expect(result).toBe(expected);
+    // Without a #### Returns section, the nested method regex doesn't match,
+    // so parameters are formatted by the regular param formatters
+    expect(result).toContain("##### schema: `Schema<T>`");
+    expect(result).toContain("Schema to validate.");
+    expect(result).toContain("##### input: `unknown`");
+    expect(result).toContain("### Next Section");
   });
 
   it("should handle multi-line descriptions", () => {
@@ -1658,10 +1657,12 @@ Value to validate.
 
     const expected = `### function()
 
-> **schema**: \`Schema<T>\` - Schema to validate against.
+> **schema**: \`Schema<T>\` — Schema to validate against.
 This is a longer description.<br />
-> **input**: \`unknown\` - Value to validate.<br />
-> **Returns**: \`Result\``;
+> **input**: \`unknown\` — Value to validate.<br />
+> **Returns**: \`Result\`
+
+`;
 
     const result = reformatParameters(input);
     expect(result).toBe(expected);
@@ -1684,8 +1685,10 @@ Custom error message.
 
     const expected = `### function()
 
-> **message?**: \`string\` - Custom error message.<br />
-> **Returns**: \`Schema\``;
+> **message?**: \`string\` — Custom error message.<br />
+> **Returns**: \`Schema\`
+
+`;
 
     const result = reformatParameters(input);
     expect(result).toBe(expected);
@@ -1707,7 +1710,7 @@ Object schema to make partial.
 [PartialSchema](../types/PartialSchema.md)<[ObjectSchema](../types/ObjectSchema.md)<T>>`;
 
     const result = reformatParameters(input);
-    expect(result).toContain("> **schema**: `[ObjectSchema](../types/ObjectSchema.md)<T> | [ObjectConstraint](../types/ObjectConstraint.md)<T>` - Object schema to make partial.<br />");
-    expect(result).toContain("> **Returns**: `[PartialSchema](../types/PartialSchema.md)<[ObjectSchema](../types/ObjectSchema.md)<T>>`");
+    expect(result).toContain("> **schema**: <TypeRef>[ObjectSchema](../types/ObjectSchema.md)&lt;T&gt; | [ObjectConstraint](../types/ObjectConstraint.md)&lt;T&gt;</TypeRef> — Object schema to make partial.<br />");
+    expect(result).toContain("> **Returns**: <TypeRef>[PartialSchema](../types/PartialSchema.md)&lt;[ObjectSchema](../types/ObjectSchema.md)&lt;T&gt;&gt;</TypeRef>");
   });
 });

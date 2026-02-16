@@ -6,7 +6,7 @@
  * @param iteratee - The function invoked per iteration.
  * @deprecated Use `[...array].reverse().forEach()` directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach | Array.forEach() - MDN}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -32,6 +32,6 @@ export function eachRight<T>(
  * Alias for `eachRight`.
  *
  * @deprecated Use `[...array].reverse().forEach()` directly instead.
- * @since 1.1.0
+ * @since 2.0.0
  */
 export const forEachRight = eachRight;

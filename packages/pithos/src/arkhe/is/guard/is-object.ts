@@ -3,7 +3,7 @@
  *
  * @param value - The value to check.
  * @returns `true` if the value is an object, `false` otherwise.
- * @since 1.1.0
+ * @since 1.0.0
  *
  * @note Excludes `null` and arrays. Includes plain objects, class instances, Map, Set, Date, etc.
  *

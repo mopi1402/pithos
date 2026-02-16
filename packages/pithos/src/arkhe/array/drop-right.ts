@@ -6,7 +6,7 @@
  * @param count - The number of elements to drop.
  * @returns A new array with the last `count` elements removed.
  * @throws {RangeError} If count is negative.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n) time & space, single slice operation.
  *

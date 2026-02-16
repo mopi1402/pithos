@@ -6,7 +6,7 @@
  * making hover tooltips much more readable.
  *
  * @template T - The type to prettify
- * @since 1.0.13
+ * @since 2.0.0
  *
  * @example
  * ```typescript

@@ -18,7 +18,7 @@ import { isNonNullable } from "@arkhe/is/guard/is-non-nullable";
  * TaskEither represents an asynchronous computation that may fail.
  * @template E - The error type.
  * @template A - The success type.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export type TaskEither<E, A> = () => Promise<E.Either<E, A>>;
 
@@ -32,7 +32,7 @@ export type TaskEither<E, A> = () => Promise<E.Either<E, A>>;
  * @template A - The success type.
  * @param e - The error value.
  * @returns A TaskEither containing the Left.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const left =
   <E = never, A = never>(e: E): TaskEither<E, A> =>
@@ -45,7 +45,7 @@ export const left =
  * @template A - The success type.
  * @param a - The success value.
  * @returns A TaskEither containing the Right.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const right =
   <E = never, A = never>(a: A): TaskEither<E, A> =>
@@ -59,7 +59,7 @@ export const right =
  * @param f - The async function to execute.
  * @param onRejected - Function to transform rejection reason.
  * @returns A TaskEither containing the result or error.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const tryCatch =
   <E, A>(
@@ -85,7 +85,7 @@ export const tryCatch =
  * @template A - The success type.
  * @param fa - The Either to convert.
  * @returns A TaskEither containing the Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const fromEither =
   <E, A>(fa: E.Either<E, A>): TaskEither<E, A> =>
@@ -98,7 +98,7 @@ export const fromEither =
  * @template E - The error type.
  * @param fa - The Task to convert.
  * @returns A TaskEither containing the result.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const fromTask =
   <A, E extends ErrorType = Error>(fa: () => Promise<A>): TaskEither<E, A> =>
@@ -110,7 +110,7 @@ export const fromTask =
  * @template E - The error type.
  * @param onNone - Function to create error for None.
  * @returns A function that converts an Option to a TaskEither.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const fromOption =
   <E>(onNone: () => E) =>
@@ -129,7 +129,7 @@ export const fromOption =
  * @param predicate - The predicate function.
  * @param onFalse - Function to create error when predicate fails.
  * @returns A function that creates a TaskEither.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const fromPredicate =
   <A, E>(
@@ -145,7 +145,7 @@ export const fromPredicate =
  * @template E - The error type.
  * @param e - The error value for null/undefined.
  * @returns A function that creates a TaskEither.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const fromNullable =
   <E>(e: E) =>
@@ -167,7 +167,7 @@ export const fromNullable =
  * @template B - The output type.
  * @param f - The mapping function.
  * @returns A function that transforms the TaskEither.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const map =
   <A, B>(f: (a: A) => B) =>
@@ -187,7 +187,7 @@ export const map =
  * @template G - The new error type.
  * @param f - The mapping function.
  * @returns A function that transforms the TaskEither.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const mapLeft =
   <E, G extends ErrorType>(f: (e: E) => G) =>
@@ -210,7 +210,7 @@ export const mapLeft =
  * @param f - The error mapping function.
  * @param g - The success mapping function.
  * @returns A function that transforms the TaskEither.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const bimap =
   <E, G extends ErrorType, A, B>(f: (e: E) => G, g: (a: A) => B) =>
@@ -236,7 +236,7 @@ export const bimap =
  * @template B - The output type.
  * @param f - The chaining function.
  * @returns A function that transforms the TaskEither.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const flatMap =
   <A, E2, B>(f: (a: A) => TaskEither<E2, B>) =>
@@ -251,7 +251,7 @@ export const flatMap =
 
 /**
  * Alias for flatMap.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const chain = flatMap;
 
@@ -261,7 +261,7 @@ export const chain = flatMap;
  * @template A - The success type.
  * @param mma - The nested TaskEither.
  * @returns The flattened TaskEither.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const flatten =
   <E, A>(mma: TaskEither<E, TaskEither<E, A>>): TaskEither<E, A> =>
@@ -283,7 +283,7 @@ export const flatten =
  * @template A - The success type.
  * @param onLeft - Handler for Left case.
  * @returns A function that extracts the value.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const getOrElse =
   <E, A>(onLeft: (e: E) => Task<A>) =>
@@ -303,7 +303,7 @@ export const getOrElse =
  * @template E2 - The new error type.
  * @param onLeft - Handler for Left case.
  * @returns A function that transforms the TaskEither.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const orElse =
   <E1, A, E2>(onLeft: (e: E1) => TaskEither<E2, A>) =>
@@ -328,7 +328,7 @@ export const orElse =
  * @param onLeft - Handler for Left case.
  * @param onRight - Handler for Right case.
  * @returns A function that matches the TaskEither.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const match =
   <E, B, A>(
@@ -343,7 +343,7 @@ export const match =
 
 /**
  * Alias for match.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const fold = match;
 
@@ -357,7 +357,7 @@ export const fold = match;
  * @template A - The success type.
  * @param ma - The TaskEither to swap.
  * @returns The swapped TaskEither.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const swap =
   <E, A>(ma: TaskEither<E, A>): TaskEither<A, E> =>
@@ -368,7 +368,7 @@ export const swap =
 
 /**
  * Alias for right.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const of = right;
 
@@ -378,12 +378,12 @@ export const of = right;
 
 /**
  * Alias for mapLeft.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const mapError = mapLeft;
 
 /**
  * Alias for bimap.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const mapBoth = bimap;

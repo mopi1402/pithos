@@ -10,21 +10,17 @@ import MDXLi from "@theme/MDXComponents/Li";
 import MDXImg from "@theme/MDXComponents/Img";
 import Admonition from "@theme/Admonition";
 import Mermaid from "@theme/Mermaid";
-import ImportantBadge from "@site/src/components/shared/badges/ImportantBadge";
-import TypeBadge from "@site/src/components/shared/badges/TypeBadge";
 import AlsoKnownAs from "@site/src/components/shared/badges/AlsoKnownAs";
 import ResponsiveMermaid from "@site/src/components/shared/ResponsiveMermaid";
 import { Table } from "@site/src/components/shared/Table";
 import { MDXTable } from "@site/src/components/shared/Table/MDXTable";
-import { TableConfig } from "@site/src/components/shared/Table/TableConfigContext";
-import { FilterableTable } from "@site/src/components/shared/Table/FilterableTable";
-import MarbleQuote from "@site/src/components/shared/MarbleQuote";
+import TypeRef from "@site/src/components/shared/TypeRef";
 
 import type { MDXComponentsObject } from "@theme/MDXComponents";
 
 const MDXComponents: MDXComponentsObject = {
   Head,
-  details: MDXDetails, // For MD mode support, see https://github.com/facebook/docusaurus/issues/9092#issuecomment-1602902274
+  details: MDXDetails,
   Details: MDXDetails,
   code: MDXCode,
   a: MDXA,
@@ -40,15 +36,11 @@ const MDXComponents: MDXComponentsObject = {
   h6: (props: ComponentProps<"h6">) => <MDXHeading as="h6" {...props} />,
   admonition: Admonition,
   mermaid: Mermaid,
-  ImportantBadge,
-  TypeBadge,
   AlsoKnownAs,
   ResponsiveMermaid,
   Table,
-  TableConfig,
-  FilterableTable,
   table: MDXTable,
-  MarbleQuote,
+  TypeRef,
 };
 
 export default MDXComponents;

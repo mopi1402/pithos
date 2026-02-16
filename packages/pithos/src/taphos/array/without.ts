@@ -13,7 +13,7 @@ import { pull } from "./pull";
  * @deprecated Use `difference` from Arkhe instead.
  * Reason: Alias of {@link difference}
  * @see {@link difference}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

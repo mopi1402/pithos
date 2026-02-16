@@ -4,7 +4,7 @@
  * @param str - The string to process.
  * @param comparator - Function to compare characters for equality.
  * @returns The string with unique characters (first occurrence kept).
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Keeps first occurrence of each character. O(n²) complexity.
  *

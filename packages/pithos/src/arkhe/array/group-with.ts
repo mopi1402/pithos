@@ -5,7 +5,7 @@
  * @param array - The input array to group.
  * @param predicate - A function that returns true if two adjacent elements should be grouped.
  * @returns An array of arrays, where each inner array contains consecutive elements that satisfy the predicate.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n) time & space, single pass with early returns for empty/single-element arrays.
  *

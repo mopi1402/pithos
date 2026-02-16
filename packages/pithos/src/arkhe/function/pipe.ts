@@ -5,7 +5,7 @@
  * @param value - The initial value to transform.
  * @param fns - Transformation functions to apply sequentially.
  * @returns The result of applying all transformations.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Supports up to 20 functions with full type inference.
  *

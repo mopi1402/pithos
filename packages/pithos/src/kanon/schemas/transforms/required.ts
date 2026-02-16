@@ -10,7 +10,7 @@ import { RequiredSchema } from "@kanon/types/transforms";
  * @param schema - Object schema to make required.
  * @param message - Custom error message.
  * @returns Schema with all properties required.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function required<T extends Record<string, GenericSchema>>(
   schema: ObjectSchema<T> | ObjectConstraint<T> | { entries: T },

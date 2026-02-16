@@ -7,7 +7,7 @@ import type { BenchmarkReport } from "@site/src/components/comparisons/Benchmark
 import functionWeights from "@site/src/data/comparisons/function-weights.json";
 import styles from "./balanced.module.css";
 
-import bundleData from "@site/src/data/comparisons/arkhe-bundle-sizes.json";
+import bundleData from "@site/src/data/comparisons/arkhe-taphos-bundle-sizes.json";
 
 let benchmarkData: BenchmarkReport | null = null;
 try { benchmarkData = require("@site/src/data/benchmarks/arkhe-benchmark.json"); } catch { benchmarkData = null; }
@@ -155,10 +155,21 @@ export function BalancedChart(): React.ReactElement {
   }));
 
   return (
-    <RankingChart
-      title={translate({ id: "comparison.arkhe.balanced.chart.title", message: "📊 Bundle + Performance" })}
-      items={items}
-    />
+    <>
+      <RankingChart
+        title={translate({ id: "comparison.arkhe.balanced.chart.title", message: "📊 Bundle + Performance" })}
+        items={items}
+      />
+      <div className={styles.legend}>
+        <strong>{translate({ id: "comparison.arkhe.balanced.legend.title", message: "Legend:" })}</strong>
+        <ul>
+          <li>✅ <strong>Bundle + Perf</strong>: {translate({ id: "comparison.arkhe.balanced.legend.both", message: "Arkhe wins (or is comparable) on both axes" })}</li>
+          <li>📦 <strong>Bundle only</strong>: {translate({ id: "comparison.arkhe.balanced.legend.bundleOnly", message: "Smaller bundle, but not the fastest" })}</li>
+          <li>⚡ <strong>Perf only</strong>: {translate({ id: "comparison.arkhe.balanced.legend.perfOnly", message: "Fastest, but not the smallest bundle" })}</li>
+          <li>⬜ <strong>Neither</strong>: {translate({ id: "comparison.arkhe.balanced.legend.neither", message: "Another library wins on both" })}</li>
+        </ul>
+      </div>
+    </>
   );
 }
 

@@ -1,4 +1,4 @@
-## `flatten`
+## `flatten` ⭐
 
 ### **Flatten** nested arrays one level 📍
 

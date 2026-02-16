@@ -7,7 +7,7 @@
  * @param wait - The number of milliseconds to throttle invocations.
  * @returns The throttled function with a `cancel()` method.
  * @throws {RangeError} If wait is negative or not finite.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Executes on leading edge (immediately) and trailing edge (after wait period).
  * @note Call `.cancel()` to clear any pending execution.

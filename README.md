@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/pithos.svg)](https://www.npmjs.com/package/pithos)
+[![npm version](https://badge.fury.io/js/@pithos/core.svg)](https://www.npmjs.com/package/@pithos/core)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)]()
 
@@ -52,7 +52,7 @@ Each module draws from Greek mythology:
 ## 🚀 Installation
 
 ```bash
-pnpm install pithos
+pnpm install @pithos/core
 ```
 
 ## 📦 Usage
@@ -62,7 +62,7 @@ pnpm install pithos
 ```typescript
 import { Arrayable, Nullable } from "pithos/arkhe/types/common";
 import { validation } from "pithos/kanon/validation";
-import { ok, err } from "pithos/zygos/result";
+import { ok, err } from "pithos/zygos/result/result";
 ```
 
 **That's it!** Start building immediately instead of reinventing the wheel.
@@ -261,7 +261,7 @@ _The resting place of utilities - Deprecated functions with clear migration path
 
 ## 📖 Documentation
 
-Full documentation coming soon at [pithos.dev](https://pithos.dev)
+Full documentation available at [pithos.dev](https://pithos.dev)
 
 For now, explore the source code and TSDoc comments — every function is fully documented.
 
@@ -270,7 +270,7 @@ For now, explore the source code and TSDoc comments — every function is fully 
 ```bash
 # Development
 pnpm run build                   # Build once
-pnpm run build:watch             # Build in watch mode
+pnpm run dev                     # Build in watch mode
 pnpm run test                    # Run all tests
 pnpm run coverage                # Run tests with coverage report
 pnpm run lint                    # Lint code
@@ -367,7 +367,7 @@ We welcome contributions! Whether it's bug fixes, new features, or documentation
 git clone https://github.com/mopi1402/pithos.git
 cd pithos
 pnpm install
-pnpm run build:watch
+pnpm run dev
 ```
 
 ### Code style:

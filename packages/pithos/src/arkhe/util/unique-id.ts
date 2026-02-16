@@ -5,7 +5,7 @@ let idCounter = 0;
  *
  * @param prefix - The value to prefix the ID with.
  * @returns The unique ID string.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note IDs are unique within the current runtime session.
  * @note Counter resets on page reload or process restart.

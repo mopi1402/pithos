@@ -7,7 +7,7 @@ import { isPlainObject } from "@arkhe/is/guard/is-plain-object";
  * @param object - The destination object.
  * @param sources - The source objects.
  * @returns A new object with deep defaults applied (does not mutate original).
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Only `undefined` values are replaced. `null` values are preserved.
  * @note Arrays are replaced, not merged.

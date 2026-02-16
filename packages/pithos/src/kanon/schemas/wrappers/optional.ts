@@ -6,7 +6,7 @@ import { OptionalSchema } from "@kanon/types/wrappers";
  *
  * @param schema - The schema to make optional
  * @returns Schema that accepts the original type or undefined
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function optional<T>(schema: Schema<T>): OptionalSchema<Schema<T>> {
   return {

@@ -11,7 +11,7 @@ import { OmitSchema } from "@kanon/types/transforms";
  * @param keys - Keys to exclude.
  * @param message - Custom error message.
  * @returns Schema without excluded properties.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function omit<
   T extends Record<string, GenericSchema>,

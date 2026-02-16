@@ -43,7 +43,7 @@ export const ZygosPerfTLDR = () => <GenericPerfTLDR config={zygosResultConfig} /
 export const ZygosVersionsTable = () => <GenericVersionsTable config={zygosResultConfig} />;
 
 // Result table delegates directly to generic BenchmarkResultsTable
-// (Result scenarios only contain zygos and neverthrow — no normalization needed)
+// (Result scenarios only contain zygos and neverthrow - no normalization needed)
 export const ZygosResultBenchmarkTable = () => <GenericBenchmarkResultsTable config={zygosResultConfig} />;
 
 // ============================================

@@ -30,6 +30,9 @@ function replaceEmojis(html: string): string {
 const ACTIVE_CLS = 'table-of-contents__link--active';
 const SLIDER_CLS = 'toc-timeline__slider';
 const ITEM_ACTIVE = 'toc-timeline__item--active';
+/** Pixel offset to align the floating clone with the real TOC item */
+const FLOAT_OFFSET_X = 0;
+const FLOAT_OFFSET_Y = 8;
 
 function useSlider(rootRef: React.RefObject<HTMLUListElement | null>) {
   useEffect(() => {
@@ -43,13 +46,183 @@ function useSlider(rootRef: React.RefObject<HTMLUListElement | null>) {
     let firstTick = true;
     let wasAllActive = false;
 
+    // Mark TOC items that correspond to merged-type headings (as-h1 in the page)
+    const SECTION_TITLE_CLS = 'toc-timeline__item--section-title';
+    root.querySelectorAll(':scope > .toc-timeline__item').forEach(li => {
+      const link = li.querySelector('.toc-timeline__link') as HTMLAnchorElement | null;
+      if (!link) return;
+      const href = link.getAttribute('href');
+      if (!href) return;
+      const targetId = href.replace('#', '');
+      const heading = document.getElementById(targetId);
+      if (heading?.closest('.as-h1')) {
+        li.classList.add(SECTION_TITLE_CLS);
+      }
+    });
+
     function ensureSlider() {
       if (!slider) {
-        slider = document.createElement('span');
+        slider = document.createElement('li') as unknown as HTMLSpanElement;
         slider.className = SLIDER_CLS;
+        slider.setAttribute('role', 'presentation');
+        slider.setAttribute('aria-hidden', 'true');
         root!.prepend(slider);
       }
       return slider;
+    }
+
+    // Recalculate slider position based on current prevLi
+    function updateSliderPosition() {
+      if (!slider || !prevLi) return;
+      const li = prevLi as HTMLElement;
+      const row = li.querySelector('.toc-timeline__row') as HTMLElement;
+      if (!row) return;
+
+      // If this is a section title (item right after a parent separator), hide slider
+      const prevSibling = li.previousElementSibling;
+      if (!li.closest('.toc-timeline__children') && li.classList.contains(SECTION_TITLE_CLS)) {
+        slider.style.opacity = '0';
+        return;
+      }
+
+      const parentLi = li.closest('.toc-timeline__children')?.closest('.toc-timeline__item') as HTMLElement | null;
+      const parentRow = parentLi?.querySelector(':scope > .toc-timeline__row') as HTMLElement | null;
+      const startRow = parentRow ?? row;
+      const endRow = row;
+
+      // Walk offsetParent to get position relative to root ul (position: relative)
+      function topRelativeToRoot(el: HTMLElement): number {
+        let t = 0;
+        let cur: HTMLElement | null = el;
+        while (cur && cur !== root) {
+          t += cur.offsetTop;
+          cur = cur.offsetParent as HTMLElement | null;
+        }
+        return t;
+      }
+
+      const sliderTop = topRelativeToRoot(startRow) + startRow.offsetHeight / 2;
+      const sliderBottom = topRelativeToRoot(endRow) + endRow.offsetHeight / 2;
+
+      const items = root!.querySelectorAll(':scope > .toc-timeline__item');
+      const topLevelLi = parentLi ?? li;
+      const isFirst = topLevelLi === items[0];
+      const isLast = topLevelLi === items[items.length - 1] && !parentLi;
+
+      slider.style.top = `${sliderTop}px`;
+      slider.style.height = `${Math.max(0, sliderBottom - sliderTop)}px`;
+      slider.style.opacity = '1';
+      slider.classList.toggle('toc-timeline__slider--first', isFirst);
+      slider.classList.toggle('toc-timeline__slider--last', isLast);
+    }
+
+    // Floating parent header clone
+    let floatingClone: HTMLElement | null = null;
+    let floatingTarget: HTMLElement | null = null; // track which li the clone was built for
+    // Find the scrollable TOC container
+    function findScrollableParent(el: HTMLElement): HTMLElement | null {
+      let cur = el.parentElement;
+      while (cur) {
+        const style = getComputedStyle(cur);
+        if (style.overflowY === 'auto' || style.overflowY === 'scroll') return cur;
+        cur = cur.parentElement;
+      }
+      return null;
+    }
+    const container = findScrollableParent(root!) ?? root!.parentElement;
+
+    function updateFloatingParent() {
+      if (!container || !prevLi) {
+        if (floatingClone) { floatingClone.remove(); floatingClone = null; floatingTarget = null; }
+        return;
+      }
+      const li = prevLi as HTMLElement;
+      
+      // Find the parent row to float:
+      // - If active item is a child, float its parent
+      // - If active item is a parent with children, float itself
+      const childParentLi = li.closest('.toc-timeline__children')?.closest('.toc-timeline__item') as HTMLElement | null;
+      const isParentWithChildren = li.classList.contains('toc-timeline__item--parent');
+      const targetLi = childParentLi ?? (isParentWithChildren ? li : null);
+      
+      if (!targetLi) {
+        if (floatingClone) { floatingClone.remove(); floatingClone = null; floatingTarget = null; }
+        return;
+      }
+      const targetRow = targetLi.querySelector(':scope > .toc-timeline__row') as HTMLElement | null;
+      if (!targetRow) return;
+
+      const containerRect = container.getBoundingClientRect();
+      const targetRowRect = targetRow.getBoundingClientRect();
+
+      // Target row is above the visible area of the container
+      if (targetRowRect.top < containerRect.top) {
+        // Recreate clone if target changed
+        if (floatingClone && floatingTarget !== targetLi) {
+          floatingClone.remove();
+          floatingClone = null;
+          floatingTarget = null;
+        }
+        if (!floatingClone) {
+          floatingClone = document.createElement('div');
+          floatingClone.classList.add('toc-timeline__floating-parent');
+          
+          // Replicate the full timeline structure so all CSS rules apply
+          const innerUl = document.createElement('ul');
+          innerUl.className = root!.className; // includes 'toc-timeline' + docusaurus classes
+          innerUl.style.margin = '0';
+          innerUl.style.padding = '0';
+          
+          const innerLi = document.createElement('li');
+          innerLi.className = targetLi.className;
+          if (!innerLi.classList.contains(ITEM_ACTIVE)) {
+            innerLi.classList.add(ITEM_ACTIVE);
+          }
+          
+          const rowClone = targetRow.cloneNode(true) as HTMLElement;
+          // Remove any active link class from clone (it's the parent, not the active child)
+          rowClone.querySelectorAll(`.${ACTIVE_CLS}`).forEach(el => el.classList.remove(ACTIVE_CLS));
+          innerLi.appendChild(rowClone);
+          innerUl.appendChild(innerLi);
+          floatingClone.appendChild(innerUl);
+          
+          document.body.appendChild(floatingClone);
+          floatingTarget = targetLi;
+        }
+
+        // Slide-up logic: when the last child row of this parent approaches,
+        // push the clone upward progressively (like Table's sticky header).
+        const lastChildRow = targetLi.querySelector('.toc-timeline__children .toc-timeline__item:last-child .toc-timeline__row') as HTMLElement | null;
+        const bottomBoundaryEl = lastChildRow ?? targetRow;
+        const bottomBoundaryRect = bottomBoundaryEl.getBoundingClientRect();
+        const cloneHeight = floatingClone.offsetHeight;
+        const distFromTop = bottomBoundaryRect.bottom - containerRect.top;
+
+        if (distFromTop < cloneHeight) {
+          const pushUp = cloneHeight - distFromTop;
+          floatingClone.style.top = `${containerRect.top - pushUp - FLOAT_OFFSET_X}px`;
+          floatingClone.style.clipPath = `inset(${pushUp}px 0 0 0)`;
+        } else {
+          floatingClone.style.top = `${containerRect.top - FLOAT_OFFSET_Y}px`;
+          floatingClone.style.clipPath = '';
+        }
+
+        // Align horizontally with the real li element
+        floatingClone.style.left = `${containerRect.left - FLOAT_OFFSET_X}px`;
+        floatingClone.style.width = `${containerRect.width}px`;
+      } else {
+        if (floatingClone) { floatingClone.remove(); floatingClone = null; floatingTarget = null; }
+      }
+    }
+
+    // Listen for TOC container scroll to update slider + floating parent
+    function onContainerScroll() {
+      if (slider) slider.style.transition = 'none';
+      updateSliderPosition();
+      updateFloatingParent();
+    }
+    if (container) {
+      container.addEventListener('scroll', onContainerScroll, {passive: true});
     }
 
     function tick() {
@@ -113,62 +286,73 @@ function useSlider(rootRef: React.RefObject<HTMLUListElement | null>) {
         }
       }
 
+      // If active is a section title (merged type heading),
+      // redirect to the last link of the previous section
+      if (active) {
+        const activeLi = active.closest('.toc-timeline__item');
+        if (activeLi?.classList.contains(SECTION_TITLE_CLS)) {
+          const prevSibling = activeLi.previousElementSibling;
+          if (prevSibling) {
+            const prevLinks = prevSibling.querySelectorAll('.toc-timeline__link');
+            const lastPrevLink = prevLinks[prevLinks.length - 1] ?? null;
+            if (lastPrevLink) {
+              active.classList.remove(ACTIVE_CLS);
+              lastPrevLink.classList.add(ACTIVE_CLS);
+              active = lastPrevLink;
+            }
+          }
+        }
+      }
+
       if (active !== prevActive) {
         prevActive = active;
+        // Remove previous active classes
         if (prevLi) prevLi.classList.remove(ITEM_ACTIVE);
+        root!.querySelectorAll(`.${ITEM_ACTIVE}`).forEach(el => el.classList.remove(ITEM_ACTIVE));
+
         const li = active?.closest('.toc-timeline__item') ?? null;
         if (li) {
           li.classList.add(ITEM_ACTIVE);
-          const row = li.querySelector('.toc-timeline__row') as HTMLElement;
+
+          // Also activate parent item if this is a child
+          const parentLi = li.closest('.toc-timeline__children')?.closest('.toc-timeline__item') ?? null;
+          if (parentLi) {
+            parentLi.classList.add(ITEM_ACTIVE);
+          }
+
           if (!slider) {
             slider = document.createElement('span');
             slider.className = SLIDER_CLS;
             root!.prepend(slider);
           }
-          const rootRect = root!.getBoundingClientRect();
-          const targetRect = (row ?? li).getBoundingClientRect();
-          let sliderTop = targetRect.top - rootRect.top;
-          let sliderHeight = targetRect.height;
-          const items = root!.querySelectorAll(':scope > .toc-timeline__item');
-          const isFirst = li === items[0];
-          const isLast = li === items[items.length - 1];
-          // First item: start bar from center of circle, not top of row
-          if (isFirst) {
-            const half = targetRect.height / 2;
-            sliderTop += half;
-            sliderHeight -= half;
-          }
-          // Last item: end bar at center of circle, not bottom of row
-          if (isLast) {
-            sliderHeight -= targetRect.height / 2;
-          }
-          slider.style.top = `${sliderTop}px`;
-          slider.style.height = `${sliderHeight}px`;
-          slider.style.opacity = '1';
-          slider.classList.toggle('toc-timeline__slider--first', isFirst);
-          slider.classList.toggle('toc-timeline__slider--last', isLast);
+
+          const row = li.querySelector('.toc-timeline__row') as HTMLElement;
+
           // Auto-scroll TOC container to keep active item visible
-          // Use the row (not the li) so parent items with many children
-          // scroll to the heading row instead of the center of all children.
-          if (!firstTick) {
-            const container = root!.parentElement;
-            if (container && container.scrollHeight > container.clientHeight) {
-              const cRect = container.getBoundingClientRect();
-              const scrollTarget = row ?? li;
-              const sRect = scrollTarget.getBoundingClientRect();
-              if (sRect.top < cRect.top || sRect.bottom > cRect.bottom) {
-                const targetCenter = sRect.top + sRect.height / 2;
-                const containerCenter = cRect.top + cRect.height / 2;
-                container.scrollBy({top: targetCenter - containerCenter, behavior: 'smooth'});
-              }
+          const tocContainer = root!.parentElement;
+          if (!firstTick && tocContainer && tocContainer.scrollHeight > tocContainer.clientHeight) {
+            const cRect = tocContainer.getBoundingClientRect();
+            const scrollTarget = row ?? li;
+            const sRect = scrollTarget.getBoundingClientRect();
+            if (sRect.top < cRect.top || sRect.bottom > cRect.bottom) {
+              const targetCenter = sRect.top + sRect.height / 2;
+              const containerCenter = cRect.top + cRect.height / 2;
+              tocContainer.scrollBy({top: targetCenter - containerCenter, behavior: 'smooth'});
             }
           }
+
+          // Calculate slider position
+          if (slider) slider.style.transition = '';
+          prevLi = li;
+          updateSliderPosition();
+          updateFloatingParent();
+
           firstTick = false;
         } else if (slider) {
           slider.style.opacity = '0';
         }
-        prevLi = li;
       }
+      updateFloatingParent();
       rafId = requestAnimationFrame(tick);
     }
 
@@ -176,7 +360,10 @@ function useSlider(rootRef: React.RefObject<HTMLUListElement | null>) {
     return () => {
       cancelAnimationFrame(rafId);
       slider?.remove();
-      if (prevLi) prevLi.classList.remove(ITEM_ACTIVE);
+      floatingClone?.remove();
+      floatingTarget = null;
+      root!.querySelectorAll(`.${ITEM_ACTIVE}`).forEach(el => el.classList.remove(ITEM_ACTIVE));
+      if (container) container.removeEventListener('scroll', onContainerScroll);
     };
   }, [rootRef]);
 }

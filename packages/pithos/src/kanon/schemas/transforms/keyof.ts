@@ -10,7 +10,7 @@ import { ObjectSchema } from "@kanon/types/composites";
  * @param objectSchema - Object schema whose keys to validate.
  * @param message - Custom error message.
  * @returns Schema that validates the object keys.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function keyof<T extends Record<string, GenericSchema>>(
   objectSchema: ObjectSchema<T> | ObjectConstraint<T> | { entries: T },

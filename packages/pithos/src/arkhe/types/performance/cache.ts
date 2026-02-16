@@ -2,7 +2,7 @@
  * Generic cache interface for type-safe cache operations.
  * @template K - The key type.
  * @template V - The value type.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export interface Cache<K, V> {
   /** Retrieves a value from the cache, or undefined if not found. */
@@ -21,7 +21,7 @@ export interface Cache<K, V> {
 
 /**
  * Cache statistics for monitoring and debugging.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export interface CacheStats {
   /** Number of cache hits. */

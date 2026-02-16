@@ -3,7 +3,7 @@
  *
  * @param str - The string to convert.
  * @returns The string in Sentence case.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note First character uppercase, rest lowercase. Alias behavior of `capitalize`.
  *

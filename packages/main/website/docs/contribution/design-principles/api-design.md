@@ -1,7 +1,12 @@
 ---
 sidebar_position: 7
 title: API Design
+description: "API design principles in Pithos: single responsibility, explicit signatures, data-first paradigm, and consistent naming conventions for TypeScript utilities."
+keyword_stuffing_ignore:
+  - cases
 ---
+
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 # API Design
 
@@ -128,3 +133,13 @@ const result = pipe(
   (windows) => windows.filter(/* custom logic */)
 );
 ```
+
+---
+
+<RelatedLinks>
+
+- [Data-First Paradigm](./data-first-paradigm.md) — Why Pithos puts data first
+- [Performance & Bundle Size](./performance-bundle-size.md) — Every byte counts
+- [TypeScript-First](./typescript-first.md) — Designed for inference
+
+</RelatedLinks>

@@ -10,7 +10,7 @@
  * @deprecated Use `Number.isSafeInteger()` directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isSafeInteger | Number.isSafeInteger() - MDN}
  * @see {@link https://caniuse.com/mdn-javascript_builtins_number_issafeinteger | Browser support - Can I Use}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

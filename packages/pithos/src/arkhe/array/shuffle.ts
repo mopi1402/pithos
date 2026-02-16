@@ -4,7 +4,7 @@
  * @template T - The type of elements in the array.
  * @param array - The array to shuffle.
  * @returns A new shuffled array.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Uses Fisher-Yates shuffle algorithm for unbiased randomization.
  * @note Does not mutate the original array.

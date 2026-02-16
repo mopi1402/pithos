@@ -1,13 +1,13 @@
 ---
 sidebar_position: 3
 title: Installation
-description: Configure Pithos cleanly with any package manager, TS, and bundlers.
+description: "Set up Pithos, the zero-dependency TypeScript utilities library, with any package manager and bundler in your modern web projects."
 slug: installation
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
 import { Code } from "@site/src/components/shared/Code";
+import InvisibleList from "@site/src/components/shared/InvisibleList";
+import { InstallTabs } from "@site/src/components/shared/InstallTabs";
 
 # 🖥️ Installation
 
@@ -15,26 +15,9 @@ Everything you need to get started with Pithos: TypeScript, tree-shaking, and bu
 
 ## Install the package
 
-<Tabs groupId="package-managers">
-  <TabItem value="npm" label="npm" default>
-```bash
-npm install pithos
-```
+Add Pithos to your project using your preferred package manager. The library is published on npm as a single package that includes every module (Arkhe, Kanon, Zygos, Sphalma, and Taphos), so one install gives you the full toolkit with zero transitive dependencies.
 
-  </TabItem>
-  <TabItem value="pnpm" label="pnpm">
-```bash
-pnpm install pithos
-```
-
-  </TabItem>
-  <TabItem value="yarn" label="yarn">
-```bash
-yarn add pithos
-```
-
-  </TabItem>
-</Tabs>
+<InstallTabs />
 
 Pithos ships zero runtime dependencies and ES modules only.
 
@@ -79,7 +62,7 @@ Pithos ships zero runtime dependencies and ES modules only.
 
 ## Compatibility
 
-**Bundlers**: Vite / esbuild / Rollup / webpack 5+ / Turbopack
+**Bundlers**: [Vite](https://vite.dev/) / [esbuild](https://esbuild.github.io/) / [Rollup](https://rollupjs.org/) / [webpack 5+](https://webpack.js.org/) / [Turbopack](https://turbopack.dev/)
 
 Works out of the box (ESM + package exports). Keep `build.target` at least `es2020` to avoid unnecessary downleveling.
 
@@ -89,6 +72,16 @@ Works out of the box (ESM + package exports). Keep `build.target` at least `es20
 
 ## Quick checklist
 
-- [ ] Install via your package manager.
-- [ ] If using TypeScript: set `module` = `ESNext` and `target` >= `ES2020` in tsconfig.
-- [ ] Import at file granularity for tree-shaking.
+<InvisibleList>
+☐ Install via your package manager.  
+☐ If using TypeScript: set `module` = `ESNext` and `target` >= `ES2020` in tsconfig.  
+☐ Import at file granularity for tree-shaking.
+</InvisibleList>
+
+---
+
+## What's next?
+
+- [Get Started](../get-started.md) — See Pithos in action in 5 minutes
+- [Practical Example](./practical-example.md) — Build a real feature combining multiple modules
+- [Best Practices](./best-practices.md) — Validate at boundaries, trust the types

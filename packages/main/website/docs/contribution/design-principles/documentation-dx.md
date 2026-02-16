@@ -1,13 +1,20 @@
 ---
 sidebar_position: 9
 title: Documentation & DX
+description: "Documentation standards and developer experience guidelines for Pithos. Mandatory TSDoc, code examples, and generated API reference pages."
+keyword_stuffing_ignore:
+  - function
+  - example
+  - description
 ---
+
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 # Documentation & DX
 
 ## Mandatory TSDoc
 
-Each function must have:
+Every exported function in Pithos must include a complete TSDoc comment block. This ensures consistent API documentation, enables IDE autocompletion hints, and powers the generated reference pages. Below is a full example showing all required tags for a typical utility function:
 
 ````typescript
 /**
@@ -47,3 +54,13 @@ Each function must have:
 | **@since**      | ✅            | Introduction version                 |
 | **@example**    | ✅            | At least one working example         |
 | **@deprecated** | If applicable | With @see pointing to replacement    |
+
+---
+
+<RelatedLinks>
+
+- [TypeScript-First](./typescript-first.md) — How inference drives the API design
+- [API Design](./api-design.md) — Naming conventions and function signatures
+- [Best Practices](../../basics/best-practices.md) — The Pithos contract for end users
+
+</RelatedLinks>

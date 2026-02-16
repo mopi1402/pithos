@@ -5,7 +5,7 @@
  * @param arrays - An array of arrays to inspect.
  * @param iteratee - A function that returns the comparison value for each element.
  * @returns A new array containing elements present in all input arrays.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n × m) — builds Sets directly (no intermediate arrays), uses delete for dedup.
  *

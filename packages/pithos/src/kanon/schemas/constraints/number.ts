@@ -6,7 +6,7 @@ import { NumberSchema } from "@kanon/types/primitives";
 /**
  * Adds number constraints to a base schema.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 /*@__INLINE__*/
 export function addNumberConstraints(

@@ -6,7 +6,7 @@
  * @returns The rounded up number.
  * @deprecated Use `Math.ceil()` directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil | Math.ceil() - MDN}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

@@ -401,6 +401,43 @@ body::after {
   color: #e7c25a;
 }
 
+/* npm link: same golden style as GitHub */
+.header-npm-link {
+  display: flex !important;
+  align-items: center;
+  gap: 0.4rem;
+  background: linear-gradient(
+    180deg,
+    #e7c25a 0%,
+    #fcff94 35%,
+    #e7c25a 50%,
+    #b17e22 60%,
+    #fcff94 70%,
+    #e7c25a 80%
+  );
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent;
+}
+
+.header-npm-link:hover {
+  text-shadow: none;
+  filter: drop-shadow(0 0 4px rgba(var(--pithos-golden-rgb), 0.5));
+}
+
+.header-npm-link::before {
+  content: '';
+  width: 42px;
+  height: 22px;
+  flex-shrink: 0;
+  margin-top: 0.3em;
+  background: url('/img/external/npm.png') no-repeat center / contain;
+}
+
+.header-npm-link [class*="iconExternalLink"] {
+  color: #e7c25a;
+}
+
 /* Apply same style to footer */
 .footer {
   border-top: 1px solid rgba(201, 169, 98, 0.1);
@@ -408,6 +445,52 @@ body::after {
   position: sticky;
   bottom: 0;
   z-index: 10000;
+}
+
+/* Disable sticky footer on touch devices (real mobile, not just small screens) */
+@media (pointer: coarse) and (hover: none) {
+  .footer {
+    position: static;
+  }
+
+  [class*="backToTopButton"] {
+    bottom: 1.5rem !important;
+  }
+}
+
+/* Push back-to-top button above the sticky footer */
+[class*="backToTopButton"] {
+  bottom: 3.5rem !important;
+}
+
+/* Center footer copyright content vertically */
+.footer .footer__copyright {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3em;
+}
+
+/* Line break before "Website built with" on small screens */
+@media (max-width: 480px) {
+  .footer .footer__copyright {
+    flex-direction: column;
+    font-size: 0.85em;
+  }
+
+  .footer .footer__copyright .footer__main {
+    white-space: nowrap;
+  }
+
+  .footer .footer__copyright .footer__dot {
+    display: none;
+  }
+}
+
+.footer .footer__copyright img {
+  height: 1.3em;
+  margin-top: -0.2em;
+  vertical-align: middle;
 }
 
 /* Darker footer in dark mode */
@@ -493,6 +576,19 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
   margin-bottom: 50px;
 }
 
+/* Merged type h2 styled as h1 */
+.as-h1 > h2 {
+  font-size: 3rem;
+}
+
+/* Module name in headings (inline span replacement for ModuleName component) */
+.module-name-heading {
+  font-family: var(--greek-font), serif;
+  font-weight: var(--pithos-font-weight-bold);
+  text-transform: uppercase;
+  color: var(--golden-color) !important;
+}
+
 .markdown h3 code,
 .markdown h2 code,
 .markdown h4 code,
@@ -552,6 +648,13 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
 
 .token.property {
   color: var(--prism-property);
+}
+
+/* Very small screens: hide external link icon on GitHub */
+@media (max-width: 370px) {
+  .header-github-link [class*="iconExternalLink"] {
+    display: none;
+  }
 }
 
 /* Mobile responsive */
@@ -672,8 +775,40 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
 }
 
 .theme-doc-markdown h2 + h3::before,
-.theme-doc-markdown hr + h3::before {
+.theme-doc-markdown hr + h3::before,
+.plugin-id-comparisons .theme-doc-markdown h3::before {
   display: none;
+}
+
+/* Dotted separator triggered by `- - -` in markdown */
+.dotted-separator {
+  height: 1px;
+  margin: 2rem 0;
+  background: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent 5px,
+    rgba(128, 128, 128, 0.4) 5px,
+    rgba(128, 128, 128, 0.4) 7px
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 20%,
+    black 80%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 20%,
+    black 80%,
+    transparent 100%
+  );
+}
+
+.plugin-id-comparisons .theme-doc-markdown h3 {
+  margin-top: 0;
 }
 
 /* Basics overview cards */
@@ -731,12 +866,7 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
   height: 1.2em;
 }
 
-.custom-emoji--flash {
-  vertical-align: -0.30em;
-  margin-right: 0;
-}
-
-.custom-emoji--basics {
+.custom-emoji--flash, .custom-emoji--basics, .custom-emoji--handshake {
   vertical-align: -0.30em;
   margin-right: 0;
 }
@@ -766,9 +896,11 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
   list-style: none !important;
   padding-left: 0 !important;
   margin: 0;
+  position: relative;
   --toc-icon: 1.2em;
   --toc-pad: 0.15em;
-  --toc-circle: calc(var(--toc-icon) + var(--toc-pad) + 0.4em);
+  --toc-marker: 23px;
+  --toc-circle: var(--toc-marker);
   --toc-center: calc(var(--toc-circle) / 2);
   --toc-indent: calc(var(--toc-circle) + 0.5em);
 }
@@ -789,8 +921,8 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
   content: '';
   position: absolute;
   left: calc(var(--toc-center) - 0.1em);
-  top: 0;
-  bottom: calc(-1 * var(--toc-circle) / 2);
+  top: calc(var(--toc-circle) / 2 + 0.8em);
+  bottom: calc(-1 * var(--toc-circle) / 2 - 0.8em );
   width: 1px;
   background: color-mix(in srgb, var(--light-grey, #b0b3b8) 20%, transparent);
   transform: translateX(-50%);
@@ -798,19 +930,18 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
 
 /* First item: no line above circle */
 .toc-timeline > .toc-timeline__item:first-child::before {
-  top: calc(var(--toc-circle) / 2 + 0.25em);
+  top: calc(var(--toc-circle) / 2 + 0.5em) !important;
 }
 
 /* Last item: line only above circle */
 .toc-timeline > .toc-timeline__item:last-child::before {
-  bottom: auto;
-  height: calc(var(--toc-circle) / 2);
+  height: 0;
 }
 
 /* Last item that is a parent: extend line to cover children */
 .toc-timeline > .toc-timeline__item--parent:last-child::before {
-  bottom: 0;
   height: auto;
+  bottom: 1em;
 }
 
 /* Single item: no line */
@@ -824,6 +955,60 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
   background: color-mix(in srgb, var(--light-grey, #b0b3b8) 20%, transparent) !important;
 }
 
+/* ── Separator between merged-type sections ── */
+.toc-timeline > .toc-timeline__item--section-title {
+  margin-top: 2em;
+}
+
+/* Trim the vertical line on the item before the separator */
+.toc-timeline > .toc-timeline__item:has(+ .toc-timeline__item--section-title)::before {
+  bottom: 1em !important;
+}
+
+.toc-timeline > .toc-timeline__item--section-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1em;
+  width: 100%;
+  height: 3px;
+  margin-left: 20px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(242, 111, 23, 0.3) 20%,
+    rgba(242, 111, 23, 0.5) 50%,
+    rgba(242, 111, 23, 0.3) 80%,
+    transparent 100%
+  );
+  transform: none;
+}
+
+/* Hide the vertical line in the gap */
+.toc-timeline > .toc-timeline__item--section-title::before {
+  top: 0.3em !important;
+}
+
+/* Bold title */
+.toc-timeline > .toc-timeline__item--section-title > .toc-timeline__row > .toc-timeline__link {
+  font-weight: 600;
+}
+
+/* Hide marker */
+.toc-timeline > .toc-timeline__item--section-title > .toc-timeline__row > .toc-timeline__marker {
+  display: none;
+}
+
+/* Neutralize active state */
+.toc-timeline > .toc-timeline__item--section-title.toc-timeline__item--active > .toc-timeline__row > .toc-timeline__link {
+  color: inherit !important;
+}
+
+.toc-timeline > .toc-timeline__item--section-title.toc-timeline__item--active > .toc-timeline__row > .toc-timeline__marker {
+  display: none !important;
+}
+
 /* Row: marker + link */
 .toc-timeline__row {
   display: flex;
@@ -835,33 +1020,47 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
   transition: background var(--ifm-transition-fast) ease;
 }
 
-.toc-timeline__row:hover {
-  background: var(--ifm-menu-color-background-hover, rgba(0, 0, 0, 0.05));
-}
-
-/* Circle marker */
+/* Circle marker - fixed 23x23 placeholder to prevent text shift */
 .toc-timeline__marker {
   flex-shrink: 0;
-  width: var(--toc-icon);
-  height: var(--toc-icon);
-  padding: var(--toc-pad);
+  width: 23px;
+  height: 23px;
+  min-width: 23px;
+  min-height: 23px;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: calc(-1 * var(--toc-indent));
-  border: 1.5px solid transparent;
-  border-radius: 50%;
-  background: var(--ifm-background-color);
-  box-sizing: content-box;
+  margin-left: calc(-1 * var(--toc-indent) - 1px);
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-sizing: border-box;
   position: relative;
   z-index: 1;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
-/* Active: glow around marker (top-level only) */
+/* Active: orange circle around marker (top-level only) */
 .toc-timeline > .toc-timeline__item--active > .toc-timeline__row > .toc-timeline__marker {
-  border-color: transparent;
-  box-shadow: none;
+  background: var(--ifm-color-primary);
+  border-radius: 50%;
+  animation: toc-marker-pop 0.25s ease-out;
+}
+
+/* Active marker without emoji: smaller orange circle centered in 23x23 placeholder */
+.toc-timeline > .toc-timeline__item--active > .toc-timeline__row > .toc-timeline__marker:not(:has(.custom-emoji)) {
+  width: 23px;
+  height: 23px;
+  padding: 0;
+  margin-left: calc(-1 * var(--toc-indent) - 1px);
+  background: transparent;
+}
+
+.toc-timeline > .toc-timeline__item--active > .toc-timeline__row > .toc-timeline__marker:not(:has(.custom-emoji))::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
   background: var(--ifm-color-primary);
   animation: toc-marker-pop 0.25s ease-out;
 }
@@ -933,19 +1132,80 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
   border: none !important;
   background: none;
   padding: 0;
-  width: 8px;
-  height: 8px;
-  min-height: 8px;
-  margin-left: calc(-1 * (var(--toc-center) + 0.15em) - 2px);
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  min-height: 16px;
+  margin-left: calc(-1 * (var(--toc-center) + 0.15em) - 27px);
+  margin-right: 16px;
 }
 
 .toc-timeline__children .toc-timeline__dot {
   display: none;
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  min-height: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--ifm-color-primary);
+}
+
+/* Show dot only on active child item */
+.toc-timeline__children .toc-timeline__item--active > .toc-timeline__row > .toc-timeline__marker .toc-timeline__dot {
+  display: block;
+  width: 12px;
+  height: 12px;
+  min-width: 12px;
+  min-height: 12px;
+  background: white;
+  border: 2px solid var(--ifm-color-primary) !important;
+  border-radius: 50%;
+  margin-right: 2px;
+  animation: toc-marker-pop 0.25s ease-out;
 }
 
 /* Children don't need the marker indent */
 .toc-timeline__children .toc-timeline__row {
   padding-left: 0;
+}
+
+/* Sticky parent row when a child is active */
+/* Handled via JS floating clone */
+
+/* Floating parent clone pinned at top of TOC container */
+.toc-timeline__floating-parent {
+  position: fixed;
+  z-index: 1999;
+  box-sizing: border-box;
+  background: var(--ifm-background-color);
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+/* Override the grey vertical line inside the clone - not needed */
+.toc-timeline__floating-parent .toc-timeline__item::before {
+  display: none !important;
+}
+
+/* Remove any spacing inside the clone */
+.toc-timeline__floating-parent .toc-timeline__item {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.toc-timeline__floating-parent .toc-timeline {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Ensure the link text is orange in the floating clone */
+.toc-timeline__floating-parent .toc-timeline__link {
+  color: var(--ifm-color-primary) !important;
+}
+
+[data-theme="dark"] .toc-timeline__floating-parent {
+  background: var(--ifm-background-color);
 }
 
 /* Active child: single sliding orange bar in root ul */
@@ -956,7 +1216,7 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
   background: var(--ifm-color-primary);
   z-index: -1;
   opacity: 0;
-  transition: top 0.2s ease, height 0.2s ease, opacity 0.15s ease;
+  transition: top 0.25s ease, height 0.25s ease, opacity 0.15s ease;
   pointer-events: none;
 }
 
@@ -966,7 +1226,7 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
   position: absolute;
   left: 0;
   width: 100%;
-  height: 10px;
+  height: 4px;
   pointer-events: none;
 }
 

@@ -1,7 +1,10 @@
 ---
 sidebar_position: 5
 title: TypeScript-First
+description: "What TypeScript-First means in Pithos: types as source of truth, strict inference, no any, and how it differs from TypeScript-ready libraries."
 ---
+
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 # TypeScript-First
 
@@ -120,3 +123,13 @@ export function findBest<T, Criterion>(
 ```
 
 This approach improves readability, facilitates refactoring, and makes the code's intent clearer, particularly in public APIs.
+
+---
+
+<RelatedLinks>
+
+- [API Design](./api-design.md) — Naming conventions and function signatures
+- [Best Practices](../../basics/best-practices.md) — Let inference work, trust the types
+- [Documentation & DX](./documentation-dx.md) — TSDoc standards for every exported function
+
+</RelatedLinks>

@@ -5,7 +5,7 @@
  * `DeepReadonly<T>` makes nested object properties readonly as well.
  *
  * @template T - The type to make deeply readonly
- * @since 1.0.13
+ * @since 2.0.0
  *
  * @example
  * ```typescript

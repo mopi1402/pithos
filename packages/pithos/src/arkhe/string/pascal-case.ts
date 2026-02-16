@@ -5,7 +5,7 @@ import { camelCase } from "./camel-case";
  *
  * @param str - The string to convert.
  * @returns The string in PascalCase.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Handles kebab-case, snake_case, camelCase, and space-separated strings.
  *       Delegates word parsing to `camelCase` for consistency.

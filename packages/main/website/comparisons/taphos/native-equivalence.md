@@ -1,15 +1,20 @@
 ---
 sidebar_label: "Native Equivalence"
 sidebar_position: 3
-title: "Taphos — Native Equivalence"
+title: "Taphos - Native Equivalence"
 description: "Native equivalence levels for each Taphos utility function: direct native API, composition of native APIs, or custom reimplementation"
+keyword_stuffing_ignore:
+  - lodash
 ---
 
 import { NativeEquivalenceList } from '@site/src/components/comparisons/taphos/NativeEquivalence';
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 # 🟰 Native Equivalence
 
 Every Taphos function is `@deprecated` by design: The goal is to migrate to native JavaScript. But not all functions have a direct native equivalent. This page classifies each function by its **native equivalence level**.
+
+---
 
 ## Equivalence Levels
 
@@ -18,6 +23,8 @@ Every Taphos function is `@deprecated` by design: The goal is to migrate to nati
 | 🟢 **Native API** | A direct native equivalent exists. You can replace the function with a single native call. |
 | 🟡 **Composition** | No single native call, but achievable by composing a few native APIs together. |
 | 🔴 **Custom** | No real native equivalent. The function implements logic that doesn't exist natively. |
+
+---
 
 ## Behavioral Differences
 
@@ -29,6 +36,18 @@ These differences are intentional. Taphos aligns with modern JavaScript semantic
 In most real-world code, these differences don't matter. The ⚠️ is there so you can make an informed decision, not to scare you away from migrating.
 :::
 
+---
+
 ## Functions by Level
 
 <NativeEquivalenceList />
+
+---
+
+<RelatedLinks>
+
+- [Arkhe vs Lodash](../arkhe/arkhe-vs-lodash.md) — Full comparison for non-deprecated utilities
+- [Equivalence Table](/comparisons/equivalence-table/) — Full library equivalence across all modules
+- [Taphos Module Guide](/guide/modules/taphos/) — Migration guide and burial types
+
+</RelatedLinks>

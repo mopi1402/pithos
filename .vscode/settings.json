@@ -5,7 +5,7 @@
     "FIXME",
     "NOTE",
     "HACK",
-    "BUG",
+    "BUG"
   ],
   "todo-tree.highlights.customHighlight": {
     "INTENTIONAL": {
@@ -48,16 +48,6 @@
       "foreground": "#FFFFFF",
       "background": "#ee9609",
       "iconColour": "#ee9609"
-    },
-      "icon": "check",
-      "type": "tag",
-      "foreground": "#FFFFFF",
-      "background": "#045f11"
-    },
-      "icon": "alert",
-      "type": "tag",
-      "foreground": "#FFFFFF",
-      "background": "#e80953"
     }
   },
   "editor.codeActionsOnSave": {

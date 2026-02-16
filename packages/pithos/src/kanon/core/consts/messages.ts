@@ -8,7 +8,7 @@
  * @performance Optimization: Messages without parameters are ~71% faster than arrow functions
  * @note Trade-off: Direct strings provide better performance but limit tree-shaking
  * compared to individual function exports. Bundle size impact is minimal (~1-2KB).
- * @since 3.0.0
+ * @since 2.0.0
  */
 export const ERROR_MESSAGES_COMPOSITION = {
   string: "Expected string",

@@ -7,7 +7,7 @@ import { GenericSchema } from "@kanon/types/base";
 /**
  * Adds object constraints to a base schema.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 /*@__INLINE__*/
 export function addObjectConstraints<T extends Record<string, GenericSchema>>(

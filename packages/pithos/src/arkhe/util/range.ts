@@ -6,7 +6,7 @@
  * @param step - The increment/decrement value. Defaults to `1` or `-1` based on direction.
  * @returns The range of numbers.
  * @throws {RangeError} If step is zero.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Automatically determines direction when step is omitted.
  *

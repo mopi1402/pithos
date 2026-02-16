@@ -8,7 +8,7 @@
  * @param values - The array of values to exclude.
  * @param comparator - The function invoked to compare elements.
  * @returns A new array of filtered values.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n × m) — custom comparators cannot leverage Set optimization.
  *

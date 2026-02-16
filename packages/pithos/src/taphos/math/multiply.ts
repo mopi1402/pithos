@@ -6,7 +6,7 @@
  * @returns The product.
  * @deprecated Use the `*` operator directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Multiplication | Multiplication (*) - MDN}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

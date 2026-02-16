@@ -1,0 +1,21 @@
+.cta {
+  padding: var(--pithos-spacing-lg) var(--pithos-spacing-lg-plus);
+  background: var(--ifm-color-info-contrast-background);
+  border-left: var(--pithos-border-accent) solid var(--ifm-color-info);
+  border-radius: var(--pithos-radius-md);
+  margin: var(--pithos-spacing-lg) 0;
+}
+
+.cta p {
+  margin: 0;
+}
+
+.cta p + p {
+  margin-top: var(--pithos-spacing-sm);
+}
+
+.overview {
+  margin-top: var(--pithos-spacing-sm);
+  color: var(--ifm-font-color-base);
+  font-weight: 200;
+}

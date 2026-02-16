@@ -8,7 +8,7 @@ import { addNumberConstraints } from "@kanon/schemas/constraints/number";
  *
  * @param message - Custom error message.
  * @returns Schema that coerces to number with chainable constraints.
- * @since 3.0.0
+ * @since 2.0.0
  *
  * @example
  * ```ts

@@ -7,7 +7,7 @@ import { NullableSchema } from "@kanon/types/wrappers";
  * @param schema - The schema to make nullable
  * @param message - Custom error message
  * @returns Schema that accepts the original type or null
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function nullable<T>(
   schema: Schema<T>,

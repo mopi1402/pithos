@@ -7,7 +7,7 @@ import { ERROR_MESSAGES_COMPOSITION } from "@kanon/core/consts/messages";
  * Adds a refinement to a set schema.
  * Returns a base SetSchema - the caller is responsible for adding constraints.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 /*@__INLINE__*/
 export const refineSet = <ItemSchema extends GenericSchema>(

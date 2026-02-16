@@ -6,7 +6,7 @@
  * @returns A function that returns true if any predicate passes.
  * @deprecated Use `predicates.some(fn => fn(value))` directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some | Array.some() - MDN}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

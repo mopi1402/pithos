@@ -6,7 +6,7 @@
  * @param value - The value to check.
  * @param defaultValue - The default value.
  * @returns The value if valid, otherwise the default value.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Unlike `??` (nullish coalescing), this also handles NaN.
  *

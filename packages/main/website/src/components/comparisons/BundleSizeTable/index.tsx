@@ -433,23 +433,28 @@ export function SavingsHighlight({
 
   if (!kanon) return <span>{translate({ id: 'comparison.common.na', message: 'N/A' })}</span>;
 
-  const vsMini = zodMini
-    ? ((zodMini.gzipBytes - kanon.gzipBytes) / kanon.gzipBytes * 100).toFixed(0)
-    : translate({ id: 'comparison.common.na', message: 'N/A' });
-  const vsClassic = zodClassic
-    ? (zodClassic.gzipBytes / kanon.gzipBytes).toFixed(1)
-    : translate({ id: 'comparison.common.na', message: 'N/A' });
+  const miniPercent = zodMini
+    ? `+${((zodMini.gzipBytes - kanon.gzipBytes) / kanon.gzipBytes * 100).toFixed(0)}%`
+    : null;
+  const classicPercent = zodClassic
+    ? `+${((zodClassic.gzipBytes - kanon.gzipBytes) / kanon.gzipBytes * 100).toFixed(0)}%`
+    : null;
 
   return (
-    <span className={styles.savingsHighlight}>
-      <strong>{formatBytes(kanon.gzipBytes)}</strong>{" "}
-      {translate(
-        { id: 'comparison.bundle.savingsHighlight', message: 'vs Zod Mini (+{vsMini}%) / Zod Classic ({vsClassic}x larger)' },
-        { vsMini: String(vsMini), vsClassic: String(vsClassic) }
-      )}
-    </span>
+    <div className={styles.tldr}>
+      <p className={styles.tldrIntro}>
+        {translate({ id: 'comparison.bundle.savingsHighlight.intro', message: 'For a complete app with all schema types (gzip):' })}
+      </p>
+      <ul className={styles.tldrList}>
+        <li><strong>Kanon</strong> : {formatBytes(kanon.gzipBytes)} <span className={styles.tldrBaseline}>{translate({ id: 'comparison.common.baseline', message: 'baseline' })}</span></li>
+        {zodMini && <li><strong>Zod 4 Mini</strong> : {formatBytes(zodMini.gzipBytes)} <span className={styles.tldrLarger}>({miniPercent})</span></li>}
+        {zodClassic && <li><strong>Zod 4 Classic</strong> : {formatBytes(zodClassic.gzipBytes)} <span className={styles.tldrLarger}>({classicPercent})</span></li>}
+      </ul>
+    </div>
   );
 }
+
+
 
 interface WhenToUseItem {
   helper: string;

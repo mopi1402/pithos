@@ -4,7 +4,7 @@
  * Useful for functions that require non-empty input, avoiding runtime checks.
  *
  * @template T - The type of array elements
- * @since 1.0.13
+ * @since 2.0.0
  *
  * @example
  * ```typescript

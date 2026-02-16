@@ -3,7 +3,7 @@
  *
  * @param value - The value to check.
  * @returns `true` if value is empty, `false` otherwise.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Primitives (numbers, booleans) and null/undefined return `true`.
  *

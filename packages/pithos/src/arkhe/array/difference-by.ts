@@ -7,7 +7,7 @@
  * @param values - The values to exclude.
  * @param iteratee - A function or property key to compute the comparison value.
  * @returns A new array containing elements whose computed values are not in `values`.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n + m) time & space, uses hash map for constant-time lookups.
  *

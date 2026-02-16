@@ -8,7 +8,7 @@
  * - Optimized typeof grouping for primitive unions
  * - Combined error messages when no branch validates
  *
- * @since 3.3.0
+ * @since 2.0.0
  * @experimental
  */
 
@@ -24,7 +24,7 @@ import { ERROR_MESSAGES_COMPOSITION } from "../../../core/consts/messages";
 /**
  * Union branch definition for code generation.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export interface UnionBranchMeta {
   /** Human-readable type name for error messages */
@@ -38,7 +38,7 @@ export interface UnionBranchMeta {
 /**
  * Union constraint metadata for JIT compilation.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export interface UnionConstraintMeta {
   /** Branches of the union */
@@ -57,7 +57,7 @@ export interface UnionConstraintMeta {
  *
  * @param branches - Union branches to analyze
  * @returns Map of typeof values to branch indices
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function groupBranchesByTypeof(
   branches: UnionBranchMeta[]
@@ -80,7 +80,7 @@ export function groupBranchesByTypeof(
  *
  * @param branches - Union branches to check
  * @returns true if all branches have typeof checks
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function canOptimizeWithTypeof(branches: UnionBranchMeta[]): boolean {
   return branches.every((b) => b.typeofCheck !== undefined);
@@ -98,7 +98,7 @@ export function canOptimizeWithTypeof(branches: UnionBranchMeta[]): boolean {
  * @param ctx - The generator context
  * @param errorMessage - Custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -156,7 +156,7 @@ export function generateOptimizedPrimitiveUnion(
  * @param ctx - The generator context
  * @param errorMessage - Custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateSimpleSequentialUnion(
   varName: string,
@@ -230,7 +230,7 @@ export function generateSimpleSequentialUnion(
  * @param ctx - The generator context
  * @param constraints - Union constraint metadata
  * @returns Generated code lines and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -284,7 +284,7 @@ export function generateUnionValidation(
  *
  * @param generateCode - Code generator function for this branch.
  * @returns Branch metadata with type information and code generator.
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function createStringBranch(
   generateCode: (varName: string, ctx: GeneratorContext) => { code: string[]; ctx: GeneratorContext }
@@ -301,7 +301,7 @@ export function createStringBranch(
  *
  * @param generateCode - Code generator function for this branch.
  * @returns Branch metadata with type information and code generator.
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function createNumberBranch(
   generateCode: (varName: string, ctx: GeneratorContext) => { code: string[]; ctx: GeneratorContext }
@@ -318,7 +318,7 @@ export function createNumberBranch(
  *
  * @param generateCode - Code generator function for this branch.
  * @returns Branch metadata with type information and code generator.
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function createBooleanBranch(
   generateCode: (varName: string, ctx: GeneratorContext) => { code: string[]; ctx: GeneratorContext }
@@ -334,7 +334,7 @@ export function createBooleanBranch(
  * Creates a branch metadata for a null type.
  *
  * @returns Branch metadata for null type with inline === check.
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function createNullBranch(): UnionBranchMeta {
   return {
@@ -354,7 +354,7 @@ export function createNullBranch(): UnionBranchMeta {
  * Creates a branch metadata for an undefined type.
  *
  * @returns Branch metadata for undefined type with typeof check.
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function createUndefinedBranch(): UnionBranchMeta {
   return {

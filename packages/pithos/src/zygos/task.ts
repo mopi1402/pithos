@@ -11,7 +11,7 @@
 /**
  * A Task represents an asynchronous computation that yields a value of type A.
  * @template A - The result type.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export type Task<A> = () => Promise<A>;
 
@@ -24,7 +24,7 @@ export type Task<A> = () => Promise<A>;
  * @template A - The value type.
  * @param a - The value to wrap.
  * @returns A Task that resolves to the value.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const of =
   <A>(a: A): Task<A> =>
@@ -41,7 +41,7 @@ export const of =
  * @template B - The output type.
  * @param f - The mapping function.
  * @returns A function that transforms the Task.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const map =
   <A, B>(f: (a: A) => B) =>
@@ -57,7 +57,7 @@ export const map =
  * @template B - The output type.
  * @param f - The chaining function.
  * @returns A function that transforms the Task.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const flatMap =
   <A, B>(f: (a: A) => Task<B>) =>
@@ -76,7 +76,7 @@ export const flatMap =
  * @template A - The input type.
  * @param fa - The value Task.
  * @returns A function that applies the function Task.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const ap =
   <A>(fa: Task<A>) =>

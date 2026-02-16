@@ -14,7 +14,7 @@ import { isSomeOption } from "@arkhe/types/utilities/is-some-option";
 /**
  * Represents the Left variant of Either containing an error value.
  * @template E - The error type.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export interface Left<E> {
   readonly _tag: "Left";
@@ -24,7 +24,7 @@ export interface Left<E> {
 /**
  * Represents the Right variant of Either containing a success value.
  * @template A - The success type.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export interface Right<A> {
   readonly _tag: "Right";
@@ -35,7 +35,7 @@ export interface Right<A> {
  * Either type representing a value that can be either Left (error) or Right (success).
  * @template E - The error type.
  * @template A - The success type.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export type Either<E, A> = Left<E> | Right<A>;
 
@@ -49,7 +49,7 @@ export type Either<E, A> = Left<E> | Right<A>;
  * @template A - The success type.
  * @param e - The error value.
  * @returns A Left Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const left = <E = never, A = never>(e: E): Either<E, A> => ({
   _tag: "Left",
@@ -62,7 +62,7 @@ export const left = <E = never, A = never>(e: E): Either<E, A> => ({
  * @template A - The success type.
  * @param a - The success value.
  * @returns A Right Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const right = <E = never, A = never>(a: A): Either<E, A> => ({
   _tag: "Right",
@@ -78,7 +78,7 @@ export const right = <E = never, A = never>(a: A): Either<E, A> => ({
  * @template E - The error type.
  * @param ma - The Either to check.
  * @returns True if the Either is a Left.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const isLeft = <E>(ma: Either<E, unknown>): ma is Left<E> =>
   ma._tag === "Left";
@@ -88,7 +88,7 @@ export const isLeft = <E>(ma: Either<E, unknown>): ma is Left<E> =>
  * @template A - The success type.
  * @param ma - The Either to check.
  * @returns True if the Either is a Right.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const isRight = <A>(ma: Either<unknown, A>): ma is Right<A> =>
   ma._tag === "Right";
@@ -106,7 +106,7 @@ export const isRight = <A>(ma: Either<unknown, A>): ma is Right<A> =>
  * @param onLeft - Handler for Left case.
  * @param onRight - Handler for Right case.
  * @returns A function that takes an Either and returns B or C.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const matchW =
   <E, B, A, C>(onLeft: (e: E) => B, onRight: (a: A) => C) =>
@@ -121,7 +121,7 @@ export const matchW =
  * @param onLeft - Handler for Left case.
  * @param onRight - Handler for Right case.
  * @returns A function that takes an Either and returns B.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const match = <E, A, B>(
   onLeft: (e: E) => B,
@@ -130,7 +130,7 @@ export const match = <E, A, B>(
 
 /**
  * Alias for match.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const fold = match;
 
@@ -144,7 +144,7 @@ export const fold = match;
  * @template B - The fallback return type.
  * @param onLeft - Handler for Left case.
  * @returns A function that takes an Either and returns A or B.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const getOrElseW =
   <E, B>(onLeft: (e: E) => B) =>
@@ -157,7 +157,7 @@ export const getOrElseW =
  * @template A - The success type.
  * @param onLeft - Handler for Left case.
  * @returns A function that takes an Either and returns A.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const getOrElse = <E, A>(
   onLeft: (e: E) => A
@@ -170,7 +170,7 @@ export const getOrElse = <E, A>(
  * @template B - The new success type.
  * @param onLeft - Handler for Left case.
  * @returns A function that transforms the Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const orElseW =
   <E1, E2, B>(onLeft: (e: E1) => Either<E2, B>) =>
@@ -184,7 +184,7 @@ export const orElseW =
  * @template E2 - The new error type.
  * @param onLeft - Handler for Left case.
  * @returns A function that transforms the Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const orElse = <E1, A, E2>(
   onLeft: (e: E1) => Either<E2, A>
@@ -200,7 +200,7 @@ export const orElse = <E1, A, E2>(
  * @template B - The new success type.
  * @param f - The mapping function.
  * @returns A function that transforms the Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const map =
   <A, B>(f: (a: A) => B) =>
@@ -213,7 +213,7 @@ export const map =
  * @template G - The new error type.
  * @param f - The mapping function.
  * @returns A function that transforms the Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const mapLeft =
   <E, G>(f: (e: E) => G) =>
@@ -229,7 +229,7 @@ export const mapLeft =
  * @param f - The error mapping function.
  * @param g - The success mapping function.
  * @returns A function that transforms the Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const bimap =
   <E, G, A, B>(f: (e: E) => G, g: (a: A) => B) =>
@@ -247,7 +247,7 @@ export const bimap =
  * @template B - The new success type.
  * @param f - The chaining function.
  * @returns A function that transforms the Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const flatMap =
   <A, E2, B>(f: (a: A) => Either<E2, B>) =>
@@ -262,7 +262,7 @@ export const flatMap =
  * @param self - The Either to tap.
  * @param f - The side effect function.
  * @returns The original Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const tap = <E1, A, E2>(
   self: Either<E1, A>,
@@ -279,7 +279,7 @@ export const tap = <E1, A, E2>(
  * @template A - The success type.
  * @param mma - The nested Either.
  * @returns The flattened Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const flatten = <E, A>(mma: Either<E, Either<E, A>>): Either<E, A> =>
   isLeft(mma) ? mma : mma.right;
@@ -295,7 +295,7 @@ export const flatten = <E, A>(mma: Either<E, Either<E, A>>): Either<E, A> =>
  * @param predicate - The predicate function.
  * @param onFalse - Function to create error when predicate fails.
  * @returns A function that creates an Either from a value.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const fromPredicate =
   <A, E>(
@@ -310,7 +310,7 @@ export const fromPredicate =
  * @template E - The error type.
  * @param e - The error value for null/undefined.
  * @returns A function that creates an Either from a nullable value.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const fromNullable =
   <E>(e: E) =>
@@ -324,7 +324,7 @@ export const fromNullable =
  * @param f - The function to execute.
  * @param onThrow - Function to transform thrown errors.
  * @returns An Either containing the result or error.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const tryCatch = <E, A>(
   f: () => A,
@@ -345,7 +345,7 @@ export const tryCatch = <E, A>(
  * @param f - The function to lift.
  * @param onThrow - Function to transform thrown errors.
  * @returns A lifted function that returns an Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const tryCatchK =
   <A extends ReadonlyArray<unknown>, B, E>(
@@ -364,7 +364,7 @@ export const tryCatchK =
  * @template E - The error type.
  * @param onNone - Function to create error for None.
  * @returns A function that converts an Option to an Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const fromOption =
   <E>(onNone: () => E) =>
@@ -377,7 +377,7 @@ export const fromOption =
  * @template A - The success type.
  * @param fa - The Either to convert.
  * @returns The Left or Right value.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const toUnion = <E, A>(fa: Either<E, A>): E | A =>
   isLeft(fa) ? fa.left : fa.right;
@@ -392,7 +392,7 @@ export const toUnion = <E, A>(fa: Either<E, A>): E | A =>
  * @template A - The success type.
  * @param ma - The Either to swap.
  * @returns The swapped Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const swap = <E, A>(ma: Either<E, A>): Either<A, E> =>
   isLeft(ma) ? right(ma.left) : left(ma.right);
@@ -402,7 +402,7 @@ export const swap = <E, A>(ma: Either<E, A>): Either<A, E> =>
  * @template A - The success type.
  * @param predicate - The predicate to test.
  * @returns A function that tests the Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const exists =
   <A>(predicate: (a: A) => boolean) =>
@@ -414,7 +414,7 @@ export const exists =
  * @template A - The success type.
  * @param E - The Eq instance.
  * @returns A curried function that tests equality.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const elem =
   <A>(E: { equals: (a: A, b: A) => boolean }) =>
@@ -433,7 +433,7 @@ export const elem =
  * @param predicate - The predicate to test.
  * @param onFalse - Function to create error when predicate fails.
  * @returns A function that filters the Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const filterOrElse =
   <A, E>(predicate: (a: A) => boolean, onFalse: (a: A) => E) =>
@@ -456,7 +456,7 @@ export const filterOrElse =
  * @param f - The function to lift.
  * @param onNullable - Function to create error for null/undefined.
  * @returns A lifted function that returns an Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const liftNullable =
   <A extends ReadonlyArray<unknown>, B, E>(
@@ -478,7 +478,7 @@ export const liftNullable =
  * @param f - The function to lift.
  * @param onNone - Function to create error for None.
  * @returns A lifted function that returns an Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const liftOption =
   <A extends ReadonlyArray<unknown>, B, E>(
@@ -502,7 +502,7 @@ export const liftOption =
  * @param f - The mapping function.
  * @param onNullable - Function to create error for null/undefined.
  * @returns A function that flatMaps the Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const flatMapNullable =
   <A, B, E2>(f: (a: A) => Nullish<B>, onNullable: (a: A) => E2) =>
@@ -519,7 +519,7 @@ export const flatMapNullable =
  * @param f - The mapping function.
  * @param onNone - Function to create error for None.
  * @returns A function that flatMaps the Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const flatMapOption =
   <A, B, E2>(
@@ -541,7 +541,7 @@ export const flatMapOption =
  * @template B - The success type of the second Either.
  * @param fab - The second Either.
  * @returns A function that sequences the Eithers.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const apFirst =
   <E1, B>(fab: Either<E1, B>) =>
@@ -556,7 +556,7 @@ export const apFirst =
  * @template B - The success type of the second Either.
  * @param fab - The second Either.
  * @returns A function that sequences the Eithers.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const apSecond =
   <E1, B>(fab: Either<E1, B>) =>
@@ -569,7 +569,7 @@ export const apSecond =
  * @template A - The input type.
  * @param fa - The value Either.
  * @returns A function that applies the function Either.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const ap =
   <E1, A>(fa: Either<E1, A>) =>
@@ -582,7 +582,7 @@ export const ap =
 
 /**
  * Starting point for do notation with an empty object.
- * @since 1.0.0
+ * @since 2.0.0
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export const Do: Either<never, {}> = right({});
@@ -592,7 +592,7 @@ export const Do: Either<never, {}> = right({});
  * @template N - The property name.
  * @param name - The property name.
  * @returns A function that binds the value.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const bindTo =
   <N extends string>(name: N) =>
@@ -608,7 +608,7 @@ export const bindTo =
  * @param name - The property name.
  * @param f - The function to compute the value.
  * @returns A function that binds the computed value.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const bind =
   <N extends string, A extends Record<string, unknown>, E2, B>(
@@ -639,7 +639,7 @@ export const bind =
  * @param name - The property name.
  * @param fb - The Either containing the value.
  * @returns A function that adds the value.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const apS =
   <N extends string, A extends Record<string, unknown>, E, B>(

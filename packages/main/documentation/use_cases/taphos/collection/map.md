@@ -1,4 +1,4 @@
-## `map`
+## `map` ⭐
 
 ### **Transform** collection elements 📍
 

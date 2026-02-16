@@ -1,4 +1,6 @@
-## `transform`
+## `transform` 💎
+
+> A more flexible alternative to reduce, designed specifically for objects.
 
 ### **Accumulate** from object 📍
 

@@ -1,7 +1,7 @@
 /**
  * Represents a value that can be either a single item or an array of items.
  * @template T - The base type.
- * @since 1.0.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * function processItems(items: Arrayable<string>): string[] {

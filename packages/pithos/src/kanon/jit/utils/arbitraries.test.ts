@@ -55,6 +55,18 @@ describe("arbitraries", () => {
       }
     });
 
+    it("[👾] arbitraryNumberSchema base schema never generates NaN as valid value (killed noNaN option)", () => {
+      const schemas = fc.sample(arbitraryNumberSchema(), 200);
+      const baseSchemas = schemas.filter((s) => s.description === "number()");
+      expect(baseSchemas.length).toBeGreaterThan(0);
+      for (const meta of baseSchemas) {
+        const values = fc.sample(meta.validValueArb, 100);
+        for (const value of values) {
+          expect(Number.isNaN(value)).toBe(false);
+        }
+      }
+    });
+
     it("[👾] arbitraryBooleanSchema generates correct valid/invalid values", () => {
       const schemas = fc.sample(arbitraryBooleanSchema(), 5);
       for (const meta of schemas) {

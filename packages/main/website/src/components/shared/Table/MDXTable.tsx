@@ -223,6 +223,7 @@ export function MDXTable({ children, className }: MDXTableProps): ReactElement {
       highlightedHeader={highlightedHeader}
       stickyHeader={tableConfig?.stickyHeader}
       stickyHeaderOffset={tableConfig?.stickyHeaderOffset}
+      noEllipsis={tableConfig?.noEllipsis}
     />
   );
 }

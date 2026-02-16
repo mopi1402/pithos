@@ -51,6 +51,15 @@
 .medal {
   font-size: var(--pithos-font-size-2xs);
   width: var(--pithos-spacing-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.medalImg {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
 }
 
 .name {

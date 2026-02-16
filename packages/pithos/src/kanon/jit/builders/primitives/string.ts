@@ -7,7 +7,7 @@
  * including all constraints: minLength, maxLength, length, email, url, uuid,
  * regex, includes, startsWith, endsWith.
  *
- * @since 3.3.0
+ * @since 2.0.0
  * @experimental
  */
 
@@ -21,7 +21,7 @@ import { ERROR_MESSAGES_COMPOSITION } from "../../../core/consts/messages";
  * String constraint metadata for JIT compilation.
  * These are extracted from the schema's refinements for inline code generation.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export interface StringConstraintMeta {
   /** Minimum length constraint */
@@ -57,7 +57,7 @@ export interface StringConstraintMeta {
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateStringTypeCheck(
   varName: string,
@@ -90,7 +90,7 @@ export function generateStringTypeCheck(
  * @param ctx - The generator context.
  * @param customMessage - Optional custom error message.
  * @returns Generated code and updated context.
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateMinLengthCheck(
   varName: string,
@@ -125,7 +125,7 @@ export function generateMinLengthCheck(
  * @param ctx - The generator context.
  * @param customMessage - Optional custom error message.
  * @returns Generated code and updated context.
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateMaxLengthCheck(
   varName: string,
@@ -160,7 +160,7 @@ export function generateMaxLengthCheck(
  * @param ctx - The generator context.
  * @param customMessage - Optional custom error message.
  * @returns Generated code and updated context.
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateLengthCheck(
   varName: string,
@@ -199,7 +199,7 @@ export function generateLengthCheck(
  * @param ctx - The generator context.
  * @param customMessage - Optional custom error message.
  * @returns Generated code and updated context.
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateEmailCheck(
   varName: string,
@@ -235,7 +235,7 @@ export function generateEmailCheck(
  * @param ctx - The generator context.
  * @param customMessage - Optional custom error message.
  * @returns Generated code and updated context.
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateUrlCheck(
   varName: string,
@@ -271,7 +271,7 @@ export function generateUrlCheck(
  * @param ctx - The generator context.
  * @param customMessage - Optional custom error message.
  * @returns Generated code and updated context.
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateUuidCheck(
   varName: string,
@@ -308,7 +308,7 @@ export function generateUuidCheck(
  * @param ctx - The generator context.
  * @param customMessage - Optional custom error message.
  * @returns Generated code and updated context.
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateRegexCheck(
   varName: string,
@@ -345,7 +345,7 @@ export function generateRegexCheck(
  * @param ctx - The generator context.
  * @param customMessage - Optional custom error message.
  * @returns Generated code and updated context.
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateIncludesCheck(
   varName: string,
@@ -379,7 +379,7 @@ export function generateIncludesCheck(
  * @param ctx - The generator context.
  * @param customMessage - Optional custom error message.
  * @returns Generated code and updated context.
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateStartsWithCheck(
   varName: string,
@@ -413,7 +413,7 @@ export function generateStartsWithCheck(
  * @param ctx - The generator context.
  * @param customMessage - Optional custom error message.
  * @returns Generated code and updated context.
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateEndsWithCheck(
   varName: string,
@@ -451,7 +451,7 @@ export function generateEndsWithCheck(
  * @param constraints - Optional string constraint metadata.
  * @param customTypeMessage - Optional custom type error message.
  * @returns Generated code lines and updated context.
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateStringValidation(
   varName: string,
@@ -537,7 +537,7 @@ export function generateStringValidation(
 /**
  * Exported regex patterns for string validation.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export const STRING_PATTERNS = {
   EMAIL: EMAIL_REGEX,

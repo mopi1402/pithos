@@ -7,7 +7,7 @@ import { Nullish } from "@arkhe/types/common/nullish";
  * @param defaultValue - The value to return if parsing fails.
  * @param radix - The radix (base 2-36) for parsing.
  * @returns The parsed integer or default value.
- * @since 1.1.0
+ * @since 1.0.0
  *
  * @note Returns default for null, undefined, empty strings, and NaN results.
  *

@@ -4,7 +4,7 @@
  * Compares V3 non-compiled vs JIT compiled validators with refinements.
  * Measures the performance impact of refinements on JIT compilation.
  *
- * @since 3.3.0
+ * @since 2.0.0
  * @experimental
  *
  * ## Test Scenarios

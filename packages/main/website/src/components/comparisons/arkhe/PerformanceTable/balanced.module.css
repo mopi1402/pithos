@@ -70,3 +70,17 @@
   color: var(--ifm-color-secondary-dark);
   font-style: italic;
 }
+
+.legend {
+  margin-top: var(--pithos-spacing-lg);
+  margin-bottom: var(--pithos-spacing-lg);
+}
+
+.legend ul {
+  margin: var(--pithos-spacing-sm) 0 0 0;
+  padding-left: var(--pithos-spacing-lg);
+}
+
+.legend li {
+  margin-bottom: var(--pithos-spacing-xs);
+}

@@ -6,7 +6,7 @@
  * @param arrays - The arrays to process.
  * @param iteratee - The function to combine grouped values.
  * @returns A new array of combined values.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note When arrays have unequal lengths, shorter arrays contribute `undefined` for missing indices.
  * 

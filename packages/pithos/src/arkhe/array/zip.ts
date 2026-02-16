@@ -6,7 +6,7 @@
  * @param arrays - One or more arrays to zip together.
  * @returns An array of tuples, where tuple[i] contains the i-th element from each input array.
  * @see unzip
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Result length is determined by the shortest input array.
  *

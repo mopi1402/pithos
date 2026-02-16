@@ -5,7 +5,7 @@
  * @param value - Any value.
  * @returns The value.
  * @deprecated Use an inline arrow function `(x) => x` instead.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

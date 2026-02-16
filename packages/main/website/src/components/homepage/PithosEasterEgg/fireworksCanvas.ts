@@ -1,5 +1,5 @@
 /**
- * Canvas-based firework engine — optimized.
+ * Canvas-based firework engine, optimized.
  * Sprites pre-rendered, particles pooled, draw calls batched.
  * Text reflections handled by DOM (notified via onExplode callback).
  */

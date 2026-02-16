@@ -1,4 +1,6 @@
-## `attempt`
+## `attempt` 💎
+
+> Wrap any function call in a try/catch and get either the result or the error.
 
 ### **Safe** function call 📍
 

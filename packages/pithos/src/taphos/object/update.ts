@@ -12,7 +12,7 @@ import { set } from "../../arkhe/object/set";
  * @deprecated Use `set(obj, path, fn(get(obj, path)))` directly instead.
  * @see get
  * @see set
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

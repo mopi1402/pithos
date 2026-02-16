@@ -1,4 +1,6 @@
-## `toPairs`
+## `toPairs` 💎
+
+> Unlock object iteration with a clean [key, value] tuple format.
 
 ### **Convert** to entries 📍
 

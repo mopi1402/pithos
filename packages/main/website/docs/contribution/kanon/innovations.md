@@ -1,8 +1,11 @@
 ---
 sidebar_position: 3
 title: "Design Innovations"
+description: "Design innovations explored during Kanon development. Theoretical evolutions tested and abandoned, with analysis of why they didn't deliver expected gains."
 slug: "innovations"
 ---
+
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 # Design Innovations
 
@@ -139,7 +142,7 @@ export function stringBulkUltraFast(values: any[]): (true | string)[] {
 #### ⚠️ Practice - Real Results
 
 **Real performance gains:**
-```
+```text
 Benchmark Analysis:
 - Significant improvement (< 2x): only 2 tests
 - Marginal improvement (< 5%): 6 tests
@@ -551,3 +554,13 @@ Each architectural innovation represents a **trade-off** between:
 ---
 
 _This document will be analyzed after finalization of the current library to evaluate future innovation opportunities._
+
+---
+
+<RelatedLinks>
+
+- [Architecture & Evolution](./architecture.md) — The V1 → V2 → V3 journey
+- [Features & API](./features.md) — Complete V3 feature reference
+- [Why No Transformations?](./no-transformations.md) — Pure validation by design
+
+</RelatedLinks>

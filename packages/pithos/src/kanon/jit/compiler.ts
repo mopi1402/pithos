@@ -6,7 +6,7 @@
  * Generates optimized JavaScript validators at runtime using `new Function()`.
  * Supports all schema types: primitives, composites, unions, and coercion.
  *
- * @since 3.3.0
+ * @since 2.0.0
  * @experimental
  *
  * ## Performance Results (January 2026)
@@ -101,7 +101,7 @@ import {
  * console.log(debugValidate.source);
  * ```
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export type CompiledValidator<T> = ((value: unknown) => ValidatorResult<T>) & {
   /**
@@ -135,7 +135,7 @@ export type CompiledValidator<T> = ((value: unknown) => ValidatorResult<T>) & {
  * const fallbackValidate = compile(schema, { forceFallback: true });
  * ```
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export interface CompileOptions {
   /**
@@ -640,7 +640,7 @@ function generateValidatorCode(
  * validate(true); // "Expected string or number"
  * ```
  *
- * @since 3.3.0
+ * @since 2.0.0
  * @experimental
  */
 export function compile<T>(
@@ -735,7 +735,7 @@ export function compile<T>(
  * }
  * ```
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function isJITAvailable(): boolean {
   try {
@@ -775,7 +775,7 @@ export function isJITAvailable(): boolean {
  * console.log(validate1 === validate3); // false (re-compiled)
  * ```
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function clearCache(): void {
   globalValidatorCache.clear();

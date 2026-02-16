@@ -1,8 +1,4 @@
 {
   "label": "Contribution",
-  "position": 5,
-  "link": {
-    "type": "generated-index",
-    "description": "Learn how Pithos is built, understand architectural decisions, and contribute to the project."
-  }
+  "position": 5
 }

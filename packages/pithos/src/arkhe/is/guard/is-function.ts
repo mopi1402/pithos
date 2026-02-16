@@ -3,7 +3,7 @@
  *
  * @param value - The value to check.
  * @returns `true` if the value is a function, `false` otherwise.
- * @since 1.1.0
+ * @since 1.0.0
  *
  * @note Includes arrow functions, regular functions, async functions, and class constructors.
  *

@@ -28,7 +28,7 @@ export function Accordion({
   return (
     <details className={clsx(styles.accordion, variant === "card" && styles.card)} open={defaultOpen}>
       <summary className={styles.summary}>
-        {icon && <img src={icon} alt="" width="48" height="48" className={styles.icon} />}
+        {icon && <img src={icon} alt={title} width="48" height="48" className={styles.icon} />}
         <span className={styles.titleBlock}>
           <span className={clsx(styles.title, variant === "card" && styles.titleCard)}>{title}</span>
           {description && <span className={styles.description}>{description}</span>}

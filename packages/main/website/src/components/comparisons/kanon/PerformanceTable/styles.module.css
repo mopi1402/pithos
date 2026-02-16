@@ -1,4 +1,4 @@
-/* Kanon-specific styles — shared styles are in BenchmarkTable/styles.module.css */
+/* Kanon-specific styles - shared styles are in BenchmarkTable/styles.module.css */
 
 /* TL;DR highlight (used in kanonConfig.tldrContent) */
 .highlight {
@@ -6,7 +6,7 @@
   font-weight: var(--pithos-font-weight-semibold);
 }
 
-/* Category badges — kanon-specific colors */
+/* Category badges - kanon-specific colors */
 .categoryBadge {
   font-size: var(--pithos-font-size-2xs);
   font-weight: var(--pithos-font-weight-bold);

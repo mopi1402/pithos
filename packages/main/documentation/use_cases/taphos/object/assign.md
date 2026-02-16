@@ -1,4 +1,4 @@
-## `assign` / `extend`
+## `assign` / `extend` ⭐
 
 ### **Merge** objects 📍
 

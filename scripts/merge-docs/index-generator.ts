@@ -192,8 +192,17 @@ ${links.join("\n")}
             .filter(Boolean)
             .join("\n\n");
 
+    const moduleDescriptions: Record<string, string> = {
+        arkhe: "API reference for Arkhe, the core utility module of Pithos. Arrays, objects, strings, functions, and more.",
+        kanon: "API reference for Kanon, the schema validation module of Pithos with JIT compilation.",
+        zygos: "API reference for Zygos, the Result/Either/Option types module of Pithos for typed error handling.",
+        sphalma: "API reference for Sphalma, the typed error factory module of Pithos.",
+        taphos: "API reference for Taphos, the legacy compatibility module of Pithos for Lodash and Ramda migration.",
+    };
+
         const moduleIndex = `---
 title: ${displayName}
+description: "${moduleDescriptions[moduleName] ?? `API reference for ${displayName} in Pithos.`}"
 ---
 
 import { Accordion } from "@site/src/components/shared/Accordion";

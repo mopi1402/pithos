@@ -3,7 +3,7 @@
  *
  * @param str - The string to convert.
  * @returns The string in CONSTANT_CASE.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Handles camelCase, kebab-case, space-separated strings, and acronyms.
  *

@@ -1,4 +1,6 @@
-## `upperFirst`
+## `upperFirst` 💎
+
+> Capitalize just the first character — ideal for display names and UI labels.
 
 ### **Capitalize** first letter 📍
 

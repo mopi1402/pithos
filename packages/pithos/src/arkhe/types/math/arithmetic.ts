@@ -1,7 +1,7 @@
 /**
  * Arithmetic and mathematical types for common use cases
  *
- * @since 1.0.0
+ * @since 2.0.0
  */
 
 /**
@@ -23,7 +23,7 @@ export interface MinMax {
 
 /**
  * Extends MinMax with inclusivity control for both bounds.
- * @since 1.0.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * const range1: InclusiveMinMax = { min: 0, max: 10 }; // [0, 10) - default
@@ -41,7 +41,7 @@ export interface InclusiveMinMax extends MinMax {
 
 /**
  * Represents a percentage calculation.
- * @since 1.0.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * const progress: Percentage = {
@@ -62,7 +62,7 @@ export interface Percentage {
 
 /**
  * Represents a mathematical interval with start, end, and optional step.
- * @since 1.0.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * const timeInterval: Interval = {

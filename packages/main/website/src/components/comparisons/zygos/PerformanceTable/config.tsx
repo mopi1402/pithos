@@ -14,7 +14,7 @@ try {
 }
 
 const libraryDescriptions: Record<string, string> = {
-  zygos: translate({ id: 'comparison.zygos.lib.zygos', message: 'Pithos Result/Option module (lightweight, tree-shakeable)' }),
+  zygos: translate({ id: 'comparison.zygos.lib.zygos', message: 'Pithos Result/Option module (lightweight, tree-shakable)' }),
   neverthrow: translate({ id: 'comparison.zygos.lib.neverthrow', message: 'Popular Result library for TypeScript' }),
   "fp-ts": translate({ id: 'comparison.zygos.lib.fpTs', message: 'Functional programming library with Option/Either' }),
 };
@@ -93,7 +93,7 @@ export const zygosOptionConfig: ModuleConfig<string> = {
       { winRate: String(winRate) }
     );
     const fullText = translate(
-      { id: 'comparison.zygos.tldr.option', message: 'Zygos wins {winRate}% of Option benchmarks vs fp-ts. Lightweight and tree-shakeable alternative to fp-ts Option.' },
+      { id: 'comparison.zygos.tldr.option', message: 'Zygos wins {winRate}% of Option benchmarks vs fp-ts. Lightweight and tree-shakable alternative to fp-ts Option.' },
       { winRate: String(winRate) }
     );
     const rest = fullText.slice(highlight.length).trimStart();

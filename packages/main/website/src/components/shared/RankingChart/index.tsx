@@ -1,6 +1,12 @@
 import React from "react";
 import styles from "./styles.module.css";
 
+const MEDALS: { src: string; alt: string }[] = [
+  { src: "/img/emoji/medal-gold.png", alt: "first" },
+  { src: "/img/emoji/medal-silver.png", alt: "second" },
+  { src: "/img/emoji/medal-bronze.png", alt: "third" },
+];
+
 export interface RankingItem {
   /** Unique key */
   key: string;
@@ -31,11 +37,10 @@ interface RankingChartProps {
   children?: React.ReactNode;
 }
 
-function getMedal(index: number): string {
-  if (index === 0) return "🥇";
-  if (index === 1) return "🥈";
-  if (index === 2) return "🥉";
-  return "";
+function getMedal(index: number): React.ReactNode {
+  const medal = MEDALS[index];
+  if (!medal) return null;
+  return <img src={medal.src} alt={medal.alt} className={styles.medalImg} />;
 }
 
 export function RankingChart({

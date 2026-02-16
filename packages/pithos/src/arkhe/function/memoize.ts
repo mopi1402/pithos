@@ -3,7 +3,7 @@
  *
  * @template K - The key type.
  * @template V - The value type.
- * @since 1.2.0
+ * @since 2.0.0
  */
 export interface MemoizeCache<K, V> {
   /** Stores a value in the cache. */
@@ -25,7 +25,7 @@ export interface MemoizeCache<K, V> {
  *
  * @template Args - The argument types of the function.
  * @template Result - The return type of the function.
- * @since 1.2.0
+ * @since 2.0.0
  */
 export interface MemoizeOptions<Args extends unknown[], Result> {
   /** Custom cache implementation. */
@@ -39,7 +39,7 @@ export interface MemoizeOptions<Args extends unknown[], Result> {
  *
  * @template Args - The argument types of the function.
  * @template Result - The return type of the function.
- * @since 1.2.0
+ * @since 2.0.0
  */
 export type MemoizedFunction<Args extends unknown[], Result> = ((
   ...args: Args
@@ -64,7 +64,7 @@ export type MemoizedFunction<Args extends unknown[], Result> = ((
  * @param keyResolver - Optional function to generate cache keys (for first overload).
  * @param options - Memoization options (for second overload).
  * @returns The memoized function with `clear()`, `delete()` methods and `cache` property.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance Uses first argument as cache key by default (no serialization). Single `Map.get()` lookup on cache hit. Custom cache allows LRU/TTL strategies.
  *

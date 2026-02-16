@@ -13,7 +13,7 @@ import { differenceBy } from "../../arkhe/array/difference-by";
  * @deprecated Use `differenceBy` instead for immutable operations.
  * Reason: Pithos design philosophy always favors immutability.
  * @see differenceBy
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

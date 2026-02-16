@@ -2,13 +2,13 @@
 sidebar_label: "Practical Example"
 sidebar_position: 4
 title: "Practical Example"
-description: "Build a real-world feature combining multiple Pithos modules"
+description: "Build a real-world feature combining multiple Pithos modules for type-safe data manipulation, schema validation, and error handling."
 slug: practical-example
 ---
 
 import { DashboardPlayground } from '@site/src/components/playground/DashboardPlayground';
 
-# 🛠️ Practical Example
+# 🗜️ Practical Example
 
 Let's build something real: a **user dashboard loader** that fetches data from an API, validates it, transforms it, and handles errors gracefully.
 
@@ -82,7 +82,7 @@ const DashboardSchema = object({
 
 :::tip Using Zod-like API
 
-If you prefer Zod's API and don't need absolute tree-shaking, you can use the Zod shim:
+If you're coming from Zod, the Zod-compatible shim offers a familiar syntax with fewer imports, at the cost of slightly larger bundles:
 
 ```typescript
 import { z } from "pithos/kanon/helpers/as-zod.shim";
@@ -224,6 +224,8 @@ function loadDashboard(userId: string): ResultAsync<DashboardData, string> {
 ```
 
 ### Step 5: Use it in your app
+
+With the pipeline in place, consuming the result in a component is straightforward: pattern match on success or error and render accordingly:
 
 ```typescript
 // src/components/Dashboard.tsx

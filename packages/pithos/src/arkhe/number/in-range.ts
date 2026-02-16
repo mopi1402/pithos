@@ -5,7 +5,7 @@
  * @param min - Minimum bound (inclusive). If `max` omitted, becomes max with min defaulting to 0.
  * @param max - Maximum bound (exclusive).
  * @returns `true` if value is in range [min, max), else `false`.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Returns `false` for empty ranges (min >= max) and NaN values.
  *

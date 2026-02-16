@@ -490,7 +490,7 @@
     "description": "Description for Zod library in kanon performance table"
   },
   "comparison.kanon.lib.valibot": {
-    "message": "Modular schema validation, tree-shakeable",
+    "message": "Modular schema validation, tree-shakable",
     "description": "Description for Valibot library in kanon performance table"
   },
   "comparison.kanon.lib.superstruct": {
@@ -686,7 +686,7 @@
     "description": "Category label for general utilities in taphos performance table"
   },
   "comparison.taphos.tldr": {
-    "message": "Native JavaScript wins {nativeWinRate}% of benchmarks. That's the point — Taphos helps you migrate from Lodash, but the real goal is native JS. Among libraries, Taphos is competitive with {taphosWins} wins.",
+    "message": "Native JavaScript wins {nativeWinRate}% of benchmarks. That's the point: Taphos helps you migrate from Lodash, but the real goal is native JS. Among libraries, Taphos is competitive with {taphosWins} wins.",
     "description": "TL;DR summary for taphos performance comparison"
   },
 
@@ -712,7 +712,7 @@
   },
 
   "comparison.zygos.lib.zygos": {
-    "message": "Pithos Result/Option module (lightweight, tree-shakeable)",
+    "message": "Pithos Result/Option module (lightweight, tree-shakable)",
     "description": "Description for Zygos library in performance table"
   },
   "comparison.zygos.lib.neverthrow": {
@@ -732,7 +732,7 @@
     "description": "Highlighted portion of zygos Result TL;DR"
   },
   "comparison.zygos.tldr.option": {
-    "message": "Zygos wins {winRate}% of Option benchmarks vs fp-ts. Lightweight and tree-shakeable alternative to fp-ts Option.",
+    "message": "Zygos wins {winRate}% of Option benchmarks vs fp-ts. Lightweight and tree-shakable alternative to fp-ts Option.",
     "description": "TL;DR summary for zygos Option performance comparison"
   },
   "comparison.zygos.tldr.option.highlight": {

@@ -6,7 +6,7 @@
  * @param object - The object to omit keys from.
  * @param keys - Array of keys to omit.
  * @returns A new object without the specified keys.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Non-existent keys are ignored.
  * @note Overload with `PropertyKey[]` returns `Partial<T>` for dynamic keys.

@@ -6,7 +6,7 @@ import { Result, err, ok } from "@zygos/result/result";
  * @template TReturn - The return type.
  * @param fn - The function to wrap.
  * @returns A new function that returns a `Result<TReturn, Error>`.
- * @since 1.0.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * import { chunk } from './chunk';

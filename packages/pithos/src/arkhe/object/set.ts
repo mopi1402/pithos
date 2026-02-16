@@ -10,7 +10,7 @@ import { deepClone } from "./deep-clone";
  * @param path - Property path (dot notation string, symbol, or array of keys).
  * @param value - The value to set.
  * @returns A new object with the value set at the specified path.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Creates intermediate objects/arrays as needed based on path structure.
  * @note Uses structuredClone for performance; falls back to deepClone for symbol keys.

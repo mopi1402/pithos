@@ -6,7 +6,7 @@
  * @param array - The array to iterate over.
  * @param iteratee - A function that returns the key for each element.
  * @returns An object with keys mapping to elements.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note In case of duplicate keys, the last value wins.
  *

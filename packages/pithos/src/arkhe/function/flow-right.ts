@@ -3,7 +3,7 @@
  * This is the opposite of `pipe` (also known as `compose`).
  *
  * @returns The composed function.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Alias: `compose`
  *
@@ -90,6 +90,6 @@ export function flowRight(...fns: Array<(arg: any) => any>): (arg: any) => any {
 /**
  * Alias for flowRight.
  * @see flowRight
- * @since 1.1.0
+ * @since 2.0.0
  */
 export const compose = flowRight;

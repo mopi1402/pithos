@@ -11,7 +11,7 @@ export interface Point {
 
 /**
  * Represents a 2D vector with x and y components.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export interface Vector {
   /** X component. */
@@ -22,7 +22,7 @@ export interface Vector {
 
 /**
  * Represents a rectangle with position and dimensions.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export interface Rectangle {
   /** X position of the top-left corner. */
@@ -37,7 +37,7 @@ export interface Rectangle {
 
 /**
  * Represents a circle with center position and radius.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export interface Circle {
   /** X position of the center. */
@@ -50,7 +50,7 @@ export interface Circle {
 
 /**
  * Represents a line segment between two points.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export interface Line {
   /** Starting point of the line. */
@@ -61,7 +61,7 @@ export interface Line {
 
 /**
  * Represents dimensions with width and height.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export interface Size {
   /** Width dimension. */
@@ -72,7 +72,7 @@ export interface Size {
 
 /**
  * Represents axis-aligned bounding box with min and max points.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export interface Bounds {
   /** Minimum corner point. */

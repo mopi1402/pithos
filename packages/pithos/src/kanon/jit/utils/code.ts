@@ -3,7 +3,7 @@
  *
  * Common utilities for JIT code builders.
  *
- * @since 3.3.0
+ * @since 2.0.0
  * @experimental
  */
 
@@ -13,7 +13,7 @@ import { getIndent } from "../context";
 /**
  * Result of code generation containing the generated code and updated context.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export interface CodeGenResult {
   /** Generated JavaScript code */
@@ -27,7 +27,7 @@ export interface CodeGenResult {
  *
  * @param str - The string to escape
  * @returns Escaped string safe for use in generated JavaScript
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -51,7 +51,7 @@ export function escapeString(str: string): string {
  * @param ctx - The generator context
  * @param comment - The comment text
  * @returns The formatted comment string, or empty string if not in debug mode
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -73,7 +73,7 @@ export function debugComment(ctx: GeneratorContext, comment: string): string {
  * @param ctx - The generator context
  * @param comment - The comment text
  * @returns The formatted comment with preceding blank line, or empty string if not in debug mode
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function debugSectionComment(ctx: GeneratorContext, comment: string): string {
   if (!ctx.debug) return "";
@@ -90,7 +90,7 @@ export function debugSectionComment(ctx: GeneratorContext, comment: string): str
  * @param description - Description of what is being validated
  * @param lines - The code lines to wrap
  * @returns Array of code lines, potentially with debug comments
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function wrapWithDebugComment(
   ctx: GeneratorContext,

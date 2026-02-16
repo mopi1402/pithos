@@ -47,7 +47,7 @@ const DEFAULT_DATE_SCHEMA = Object.freeze(createDateSchema());
  *
  * @param message - Custom error message (optional).
  * @returns DateConstraint with all constraints.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function date(message?: string): DateConstraint {
   return message ? createDateSchema(message) : DEFAULT_DATE_SCHEMA;

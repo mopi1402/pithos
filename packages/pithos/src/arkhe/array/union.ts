@@ -4,7 +4,7 @@
  * @template T - The type of elements in the arrays.
  * @param arrays - The arrays to combine.
  * @returns A new array with unique elements.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note First occurrence wins when duplicates are found.
  *

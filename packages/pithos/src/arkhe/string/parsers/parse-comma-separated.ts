@@ -5,7 +5,7 @@
  * @param value - The comma-separated string to parse.
  * @param parser - The function to transform each value.
  * @returns The array of parsed values.
- * @since 1.1.0
+ * @since 1.0.0
  *
  * @note Does not trim values automatically. Empty string returns `['']`.
  *

@@ -7,6 +7,12 @@ description: "Compare Zygos Result and Neverthrow APIs: 100% compatible, drop-in
 
 import { Accordion } from '@site/src/components/shared/Accordion';
 import { Code } from '@site/src/components/shared/Code';
+import { DashedSeparator } from '@site/src/components/shared/DashedSeparator';
+import { TableConfig } from '@site/src/components/shared/Table/TableConfigContext';
+import { MigrationCTA } from '@site/src/components/comparisons/MigrationCTA';
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
+import { ZygosSizeHighlight } from '@site/src/components/comparisons/zygos/BundleSizeTable';
+
 
 # ⛓️‍💥 Zygos ↔ Neverthrow Interoperability
 
@@ -20,17 +26,19 @@ Real compatibility data. No guesswork. **Analyzed against Neverthrow 8.2.0.**
 |--------|-------|
 | **Result API** | 100% compatible |
 | **ResultAsync API** | 100% compatible |
-| **Bundle Size** | ~8x smaller (0.79KB vs 6.62KB) |
+| **Bundle Size** | <ZygosSizeHighlight type="full" /> |
 | **Migration Effort** | Import change only |
 
 :::tip[Bottom line]
-Change your import from `neverthrow` to `pithos/zygos/result` and you're done. **Zero code changes required.**
+Change your import from `neverthrow` to `pithos/zygos/result/result` and you're done. **Zero code changes required.**
 :::
+
+---
 
 ## About Zygos Result
 
 Zygos Result is a micro implementation of Neverthrow's Result type that is:
-- **8x smaller** (~0.79KB vs ~6.62KB from Neverthrow 8.2.0)
+- **<ZygosSizeHighlight type="full" />** than Neverthrow 8.2.0
 - **100% API compatible** - can be seamlessly replaced without code changes
 - **Zero `any` types** for better type safety
 
@@ -40,10 +48,13 @@ Zygos Result is a micro implementation of Neverthrow's Result type that is:
 import { ok, err, Result, ResultAsync } from "neverthrow";
 
 // After
-import { ok, err, Result, ResultAsync } from "pithos/zygos/result";
+import { ok, err, Result } from "pithos/zygos/result/result";
+import { ResultAsync } from "pithos/zygos/result/result-async";
 
-// Your existing code works as-is!
+// Your existing code works as-is
 ```
+
+---
 
 ## ✅ Full API Compatibility
 
@@ -54,7 +65,7 @@ Click to expand each category and see the supported features:
 <Code>ok(value)</Code>, <Code>err(error)</Code>
 
 ```typescript
-import { ok, err, Result } from "pithos/zygos/result";
+import { ok, err, Result } from "pithos/zygos/result/result";
 
 const success: Result<number, string> = ok(42);
 const failure: Result<number, string> = err("Something went wrong");
@@ -108,7 +119,7 @@ const withError = Result.combine([ok(1), err("fail"), ok(3)]); // Err("fail")
 <Code>okAsync()</Code>, <Code>errAsync()</Code>
 
 ```typescript
-import { okAsync, errAsync, ResultAsync } from "pithos/zygos/result";
+import { okAsync, errAsync, ResultAsync } from "pithos/zygos/result/result-async";
 
 const asyncSuccess = okAsync(Promise.resolve(42));
 const asyncError = errAsync("network error");
@@ -176,7 +187,7 @@ const combined = ResultAsync.combine([
 <Code>safeTry()</Code>
 
 ```typescript
-import { safeTry, ok, err } from "pithos/zygos/result";
+import { safeTry, ok, err } from "pithos/zygos/result/result";
 
 // With generator function
 const result = safeTry(function* () {
@@ -190,17 +201,25 @@ const direct = safeTry(() => ok(42));
 
 </Accordion>
 
+---
+
 ## ✨ What Zygos adds
 
 Beyond Neverthrow compatibility, Zygos brings unique features:
 
+<TableConfig noEllipsis>
+
 | Feature | Description |
 |---------|-------------|
-| 📦 **8x Smaller Bundle** | ~0.79KB vs ~6.62KB from Neverthrow |
+| 📦 **<ZygosSizeHighlight type="ratio" />** | <ZygosSizeHighlight type="sizes" /> |
 | 🔒 **Zero `any` Types** | Better type safety with `unknown` types |
 | 🔄 **fp-ts Bridges** | Convert to/from Option and Either |
-| ⚡ **safeAsyncTry** | Simplified async error handling |
+| ⚡️ **safeAsyncTry** | Simplified async error handling |
 | 🎯 **combineWithAllErrors** | Collect all errors instead of stopping at first |
+
+</TableConfig>
+
+<DashedSeparator noMarginBottom />
 
 ### fp-ts Interoperability
 
@@ -213,7 +232,7 @@ import {
   toEither,
   ok, 
   err 
-} from "pithos/zygos/result";
+} from "pithos/zygos/result/result";
 
 // Option → Result
 const someOption = { _tag: "Some", value: 42 };
@@ -237,12 +256,14 @@ const toRight = toEither(okResult); // { _tag: "Right", right: 42 }
 const toLeft = toEither(errResult); // { _tag: "Left", left: "error" }
 ```
 
+<DashedSeparator noMarginBottom />
+
 ### safeAsyncTry
 
 Simplified async error handling without generators:
 
 ```typescript
-import { safeAsyncTry } from "pithos/zygos/result";
+import { safeAsyncTry } from "pithos/zygos/result/result";
 
 const fetchUser = async (id: string) => {
   const response = await fetch(`/api/users/${id}`);
@@ -258,12 +279,14 @@ if (result.isOk()) {
 }
 ```
 
+<DashedSeparator noMarginBottom />
+
 ### combineWithAllErrors
 
 Collect all errors instead of stopping at the first one:
 
 ```typescript
-import { ResultAsync, okAsync, errAsync } from "pithos/zygos/result";
+import { ResultAsync, okAsync, errAsync } from "pithos/zygos/result/result-async";
 
 const results = [
   okAsync(1),
@@ -277,56 +300,32 @@ const resolved = await combined;
 // Err(["error1", "error2"]) - collects ALL errors
 ```
 
-<Accordion title="Migration Guide">
+<MigrationCTA module="Zygos" guideLink="/guide/modules/zygos/#migrating-from-neverthrow-or-fp-ts" guideDescription="install, swap imports, and start using additional features" />
 
-### Step 1: Install
-
-```bash
-npm install pithos
-```
-
-### Step 2: Update imports
-
-```typescript
-// Before
-import { ok, err, Result, ResultAsync, safeTry } from "neverthrow";
-
-// After
-import { ok, err, Result, ResultAsync, safeTry } from "pithos/zygos/result";
-```
-
-### Step 3: Run your tests
-
-All your existing code works as-is. The API is 100% compatible.
-
-### Step 4: (Optional) Use additional features
-
-Once migrated, you can take advantage of Zygos-specific features:
-
-```typescript
-// fp-ts bridges
-import { fromOption, fromEither, toEither } from "pithos/zygos/result";
-
-// Simplified async try
-import { safeAsyncTry } from "pithos/zygos/result";
-
-// Collect all errors
-const allErrors = ResultAsync.combineWithAllErrors(results);
-```
-
-</Accordion>
+---
 
 ## Why choose Zygos over Neverthrow?
 
-| Aspect | Neverthrow | Zygos |
-|--------|------------|-------|
-| **Bundle Size** | ~6.62KB | ~0.79KB (8x smaller) |
-| **Type Safety** | Uses `any` in some places | Zero `any` types |
-| **fp-ts Bridges** | ❌ | ✅ fromOption, fromEither, toEither |
-| **safeAsyncTry** | ❌ | ✅ Simplified async handling |
+| Aspect | Zygos | Neverthrow |
+|--------|-------|------------|
+| **Bundle Size** | <ZygosSizeHighlight type="zygos-size" /> (<ZygosSizeHighlight type="ratio" />) | <ZygosSizeHighlight type="nev-size" /> |
+| **Type Safety** | Zero `any` types | Uses `any` in some places |
+| **fp-ts Bridges** | ✅ fromOption, fromEither, toEither | ❌ |
+| **safeAsyncTry** | ✅ Simplified async handling | ❌ |
 | **combineWithAllErrors** | ✅ | ✅ |
-| **API Compatibility** | - | 100% drop-in replacement |
+| **API Compatibility** | 100% drop-in replacement | - |
 
 :::tip[Recommendation]
-If you're already using Neverthrow, switching to Zygos is a no-brainer: same API, smaller bundle, better types, and additional features. Just change your imports!
+If you're already using Neverthrow, switching to Zygos is straightforward: same API, smaller bundle, better types, and additional features. Just change your imports.
 :::
+
+---
+
+<RelatedLinks>
+
+- [Zygos vs Neverthrow](./zygos-vs-neverthrow.md) — Full comparison: philosophy, API, migration
+- [Kanon ↔ Zod Interoperability](../kanon/interoperability.md) — Another migration compatibility story
+- [Equivalence Table](/comparisons/equivalence-table/) — Full library equivalence across all modules
+- [Zygos Module Guide](/guide/modules/zygos/) — Full module documentation
+
+</RelatedLinks>

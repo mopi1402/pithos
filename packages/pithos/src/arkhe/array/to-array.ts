@@ -6,7 +6,7 @@ import { Arrayable } from "@arkhe/types/common/arrayable";
  * @template T - The type of elements.
  * @param value - A single value or array of values.
  * @returns The value wrapped in an array, or the original array if already one.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Uses `Array.isArray()` for type discrimination — required for union types.
  *

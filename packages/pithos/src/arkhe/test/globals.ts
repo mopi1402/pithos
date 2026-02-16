@@ -6,7 +6,7 @@ const _globalThis = globalThis as any;
  * Returns typed reference to globalThis for test environments.
  *
  * @returns The global object with any typing.
- * @since 1.1.0
+ * @since 2.0.0
  */
 export const getGlobalThis = (): typeof _globalThis => _globalThis;
 
@@ -30,6 +30,7 @@ const unregisterRestore = (restore: () => void): void => {
 /**
  * Wraps a restore function for automatic tracking.
  * @internal
+ * @since 2.0.0
  */
 export const trackRestore = (restore: () => void): (() => void) => {
   registerRestore(restore);
@@ -52,10 +53,16 @@ const autoRestoreAll = (): void => {
   }
 };
 
-/** @internal */
+/**
+ * @internal
+ * @since 2.0.0
+ */
 export const __autoRestoreAll = autoRestoreAll;
 
-/** Result of mockWindow(). */
+/**
+ * Result of mockWindow().
+ * @since 2.0.0
+ */
 export interface MockWindowResult {
   window: Window & typeof _globalThis;
   restore: () => void;
@@ -66,7 +73,7 @@ export interface MockWindowResult {
  *
  * @param overrides - Properties to set on the mock window.
  * @returns Object containing the mock window and restore function.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Always call `restore()` for cleanup. Auto-restored after each test if forgotten.
  *
@@ -97,7 +104,10 @@ export const mockWindow = (
   return { window: mockWin, restore: trackRestore(restore) };
 };
 
-/** Result of mockDocument(). */
+/**
+ * Result of mockDocument().
+ * @since 2.0.0
+ */
 export interface MockDocumentResult {
   document: Document;
   restore: () => void;
@@ -108,7 +118,7 @@ export interface MockDocumentResult {
  *
  * @param overrides - Properties to set on the mock document.
  * @returns Object containing the mock document and restore function.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Always call `restore()` for cleanup. Auto-restored after each test if forgotten.
  *
@@ -140,7 +150,10 @@ export const mockDocument = (
   return { document: mockDoc, restore: trackRestore(restore) };
 };
 
-/** Result of mockDOMRect(). */
+/**
+ * Result of mockDOMRect().
+ * @since 2.0.0
+ */
 export interface MockDOMRectResult {
   DOMRect: typeof DOMRect;
   restore: () => void;
@@ -151,7 +164,7 @@ export interface MockDOMRectResult {
  *
  * @param implementation - Optional custom DOMRect implementation.
  * @returns Object containing the mock DOMRect and restore function.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Always call `restore()` for cleanup. Auto-restored after each test if forgotten.
  *
@@ -219,7 +232,10 @@ export const mockDOMRect = (
   return { DOMRect: mockDOMRectClass, restore: trackRestore(restore) };
 };
 
-/** Result of mockPerformance(). */
+/**
+ * Result of mockPerformance().
+ * @since 2.0.0
+ */
 export interface MockPerformanceResult {
   performance: Performance;
   restore: () => void;
@@ -230,7 +246,7 @@ export interface MockPerformanceResult {
  *
  * @param overrides - Properties to override on the mock performance.
  * @returns Object containing the mock performance and restore function.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Always call `restore()` for cleanup. Auto-restored after each test if forgotten.
  *
@@ -272,7 +288,7 @@ export const mockPerformance = (
  * @param key - The key to set on globalThis.
  * @param value - The value to set.
  * @returns A restore function.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Always call the returned restore function. Auto-restored after each test if forgotten.
  *

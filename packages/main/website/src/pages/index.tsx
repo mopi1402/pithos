@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { useCallback, useRef } from "react";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import { translate } from "@docusaurus/Translate";
 import Head from "@docusaurus/Head";
 import Layout from "@theme/Layout";
@@ -46,11 +45,11 @@ function HomepageHeader({
             role="button"
             tabIndex={0}
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleClick(); }}
-            style={{ cursor: 'pointer', visibility: jarHidden ? 'hidden' : 'visible' }}
+            style={{ visibility: jarHidden ? 'hidden' : 'visible' }}
           >
             <Picture
               src="/img/generated/logos/pithos"
-              alt="Pithos"
+              alt="Pithos - TypeScript utilities library with zero dependencies"
               widths={[120, 180, 360]}
               sizes="(max-width: 600px) 120px, 180px"
             />
@@ -65,7 +64,7 @@ function HomepageHeader({
               <span style={{whiteSpace: 'nowrap'}}>{translate({ id: 'homepage.hero.tagline4', message: '100%\u00A0TypeScript.' })}</span>
             </p>
             <div className={styles.heroButtons}>
-              <Link className={styles.buttonPrimary} to="/guide/quick-start">
+              <Link className={styles.buttonPrimary} to="/guide/get-started">
                 {translate({ id: 'homepage.hero.getStarted', message: 'Get Started' })}
               </Link>
               <Link className={styles.buttonSecondary} to="/guide/basics/practical-example">
@@ -107,11 +106,12 @@ export default function Home(): ReactNode {
 
   return (
     <Layout
-      description={translate({ id: 'homepage.meta.description', message: 'Everything you need. Nothing you don\'t. A complete TypeScript utilities ecosystem with zero dependencies — arrays, objects, validation, error handling and more.' })}
+      title="TypeScript Utilities Library with Zero Dependencies"
+      description={translate({ id: 'homepage.meta.description', message: 'Pithos is a complete TypeScript utilities library with zero dependencies. Includes tree-shakable utilities, schema validation, Result types, and more. A modern alternative to Lodash, Zod, and Neverthrow.' })}
     >
       <Head>
-        <title>Pithos | TypeScript Utilities. Zero Dependencies.</title>
-        <meta property="og:title" content="Pithos | TypeScript Utilities. Zero Dependencies." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://pithos.dev/" />
       </Head>
       <VortexCanvas configs={VORTEX_CONFIGS} paused={egg.easterEgg != null} />
       <HomepageHeader

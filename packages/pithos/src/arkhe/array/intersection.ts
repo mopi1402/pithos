@@ -7,7 +7,7 @@
  * @template T - The type of the elements in the input arrays.
  * @param arrays - Arrays of type T to compute the intersection from.
  * @returns A new array containing the common elements found in all input arrays.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n × m) time & space where n = first array length, m = number of arrays. Uses Set for constant-time lookups.
  *

@@ -6,7 +6,7 @@
  * @param n - The number of elements to sample.
  * @returns A new array of sampled elements.
  * @throws {RangeError} If n is negative.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Uses Fisher-Yates shuffle algorithm for unbiased sampling.
  *

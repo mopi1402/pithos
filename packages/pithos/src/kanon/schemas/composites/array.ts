@@ -10,7 +10,7 @@ import { ArraySchema } from "@kanon/types/composites";
  * @param item - Schema for array items.
  * @param message - Custom error message (optional).
  * @returns ArrayConstraint with all constraints.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function array<ItemSchema extends GenericSchema>(
   item: ItemSchema,

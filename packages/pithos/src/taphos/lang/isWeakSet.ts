@@ -5,7 +5,7 @@
  * @returns `true` if value is a WeakSet, else `false`.
  * @deprecated Use `instanceof WeakSet` directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet | WeakSet - MDN}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

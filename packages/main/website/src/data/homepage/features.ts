@@ -17,7 +17,7 @@ export const FEATURES: Feature[] = [
   {
     icon: "/img/generated/homepage/tiny_bundle_size",
     title: translate({ id: 'homepage.features.bundleSize.title', message: 'Tiny Bundle Size' }),
-    description: translate({ id: 'homepage.features.bundleSize.description', message: 'Up to 97% less JavaScript code. Fully tree-shakeable for optimal bundle size.' }),
+    description: translate({ id: 'homepage.features.bundleSize.description', message: 'Up to 97% less JavaScript code. Fully tree-shakable for optimal bundle size.' }),
     link: "/comparisons/arkhe/bundle-size",
   },
   {

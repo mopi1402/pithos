@@ -1,4 +1,4 @@
-## `partial`
+## `partial` ⭐
 
 ### **Pre-fill** arguments 📍
 

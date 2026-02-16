@@ -53,7 +53,7 @@ export const kanonConfig: ModuleConfig<KanonCategory> = {
   libraryDescriptions: {
     kanon: translate({ id: 'comparison.kanon.lib.kanon', message: 'Pithos validation module (schema-first + JIT)' }),
     zod: translate({ id: 'comparison.kanon.lib.zod', message: 'Schema-first validation with TypeScript inference' }),
-    valibot: translate({ id: 'comparison.kanon.lib.valibot', message: 'Modular schema validation, tree-shakeable' }),
+    valibot: translate({ id: 'comparison.kanon.lib.valibot', message: 'Modular schema validation, tree-shakable' }),
     superstruct: translate({ id: 'comparison.kanon.lib.superstruct', message: 'Composable validation with custom types' }),
     ajv: translate({ id: 'comparison.kanon.lib.ajv', message: 'JSON Schema validator with JIT compilation' }),
     "@sinclair/typebox": translate({ id: 'comparison.kanon.lib.typebox', message: 'JSON Schema with TypeScript inference + JIT' }),

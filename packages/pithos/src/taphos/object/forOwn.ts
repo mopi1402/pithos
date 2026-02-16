@@ -6,7 +6,7 @@
  * @param iteratee - The function invoked per iteration.
  * @deprecated Use `Object.keys().forEach()` or `Object.entries().forEach()` directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys | Object.keys() - MDN}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

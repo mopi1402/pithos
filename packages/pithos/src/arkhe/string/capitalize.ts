@@ -3,7 +3,7 @@
  *
  * @param str - The string to capitalize.
  * @returns The capitalized string.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Supports Unicode characters (accents, Cyrillic, etc.).
  *

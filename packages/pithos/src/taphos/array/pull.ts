@@ -9,7 +9,7 @@
  * @returns The mutated array.
  * @deprecated Use `difference` instead.
  * Reason: Pithos design philosophy always favors immutability.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

@@ -4,7 +4,7 @@
  * @template T - The type of the value the promise resolves to.
  * @param value - The value to check.
  * @returns `true` if the value is a Promise or thenable, `false` otherwise.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

@@ -30,7 +30,7 @@ const DEFAULT_INT_SCHEMA = Object.freeze(createIntSchema());
  *
  * @param message - Custom error message (optional).
  * @returns IntSchema
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function int(message?: string): IntSchema {
   return message ? createIntSchema(message) : DEFAULT_INT_SCHEMA;

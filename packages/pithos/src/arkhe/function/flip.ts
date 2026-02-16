@@ -7,7 +7,7 @@
  * @template Result - The return type.
  * @param fn - The function to flip.
  * @returns The flipped function.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

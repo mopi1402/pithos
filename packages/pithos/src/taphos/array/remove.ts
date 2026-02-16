@@ -9,7 +9,7 @@
  * @returns An array of removed elements.
  * @deprecated Use `.filter()` for immutable operations.
  * Reason: Pithos design philosophy always favors immutability.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

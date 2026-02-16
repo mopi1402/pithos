@@ -7,7 +7,7 @@
  * @param keyValueSeparator - The separator between key and value. Defaults to `"="`.
  * @defaultValue "="
  * @returns The object containing parsed key-value pairs.
- * @since 1.1.0
+ * @since 1.0.0
  *
  * @note Trims keys and values automatically. Ignores malformed pairs (empty key or value).
  *

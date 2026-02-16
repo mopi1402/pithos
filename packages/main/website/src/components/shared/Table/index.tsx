@@ -28,6 +28,8 @@ export interface TableProps<T> {
   stickyHeaderOffset?: number;
   /** Optional function to extract section label from item. When provided, items with different sections will have a section header row inserted. */
   sectionExtractor?: (item: T) => string | null;
+  /** Disable ellipsis truncation — first column stays nowrap, others wrap naturally */
+  noEllipsis?: boolean;
 }
 
 export function Table<T>({
@@ -40,6 +42,7 @@ export function Table<T>({
   stickyHeader = true,
   stickyHeaderOffset = 60,
   sectionExtractor,
+  noEllipsis = false,
 }: TableProps<T>): React.ReactElement {
   const wrapperRef = React.useRef<HTMLDivElement>(null);
   const { isScrolledToEnd, shadowScale } = useScrollShadow(wrapperRef, {
@@ -176,7 +179,7 @@ export function Table<T>({
       >
         <table
           ref={stickyHeader ? tableRef : undefined}
-          className={`${styles.table} ${highlightedHeader ? styles.highlightedHeader : ""}`}
+          className={`${styles.table} ${highlightedHeader ? styles.highlightedHeader : ""} ${noEllipsis ? styles.noEllipsis : ""}`}
         >
           {renderTableContent(false)}
         </table>
@@ -185,7 +188,7 @@ export function Table<T>({
       {stickyHeader && (
         <div
           ref={cloneWrapperRef}
-          className={`${styles.tableWrapper} ${styles.cloneWrapper}`}
+          className={styles.cloneWrapper}
           style={{ display: "none" }}
           aria-hidden="true"
         >
@@ -199,7 +202,7 @@ export function Table<T>({
       {stickyHeader && sectionExtractor && (
         <div
           ref={sectionWrapperRef}
-          className={`${styles.tableWrapper} ${styles.sectionCloneWrapper}`}
+          className={styles.sectionCloneWrapper}
           style={{ display: "none" }}
           aria-hidden="true"
         >

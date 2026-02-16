@@ -42,7 +42,7 @@ import { isSomeOption } from "@arkhe/types/utilities/is-some-option";
  *
  * @template T - The type of the success value
  * @template E - The type of the error value
- * @since 1.1.0
+ * @since 2.0.0
  */
 export type Result<T, E> = Ok<T, E> | Err<T, E>;
 
@@ -199,7 +199,7 @@ interface IResult<T, E> {
  *
  * @template T - The type of the success value
  * @template E - The type of the error value (unused in Ok)
- * @since 1.1.0
+ * @since 2.0.0
  */
 export class Ok<T, E> implements IResult<T, E> {
   /**
@@ -307,7 +307,7 @@ export class Ok<T, E> implements IResult<T, E> {
  *
  * @template T - The type of the success value (unused in Err)
  * @template E - The type of the error value
- * @since 1.1.0
+ * @since 2.0.0
  */
 export class Err<T, E> implements IResult<T, E> {
   /**
@@ -416,7 +416,7 @@ export class Err<T, E> implements IResult<T, E> {
  * @template E - The type of the error value (defaults to never)
  * @param value - The value to wrap in a successful result
  * @returns A new Ok result containing the value
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -436,7 +436,7 @@ export function ok<T, E = never>(value: T): Ok<T, E> {
  * @template E - The type of the error value (defaults to unknown)
  * @param error - The error to wrap in an error result
  * @returns A new Err result containing the error
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -457,7 +457,7 @@ export function err<T = never, E = unknown>(error: E): Err<T, E> {
  * @template E - The type of the error value
  * @param body - Generator function that yields errors and returns a final result, or a function that returns a Result directly
  * @returns The final result from the generator or function
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -641,7 +641,7 @@ export async function safeAsyncTry<T>(
  * @template E - The error type
  * @param onNone - Function to create error when Option is None
  * @returns A function that converts an Option to a Result
- * @since 1.1.0
+ * @since 2.0.0
  */
 export const fromOption =
   <E>(onNone: () => E) =>
@@ -661,7 +661,7 @@ const isRight = <A>(fa: {
  * @template A - The success type
  * @param fa - The Either to convert
  * @returns A Result
- * @since 1.1.0
+ * @since 2.0.0
  */
 export const fromEither = <E, A>(fa: {
   _tag: "Left" | "Right";
@@ -676,7 +676,7 @@ export const fromEither = <E, A>(fa: {
  * @template E - The error type
  * @param fa - The Result to convert
  * @returns An Either
- * @since 1.1.0
+ * @since 2.0.0
  */
 export const toEither = <A, E>(
   fa: Result<A, E>

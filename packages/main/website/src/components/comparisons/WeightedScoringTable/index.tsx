@@ -100,6 +100,7 @@ export function WeightedScoringTable(): React.ReactElement {
         data={weightedScoringData}
         keyExtractor={(row) => row.category}
         stickyHeader={false}
+        noEllipsis
       />
     </div>
   );

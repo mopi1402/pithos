@@ -1,7 +1,13 @@
 ---
 sidebar_position: 10
 title: Comparison with Alternatives
+description: "How Pithos compares to Lodash, es-toolkit, Remeda, Radash, Ramda, and other TypeScript utility libraries across key design dimensions."
+keyword_stuffing_ignore:
+  - first
+  - default
 ---
+
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 # Comparison with Alternatives
 
@@ -11,7 +17,7 @@ title: Comparison with Alternatives
 | **Immutability**  | **Default**    | Mixed       | Default    | Default | Default | Default | Default    | Default      | Default |
 | **Invalid input** | **Throw**      | Silent      | Throw      | Throw   | Mixed   | Silent  | Mixed      | Mixed        | Effect  |
 | **Data paradigm** | **First**      | First       | First      | Dual    | First   | Last    | First      | First        | Pipe    |
-| **Tree-shakeable**| **Yes**        | lodash-es   | Yes        | Yes     | Yes     | Yes     | Yes        | Yes          | Yes     |
+| **Tree-shakable**| **Yes**        | lodash-es   | Yes        | Yes     | Yes     | Yes     | Yes        | Yes          | Yes     |
 | **Dependencies**  | **0**          | 0           | 0          | 0       | 0       | 0       | 0          | 0            | 0       |
 | **Result monad**  | **✅ (Zygos)** | ❌          | ❌         | ❌      | ❌      | ❌      | ❌         | ❌           | ✅      |
 | **Validation**    | **✅ (Kanon)** | ❌          | ❌         | ❌      | ❌      | ❌      | ❌         | ❌           | ✅      |
@@ -43,7 +49,7 @@ Before adding a function to Arkhe/Pithos:
 - [ ] **Complete TSDoc**: Description, params, returns, throws, examples
 - [ ] **100% tests**: Complete coverage, edge cases included
 - [ ] **Benchmark**: No performance regression
-- [ ] **Tree-shakeable**: Granular export
+- [ ] **Tree-shakable**: Granular export
 
 ---
 
@@ -54,3 +60,13 @@ Before adding a function to Arkhe/Pithos:
 | Lazy evaluation     | To study | For chained operations         |
 | Web APIs extensions | Planned  | Fetch, Storage, etc.           |
 | Async iterators     | Planned  | Generators and AsyncGenerators |
+
+---
+
+<RelatedLinks>
+
+- [Arkhe vs Lodash — Bundle Size](/comparisons/arkhe/bundle-size) — Real numbers on bundle impact
+- [Kanon vs Zod — Interoperability](/comparisons/kanon/interoperability/) — Feature-by-feature comparison
+- [Zygos vs Neverthrow — Interoperability](/comparisons/zygos/interoperability/) — Drop-in replacement details
+
+</RelatedLinks>

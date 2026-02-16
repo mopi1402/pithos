@@ -8,7 +8,7 @@ import { addStringConstraints } from "@kanon/schemas/constraints/string";
  *
  * @param message - Custom error message.
  * @returns Schema that coerces to string with chainable constraints.
- * @since 3.0.0
+ * @since 2.0.0
  *
  * @example
  * ```ts

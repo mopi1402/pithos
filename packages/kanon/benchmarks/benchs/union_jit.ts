@@ -4,7 +4,7 @@
  * Compares V3 non-compiled vs JIT compiled union validators against other libraries.
  * Tests various union configurations to identify if unions are a weak point for JIT.
  *
- * @since 3.3.0
+ * @since 2.0.0
  * @experimental
  *
  * ## Test Scenarios

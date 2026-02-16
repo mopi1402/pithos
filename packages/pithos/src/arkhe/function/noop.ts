@@ -4,7 +4,7 @@
  * Useful as a default callback or placeholder.
  *
  * @returns Always returns `undefined`.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

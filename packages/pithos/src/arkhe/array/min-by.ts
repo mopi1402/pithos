@@ -5,7 +5,7 @@
  * @param array - The array to iterate over.
  * @param iteratee - A function that returns the value to compare.
  * @returns The element with the minimum value, or `undefined` if empty.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n) time, O(1) space.
  *

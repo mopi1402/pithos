@@ -9,7 +9,7 @@
  * @returns The new restricted function. Returns `undefined` until func is first invoked.
  * @throws {RangeError} If n is negative or not an integer.
  * @see after - Inverse operation: invokes func only after n calls.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note When n ≤ 1, func is never invoked and `undefined` is always returned.
  *

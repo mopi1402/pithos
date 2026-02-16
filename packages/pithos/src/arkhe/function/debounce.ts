@@ -8,7 +8,7 @@
  * @param immediate - If `true`, trigger on leading edge instead of trailing edge.
  * @returns The debounced function with `cancel()` and `flush()` methods.
  * @throws {RangeError} If wait is negative or not finite.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance Clears previous timeout on each call to prevent multiple pending executions.
  *

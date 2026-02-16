@@ -1,4 +1,4 @@
-## `find`
+## `find` ⭐
 
 ### **Locate** item by condition 📍
 

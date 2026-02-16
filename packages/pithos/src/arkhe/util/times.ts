@@ -6,7 +6,7 @@
  * @param iteratee - The function to invoke for each index. Defaults to identity (returns indices).
  * @returns An array containing the results of invoking iteratee n times.
  * @throws {RangeError} If n is negative or not an integer.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Without iteratee, returns `[0, 1, 2, ..., n-1]`.
  *

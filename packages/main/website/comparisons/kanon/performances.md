@@ -7,6 +7,8 @@ description: "Runtime performance comparison between Kanon JIT and other validat
 
 import { BenchmarkResultsTable, VersionsTable, PerformanceSummary, WeightedSummary, DetailedStats, GeneratedDate, FilterableBenchmarkSection, KanonPerfTLDR } from '@site/src/components/comparisons/kanon/PerformanceTable';
 import { WeightedScoringTable } from '@site/src/components/comparisons/WeightedScoringTable';
+import { DashedSeparator } from '@site/src/components/shared/DashedSeparator';
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 # 🚅 Kanon Performance Benchmarks
 
@@ -17,6 +19,8 @@ Real-world validation benchmarks. **Data auto-generated on <GeneratedDate />.**
 <KanonPerfTLDR />
 
 Operations per second. Higher is better.
+
+---
 
 ## Methodology
 
@@ -29,6 +33,8 @@ Each benchmark:
 
 The "fastest" label is only awarded when the winner is **≥10% faster** than the runner-up. Otherwise, it's considered a statistical tie.
 
+<DashedSeparator noMarginBottom />
+
 ### Does Performance Matter?
 
 Not all validations matter equally for performance. Validating an API response called 1000x/sec matters more than a one-time config check. We assign weights based on real-world usage patterns:
@@ -37,20 +43,28 @@ Not all validations matter equally for performance. Validating an API response c
 
 This scoring gives a more realistic picture of which library will actually make your app faster.
 
+---
+
 ## Libraries Tested
 
 <VersionsTable />
+
+---
 
 ## Benchmark Results
 
 <FilterableBenchmarkSection />
 
+---
+
 ## Why Kanon JIT is Fast
 
-1. **JIT Compilation** — Schemas are compiled to optimized JavaScript functions at runtime
-2. **No runtime type checks** — Types are validated at compile-time by TypeScript
-3. **Minimal abstraction** — Direct validation logic, no class hierarchies
-4. **Discriminated unions** — O(1) lookup instead of O(n) trial-and-error
+1. **JIT Compilation**: Schemas are compiled to optimized JavaScript functions at runtime
+2. **No runtime type checks**: Types are validated at compile-time by TypeScript
+3. **Minimal abstraction**: Direct validation logic, no class hierarchies
+4. **Discriminated unions**: O(1) lookup instead of O(n) trial-and-error
+
+---
 
 ## A Note on Coercion Performance
 
@@ -72,20 +86,25 @@ return { coerced: new Date(value) }; // pure, no mutation
 ```
 
 We chose **immutability over raw speed** because:
-- **Predictability** — Functions don't modify their arguments
-- **Debugging** — Easier to trace where values come from
-- **Composition** — Pure functions compose better
-- **Safety** — No unexpected side-effects
+- **Predictability**: Functions don't modify their arguments
+- **Debugging**: Easier to trace where values come from
+- **Composition**: Pure functions compose better
+- **Safety**: No unexpected side-effects
 
 The performance difference is negligible in practice (~0.00001ms per validation), and Kanon still dominates on **coercion with constraints** (36x faster than Zod on `date.max()`), which is the common real-world use case.
 
+---
+
 ## Reproduce These Results
 
-```bash
-# Clone the repo
-git clone https://github.com/mopi1402/pithos.git
-cd pithos
+Want to verify these results? See [how to reproduce our data](../reproduce.md).
 
-# Run benchmarks
-pnpm benchmark:kanon realworld all
-```
+---
+
+<RelatedLinks>
+
+- [Kanon vs Zod](./kanon-vs-zod.md) — Full comparison: philosophy, API, migration
+- [Zygos — Performance](../zygos/performances.md) — Result pattern benchmarks
+- [Kanon Module Guide](/guide/modules/kanon/) — Full module documentation
+
+</RelatedLinks>

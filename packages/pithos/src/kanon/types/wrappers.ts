@@ -1,7 +1,7 @@
 /**
  * Specialized types for V3 schema wrappers (nullable, optional, default, readonly, lazy).
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 
 import { Schema, GenericSchema, Infer, SchemaWrapperType } from "./base";
@@ -10,7 +10,7 @@ import { Schema, GenericSchema, Infer, SchemaWrapperType } from "./base";
  * Schema for nullable values.
  *
  * @template Inner - The inner schema type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type NullableSchema<Inner extends GenericSchema> = Schema<
   Infer<Inner> | null
@@ -23,7 +23,7 @@ export type NullableSchema<Inner extends GenericSchema> = Schema<
  * Schema for optional values.
  *
  * @template Inner - The inner schema type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type OptionalSchema<Inner extends GenericSchema> = Schema<
   Infer<Inner> | undefined
@@ -36,7 +36,7 @@ export type OptionalSchema<Inner extends GenericSchema> = Schema<
  * Schema for nullish values (null or undefined).
  *
  * @template Inner - The inner schema type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type NullishSchema<Inner extends GenericSchema> = Schema<
   Infer<Inner> | null | undefined
@@ -49,7 +49,7 @@ export type NullishSchema<Inner extends GenericSchema> = Schema<
  * Schema with default value.
  *
  * @template Inner - The inner schema type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type DefaultSchema<Inner extends GenericSchema> = Schema<
   Infer<Inner>
@@ -63,7 +63,7 @@ export type DefaultSchema<Inner extends GenericSchema> = Schema<
  * Schema for readonly values.
  *
  * @template Inner - The inner schema type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type ReadonlySchema<Inner extends GenericSchema> = Schema<
   Readonly<Infer<Inner>>
@@ -76,7 +76,7 @@ export type ReadonlySchema<Inner extends GenericSchema> = Schema<
  * Schema for lazy evaluation.
  *
  * @template Value - The value type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type LazySchema<Value> = Schema<Value> & {
   type: "lazy";
@@ -88,7 +88,7 @@ export type LazySchema<Value> = Schema<Value> & {
  *
  * @template S - The wrapper schema type
  * @returns The inner schema type, or never if not a wrapper
- * @since 3.0.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * type Inner = UnwrapSchema<NullableSchema<StringSchema>>; // StringSchema
@@ -110,6 +110,6 @@ export type UnwrapSchema<S> = S extends { innerSchema: infer I }
  *
  * @template S - The schema type to check
  * @returns true if the schema is a wrapper, false otherwise
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type IsWrapper<S> = S extends { type: SchemaWrapperType } ? true : false;

@@ -6,7 +6,7 @@
  * @param array - The array to partition.
  * @param predicate - A function that returns true for elements in the first group.
  * @returns A tuple of [matching, non-matching] elements.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n) — single pass through the array.
  *

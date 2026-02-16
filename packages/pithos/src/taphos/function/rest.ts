@@ -8,7 +8,7 @@
  * @returns The new function.
  * @deprecated Use rest parameters `(...args)` syntax directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters | Rest parameters - MDN}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

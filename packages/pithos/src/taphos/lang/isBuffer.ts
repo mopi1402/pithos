@@ -5,7 +5,7 @@
  * @returns `true` if value is a Buffer, else `false`.
  * @deprecated Use `Buffer.isBuffer()` directly instead (Node.js only).
  * @see {@link https://nodejs.org/api/buffer.html#static-method-bufferisbufferobj | Buffer.isBuffer() - Node.js}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

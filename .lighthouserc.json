@@ -1,0 +1,42 @@
+{
+  "ci": {
+    "collect": {
+      "staticDistDir": "packages/main/website/build",
+      "url": [
+        "http://localhost/",
+        "http://localhost/guide/get-started/",
+        "http://localhost/guide/basics/about-pithos/",
+        "http://localhost/guide/basics/core-philosophy/",
+        "http://localhost/guide/basics/installation/",
+        "http://localhost/guide/basics/practical-example/",
+        "http://localhost/guide/basics/best-practices/",
+        "http://localhost/guide/basics/testing-strategy/",
+        "http://localhost/guide/modules/arkhe/",
+        "http://localhost/guide/modules/kanon/",
+        "http://localhost/guide/modules/zygos/",
+        "http://localhost/guide/modules/sphalma/",
+        "http://localhost/guide/modules/taphos/",
+        "http://localhost/use-cases/",
+        "http://localhost/comparisons/overview/"
+      ],
+      "numberOfRuns": 1,
+      "settings": {
+        "onlyCategories": ["performance", "accessibility", "seo"]
+      }
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["warn", { "minScore": 0.9 }],
+        "categories:accessibility": ["warn", { "minScore": 0.9 }],
+        "categories:seo": ["error", { "minScore": 0.95 }],
+        "largest-contentful-paint": ["warn", { "maxNumericValue": 2500 }],
+        "cumulative-layout-shift": ["warn", { "maxNumericValue": 0.1 }],
+        "total-blocking-time": ["warn", { "maxNumericValue": 200 }]
+      }
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": "reports/cwv"
+    }
+  }
+}

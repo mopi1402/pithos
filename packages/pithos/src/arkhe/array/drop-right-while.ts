@@ -6,7 +6,7 @@
  * @param array - The source array to query.
  * @param predicate - The function invoked per iteration.
  * @returns A new array with the trailing elements dropped.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n) time & space. Uses for loop with early return (break) for optimal performance when dropping few elements.
  *

@@ -4,7 +4,7 @@
  * @param str - The string to inspect.
  * @param pattern - The pattern to match words (optional).
  * @returns The array of words.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Default pattern handles camelCase, PascalCase, snake_case, kebab-case, and mixed strings.
  * @note Includes Unicode letters and numbers in default pattern.

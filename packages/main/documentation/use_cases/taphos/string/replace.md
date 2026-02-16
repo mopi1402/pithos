@@ -1,4 +1,4 @@
-## `replace`
+## `replace` ⭐
 
 ### **Replace** substring 📍
 

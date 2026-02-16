@@ -16,7 +16,7 @@ try {
   arkheBenchmark = require("../../../data/benchmarks/arkhe-benchmark.json");
   kanonBenchmark = require("../../../data/benchmarks/kanon-benchmark-realworld.json");
   zygosBenchmark = require("../../../data/benchmarks/zygos-benchmark.json");
-  arkheBundleSizes = require("../../../data/comparisons/arkhe-bundle-sizes.json");
+  arkheBundleSizes = require("../../../data/comparisons/arkhe-taphos-bundle-sizes.json");
   kanonBundleSizes = require("../../../data/generated/kanon-bundle-sizes.json");
   zygosBundleSizes = require("../../../data/comparisons/zygos-bundle-sizes.json");
 } catch {

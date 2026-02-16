@@ -4,7 +4,7 @@
  * @template T - The defined type.
  * @param value - The value to check.
  * @returns `true` if the value is not undefined, `false` otherwise.
- * @since 1.1.0
+ * @since 1.0.0
  *
  * @note Only checks undefined, not null. Use `isNonNullable` to check both.
  *

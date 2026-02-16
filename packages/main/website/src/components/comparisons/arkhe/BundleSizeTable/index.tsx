@@ -9,7 +9,7 @@ import type { BundleResult, BundleData } from "./types";
 import { libraryNames } from "@site/src/data/comparisons/arkhe-bundle-config";
 
 // Import the generated data
-import bundleData from "@site/src/data/comparisons/arkhe-bundle-sizes.json";
+import bundleData from "@site/src/data/comparisons/arkhe-taphos-bundle-sizes.json";
 
 function formatBytes(bytes: number | null): string {
   if (bytes === null) return "-";

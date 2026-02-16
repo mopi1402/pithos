@@ -3,7 +3,7 @@
  *
  * @param value - The value to check.
  * @returns `true` if the value is an Error, `false` otherwise.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Also returns `true` for Error subclasses (TypeError, RangeError, custom errors).
  *

@@ -5,7 +5,7 @@
  * @param array - The array to inspect.
  * @param predicate - The function invoked per iteration.
  * @returns The matched element, or `undefined` if not found.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note This is a polyfill for Array.prototype.findLast (ES2023).
  *

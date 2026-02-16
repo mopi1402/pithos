@@ -1,4 +1,4 @@
-## `keys` / `values` / `toPairs`
+## `keys` / `values` / `toPairs` ⭐
 
 ### **Get** object keys 📍
 

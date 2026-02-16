@@ -4,7 +4,7 @@
  * Compares V3 non-compiled vs JIT compiled object validators against other libraries.
  * Tests various object complexities to measure JIT performance gains.
  *
- * @since 3.3.0
+ * @since 2.0.0
  * @experimental
  *
  * ## Test Scenarios

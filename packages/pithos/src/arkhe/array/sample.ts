@@ -4,7 +4,7 @@
  * @template T - The type of elements in the array.
  * @param array - The array to sample from.
  * @returns A random element, or `undefined` if the array is empty.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(1) time & space, direct index access with early return for empty arrays.
  *

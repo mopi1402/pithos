@@ -10,7 +10,7 @@
  * @see {@link https://caniuse.com/mdn-javascript_builtins_array_filter | Browser support - Can I Use}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries | Object.entries() - MDN}
  * @see {@link https://caniuse.com/mdn-javascript_builtins_object_entries | Browser support - Can I Use}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

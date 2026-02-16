@@ -5,7 +5,7 @@
  * @param key - The key of the property to get.
  * @returns A function that returns the property value.
  * @deprecated Use an inline arrow function `(obj) => obj[key]` instead.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

@@ -5,7 +5,7 @@
  * @param array - The source array to inspect.
  * @param predicate - The function invoked per iteration.
  * @returns The index of the found element, else -1.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Prefer this over native `Array.findLastIndex()` for ES2020 compatibility.
  *

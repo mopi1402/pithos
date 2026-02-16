@@ -1,8 +1,13 @@
 ---
 sidebar_position: 5
 title: "Why No Transformations?"
+description: "Why Kanon deliberately does not support data transformations. The architectural reasoning behind pure validation versus type coercion."
 slug: "no-transformations"
+keyword_stuffing_ignore:
+  - transformation
 ---
+
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 # Why Kanon Doesn't Support Transformations
 
@@ -254,3 +259,13 @@ This is intentional, not a limitation. It keeps the library:
 - Focused (one responsibility: validation)
 
 If you need transformations, handle them in your application logic where they belong.
+
+---
+
+<RelatedLinks>
+
+- [Features & API](./features.md) — Complete Kanon V3 feature reference
+- [Architecture & Evolution](./architecture.md) — How Kanon evolved from V1 to V3
+- [Kanon vs Zod — Interoperability](/comparisons/kanon/interoperability/) — Feature-by-feature comparison
+
+</RelatedLinks>

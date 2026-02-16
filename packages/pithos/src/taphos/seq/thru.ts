@@ -8,7 +8,7 @@
  * @param interceptor - The function to invoke.
  * @returns The result of the interceptor.
  * @deprecated Use direct function application or `pipe` instead.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

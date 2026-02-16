@@ -1,25 +1,32 @@
 ---
 sidebar_label: "Overview"
 sidebar_position: 1
-title: "Pithos Modules Overview"
+title: "Pithos vs Lodash, Zod & Neverthrow - Comparison Overview"
 description: "A quick guide to Pithos modules: Arkhe (utilities), Kanon (validation), and Zygos (error handling) - when to use each and how they compare to alternatives"
+keyword_stuffing_ignore:
+  - want
 ---
 
 import { QuickComparisonTable } from '@site/src/components/comparisons/QuickComparisonTable';
-import ModuleName from '@site/src/components/shared/badges/ModuleName';
 import Muted from '@site/src/components/shared/Muted';
+import { DashedSeparator } from '@site/src/components/shared/DashedSeparator';
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
-# Pithos Modules Overview
+# Pithos vs Lodash, Zod & Neverthrow
 
-Pithos is organized into three focused modules. Each solves a specific problem with minimal bundle impact.
+Pithos is organized into five modules. Each solves a specific problem with minimal bundle impact.
+
+---
 
 ## Quick Comparison
 
 <QuickComparisonTable />
 
+---
+
 ## ✅ When to Use Each Module
 
-### <ModuleName name="Arkhe" /> - Utility Functions
+### <span className="module-name-heading">Arkhe</span> - Utility Functions
 
 **Use [Arkhe](/guide/modules/arkhe/) when:**
 - You want smaller bundles than Lodash
@@ -39,7 +46,9 @@ Use Lodash instead when:
 Many Lodash functions have native equivalents now. See [Taphos](/api/taphos) for guidance on what to replace with native JS vs Arkhe.
 :::
 
-### <ModuleName name="Kanon" /> - Schema Validation
+<DashedSeparator noMarginBottom />
+
+### <span className="module-name-heading">Kanon</span> - Schema Validation
 
 **Use [Kanon](/guide/modules/kanon/) when:**
 - You want smaller bundles than Zod
@@ -58,8 +67,9 @@ Use Zod instead when:
 
 </Muted>
 
+<DashedSeparator noMarginBottom />
 
-### <ModuleName name="Zygos" /> - Error Handling
+### <span className="module-name-heading">Zygos</span> - Error Handling
 
 **Use [Zygos](/guide/modules/zygos/) when:**
 - You want smaller bundles
@@ -82,23 +92,42 @@ Use fp-ts instead when:
 
 </Muted>
 
-### <ModuleName name="Taphos" /> - Native Equivalence
+<DashedSeparator noMarginBottom />
+
+### <span className="module-name-heading">Sphalma</span> - Typed Error Factories
+
+**Use [Sphalma](/guide/modules/sphalma/) when:**
+- You need structured, typed errors with hex codes
+- You want consistent error identification across your codebase
+- You're using Zygos and want typed error channels
+
+<Muted>
+
+Sphalma has no direct competitor — it fills a gap that most projects solve with ad-hoc error classes or plain strings.
+
+</Muted>
+
+<DashedSeparator noMarginBottom />
+
+### <span className="module-name-heading">Taphos</span> - Native Equivalence
 
 **Use [Taphos](/guide/modules/taphos/) when:**
 - You're migrating away from Lodash
 - You want to know which Arkhe functions have native equivalents
 - You want deprecation guidance before removing a dependency
 
+---
+
 ## The Pithos Philosophy
 
 <details>
-<summary>💡 <strong>Why kilobytes matter</strong> — "it's just a few kB, who cares?"</summary>
+<summary>💡 <strong>Why kilobytes matter</strong> - "it's just a few kB, who cares?"</summary>
 
 Every dependency adds up. Validation adds 20 kB. Dates add 15 kB. Utils add 25 kB. State adds 30 kB... Before you know it: **500+ kB of JavaScript** that the browser has to download, parse, and execute.
 
-This directly affects user experience. Every extra kilobyte of JavaScript increases parse and execution time, which may impact [Core Web Vitals](https://developers.google.com/search/docs/appearance/core-web-vitals) — particularly **LCP** (Largest Contentful Paint) and **INP** (Interaction to Next Paint). On mobile devices and slower connections, the difference is even more noticeable.
+This directly affects user experience. Every extra kilobyte of JavaScript increases parse and execution time, which may impact [Core Web Vitals](https://developers.google.com/search/docs/appearance/core-web-vitals), particularly **LCP** (Largest Contentful Paint) and **INP** (Interaction to Next Paint). On mobile devices and slower connections, the difference is even more noticeable.
 
-Less code also means a smaller attack surface — fewer lines to audit, fewer places for vulnerabilities to hide.
+Less code also means a smaller attack surface: fewer lines to audit, fewer places for vulnerabilities to hide.
 
 That's why every Pithos module is designed to ship only what you actually use.
 
@@ -112,3 +141,11 @@ We're not trying to replace everything. We're trying to:
 4. <span style={{color: '#e67e22', fontWeight: 600}}>**Stay honest**</span> about when other libs are better
 
 Use what works for you. Mix and match if needed.
+
+<RelatedLinks>
+- [Arkhe vs Lodash — Full comparison](./arkhe/arkhe-vs-lodash.md)
+- [Kanon vs Zod — Full comparison](./kanon/kanon-vs-zod.md)
+- [Zygos vs Neverthrow — Full comparison](./zygos/zygos-vs-neverthrow.md)
+- [Equivalence Table — All modules side by side](./equivalence-table.md)
+- [Reproduce Our Data](./reproduce.md)
+</RelatedLinks>

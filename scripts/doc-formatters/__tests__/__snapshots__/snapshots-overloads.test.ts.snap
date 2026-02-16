@@ -20,15 +20,15 @@ Null/undefined values sort last. Dates compare by timestamp. Uses \`localeCompar
 
 ## Type Parameters
 
-#### Item: \`Item\`
+### Item: \`Item\`
 
 The type of items being sorted.
 
-#### Key: \`Key extends string | number | symbol\`
+### Key: \`Key extends string | number | symbol\`
 
 The type of the property key.
 
-#### MappedValue: \`MappedValue\`
+### MappedValue: \`MappedValue\`
 
 The type of the mapped value.
 
@@ -38,17 +38,17 @@ The type of the mapped value.
 
 **Overload 1:**
 
-#### key: \`Key\`
+### key: \`Key\`
 
-#### options?: <code>[ComparatorOptions](#comparatoroptions)&lt;Item\\[Key\\]&gt;</code>
+### options?: <TypeRef>[ComparatorOptions](#comparatoroptions)&lt;Item[Key]&gt;</TypeRef>
 
 Comparison options.
 
 **Overload 2:**
 
-#### mapper: \`(item) => MappedValue\`
+### mapper: \`(item) => MappedValue\`
 
-#### options?: <code>[ComparatorOptions](#comparatoroptions)&lt;MappedValue&gt;</code>
+### options?: <TypeRef>[ComparatorOptions](#comparatoroptions)&lt;MappedValue&gt;</TypeRef>
 
 Comparison options.
 
@@ -68,7 +68,7 @@ A comparator function for Array.sort().
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -387,7 +387,11 @@ users.sort(castComparator("age", { reverse: true }));
 
 <div className="merged-type-separator"></div>
 
+<div className="as-h1">
+
 ## ComparatorOptions\\<ComparedValue\\> {#comparatoroptions}
+
+</div>
 
 <span title="Type: Interface" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Interface</span>
 
@@ -397,7 +401,7 @@ Options for the comparator function.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -413,7 +417,7 @@ The type of values being compared.
 
 <a id="compare"></a>
 
-### compare()?: <code>(a, b) =&gt; number</code>
+### compare()?: \`(a, b) => number\`
 
 Custom comparison function.
 
@@ -425,7 +429,7 @@ Custom comparison function.
 
 <a id="reverse"></a>
 
-### reverse?: <code>boolean</code>
+### reverse?: \`boolean\`
 
 If true, reverses the sort order."
 `;
@@ -450,7 +454,7 @@ Use \`array.every()\` or \`Object.values().every()\` directly instead.
 
 ## Type Parameters
 
-#### T: \`T\`
+### T: \`T\`
 
 The type of elements in the array, or the object type.
 
@@ -460,21 +464,21 @@ The type of elements in the array, or the object type.
 
 **Overload 1:**
 
-#### collection: \`T[]\`
+### collection: \`T[]\`
 
 The collection to iterate over.
 
-#### predicate: \`(value, index, array) => boolean\`
+### predicate: \`(value, index, array) => boolean\`
 
 The function invoked per iteration.
 
 **Overload 2:**
 
-#### collection: \`T\`
+### collection: \`T\`
 
 The collection to iterate over.
 
-#### predicate: \`(value, key, object) => boolean\`
+### predicate: \`(value, key, object) => boolean\`
 
 The function invoked per iteration.
 
@@ -498,7 +502,7 @@ The function invoked per iteration.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -865,19 +869,19 @@ This is the opposite of \`pipe\` (also known as \`compose\`).
 
 ## Type Parameters
 
-#### A: \`A\`
+### A: \`A\`
 
-#### B: \`B\`
+### B: \`B\`
 
-#### C: \`C\`
+### C: \`C\`
 
-#### D: \`D\`
+### D: \`D\`
 
-#### E: \`E\`
+### E: \`E\`
 
-#### F: \`F\`
+### F: \`F\`
 
-#### G: \`G\`
+### G: \`G\`
 
 ---
 
@@ -885,31 +889,31 @@ This is the opposite of \`pipe\` (also known as \`compose\`).
 
 **Overload 1:**
 
-#### f: \`(a) => B\`
+### f: \`(a) => B\`
 
 **Overload 2:**
 
-#### f: \`(b) => C\`
+### f: \`(b) => C\`
 
-#### g: \`(a) => B\`
+### g: \`(a) => B\`
 
 **Overload 3:**
 
-#### f: \`(c) => D\`
+### f: \`(c) => D\`
 
-#### g: \`(b) => C\`
+### g: \`(b) => C\`
 
-#### h: \`(a) => B\`
+### h: \`(a) => B\`
 
 **Overload 4:**
 
-#### f: \`(d) => E\`
+### f: \`(d) => E\`
 
-#### g: \`(c) => D\`
+### g: \`(c) => D\`
 
-#### h: \`(b) => C\`
+### h: \`(b) => C\`
 
-#### i: \`(a) => B\`
+### i: \`(a) => B\`
 
 <details>
 
@@ -917,43 +921,41 @@ This is the opposite of \`pipe\` (also known as \`compose\`).
 
 **Overload 5:**
 
-#### f: \`(e) => F\`
+### f: \`(e) => F\`
 
-#### g: \`(d) => E\`
+### g: \`(d) => E\`
 
-#### h: \`(c) => D\`
+### h: \`(c) => D\`
 
-#### i: \`(b) => C\`
+### i: \`(b) => C\`
 
-#### j: \`(a) => B\`
+### j: \`(a) => B\`
 
 **Overload 6:**
 
-#### f: \`(e) => G\`
+### f: \`(e) => G\`
 
-#### g: \`(d) => F\`
+### g: \`(d) => F\`
 
-#### h: \`(c) => E\`
+### h: \`(c) => E\`
 
-#### i: \`(b) => D\`
+### i: \`(b) => D\`
 
-#### j: \`(a) => C\`
+### j: \`(a) => C\`
 
-#### k: \`(a) => B\`
+### k: \`(a) => B\`
 
 </details>
 
 ---
 
-## Returns
+## Returns: \`<T>(x): T\`
 
 The composed function.
 
-> \\<\`T\`\\>(\`x\`): \`T\`
+### Type Parameters
 
-#### Type Parameters
-
-##### T: \`T\`
+#### T: \`T\`
 
 > **x**: \`T\`<br />
 > **Returns**: \`T\`
@@ -964,7 +966,7 @@ The composed function.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -1303,11 +1305,11 @@ Splits an array into two groups based on a predicate function.
 
 ## Type Parameters
 
-#### T: \`T\`
+### T: \`T\`
 
 The type of elements in the array.
 
-#### U: \`U\`
+### U: \`U\`
 
 The type being filtered for (when using type guard).
 
@@ -1317,21 +1319,21 @@ The type being filtered for (when using type guard).
 
 **Overload 1:**
 
-#### array: \`readonly T[]\`
+### array: \`readonly T[]\`
 
 The array to partition.
 
-#### predicate: \`(value, index, array) => value is U\`
+### predicate: \`(value, index, array) => value is U\`
 
 A function that returns true for elements in the first group.
 
 **Overload 2:**
 
-#### array: \`readonly T[]\`
+### array: \`readonly T[]\`
 
 The array to partition.
 
-#### predicate: \`(value, index, array) => boolean\`
+### predicate: \`(value, index, array) => boolean\`
 
 A function that returns true for elements in the first group.
 
@@ -1345,7 +1347,7 @@ A tuple of [matching, non-matching] elements.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -1801,47 +1803,47 @@ Supports up to 20 functions with full type inference.
 
 ## Type Parameters
 
-#### A: \`A\`
+### A: \`A\`
 
 The type of the initial value.
 
-#### B: \`B\`
+### B: \`B\`
 
-#### C: \`C\`
+### C: \`C\`
 
-#### D: \`D\`
+### D: \`D\`
 
-#### E: \`E\`
+### E: \`E\`
 
-#### F: \`F\`
+### F: \`F\`
 
-#### G: \`G\`
+### G: \`G\`
 
-#### H: \`H\`
+### H: \`H\`
 
-#### I: \`I\`
+### I: \`I\`
 
-#### J: \`J\`
+### J: \`J\`
 
-#### K: \`K\`
+### K: \`K\`
 
-#### L: \`L\`
+### L: \`L\`
 
-#### M: \`M\`
+### M: \`M\`
 
-#### N: \`N\`
+### N: \`N\`
 
-#### O: \`O\`
+### O: \`O\`
 
-#### P: \`P\`
+### P: \`P\`
 
-#### Q: \`Q\`
+### Q: \`Q\`
 
-#### R: \`R\`
+### R: \`R\`
 
-#### S: \`S\`
+### S: \`S\`
 
-#### T: \`T\`
+### T: \`T\`
 
 ---
 
@@ -1849,31 +1851,31 @@ The type of the initial value.
 
 **Overload 1:**
 
-#### a: \`A\`
+### a: \`A\`
 
 **Overload 2:**
 
-#### a: \`A\`
+### a: \`A\`
 
-#### ab: \`(a) => B\`
+### ab: \`(a) => B\`
 
 **Overload 3:**
 
-#### a: \`A\`
+### a: \`A\`
 
-#### ab: \`(a) => B\`
+### ab: \`(a) => B\`
 
-#### bc: \`(b) => C\`
+### bc: \`(b) => C\`
 
 **Overload 4:**
 
-#### a: \`A\`
+### a: \`A\`
 
-#### ab: \`(a) => B\`
+### ab: \`(a) => B\`
 
-#### bc: \`(b) => C\`
+### bc: \`(b) => C\`
 
-#### cd: \`(c) => D\`
+### cd: \`(c) => D\`
 
 <details>
 
@@ -1881,435 +1883,435 @@ The type of the initial value.
 
 **Overload 5:**
 
-#### a: \`A\`
+### a: \`A\`
 
-#### ab: \`(a) => B\`
+### ab: \`(a) => B\`
 
-#### bc: \`(b) => C\`
+### bc: \`(b) => C\`
 
-#### cd: \`(c) => D\`
+### cd: \`(c) => D\`
 
-#### de: \`(d) => E\`
+### de: \`(d) => E\`
 
 **Overload 6:**
 
-#### a: \`A\`
+### a: \`A\`
 
-#### ab: \`(a) => B\`
+### ab: \`(a) => B\`
 
-#### bc: \`(b) => C\`
+### bc: \`(b) => C\`
 
-#### cd: \`(c) => D\`
+### cd: \`(c) => D\`
 
-#### de: \`(d) => E\`
+### de: \`(d) => E\`
 
-#### ef: \`(e) => F\`
+### ef: \`(e) => F\`
 
 **Overload 7:**
 
-#### a: \`A\`
+### a: \`A\`
 
-#### ab: \`(a) => B\`
+### ab: \`(a) => B\`
 
-#### bc: \`(b) => C\`
+### bc: \`(b) => C\`
 
-#### cd: \`(c) => D\`
+### cd: \`(c) => D\`
 
-#### de: \`(d) => E\`
+### de: \`(d) => E\`
 
-#### ef: \`(e) => F\`
+### ef: \`(e) => F\`
 
-#### fg: \`(f) => G\`
+### fg: \`(f) => G\`
 
 **Overload 8:**
 
-#### a: \`A\`
+### a: \`A\`
 
-#### ab: \`(a) => B\`
+### ab: \`(a) => B\`
 
-#### bc: \`(b) => C\`
+### bc: \`(b) => C\`
 
-#### cd: \`(c) => D\`
+### cd: \`(c) => D\`
 
-#### de: \`(d) => E\`
+### de: \`(d) => E\`
 
-#### ef: \`(e) => F\`
+### ef: \`(e) => F\`
 
-#### fg: \`(f) => G\`
+### fg: \`(f) => G\`
 
-#### gh: \`(g) => H\`
+### gh: \`(g) => H\`
 
 **Overload 9:**
 
-#### a: \`A\`
+### a: \`A\`
 
-#### ab: \`(a) => B\`
+### ab: \`(a) => B\`
 
-#### bc: \`(b) => C\`
+### bc: \`(b) => C\`
 
-#### cd: \`(c) => D\`
+### cd: \`(c) => D\`
 
-#### de: \`(d) => E\`
+### de: \`(d) => E\`
 
-#### ef: \`(e) => F\`
+### ef: \`(e) => F\`
 
-#### fg: \`(f) => G\`
+### fg: \`(f) => G\`
 
-#### gh: \`(g) => H\`
+### gh: \`(g) => H\`
 
-#### hi: \`(h) => I\`
+### hi: \`(h) => I\`
 
 **Overload 10:**
 
-#### a: \`A\`
+### a: \`A\`
 
-#### ab: \`(a) => B\`
+### ab: \`(a) => B\`
 
-#### bc: \`(b) => C\`
+### bc: \`(b) => C\`
 
-#### cd: \`(c) => D\`
+### cd: \`(c) => D\`
 
-#### de: \`(d) => E\`
+### de: \`(d) => E\`
 
-#### ef: \`(e) => F\`
+### ef: \`(e) => F\`
 
-#### fg: \`(f) => G\`
+### fg: \`(f) => G\`
 
-#### gh: \`(g) => H\`
+### gh: \`(g) => H\`
 
-#### hi: \`(h) => I\`
+### hi: \`(h) => I\`
 
-#### ij: \`(i) => J\`
+### ij: \`(i) => J\`
 
 **Overload 11:**
 
-#### a: \`A\`
+### a: \`A\`
 
-#### ab: \`(a) => B\`
+### ab: \`(a) => B\`
 
-#### bc: \`(b) => C\`
+### bc: \`(b) => C\`
 
-#### cd: \`(c) => D\`
+### cd: \`(c) => D\`
 
-#### de: \`(d) => E\`
+### de: \`(d) => E\`
 
-#### ef: \`(e) => F\`
+### ef: \`(e) => F\`
 
-#### fg: \`(f) => G\`
+### fg: \`(f) => G\`
 
-#### gh: \`(g) => H\`
+### gh: \`(g) => H\`
 
-#### hi: \`(h) => I\`
+### hi: \`(h) => I\`
 
-#### ij: \`(i) => J\`
+### ij: \`(i) => J\`
 
-#### jk: \`(j) => K\`
+### jk: \`(j) => K\`
 
 **Overload 12:**
 
-#### a: \`A\`
+### a: \`A\`
 
-#### ab: \`(a) => B\`
+### ab: \`(a) => B\`
 
-#### bc: \`(b) => C\`
+### bc: \`(b) => C\`
 
-#### cd: \`(c) => D\`
+### cd: \`(c) => D\`
 
-#### de: \`(d) => E\`
+### de: \`(d) => E\`
 
-#### ef: \`(e) => F\`
+### ef: \`(e) => F\`
 
-#### fg: \`(f) => G\`
+### fg: \`(f) => G\`
 
-#### gh: \`(g) => H\`
+### gh: \`(g) => H\`
 
-#### hi: \`(h) => I\`
+### hi: \`(h) => I\`
 
-#### ij: \`(i) => J\`
+### ij: \`(i) => J\`
 
-#### jk: \`(j) => K\`
+### jk: \`(j) => K\`
 
-#### kl: \`(k) => L\`
+### kl: \`(k) => L\`
 
 **Overload 13:**
 
-#### a: \`A\`
+### a: \`A\`
 
-#### ab: \`(a) => B\`
+### ab: \`(a) => B\`
 
-#### bc: \`(b) => C\`
+### bc: \`(b) => C\`
 
-#### cd: \`(c) => D\`
+### cd: \`(c) => D\`
 
-#### de: \`(d) => E\`
+### de: \`(d) => E\`
 
-#### ef: \`(e) => F\`
+### ef: \`(e) => F\`
 
-#### fg: \`(f) => G\`
+### fg: \`(f) => G\`
 
-#### gh: \`(g) => H\`
+### gh: \`(g) => H\`
 
-#### hi: \`(h) => I\`
+### hi: \`(h) => I\`
 
-#### ij: \`(i) => J\`
+### ij: \`(i) => J\`
 
-#### jk: \`(j) => K\`
+### jk: \`(j) => K\`
 
-#### kl: \`(k) => L\`
+### kl: \`(k) => L\`
 
-#### lm: \`(l) => M\`
+### lm: \`(l) => M\`
 
 **Overload 14:**
 
-#### a: \`A\`
+### a: \`A\`
 
-#### ab: \`(a) => B\`
+### ab: \`(a) => B\`
 
-#### bc: \`(b) => C\`
+### bc: \`(b) => C\`
 
-#### cd: \`(c) => D\`
+### cd: \`(c) => D\`
 
-#### de: \`(d) => E\`
+### de: \`(d) => E\`
 
-#### ef: \`(e) => F\`
+### ef: \`(e) => F\`
 
-#### fg: \`(f) => G\`
+### fg: \`(f) => G\`
 
-#### gh: \`(g) => H\`
+### gh: \`(g) => H\`
 
-#### hi: \`(h) => I\`
+### hi: \`(h) => I\`
 
-#### ij: \`(i) => J\`
+### ij: \`(i) => J\`
 
-#### jk: \`(j) => K\`
+### jk: \`(j) => K\`
 
-#### kl: \`(k) => L\`
+### kl: \`(k) => L\`
 
-#### lm: \`(l) => M\`
+### lm: \`(l) => M\`
 
-#### mn: \`(m) => N\`
+### mn: \`(m) => N\`
 
 **Overload 15:**
 
-#### a: \`A\`
+### a: \`A\`
 
-#### ab: \`(a) => B\`
+### ab: \`(a) => B\`
 
-#### bc: \`(b) => C\`
+### bc: \`(b) => C\`
 
-#### cd: \`(c) => D\`
+### cd: \`(c) => D\`
 
-#### de: \`(d) => E\`
+### de: \`(d) => E\`
 
-#### ef: \`(e) => F\`
+### ef: \`(e) => F\`
 
-#### fg: \`(f) => G\`
+### fg: \`(f) => G\`
 
-#### gh: \`(g) => H\`
+### gh: \`(g) => H\`
 
-#### hi: \`(h) => I\`
+### hi: \`(h) => I\`
 
-#### ij: \`(i) => J\`
+### ij: \`(i) => J\`
 
-#### jk: \`(j) => K\`
+### jk: \`(j) => K\`
 
-#### kl: \`(k) => L\`
+### kl: \`(k) => L\`
 
-#### lm: \`(l) => M\`
+### lm: \`(l) => M\`
 
-#### mn: \`(m) => N\`
+### mn: \`(m) => N\`
 
-#### no: \`(n) => O\`
+### no: \`(n) => O\`
 
 **Overload 16:**
 
-#### a: \`A\`
+### a: \`A\`
 
-#### ab: \`(a) => B\`
+### ab: \`(a) => B\`
 
-#### bc: \`(b) => C\`
+### bc: \`(b) => C\`
 
-#### cd: \`(c) => D\`
+### cd: \`(c) => D\`
 
-#### de: \`(d) => E\`
+### de: \`(d) => E\`
 
-#### ef: \`(e) => F\`
+### ef: \`(e) => F\`
 
-#### fg: \`(f) => G\`
+### fg: \`(f) => G\`
 
-#### gh: \`(g) => H\`
+### gh: \`(g) => H\`
 
-#### hi: \`(h) => I\`
+### hi: \`(h) => I\`
 
-#### ij: \`(i) => J\`
+### ij: \`(i) => J\`
 
-#### jk: \`(j) => K\`
+### jk: \`(j) => K\`
 
-#### kl: \`(k) => L\`
+### kl: \`(k) => L\`
 
-#### lm: \`(l) => M\`
+### lm: \`(l) => M\`
 
-#### mn: \`(m) => N\`
+### mn: \`(m) => N\`
 
-#### no: \`(n) => O\`
+### no: \`(n) => O\`
 
-#### op: \`(o) => P\`
+### op: \`(o) => P\`
 
 **Overload 17:**
 
-#### a: \`A\`
+### a: \`A\`
 
-#### ab: \`(a) => B\`
+### ab: \`(a) => B\`
 
-#### bc: \`(b) => C\`
+### bc: \`(b) => C\`
 
-#### cd: \`(c) => D\`
+### cd: \`(c) => D\`
 
-#### de: \`(d) => E\`
+### de: \`(d) => E\`
 
-#### ef: \`(e) => F\`
+### ef: \`(e) => F\`
 
-#### fg: \`(f) => G\`
+### fg: \`(f) => G\`
 
-#### gh: \`(g) => H\`
+### gh: \`(g) => H\`
 
-#### hi: \`(h) => I\`
+### hi: \`(h) => I\`
 
-#### ij: \`(i) => J\`
+### ij: \`(i) => J\`
 
-#### jk: \`(j) => K\`
+### jk: \`(j) => K\`
 
-#### kl: \`(k) => L\`
+### kl: \`(k) => L\`
 
-#### lm: \`(l) => M\`
+### lm: \`(l) => M\`
 
-#### mn: \`(m) => N\`
+### mn: \`(m) => N\`
 
-#### no: \`(n) => O\`
+### no: \`(n) => O\`
 
-#### op: \`(o) => P\`
+### op: \`(o) => P\`
 
-#### pq: \`(p) => Q\`
+### pq: \`(p) => Q\`
 
 **Overload 18:**
 
-#### a: \`A\`
+### a: \`A\`
 
-#### ab: \`(a) => B\`
+### ab: \`(a) => B\`
 
-#### bc: \`(b) => C\`
+### bc: \`(b) => C\`
 
-#### cd: \`(c) => D\`
+### cd: \`(c) => D\`
 
-#### de: \`(d) => E\`
+### de: \`(d) => E\`
 
-#### ef: \`(e) => F\`
+### ef: \`(e) => F\`
 
-#### fg: \`(f) => G\`
+### fg: \`(f) => G\`
 
-#### gh: \`(g) => H\`
+### gh: \`(g) => H\`
 
-#### hi: \`(h) => I\`
+### hi: \`(h) => I\`
 
-#### ij: \`(i) => J\`
+### ij: \`(i) => J\`
 
-#### jk: \`(j) => K\`
+### jk: \`(j) => K\`
 
-#### kl: \`(k) => L\`
+### kl: \`(k) => L\`
 
-#### lm: \`(l) => M\`
+### lm: \`(l) => M\`
 
-#### mn: \`(m) => N\`
+### mn: \`(m) => N\`
 
-#### no: \`(n) => O\`
+### no: \`(n) => O\`
 
-#### op: \`(o) => P\`
+### op: \`(o) => P\`
 
-#### pq: \`(p) => Q\`
+### pq: \`(p) => Q\`
 
-#### qr: \`(q) => R\`
+### qr: \`(q) => R\`
 
 **Overload 19:**
 
-#### a: \`A\`
+### a: \`A\`
 
-#### ab: \`(a) => B\`
+### ab: \`(a) => B\`
 
-#### bc: \`(b) => C\`
+### bc: \`(b) => C\`
 
-#### cd: \`(c) => D\`
+### cd: \`(c) => D\`
 
-#### de: \`(d) => E\`
+### de: \`(d) => E\`
 
-#### ef: \`(e) => F\`
+### ef: \`(e) => F\`
 
-#### fg: \`(f) => G\`
+### fg: \`(f) => G\`
 
-#### gh: \`(g) => H\`
+### gh: \`(g) => H\`
 
-#### hi: \`(h) => I\`
+### hi: \`(h) => I\`
 
-#### ij: \`(i) => J\`
+### ij: \`(i) => J\`
 
-#### jk: \`(j) => K\`
+### jk: \`(j) => K\`
 
-#### kl: \`(k) => L\`
+### kl: \`(k) => L\`
 
-#### lm: \`(l) => M\`
+### lm: \`(l) => M\`
 
-#### mn: \`(m) => N\`
+### mn: \`(m) => N\`
 
-#### no: \`(n) => O\`
+### no: \`(n) => O\`
 
-#### op: \`(o) => P\`
+### op: \`(o) => P\`
 
-#### pq: \`(p) => Q\`
+### pq: \`(p) => Q\`
 
-#### qr: \`(q) => R\`
+### qr: \`(q) => R\`
 
-#### rs: \`(r) => S\`
+### rs: \`(r) => S\`
 
 **Overload 20:**
 
-#### a: \`A\`
+### a: \`A\`
 
-#### ab: \`(a) => B\`
+### ab: \`(a) => B\`
 
-#### bc: \`(b) => C\`
+### bc: \`(b) => C\`
 
-#### cd: \`(c) => D\`
+### cd: \`(c) => D\`
 
-#### de: \`(d) => E\`
+### de: \`(d) => E\`
 
-#### ef: \`(e) => F\`
+### ef: \`(e) => F\`
 
-#### fg: \`(f) => G\`
+### fg: \`(f) => G\`
 
-#### gh: \`(g) => H\`
+### gh: \`(g) => H\`
 
-#### hi: \`(h) => I\`
+### hi: \`(h) => I\`
 
-#### ij: \`(i) => J\`
+### ij: \`(i) => J\`
 
-#### jk: \`(j) => K\`
+### jk: \`(j) => K\`
 
-#### kl: \`(k) => L\`
+### kl: \`(k) => L\`
 
-#### lm: \`(l) => M\`
+### lm: \`(l) => M\`
 
-#### mn: \`(m) => N\`
+### mn: \`(m) => N\`
 
-#### no: \`(n) => O\`
+### no: \`(n) => O\`
 
-#### op: \`(o) => P\`
+### op: \`(o) => P\`
 
-#### pq: \`(p) => Q\`
+### pq: \`(p) => Q\`
 
-#### qr: \`(q) => R\`
+### qr: \`(q) => R\`
 
-#### rs: \`(r) => S\`
+### rs: \`(r) => S\`
 
-#### st: \`(s) => T\`
+### st: \`(s) => T\`
 
 </details>
 
@@ -2323,7 +2325,7 @@ The result of applying all transformations.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 

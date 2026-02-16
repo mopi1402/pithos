@@ -1,4 +1,6 @@
-## `spread`
+## `spread` 💎
+
+> Convert a function that takes an array into one that takes individual arguments.
 
 ### **Spread** array as arguments 📍
 

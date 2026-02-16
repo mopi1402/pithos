@@ -1,4 +1,6 @@
-## `update`
+## `update` 💎
+
+> Apply a transformation to a deeply nested value without touching the rest.
 
 ### **Update** nested value 📍
 

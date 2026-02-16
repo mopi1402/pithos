@@ -1,7 +1,7 @@
 /**
  * A structured error with a numeric code and type for easy identification.
  * Designed for tree-shaking: only imported if used.
- * @since 1.0.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * throw new CodedError(101, "Animation", { id: "fade" });
@@ -30,11 +30,11 @@ export class CodedError extends Error {
 
 /**
  * Creates a factory function for generating CodedError instances of a specific type.
- * The factory is tree-shakeable: if not imported, it won't be bundled.
+ * The factory is tree-shakable: if not imported, it won't be bundled.
  * @template Code - The numeric error codes allowed for this factory.
  * @param errorType - The error type/category (e.g., "Animation", "Semaphore").
  * @returns A factory function that creates CodedError instances.
- * @since 1.0.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * const createAnimationError = createErrorFactory<100 | 101 | 102>("Animation");

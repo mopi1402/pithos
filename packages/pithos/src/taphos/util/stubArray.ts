@@ -3,7 +3,7 @@
  *
  * @returns An empty array.
  * @deprecated Use an inline arrow function `() => []` instead.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

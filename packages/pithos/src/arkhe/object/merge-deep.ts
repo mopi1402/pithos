@@ -57,7 +57,7 @@ function mergeDeep<T extends AnyRecord, U extends AnyRecord>(
  * @param left - The left object (takes precedence).
  * @param right - The right object (fallback values).
  * @returns A new deeply merged object.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Arrays are replaced, not merged.
  * @note Symbol keys are included via Reflect.ownKeys.
@@ -94,7 +94,7 @@ export function mergeDeepLeft<T extends AnyRecord, U extends AnyRecord>(
  * @param left - The left object (fallback values).
  * @param right - The right object (takes precedence).
  * @returns A new deeply merged object.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Arrays are replaced, not merged.
  * @note Symbol keys are included via Reflect.ownKeys.

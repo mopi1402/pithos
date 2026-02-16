@@ -7,6 +7,10 @@ description: "Compare Kanon and Zod APIs: compatible features, missing features,
 
 import { Accordion } from '@site/src/components/shared/Accordion';
 import { Code } from '@site/src/components/shared/Code';
+import { DashedSeparator } from '@site/src/components/shared/DashedSeparator';
+import { TableConfig } from '@site/src/components/shared/Table/TableConfigContext';
+import { MigrationCTA } from '@site/src/components/comparisons/MigrationCTA';
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 # ⛓️‍💥 Kanon ↔ Zod Interoperability
 
@@ -36,6 +40,8 @@ If you use Zod Mini, consider using Kanon's [direct imports](./bundle-size.md#di
 If you use primitives, objects, arrays, unions, and basic wrappers, **you're covered**. Change your imports and you're done.
 :::
 
+---
+
 ## About this page
 
 Kanon's native API is designed for **optimal tree-shaking**: pure functions, direct imports, no class overhead. We recommend using [direct imports for production apps](./bundle-size.md#direct-imports).
@@ -54,6 +60,8 @@ const schema = z.object({
 ```
 
 **This page focuses on the `z` shim**: all compatibility tables below use the `z.` syntax. Once migrated, you can gradually refactor to direct imports for maximum bundle optimization.
+
+---
 
 ## ✅ What Kanon handles the same
 
@@ -125,6 +133,8 @@ Click to expand each category and see the supported features:
 
 </Accordion>
 
+<DashedSeparator noMarginBottom />
+
 ### Code Examples
 
 With the `z` shim, your Zod code works as-is. Just change the import.
@@ -145,8 +155,11 @@ const userSchema = z.object({
   active: z.boolean(),
 });
 ```
+<DashedSeparator noMarginBottom />
 
 #### With Constraints
+
+Kanon supports the same constraint methods as Zod, including min/max lengths, positive numbers, and email validation:
 
 ```typescript
 import { z } from "pithos/kanon/helpers/as-zod.shim";
@@ -158,7 +171,11 @@ const productSchema = z.object({
 });
 ```
 
+<DashedSeparator noMarginBottom />
+
 #### With Optional/Nullable
+
+Optional, nullable, and nullish modifiers work identically to Zod, no code changes needed:
 
 ```typescript
 import { z } from "pithos/kanon/helpers/as-zod.shim";
@@ -171,7 +188,11 @@ const profileSchema = z.object({
 });
 ```
 
+<DashedSeparator noMarginBottom />
+
 #### Union Types
+
+Kanon supports union types through `z.union()` and literal values, just like Zod:
 
 ```typescript
 import { z } from "pithos/kanon/helpers/as-zod.shim";
@@ -186,6 +207,8 @@ const responseSchema = z.object({
   data: z.union([z.string(), z.number()]),
 });
 ```
+
+---
 
 ## ⚠️ What Kanon doesn't support
 
@@ -227,75 +250,37 @@ These are edge cases. Zod bundles them by default, which adds weight even if you
 
 </Accordion>
 
+---
+
 ## ✨ What Kanon adds
 
 Beyond Zod compatibility, Kanon brings unique features:
+
+<TableConfig noEllipsis>
 
 | Feature | Description |
 |---------|-------------|
 | ✨ **JIT Compilation** | Automatic compilation to optimized validators (2-10x faster) |
 | 📦 **Perfect Tree-Shaking** | Pure functions, no class overhead, smallest possible bundle |
 | 🎯 **`strictObject()` / `looseObject()`** | Explicit object validation modes |
-| ⚡ **`parseBulk()`** | Optimized batch validation for arrays |
-| 📥 **Direct imports** | Import only what you use for maximum tree-shaking |
+| ⚡️ **`parseBulk()`** | Optimized batch validation for arrays |
+| 📎 **Direct imports** | Import only what you use for maximum tree-shaking |
+
+</TableConfig>
+
+<MigrationCTA module="Kanon" guideLink="/guide/modules/kanon/#migrating-from-zod" guideDescription="install, swap imports, handle edge cases, and optimize with direct imports" />
 
 :::tip[After migration]
 Once you've migrated with the `z` shim, you can gradually refactor to direct imports for even smaller bundles. See the [API documentation](/api/kanon) for the native Kanon API.
 :::
 
-<Accordion title="Migration Guide">
+---
 
-### Step 1: Install
+<RelatedLinks>
 
-```bash
-npm install pithos
-```
+- [Kanon vs Zod](./kanon-vs-zod.md) — Full comparison: philosophy, API, migration
+- [Zygos ↔ Neverthrow Interoperability](../zygos/interoperability.md) — Another drop-in replacement story
+- [Equivalence Table](/comparisons/equivalence-table/) — Full library equivalence across all modules
+- [Kanon Module Guide](/guide/modules/kanon/) — Full module documentation
 
-### Step 2: Update imports
-
-```typescript
-// Before
-import { z } from "zod";
-
-// After
-import { z } from "pithos/kanon/helpers/as-zod.shim";
-```
-
-### Step 3: Run your tests
-
-Most schemas work as-is. If something fails, check the next step.
-
-### Step 4: Handle edge cases
-
-If you use a Zod feature that Kanon doesn't provide, here's what to do:
-
-**Specialized string formats** (jwt, cuid, ulid, cidr, e164...):
-```typescript
-// Zod
-z.string().jwt()
-
-// Kanon: use regex
-const jwtRegex = /^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]*$/;
-z.string().regex(jwtRegex, "Invalid JWT")
-```
-
-**Object manipulation** (pick, omit, partial, required):
-```typescript
-// Zod
-const partial = userSchema.partial()
-
-// Kanon: use native functions
-import { partial } from "pithos/kanon";
-const partialUser = partial(userSchema._schema());
-```
-
-**Pipe / brand**:
-```typescript
-// Zod
-z.string().pipe(z.coerce.number()).brand<"UserId">()
-
-// Kanon: chain transforms manually, use type assertions for branding
-z.string().transform(Number)
-```
-
-</Accordion>
+</RelatedLinks>

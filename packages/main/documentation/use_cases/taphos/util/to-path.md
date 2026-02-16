@@ -1,4 +1,6 @@
-## `toPath`
+## `toPath` 💎
+
+> Parse dot-notation strings like `'a.b[0].c'` into clean path arrays.
 
 ### **Parse** property path 📍
 

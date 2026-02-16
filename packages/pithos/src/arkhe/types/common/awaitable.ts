@@ -1,7 +1,7 @@
 /**
  * Represents a value that can be awaited (either the value itself or a Promise-like).
  * @template T - The base type.
- * @since 1.0.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * async function processData(data: Awaitable<string>): Promise<string> {

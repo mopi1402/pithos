@@ -32,7 +32,7 @@ function createEnumSchema<T extends readonly [EnumValue, ...EnumValue[]]>(
  * @param values - Array of allowed string values
  * @param message - Custom error message
  * @returns Schema that validates only the string enum values
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function enum_<T extends readonly [string, ...string[]]>(
   values: T,
@@ -47,7 +47,7 @@ export function enum_<T extends readonly [string, ...string[]]>(
  * @param values - Array of allowed number values
  * @param message - Custom error message
  * @returns Schema that validates only the number enum values
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function numberEnum<T extends readonly [number, ...number[]]>(
   values: T,
@@ -62,7 +62,7 @@ export function numberEnum<T extends readonly [number, ...number[]]>(
  * @param values - Array of allowed boolean values
  * @param message - Custom error message
  * @returns Schema that validates only the boolean enum values
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function booleanEnum<T extends readonly [boolean, ...boolean[]]>(
   values: T,
@@ -77,7 +77,7 @@ export function booleanEnum<T extends readonly [boolean, ...boolean[]]>(
  * @param values - Array of allowed mixed values (string | number | boolean)
  * @param message - Custom error message
  * @returns Schema that validates only the mixed enum values
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function mixedEnum<T extends readonly [EnumValue, ...EnumValue[]]>(
   values: T,

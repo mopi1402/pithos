@@ -15,7 +15,7 @@ import { assign } from "./assign";
  * @see {@link assign}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign | Object.assign() - MDN}
  * @see {@link https://caniuse.com/mdn-javascript_builtins_object_assign | Browser support - Can I Use}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

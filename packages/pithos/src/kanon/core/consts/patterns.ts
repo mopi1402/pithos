@@ -20,7 +20,7 @@
  * Local part: no consecutive dots, no dot at start/end, allows special chars.
  * Domain: only letters, digits, hyphens (not at start/end of labels), dots.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export const EMAIL_REGEX =
   /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)+$/;
@@ -32,7 +32,7 @@ export const EMAIL_REGEX =
  * Path, query, fragment: standard URI components.
  * Note: Prevents double separators (??, ##) by ensuring query/fragment don't start with their separator.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export const URL_REGEX =
   /^https?:\/\/(?:[a-zA-Z0-9._~-]+(?::[a-zA-Z0-9._~-]*)?@)?(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)*|(?:\d{1,3}\.){3}\d{1,3})(?::[0-9]{1,5})?(?:\/[^\s?#]*)?(?:\?[^\s?#]+)?(?:#[^\s#]+)?$/;
@@ -40,7 +40,7 @@ export const URL_REGEX =
 /**
  * UUID regex pattern (versions 1-5).
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export const UUID_REGEX =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;

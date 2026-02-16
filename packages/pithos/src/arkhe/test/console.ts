@@ -21,7 +21,7 @@ const ALL_CONSOLE_METHODS: readonly ConsoleMethod[] = [
 
 /**
  * Console method names that can be mocked.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export type ConsoleMethod =
   | "log"
@@ -33,7 +33,7 @@ export type ConsoleMethod =
 
 /**
  * Recorded call to a console method.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export interface ConsoleCall {
   /** Arguments passed to the console method. */
@@ -44,7 +44,7 @@ export interface ConsoleCall {
 
 /**
  * Mock object for a single console method.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export interface ConsoleMock {
   /** All recorded calls. */
@@ -57,7 +57,7 @@ export interface ConsoleMock {
 
 /**
  * Result of mockConsole().
- * @since 1.0.0
+ * @since 2.0.0
  */
 export interface MockConsoleResult {
   /** Mocks for each requested method, keyed by method name. */
@@ -70,7 +70,7 @@ export interface MockConsoleResult {
 
 /**
  * Options for mockConsole.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export interface MockConsoleOptions {
   /** If true, still outputs to console while capturing. */
@@ -99,7 +99,7 @@ function createRestoreFn(
  *
  * @param args - Console methods to mock and/or configuration options.
  * @returns The object with mocks and restore function.
- * @since 1.0.0
+ * @since 2.0.0
  *
  * @performance Uses Map for O(1) lookup of original console methods. Stores calls in arrays for O(1) append.
  *
@@ -183,7 +183,7 @@ export function mockConsole(
  *
  * @param methods - Console methods to silence (defaults to all).
  * @returns The restore function.
- * @since 1.0.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -211,7 +211,7 @@ export function silenceConsole(...methods: ConsoleMethod[]): () => void {
  * @param fn - Function to execute.
  * @param methods - Console methods to silence (defaults to all).
  * @returns The return value of fn.
- * @since 1.0.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

@@ -5,7 +5,7 @@
  * @param object - The source object.
  * @param predicate - The function invoked per property.
  * @returns A new object with filtered properties.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n) where n is the number of own enumerable properties.
  *

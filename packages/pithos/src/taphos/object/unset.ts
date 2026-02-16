@@ -10,7 +10,7 @@ import { deepClone } from "../../arkhe/object/deep-clone";
  * @returns A new object with the property removed.
  * @deprecated Use destructuring or `omit` for immutable property removal.
  * @see omit
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

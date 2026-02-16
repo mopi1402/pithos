@@ -7,7 +7,7 @@
  * @template T - The type of elements in the array.
  * @param array - The array to reverse.
  * @returns A new array with elements in reverse order.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n) time and space — creates a shallow copy then reverses in place.
  *

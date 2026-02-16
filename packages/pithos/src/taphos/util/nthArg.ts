@@ -4,7 +4,7 @@
  * @param n - The index of the argument to return.
  * @returns A function that returns the nth argument.
  * @deprecated Use an inline arrow function `(...args) => args[n]` instead.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

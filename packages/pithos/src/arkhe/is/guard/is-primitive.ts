@@ -3,7 +3,7 @@
  *
  * @param value - The value to check.
  * @returns `true` if the value is a primitive, `false` otherwise.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

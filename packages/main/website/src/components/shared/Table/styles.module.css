@@ -142,6 +142,19 @@
   text-overflow: clip;
 }
 
+/* noEllipsis: first column stays nowrap, others wrap naturally */
+.table.noEllipsis td,
+.table.noEllipsis th {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.table.noEllipsis td:first-child,
+.table.noEllipsis th:first-child {
+  white-space: nowrap;
+}
+
 [data-theme="dark"] .table th,
 [data-theme="dark"] .table td {
   border: solid var(--ifm-color-gray-870);
@@ -295,11 +308,30 @@
 
 /* Override shadow for clone - position it fixed relative to viewport */
 .cloneWrapper::after {
+  content: "";
   position: fixed;
   top: calc(var(--clone-top, 120px) - 2px);
   right: calc(var(--clone-right, 0px) - 2px);
   height: calc(var(--clone-height, 50px) + 4px);
   bottom: auto;
+  width: 60px;
+  pointer-events: none;
+  background: var(--ifm-background-color);
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 30%,
+    rgba(0, 0, 0, 0.8) 50%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 30%,
+    rgba(0, 0, 0, 0.8) 50%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  z-index: 150;
   transform-origin: right;
   transform: scaleX(var(--shadow-scale, 1));
 }
@@ -433,6 +465,8 @@
   overflow-x: scroll;
   overflow-y: hidden;
   will-change: scroll-position;
+  pointer-events: none;
+  user-select: none;
   /* Hide scrollbar on all browsers */
   -ms-overflow-style: none;
   scrollbar-width: none;

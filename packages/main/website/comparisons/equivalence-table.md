@@ -1,17 +1,25 @@
 ---
 sidebar_label: "Equivalence Table"
 sidebar_position: 5
-title: Equivalence Table
+title: "Pithos Equivalence Table: Lodash, Zod, Neverthrow & More"
 description: Complete equivalence table between Pithos and popular utility, validation, and error handling libraries
+keyword_stuffing_ignore:
+  - native
+  - status
+  - niche
 ---
+
+import { TableConfig } from '@site/src/components/shared/Table/TableConfigContext';
+import { FilterableTable } from '@site/src/components/shared/Table/FilterableTable';
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 # 🟰 Library Equivalence Tables
 
 This document provides comparison tables between Pithos modules and their equivalents in popular libraries. The comparisons are organized into three categories:
 
-1. **Utilities** — General-purpose utility functions (Lodash, Es-toolkit, Remeda, Radashi, Ramda)
-2. **Validation** — Schema validation libraries (Zod, Valibot, ArkType, Yup)
-3. **Error Handling** — Functional error handling patterns (neverthrow, fp-ts, Effect, ts-results)
+1. **Utilities**: General-purpose utility functions (Lodash, Es-toolkit, Remeda, Radashi, Ramda)
+2. **Validation**: Schema validation libraries (Zod, Valibot, ArkType, Yup)
+3. **Error Handling**: Functional error handling patterns (neverthrow, fp-ts, Effect, ts-results)
 
 :::warning Disclaimer
 The equivalences listed here are **indicative only** and do not guarantee compatibility or interchangeability between libraries. Each library has its own design philosophy, function signatures, and edge-case behaviors.
@@ -24,10 +32,10 @@ Pithos does not aim to cover 100% of utilities from each library. Some functions
 - Functions with a **recent native equivalent** in JavaScript/TypeScript
 - **Mutable** functions (Pithos favors immutability)
 - Functions considered too specific or rarely used
-- **Advanced FP patterns** from Ramda (lenses, transducers, applicatives, etc.) — for these, use Ramda or fp-ts directly
+- **Advanced FP patterns** from Ramda (lenses, transducers, applicatives, etc.): for these, use Ramda or fp-ts directly
 :::
 
-### Legend
+## Legend
 
 - ✅ = Available in Pithos
 - ❌ = Not available in Pithos
@@ -44,7 +52,7 @@ Comparison between **Pithos (Arkhe)** and utility libraries: Lodash, Es-toolkit,
 
 ### Array
 
-<TableConfig stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
+<TableConfig noEllipsis stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
 
 | !Pithos | !Status | Lodash | ES-toolkit | Remeda | Radashi | Ramda |
 |---------|---------|--------|------------|--------|---------|-------|
@@ -175,7 +183,7 @@ Comparison between **Pithos (Arkhe)** and utility libraries: Lodash, Es-toolkit,
 
 ### Function
 
-<TableConfig stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
+<TableConfig noEllipsis stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
 
 | !Pithos | !Status | Lodash | Es-toolkit | Remeda | Radashi | Ramda |
 |---------|---------|--------|------------|--------|---------|-------|
@@ -223,7 +231,7 @@ Comparison between **Pithos (Arkhe)** and utility libraries: Lodash, Es-toolkit,
 
 ### Lang (Type Checks)
 
-<TableConfig stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
+<TableConfig noEllipsis stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
 
 | !Pithos | !Status | Lodash | Es-toolkit | Remeda | Radashi | Ramda |
 |---------|---------|--------|------------|--------|---------|-------|
@@ -281,7 +289,7 @@ Comparison between **Pithos (Arkhe)** and utility libraries: Lodash, Es-toolkit,
 
 ### Math / Number
 
-<TableConfig stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
+<TableConfig noEllipsis stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
 
 | !Pithos | !Status | Lodash | Es-toolkit | Remeda | Radashi | Ramda |
 |---------|---------|--------|------------|--------|---------|-------|
@@ -323,7 +331,7 @@ Comparison between **Pithos (Arkhe)** and utility libraries: Lodash, Es-toolkit,
 
 ### Object
 
-<TableConfig stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
+<TableConfig noEllipsis stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
 
 | !Pithos | !Status | Lodash | Es-toolkit | Remeda | Radashi | Ramda |
 |---------|---------|--------|------------|--------|---------|-------|
@@ -399,7 +407,7 @@ Comparison between **Pithos (Arkhe)** and utility libraries: Lodash, Es-toolkit,
 
 ### String
 
-<TableConfig stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
+<TableConfig noEllipsis stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
 
 | !Pithos | !Status | Lodash | Es-toolkit | Remeda | Radashi | Ramda |
 |---------|---------|--------|------------|--------|---------|-------|
@@ -445,7 +453,7 @@ Comparison between **Pithos (Arkhe)** and utility libraries: Lodash, Es-toolkit,
 
 ### Async / Promise
 
-<TableConfig stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
+<TableConfig noEllipsis stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
 
 | !Pithos | !Status | Lodash | Es-toolkit | Remeda | Radashi | Ramda |
 |---------|---------|--------|------------|--------|---------|-------|
@@ -465,7 +473,7 @@ Comparison between **Pithos (Arkhe)** and utility libraries: Lodash, Es-toolkit,
 
 ### Util
 
-<TableConfig stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
+<TableConfig noEllipsis stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
 
 | !Pithos | !Status | Lodash | Es-toolkit | Remeda | Radashi | Ramda |
 |---------|---------|--------|------------|--------|---------|-------|
@@ -498,7 +506,7 @@ Comparison between **Pithos (Kanon)** and schema validation libraries: Zod, Vali
 Kanon is Pithos's validation module, designed for maximum tree-shaking and minimal bundle size. Unlike class-based validators, Kanon uses pure functions that can be individually imported.
 :::
 
-<TableConfig stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
+<TableConfig noEllipsis stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
 
 | !Pithos (Kanon) | !Status | Zod | Valibot | ArkType | Yup |
 |-----------------|---------|-----|---------|---------|-----|
@@ -563,7 +571,7 @@ Effect is a comprehensive functional programming ecosystem, not just an error ha
 
 ### Option / Maybe
 
-<TableConfig stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
+<TableConfig noEllipsis stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
 
 | !Pithos (Zygos) | !Status | fp-ts | Effect | neverthrow | ts-results |
 |-----------------|---------|-------|--------|------------|------------|
@@ -591,7 +599,7 @@ Effect is a comprehensive functional programming ecosystem, not just an error ha
 
 ### Either / Result
 
-<TableConfig stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
+<TableConfig noEllipsis stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
 
 | !Pithos (Zygos) | !Status | fp-ts | Effect | neverthrow | ts-results |
 |-----------------|---------|-------|--------|------------|------------|
@@ -624,7 +632,7 @@ Effect is a comprehensive functional programming ecosystem, not just an error ha
 
 ### Task / Async
 
-<TableConfig stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
+<TableConfig noEllipsis stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
 
 | !Pithos (Zygos) | !Status | fp-ts | Effect | neverthrow | ts-results |
 |-----------------|---------|-------|--------|------------|------------|
@@ -645,15 +653,13 @@ Effect is a comprehensive functional programming ecosystem, not just an error ha
 
 </TableConfig>
 
-### Concurrency Primitives
+---
 
-<TableConfig stickyHeader stickyHeaderOffset={120} columns={{ "Status": { width: "40px", hideHeader: true } }}>
+<RelatedLinks title="Detailed Comparisons">
 
-|--------------------|---------|-------|--------|------------|---------|
-| `withMutex` | ✅ | - | `Mutex` | - | - |
-| `Semaphore` | ✅ | - | `Semaphore` | - | `Semaphore` |
-| - | ❌ | - | `Queue` | - | - |
-| - | ❌ | - | `Deferred` | - | - |
-| - | ❌ | - | `PubSub` | - | - |
+- [Arkhe vs Lodash — Bundle Size](./arkhe/bundle-size.md) — Per-function size comparison
+- [Kanon vs Zod — Interoperability](./kanon/interoperability.md) — Feature-by-feature compatibility
+- [Zygos vs Neverthrow — Interoperability](./zygos/interoperability.md) — Drop-in replacement details
+- [Comparison Overview](./overview.md) — When to use each module
 
-</TableConfig>
+</RelatedLinks>

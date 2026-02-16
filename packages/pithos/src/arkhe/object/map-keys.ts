@@ -6,7 +6,7 @@
  * @param object - The object to iterate over.
  * @param transform - Function to generate new keys: `(value, key, object) => newKey`.
  * @returns A new object with transformed keys and original values.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Does not mutate original. Duplicate transformed keys: last value wins.
  * @note Only enumerable string keys are included (Symbol keys are ignored).

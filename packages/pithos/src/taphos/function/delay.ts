@@ -7,7 +7,7 @@
  * @returns The timer id.
  * @deprecated Use `setTimeout(fn, wait)` directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/setTimeout | setTimeout() - MDN}
- * @since 1.1.0
+ * @since 1.0.0
  *
  * @example
  * ```typescript

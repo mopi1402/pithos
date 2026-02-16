@@ -7,7 +7,7 @@
  * @deprecated Use the native `structuredClone()` function directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/structuredClone | structuredClone() - MDN}
  * @see {@link https://caniuse.com/mdn-api_structuredclone | Browser support - Can I Use}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

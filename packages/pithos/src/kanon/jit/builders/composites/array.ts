@@ -10,7 +10,7 @@
  * - Index in error messages
  * - Pre-allocated result array for coercions
  *
- * @since 3.3.0
+ * @since 2.0.0
  * @experimental
  */
 
@@ -27,7 +27,7 @@ import { escapeString, debugComment, type CodeGenResult } from "../../utils/code
 /**
  * Array constraint metadata for JIT compilation.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export interface ArrayConstraintMeta {
   /** Minimum array length */
@@ -53,7 +53,7 @@ export interface ArrayConstraintMeta {
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -94,7 +94,7 @@ export function generateArrayTypeCheck(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateArrayMinLengthCheck(
   varName: string,
@@ -126,7 +126,7 @@ export function generateArrayMinLengthCheck(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateArrayMaxLengthCheck(
   varName: string,
@@ -158,7 +158,7 @@ export function generateArrayMaxLengthCheck(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateArrayLengthCheck(
   varName: string,
@@ -194,7 +194,7 @@ export function generateArrayLengthCheck(
  * @param itemGenerator - Code generator for each item
  * @param supportsCoercion - Whether to pre-allocate result array for coercions
  * @returns Generated code lines and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -279,7 +279,7 @@ export function generateArrayItemsLoop(
  * @param ctx - The generator context
  * @param itemGenerator - Code generator for each item
  * @returns Generated code lines and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateSimpleArrayItemsLoop(
   arrayVar: string,
@@ -332,7 +332,7 @@ export function generateSimpleArrayItemsLoop(
  * @param constraints - Array constraint metadata
  * @param customTypeMessage - Optional custom type error message
  * @returns Generated code lines and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

@@ -1,7 +1,7 @@
 /**
  * Constraint extensions for V3 schemas.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 
 import { Schema, GenericSchema, Infer } from "./base";
@@ -9,7 +9,7 @@ import { Schema, GenericSchema, Infer } from "./base";
 /**
  * Extension methods for string constraints.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type StringExtension = {
   minLength: (min: number, errorMessage?: string) => StringConstraint;
@@ -27,7 +27,7 @@ export type StringExtension = {
 /**
  * Extension methods for number constraints.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type NumberExtension = {
   min: (min: number, errorMessage?: string) => NumberConstraint;
@@ -46,7 +46,7 @@ export type NumberExtension = {
  * Extension methods for array constraints.
  *
  * @template ItemSchema - The item schema type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type ArrayExtension<ItemSchema extends GenericSchema> = {
   minLength: (min: number, errorMessage?: string) => ArrayConstraint<ItemSchema>;
@@ -58,7 +58,7 @@ export type ArrayExtension<ItemSchema extends GenericSchema> = {
 /**
  * Extension methods for date constraints.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type DateExtension = {
   min: (min: Date, errorMessage?: string) => DateConstraint;
@@ -70,7 +70,7 @@ export type DateExtension = {
 /**
  * Extension methods for bigint constraints.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type BigIntExtension = {
   min: (min: bigint, errorMessage?: string) => BigIntConstraint;
@@ -83,7 +83,7 @@ export type BigIntExtension = {
  * Extension methods for object constraints.
  *
  * @template T - The object entries type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type ObjectExtension<T extends Record<string, GenericSchema> = Record<string, GenericSchema>> = {
   minKeys: (min: number, errorMessage?: string) => ObjectConstraint<T>;
@@ -95,7 +95,7 @@ export type ObjectExtension<T extends Record<string, GenericSchema> = Record<str
  * Extension methods for set constraints.
  *
  * @template ItemSchema - The item schema type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type SetExtension<ItemSchema extends GenericSchema> = {
   minSize: (min: number, errorMessage?: string) => SetConstraint<ItemSchema>;
@@ -107,7 +107,7 @@ export type SetExtension<ItemSchema extends GenericSchema> = {
  *
  * @template KeySchema - The key schema type
  * @template ValueSchema - The value schema type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type MapExtension<KeySchema extends GenericSchema, ValueSchema extends GenericSchema> = {
   minSize: (min: number, errorMessage?: string) => MapConstraint<KeySchema, ValueSchema>;
@@ -117,14 +117,14 @@ export type MapExtension<KeySchema extends GenericSchema, ValueSchema extends Ge
 /**
  * String schema with constraint methods.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type StringConstraint = Schema<string> & StringExtension;
 
 /**
  * Number schema with constraint methods.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type NumberConstraint = Schema<number> & NumberExtension;
 
@@ -132,7 +132,7 @@ export type NumberConstraint = Schema<number> & NumberExtension;
  * Array schema with constraint methods.
  *
  * @template ItemSchema - The item schema type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type ArrayConstraint<ItemSchema extends GenericSchema = GenericSchema> =
   Schema<Infer<ItemSchema>[]> &
@@ -143,14 +143,14 @@ export type ArrayConstraint<ItemSchema extends GenericSchema = GenericSchema> =
 /**
  * Date schema with constraint methods.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type DateConstraint = Schema<Date> & DateExtension;
 
 /**
  * BigInt schema with constraint methods.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type BigIntConstraint = Schema<bigint> & BigIntExtension;
 
@@ -158,7 +158,7 @@ export type BigIntConstraint = Schema<bigint> & BigIntExtension;
  * Object schema with constraint methods.
  *
  * @template T - The object entries type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type ObjectConstraint<
   T extends Record<string, GenericSchema> = Record<string, GenericSchema>
@@ -171,7 +171,7 @@ export type ObjectConstraint<
  * Set schema with constraint methods.
  *
  * @template ItemSchema - The item schema type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type SetConstraint<ItemSchema extends GenericSchema = GenericSchema> =
   Schema<Set<Infer<ItemSchema>>> &
@@ -184,7 +184,7 @@ export type SetConstraint<ItemSchema extends GenericSchema = GenericSchema> =
  *
  * @template KeySchema - The key schema type
  * @template ValueSchema - The value schema type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type MapConstraint<
   KeySchema extends GenericSchema = GenericSchema,

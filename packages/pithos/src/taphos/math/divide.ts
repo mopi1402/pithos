@@ -6,7 +6,7 @@
  * @returns The quotient.
  * @deprecated Use the `/` operator directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Division | Division (/) - MDN}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

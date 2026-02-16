@@ -27,7 +27,7 @@ const DEFAULT_ANY_SCHEMA: AnySchema = Object.freeze(createAnySchema());
  * @param message - Custom message (stored for API consistency and introspection,
  *                  but never used by the validator since `any` always accepts all values)
  * @returns AnySchema that accepts any value
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function any(message?: string): AnySchema {
   return message ? createAnySchema(message) : DEFAULT_ANY_SCHEMA;

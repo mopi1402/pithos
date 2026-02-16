@@ -27,18 +27,11 @@ export function ModuleCard({
       <div
         className={clsx("text--center", styles.moduleCard)}
         onClick={handleCardClick}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            history.push(docLink);
-          }
-        }}
-        aria-label={`${name} module: ${description}`}
+        role="group"
+        aria-label={`${name}`}
       >
         {status === "beta" && <span className={styles.betaBadge}>{translate({ id: 'homepage.modules.beta', message: 'Beta' })}</span>}
-        <p><img src={logo} width={128} /></p>
+        <p><img src={logo} alt={`${name} module logo`} width={128} height={128} loading="lazy" decoding="async" /></p>
         <Heading as="h3">{name}</Heading>
         <p className={styles.moduleDescription}>{description}</p>
         <div className={styles.moduleLinks}>
@@ -46,7 +39,7 @@ export function ModuleCard({
             className={clsx("button button--sm", styles.docsButton)}
             to={docLink}
             aria-label={translate(
-              { id: 'homepage.modules.docsAriaLabel', message: '{name} documentation' },
+              { id: 'homepage.modules.docsAriaLabel', message: '{name} Docs' },
               { name }
             )}
           >
@@ -56,7 +49,7 @@ export function ModuleCard({
             className={clsx("button button--sm", styles.apiButton)}
             to={apiLink}
             aria-label={translate(
-              { id: 'homepage.modules.apiAriaLabel', message: '{name} API reference' },
+              { id: 'homepage.modules.apiAriaLabel', message: '{name} API' },
               { name }
             )}
           >

@@ -8,7 +8,7 @@ import { DefaultSchema } from "@kanon/types/wrappers";
  * @param defaultValue - Default value or function that returns the default value.
  * @param message - Custom error message.
  * @returns Schema that uses the default value if undefined.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function default_<Inner extends GenericSchema>(
   schema: Inner,
@@ -55,7 +55,7 @@ export function default_<Inner extends GenericSchema>(
 /**
  * Helper to create dynamic default values.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export const DefaultValues = {
   /**

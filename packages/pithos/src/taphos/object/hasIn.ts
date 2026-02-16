@@ -6,7 +6,7 @@
  * @returns `true` if key exists, else `false`.
  * @deprecated Use the `in` operator directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/in | in operator - MDN}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

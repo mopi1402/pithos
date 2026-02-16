@@ -3,7 +3,7 @@
  *
  * @param str - The string to convert.
  * @returns The string with the first character in lowercase.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Supports Unicode characters. Does not modify the rest of the string.
  *

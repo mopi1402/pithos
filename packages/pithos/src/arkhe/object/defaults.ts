@@ -5,7 +5,7 @@
  * @param object - The destination object.
  * @param sources - The source objects.
  * @returns A new object with defaults applied (does not mutate original).
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Only `undefined` values are replaced. `null` values are preserved.
  * @note Inherited properties (e.g., from Object.prototype) are not considered undefined.

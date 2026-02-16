@@ -1,4 +1,4 @@
-## `reduce`
+## `reduce` ⭐
 
 ### **Aggregate** values into single result 📍
 

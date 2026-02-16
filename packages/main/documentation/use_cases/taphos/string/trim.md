@@ -1,4 +1,4 @@
-## `trim` / `trimStart` / `trimEnd`
+## `trim` / `trimStart` / `trimEnd` ⭐
 
 ### **Remove** whitespace 📍
 

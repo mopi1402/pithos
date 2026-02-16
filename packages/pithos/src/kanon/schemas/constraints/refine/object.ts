@@ -11,7 +11,7 @@ type InferObjectEntries<T extends Record<string, GenericSchema>> = {
  * Adds a refinement to an object schema.
  * Returns a base ObjectSchema - the caller is responsible for adding constraints.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 /*@__INLINE__*/
 export const refineObject = <T extends Record<string, GenericSchema>>(

@@ -1,7 +1,7 @@
 /**
  * Union of all schema type literals.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type SchemaType =
   | SchemaCompositeType
@@ -13,7 +13,7 @@ export type SchemaType =
 /**
  * Primitive schema type literals.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type SchemaPrimitiveType =
   | "any"
@@ -36,7 +36,7 @@ export type SchemaPrimitiveType =
 /**
  * Composite schema type literals.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type SchemaCompositeType =
   | "array"
@@ -49,14 +49,14 @@ export type SchemaCompositeType =
 /**
  * Operator schema type literals.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type SchemaOperatorType = "union" | "intersection";
 
 /**
  * Transform schema type literals.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type SchemaTransformType =
   | "keyof"
@@ -68,7 +68,7 @@ export type SchemaTransformType =
 /**
  * Wrapper schema type literals.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type SchemaWrapperType = "default" | "lazy" | "nullable" | "nullish" | "optional" | "readonly";
 
@@ -76,7 +76,7 @@ export type SchemaWrapperType = "default" | "lazy" | "nullable" | "nullish" | "o
  * Base interface for all Kanon schemas.
  *
  * @template T - The type that this schema validates
- * @since 3.0.0
+ * @since 2.0.0
  */
 export interface Schema<T = unknown> {
   type: SchemaType;
@@ -88,7 +88,7 @@ export interface Schema<T = unknown> {
 /**
  * Result type for coerced values.
  * Used by coerce schemas to return the transformed value.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type CoercedResult<T> = { coerced: T };
 
@@ -97,7 +97,7 @@ export type CoercedResult<T> = { coerced: T };
  * - `true` for valid values (no transformation)
  * - `string` for validation errors
  * - `CoercedResult<T>` for coerced values
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type ValidatorResult<T> = true | string | CoercedResult<T>;
 
@@ -106,7 +106,7 @@ export type ValidatorResult<T> = true | string | CoercedResult<T>;
  *
  * @param result - The validator result to check
  * @returns True if the result contains a coerced value
- * @since 3.2.0
+ * @since 2.0.0
  */
 export function isCoerced<T>(
   result: ValidatorResult<T>
@@ -121,7 +121,7 @@ export function isCoerced<T>(
  * Generic schema type that accepts any schema regardless of its specific type.
  * Use this for constraints where you need to accept any schema.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type GenericSchema = Schema<any> & { type: SchemaType };
@@ -130,7 +130,7 @@ export type GenericSchema = Schema<any> & { type: SchemaType };
  * Extracts the inferred TypeScript type from a Kanon schema.
  *
  * @template S - The schema type to extract from
- * @since 3.0.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * const userSchema = object({ name: string(), age: number() });

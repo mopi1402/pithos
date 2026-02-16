@@ -8,7 +8,7 @@
  * because their source code is not accessible. They are stored as external
  * functions and called via the externals map.
  *
- * @since 3.3.0
+ * @since 2.0.0
  * @experimental
  */
 
@@ -21,14 +21,14 @@ import { escapeString, type CodeGenResult } from "../utils/code";
  * Returns true for valid values, or an error message string for invalid values.
  *
  * @template T - The type being validated
- * @since 3.3.0
+ * @since 2.0.0
  */
 export type RefinementFn<T = unknown> = (value: T) => true | string;
 
 /**
  * Options for refinement code generation.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export interface RefinementOptions {
   /** Whether to prefix errors with the current path */
@@ -48,7 +48,7 @@ export interface RefinementOptions {
  * @param index - Optional index for debugging (refinement order)
  * @param options - Optional configuration for code generation
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -113,7 +113,7 @@ export function generateRefinementCall<T>(
  * @param ctx - The generator context
  * @param options - Optional configuration for code generation
  * @returns Generated code lines and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -149,7 +149,7 @@ export function generateRefinementsValidation<T>(
  *
  * @param schema - The schema to check
  * @returns True if the schema has refinements
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function hasRefinements(schema: { refinements?: unknown[] }): boolean {
   return Array.isArray(schema.refinements) && schema.refinements.length > 0;
@@ -160,7 +160,7 @@ export function hasRefinements(schema: { refinements?: unknown[] }): boolean {
  *
  * @param schema - The schema to get refinements from
  * @returns Array of refinement functions, or empty array if none
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function getRefinements<T>(
   schema: { refinements?: Array<RefinementFn<T>> }

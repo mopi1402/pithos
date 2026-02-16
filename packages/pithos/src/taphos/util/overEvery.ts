@@ -6,7 +6,7 @@
  * @returns A function that returns true if all predicates pass.
  * @deprecated Use `predicates.every(fn => fn(value))` directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every | Array.every() - MDN}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

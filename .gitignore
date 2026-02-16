@@ -63,3 +63,9 @@ packages/main/website/src/data/generated/
 
 # Local TODO files
 .todo/
+
+# Lighthouse CI
+.lighthouseci/
+
+# Vercel
+.vercel/

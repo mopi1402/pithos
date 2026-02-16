@@ -1,4 +1,6 @@
-## `castArray`
+## `castArray` 💎
+
+> Normalize any value into an array — the simplest way to write flexible APIs.
 
 ### **Ensure** array 📍
 

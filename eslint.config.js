@@ -1,6 +1,7 @@
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import globals from 'globals';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -87,6 +88,19 @@ export default tseslint.config(
                     'packages/main/website/tsconfig.json'
                 ),
             },
+        },
+    },
+
+    // Accessibility rules for website JSX
+    {
+        files: [
+            'packages/main/website/src/**/*.tsx',
+        ],
+        plugins: {
+            'jsx-a11y': jsxA11y,
+        },
+        rules: {
+            ...jsxA11y.configs.recommended.rules,
         },
     },
 

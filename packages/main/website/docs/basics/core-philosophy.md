@@ -1,10 +1,13 @@
 ---
 sidebar_position: 2
 title: Core Philosophy
+description: "Discover the core philosophy behind Pithos: the guiding principles and architectural decisions that shape every module of this TypeScript utilities library."
 slug: core-philosophy
 ---
 
 import ResponsiveMermaid from "@site/src/components/shared/ResponsiveMermaid";
+import InvisibleList from "@site/src/components/shared/InvisibleList";
+import MarbleQuote from "@site/src/components/shared/MarbleQuote";
 
 # 👁️ Core Philosophy
 
@@ -20,7 +23,7 @@ Everything stems from this principle. We don't choose a technology because it's 
 
 And the ultimate need is **the end user**.
 
-The developer is the **means**. The user is the **end**. This simple truth guides all our technical choices.
+The developer is the **craftsman**. The user is the **purpose**. This simple truth guides all our technical choices.
 
 ---
 
@@ -45,7 +48,7 @@ User experience is **always** the #1 criterion:
 - Explicit error messages
 - Quality TypeScript typing
 
-> _Developing with Pithos should be a pleasure, not an obstacle course._
+> _The best API is the one you don't need to look up twice._
 
 #### Crucial Distinction: Free DX vs Paid DX
 
@@ -144,9 +147,11 @@ Some things **cannot** be predicted and must be handled at runtime:
 
 Some compromises are **out of the question**:
 
+<InvisibleList>
 ❌ Bloated bundles for developer comfort  
 ❌ Too many abstractions / overloads weighing on runtime  
-❌ Sacrificing client-side performance for a "prettier" API  
+❌ Sacrificing client-side performance for a "prettier" API
+</InvisibleList>
 
 :::warning[Server-Side (Node.js)]
 Performance matters even more server-side. Utilities like Arkhe and Kanon can be called thousands of times per request. Slow functions accumulate and block the event loop, impacting all users. That's why we obsess over benchmarks.
@@ -156,7 +161,9 @@ Performance matters even more server-side. Utilities like Arkhe and Kanon can be
 
 ## In Summary
 
-```
+The entire Pithos philosophy boils down to a single priority chain. This hierarchy guides every technical decision, from API design to runtime optimizations:
+
+```text
 UX > DX > Code elegance
 ```
 
@@ -186,7 +193,7 @@ To avoid misunderstandings, let's be crystal clear about what Pithos **doesn't t
 
 | !Pithos is NOT...                      | Because...                                                                   |
 | -------------------------------------- | ---------------------------------------------------------------------------- |
-| **A lodash clone**                     | We don't maintain compatibility with decade-old design choices               |
+| **A lodash clone**                     | We learn from lodash, but we're not bound by its legacy constraints          |
 | **A "safe" library that never throws** | Explicit errors > silent failures. Masking problems leads to bigger problems |
 | **A library for every use case**       | Quality over quantity. Every addition must earn its place                    |
 | **A defensive library**                | We trust TypeScript at compile-time, not runtime type checks                 |
@@ -195,10 +202,12 @@ To avoid misunderstandings, let's be crystal clear about what Pithos **doesn't t
 
 Pithos follows a **pragmatic approach** inspired by the 80/20 rule:
 
+<InvisibleList>
 ❌ We don't handle every bizarre edge case that rarely occurs in practice  
 ❌ We don't add runtime type checks (`typeof`, `instanceof`): TypeScript already guarantees types  
 ✅ We validate **values** (e.g., `size > 0`) but not **types** at runtime  
 ✅ When an error doesn't make sense to handle, we **throw** instead of silently masking it  
+</InvisibleList>
 
 ```typescript
 // ❌ Lodash style: silent, defensive

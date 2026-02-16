@@ -7,7 +7,7 @@ import { Schema, isCoerced } from "../types/base";
  * @param schema - Schema to validate against.
  * @param input - Value to validate.
  * @returns Result object with success flag and data or error.
- * @since 3.0.0
+ * @since 2.0.0
  *
  * @performance Optimization: Fast paths for success/error cases.
  */
@@ -29,7 +29,7 @@ export function parse<T>(
 /**
  * Options for parseBulk function.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export interface ParseBulkOptions {
   /**
@@ -50,7 +50,7 @@ export interface ParseBulkOptions {
  * @param values - Array of values to validate.
  * @param options - Bulk validation options.
  * @returns Result object with success flag and data array or errors array.
- * @since 3.0.0
+ * @since 2.0.0
  *
  * @performance Optimization: Pre-allocation and early abort mode.
  */

@@ -2,7 +2,7 @@
  * Options for the comparator function.
  *
  * @template ComparedValue - The type of values being compared.
- * @since 1.1.0
+ * @since 2.0.0
  */
 export interface ComparatorOptions<ComparedValue> {
   /** Custom comparison function. */
@@ -46,7 +46,7 @@ const defaultCompare = <Value>(a: Value, b: Value): number => {
  * @param mapping - A property key or mapping function to extract the comparison value.
  * @param options - Comparison options.
  * @returns A comparator function for Array.sort().
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Null/undefined values sort last. Dates compare by timestamp. Uses `localeCompare` for strings.
  *

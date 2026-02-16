@@ -6,7 +6,7 @@
  * @template T - The type of the value.
  * @param value - The nullable value to check.
  * @returns `true` if the value is not null, `false` otherwise.
- * @since 1.1.0
+ * @since 1.0.0
  *
  * @example
  * ```typescript

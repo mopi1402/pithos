@@ -47,7 +47,7 @@ const DEFAULT_STRING_SCHEMA = Object.freeze(createStringSchema());
  *
  * @param message - Custom error message (optional).
  * @returns StringConstraint with all constraints.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function string(message?: string): StringConstraint {
   return message ? createStringSchema(message) : DEFAULT_STRING_SCHEMA;

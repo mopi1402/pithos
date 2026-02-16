@@ -6,7 +6,7 @@
  * @param count - The number of elements to take.
  * @returns A new array with the last `count` elements.
  * @throws {RangeError} If count is negative.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

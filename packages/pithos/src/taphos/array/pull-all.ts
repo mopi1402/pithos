@@ -13,7 +13,7 @@ import { pull } from "./pull";
  * @deprecated Use {@link difference} from Arkhe instead.
  * Reason: Pithos design philosophy always favors immutability.
  * @see {@link difference}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

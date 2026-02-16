@@ -5,7 +5,7 @@
  * @param array - The array to iterate over.
  * @param iteratee - A function that returns the grouping key for each element.
  * @returns An object with keys and their occurrence counts.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Keys are always strings (JavaScript object behavior).
  *

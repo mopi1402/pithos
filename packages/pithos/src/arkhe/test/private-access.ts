@@ -1,3 +1,6 @@
+/**
+ * @since 2.0.0
+ */
 // INTENTIONAL: Cast to any to access private members in tests
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type testAny = any;
@@ -8,7 +11,7 @@ export type testAny = any;
  * @template T - The target type to cast to.
  * @param obj - The value to cast.
  * @returns The value cast to the target type.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -29,7 +32,7 @@ export const cast = <T = testAny>(obj: unknown): T => obj as T;
  * @template T - The array element type.
  * @param obj - The value to cast.
  * @returns The value cast to `T[]`.
- * @since 1.1.0
+ * @since 2.0.0
  */
 export const castArray = <T = testAny>(obj: unknown): T[] => obj as T[];
 
@@ -40,13 +43,19 @@ export const castArray = <T = testAny>(obj: unknown): T[] => obj as T[];
  * @template V - The value type.
  * @param obj - The value to cast.
  * @returns The value cast to `Map<K, V>`.
- * @since 1.1.0
+ * @since 2.0.0
  */
 export const castMap = <K = string, V = testAny>(obj: unknown): Map<K, V> =>
   obj as Map<K, V>;
 
-/** Pre-cast null for test assertions. */
+/**
+ * Pre-cast null for test assertions.
+ * @since 2.0.0
+ */
 export const testNull = cast(null);
 
-/** Pre-cast undefined for test assertions. */
+/**
+ * Pre-cast undefined for test assertions.
+ * @since 2.0.0
+ */
 export const testUndefined = cast(undefined);

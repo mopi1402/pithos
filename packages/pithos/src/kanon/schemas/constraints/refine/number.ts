@@ -7,7 +7,7 @@ import { CoercedResult } from "@kanon/types/base";
  * Preserves coercion from the base schema.
  * Returns a base NumberSchema - the caller is responsible for adding constraints.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 /*@__INLINE__*/
 export const refineNumber = (

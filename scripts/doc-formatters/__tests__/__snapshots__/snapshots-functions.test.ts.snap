@@ -55,7 +55,7 @@ The new restricted function. Returns \`undefined\` for the first \`n-1\` calls.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -443,7 +443,7 @@ The new restricted function. Returns \`undefined\` until func is first invoked.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -797,7 +797,7 @@ The string in camelCase.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -1174,7 +1174,7 @@ The flipped function.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -1425,7 +1425,7 @@ The new negated function.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -1756,7 +1756,7 @@ Always returns \`undefined\`.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -2108,7 +2108,7 @@ The restricted function that caches the first call's result.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -2521,7 +2521,7 @@ The sum.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -2715,7 +2715,7 @@ The other value to compare.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -2919,7 +2919,7 @@ A new flattened array.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -3214,7 +3214,7 @@ The first element of the array, or \`undefined\` if empty.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 

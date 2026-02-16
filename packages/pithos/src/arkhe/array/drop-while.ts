@@ -6,7 +6,7 @@
  * @param array - The source array to query.
  * @param predicate - The function invoked per iteration.
  * @returns A new array with the leading elements dropped.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n) — single forward pass with final slice.
  *

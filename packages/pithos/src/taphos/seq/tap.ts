@@ -7,7 +7,7 @@
  * @param interceptor - The function to invoke.
  * @returns The original value.
  * @deprecated Use inline side effects in `pipe` or `.then()` directly instead.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

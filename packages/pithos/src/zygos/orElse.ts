@@ -4,7 +4,7 @@
  * @param fn - The function to execute.
  * @param fallback - The value to return if the function throws an error.
  * @returns The result of the function or the fallback value.
- * @since 1.0.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * const result = orElse(() => JSON.parse('invalid json'), {});
@@ -31,7 +31,7 @@ export const orElse = <T>(fn: () => T, fallback: T): T => {
  * @param fn - The async function to execute.
  * @param fallback - The value to return if the function throws an error.
  * @returns A Promise that resolves to the result of the function or the fallback value.
- * @since 1.0.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * const result = await orElseAsync(async () => {
@@ -65,7 +65,7 @@ export const orElseAsync = async <T>(
  * @param fn - The function to execute.
  * @param fallbackFn - The function to execute if the first function throws an error.
  * @returns The result of the function or the result of the fallback function.
- * @since 1.0.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * const result = orElseLazy(

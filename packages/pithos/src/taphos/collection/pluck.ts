@@ -9,7 +9,7 @@
  * @deprecated Use `array.map(item => item.property)` directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map | Array.map() - MDN}
  * @see {@link https://caniuse.com/mdn-javascript_builtins_array_map | Browser support - Can I Use}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

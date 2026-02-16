@@ -9,7 +9,7 @@
  * @param size - The size of each window (must be a positive integer).
  * @returns An array of subarrays, each containing `size` consecutive elements.
  * @throws {RangeError} When size is not a positive integer.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n×m) time & space, pre-allocated array, early return when size > length.
  *

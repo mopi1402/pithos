@@ -6,7 +6,7 @@
  * @param object - The object to pick keys from.
  * @param keys - Array of keys to pick.
  * @returns A new object with only the specified keys.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Non-existent keys are ignored.
  *

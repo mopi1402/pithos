@@ -2,8 +2,10 @@
 sidebar_label: "Best Practices"
 sidebar_position: 4.5
 title: "Best Practices"
-description: "The Pithos contract: validate at boundaries, trust the types"
+description: "Discover best practices for using Pithos: validate data at boundaries with Kanon and trust TypeScript for your business logic."
 slug: best-practices
+keyword_stuffing_ignore:
+  - types
 ---
 
 import ResponsiveMermaid from "@site/src/components/shared/ResponsiveMermaid";
@@ -95,7 +97,7 @@ const result: Result<User, ApiError> = fetchUser(id);
 
 ### Validate at Boundaries
 
-Use Kanon to validate external data exactly once, at the point of entry.
+Use Kanon to validate external data exactly once, at the point of entry. Once data passes validation, every downstream function can trust the types without additional runtime checks. This keeps your codebase clean and your bundle small:
 
 ```typescript
 import { object, string, number, parse } from "pithos/kanon";
@@ -128,7 +130,7 @@ function processUser(user: User) {
 
 ### Handle Results Explicitly
 
-Every `Result` should be handled. Use `match`, `map`, or explicit checks.
+Every `Result` should be handled. Use `match`, `map`, or explicit checks. The compiler helps you here: if you forget to handle a case, TypeScript will flag it. This makes error handling visible and intentional rather than accidental:
 
 ```typescript
 import { ok, err, Result } from "pithos/zygos/result/result";
@@ -152,7 +154,7 @@ const user = result.value; // TypeScript knows it's Ok here
 
 ### Let Inference Work
 
-Trust TypeScript to figure out types. Add annotations only when necessary.
+Trust TypeScript to figure out types. Add annotations only when necessary. Redundant type annotations create maintenance burden and can mask real type errors when the underlying code changes:
 
 ```typescript
 // ✅ Good: Inference handles it
@@ -169,7 +171,7 @@ const cache: Map<string, User> = new Map();
 
 ### Use Arkhe Utility Types
 
-Arkhe provides utility types that make your intentions clear.
+Arkhe provides utility types that make your intentions clear. These types communicate the shape and constraints of your data at the type level, so other developers understand the contract without reading the implementation:
 
 ```typescript
 import type { Arrayable } from "pithos/arkhe/types/common/arrayable";

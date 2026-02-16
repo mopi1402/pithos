@@ -6,7 +6,7 @@
  * @param size - The size of each chunk (must be a positive integer).
  * @returns An array of chunks, where each chunk has at most `size` elements.
  * @throws {RangeError} If size is not a positive integer.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n) time & space, pre-allocated result array
  *

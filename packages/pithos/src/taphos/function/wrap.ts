@@ -8,7 +8,7 @@
  * @param wrapper - The wrapper function.
  * @returns The new function.
  * @deprecated Use a closure or higher-order function directly instead.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

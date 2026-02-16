@@ -6,7 +6,7 @@
  * @param arrays - An array of arrays to combine.
  * @param iteratee - A function that produces the key for each element.
  * @returns A new array with unique elements based on the iteratee key.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note First occurrence wins when duplicates are found.
  *

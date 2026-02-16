@@ -52,9 +52,10 @@ export const RETURNS_TYPE_FIRST_REGEX =
 /**
  * Regex pattern for matching Returns section with description before type (blockquote).
  * Matches: `## Returns\n\ndescription (possibly multi-line)\n\n> type\n\n`.
+ * Allows ### Type Parameters to follow (part of the Returns block, not a new section).
  */
 export const RETURNS_DESCRIPTION_FIRST_REGEX =
-    /(##+\s+Returns)\n\n([^\n]+(?:\n[^\n]+)*?)\n\n(>\s*)([^\n]+)\n\n(?!###)/g;
+    /(##+\s+Returns)\n\n([^\n]+(?:\n[^\n]+)*?)\n\n(>\s*)([^\n]+)\n\n(?!###\s+(?!Type Parameters))/g;
 
 /**
  * Regex pattern for matching nested Parameters and Returns subsections after Returns.

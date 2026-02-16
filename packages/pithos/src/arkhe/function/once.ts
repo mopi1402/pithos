@@ -5,7 +5,7 @@
  * @template Result - The return type of the function.
  * @param fn - The function to restrict to one execution.
  * @returns The restricted function that caches the first call's result.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Subsequent calls return the cached result and ignore new arguments.
  *

@@ -47,7 +47,7 @@ const DEFAULT_BIGINT_SCHEMA = Object.freeze(createBigIntSchema());
  *
  * @param message - Custom error message (optional).
  * @returns BigIntSchema with all constraints.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function bigint(message?: string): BigIntConstraint {
   return message ? createBigIntSchema(message) : DEFAULT_BIGINT_SCHEMA;

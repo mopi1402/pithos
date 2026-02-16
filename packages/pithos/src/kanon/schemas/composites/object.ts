@@ -15,7 +15,7 @@ type AnySchema = Schema<any>;
  * @param entries - Object entries schema definition.
  * @param message - Custom error message (optional).
  * @returns ObjectConstraint with all constraints.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function object<T extends Record<string, AnySchema>>(
   entries: T,
@@ -33,7 +33,7 @@ export function object<T extends Record<string, AnySchema>>(
  * @param entries - Object entries schema definition.
  * @param message - Custom error message (optional).
  * @returns ObjectConstraint with all constraints.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function strictObject<T extends Record<string, AnySchema>>(
   entries: T,
@@ -50,7 +50,7 @@ export function strictObject<T extends Record<string, AnySchema>>(
  * Loose object schema - validates defined properties but ignores others.
  *
  * @remarks Alias for {@link object} - both create loose object schemas by default.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export const looseObject = object;
 

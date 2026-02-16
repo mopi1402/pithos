@@ -11,7 +11,7 @@ import { PickSchema } from "@kanon/types/transforms";
  * @param keys - Keys to select.
  * @param message - Custom error message.
  * @returns Schema with only selected properties.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function pick<
   T extends Record<string, GenericSchema>,

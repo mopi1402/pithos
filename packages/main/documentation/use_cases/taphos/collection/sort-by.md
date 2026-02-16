@@ -1,4 +1,4 @@
-## `sortBy`
+## `sortBy` ⭐
 
 ### **Sort** objects by property 📍
 

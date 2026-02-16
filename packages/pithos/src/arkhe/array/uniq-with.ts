@@ -5,7 +5,7 @@
  * @param array - The array to inspect.
  * @param comparator - The function invoked to compare elements.
  * @returns A new array with unique elements.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note First occurrence wins when duplicates are found.
  *

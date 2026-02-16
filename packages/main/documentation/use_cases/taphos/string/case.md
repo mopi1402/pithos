@@ -1,4 +1,4 @@
-## `toLower` / `toUpper` / `lowerCase` / `upperCase`
+## `toLower` / `toUpper`
 
 ### **Change** case 📍
 

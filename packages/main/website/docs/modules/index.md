@@ -3,11 +3,12 @@ title: Modules
 sidebar_label: Overview
 sidebar_position: 0
 slug: /modules
+description: "Explore the five Pithos TypeScript modules: zero-dependency data utilities, schema validation, functional error handling, and migration tools."
 ---
 
 import Link from "@docusaurus/Link";
 
-# Modules
+# ⛩️ Modules
 
 Explore the architecture, design decisions, and usage patterns for each Pithos module.
 
@@ -53,7 +54,7 @@ Explore the architecture, design decisions, and usage patterns for each Pithos m
       <span className="basics-card__emoji">🆃</span>
       <div className="basics-card__text">
         <strong>Taphos</strong>
-        <span>Immutable state updates with structural sharing and type-safe transformations</span>
+        <span>Deprecated utilities with migration paths to modern native APIs</span>
       </div>
     </Link>
   </div>

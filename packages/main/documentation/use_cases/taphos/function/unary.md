@@ -1,4 +1,6 @@
-## `unary`
+## `unary` 💎
+
+> Restrict a function to its first argument — the classic fix for `['1','2','3'].map(parseInt)`.
 
 ### **Limit** to one argument 📍
 

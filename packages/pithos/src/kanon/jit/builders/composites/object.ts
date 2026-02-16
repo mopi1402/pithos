@@ -10,7 +10,7 @@
  * - Strict mode with extra keys verification
  * - Nested object support with recursive generation
  *
- * @since 3.3.0
+ * @since 2.0.0
  * @experimental
  */
 
@@ -28,7 +28,7 @@ import { escapeString, debugComment, type CodeGenResult } from "../../utils/code
 /**
  * Property definition for object schema.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export interface ObjectPropertyMeta {
   /** The property name */
@@ -44,7 +44,7 @@ export interface ObjectPropertyMeta {
 /**
  * Object constraint metadata for JIT compilation.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export interface ObjectConstraintMeta {
   /** Properties to validate */
@@ -70,7 +70,7 @@ export interface ObjectConstraintMeta {
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -110,7 +110,7 @@ export function generateObjectTypeCheck(
  * @param prop - The property metadata
  * @param ctx - The generator context
  * @returns Generated code lines and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -186,7 +186,7 @@ export function generatePropertyValidation(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code lines and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -253,7 +253,7 @@ export function generateStrictModeCheck(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateMinKeysCheck(
   objectVar: string,
@@ -279,7 +279,7 @@ export function generateMinKeysCheck(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateMaxKeysCheck(
   objectVar: string,
@@ -309,7 +309,7 @@ export function generateMaxKeysCheck(
  * @param constraints - Object constraint metadata
  * @param customTypeMessage - Optional custom type error message
  * @returns Generated code lines and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -398,7 +398,7 @@ export function generateObjectValidation(
  *
  * @param nestedConstraints - Constraints for the nested object
  * @returns A code generator function
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

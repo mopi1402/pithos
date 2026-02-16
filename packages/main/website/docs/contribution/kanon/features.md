@@ -1,6 +1,7 @@
 ---
 sidebar_position: 4
 title: "Features & API"
+description: "Complete features and API reference for Kanon V3. Pure functional validation, fast paths, singleton pattern, and early abort optimization."
 slug: "features"
 ---
 

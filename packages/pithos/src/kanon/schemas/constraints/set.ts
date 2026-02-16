@@ -7,7 +7,7 @@ import { GenericSchema, Infer } from "@kanon/types/base";
 /**
  * Adds set constraints to a base schema.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 /*@__INLINE__*/
 export function addSetConstraints<ItemSchema extends GenericSchema>(

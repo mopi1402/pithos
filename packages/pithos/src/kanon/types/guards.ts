@@ -1,7 +1,7 @@
 /**
  * Type guards and schema type discrimination utilities for Kanon V3.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 
 import type { SchemaType, GenericSchema } from "./base";
@@ -104,7 +104,7 @@ type SchemaTypeMap = {
  * Maps a SchemaType to its corresponding schema type.
  *
  * @template T - The schema type literal
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type SchemaOfType<T extends SchemaType> = SchemaTypeMap[T];
 
@@ -114,7 +114,7 @@ export type SchemaOfType<T extends SchemaType> = SchemaTypeMap[T];
  * @param schema - The schema to check
  * @param type - The schema type to check against
  * @returns True if the schema matches the specified type
- * @since 3.0.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * const schema: GenericSchema = string();
@@ -139,7 +139,7 @@ export function isSchemaType<T extends SchemaType>(
  * Grouped type guards for common schema types.
  * Provides convenient type narrowing for frequently used schemas.
  *
- * @since 3.0.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * const schema: GenericSchema = string();
@@ -157,7 +157,7 @@ const guard =
 /**
  * Collection of type guards for all schema types.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 export const schemaGuards = {
   isString: guard("string"),
@@ -207,7 +207,7 @@ export const schemaGuards = {
  *
  * @param schema - The schema to check
  * @returns True if the schema is a StringConstraint with constraint methods
- * @since 3.2.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * const schema = string().minLength(5);
@@ -233,7 +233,7 @@ export function isStringConstraint(
  *
  * @param schema - The schema to check
  * @returns True if the schema is a NumberConstraint with constraint methods
- * @since 3.2.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * const schema = number().min(0);
@@ -260,7 +260,7 @@ export function isNumberConstraint(
  *
  * @param schema - The schema to check
  * @returns True if the schema is an ArrayConstraint with constraint methods
- * @since 3.2.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * const schema = array(string()).minLength(1);
@@ -286,7 +286,7 @@ export function isArrayConstraint<T extends GenericSchema>(
  *
  * @param schema - The schema to check
  * @returns True if the schema is an ObjectConstraint with constraint methods
- * @since 3.2.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * const schema = object({ name: string() }).minKeys(1);
@@ -313,7 +313,7 @@ export function isObjectConstraint<
  *
  * @param schema - The schema to check
  * @returns True if the schema is a DateConstraint with constraint methods
- * @since 3.2.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * const schema = date().min(new Date('2020-01-01'));
@@ -339,7 +339,7 @@ export function isDateConstraint(
  *
  * @param schema - The schema to check
  * @returns True if the schema is a BigIntConstraint with constraint methods
- * @since 3.2.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * const schema = bigint().min(0n);
@@ -365,7 +365,7 @@ export function isBigIntConstraint(
  *
  * @param schema - The schema to check
  * @returns True if the schema is a SetConstraint with constraint methods
- * @since 3.2.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * const schema = set(string()).minSize(1);
@@ -391,7 +391,7 @@ export function isSetConstraint<T extends GenericSchema>(
  *
  * @param schema - The schema to check
  * @returns True if the schema is a MapConstraint with constraint methods
- * @since 3.2.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * const schema = map(string(), number()).minSize(1);

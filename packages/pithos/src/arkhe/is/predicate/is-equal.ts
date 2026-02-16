@@ -4,7 +4,7 @@
  * @param value - The value to compare.
  * @param other - The other value to compare.
  * @returns `true` if the values are equivalent, else `false`.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Supports Date, RegExp, Map, Set, arrays, and plain objects. Uses SameValueZero (NaN === NaN). Handles circular references.
  *

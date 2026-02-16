@@ -10,7 +10,7 @@
  * @param start - The start position.
  * @param end - The end position.
  * @returns A new array with the filled values.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n) time & space — three-pass manual copy with fill range.
  *

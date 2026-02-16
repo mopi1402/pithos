@@ -27,7 +27,7 @@ const DEFAULT_UNKNOWN_SCHEMA = Object.freeze(createUnknownSchema());
  * @param message - Custom message (stored for API consistency and introspection,
  *                  but never used by the validator since `unknown` always accepts all values)
  * @returns UnknownSchema that accepts any value
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function unknown(message?: string): UnknownSchema {
   return message ? createUnknownSchema(message) : DEFAULT_UNKNOWN_SCHEMA;

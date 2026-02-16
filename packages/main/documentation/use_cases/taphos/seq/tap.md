@@ -1,4 +1,6 @@
-## `tap`
+## `tap` 💎
+
+> Peek into a chain or pipeline for debugging without affecting the data flow.
 
 ### **Debug** in chain 📍
 

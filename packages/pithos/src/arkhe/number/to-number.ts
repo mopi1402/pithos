@@ -4,7 +4,7 @@
  * @param value - The value to convert.
  * @param defaultValue - Default value if conversion fails.
  * @returns A number representation of the value.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Booleans convert to 1/0. Null/undefined/Symbol return default. NaN returns default.
  * @note BigInt values are converted to number (may lose precision for large values).

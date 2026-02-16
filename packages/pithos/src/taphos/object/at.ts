@@ -8,7 +8,7 @@ import { get } from "../../arkhe/object/get";
  * @returns An array of resolved values.
  * @deprecated Use `paths.map(p => get(obj, p))` directly instead.
  * @see get
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

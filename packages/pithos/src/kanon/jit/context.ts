@@ -10,7 +10,7 @@
  * - Debug mode settings
  * - Cycle detection
  *
- * @since 3.3.0
+ * @since 2.0.0
  * @experimental
  */
 
@@ -20,7 +20,7 @@ import type { GenericSchema } from "../types/base";
  * Type for external values that can be stored in the context.
  * Can be either a refinement function or a RegExp pattern.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export type ExternalValue = ((value: unknown) => boolean | string) | RegExp;
 
@@ -30,7 +30,7 @@ export type ExternalValue = ((value: unknown) => boolean | string) | RegExp;
  * This interface defines the state maintained while generating
  * validation code for a schema.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export interface GeneratorContext {
   /** Counter for generating unique variable names */
@@ -55,7 +55,7 @@ export interface GeneratorContext {
 /**
  * Options for creating a new generator context.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export interface GeneratorContextOptions {
   /** Enable debug mode for readable code */
@@ -67,7 +67,7 @@ export interface GeneratorContextOptions {
  *
  * @param options - Optional configuration
  * @returns A new GeneratorContext instance
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -93,7 +93,7 @@ export function createGeneratorContext(
  *
  * @param ctx - The current context
  * @returns A tuple of [variableName, updatedContext]
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -120,7 +120,7 @@ export function nextVar(ctx: GeneratorContext): [string, GeneratorContext] {
  * @param ctx - The current context
  * @param segment - The path segment to add (property name or index)
  * @returns Updated context with the new path
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -141,7 +141,7 @@ export function pushPath(ctx: GeneratorContext, segment: string): GeneratorConte
  *
  * @param ctx - The current context
  * @returns Updated context with the last path segment removed
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -166,7 +166,7 @@ export function popPath(ctx: GeneratorContext): GeneratorContext {
  * @param ctx - The current context
  * @param value - The external value to add (function or RegExp)
  * @returns A tuple of [referenceName, updatedContext]
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -208,7 +208,7 @@ export function addExternal(
  * @param ctx - The current context
  * @param schema - The schema being visited
  * @returns Updated context with the schema marked as visited
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function markVisited(
   ctx: GeneratorContext,
@@ -226,7 +226,7 @@ export function markVisited(
  * @param ctx - The current context
  * @param schema - The schema to check
  * @returns true if the schema was already visited
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function hasVisited(
   ctx: GeneratorContext,
@@ -240,7 +240,7 @@ export function hasVisited(
  *
  * @param ctx - The current context
  * @returns Updated context with increased indentation
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function increaseIndent(ctx: GeneratorContext): GeneratorContext {
   return {
@@ -254,7 +254,7 @@ export function increaseIndent(ctx: GeneratorContext): GeneratorContext {
  *
  * @param ctx - The current context
  * @returns Updated context with decreased indentation
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function decreaseIndent(ctx: GeneratorContext): GeneratorContext {
   return {
@@ -268,7 +268,7 @@ export function decreaseIndent(ctx: GeneratorContext): GeneratorContext {
  *
  * @param ctx - The current context
  * @returns Indentation string (2 spaces per level)
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function getIndent(ctx: GeneratorContext): string {
   return "  ".repeat(ctx.indent);
@@ -279,7 +279,7 @@ export function getIndent(ctx: GeneratorContext): string {
  *
  * @param ctx - The current context
  * @returns Formatted path string
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

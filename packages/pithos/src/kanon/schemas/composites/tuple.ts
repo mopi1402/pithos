@@ -8,7 +8,7 @@ import { ERROR_MESSAGES_COMPOSITION } from "@kanon/core/consts/messages";
  * @param schemas - Array of schemas for each tuple position.
  * @param message - Custom error message.
  * @returns Schema that validates a tuple with the specified types.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function tuple<T extends readonly GenericSchema[]>(
   schemas: T,
@@ -65,7 +65,7 @@ export function tuple<T extends readonly GenericSchema[]>(
  * @param schema2 - Second schema.
  * @param message - Custom error message (optional).
  * @returns TupleSchema with two elements.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function tupleOf<S1 extends GenericSchema, S2 extends GenericSchema>(
   schema1: S1,
@@ -84,7 +84,7 @@ export function tupleOf<S1 extends GenericSchema, S2 extends GenericSchema>(
  * @param schema3 - Third schema.
  * @param message - Custom error message (optional).
  * @returns TupleSchema with three elements.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function tupleOf3<
   S1 extends GenericSchema,
@@ -109,7 +109,7 @@ export function tupleOf3<
  * @param schema4 - Fourth schema.
  * @param message - Custom error message (optional).
  * @returns TupleSchema with four elements.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function tupleOf4<
   S1 extends GenericSchema,
@@ -134,7 +134,7 @@ export function tupleOf4<
  * @param restSchema - Schema for rest elements.
  * @param message - Custom error message (optional).
  * @returns TupleWithRestSchema with variable length.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function tupleWithRest<
   T extends readonly GenericSchema[],

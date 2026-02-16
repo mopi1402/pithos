@@ -9,7 +9,7 @@ import { isPlainObject } from "@arkhe/is/guard/is-plain-object";
  * @param source - The source object.
  * @param customizer - The function to customize assigned values.
  * @returns A new deeply merged object.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note If customizer returns `undefined`, merging is handled by the default strategy.
  * @note Arrays are replaced by default unless customizer handles them.

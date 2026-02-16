@@ -6,7 +6,7 @@
  * @param array - The array to group.
  * @param iteratee - A function that returns the grouping key for each element.
  * @returns An object with keys mapping to arrays of elements.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Prefer native `Object.groupBy()` when targeting ES2024+.
  *

@@ -3,7 +3,7 @@
  *
  * Useful for type guards and generic constraints.
  *
- * @since 1.0.13
+ * @since 2.0.0
  *
  * @example
  * ```typescript

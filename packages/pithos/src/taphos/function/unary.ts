@@ -6,7 +6,7 @@
  * @returns The new capped function.
  * @deprecated Use an inline arrow function instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions | Arrow functions - MDN}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

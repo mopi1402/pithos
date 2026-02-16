@@ -5,7 +5,7 @@
  * @param value - The value to check (can be null or undefined).
  * @param source - The readonly array of allowed values.
  * @returns `true` if the value exists in the source array, `false` otherwise.
- * @since 1.1.0
+ * @since 1.0.0
  *
  * @note Returns `false` for null/undefined. Useful for validating string unions.
  *

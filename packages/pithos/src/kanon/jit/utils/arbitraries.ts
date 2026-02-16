@@ -6,7 +6,7 @@
  * Provides fast-check arbitraries for generating random Kanon V3 schemas
  * and corresponding values for property-based testing of the JIT compiler.
  *
- * @since 3.3.0
+ * @since 2.0.0
  * @experimental
  */
 
@@ -26,7 +26,7 @@ import { unionOf, unionOf3 } from "../../schemas/operators/union";
 /**
  * Schema with metadata for value generation.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export interface SchemaWithMeta {
   /** The Kanon schema */
@@ -51,7 +51,7 @@ export interface SchemaWithMeta {
  * - maxLength (50-200)
  * - No constraints (base string)
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function arbitraryStringSchema(): fc.Arbitrary<SchemaWithMeta> {
   return fc.oneof(
@@ -120,14 +120,18 @@ export function arbitraryStringSchema(): fc.Arbitrary<SchemaWithMeta> {
  * - positive
  * - No constraints (base number)
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function arbitraryNumberSchema(): fc.Arbitrary<SchemaWithMeta> {
   return fc.oneof(
     // Base number schema (no constraints)
     fc.constant<SchemaWithMeta>({
       schema: number() as GenericSchema,
-      validValueArb: fc.oneof(fc.integer(), fc.float()),
+      validValueArb: fc.oneof(fc.integer(), fc.float({
+        noNaN: true,
+        // Stryker disable next-line BooleanLiteral: Infinity is a valid number for number() schema (typeof Infinity === "number" && !isNaN(Infinity))
+        noDefaultInfinity: true,
+      })),
       invalidValueArb: fc.oneof(
         fc.string(),
         fc.boolean(),
@@ -203,7 +207,7 @@ export function arbitraryNumberSchema(): fc.Arbitrary<SchemaWithMeta> {
 /**
  * Generates arbitrary boolean schemas.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function arbitraryBooleanSchema(): fc.Arbitrary<SchemaWithMeta> {
   return fc.constant<SchemaWithMeta>({
@@ -230,7 +234,7 @@ export function arbitraryBooleanSchema(): fc.Arbitrary<SchemaWithMeta> {
  * Properties are randomly selected from primitive types.
  * Number of properties: 1-5
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function arbitraryObjectSchema(): fc.Arbitrary<SchemaWithMeta> {
   return fc.integer({ min: 1, max: 5 }).chain((numProps) => {
@@ -320,7 +324,7 @@ export function arbitraryObjectSchema(): fc.Arbitrary<SchemaWithMeta> {
  *
  * Item types are primitives (string, number, boolean).
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function arbitraryArraySchema(): fc.Arbitrary<SchemaWithMeta> {
   return fc.oneof(
@@ -373,7 +377,7 @@ export function arbitraryArraySchema(): fc.Arbitrary<SchemaWithMeta> {
  * Branches are primitives (string, number, boolean).
  * Number of branches: 2-4
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function arbitraryUnionSchema(): fc.Arbitrary<SchemaWithMeta> {
   return fc.oneof(
@@ -440,7 +444,7 @@ export function arbitraryUnionSchema(): fc.Arbitrary<SchemaWithMeta> {
  * - Composite schemas (object, array)
  * - Operator schemas (union)
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function arbitrarySchema(): fc.Arbitrary<SchemaWithMeta> {
   return fc.oneof(
@@ -469,7 +473,7 @@ export function arbitrarySchema(): fc.Arbitrary<SchemaWithMeta> {
  * @param schemaWithMeta - Schema with metadata including value generators
  * @param validOnly - If true, only generate valid values
  * @returns Arbitrary that generates values for the schema
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function arbitraryValueForSchema(
   schemaWithMeta: SchemaWithMeta,
@@ -500,7 +504,7 @@ export function arbitraryValueForSchema(
  * This is useful for round-trip testing where you need both
  * a schema and a value to test against.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function arbitrarySchemaWithValue(): fc.Arbitrary<{
   schemaWithMeta: SchemaWithMeta;
@@ -522,7 +526,7 @@ export function arbitrarySchemaWithValue(): fc.Arbitrary<{
  * This is useful for testing that valid values pass validation
  * in both JIT and non-JIT validators.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function arbitrarySchemaWithValidValue(): fc.Arbitrary<{
   schemaWithMeta: SchemaWithMeta;
@@ -542,7 +546,7 @@ export function arbitrarySchemaWithValidValue(): fc.Arbitrary<{
  * This is useful for testing that invalid values fail validation
  * in both JIT and non-JIT validators.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function arbitrarySchemaWithInvalidValue(): fc.Arbitrary<{
   schemaWithMeta: SchemaWithMeta;

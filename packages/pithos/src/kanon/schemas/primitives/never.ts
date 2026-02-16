@@ -18,7 +18,7 @@ const DEFAULT_NEVER_SCHEMA: NeverSchema = Object.freeze({
  *
  * @param message - Custom error message.
  * @returns NeverSchema that rejects any value
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function never(message?: string): NeverSchema {
   if (!message) {

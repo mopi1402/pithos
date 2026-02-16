@@ -25,7 +25,7 @@ export default function NotFoundContent(): ReactNode {
         <p className={styles.description}>
           <Translate id="theme.NotFound.p1">
             Like Icarus, this page flew too close to the sun and melted away.
-            Don't worry — unlike him, you can find your way back.
+            Don't worry: unlike him, you can find your way back.
           </Translate>
         </p>
 
@@ -39,8 +39,8 @@ export default function NotFoundContent(): ReactNode {
             <Link to="/use-cases" className={styles.link}>
               🗺️ Use Cases Explorer
             </Link>
-            <Link to="/guide/quick-start/" className={styles.link}>
-              ⚡️ Quick Start
+            <Link to="/guide/get-started/" className={styles.link}>
+              ⚡️ Get Started
             </Link>
             <Link to="/api" className={styles.link}>
               📔 API Reference

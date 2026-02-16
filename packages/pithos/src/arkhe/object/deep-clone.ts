@@ -10,7 +10,7 @@
  * @template T - The type of the destination object.
  * @param value - The value to deep clone.
  * @returns A deep clone of the value.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n) time & space where n is total number of properties/elements.
  *

@@ -6,6 +6,8 @@ description: "Compare Kanon bundle size with Zod, Valibot and other validation l
 ---
 
 import { BundleSizeComparisonTable, SingleLibraryTable, HelpersImpactTable, WhenToUseTable, ZodMiniComparisonTable, SummaryTable, DynamicSize, GeneratedDate, SavingsHighlight } from '@site/src/components/comparisons/BundleSizeTable';
+import { DashedSeparator } from '@site/src/components/shared/DashedSeparator';
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 # 📦 Kanon Bundle Size
 
@@ -13,7 +15,9 @@ Real numbers. No marketing fluff. **Data auto-generated on <GeneratedDate />.**
 
 ## TL;DR
 
-For a complete app with all schema types: <SavingsHighlight test="full-app" />
+<SavingsHighlight test="full-app" />
+
+---
 
 ## Real-World Use Cases
 
@@ -29,6 +33,8 @@ These are actual validation scenarios you'll encounter in production:
   stickySecondColumn={true}
 />
 
+<DashedSeparator noMarginBottom />
+
 ### What each test validates
 
 | Use Case | What it validates |
@@ -40,9 +46,13 @@ These are actual validation scenarios you'll encounter in production:
 | **Form + Coercion** | String→Number, String→Boolean, String→Date |
 | **Full App** | Everything above + discriminatedUnion, record, etc. |
 
+---
+
 ## Kanon Detailed Breakdown
 
 <SingleLibraryTable variant="kanon" category="real-world" />
+
+---
 
 ## Why Kanon is Smaller: True Tree-Shaking {#direct-imports}
 
@@ -72,6 +82,8 @@ const loginSchema = z.object({
 
 Even `z.string().min(1)` pulls in **<DynamicSize variant="zod4-classic" />** because class methods are bundled together.
 
+<DashedSeparator noMarginBottom />
+
 ### Zod 4 Mini: A Partial Solution
 
 Zod 4 introduced `zod/mini` which is smaller, but still can't fully tree-shake:
@@ -80,29 +92,21 @@ Zod 4 introduced `zod/mini` which is smaller, but still can't fully tree-shake:
 
 Kanon's bundle **grows proportionally** with usage. Zod's is mostly fixed overhead.
 
+---
+
 ## Convenience Helpers: `k`, `z` & `validation`
 
 Kanon offers convenience helpers for different use cases, but they come with a trade-off:
 
 <HelpersImpactTable />
 
-## Measure It Yourself
+---
 
-The data on this page is generated automatically. Reproduce it:
+## Reproduce These Results
 
-```bash
-# From the pithos repository
-cd packages/main/website
-npx tsx scripts/generate-bundle-data.ts
-```
+Want to verify these results? See [how to reproduce our data](../reproduce.md).
 
-Or measure any import manually:
-
-```bash
-# Using esbuild
-echo 'import { string, object, parse } from "pithos/kanon"' | \
-  esbuild --bundle --minify | gzip -c | wc -c
-```
+---
 
 ## Summary
 
@@ -113,3 +117,14 @@ echo 'import { string, object, parse } from "pithos/kanon"' | \
 **Prototyping**: Use `k` namespace for convenience.  
 **Migrating from Zod**: Use `z` shim, then gradually switch to direct imports.
 :::
+
+---
+
+<RelatedLinks>
+
+- [Kanon vs Zod](./kanon-vs-zod.md) — Full comparison: philosophy, API, migration
+- [Zygos — Bundle Size](../zygos/bundle-size.md) — Result pattern size comparison
+- [Arkhe — Bundle Size](../arkhe/bundle-size.md) — Utility function size comparison
+- [Kanon Module Guide](/guide/modules/kanon/) — Full module documentation
+
+</RelatedLinks>

@@ -25,19 +25,19 @@ export function escapeGenericTypesForMDX(content: string): string {
             );
         }
 
-        // Split into backtick-wrapped and non-backtick segments
+        // Split into protected segments (backtick-wrapped OR <TypeRef>...</TypeRef>) and text
         const segments: Array<{ type: 'text' | 'code', content: string }> = [];
         let lastIndex = 0;
-        const backtickRegex = /`[^`]+`/g;
-        let backtickMatch;
+        // Match backtick segments OR <TypeRef>...</TypeRef> blocks — both are protected from escaping
+        const protectedRegex = /`[^`]+`|<TypeRef>[\s\S]*?<\/TypeRef>/g;
+        let protectedMatch;
 
-        while ((backtickMatch = backtickRegex.exec(line)) !== null) {
-            if (backtickMatch.index > lastIndex) {
-                segments.push({ type: 'text', content: line.slice(lastIndex, backtickMatch.index) });
+        while ((protectedMatch = protectedRegex.exec(line)) !== null) {
+            if (protectedMatch.index > lastIndex) {
+                segments.push({ type: 'text', content: line.slice(lastIndex, protectedMatch.index) });
             }
-            // Code segments are already protected by backticks in MDX, no need to escape
-            segments.push({ type: 'code', content: backtickMatch[0] });
-            lastIndex = backtickMatch.index + backtickMatch[0].length;
+            segments.push({ type: 'code', content: protectedMatch[0] });
+            lastIndex = protectedMatch.index + protectedMatch[0].length;
         }
         if (lastIndex < line.length) {
             segments.push({ type: 'text', content: line.slice(lastIndex) });

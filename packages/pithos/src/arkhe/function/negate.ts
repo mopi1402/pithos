@@ -4,7 +4,7 @@
  * @template Args - The argument types of the predicate.
  * @param predicate - The predicate to negate.
  * @returns The new negated function.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

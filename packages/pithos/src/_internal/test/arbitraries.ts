@@ -6,6 +6,7 @@ const safeKey = fc.string().filter((k) => k !== "__proto__");
 /**
  * Arbitrary for safe objects (excludes __proto__ which causes prototype pollution)
  * @internal - Depends on @fast-check/vitest
+ * @since 2.0.0
  */
 export const safeObject = (options?: { maxDepth?: number }) =>
     fc.object({
@@ -16,6 +17,7 @@ export const safeObject = (options?: { maxDepth?: number }) =>
 /**
  * Arbitrary for safe dictionaries (excludes __proto__ which causes prototype pollution)
  * @internal - Depends on @fast-check/vitest
+ * @since 2.0.0
  */
 export const safeDictionary = <T>(valueArb: fc.Arbitrary<T>) =>
     fc.dictionary(safeKey, valueArb);

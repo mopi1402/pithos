@@ -21,7 +21,7 @@ type UnzipResult<T extends readonly unknown[]> = {
  * @returns An array of arrays where `result[i]` contains all values from position `i` of each tuple.
  * @throws {RangeError} If tuples have inconsistent lengths.
  * @see zip
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n × m) time & space where n = tuple length, m = number of tuples. Pre-allocates result arrays with `new Array(n)` for minimal allocation overhead.
  *

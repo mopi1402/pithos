@@ -3,7 +3,7 @@ import { sleep } from "@arkhe/util/sleep";
 /**
  * Configuration options for retry behavior.
  *
- * @since 1.1.0
+ * @since 2.0.0
  */
 export interface RetryOptions {
   /** Number of retry attempts. Defaults to `3`. */

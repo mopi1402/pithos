@@ -1,4 +1,6 @@
-## `flatMap`
+## `flatMap` 💎
+
+> Combine mapping and flattening in a single, expressive operation.
 
 ### **Map** and flatten in one step 📍
 

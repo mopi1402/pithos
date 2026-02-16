@@ -6,7 +6,7 @@
  * @returns `true` if value is greater than other, else `false`.
  * @deprecated Use the `>` operator directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Greater_than | Greater than (>) - MDN}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

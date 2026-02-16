@@ -6,7 +6,7 @@
  * @param object - The object to iterate over.
  * @param iteratee - The function invoked per iteration.
  * @returns A new object with transformed values.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n) where n is the number of own enumerable properties.
  *

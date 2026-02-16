@@ -3,7 +3,7 @@
  *
  * @param str - The string to convert.
  * @returns The string in camelCase.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Handles kebab-case, snake_case, PascalCase, space-separated strings, and acronyms.
  *

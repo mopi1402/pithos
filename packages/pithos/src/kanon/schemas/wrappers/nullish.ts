@@ -7,7 +7,7 @@ import { NullishSchema } from "@kanon/types/wrappers";
  * @param schema - The schema to make nullish.
  * @param message - Custom error message.
  * @returns Schema that accepts the original type, null, or undefined.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function nullish<T>(
   schema: Schema<T>,

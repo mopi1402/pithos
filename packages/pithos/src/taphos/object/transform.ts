@@ -9,7 +9,7 @@
  * @returns The accumulated value.
  * @deprecated Use `Object.entries().reduce()` directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries | Object.entries() - MDN}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

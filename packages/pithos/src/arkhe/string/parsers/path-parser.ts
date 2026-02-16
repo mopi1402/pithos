@@ -3,7 +3,7 @@
  *
  * @param path - The path string to parse.
  * @returns The array of parsed keys (strings and numbers).
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Supports dot notation, bracket notation, and quoted keys. Numeric indices become numbers.
  *

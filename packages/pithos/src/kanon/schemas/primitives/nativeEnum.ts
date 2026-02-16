@@ -38,7 +38,7 @@ function extractEnumValues<T extends Record<string, string | number>>(
  * @param enumObj - TypeScript enum object.
  * @param message - Custom error message.
  * @returns Schema that validates native enum values.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function nativeEnum<T extends Record<string, string | number>>(
   enumObj: T,

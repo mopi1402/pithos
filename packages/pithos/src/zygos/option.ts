@@ -15,7 +15,7 @@ import { Nullish } from "@arkhe/types/common/nullish";
 
 /**
  * Represents the absence of a value.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export interface None {
   readonly _tag: "None";
@@ -24,7 +24,7 @@ export interface None {
 /**
  * Represents the presence of a value.
  * @template A - The value type.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export interface Some<A> {
   readonly _tag: "Some";
@@ -34,7 +34,7 @@ export interface Some<A> {
 /**
  * Option type representing an optional value.
  * @template A - The value type.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export type Option<A> = None | Some<A>;
 
@@ -44,7 +44,7 @@ export type Option<A> = None | Some<A>;
 
 /**
  * The None instance representing absence of value.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const none: Option<never> = { _tag: "None" };
 
@@ -53,13 +53,13 @@ export const none: Option<never> = { _tag: "None" };
  * @template A - The value type.
  * @param a - The value to wrap.
  * @returns A Some containing the value.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const some = <A>(a: A): Option<A> => ({ _tag: "Some", value: a });
 
 /**
  * Alias for some.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const of = some; // Alias direct
 
@@ -72,7 +72,7 @@ export const of = some; // Alias direct
  * @template A - The value type.
  * @param fa - The Option to check.
  * @returns True if the Option is a Some.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const isSome = <A>(fa: Option<A>): fa is Some<A> => fa._tag === "Some";
 
@@ -80,7 +80,7 @@ export const isSome = <A>(fa: Option<A>): fa is Some<A> => fa._tag === "Some";
  * Type guard that checks if an Option is a None.
  * @param fa - The Option to check.
  * @returns True if the Option is a None.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const isNone = (fa: Option<unknown>): fa is None => fa._tag === "None";
 
@@ -93,7 +93,7 @@ export const isNone = (fa: Option<unknown>): fa is None => fa._tag === "None";
  * @template A - The value type.
  * @param a - The nullable value.
  * @returns Some if value is not null/undefined, None otherwise.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const fromNullable = <A>(a: A): Option<NonNullable<A>> =>
   a == null ? none : some(a as NonNullable<A>);
@@ -103,7 +103,7 @@ export const fromNullable = <A>(a: A): Option<NonNullable<A>> =>
  * @template A - The value type.
  * @param refinement - The refinement or predicate function.
  * @returns A function that creates an Option based on the predicate.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function fromPredicate<A, B extends A>(
   refinement: (a: A) => a is B
@@ -127,7 +127,7 @@ export function fromPredicate<A>(
  * @template B - The output type.
  * @param f - The mapping function.
  * @returns A function that transforms the Option.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const map =
   <A, B>(f: (a: A) => B) =>
@@ -140,7 +140,7 @@ export const map =
  * @template B - The output type.
  * @param f - The chaining function.
  * @returns A function that transforms the Option.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const flatMap =
   <A, B>(f: (a: A) => Option<B>) =>
@@ -149,7 +149,7 @@ export const flatMap =
 
 /**
  * Alias for flatMap.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const chain = flatMap;
 
@@ -164,7 +164,7 @@ export const chain = flatMap;
  * @param onNone - Handler for None case.
  * @param onSome - Handler for Some case.
  * @returns A function that matches the Option.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const match =
   <A, B>(onNone: () => B, onSome: (a: A) => B) =>
@@ -173,7 +173,7 @@ export const match =
 
 /**
  * Alias for match.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const fold = match;
 
@@ -185,7 +185,7 @@ export const fold = match;
  * @param onNone - Handler for None case.
  * @param onSome - Handler for Some case.
  * @returns A function that matches the Option.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const matchW =
   <B, A, C>(onNone: () => B, onSome: (a: A) => C) =>
@@ -194,7 +194,7 @@ export const matchW =
 
 /**
  * Alias for matchW.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const foldW = matchW;
 
@@ -207,7 +207,7 @@ export const foldW = matchW;
  * @template A - The value type.
  * @param onNone - Function to provide default value.
  * @returns A function that extracts the value.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const getOrElse =
   <A>(onNone: () => A) =>
@@ -219,7 +219,7 @@ export const getOrElse =
  * @template B - The default type.
  * @param onNone - Function to provide default value.
  * @returns A function that extracts the value.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const getOrElseW =
   <B>(onNone: () => B) =>
@@ -231,7 +231,7 @@ export const getOrElseW =
  * @template A - The value type.
  * @param that - Function to provide alternative Option.
  * @returns A function that returns the alternative.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const alt =
   <A>(that: () => Option<A>) =>
@@ -240,7 +240,7 @@ export const alt =
 
 /**
  * Alias for alt.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const orElse = alt;
 
@@ -253,7 +253,7 @@ export const orElse = alt;
  * @template A - The value type.
  * @param predicate - The predicate function.
  * @returns A function that filters the Option.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const filter =
   <A>(predicate: (a: A) => boolean) =>
@@ -266,7 +266,7 @@ export const filter =
  * @template B - The output type.
  * @param f - The mapping function that returns an Option.
  * @returns A function that filterMaps the Option.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const filterMap =
   <A, B>(f: (a: A) => Option<B>) =>
@@ -282,7 +282,7 @@ export const filterMap =
  * @template A - The value type.
  * @param ma - The Option to convert.
  * @returns The value or null.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const toNullable = <A>(ma: Option<A>): A | null =>
   isNone(ma) ? null : ma.value;
@@ -292,7 +292,7 @@ export const toNullable = <A>(ma: Option<A>): A | null =>
  * @template A - The value type.
  * @param ma - The Option to convert.
  * @returns The value or undefined.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const toUndefined = <A>(ma: Option<A>): A | undefined =>
   isNone(ma) ? undefined : ma.value;
@@ -302,7 +302,7 @@ export const toUndefined = <A>(ma: Option<A>): A | undefined =>
  * @template A - The value type.
  * @param fa - The Either to convert.
  * @returns Some if Right, None if Left.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const fromEither = <A>(fa: {
   _tag: "Left" | "Right";
@@ -316,7 +316,7 @@ export const fromEither = <A>(fa: {
  * @template E - The error type.
  * @param onNone - Function to create error for None.
  * @returns A function that converts the Option.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const toEither =
   <E>(onNone: () => E) =>
@@ -334,7 +334,7 @@ export const toEither =
  * @template A - The value type.
  * @param predicate - The predicate to test.
  * @returns A function that tests the Option.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const exists =
   <A>(predicate: (a: A) => boolean) =>
@@ -346,14 +346,14 @@ export const exists =
  * @template A - The value type.
  * @param mma - The nested Option.
  * @returns The flattened Option.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const flatten = <A>(mma: Option<Option<A>>): Option<A> =>
   isNone(mma) ? none : mma.value;
 
 /**
  * Alias for flatten.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const compact = flatten;
 
@@ -365,7 +365,7 @@ export const compact = flatten;
  * Sequences two Options, keeping the first value.
  * @param fb - The second Option.
  * @returns A function that sequences the Options.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const apFirst =
   (fb: Option<unknown>) =>
@@ -377,7 +377,7 @@ export const apFirst =
  * @template A - The value type.
  * @param fb - The second Option.
  * @returns A function that sequences the Options.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const apSecond =
   <A>(fb: Option<A>) =>
@@ -389,7 +389,7 @@ export const apSecond =
  * @template A - The input type.
  * @param a - The value to apply.
  * @returns A function that applies the value.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const flap =
   <A>(a: A) =>
@@ -401,7 +401,7 @@ export const flap =
  * @template A - The new value type.
  * @param a - The constant value.
  * @returns A function that replaces the value.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const as =
   <A>(a: A) =>
@@ -412,7 +412,7 @@ export const as =
  * Replaces the value with void.
  * @param self - The Option to transform.
  * @returns An Option containing void.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const asUnit = <_>(self: Option<_>): Option<void> =>
   isNone(self) ? none : some(undefined);
@@ -426,7 +426,7 @@ export const asUnit = <_>(self: Option<_>): Option<void> =>
  * @template A - The value type.
  * @param f - The function to execute.
  * @returns Some if successful, None if throws.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const tryCatch = <A>(f: () => A): Option<A> => {
   try {
@@ -442,7 +442,7 @@ export const tryCatch = <A>(f: () => A): Option<A> => {
  * @template B - The return type.
  * @param f - The function to lift.
  * @returns A lifted function that returns an Option.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const tryCatchK =
   <A extends readonly unknown[], B>(f: (...a: A) => B) =>
@@ -460,7 +460,7 @@ export const tryCatchK =
  * @template B - The return type.
  * @param f - The function to lift.
  * @returns A lifted function that returns an Option.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const fromNullableK =
   <A extends readonly unknown[], B>(f: (...a: A) => Nullish<B>) =>
@@ -473,7 +473,7 @@ export const fromNullableK =
  * @template B - The output type.
  * @param f - The chaining function.
  * @returns A function that chains the Option.
- * @since 1.0.0
+ * @since 2.0.0
  */
 export const chainNullableK =
   <A, B>(f: (a: A) => Nullish<B>) =>

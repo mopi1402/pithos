@@ -3,7 +3,7 @@
  *
  * @param value - The value to check.
  * @returns `true` if the value is a plain object, `false` otherwise.
- * @since 1.1.0
+ * @since 1.0.0
  *
  * @note Excludes arrays, Date, Map, Set, class instances, etc. Only `{}`, `new Object()`, and `Object.create(null)`.
  *

@@ -1,7 +1,7 @@
 /**
  * Specialized types for V3 operators (union, intersection).
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 
 import { Schema, GenericSchema, Infer } from "./base";
@@ -22,7 +22,7 @@ type UnionToIntersection<U> =
  *
  * @template Schemas - The union member schemas
  * @template T - The inferred union type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type UnionSchema<
   Schemas extends readonly GenericSchema[],
@@ -37,7 +37,7 @@ export type UnionSchema<
  *
  * @template Schemas - The intersection member schemas
  * @template T - The inferred intersection type
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type IntersectionSchema<
   Schemas extends readonly GenericSchema[],
@@ -52,7 +52,7 @@ export type IntersectionSchema<
  * This is a looser type that accepts both ObjectSchema and ObjectConstraint.
  *
  * @internal
- * @since 3.0.0
+ * @since 2.0.0
  */
 export interface DiscriminableObjectBase {
   type: "object";
@@ -65,7 +65,7 @@ export interface DiscriminableObjectBase {
  *
  * @template Discriminator - The key used to discriminate between variants.
  * @template Schemas - Array of object schemas with a literal discriminator field.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type DiscriminatedUnionSchema<
   Discriminator extends string,
@@ -86,7 +86,7 @@ export type DiscriminatedUnionSchema<
  * The discriminator field must be a literal schema.
  *
  * @template Discriminator - The key of the discriminator field.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export type DiscriminableSchema<Discriminator extends string> =
   DiscriminableObjectBase & {

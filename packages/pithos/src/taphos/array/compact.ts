@@ -10,7 +10,7 @@ type Truthy<T> = Exclude<T, false | null | 0 | 0n | '' | undefined>;
  * Reason: Native equivalent method now available
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter | Array.filter() - MDN}
  * @see {@link https://caniuse.com/mdn-javascript_builtins_array_filter | Browser support - Can I Use}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

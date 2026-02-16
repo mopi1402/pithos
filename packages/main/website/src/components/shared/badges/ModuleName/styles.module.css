@@ -4,3 +4,13 @@
   text-transform: uppercase;
   color: var(--golden-color) !important;
 }
+
+.moduleName a {
+  color: var(--golden-color) !important;
+  text-decoration: none;
+}
+
+.moduleName a:hover {
+  color: var(--golden-color) !important;
+  text-decoration: underline;
+}

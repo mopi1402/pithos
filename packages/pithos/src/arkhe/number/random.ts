@@ -4,7 +4,7 @@
  * @param min - Minimum bound (inclusive). If `max` omitted, becomes max with min defaulting to 0.
  * @param max - Maximum bound (exclusive).
  * @returns A random number in range [min, max).
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Returns `min` if min === max. Swaps bounds automatically if min > max.
  * @note Impure function (uses Math.random()).

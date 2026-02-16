@@ -46,7 +46,7 @@ import { Result, Ok, Err, ok, err } from "@zygos/result/result";
  *
  * @template T - The type of the success value
  * @template E - The type of the error value
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -564,7 +564,7 @@ export class ResultAsync<T, E> implements PromiseLike<Result<T, E>> {
  * @template E - The type of the error value (defaults to never)
  * @param value - The value to wrap
  * @returns A new ResultAsync that will resolve to Ok(value)
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -591,7 +591,7 @@ export function okAsync<T, E = never>(value: T): ResultAsync<T, E> {
  * @template E - The type of the error value (defaults to unknown)
  * @param err - The error to wrap in an error result
  * @returns A new ResultAsync that will resolve to Err(err)
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -612,7 +612,7 @@ export function errAsync<T = never, E = unknown>(err: E): ResultAsync<T, E> {
 /**
  * Convenience export for ResultAsync.fromPromise.
  *
- * @since 1.1.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * import { fromPromise } from './result-async';
@@ -628,7 +628,7 @@ export const fromPromise = ResultAsync.fromPromise;
 /**
  * Convenience export for ResultAsync.fromSafePromise.
  *
- * @since 1.1.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * import { fromSafePromise } from './result-async';
@@ -643,7 +643,7 @@ export const fromSafePromise = ResultAsync.fromSafePromise;
  *
  * Maintains compatibility with Neverthrow's API while providing enhanced type safety.
  *
- * @since 1.1.0
+ * @since 2.0.0
  * @example
  * ```typescript
  * import { fromAsyncThrowable } from './result-async';

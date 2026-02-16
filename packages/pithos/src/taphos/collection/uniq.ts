@@ -9,7 +9,7 @@
  * @see {@link https://caniuse.com/mdn-javascript_builtins_set | Browser support - Can I Use}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from | Array.from() - MDN}
  * @see {@link https://caniuse.com/mdn-javascript_builtins_array_from | Browser support - Can I Use}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

@@ -1,4 +1,6 @@
-## `zipObject`
+## `zipObject` 💎
+
+> A concise way to create typed objects from parallel key-value arrays.
 
 ### **Create** object from arrays 📍
 

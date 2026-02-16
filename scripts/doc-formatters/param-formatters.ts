@@ -137,69 +137,33 @@ export function reformatParameters(content: string): string {
     content = reformatNestedMethodSections(content);
     // Handle interface property with blockquote type (TypeDoc format) - MUST BE FIRST
     // Format: ### propName?\n\n> `optional` **propName**: `type`\n\n
-    // Transform to: ### propName?: <code>type</code>\n\n
+    // Transform to: ### propName?: `type` or ### propName?: <TypeRef>type</TypeRef>
     content = content.replace(
         INTERFACE_PROPERTY_REGEX,
         (match, heading, paramName, typePart) => {
             if (heading.includes(":")) return match;
-            // Note: no isSectionHeader check — the regex pattern is specific enough
-            // (requires `> [optional] **name**: type`) to never match a section header.
 
-            // Extract optional marker (?) from heading
             const isOptional = heading.includes("?");
             const cleanHeading = heading.replace(/\?/, "");
-            
-            // Clean the type and wrap in <code> for consistent formatting with function parameters
-            let cleanType = typePart.trim().replace(/`/g, "").trim();
-            
-            // Unescape TypeDoc's markdown escapes before converting to HTML entities
-            cleanType = cleanType
-                .replace(/\\</g, "<")
-                .replace(/\\>/g, ">")
-                .replace(/\\{/g, "{")
-                .replace(/\\}/g, "}");
-            
-            // Escape special characters for MDX
-            cleanType = cleanType
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/{/g, "&#123;")
-                .replace(/}/g, "&#125;");
-            
             const optionalMarker = isOptional ? "?" : "";
             
-            return `<a id="${paramName}"></a>\n\n${cleanHeading}${optionalMarker}: <code>${cleanType}</code>\n\n`;
+            const wrappedType = wrapFullType(typePart);
+            
+            return `<a id="${paramName}"></a>\n\n${cleanHeading}${optionalMarker}: ${wrappedType}\n\n`;
         }
     );
 
     // Handle readonly property with default value (const object properties)
     // Format: ### propName\n\n> `readonly` **propName**: `type` = `defaultValue`\n\n
-    // Transform to: ### propName: <code>type</code>\n\n
+    // Transform to: ### propName: `type` or ### propName: <TypeRef>type</TypeRef>
     content = content.replace(
         READONLY_PROPERTY_REGEX,
         (match, heading, _paramName, typePart) => {
             if (heading.includes(":")) return match;
-            // Note: no isSectionHeader check — the regex pattern is specific enough
-            // (requires `> \`readonly\` **name**: type`) to never match a section header.
 
-            // Clean the type and wrap in <code>
-            let cleanType = typePart.trim().replace(/`/g, "").trim();
+            const wrappedType = wrapFullType(typePart);
 
-            // Unescape TypeDoc's markdown escapes before converting to HTML entities
-            cleanType = cleanType
-                .replace(/\\</g, "<")
-                .replace(/\\>/g, ">")
-                .replace(/\\{/g, "{")
-                .replace(/\\}/g, "}");
-
-            // Escape special characters for MDX
-            cleanType = cleanType
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/{/g, "&#123;")
-                .replace(/}/g, "&#125;");
-
-            return `${heading}: <code>${cleanType}</code>\n\n`;
+            return `${heading}: ${wrappedType}\n\n`;
         }
     );
 
@@ -347,6 +311,16 @@ export function reformatParameters(content: string): string {
             }
             return match;
         }
+    );
+
+    // Remove ### Type Parameters subsections that follow a Returns blockquote type
+    // These are nested type params for the returned function signature (common in zygos)
+    // Also removes subsequent ### Parameters and ### Returns subsections
+    // Pattern: after a formatted Returns heading + description, remove all ### subsections
+    // until the next ## section or end of content
+    content = content.replace(
+        /(##+\s+Returns:[^\n]*\n\n(?:[^\n]+\n\n)?)(###\s+(?:Type Parameters|Parameters|Returns)[\s\S]*?)(?=\n---|\n##\s|$)/g,
+        "$1"
     );
 
     // Remove nested Parameters/Returns subsections

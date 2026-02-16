@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { translate } from "@docusaurus/Translate";
+import { DashedSeparator } from "@site/src/components/shared/DashedSeparator";
 import {
   GeneratedDate as GenericGeneratedDate,
   PerfTLDR as GenericPerfTLDR,
@@ -262,7 +263,7 @@ function DetailedStatsInner(): React.ReactElement {
 }
 
 // ============================================
-// FilterableBenchmarkSection — wraps filter + all sub-components
+// FilterableBenchmarkSection - wraps filter + all sub-components
 // ============================================
 
 export function FilterableBenchmarkSection(): React.ReactElement {
@@ -275,8 +276,11 @@ export function FilterableBenchmarkSection(): React.ReactElement {
     <LibraryFilterProvider groups={groups} allLibraries={allLibraries}>
       <LibraryFilterToggle groups={groups} />
       <GenericBenchmarkResultsTable config={kanonConfig} />
+      <DashedSeparator />
       <PerformanceSummaryInner />
+      <DashedSeparator />
       <WeightedSummaryInner />
+      <DashedSeparator />
       <h2>{translate({ id: 'comparison.kanon.detailedStats.title', message: 'Detailed Statistics' })}</h2>
       <p>{translate({ id: 'comparison.kanon.detailedStats.subtitle', message: 'For the skeptics who want to see the raw numbers:' })}</p>
       <DetailedStatsInner />
@@ -286,7 +290,7 @@ export function FilterableBenchmarkSection(): React.ReactElement {
 
 // ============================================
 // Standalone BenchmarkResultsTable with built-in filter
-// (preserves original export behavior — the original wrapped filter + table)
+// (preserves original export behavior - the original wrapped filter + table)
 // ============================================
 
 function BenchmarkResultsTableWithFilter(): React.ReactElement {

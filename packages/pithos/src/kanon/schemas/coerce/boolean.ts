@@ -6,7 +6,7 @@ import { CoercedResult } from "@kanon/types/base";
  *
  * @param message - Custom error message (optional).
  * @returns Schema that coerces to boolean.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function coerceBoolean(message?: string): BooleanSchema {
   return {

@@ -36,6 +36,8 @@ const staticDir = join(websiteRoot, "static");
 const srcDir = join(websiteRoot, "src");
 const docsDir = join(websiteRoot, "docs");
 
+const comparisonsDir = join(websiteRoot, "comparisons");
+
 const GENERATED_PREFIX = "/img/generated/";
 const SOURCE_EXTENSIONS = [".png", ".jpg", ".jpeg"];
 const DEFAULT_WIDTHS = [400, 800, 1200];
@@ -253,7 +255,7 @@ async function generateVariants(task: ImageTask): Promise<number> {
 
       await sharp(task.sourcePath)
         .resize(width)
-        [fmt as "avif" | "webp" | "png" | "jpg"]()
+        [fmt as "avif" | "webp" | "png" | "jpeg"]()
         .toFile(outPath);
       generated++;
       console.log(`  + ${task.src}-${width}.${fmt}`);
@@ -271,6 +273,7 @@ async function main(): Promise<void> {
   const files = [
     ...collectFiles(srcDir, [".tsx", ".mdx"]),
     ...collectFiles(docsDir, [".md", ".mdx"]),
+    ...collectFiles(comparisonsDir, [".md", ".mdx"]),
   ];
   const taskMap = new Map<string, ImageTask>();
   let errors = 0;

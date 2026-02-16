@@ -7,7 +7,7 @@ import { parseFloat } from "./parse-float";
  * @param value - The string value to parse (can be nullish or empty).
  * @param defaultValue - The value to return if parsing fails.
  * @returns The parsed float or default value.
- * @since 1.1.0
+ * @since 1.0.0
  *
  * @note Returns default for null, undefined, empty strings, and invalid inputs.
  *

@@ -43,7 +43,7 @@ const DEFAULT_VOID_SCHEMA = Object.freeze(createVoidSchema());
  *
  * @param message - Custom error message (optional).
  * @returns VoidSchema
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function void_(message?: string): VoidSchema {
   return message ? createVoidSchema(message) : DEFAULT_VOID_SCHEMA;

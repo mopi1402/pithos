@@ -4,7 +4,7 @@
  * @param template - The template string with `{key}` placeholders.
  * @param data - The data object containing values.
  * @returns The interpolated string.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Supports nested paths (`{user.name}`). Use `{{` and `}}` for literal braces. Missing keys become empty strings.
  *

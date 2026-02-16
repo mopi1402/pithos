@@ -1,7 +1,7 @@
 /**
  * Kanon V3 - Point d'entrée principal
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 
 // Core parser

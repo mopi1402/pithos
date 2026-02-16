@@ -5,7 +5,7 @@
  * @param object - The object to pick properties from.
  * @param predicate - Function to test each property: `(value, key, object) => boolean`.
  * @returns A new object with only the properties that pass the predicate.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Only enumerable string keys are included (Symbol keys are ignored).
  *

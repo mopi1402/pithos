@@ -5,7 +5,7 @@
  * @param array - The source array.
  * @param element - The element to toggle.
  * @returns A new array with the element added or removed.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Uses strict equality (===). Only the first occurrence is removed.
  *

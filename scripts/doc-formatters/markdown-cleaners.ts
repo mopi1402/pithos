@@ -19,6 +19,9 @@ export function cleanMarkdown(content: string): string {
     content = content.replace(DEFINED_IN_REGEX, "");
     content = content.replace(MULTIPLE_BLANK_LINES_REGEX, "\n\n");
 
+    // Remove duplicate ## Since sections (TypeDoc duplicates @since for aliases like `const chain = flatMap`)
+    content = content.replace(/(## Since\n\n[^\n]+)\n\n## Since\n\n[^\n]+/g, "$1");
+
     return content.trim();
 }
 
@@ -156,3 +159,63 @@ export function insertDescriptionSeparator(content: string): string {
         content.slice(insertPosition)
     );
 }
+
+/**
+ * Normalizes heading levels so that no heading skips a level (e.g. H2 → H4).
+ *
+ * TypeDoc sometimes generates `#### T` directly under `## Type Parameters`,
+ * skipping H3. This function walks through all headings and ensures the
+ * hierarchy is always contiguous.
+ *
+ * Uses a cumulative offset: when a heading is shifted (e.g. H4→H3, offset=-1),
+ * all subsequent headings at the same or deeper original level inherit that
+ * offset. This ensures sibling headings (e.g. multiple H4 type params) all
+ * get the same correction.
+ */
+export function normalizeHeadingLevels(content: string): string {
+    const lines = content.split("\n");
+    let lastLevel = 1;
+    // Cumulative offset per original level: how much to shift headings at that depth
+    // e.g. offsetByLevel[4] = -1 means all original H4s become H3
+    const offsetByLevel: number[] = [0, 0, 0, 0, 0, 0, 0]; // indices 0-6
+
+    for (let i = 0; i < lines.length; i++) {
+        const match = lines[i]!.match(/^(#{1,6})\s/);
+        if (!match) continue;
+
+        const hashes = match[1]!;
+        const originalLevel = hashes.length;
+
+        // Apply any inherited offset from a parent correction
+        const adjustedLevel = originalLevel + (offsetByLevel[originalLevel] ?? 0);
+        const maxAllowed = lastLevel + 1;
+
+        if (adjustedLevel > maxAllowed) {
+            // Needs fixing: compute additional offset needed
+            const additionalShift = maxAllowed - adjustedLevel;
+            // Apply this shift to this level and all deeper levels
+            for (let lvl = originalLevel; lvl <= 6; lvl++) {
+                offsetByLevel[lvl] = (offsetByLevel[lvl] ?? 0) + additionalShift;
+            }
+            lines[i] = "#".repeat(maxAllowed) + lines[i]!.slice(hashes.length);
+            lastLevel = maxAllowed;
+        } else if (adjustedLevel < originalLevel) {
+            // Already has an offset from a previous correction, apply it
+            const fixedLevel = Math.max(1, adjustedLevel);
+            lines[i] = "#".repeat(fixedLevel) + lines[i]!.slice(hashes.length);
+            lastLevel = fixedLevel;
+        } else {
+            lastLevel = adjustedLevel;
+        }
+
+        // When we go back up to a shallower level, reset offsets for deeper levels
+        if (originalLevel <= 2) {
+            for (let lvl = originalLevel + 1; lvl <= 6; lvl++) {
+                offsetByLevel[lvl] = 0;
+            }
+        }
+    }
+
+    return lines.join("\n");
+}
+

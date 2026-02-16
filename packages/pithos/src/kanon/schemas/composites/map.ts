@@ -11,7 +11,7 @@ import { MapConstraint } from "@kanon/types/constraints";
  * @param valueSchema - Schema to validate values.
  * @param message - Custom error message.
  * @returns Schema that validates a Map with typed keys/values and constraints.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function map<
   KeySchema extends GenericSchema,

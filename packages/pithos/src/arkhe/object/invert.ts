@@ -4,7 +4,7 @@
  * @template T - The type of the input object.
  * @param object - The object to invert.
  * @returns A new object with keys and values swapped.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Duplicate values: last key wins.
  * @note Only enumerable string keys are included (Symbol keys are ignored).

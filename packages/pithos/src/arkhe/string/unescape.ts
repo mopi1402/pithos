@@ -13,7 +13,7 @@ const UNESCAPE_PATTERN = /&(?:amp|lt|gt|quot|#39);/g;
  *
  * @param str - The string to unescape.
  * @returns The unescaped string.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Unescapes `&amp;`, `&lt;`, `&gt;`, `&quot;`, and `&#39;`.
  *

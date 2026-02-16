@@ -134,7 +134,7 @@ function ComparisonTable({
       keyExtractor={(mod) => mod}
       footer={
         translate(
-          { id: 'comparison.bundle.zygos.footer', message: 'Data generated on {date} — Measured with esbuild + gzip' },
+          { id: 'comparison.bundle.zygos.footer', message: 'Data generated on {date} · Measured with esbuild + gzip' },
           { date: formatDate(data.generatedAt) }
         )
       }
@@ -266,4 +266,51 @@ export function ZygosVersionInfo(): React.ReactElement {
       )}
     </p>
   );
+}
+
+interface ZygosSizeHighlightProps {
+  /**
+   * "ratio" → "2.6x smaller"
+   * "sizes" → "~0.76 kB vs ~1.96 kB"
+   * "full" → "2.6x smaller (~0.76 kB vs ~1.96 kB)"
+   * "zygos-size" → "~0.76 kB"
+   * "nev-size" → "~1.96 kB"
+   */
+  type?: "ratio" | "sizes" | "full" | "zygos-size" | "nev-size";
+  module?: string;
+  category?: string;
+}
+
+export function ZygosSizeHighlight({
+  type = "full",
+  module = "result-all",
+  category = "result-pattern",
+}: ZygosSizeHighlightProps): React.ReactElement {
+  const data = bundleData as BundleData;
+
+  const zygos = getResult(data, "zygos", module, category);
+  const nev = getResult(data, "neverthrow", module, category);
+
+  if (!zygos || !nev) {
+    return <span>N/A</span>;
+  }
+
+  const ratio = getRatio(nev, zygos);
+  const zygosSize = formatBytes(zygos.gzipBytes);
+  const nevSize = formatBytes(nev.gzipBytes);
+
+  if (type === "ratio") {
+    return <span>{ratio} smaller</span>;
+  }
+  if (type === "zygos-size") {
+    return <span>~{zygosSize}</span>;
+  }
+  if (type === "nev-size") {
+    return <span>~{nevSize}</span>;
+  }
+  if (type === "sizes") {
+    return <span>~{zygosSize} vs ~{nevSize}</span>;
+  }
+  // full
+  return <span>{ratio} smaller (~{zygosSize} vs ~{nevSize})</span>;
 }

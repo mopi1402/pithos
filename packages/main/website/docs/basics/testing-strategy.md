@@ -2,11 +2,14 @@
 sidebar_label: "Testing Strategy"
 sidebar_position: 5
 title: "Testing Strategy"
-description: "A multi-layered testing approach where each level catches bugs the others miss"
+description: "Explore Pithos's multi-layered testing strategy, including standard, edge-case, mutation, and property-based tests to ensure reliable TypeScript utilities."
+keyword_stuffing_ignore:
+  - test
 ---
 
 import { Table } from "@site/src/components/shared/Table";
 import { Picture } from "@site/src/components/shared/Picture";
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 # 🛡️ Testing Strategy
 
@@ -16,7 +19,7 @@ import { Picture } from "@site/src/components/shared/Picture";
 
 ## The Problem with Coverage Alone
 
-Consider this function:
+Consider this function. It looks simple, but a single test can achieve 100% line coverage while completely missing a critical edge case:
 
 ```typescript
 function divide(a: number, b: number): number {
@@ -223,7 +226,7 @@ Property-based tests found bugs in Pithos that hundreds of manual tests missed, 
 
 Running the tests shows all levels working together:
 
-<Picture src="/img/generated/evolve-tests-output" alt="Vitest output showing evolve tests with prefixes" />
+<Picture src="/img/generated/evolve-tests-output" alt="Vitest output showing Pithos evolve function tests with unit, property, and mutation test prefixes" />
 
 Each test has a clear purpose. No redundancy, no gaps.
 
@@ -320,6 +323,8 @@ Each test has a clear purpose. No redundancy, no gaps.
 
 ## Running Tests
 
+Pithos provides several test commands depending on what you want to verify, from a quick full run to targeted mutation testing on a single file:
+
 ```bash
 # Run all tests
 pnpm test
@@ -397,3 +402,12 @@ Each prefix tells a story:
 - **`[🎲]`**: "This verifies an invariant holds for any input"
 
 When you see a failing test, the prefix immediately tells you _why_ that test exists and what kind of bug you're dealing with.
+
+---
+
+<RelatedLinks>
+
+- [Error Handling](../contribution/design-principles/error-handling.md) — How Pithos handles errors at the design level
+- [Best Practices](./best-practices.md) — Validate at boundaries, trust the types
+
+</RelatedLinks>

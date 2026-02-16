@@ -4,7 +4,7 @@
  * @param value - The value to convert.
  * @returns The new property path array.
  * @deprecated Use string split or manual parsing instead.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

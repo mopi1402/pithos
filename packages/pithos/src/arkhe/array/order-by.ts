@@ -1,6 +1,6 @@
 /**
  * Sort order type for orderBy function.
- * @since 1.1.0
+ * @since 2.0.0
  */
 export type SortOrder = "asc" | "desc";
 
@@ -20,7 +20,7 @@ export type SortOrder = "asc" | "desc";
  * @param iteratees - Property keys or functions to extract sort values.
  * @param orders - Sort orders for each iteratee. Defaults to `'asc'` for all.
  * @returns A new sorted array.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Stable sort: elements with equal values maintain their relative order.
  *

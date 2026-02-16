@@ -1,0 +1,33 @@
+.container {
+  margin-top: var(--pithos-spacing-xl);
+  padding: var(--pithos-spacing-lg) var(--pithos-spacing-lg-plus);
+  background: var(--ifm-color-gray-50);
+  border-radius: var(--pithos-radius-md);
+  border: 1px solid var(--ifm-color-gray-100);
+}
+
+[data-theme="dark"] .container {
+  background: var(--ifm-color-gray-900);
+  border-color: var(--ifm-color-gray-800);
+}
+
+.title {
+  margin: 0 0 var(--pithos-spacing-sm) 0;
+  font-size: var(--pithos-font-size-lg);
+  border: none;
+  padding: 0;
+}
+
+/* Remove default margin on the list inside */
+.content ul {
+  margin: 0;
+  padding-left: var(--pithos-spacing-lg);
+}
+
+.content li {
+  margin-bottom: var(--pithos-spacing-xs);
+}
+
+.content p {
+  margin: 0;
+}

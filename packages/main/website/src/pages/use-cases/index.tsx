@@ -162,6 +162,7 @@ function SearchBar({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         disabled={!isModelReady}
+        aria-label={translate({ id: 'useCases.search.ariaLabel', message: 'Search use cases' })}
       />
       <span className={styles.searchIcon}>🔍</span>
       {showLoading && (
@@ -230,6 +231,7 @@ function FilterBar({
             key={module}
             className={`${styles.filterButton} ${selectedModule === module ? styles.filterButtonActive : ""}`}
             onClick={() => onModuleChange(selectedModule === module ? null : module)}
+            aria-pressed={selectedModule === module}
           >
             {module}
           </button>
@@ -244,12 +246,14 @@ function FilterBar({
         <button
           className={`${styles.filterButton} ${styles.filterToggle} ${filters.topPicks ? styles.filterButtonActive : ""}`}
           onClick={() => onFiltersChange({ ...filters, topPicks: !filters.topPicks })}
+          aria-pressed={filters.topPicks}
         >
           ⭐ {translate({ id: 'useCases.filter.topPicks', message: 'Top Picks' })}
         </button>
         <button
           className={`${styles.filterButton} ${styles.filterToggle} ${filters.hiddenGems ? styles.filterButtonActive : ""}`}
           onClick={() => onFiltersChange({ ...filters, hiddenGems: !filters.hiddenGems })}
+          aria-pressed={filters.hiddenGems}
         >
           💎 {translate({ id: 'useCases.filter.hiddenGems', message: 'Hidden Gems' })}
         </button>

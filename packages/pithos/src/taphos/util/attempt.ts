@@ -7,7 +7,7 @@
  * @returns The result of the function or the caught error.
  * @deprecated Use try/catch directly or Zygos Result pattern instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch | try...catch - MDN}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

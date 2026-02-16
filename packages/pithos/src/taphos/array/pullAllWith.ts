@@ -13,7 +13,7 @@ import { differenceWith } from "../../arkhe/array/difference-with";
  * @deprecated Use `differenceWith` instead for immutable operations.
  * Reason: Pithos design philosophy always favors immutability.
  * @see differenceWith
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

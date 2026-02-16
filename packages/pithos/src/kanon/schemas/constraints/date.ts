@@ -6,7 +6,7 @@ import { DateSchema } from "@kanon/types/primitives";
 /**
  * Adds date constraints to a base schema.
  *
- * @since 3.0.0
+ * @since 2.0.0
  */
 /*@__INLINE__*/
 export function addDateConstraints(baseSchema: DateSchema): DateConstraint {

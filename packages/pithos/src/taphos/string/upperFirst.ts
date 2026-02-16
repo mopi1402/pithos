@@ -5,7 +5,7 @@
  * @returns The string with its first character converted to uppercase and the rest lowercased.
  * @deprecated Use `capitalize` from Arkhe directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase | String.toUpperCase() - MDN}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

@@ -123,7 +123,7 @@ export function VersionsTable<T extends string>({ config }: { config: ModuleConf
   const columns: Column<[string, string]>[] = [
     { key: "library", header: translate({ id: 'comparison.common.header.library', message: 'Library' }), sticky: true, width: "140px", render: ([lib]) => lib === config.primaryLibrary ? <ModuleName name={lib} /> : <strong>{lib}</strong> },
     { key: "version", header: translate({ id: 'comparison.common.header.version', message: 'Version' }), width: "100px", render: ([, v]) => <code>{v}</code> },
-    { key: "description", header: translate({ id: 'comparison.common.header.description', message: 'Description' }), wrap: true, render: ([lib]) => config.libraryDescriptions[lib] || "—" },
+    { key: "description", header: translate({ id: 'comparison.common.header.description', message: 'Description' }), wrap: true, render: ([lib]) => config.libraryDescriptions[lib] || "-" },
   ];
 
   return <Table columns={columns} data={versionEntries} keyExtractor={([lib]) => lib}
@@ -450,28 +450,28 @@ export function NativenessLegend<T extends string>({ config }: { config: ModuleC
         <>
           <span className={styles.nativenessLegendItem}>
             <span className={styles.nativenessLegendIcon}>🟢</span>
-            {translate({ id: 'comparison.legend.native', message: 'Native API — direct native equivalent' })}
+            {translate({ id: 'comparison.legend.native', message: 'Native API: direct native equivalent' })}
           </span>
           <span className={styles.nativenessLegendItem}>
             <span className={styles.nativenessLegendIcon}>🟡</span>
-            {translate({ id: 'comparison.legend.composition', message: 'Composition — built from native APIs' })}
+            {translate({ id: 'comparison.legend.composition', message: 'Composition: built from native APIs' })}
           </span>
           <span className={styles.nativenessLegendItem}>
             <span className={styles.nativenessLegendIcon}>🔴</span>
-            {translate({ id: 'comparison.legend.custom', message: 'Custom — no native equivalent' })}
+            {translate({ id: 'comparison.legend.custom', message: 'Custom: no native equivalent' })}
           </span>
         </>
       )}
       {hasQuasiEquivalent && (
         <span className={styles.nativenessLegendItem}>
           <span className={styles.nativenessLegendIcon}>⚠️</span>
-          {translate({ id: 'comparison.legend.quasiEquivalent', message: 'Nearly equivalent — subtle behavioral differences' })}
+          {translate({ id: 'comparison.legend.quasiEquivalent', message: 'Nearly equivalent: subtle behavioral differences' })}
         </span>
       )}
       {hasNonEquivalent && (
         <span className={styles.nativenessLegendItem}>
           <span className={styles.nativenessLegendIcon}>🚨</span>
-          {translate({ id: 'comparison.legend.nonEquivalent', message: 'Not equivalent — different behavior' })}
+          {translate({ id: 'comparison.legend.nonEquivalent', message: 'Not equivalent: different behavior' })}
         </span>
       )}
     </div>

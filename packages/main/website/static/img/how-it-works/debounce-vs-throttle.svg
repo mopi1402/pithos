@@ -19,7 +19,7 @@
   
   <!-- ==================== DEBOUNCE ==================== -->
   <text x="30" y="30" class="title">Debounce</text>
-  <text x="30" y="48" class="subtitle">waits for silence — each input resets the timer</text>
+  <text x="30" y="48" class="subtitle">waits for silence: each input resets the timer</text>
   
   <!-- User actions label -->
   <text x="30" y="80" class="label">User</text>
@@ -101,7 +101,7 @@
   
   <!-- ==================== THROTTLE ==================== -->
   <text x="30" y="200" class="title">Throttle</text>
-  <text x="30" y="218" class="subtitle">enforces rhythm — executes at fixed intervals regardless of input</text>
+  <text x="30" y="218" class="subtitle">enforces rhythm: executes at fixed intervals regardless of input</text>
   
   <!-- User actions label -->
   <text x="30" y="250" class="label">User</text>

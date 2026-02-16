@@ -9,7 +9,7 @@
  * Reason: Native equivalent method now available
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat | Array.flat() - MDN}
  * @see {@link https://caniuse.com/mdn-javascript_builtins_array_flat | Browser support - Can I Use}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

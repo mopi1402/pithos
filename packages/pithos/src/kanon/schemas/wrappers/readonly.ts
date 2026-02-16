@@ -7,7 +7,7 @@ import { ReadonlySchema } from "@kanon/types/wrappers";
  * @param schema - Base schema.
  * @param message - Custom error message.
  * @returns Schema that marks properties as readonly.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function readonly<Inner extends GenericSchema>(
   schema: Inner,

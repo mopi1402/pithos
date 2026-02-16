@@ -9,7 +9,7 @@ import { get } from "../../arkhe/object/get";
  * @returns The result of the invoked method.
  * @deprecated Use `get(obj, path)?.(...args)` or optional chaining directly instead.
  * @see get
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

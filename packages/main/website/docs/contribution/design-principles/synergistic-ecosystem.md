@@ -1,7 +1,10 @@
 ---
 sidebar_position: 2
 title: Synergistic Ecosystem
+description: "How Pithos modules work together as a synergistic ecosystem. Shared conventions, consistent APIs, and interoperability between Arkhe, Kanon, and Zygos."
 ---
+
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 # The Synergistic Ecosystem
 
@@ -142,3 +145,12 @@ To maintain this consistency, each new module or function must:
 ---
 
 For more details on error handling philosophy, see [Error Handling](./error-handling.md).
+
+---
+
+<RelatedLinks>
+
+- [Design Philosophy](./design-philosophy.md) — The guiding principles behind Pithos
+- [Comparison with Alternatives](./comparison-alternatives.md) — How Pithos compares to Lodash, Remeda, and others
+
+</RelatedLinks>

@@ -193,6 +193,11 @@
       "category": "Documentation",
       "order": 2
     },
+    "check:doc-inline-types": {
+      "description": "Check that all doc pages have fully inline types (no .md links in params/returns)",
+      "category": "Documentation",
+      "order": 2.1
+    },
     "doc:copy:changelog": {
       "description": "Copy CHANGELOG.md to documentation",
       "category": "Documentation",
@@ -250,40 +255,113 @@
       "category": "Documentation",
       "order": 21
     },
-    "doc:generate:kanon:benchmarks-results": {
-      "description": "Generate Kanon benchmark results JSON for website",
+    "doc:generate:benchmarks-results": {
+      "description": "Generate benchmark results JSON for website",
       "category": "Documentation",
-      "order": 30
+      "order": 30,
+      "baseScript": "doc:generate",
+      "flags": [
+        {
+          "type": "radio",
+          "name": "module",
+          "description": "Module",
+          "defaultValue": "kanon",
+          "options": [
+            { "label": "kanon", "value": "kanon", "script": "doc:generate:kanon:benchmarks-results" },
+            { "label": "arkhe", "value": "arkhe", "script": "doc:generate:arkhe:benchmarks-results" },
+            { "label": "taphos", "value": "taphos", "script": "doc:generate:taphos:benchmarks-results" },
+            { "label": "zygos", "value": "zygos", "script": "doc:generate:zygos:benchmarks-results" }
+          ]
+        }
+      ]
     },
-    "doc:generate:arkhe:benchmarks-results": {
-      "description": "Generate Arkhe benchmark results JSON for website",
+    "doc:generate:bundle-sizes": {
+      "description": "Generate bundle size comparison for website",
       "category": "Documentation",
-      "order": 31
+      "order": 40,
+      "baseScript": "doc:generate",
+      "flags": [
+        {
+          "type": "radio",
+          "name": "module",
+          "description": "Module",
+          "defaultValue": "kanon",
+          "options": [
+            { "label": "kanon (vs Zod)", "value": "kanon", "script": "doc:generate:kanon:bundle-sizes" },
+            { "label": "arkhe & taphos (vs lodash, es-toolkit, remeda, radashi)", "value": "arkhe", "script": "doc:generate-arkhe-taphos-bundle-sizes" },
+            { "label": "zygos (vs neverthrow, fp-ts)", "value": "zygos", "script": "doc:generate-zygos-bundle-sizes" }
+          ]
+        }
+      ]
     },
-    "doc:generate:taphos:benchmarks-results": {
-      "description": "Generate Taphos benchmark results JSON for website",
+    "seo:lighthouse": {
+      "description": "Run Lighthouse CI audit (SEO, Performance, A11y, CWV)",
       "category": "Documentation",
-      "order": 32
+      "order": 100,
+      "separator": "──────── SEO / a11y / CWV ────────",
+      "flags": [
+        {
+          "type": "radio",
+          "name": "mode",
+          "description": "Preset",
+          "defaultValue": "desktop",
+          "options": [
+            { "label": "desktop", "value": "desktop", "args": ["desktop"] },
+            { "label": "mobile (PageSpeed-like)", "value": "mobile", "args": ["mobile"] },
+            { "label": "perf", "value": "perf", "args": ["perf"] },
+            { "label": "experimental", "value": "experimental", "args": ["experimental"] }
+          ]
+        }
+      ]
     },
-    "doc:generate:zygos:benchmarks-results": {
-      "description": "Generate Zygos benchmark results JSON for website",
+    "seo:test": {
+      "description": "Run SEO property-based tests (headings, links, images, metadata…)",
       "category": "Documentation",
-      "order": 33
+      "order": 101
     },
-    "doc:generate:kanon:bundle-sizes": {
-      "description": "Generate Kanon bundle size comparison (vs Zod)",
+    "seo:validate": {
+      "description": "Run SEO validator (frontmatter, headings, links, keyword stuffing)",
       "category": "Documentation",
-      "order": 40
+      "order": 102,
+      "flags": [
+        {
+          "type": "radio",
+          "name": "mode",
+          "description": "Source",
+          "defaultValue": "cache",
+          "options": [
+            { "label": "cache (existing files)", "value": "cache", "args": [] },
+            { "label": "fresh (regenerate docs first)", "value": "fresh", "args": ["--fresh"] }
+          ]
+        },
+        {
+          "type": "radio",
+          "name": "filter",
+          "description": "Filter",
+          "defaultValue": "all",
+          "options": [
+            { "label": "all", "value": "all", "args": [] },
+            { "label": "errors only", "value": "errors", "args": ["--errors"] },
+            { "label": "warnings only", "value": "warnings", "args": ["--warnings"] }
+          ]
+        }
+      ]
     },
-    "doc:generate-arkhe-bundle-sizes": {
-      "description": "Generate Arkhe bundle size comparison (vs lodash, es-toolkit, remeda, radashi)",
+    "a11y:lint": {
+      "description": "Lint website JSX for accessibility issues (jsx-a11y)",
       "category": "Documentation",
-      "order": 41
+      "order": 104
     },
-    "doc:generate-zygos-bundle-sizes": {
-      "description": "Generate Zygos bundle size comparison (vs neverthrow, fp-ts)",
+    "doc:deploy:preview": {
+      "description": "Build & deploy preview to Vercel (temporary URL)",
       "category": "Documentation",
-      "order": 42
+      "order": 200,
+      "separator": "──────── Deploy ────────"
+    },
+    "doc:deploy:prod": {
+      "description": "⚠️  Build & deploy to pithos.dev (live)",
+      "category": "Documentation",
+      "order": 201
     },
     "generate:exports": {
       "description": "Generate export files",
@@ -315,7 +393,7 @@
       ]
     },
     "publish:pithos": {
-      "description": "⚠️  Publish pithos to npm (live)",
+      "description": "⚠️  Publish @pithos/core to npm (live)",
       "category": "Publish",
       "order": 100,
       "separator": "─────────── production ───────────"

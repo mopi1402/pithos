@@ -41,7 +41,7 @@ const DEFAULT_BOOLEAN_SCHEMA = Object.freeze(createBooleanSchema());
  *
  * @param message - Custom error message (optional).
  * @returns BooleanSchema
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function boolean(message?: string): BooleanSchema {
   return message ? createBooleanSchema(message) : DEFAULT_BOOLEAN_SCHEMA;

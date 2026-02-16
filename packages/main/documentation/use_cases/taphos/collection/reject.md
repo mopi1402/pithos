@@ -1,4 +1,6 @@
-## `reject`
+## `reject` 💎
+
+> The inverse of filter — exclude items instead of selecting them.
 
 ### **Exclude** items matching criteria 📍
 

@@ -11,7 +11,7 @@
  *
  * Usage: npx tsx scripts/generate-arkhe-bundle-sizes.ts
  *
- * The output is written to src/data/comparisons/arkhe-bundle-sizes.json
+ * The output is written to src/data/comparisons/arkhe-taphos-bundle-sizes.json
  */
 
 import { execSync } from "node:child_process";
@@ -23,7 +23,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const tmpDir = join(__dirname, ".tmp-bundle");
 const outputDir = join(__dirname, "../src/data/comparisons");
-const outputPath = join(outputDir, "arkhe-bundle-sizes.json");
+const outputPath = join(outputDir, "arkhe-taphos-bundle-sizes.json");
 const aliasDir = join(__dirname, "../../documentation/alias");
 
 // Paths
@@ -35,7 +35,7 @@ const MODULES = ["arkhe", "taphos"] as const;
 type Module = (typeof MODULES)[number];
 
 // Number of top utilities to include per module
-const TOP_UTILS_COUNT = 50;
+const TOP_UTILS_COUNT = 999;
 
 // Libraries to compare - different for each module
 const ARKHE_LIBRARIES = ["lodash", "es-toolkit", "remeda", "radashi"] as const;

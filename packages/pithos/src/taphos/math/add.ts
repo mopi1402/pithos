@@ -6,7 +6,7 @@
  * @returns The sum.
  * @deprecated Use the `+` operator directly instead.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Addition | Addition (+) - MDN}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

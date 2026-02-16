@@ -11,7 +11,7 @@
  * @see {@link https://caniuse.com/mdn-javascript_builtins_array_includes | Browser support - Can I Use}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/values | Object.values() - MDN}
  * @see {@link https://caniuse.com/mdn-javascript_builtins_object_values | Browser support - Can I Use}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

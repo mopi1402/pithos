@@ -1,4 +1,6 @@
-## `pad` / `padStart` / `padEnd`
+## `pad` / `padStart` / `padEnd` 💎
+
+> Format strings to fixed widths — essential for aligned output and display codes.
 
 ### **Pad** to fixed width 📍
 

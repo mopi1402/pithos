@@ -3,7 +3,7 @@
  *
  * @param str - The string to escape.
  * @returns The escaped string safe for use in RegExp.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Escapes: `^`, `$`, `\`, `.`, `*`, `+`, `?`, `(`, `)`, `[`, `]`, `{`, `}`, `|`.
  *

@@ -6,7 +6,7 @@
  *
  * @template T - The object type
  * @template K - The keys to omit (must exist in T)
- * @since 1.0.13
+ * @since 2.0.0
  *
  * @example
  * ```typescript

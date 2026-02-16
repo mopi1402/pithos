@@ -11,7 +11,7 @@ for asynchronous operations.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -61,7 +61,7 @@ The type of the error value
 
 Creates a new ResultAsync instance.
 
-> **res**: <code>Promise&lt;[Result](./Result.md)&lt;T, E&gt;&gt;</code> — Promise that resolves to a Result<br />
+> **res**: <TypeRef>Promise&lt;[Result](./Result.md)&lt;T, E&gt;&gt;</TypeRef> — Promise that resolves to a Result<br />
 > **Returns**: \`ResultAsync<T, E>\`
 
 
@@ -498,7 +498,7 @@ Provides seamless integration with native Promise APIs and async/await syntax.
 
 #### Type Parameters
 
-##### TResult1: <code>TResult1 = [Result](./Result.md)&lt;T, E&gt;</code>
+##### TResult1: <TypeRef>TResult1 = [Result](./Result.md)&lt;T, E&gt;</TypeRef>
 
 The type of the fulfilled result
 
@@ -539,7 +539,7 @@ Represents an error result containing an error value.
 
 ## Since
 
-1.1.0
+2.0.0
 
 
 ---
@@ -577,7 +577,7 @@ Creates a new Err result.
 
 ## Properties
 
-### error: <code>E</code>
+### error: \`E\`
 
 The error value to wrap
 
@@ -617,7 +617,7 @@ No-op for Err instances - the value transformation function is ignored.
 The type of the transformed value (unused)
 
 > **\\_f**: \`(t) => A\` — Transformation function (ignored)<br />
-> **Returns**: <code>[Result](./Result.md)&lt;A, E&gt;</code> — A new Err result with the original error
+> **Returns**: <TypeRef>[Result](./Result.md)&lt;A, E&gt;</TypeRef> — A new Err result with the original error
 
 
 
@@ -634,7 +634,7 @@ Transforms the error value using the provided function.
 The type of the transformed error
 
 > **f**: \`(e) => U\` — Function to transform the error value<br />
-> **Returns**: <code>[Result](./Result.md)&lt;T, U&gt;</code> — A new Err result with the transformed error
+> **Returns**: <TypeRef>[Result](./Result.md)&lt;T, U&gt;</TypeRef> — A new Err result with the transformed error
 
 
 
@@ -648,12 +648,12 @@ No-op for Err instances - the chaining function is ignored.
 
 ##### Type Parameters
 
-###### R: <code>R extends [Result](./Result.md)&lt;unknown, unknown&gt;</code>
+###### R: <TypeRef>R extends [Result](./Result.md)&lt;unknown, unknown&gt;</TypeRef>
 
 The type of the Result returned by the function (unused)
 
 > **\\_f**: \`(t) => R\` — Chaining function (ignored)<br />
-> **Returns**: <code>[Result](./Result.md)&lt;InferOkTypes&lt;R&gt;, E \\| InferErrTypes&lt;R&gt;&gt;</code> — A new Err result with the original error
+> **Returns**: <TypeRef>[Result](./Result.md)&lt;InferOkTypes&lt;R&gt;, E | InferErrTypes&lt;R&gt;&gt;</TypeRef> — A new Err result with the original error
 
 
 
@@ -673,8 +673,8 @@ The type of the success value in the returned Result (unused)
 
 The type of the error value in the returned Result (unused)
 
-> **\\_f**: <code>(t) =&gt; [Result](./Result.md)&lt;U, F&gt;</code> — Chaining function (ignored)<br />
-> **Returns**: <code>[Result](./Result.md)&lt;U, E \\| F&gt;</code> — A new Err result with the original error
+> **\\_f**: <TypeRef>(t) =&gt; [Result](./Result.md)&lt;U, F&gt;</TypeRef> — Chaining function (ignored)<br />
+> **Returns**: <TypeRef>[Result](./Result.md)&lt;U, E | F&gt;</TypeRef> — A new Err result with the original error
 
 
 
@@ -729,7 +729,7 @@ Represents a successful result containing a value.
 
 ## Since
 
-1.1.0
+2.0.0
 
 
 ---
@@ -767,7 +767,7 @@ Creates a new Ok result.
 
 ## Properties
 
-### value: <code>T</code>
+### value: \`T\`
 
 The success value to wrap
 
@@ -807,7 +807,7 @@ Transforms the success value using the provided function.
 The type of the transformed value
 
 > **f**: \`(t) => A\` — Function to transform the success value<br />
-> **Returns**: <code>[Result](./Result.md)&lt;A, E&gt;</code> — A new Ok result with the transformed value
+> **Returns**: <TypeRef>[Result](./Result.md)&lt;A, E&gt;</TypeRef> — A new Ok result with the transformed value
 
 
 
@@ -824,7 +824,7 @@ No-op for Ok instances - the error transformation function is ignored.
 The type of the transformed error (unused)
 
 > **\\_f**: \`(e) => U\` — Error transformation function (ignored)<br />
-> **Returns**: <code>[Result](./Result.md)&lt;T, U&gt;</code> — A new Ok result with the original value
+> **Returns**: <TypeRef>[Result](./Result.md)&lt;T, U&gt;</TypeRef> — A new Ok result with the original value
 
 
 
@@ -838,12 +838,12 @@ Chains operations by applying the provided function to the success value.
 
 ##### Type Parameters
 
-###### R: <code>R extends [Result](./Result.md)&lt;unknown, unknown&gt;</code>
+###### R: <TypeRef>R extends [Result](./Result.md)&lt;unknown, unknown&gt;</TypeRef>
 
 The type of the Result returned by the function
 
 > **f**: \`(t) => R\` — Function that takes the success value and returns a new Result<br />
-> **Returns**: <code>[Result](./Result.md)&lt;InferOkTypes&lt;R&gt;, E \\| InferErrTypes&lt;R&gt;&gt;</code> — The Result returned by the function
+> **Returns**: <TypeRef>[Result](./Result.md)&lt;InferOkTypes&lt;R&gt;, E | InferErrTypes&lt;R&gt;&gt;</TypeRef> — The Result returned by the function
 
 
 
@@ -863,8 +863,8 @@ The type of the success value in the returned Result
 
 The type of the error value in the returned Result
 
-> **f**: <code>(t) =&gt; [Result](./Result.md)&lt;U, F&gt;</code> — Function that takes the success value and returns a new Result<br />
-> **Returns**: <code>[Result](./Result.md)&lt;U, E \\| F&gt;</code> — The Result returned by the function
+> **f**: <TypeRef>(t) =&gt; [Result](./Result.md)&lt;U, F&gt;</TypeRef> — Function that takes the success value and returns a new Result<br />
+> **Returns**: <TypeRef>[Result](./Result.md)&lt;U, E | F&gt;</TypeRef> — The Result returned by the function
 
 
 
@@ -936,7 +936,7 @@ The success type.
 
 ## Since
 
-1.0.0"
+2.0.0"
 `;
 
 exports[`Interfaces — zygos > Result (type alias) 1`] = `
@@ -963,7 +963,7 @@ The type of the error value
 
 ## Since
 
-1.1.0"
+2.0.0"
 `;
 
 exports[`Interfaces — zygos > left (interface, properties) 1`] = `
@@ -996,7 +996,7 @@ The error value.
 
 ---
 
-## Returns: <code>[Either](./Either.md)&lt;E, A&gt;</code>
+## Returns: <TypeRef>[Either](./Either.md)&lt;E, A&gt;</TypeRef>
 
 A Left Either.
 
@@ -1004,11 +1004,15 @@ A Left Either.
 
 ## Since
 
-1.0.0
+2.0.0
 
 <div className="merged-type-separator"></div>
 
+<div className="as-h1">
+
 ## Left\\<E\\> {#left}
+
+</div>
 
 <span title="Type: Interface" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Interface</span>
 
@@ -1018,7 +1022,7 @@ Represents the Left variant of Either containing an error value.
 
 ## Since
 
-1.0.0
+2.0.0
 
 ---
 
@@ -1069,7 +1073,7 @@ The success value.
 
 ---
 
-## Returns: <code>[Either](./Either.md)&lt;E, A&gt;</code>
+## Returns: <TypeRef>[Either](./Either.md)&lt;E, A&gt;</TypeRef>
 
 A Right Either.
 
@@ -1077,11 +1081,15 @@ A Right Either.
 
 ## Since
 
-1.0.0
+2.0.0
 
 <div className="merged-type-separator"></div>
 
+<div className="as-h1">
+
 ## Right\\<A\\> {#right}
+
+</div>
 
 <span title="Type: Interface" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Interface</span>
 
@@ -1091,7 +1099,7 @@ Represents the Right variant of Either containing a success value.
 
 ## Since
 
-1.0.0
+2.0.0
 
 ---
 
@@ -1138,7 +1146,7 @@ The value to wrap.
 
 ---
 
-## Returns: <code>[Option](./Option.md)&lt;A&gt;</code>
+## Returns: <TypeRef>[Option](./Option.md)&lt;A&gt;</TypeRef>
 
 A Some containing the value.
 
@@ -1146,11 +1154,15 @@ A Some containing the value.
 
 ## Since
 
-1.0.0
+2.0.0
 
 <div className="merged-type-separator"></div>
 
+<div className="as-h1">
+
 ## Some\\<A\\> {#some}
+
+</div>
 
 <span title="Type: Interface" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Interface</span>
 
@@ -1160,7 +1172,7 @@ Represents the presence of a value.
 
 ## Since
 
-1.0.0
+2.0.0
 
 ---
 
@@ -1188,7 +1200,7 @@ Mock object for a single console method.
 
 ## Since
 
-1.0.0
+2.0.0
 
 ---
 
@@ -1196,19 +1208,19 @@ Mock object for a single console method.
 
 <a id="calls"></a>
 
-### calls: <code>[ConsoleCall](./ConsoleCall.md)[]</code>
+### calls: <TypeRef>[ConsoleCall](./ConsoleCall.md)[]</TypeRef>
 
 All recorded calls.
 
 <a id="callCount"></a>
 
-### callCount: <code>number</code>
+### callCount: \`number\`
 
 Number of times the method was called.
 
 <a id="clear"></a>
 
-### clear(): <code>() =&gt; void</code>
+### clear(): \`() => void\`
 
 Clears recorded calls.
 
@@ -1227,7 +1239,7 @@ Represents a mathematical interval with start, end, and optional step.
 
 ## Since
 
-1.0.0
+2.0.0
 
 ---
 
@@ -1247,19 +1259,19 @@ const timeInterval: Interval = {
 
 <a id="start"></a>
 
-### start: <code>number</code>
+### start: \`number\`
 
 Start value of the interval
 
 <a id="end"></a>
 
-### end: <code>number</code>
+### end: \`number\`
 
 End value of the interval
 
 <a id="step"></a>
 
-### step?: <code>number</code>
+### step?: \`number\`
 
 Step size for progression (default: 1)"
 `;
@@ -1279,13 +1291,13 @@ Represents a 2D point with x and y coordinates.
 
 <a id="x"></a>
 
-### x: <code>number</code>
+### x: \`number\`
 
 X coordinate.
 
 <a id="y"></a>
 
-### y: <code>number</code>
+### y: \`number\`
 
 Y coordinate."
 `;
@@ -1299,14 +1311,14 @@ Extension methods for object constraints.
 
 ## Since
 
-3.0.0
+2.0.0
 
 
 ---
 
 ## Type Parameters
 
-### T: <code>T extends Record&lt;string, [GenericSchema](../base/GenericSchema.md)&gt; = Record&lt;string, [GenericSchema](../base/GenericSchema.md)&gt;</code>
+### T: <TypeRef>T extends Record&lt;string, [GenericSchema](../base/GenericSchema.md)&gt; = Record&lt;string, [GenericSchema](../base/GenericSchema.md)&gt;</TypeRef>
 
 The object entries type
 
@@ -1316,30 +1328,30 @@ The object entries type
 
 <a id="minKeys"></a>
 
-### minKeys(): <code>(min, errorMessage?) =&gt; [ObjectConstraint](./ObjectConstraint.md)&lt;T&gt;</code>
+### minKeys(): <TypeRef>(min, errorMessage?) =&gt; [ObjectConstraint](./ObjectConstraint.md)&lt;T&gt;</TypeRef>
 
 > **min**: \`number\`<br />
 > **errorMessage?**: \`string\`<br />
-> **Returns**: <code>[ObjectConstraint](./ObjectConstraint.md)&lt;T&gt;</code>
+> **Returns**: <TypeRef>[ObjectConstraint](./ObjectConstraint.md)&lt;T&gt;</TypeRef>
 
 
 
 <a id="maxKeys"></a>
 
-### maxKeys(): <code>(max, errorMessage?) =&gt; [ObjectConstraint](./ObjectConstraint.md)&lt;T&gt;</code>
+### maxKeys(): <TypeRef>(max, errorMessage?) =&gt; [ObjectConstraint](./ObjectConstraint.md)&lt;T&gt;</TypeRef>
 
 > **max**: \`number\`<br />
 > **errorMessage?**: \`string\`<br />
-> **Returns**: <code>[ObjectConstraint](./ObjectConstraint.md)&lt;T&gt;</code>
+> **Returns**: <TypeRef>[ObjectConstraint](./ObjectConstraint.md)&lt;T&gt;</TypeRef>
 
 
 
 <a id="strict"></a>
 
-### strict(): <code>(errorMessage?) =&gt; [ObjectConstraint](./ObjectConstraint.md)&lt;T&gt;</code>
+### strict(): <TypeRef>(errorMessage?) =&gt; [ObjectConstraint](./ObjectConstraint.md)&lt;T&gt;</TypeRef>
 
 > **errorMessage?**: \`string\`<br />
-> **Returns**: <code>[ObjectConstraint](./ObjectConstraint.md)&lt;T&gt;</code>
+> **Returns**: <TypeRef>[ObjectConstraint](./ObjectConstraint.md)&lt;T&gt;</TypeRef>
 
 "
 `;
@@ -1351,7 +1363,7 @@ Base interface for all Kanon schemas.
 
 ## Since
 
-3.0.0
+2.0.0
 
 
 ---
@@ -1368,15 +1380,15 @@ The type that this schema validates
 
 <a id="type"></a>
 
-### type: <code>[SchemaType](./SchemaType.md)</code>
+### type: <TypeRef>[SchemaType](./SchemaType.md)</TypeRef>
 
 <a id="message"></a>
 
-### message?: <code>string</code>
+### message?: \`string\`
 
 <a id="refinements"></a>
 
-### refinements?: <code>(value) =&gt; string \\| true[]</code>
+### refinements?: \`(value) => string | true[]\`
 
 > **value**: \`T\`<br />
 > **Returns**: \`string | true\`
@@ -1385,10 +1397,10 @@ The type that this schema validates
 
 <a id="validator"></a>
 
-### validator(): <code>(value) =&gt; [ValidatorResult](./ValidatorResult.md)&lt;T&gt;</code>
+### validator(): <TypeRef>(value) =&gt; [ValidatorResult](./ValidatorResult.md)&lt;T&gt;</TypeRef>
 
 > **value**: \`unknown\`<br />
-> **Returns**: <code>[ValidatorResult](./ValidatorResult.md)&lt;T&gt;</code>
+> **Returns**: <TypeRef>[ValidatorResult](./ValidatorResult.md)&lt;T&gt;</TypeRef>
 
 "
 `;
@@ -1417,7 +1429,7 @@ Custom error message (optional).
 
 ---
 
-## Returns: <code>[StringConstraint](../../types/constraints/StringConstraint.md)</code>
+## Returns: <TypeRef>[StringConstraint](../../types/constraints/StringConstraint.md)</TypeRef>
 
 StringConstraint with all constraints.
 
@@ -1425,5 +1437,5 @@ StringConstraint with all constraints.
 
 ## Since
 
-3.0.0"
+2.0.0"
 `;

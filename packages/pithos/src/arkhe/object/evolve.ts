@@ -1,6 +1,6 @@
 /**
  * Type representing transformation functions for each property.
- * @since 1.1.0
+ * @since 2.0.0
  */
 export type Transformations<T> = {
   [K in keyof T]?: T[K] extends (...args: unknown[]) => unknown
@@ -12,7 +12,7 @@ export type Transformations<T> = {
 
 /**
  * Type representing the result of applying transformations to an object.
- * @since 1.1.0
+ * @since 2.0.0
  */
 export type Evolved<T, Tr> = {
   [K in keyof T]: K extends keyof Tr
@@ -34,7 +34,7 @@ export type Evolved<T, Tr> = {
  * @param object - The object to transform.
  * @param transformations - Object mapping property names to transformation functions.
  * @returns A new object with transformed values.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Properties without transformations are preserved.
  * @note Transformations for non-existent properties are ignored.

@@ -23,6 +23,7 @@ import {
     mergeOverloadSignatures,
     insertSectionSeparators,
     insertDescriptionSeparator,
+    normalizeHeadingLevels,
 } from "../doc-formatters/index.js";
 import type { FunctionUseCases, CollectedDocItem, MergeGroupsConfig } from "./types.js";
 import { loadOverride, loadHowItWorks, loadUseCasesContent, parseUseCasesFromMarkdown } from "./loaders.js";
@@ -325,7 +326,7 @@ function mergeItemIntoParent(
     // Use markdown header so it appears in table of contents
     // Add explicit anchor ID using just the type name (without generics) for easier linking
     cleanChild = cleanChild.replace(/^#\s+(.+)$/m, (match, title) => {
-        return `## ${title} {#${childName.toLowerCase()}}\n\n${getInlineBadgeHtml(badgeLabel)}`;
+        return `<div className="as-h1">\n\n## ${title} {#${childName.toLowerCase()}}\n\n</div>\n\n${getInlineBadgeHtml(badgeLabel)}`;
     });
 
     // Store merged content in the parent item
@@ -390,6 +391,76 @@ function resolveSeeFunctionReferences(
         }
     );
 }
+
+/**
+ * Extract a SEO-friendly description from the generated markdown content.
+ *
+ * Looks for the first paragraph of plain text after the H1 heading (and
+ * optional TypeScript signature block starting with `>`).  The result is
+ * trimmed to a maximum of 160 characters (Docusaurus / Google recommended
+ * limit) and cleaned of markdown formatting artifacts.
+ */
+function extractSeoDescription(content: string, fnName: string, moduleKey: string): string {
+    const MAX_LENGTH = 155;
+
+    // Split into lines and find the H1
+    const lines = content.split("\n");
+    let startIdx = lines.findIndex((l) => /^#\s+/.test(l));
+    if (startIdx === -1) startIdx = 0;
+
+    // Skip past the H1 line
+    startIdx++;
+
+    // Skip blank lines and the TypeScript signature block (lines starting with `>`)
+    while (startIdx < lines.length) {
+        const line = lines[startIdx]!.trim();
+        if (line === "" || line.startsWith(">")) {
+            startIdx++;
+            continue;
+        }
+        break;
+    }
+
+    // Collect contiguous non-empty lines as the description paragraph
+    const descLines: string[] = [];
+    while (startIdx < lines.length) {
+        const line = lines[startIdx]!.trim();
+        if (line === "" || line.startsWith("#") || line.startsWith("---") || line.startsWith(">") || line.startsWith("```") || line.startsWith(":::") || line.startsWith("<")) break;
+        descLines.push(line);
+        startIdx++;
+    }
+
+    let desc = descLines.join(" ").trim();
+
+    if (!desc) {
+        // Fallback: generic description based on function name and module
+        return `API reference for ${fnName} in Pithos ${moduleKey}.`;
+    }
+
+    // Clean markdown artifacts
+    desc = desc
+        .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")  // [text](url) → text
+        .replace(/`([^`]+)`/g, "$1")                // `code` → code
+        .replace(/\*\*([^*]+)\*\*/g, "$1")          // **bold** → bold
+        .replace(/\*([^*]+)\*/g, "$1")               // *italic* → italic
+        .replace(/\s+/g, " ")                        // collapse whitespace
+        .trim();
+
+    // Truncate to MAX_LENGTH, cutting at word boundary
+    if (desc.length > MAX_LENGTH) {
+        desc = desc.slice(0, MAX_LENGTH);
+        const lastSpace = desc.lastIndexOf(" ");
+        if (lastSpace > MAX_LENGTH * 0.6) {
+            desc = desc.slice(0, lastSpace);
+        }
+        // Ensure it doesn't end with punctuation fragments
+        desc = desc.replace(/[,;:\s]+$/, "");
+        desc += "…";
+    }
+
+    return desc;
+}
+
 
 /**
  * Process a single documentation file.
@@ -613,9 +684,30 @@ export function processFile(
     // Add frontmatter for Docusaurus
     const isImportant = useCases?.isImportant ?? false;
     const isHiddenGem = useCases?.isHiddenGem ?? false;
+    const seoDescription = extractSeoDescription(content, fnName, moduleKey);
+    const escapedDescription = seoDescription.replace(/"/g, '\\"');
+
+    // Build a rich SEO title: "chunk() — Arkhe Array" or "CodedError — Sphalma Error Factory"
+    const rootModule = moduleKey.split("/")[0]!;
+    const displayModule = rootModule.charAt(0).toUpperCase() + rootModule.slice(1);
+    const finalIdx = outputDir.indexOf("final/");
+    const categoryPath = finalIdx !== -1
+        ? outputDir.slice(finalIdx + 6).split("/").slice(1)
+        : [];
+    // Known acronyms that should be fully uppercased
+    const ACRONYMS = new Set(["jit", "api", "dom", "css", "html", "svg", "url"]);
+    const displayCategory = categoryPath
+        .map((s) => s.replace(/-/g, " "))
+        .map((s) => s.split(" ").map((w) => ACRONYMS.has(w.toLowerCase()) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1)).join(" "))
+        .join(" / ");
+    const fnSuffix = itemType === "function" ? "()" : "";
+    const titleParts = [displayModule, displayCategory].filter(Boolean).join(" ");
+    const seoTitle = `${fnName}${fnSuffix} — ${titleParts}`;
+
     const frontmatter = `---
-title: "${fnName}"
+title: "${seoTitle}"
 sidebar_label: "${fnName}"
+description: "${escapedDescription}"
 type: ${itemType || "unknown"}
 important: ${isImportant}
 hiddenGem: ${isHiddenGem}
@@ -631,6 +723,9 @@ sidebar_custom_props:
     // Insert thin horizontal rules between ## sections for visual separation
     // Skip the first ## heading (it directly follows the title/description)
     content = insertSectionSeparators(content);
+
+    // Fix heading hierarchy: TypeDoc sometimes generates H4 under H2, skipping H3
+    content = normalizeHeadingLevels(content);
 
     // Ensure output directory exists
     fs.mkdirSync(outputDir, { recursive: true });

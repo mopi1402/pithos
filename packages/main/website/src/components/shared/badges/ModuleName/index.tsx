@@ -14,7 +14,7 @@ export default function ModuleName({ name, to, children }: ModuleNameProps): Rea
   return (
     <>
       <span className={styles.moduleName}>{content}</span>
-      {children && <> — {children}</>}
+      {children && <> - {children}</>}
     </>
   );
 }

@@ -1,6 +1,7 @@
 ---
 sidebar_position: 2
 title: "Architecture & Evolution"
+description: "Architecture evolution of Kanon from V1 to V3: class-based, dataset-based, and pure functional approaches to TypeScript schema validation."
 slug: "architecture"
 ---
 

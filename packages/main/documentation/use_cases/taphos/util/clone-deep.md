@@ -1,4 +1,4 @@
-## `cloneDeep`
+## `cloneDeep` ⭐
 
 ### **Deep** copy object 📍
 

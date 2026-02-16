@@ -11,7 +11,7 @@ import { addBigIntConstraints } from "@kanon/schemas/constraints/bigint";
  *
  * @param message - Custom error message
  * @returns Schema that converts to bigint with chainable constraints.
- * @since 3.0.0
+ * @since 2.0.0
  *
  * @example
  * ```ts

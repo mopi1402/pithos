@@ -1,6 +1,6 @@
 /**
  * Options for the truncate function.
- * @since 1.1.0
+ * @since 2.0.0
  */
 export interface TruncateOptions {
   /** Maximum string length (default: 30). */
@@ -17,7 +17,7 @@ export interface TruncateOptions {
  * @param str - The string to truncate.
  * @param options - The options object.
  * @returns The truncated string.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

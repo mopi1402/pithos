@@ -7,7 +7,7 @@ import { LiteralSchema } from "@kanon/types/primitives";
  * @param value - The literal value to validate against.
  * @param message - Custom error message.
  * @returns Schema that validates only this specific value.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function literal<T extends string | number | boolean>(
   value: T,

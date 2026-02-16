@@ -5,7 +5,7 @@
  * @param arrays - An array of arrays to inspect.
  * @param comparator - A function that returns true if two elements are equivalent.
  * @returns A new array containing elements present in all input arrays.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(n² × m) — custom comparators cannot leverage Set optimization.
  *

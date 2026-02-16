@@ -3,7 +3,7 @@
  *
  * @param str - The string to convert.
  * @returns The string in Title Case.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Capitalizes after spaces, hyphens, and underscores. Supports Unicode.
  *

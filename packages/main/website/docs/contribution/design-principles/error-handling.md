@@ -1,7 +1,10 @@
 ---
 sidebar_position: 3
 title: Error Handling
+description: "Error handling philosophy in Pithos: fail fast, fail loud. Why explicit errors are better than silent failures for TypeScript utilities."
 ---
+
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 # Error Handling
 
@@ -147,7 +150,7 @@ A boundary is any data source **not guaranteed by TypeScript**:
 
 #### Validation Architecture
 
-```
+```text
 ┌─────────────────────────────────────────────────────────┐
 │  🌍 OUTSIDE WORLD (untyped, unreliable)                 │
 │  • Backend API                                          │
@@ -267,7 +270,9 @@ const chunk = <T>(array: T[], size: number): T[][] => {
 
 #### Philosophy Summary
 
-```
+The guiding principle behind Arkhe's error handling can be summarized as follows: TypeScript's type system is the first line of defense, and runtime checks only cover values that types cannot express (like positive integers or non-empty arrays):
+
+```text
 ┌─────────────────────────────────────────────────────────┐
 │                                                         │
 │   "Arkhe trusts TypeScript types.                       │
@@ -284,6 +289,8 @@ const chunk = <T>(array: T[], size: number): T[][] => {
 
 
 ### Current Architecture
+
+Sphalma provides a `CodedError` class that extends the native `Error` with a numeric code, a human-readable type string, and optional structured details. This pattern enables programmatic error matching while keeping stack traces and developer-friendly messages intact:
 
 ```typescript
 // sphalma/error-factory.ts
@@ -302,7 +309,7 @@ export class CodedError extends Error {
 
 To maximize capacity and technical readability, Pithos uses a 4-digit hexadecimal format:
 
-```
+```text
 Format: 0x M F EE
            │ │ └── Error (00-FF) → 256 errors / feature
            │ └──── Feature (0-F)  → 16 features / module
@@ -348,3 +355,13 @@ throw createAnimationError(AnimationErrorCodes.ANIMATION_NOT_FOUND, {
 - **Logs**: Easy to filter/search in logs
 
 :::
+
+---
+
+<RelatedLinks>
+
+- [Sphalma — Typed Error Factories](../../modules/sphalma.md) — Structured errors with hex codes
+- [Zygos — Error Handling](../../modules/zygos.md) — Result, Option, Either, and Task patterns
+- [Immutability vs Mutability](./immutability.md) — Why Pithos defaults to immutable operations
+
+</RelatedLinks>

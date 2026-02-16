@@ -29,7 +29,7 @@ const DEFAULT_SYMBOL_SCHEMA = Object.freeze(createSymbolSchema());
  *
  * @param message - Custom error message (optional).
  * @returns SymbolSchema
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function symbol(message?: string): SymbolSchema {
   return message ? createSymbolSchema(message) : DEFAULT_SYMBOL_SCHEMA;

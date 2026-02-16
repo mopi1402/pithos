@@ -1,7 +1,10 @@
 ---
 sidebar_position: 4
 title: Immutability vs Mutability
+description: "Why Pithos defaults to immutable operations. Comparison with Lodash mutable style and practical guidelines for when mutability is acceptable."
 ---
+
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 # Immutability vs Mutability
 
@@ -67,3 +70,13 @@ export const shuffleMut = <T>(array: T[]): T[] => {
 Optimize only after measuring a real bottleneck.
 
 :::
+
+---
+
+<RelatedLinks>
+
+- [Error Handling](./error-handling.md) — Fail fast, fail loud
+- [API Design](./api-design.md) — One function, one responsibility
+- [Performance & Bundle Size](./performance-bundle-size.md) — Tree-shaking and loop optimization
+
+</RelatedLinks>

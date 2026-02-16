@@ -1,7 +1,13 @@
 ---
 sidebar_position: 6
 title: Data-First vs Data-Last Paradigm
+description: "Why Pithos uses the data-first paradigm over data-last. Comparison of both approaches with practical TypeScript examples and trade-offs."
+keyword_stuffing_ignore:
+  - inference
+  - methods
 ---
+
+import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 # Data-First vs Data-Last Paradigm
 
@@ -56,6 +62,15 @@ const result = pipe(
 
 Pithos is **data-first only**. Unlike Remeda's dual-mode approach, we deliberately chose not to support data-last variants. This keeps the API simple, predictable, and ensures optimal TypeScript inference.
 
-For composition, use [`pipe()`](/api/arkhe/function/pipe) with explicit data-first calls — it's slightly more verbose but crystal clear.
+For composition, use [`pipe()`](/api/arkhe/function/pipe) with explicit data-first calls: it's slightly more verbose but crystal clear.
 
 :::
+
+---
+
+<RelatedLinks>
+
+- [API Design](./api-design.md) — One function, one responsibility
+- [TypeScript-First](./typescript-first.md) — Why inference drives the data-first choice
+
+</RelatedLinks>

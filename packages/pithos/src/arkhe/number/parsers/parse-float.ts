@@ -4,7 +4,7 @@
  * @param value - The string value to parse.
  * @param defaultValue - The value to return if parsing fails.
  * @returns The parsed float or default value.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Returns default for NaN, Infinity, and invalid strings. Assumes non-nullish input.
  *

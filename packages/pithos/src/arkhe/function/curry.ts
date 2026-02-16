@@ -7,7 +7,7 @@
  * @param arity - The arity of func (defaults to func.length).
  * @returns The curried function.
  * @throws {RangeError} If arity is negative or not an integer.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Supports partial application with multiple arguments at once.
  * @note When arity is 0, the function is invoked immediately upon first call.

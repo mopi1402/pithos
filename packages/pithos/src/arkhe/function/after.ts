@@ -8,7 +8,7 @@
  * @returns The new restricted function. Returns `undefined` for the first `n-1` calls.
  * @throws {RangeError} If n is negative or not an integer.
  * @see before - Inverse operation: invokes func at most n-1 times.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

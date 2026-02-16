@@ -9,7 +9,7 @@
  *
  * This file merges and extends number-base.ts with advanced constraints.
  *
- * @since 3.3.0
+ * @since 2.0.0
  * @experimental
  */
 
@@ -22,7 +22,7 @@ import { ERROR_MESSAGES_COMPOSITION } from "../../../core/consts/messages";
  * Number constraint metadata for JIT compilation.
  * These are extracted from the schema's refinements for inline code generation.
  *
- * @since 3.3.0
+ * @since 2.0.0
  */
 export interface NumberConstraintMeta {
   /** Minimum value constraint (inclusive) */
@@ -59,7 +59,7 @@ export interface NumberConstraintMeta {
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateNumberTypeCheck(
   varName: string,
@@ -90,7 +90,7 @@ export function generateNumberTypeCheck(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateMinCheck(
   varName: string,
@@ -122,7 +122,7 @@ export function generateMinCheck(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateMaxCheck(
   varName: string,
@@ -154,7 +154,7 @@ export function generateMaxCheck(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateLtCheck(
   varName: string,
@@ -186,7 +186,7 @@ export function generateLtCheck(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateLteCheck(
   varName: string,
@@ -219,7 +219,7 @@ export function generateLteCheck(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateGtCheck(
   varName: string,
@@ -251,7 +251,7 @@ export function generateGtCheck(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateGteCheck(
   varName: string,
@@ -287,7 +287,7 @@ export function generateGteCheck(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -323,7 +323,7 @@ export function generatePositiveCheck(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -359,7 +359,7 @@ export function generateNegativeCheck(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -399,7 +399,7 @@ export function generateIntCheck(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -453,7 +453,7 @@ export function generateMultipleOfCheck(
  * @param constraints - Optional constraint metadata
  * @param customTypeMessage - Optional custom type error message
  * @returns Generated code lines and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

@@ -4,7 +4,7 @@
  *
  * @param value - The value to check.
  * @returns `true` if the value is null, `false` otherwise.
- * @since 1.1.0
+ * @since 1.0.0
  *
  * @note Only checks null, not undefined. Use `isNil` to check both.
  *

@@ -7,7 +7,7 @@ import { Schema } from "@kanon/types/base";
  * @param getter - Function that returns the schema to evaluate.
  * @param message - Custom error message.
  * @returns Lazy schema that evaluates the schema on demand.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function lazy<T>(
   getter: () => Schema<T>,

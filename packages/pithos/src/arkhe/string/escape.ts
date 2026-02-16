@@ -11,7 +11,7 @@ const HTML_ESCAPES: Record<string, string> = {
  *
  * @param str - The string to escape.
  * @returns The escaped string.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Escapes `&`, `<`, `>`, `"`, and `'`. Essential for XSS prevention.
  *

@@ -13,7 +13,7 @@ import { at } from "./at";
  * Reason: Alias of {@link at}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at | Array.at() - MDN}
  * @see {@link https://caniuse.com/mdn-javascript_builtins_array_at | Browser support - Can I Use}
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

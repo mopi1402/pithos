@@ -10,7 +10,7 @@ import { range } from "@arkhe/util/range";
  * @returns The range of numbers in reverse order.
  * @deprecated Use `range().reverse()` directly instead.
  * @see range
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

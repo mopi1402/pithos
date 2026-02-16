@@ -1,4 +1,6 @@
-## `fromPairs`
+## `fromPairs` 💎
+
+> Transform key-value tuples into fully typed objects in a single call.
 
 ### **Convert** entries to object 📍
 

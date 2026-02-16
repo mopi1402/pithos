@@ -3,7 +3,7 @@
  *
  * @returns `false`.
  * @deprecated Use an inline arrow function `() => false` instead.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript

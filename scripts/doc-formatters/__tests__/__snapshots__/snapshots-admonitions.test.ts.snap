@@ -40,7 +40,7 @@ The deburred string.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -403,7 +403,7 @@ The resolved value or defaultValue.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -970,7 +970,7 @@ The array to sort.
 
 Property keys or functions to extract sort values.
 
-### orders?: <code>[SortOrder](#sortorder)[]</code>
+### orders?: <TypeRef>[SortOrder](#sortorder)[]</TypeRef>
 
 Sort orders for each iteratee. Defaults to \`'asc'\` for all.
 
@@ -984,7 +984,7 @@ A new sorted array.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -1476,7 +1476,11 @@ const sorted = orderBy(
 
 <div className="merged-type-separator"></div>
 
+<div className="as-h1">
+
 ## SortOrder {#sortorder}
+
+</div>
 
 <span title="Type: Type" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Type</span>
 
@@ -1488,7 +1492,7 @@ Sort order type for orderBy function.
 
 ## Since
 
-1.1.0"
+2.0.0"
 `;
 
 exports[`Admonitions — @info, @note, @deprecated > retry (@info, @throws, merged interface) 1`] = `
@@ -1521,7 +1525,7 @@ The return type of the function.
 
 The async function to retry.
 
-### options: <code>[RetryOptions](#retryoptions) = &#123;&#125;</code>
+### options: <TypeRef>[RetryOptions](#retryoptions) = &#123;&#125;</TypeRef>
 
 Retry configuration options.
 
@@ -2220,7 +2224,11 @@ console.log("Payment completed via:", gateways[currentGatewayIndex]);
 
 <div className="merged-type-separator"></div>
 
+<div className="as-h1">
+
 ## RetryOptions {#retryoptions}
+
+</div>
 
 <span title="Type: Interface" style={{"display":"inline-flex","alignItems":"center","padding":"0.125rem 0.5rem","backgroundColor":"transparent","color":"rgb(102, 102, 102)","border":"1px solid rgb(102, 102, 102)","borderRadius":"0.375rem","fontSize":"0.575rem","fontWeight":"600","position":"relative","bottom":"20px"}}>Interface</span>
 
@@ -2230,7 +2238,7 @@ Configuration options for retry behavior.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -2238,37 +2246,37 @@ Configuration options for retry behavior.
 
 <a id="attempts"></a>
 
-### attempts?: <code>number</code>
+### attempts?: \`number\`
 
 Number of retry attempts. Defaults to \`3\`.
 
 <a id="delay"></a>
 
-### delay?: <code>number</code>
+### delay?: \`number\`
 
 Initial delay between retries in milliseconds. Defaults to \`1000\`.
 
 <a id="backoff"></a>
 
-### backoff?: <code>number</code>
+### backoff?: \`number\`
 
 Backoff multiplier for delay. Defaults to \`1\` (no backoff).
 
 <a id="maxDelay"></a>
 
-### maxDelay?: <code>number</code>
+### maxDelay?: \`number\`
 
 Maximum delay between retries in milliseconds. Defaults to \`10000\`.
 
 <a id="jitter"></a>
 
-### jitter?: <code>number</code>
+### jitter?: \`number\`
 
 Random jitter factor (0-1) to add variation to delay. Defaults to \`0\`.
 
 <a id="until"></a>
 
-### until()?: <code>(error) =&gt; boolean</code>
+### until()?: \`(error) => boolean\`
 
 Function to determine if error should trigger retry. Return \`false\` to abort.
 
@@ -2289,6 +2297,14 @@ exports[`Admonitions — @info, @note, @deprecated > toPairs (@deprecated, @see 
 
 Creates an array of key-value pairs from an object.
 
+<details>
+<summary>💎 Why is this a Hidden Gem?</summary>
+
+Unlock object iteration with a clean [key, value] tuple format.
+
+</details>
+
+
 :::warning DEPRECATED
 
 Use \`Object.entries()\` directly instead.
@@ -2300,7 +2316,7 @@ Use \`Object.entries()\` directly instead.
 
 ## Type Parameters
 
-#### T: \`T extends Record<string, unknown>\`
+### T: \`T extends Record<string, unknown>\`
 
 The type of the object.
 
@@ -2310,19 +2326,19 @@ The type of the object.
 
 **Overload 1:**
 
-#### object: \`T\`
+### object: \`T\`
 
 The object to convert to pairs.
 
 **Overload 2:**
 
-#### object: \`null | undefined\`
+### object: \`null | undefined\`
 
 The object to convert to pairs.
 
 **Overload 3:**
 
-#### object: \`unknown\`
+### object: \`unknown\`
 
 The object to convert to pairs.
 
@@ -2344,7 +2360,7 @@ An array of key-value pairs.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -2558,7 +2574,7 @@ The new restricted function. Returns \`undefined\` for the first \`n-1\` calls.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -2929,7 +2945,7 @@ An array of chunks, where each chunk has at most \`size\` elements.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -3421,7 +3437,7 @@ The debounced function with \`cancel()\` and \`flush()\` methods.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -4710,7 +4726,7 @@ Promise that resolves after the specified duration.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 
@@ -5062,7 +5078,7 @@ The throttled function with a \`cancel()\` method.
 
 ## Since
 
-1.1.0
+2.0.0
 
 ---
 

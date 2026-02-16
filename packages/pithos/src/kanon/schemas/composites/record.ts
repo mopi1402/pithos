@@ -9,7 +9,7 @@ import { ERROR_MESSAGES_COMPOSITION } from "@kanon/core/consts/messages";
  * @param valueSchema - Schema to validate values.
  * @param message - Custom error message.
  * @returns Schema that validates an object with typed keys/values.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function record<
   KeySchema extends GenericSchema,

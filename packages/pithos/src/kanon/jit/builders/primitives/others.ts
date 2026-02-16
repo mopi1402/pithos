@@ -6,7 +6,7 @@
  * Generates inline JavaScript code for primitive type validation:
  * null, undefined, any, unknown, never, void, symbol.
  *
- * @since 3.3.0
+ * @since 2.0.0
  * @experimental
  */
 
@@ -26,7 +26,7 @@ import { ERROR_MESSAGES_COMPOSITION } from "../../../core/consts/messages";
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -56,7 +56,7 @@ export function generateNullTypeCheck(
  * @param ctx - The generator context
  * @param customTypeMessage - Optional custom type error message
  * @returns Generated code lines and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateNullValidation(
   varName: string,
@@ -78,7 +78,7 @@ export function generateNullValidation(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -108,7 +108,7 @@ export function generateUndefinedTypeCheck(
  * @param ctx - The generator context
  * @param customTypeMessage - Optional custom type error message
  * @returns Generated code lines and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateUndefinedValidation(
   varName: string,
@@ -130,7 +130,7 @@ export function generateUndefinedValidation(
  * @param _varName - The variable name (unused, any accepts everything)
  * @param ctx - The generator context
  * @returns Generated code (empty) and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -157,7 +157,7 @@ export function generateAnyValidation(
  * @param _varName - The variable name (unused, unknown accepts everything at runtime)
  * @param ctx - The generator context
  * @returns Generated code (empty) and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -185,7 +185,7 @@ export function generateUnknownValidation(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -217,7 +217,7 @@ export function generateNeverTypeCheck(
  * @param ctx - The generator context
  * @param customTypeMessage - Optional custom type error message
  * @returns Generated code lines and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateNeverValidation(
   varName: string,
@@ -240,7 +240,7 @@ export function generateNeverValidation(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -270,7 +270,7 @@ export function generateVoidTypeCheck(
  * @param ctx - The generator context
  * @param customTypeMessage - Optional custom type error message
  * @returns Generated code lines and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateVoidValidation(
   varName: string,
@@ -292,7 +292,7 @@ export function generateVoidValidation(
  * @param ctx - The generator context
  * @param customMessage - Optional custom error message
  * @returns Generated code and updated context
- * @since 3.3.0
+ * @since 2.0.0
  *
  * @example
  * ```typescript
@@ -322,7 +322,7 @@ export function generateSymbolTypeCheck(
  * @param ctx - The generator context
  * @param customTypeMessage - Optional custom type error message
  * @returns Generated code lines and updated context
- * @since 3.3.0
+ * @since 2.0.0
  */
 export function generateSymbolValidation(
   varName: string,

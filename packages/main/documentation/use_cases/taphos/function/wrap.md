@@ -1,4 +1,6 @@
-## `wrap`
+## `wrap` 💎
+
+> Add behavior around any function — perfect for logging, validation, or middleware.
 
 ### **Wrap** function with logic 📍
 

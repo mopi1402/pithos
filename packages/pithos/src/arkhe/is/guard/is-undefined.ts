@@ -3,7 +3,7 @@
  *
  * @param value - The value to check.
  * @returns `true` if the value is undefined, `false` otherwise.
- * @since 1.1.0
+ * @since 1.0.0
  *
  * @note Only checks undefined, not null. Use `isNil` to check both.
  *

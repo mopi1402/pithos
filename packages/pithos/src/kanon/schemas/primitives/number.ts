@@ -47,7 +47,7 @@ const DEFAULT_NUMBER_SCHEMA = Object.freeze(createNumberSchema());
  *
  * @param message - Custom error message (optional).
  * @returns NumberConstraint with all constraints.
- * @since 3.0.0
+ * @since 2.0.0
  */
 export function number(message?: string): NumberConstraint {
   return message ? createNumberSchema(message) : DEFAULT_NUMBER_SCHEMA;

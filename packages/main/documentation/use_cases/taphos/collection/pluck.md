@@ -1,4 +1,6 @@
-## `pluck`
+## `pluck` 💎
+
+> Extract a single property from every object in a collection — cleaner than map + accessor.
 
 ### **Extract** property from objects 📍
 

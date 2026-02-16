@@ -6,7 +6,7 @@
  * @param max - Maximum bound (inclusive).
  * @returns The clamped value.
  * @throws {RangeError} If min is greater than max.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @performance O(1)
  *

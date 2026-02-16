@@ -4,7 +4,7 @@
  * @template T - The type of elements in the array.
  * @param array - The array to inspect.
  * @returns A new array with unique values, preserving order of first occurrence.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Uses strict equality (===). First occurrence wins.
  *

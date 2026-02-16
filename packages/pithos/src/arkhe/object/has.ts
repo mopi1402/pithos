@@ -5,7 +5,7 @@
  * @param object - The object to check.
  * @param key - The property key to check for.
  * @returns `true` if the object has the own property, `false` otherwise.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Works with objects created via `Object.create(null)`.
  * Undefined/null values still return `true` if the property exists.

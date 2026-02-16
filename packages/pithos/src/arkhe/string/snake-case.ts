@@ -12,7 +12,7 @@ const WORD_PATTERN =
  *
  * @param str - The string to convert.
  * @returns The string in snake_case.
- * @since 1.1.0
+ * @since 2.0.0
  *
  * @note Handles camelCase, PascalCase, acronyms, kebab-case, and spaces.
  *
