@@ -1,5 +1,5 @@
-[![npm version](https://badge.fury.io/js/@pithos/core.svg)](https://www.npmjs.com/package/@pithos/core)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
+[![npm version](https://img.shields.io/npm/v/@pithos/core.svg)](https://www.npmjs.com/package/@pithos/core)
+[![TypeScript](https://img.shields.io/badge/TypeScript-First-blue.svg)](https://www.typescriptlang.org/)
 [![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)]()
 
 # 🏺 Pithos — Utilities Ecosystem

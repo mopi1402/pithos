@@ -1,6 +1,6 @@
 {
   "name": "@pithos/core",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Advanced JavaScript/TypeScript superset providing utilities, validation, and functional patterns",
   "publishConfig": {
     "access": "public"
@@ -81,9 +81,9 @@
   "bugs": {
     "url": "https://github.com/mopi1402/pithos/issues"
   },
-  "homepage": "https://github.com/mopi1402/pithos#readme",
+  "homepage": "https://pithos.dev",
   "scripts": {
-    "prepublishOnly": "pnpm -w run check:dependencies && pnpm -w run check:all && pnpm -w run generate:autocompletion && pnpm -w run generate:exports && pnpm -w run build"
+    "prepublishOnly": "cp ../../README.md . && cp ../../LICENSE . && pnpm -w run check:dependencies && pnpm -w run check:all && pnpm -w run generate:autocompletion && pnpm -w run generate:exports && pnpm -w run build"
   },
   "engines": {
     "node": ">=20.0.0"
