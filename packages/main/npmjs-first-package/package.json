@@ -1,0 +1,27 @@
+{
+  "name": "pithos",
+  "version": "2.0.0",
+  "description": "⚠️ This package has been renamed to @pithos/core. See https://www.npmjs.com/package/@pithos/core",
+  "deprecated": "This package has been renamed to @pithos/core. Install it with: npm i @pithos/core or visit https://www.npmjs.com/package/@pithos/core for more details",
+  "main": "",
+  "files": [
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mopi1402/pithos.git"
+  },
+  "homepage": "https://pithos.dev",
+  "author": "Pierre Moati <mopi1402>",
+  "license": "MIT",
+  "keywords": [
+    "pithos",
+    "typescript",
+    "utilities",
+    "lodash-alternative",
+    "zod-alternative",
+    "neverthrow-alternative",
+    "fp-ts-alternative",
+    "deprecated"
+  ]
+}

@@ -91,11 +91,32 @@
 }
 
 .moduleDescription {
-  margin: var(--pithos-spacing-lg) 0;
+  margin: var(--pithos-spacing-sm) 0 0;
   color: var(--ifm-color-content-secondary);
-  font-size: var(--pithos-font-size-base);
+  font-size: var(--pithos-font-size-lg);
   line-height: var(--pithos-line-height-relaxed);
+}
+
+.moduleComparison {
+  margin: var(--pithos-spacing-lg) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
   flex-grow: 1;
+}
+
+.moduleAlternative {
+  color: var(--pithos-color-highlight);
+  font-size: var(--pithos-font-size-base);
+  font-weight: var(--pithos-font-weight-semibold);
+  letter-spacing: 0.02em;
+}
+
+.moduleStats {
+  color: var(--golden-color);
+  font-size: var(--pithos-font-size-base);
+  font-weight: var(--pithos-font-weight-semibold);
 }
 
 .moduleLinks {

@@ -70,7 +70,11 @@
     "utilities",
     "validation",
     "functional",
-    "ecosystem"
+    "ecosystem",
+    "lodash-alternative",
+    "zod-alternative",
+    "neverthrow-alternative",
+    "fp-ts-alternative"
   ],
   "author": "Pierre Moati <mopi1402>",
   "license": "MIT",

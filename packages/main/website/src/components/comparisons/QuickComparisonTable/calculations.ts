@@ -178,6 +178,60 @@ export function calculateKanonComparison(): ModuleComparison {
   };
 }
 
+/**
+ * Calculate Kanon V3 (non-JIT) performance ratio vs Zod.
+ * Returns the raw numeric ratio, or null if data is unavailable.
+ */
+export function calculateKanonV3Ratio(): number | null {
+  if (!kanonBenchmark?.scenarios) return null;
+
+  let totalRatio = 0;
+  let count = 0;
+
+  for (const scenario of kanonBenchmark.scenarios) {
+    const v3Ops = scenario.results.find(
+      (r) => r.library === "@kanon/V3.0",
+    )?.opsPerSecond;
+    const zodOps = scenario.results.find(
+      (r) => r.library === "Zod",
+    )?.opsPerSecond;
+
+    if (v3Ops && zodOps && zodOps > 0) {
+      totalRatio += v3Ops / zodOps;
+      count++;
+    }
+  }
+
+  return count > 0 ? totalRatio / count : null;
+}
+
+/**
+ * Calculate Kanon JIT performance ratio vs Zod.
+ * Returns the raw numeric ratio, or null if data is unavailable.
+ */
+export function calculateKanonJITRatio(): number | null {
+  if (!kanonBenchmark?.scenarios) return null;
+
+  let totalRatio = 0;
+  let count = 0;
+
+  for (const scenario of kanonBenchmark.scenarios) {
+    const jitOps = scenario.results.find(
+      (r) => r.library === "@kanon/JIT",
+    )?.opsPerSecond;
+    const zodOps = scenario.results.find(
+      (r) => r.library === "Zod",
+    )?.opsPerSecond;
+
+    if (jitOps && zodOps && zodOps > 0) {
+      totalRatio += jitOps / zodOps;
+      count++;
+    }
+  }
+
+  return count > 0 ? totalRatio / count : null;
+}
+
 export function calculateZygosComparison(): ModuleComparison {
   let bundleSize = translate(
     { id: "comparison.quick.result.percentSmaller", message: "~{percent}% smaller" },

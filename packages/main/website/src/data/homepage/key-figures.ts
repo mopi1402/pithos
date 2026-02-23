@@ -1,4 +1,7 @@
 import { translate } from "@docusaurus/Translate";
+import {
+  calculateKanonJITRatio,
+} from "@site/src/components/comparisons/QuickComparisonTable/calculations";
 
 export interface KeyFigure {
   value: string | number;
@@ -9,11 +12,13 @@ export interface KeyFigure {
   link?: string;
 }
 
+const kanonJITRatio = calculateKanonJITRatio();
+
 export const KEY_FIGURES: KeyFigure[] = [
   {
-    value: "2.5",
+    value: kanonJITRatio ? kanonJITRatio.toFixed(1) : "11.0",
     suffix: "×",
-    label: translate({ id: 'homepage.keyFigures.fastValidation', message: 'Fast Validation' }),
+    label: translate({ id: 'homepage.keyFigures.fastValidation', message: 'Fast Validation (JIT)' }),
     highlight: translate({ id: 'homepage.keyFigures.vsZod', message: 'vs Zod' }),
     link: "/comparisons/kanon/performances",
   },

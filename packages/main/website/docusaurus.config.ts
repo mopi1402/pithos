@@ -91,6 +91,83 @@ const config: Config = {
         },
         sitemap: {
           ignorePatterns: ["/tags/**", "/search"],
+          changefreq: "weekly",
+          priority: undefined, // handled by createSitemapItems below
+          createSitemapItems: async (params) => {
+            const { defaultCreateSitemapItems, ...rest } = params;
+            const items = await defaultCreateSitemapItems(rest);
+
+            const getPriority = (url: string): number => {
+              const path = new URL(url).pathname;
+
+              // Homepage
+              if (path === "/") return 1.0;
+
+              // Key landing pages
+              if (
+                path === "/guide/get-started/" ||
+                path === "/guide/basics/about-pithos/" ||
+                path === "/comparisons/overview/"
+              )
+                return 0.9;
+
+              // Module overviews & head-to-head comparisons
+              if (
+                /^\/guide\/modules\/\w+\/$/.test(path) ||
+                /^\/(comparisons)\/(arkhe|kanon|zygos|taphos)\/\w+-vs-\w+\//.test(path)
+              )
+                return 0.8;
+
+              // Other guide, comparisons, use-cases pages
+              if (
+                path.startsWith("/guide/") ||
+                path.startsWith("/comparisons/") ||
+                path.startsWith("/use-cases/")
+              )
+                return 0.7;
+
+              // API module index pages (e.g. /api/arkhe/, /api/kanon/)
+              if (/^\/api\/\w+\/$/.test(path)) return 0.6;
+
+              // All other API pages
+              return 0.5;
+            };
+
+            const getChangefreq = (
+              url: string,
+            ): "daily" | "weekly" | "monthly" => {
+              const path = new URL(url).pathname;
+              if (path === "/" || path === "/guide/get-started/") return "daily";
+              if (path.startsWith("/api/")) return "monthly";
+              return "weekly";
+            };
+
+            const today = new Date().toISOString().split("T")[0];
+
+            const getLastmod = (url: string): string | undefined => {
+              const path = new URL(url).pathname;
+              // Force "today" for high-value pages
+              if (
+                path === "/" ||
+                path.startsWith("/guide/basics/") ||
+                path.startsWith("/guide/get-started") ||
+                path.startsWith("/guide/modules/") ||
+                path.startsWith("/comparisons/")
+              )
+                return today;
+              return undefined;
+            };
+
+            // Sort: highest priority first
+            return items
+              .map((item) => ({
+                ...item,
+                priority: getPriority(item.url),
+                changefreq: getChangefreq(item.url),
+                lastmod: getLastmod(item.url) ?? item.lastmod,
+              }))
+              .sort((a, b) => b.priority - a.priority);
+          },
         },
         theme: {
           customCss: "./src/css/custom.css",
@@ -171,6 +248,7 @@ const config: Config = {
       },
     ],
     colorMode: {
+      defaultMode: "dark",
       respectPrefersColorScheme: true,
     },
     tabs: {

@@ -7,32 +7,42 @@ export type ModuleItem = {
   docLink: string;
   apiLink: string;
   status?: "stable" | "beta" | "deprecated" | "new";
+  /** e.g. "Lodash alternative" */
+  alternative?: string;
+  /** Key to match in QuickComparisonTable calculations: "arkhe" | "kanon" | "zygos" */
+  comparisonKey?: "arkhe" | "kanon" | "zygos";
 };
 
 export const MODULE_LIST: ModuleItem[] = [
   {
     name: "Arkhe",
     logo: "img/emoji/letter-a.png",
-    description: translate({ id: 'homepage.modules.arkhe.description', message: 'Modern Lodash replacement with pure utility functions' }),
+    description: translate({ id: 'homepage.modules.arkhe.description', message: 'Pure utility functions' }),
     docLink: "/guide/modules/arkhe",
     apiLink: "/api/arkhe",
     status: "stable",
+    alternative: translate({ id: 'homepage.modules.arkhe.alternative', message: 'Lodash alternative' }),
+    comparisonKey: "arkhe",
   },
   {
     name: "Kanon",
     logo: "img/emoji/letter-k.png",
-    description: translate({ id: 'homepage.modules.kanon.description', message: 'Schema validation with JIT compilation' }),
+    description: translate({ id: 'homepage.modules.kanon.description', message: 'JIT-compiled schema validation' }),
     docLink: "/guide/modules/kanon",
     apiLink: "/api/kanon",
     status: "stable",
+    alternative: translate({ id: 'homepage.modules.kanon.alternative', message: 'Zod alternative' }),
+    comparisonKey: "kanon",
   },
   {
     name: "Zygos",
     logo: "img/emoji/letter-z.png",
-    description: translate({ id: 'homepage.modules.zygos.description', message: 'Result pattern & monads for functional error handling' }),
+    description: translate({ id: 'homepage.modules.zygos.description', message: 'Result pattern & monads' }),
     docLink: "/guide/modules/zygos",
     apiLink: "/api/zygos",
     status: "stable",
+    alternative: translate({ id: 'homepage.modules.zygos.alternative', message: 'Neverthrow & fp-ts alternative' }),
+    comparisonKey: "zygos",
   },
   {
     name: "Sphalma",
