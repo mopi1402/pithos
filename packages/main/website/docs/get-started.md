@@ -7,6 +7,7 @@ description: "Get started with Pithos, the zero-dependency TypeScript utilities 
 
 import { Highlight } from "@site/src/components/shared/Highlight";
 import { FeatureSection } from "@site/src/components/shared/FeatureSection";
+import { Picture } from "@site/src/components/shared/Picture";
 import { InstallTabs } from "@site/src/components/shared/InstallTabs";
 
 # 🚪 Get Started
@@ -136,9 +137,15 @@ if (result.isOk()) {
 
 ## Why developers love it
 
-<FeatureSection 
-  imageSrc="/img/generated/quick-start/why-developers-love-it" 
-  imageAlt="TypeScript utilities with zero dependencies, tree-shakable and type-safe"
+<FeatureSection
+  image={
+    <Picture
+      src="/img/generated/quick-start/why-developers-love-it"
+      alt="TypeScript utilities with zero dependencies, tree-shakable and type-safe"
+      displaySize={200}
+      sourceWidth={400}
+    />
+  }
   imagePosition="left"
 >
 
@@ -154,9 +161,15 @@ if (result.isOk()) {
 
 ## Why your users benefit
 
-<FeatureSection 
-  imageSrc="/img/generated/quick-start/why-your-users-benefit" 
-  imageAlt="Performance benefits: faster execution, smaller bundles, battle-tested reliability"
+<FeatureSection
+  image={
+    <Picture
+      src="/img/generated/quick-start/why-your-users-benefit"
+      alt="Performance benefits: faster execution, smaller bundles, battle-tested reliability"
+      displaySize={200}
+      sourceWidth={400}
+    />
+  }
   imagePosition="right"
 >
 

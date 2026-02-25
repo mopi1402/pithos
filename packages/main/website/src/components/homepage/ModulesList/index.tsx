@@ -4,24 +4,62 @@ import Link from "@docusaurus/Link";
 import { useHistory } from "@docusaurus/router";
 import Heading from "@theme/Heading";
 import { translate } from "@docusaurus/Translate";
+import { Picture } from "@site/src/components/shared/Picture";
 import styles from "./styles.module.css";
 import { MODULE_LIST, type ModuleItem } from "@site/src/data/modules";
 import {
-  calculateArkheComparison,
-  calculateKanonComparison,
-  calculateZygosComparison,
-  calculateKanonV3Ratio,
-  calculateKanonJITRatio,
-} from "@site/src/components/comparisons/QuickComparisonTable/calculations";
+  ARKHE_BUNDLE_RATIO, ARKHE_PERF_RATIO,
+  KANON_BUNDLE_RATIO, KANON_JIT_RATIO, KANON_V3_RATIO,
+  ZYGOS_BUNDLE_RATIO, ZYGOS_PERF_RATIO,
+} from "@site/src/data/generated/pre-computed-comparisons";
+
+function formatRatio(ratio: number | null, type: "smaller" | "faster"): string {
+  if (ratio == null) return translate({ id: "comparison.quick.result.na", message: "N/A" });
+  if (type === "smaller") {
+    return translate(
+      { id: "comparison.quick.result.smaller", message: "{ratio}x smaller" },
+      { ratio: ratio.toFixed(1) },
+    );
+  }
+  if (ratio >= 1) {
+    return translate(
+      { id: "comparison.quick.result.faster", message: "{ratio}x faster" },
+      { ratio: ratio.toFixed(1) },
+    );
+  }
+  return translate(
+    { id: "comparison.quick.result.slower", message: "{ratio}x slower" },
+    { ratio: (1 / ratio).toFixed(1) },
+  );
+}
+
+function formatZygosPerf(ratio: number | null): string {
+  if (ratio == null) return translate({ id: "comparison.quick.result.similar", message: "Similar" });
+  if (ratio >= 1.1) return translate({ id: "comparison.quick.result.faster", message: "{ratio}x faster" }, { ratio: ratio.toFixed(1) });
+  if (ratio <= 0.9) return translate({ id: "comparison.quick.result.slower", message: "{ratio}x slower" }, { ratio: (1 / ratio).toFixed(1) });
+  return translate({ id: "comparison.quick.result.similar", message: "Similar" });
+}
 
 const comparisons = {
-  arkhe: calculateArkheComparison(),
-  kanon: calculateKanonComparison(),
-  zygos: calculateZygosComparison(),
+  arkhe: {
+    bundleSize: formatRatio(ARKHE_BUNDLE_RATIO, "smaller"),
+    performance: formatRatio(ARKHE_PERF_RATIO, "faster"),
+    bundleSizeLink: "/comparisons/arkhe/bundle-size/",
+    performanceLink: "/comparisons/arkhe/performances/",
+  },
+  kanon: {
+    bundleSize: formatRatio(KANON_BUNDLE_RATIO, "smaller"),
+    performance: formatRatio(KANON_JIT_RATIO, "faster"),
+    bundleSizeLink: "/comparisons/kanon/bundle-size/",
+    performanceLink: "/comparisons/kanon/performances/",
+  },
+  zygos: {
+    bundleSize: formatRatio(ZYGOS_BUNDLE_RATIO, "smaller"),
+    performance: formatZygosPerf(ZYGOS_PERF_RATIO),
+    bundleSizeLink: "/comparisons/zygos/bundle-size/",
+    performanceLink: "/comparisons/zygos/performances/",
+  },
 };
-
-const kanonV3Ratio = calculateKanonV3Ratio();
-const kanonJITRatio = calculateKanonJITRatio();
 
 export function ModuleCard({
   name,
@@ -50,18 +88,18 @@ export function ModuleCard({
         aria-label={`${name}`}
       >
         {status === "beta" && <span className={styles.betaBadge}>{translate({ id: 'homepage.modules.beta', message: 'Beta' })}</span>}
-        <p><img src={logo} alt={`${name} module logo`} width={128} height={128} loading="lazy" decoding="async" /></p>
+        <p><Picture src={logo} alt={`${name} module logo`} displaySize={128} width={128} height={128} loading="lazy" /></p>
         <Heading as="h3">{name}</Heading>
         <p className={styles.moduleDescription}>{description}</p>
         {alternative && comparison && (
           <div className={styles.moduleComparison}>
             <span className={styles.moduleAlternative}>{alternative}</span>
-            {comparisonKey === "kanon" && kanonV3Ratio && kanonJITRatio ? (
+            {comparisonKey === "kanon" && KANON_V3_RATIO && KANON_JIT_RATIO ? (
               <span className={styles.moduleStats}>
                 {comparison.bundleSize} ·{" "}
                 {translate(
                   { id: "homepage.modules.kanon.perfDual", message: "{v3}× faster ({jit}× with JIT)" },
-                  { v3: kanonV3Ratio.toFixed(1), jit: kanonJITRatio.toFixed(1) },
+                  { v3: KANON_V3_RATIO.toFixed(1), jit: KANON_JIT_RATIO.toFixed(1) },
                 )}
               </span>
             ) : (

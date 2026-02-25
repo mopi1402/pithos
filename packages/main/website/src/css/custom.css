@@ -4,7 +4,14 @@
  * work well for content-centric websites.
  */
 
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap");
+/* Self-hosted Cormorant Garamond Bold — subset to ~90 glyphs (8 KB vs 30+ KB from Google Fonts) */
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/CormorantGaramond-Bold.subset.woff2") format("woff2");
+}
 
 /* You can override the default Infima variables here. */
 :root {
@@ -323,7 +330,8 @@ body::after {
       transparent 70%);
   pointer-events: none;
   animation: pulse 8s ease-in-out infinite;
-  will-change: transform, opacity;
+  animation-delay: 2s;
+  will-change: auto;
   z-index: 1;
 }
 
@@ -347,6 +355,12 @@ body::after {
   font-weight: var(--pithos-font-weight-bold);
   text-transform: uppercase;
   color: var(--golden-color);
+}
+
+/* Explicit navbar logo dimensions to prevent CLS */
+.navbar__logo img {
+  width: 32px;
+  height: 32px;
 }
 
 .hero__title {
@@ -394,7 +408,7 @@ body::after {
   width: 32px;
   height: 32px;
   flex-shrink: 0;
-  background: url('/img/external/github.png') no-repeat center / contain;
+  background: url('/img/external/github.webp') no-repeat center / contain;
 }
 
 .header-github-link [class*="iconExternalLink"] {
@@ -431,7 +445,7 @@ body::after {
   height: 22px;
   flex-shrink: 0;
   margin-top: 0.3em;
-  background: url('/img/external/npm.png') no-repeat center / contain;
+  background: url('/img/external/npm.webp') no-repeat center / contain;
 }
 
 .header-npm-link [class*="iconExternalLink"] {
@@ -489,6 +503,7 @@ body::after {
 
 .footer .footer__copyright img {
   height: 1.3em;
+  width: 1.3em;
   margin-top: -0.2em;
   vertical-align: middle;
 }
@@ -696,7 +711,7 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
   align-self: stretch;
   width: 3em;
   margin-right: 0.75em;
-  background: url("/img/emoji/previous.png") center / contain no-repeat;
+  background: url("/img/emoji/previous.webp") center / contain no-repeat;
 }
 
 .pagination-nav__link--next {
@@ -713,7 +728,7 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
   align-self: stretch;
   width: 3em;
   margin-left: 0.75em;
-  background: url("/img/emoji/next.png") center / contain no-repeat;
+  background: url("/img/emoji/next.webp") center / contain no-repeat;
 }
 
 /* Subtle gradient horizontal rules in API doc pages */

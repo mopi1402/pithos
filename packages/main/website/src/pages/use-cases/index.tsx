@@ -8,7 +8,6 @@ import Admonition from "@theme/Admonition";
 import { translate } from "@docusaurus/Translate";
 import { useLocation, useHistory } from "@docusaurus/router";
 import { useSmartSearch } from "@site/src/hooks/useSmartSearch";
-import { Picture } from "@site/src/components/shared/Picture";
 
 import styles from "./styles.module.css";
 
@@ -597,13 +596,14 @@ export default function UseCasesPage(): ReactNode {
       <main className={styles.main}>
         <div className={styles.header}>
           <Heading as="h1">
-            <Picture 
-              src="/img/generated/emoji/treasure-map" 
-              alt="treasure map" 
-              widths={[32, 48, 64]} 
-              sizes="64px"
-              inline={true}
-              className={styles.headingEmoji}
+            <img 
+              src="/img/emoji/cornucopia.webp" 
+              alt="Use Cases explorer" 
+              className={`custom-emoji ${styles.headingEmoji}`}
+              width="48"
+              height="48"
+              loading="eager"
+              decoding="async"
             />
             {translate({ id: 'useCases.heading', message: 'Use Cases Explorer' })}
           </Heading>

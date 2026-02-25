@@ -20,8 +20,7 @@ export function FeatureCard({
           <Picture
             src={icon}
             alt={title}
-            widths={[100, 125, 250]}
-            sizes="(max-width: 576px) 100px, 125px"
+            displaySize={125}
             width={125}
             height={125}
           />

@@ -1,18 +1,41 @@
 import type { ReactNode } from "react";
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState, useEffect, lazy, Suspense } from "react";
 import { translate } from "@docusaurus/Translate";
 import Head from "@docusaurus/Head";
 import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
 import { Picture } from "@site/src/components/shared/Picture";
-import VortexCanvas from "@site/src/components/homepage/VortexCanvas";
+import { VORTEX_CONFIGS } from "@site/src/data/homepage/vortex";
+
+// Lazy-load only decorative/non-critical components
+const VortexCanvas = lazy(() => import("@site/src/components/homepage/VortexCanvas"));
+const PithosEasterEgg = lazy(() => import("@site/src/components/homepage/PithosEasterEgg"));
+const DevModeToast = lazy(() => import("@site/src/components/homepage/DevModeToast"));
+
+// Main content sections: NOT lazy-loaded to avoid SSG→hydration flash (CLS)
 import KeyFigures from "@site/src/components/homepage/KeyFigures";
 import FeaturesGrid from "@site/src/components/homepage/FeaturesGrid";
 import ModulesList from "@site/src/components/homepage/ModulesList";
-import PithosEasterEgg from "@site/src/components/homepage/PithosEasterEgg";
-import DevModeToast from "@site/src/components/homepage/DevModeToast";
 import { usePithosEasterEgg } from "@site/src/hooks/usePithosEasterEgg";
-import { VORTEX_CONFIGS } from "@site/src/data/homepage/vortex";
+
+/**
+ * Defer rendering of a component until the browser is idle.
+ * This prevents decorative/non-critical components (like VortexCanvas)
+ * from competing with LCP paint on the main thread.
+ */
+function useIdleDefer(): boolean {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      const id = requestIdleCallback(() => setReady(true));
+      return () => cancelIdleCallback(id);
+    }
+    // Fallback: defer to next frame
+    const id = requestAnimationFrame(() => setReady(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+  return ready;
+}
 
 import styles from "./index.module.css";
 
@@ -50,8 +73,10 @@ function HomepageHeader({
             <Picture
               src="/img/generated/logos/pithos"
               alt="Pithos - TypeScript utilities library with zero dependencies"
-              widths={[120, 180, 360]}
-              sizes="(max-width: 600px) 120px, 180px"
+              displaySize={180}
+              sourceWidth={180}
+              sourceHeight={242}
+              priority
             />
           </div>
           <div className={styles.heroText}>
@@ -79,18 +104,20 @@ function HomepageHeader({
       </header>
 
       {easterEgg && (
-        <PithosEasterEgg
-          startRect={easterEgg.startRect}
-          titleRect={titleRef.current?.getBoundingClientRect() ?? null}
-          taglineRect={taglineRef.current?.getBoundingClientRect() ?? null}
-          heroTitleRef={titleRef}
-          heroTaglineRef={taglineRef}
-          heroJarRef={jarRef}
-          animating={animating}
-          onClose={onClose}
-          onReady={onReady}
-          onReturnDone={onReturnDone}
-        />
+        <Suspense fallback={null}>
+          <PithosEasterEgg
+            startRect={easterEgg.startRect}
+            titleRect={titleRef.current?.getBoundingClientRect() ?? null}
+            taglineRect={taglineRef.current?.getBoundingClientRect() ?? null}
+            heroTitleRef={titleRef}
+            heroTaglineRef={taglineRef}
+            heroJarRef={jarRef}
+            animating={animating}
+            onClose={onClose}
+            onReady={onReady}
+            onReturnDone={onReturnDone}
+          />
+        </Suspense>
       )}
     </>
   );
@@ -98,6 +125,7 @@ function HomepageHeader({
 
 export default function Home(): ReactNode {
   const egg = usePithosEasterEgg();
+  const vortexReady = useIdleDefer();
 
   const handleEasterEggReady = useCallback(() => {
     egg.setJarHidden(true);
@@ -113,7 +141,11 @@ export default function Home(): ReactNode {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://pithos.dev/" />
       </Head>
-      <VortexCanvas configs={VORTEX_CONFIGS} paused={egg.easterEgg != null} />
+      {vortexReady && (
+        <Suspense fallback={null}>
+          <VortexCanvas configs={VORTEX_CONFIGS} paused={egg.easterEgg != null} />
+        </Suspense>
+      )}
       <HomepageHeader
         jarRef={egg.jarRef}
         handleClick={egg.handleClick}
@@ -124,7 +156,9 @@ export default function Home(): ReactNode {
         onReady={handleEasterEggReady}
         onReturnDone={egg.finishReturn}
       />
-      <DevModeToast countdown={egg.devModeCountdown} unlocked={egg.devModeUnlocked} />
+      <Suspense fallback={null}>
+        <DevModeToast countdown={egg.devModeCountdown} unlocked={egg.devModeUnlocked} />
+      </Suspense>
       <main>
         <KeyFigures />
         <FeaturesGrid />

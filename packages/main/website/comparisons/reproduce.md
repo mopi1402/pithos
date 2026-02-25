@@ -7,13 +7,19 @@ description: "How to verify Pithos benchmark results and bundle size comparisons
 
 import { RepoCloneUrl } from '@site/src/components/shared/RepoUrl';
 import { FeatureSection } from '@site/src/components/shared/FeatureSection';
+import { Picture } from '@site/src/components/shared/Picture';
 import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 # 🏮 Reproduce Our Data
 
 <FeatureSection
-  imageSrc="/img/comparisons/diogenes-testing-pithos"
-  imageAlt="Diogenes testing Pithos benchmarks"
+  image={
+    <Picture
+      src="/img/comparisons/diogenes-testing-pithos"
+      alt="Diogenes testing Pithos benchmarks"
+      displaySize={200}
+    />
+  }
   imagePosition="left"
 >
 

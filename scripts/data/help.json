@@ -234,15 +234,6 @@
       "order": 20,
       "flags": [
         {
-          "type": "radio",
-          "name": "environment",
-          "description": "Target environment",
-          "options": [
-            { "label": "production", "value": "" },
-            { "label": "early-access", "value": "early-access", "suffix": ":early-access" }
-          ]
-        },
-        {
           "type": "checkbox",
           "name": "zip",
           "description": "Zip build output",
@@ -254,6 +245,14 @@
       "description": "Preview custom emoji images grid",
       "category": "Documentation",
       "order": 21
+    },
+    "doc:generate:fonts": {
+      "description": "Subset Cormorant Garamond font (pyftsubset → woff2, ~90 glyphs)",
+      "category": "Documentation",
+      "order": 22,
+      "flags": [
+        { "type": "checkbox", "name": "force", "description": "Force regeneration even if up to date", "args": ["--force"] }
+      ]
     },
     "doc:generate:benchmarks-results": {
       "description": "Generate benchmark results JSON for website",

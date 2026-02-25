@@ -10,9 +10,13 @@
 
 # Generated images (regenerated from assets/ at build time)
 /static/img/generated/
+/static/img/emoji/
 
 # Generated use cases data (should be regenerated at build time)
 /static/use_cases/*.json
+
+# Generated pre-computed comparisons (regenerated at build time)
+/src/data/generated/pre-computed-comparisons.ts
 
 # Copied from root (regenerated at build time)
 /docs/100-basics/090-changelog.md

@@ -38,11 +38,11 @@ function getBadgeLabel(moduleName: string, categoryName: string, count: number):
  */
 export function generateRootIndex() {
     const modules = [
-        { name: "Arkhe", logo: "/img/emoji/letter-a.png", desc: "Core utilities (arrays, objects, strings, functions)", link: "/api/arkhe/" },
-        { name: "Kanon", logo: "/img/emoji/letter-k.png", desc: "Schema validation with JIT compilation", link: "/api/kanon/" },
-        { name: "Zygos", logo: "/img/emoji/letter-z.png", desc: "Result/Either types for error handling", link: "/api/zygos/" },
-        { name: "Sphalma", logo: "/img/emoji/letter-s.png", desc: "Typed error factories with error codes", link: "/api/sphalma/" },
-        { name: "Taphos", logo: "/img/emoji/letter-t.png", desc: "Legacy utilities (Lodash/Ramda compatibility)", link: "/api/taphos/" },
+        { name: "Arkhe", logo: "/img/emoji/letter-a.webp", desc: "Core utilities (arrays, objects, strings, functions)", link: "/api/arkhe/" },
+        { name: "Kanon", logo: "/img/emoji/letter-k.webp", desc: "Schema validation with JIT compilation", link: "/api/kanon/" },
+        { name: "Zygos", logo: "/img/emoji/letter-z.webp", desc: "Result/Either types for error handling", link: "/api/zygos/" },
+        { name: "Sphalma", logo: "/img/emoji/letter-s.webp", desc: "Typed error factories with error codes", link: "/api/sphalma/" },
+        { name: "Taphos", logo: "/img/emoji/letter-t.webp", desc: "Legacy utilities (Lodash/Ramda compatibility)", link: "/api/taphos/" },
     ];
 
     const cards = modules.map(m => `  <div className="col col--6" style={{marginBottom: '1rem'}}>
@@ -115,11 +115,11 @@ export function generateIndexFiles() {
     generateRootIndex();
 
     const moduleLogos: Record<string, string> = {
-        arkhe: "/img/emoji/letter-a.png",
-        kanon: "/img/emoji/letter-k.png",
-        zygos: "/img/emoji/letter-z.png",
-        sphalma: "/img/emoji/letter-s.png",
-        taphos: "/img/emoji/letter-t.png",
+        arkhe: "/img/emoji/letter-a.webp",
+        kanon: "/img/emoji/letter-k.webp",
+        zygos: "/img/emoji/letter-z.webp",
+        sphalma: "/img/emoji/letter-s.webp",
+        taphos: "/img/emoji/letter-t.webp",
     };
 
     const modules = fs

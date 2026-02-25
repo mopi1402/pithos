@@ -33,6 +33,16 @@ const config: Config = {
 
   headTags: [
     {
+      tagName: "link",
+      attributes: {
+        rel: "preload",
+        href: "/fonts/CormorantGaramond-Bold.subset.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossorigin: "anonymous",
+      },
+    },
+    {
       tagName: "script",
       attributes: {
         type: "application/ld+json",
@@ -312,7 +322,7 @@ const config: Config = {
     },
     footer: {
       style: "dark",
-      copyright: `<span class="footer__main">© ${new Date().getFullYear()} <a href="https://www.linkedin.com/in/mopi1402/" target="_blank" rel="noopener noreferrer">Pierre Moati</a> · <a href="https://github.com/mopi1402/pithos/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a> · <a href="/guide/basics/changelog/">Changelog</a></span><span class="footer__dot"> · </span><span class="footer__docusaurus" style="opacity: 0.7;">Website built with <a href="https://docusaurus.io/" target="_blank" rel="noopener noreferrer" style="color: hsl(167, 68%, 45%);">Docusaurus</a> <img src="/img/external/docusaurus_logo.svg" alt="" /></span>`,
+      copyright: `<span class="footer__main">© ${new Date().getFullYear()} <a href="https://www.linkedin.com/in/mopi1402/" target="_blank" rel="noopener noreferrer">Pierre Moati</a> · <a href="https://github.com/mopi1402/pithos/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a> · <a href="/guide/basics/changelog/">Changelog</a></span><span class="footer__dot"> · </span><span class="footer__docusaurus" style="opacity: 0.7;">Website built with <a href="https://docusaurus.io/" target="_blank" rel="noopener noreferrer" style="color: hsl(167, 68%, 45%);">Docusaurus</a> <img src="/img/external/docusaurus_logo.svg" alt="" width="20" height="20" /></span>`,
     },
     prism: {
       // Using empty theme - colors are defined via CSS variables in custom.css

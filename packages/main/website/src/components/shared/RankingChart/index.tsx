@@ -2,9 +2,9 @@ import React from "react";
 import styles from "./styles.module.css";
 
 const MEDALS: { src: string; alt: string }[] = [
-  { src: "/img/emoji/medal-gold.png", alt: "first" },
-  { src: "/img/emoji/medal-silver.png", alt: "second" },
-  { src: "/img/emoji/medal-bronze.png", alt: "third" },
+  { src: "/img/emoji/medal-gold.webp", alt: "first" },
+  { src: "/img/emoji/medal-silver.webp", alt: "second" },
+  { src: "/img/emoji/medal-bronze.webp", alt: "third" },
 ];
 
 export interface RankingItem {

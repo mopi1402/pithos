@@ -226,7 +226,7 @@ Property-based tests found bugs in Pithos that hundreds of manual tests missed, 
 
 Running the tests shows all levels working together:
 
-<Picture src="/img/generated/evolve-tests-output" alt="Vitest output showing Pithos evolve function tests with unit, property, and mutation test prefixes" />
+<Picture src="/img/generated/evolve-tests-output" alt="Vitest output showing Pithos evolve function tests with unit, property, and mutation test prefixes" widths={[400, 800, 1200, 1600]} sizes="100vw" />
 
 Each test has a clear purpose. No redundancy, no gaps.
 

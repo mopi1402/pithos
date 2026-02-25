@@ -121,7 +121,7 @@ describe("Schema.org BreadcrumbList", () => {
           expect(item.name.length).toBeGreaterThan(0);
           expect(item.item).toBeTruthy();
           expect(typeof item.item).toBe("string");
-          expect(item.item).toMatch(/^https:\/\/(early-access\.)?pithos\.dev/);
+          expect(item.item).toMatch(/^https:\/\/pithos\.dev/);
         }
       );
     });
@@ -160,7 +160,7 @@ describe("Schema.org BreadcrumbList", () => {
       // Should start with Home
       expect(completeBreadcrumb.itemListElement[0].name).toBe("Home");
       expect(completeBreadcrumb.itemListElement[0].item).toMatch(
-        /^https:\/\/(early-access\.)?pithos\.dev$/
+        /^https:\/\/pithos\.dev$/
       );
 
       // Should have proper hierarchy

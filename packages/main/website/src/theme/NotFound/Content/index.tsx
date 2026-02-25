@@ -13,6 +13,8 @@ export default function NotFoundContent(): ReactNode {
           <Picture
             src="/img/generated/not_found"
             alt="Icarus falling"
+            displaySize={100}
+            sourceWidth={250}
             className={styles.illustration}
           />
           <h1 className={styles.title}>404</h1>

@@ -16,7 +16,7 @@ export type ModuleItem = {
 export const MODULE_LIST: ModuleItem[] = [
   {
     name: "Arkhe",
-    logo: "img/emoji/letter-a.png",
+    logo: "/img/generated/modules/letter-a",
     description: translate({ id: 'homepage.modules.arkhe.description', message: 'Pure utility functions' }),
     docLink: "/guide/modules/arkhe",
     apiLink: "/api/arkhe",
@@ -26,7 +26,7 @@ export const MODULE_LIST: ModuleItem[] = [
   },
   {
     name: "Kanon",
-    logo: "img/emoji/letter-k.png",
+    logo: "/img/generated/modules/letter-k",
     description: translate({ id: 'homepage.modules.kanon.description', message: 'JIT-compiled schema validation' }),
     docLink: "/guide/modules/kanon",
     apiLink: "/api/kanon",
@@ -36,7 +36,7 @@ export const MODULE_LIST: ModuleItem[] = [
   },
   {
     name: "Zygos",
-    logo: "img/emoji/letter-z.png",
+    logo: "/img/generated/modules/letter-z",
     description: translate({ id: 'homepage.modules.zygos.description', message: 'Result pattern & monads' }),
     docLink: "/guide/modules/zygos",
     apiLink: "/api/zygos",
@@ -46,7 +46,7 @@ export const MODULE_LIST: ModuleItem[] = [
   },
   {
     name: "Sphalma",
-    logo: "img/emoji/letter-s.png",
+    logo: "/img/generated/modules/letter-s",
     description: translate({ id: 'homepage.modules.sphalma.description', message: 'Typed error factories with error codes' }),
     docLink: "/guide/modules/sphalma",
     apiLink: "/api/sphalma",
@@ -54,7 +54,7 @@ export const MODULE_LIST: ModuleItem[] = [
   },
   {
     name: "Taphos",
-    logo: "img/emoji/letter-t.png",
+    logo: "/img/generated/modules/letter-t",
     description: translate({ id: 'homepage.modules.taphos.description', message: 'Lodash migration guide with IDE integration' }),
     docLink: "/guide/modules/taphos",
     apiLink: "/api/taphos",

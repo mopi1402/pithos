@@ -138,7 +138,7 @@ When you hover over a Taphos function or see the deprecation warning, the TSDoc 
 - **What** to use instead
 - **How** to migrate with code examples
 
-<Picture src="/img/generated/taphos/ide-hint" alt="Taphos TSDoc migration hints showing deprecation warnings and replacement suggestions in IDE" />
+<Picture src="/img/generated/taphos/ide-hint" alt="Taphos TSDoc migration hints showing deprecation warnings and replacement suggestions in IDE" widths={[400, 800, 1200, 1600]} sizes="100vw" />
 
 This makes migration progressive and frictionless: you can keep using Taphos functions while gradually replacing them, guided by your IDE at each step.
 

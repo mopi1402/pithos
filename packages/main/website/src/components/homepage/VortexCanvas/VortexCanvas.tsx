@@ -80,7 +80,7 @@ function VortexCanvas({ configs, className, paused = false }: VortexCanvasProps)
       const centerY = height / 2;
 
       const fontSize = Math.max(14, Math.min(24, width * 0.02));
-      ctx.font = `300 ${fontSize}px "Cormorant Garamond", serif`;
+      ctx.font = `700 ${fontSize}px "Cormorant Garamond", serif`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 

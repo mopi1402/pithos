@@ -8,7 +8,7 @@ description: Pithos is a modern TypeScript utilities library and Lodash alternat
 import ModuleName from "@site/src/components/shared/badges/ModuleName";
 import InvisibleList from "@site/src/components/shared/InvisibleList";
 
-# <span style={{display: 'inline-flex', alignItems: 'center', gap: '0.2em'}}><img src="/img/generated/logos/pithos-120.png" alt="Pithos logo" style={{height: '1.2em'}} /> Pithos</span>
+# <span style={{display: 'inline-flex', alignItems: 'center', gap: '0.2em'}}><img src="/img/emoji/pithos.webp" alt="Pithos logo" style={{height: '1.2em'}} /> Pithos</span>
 
 ## Why this jar exists
 

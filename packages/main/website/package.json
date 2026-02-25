@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "prestart": "cd ../../.. && pnpm doc:copy:changelog && pnpm check:doc-inline-types && cd packages/main/website && pnpm run generate:images && pnpm run generate:bundle-data && pnpm run generate:use-cases && pnpm run generate:embeddings && pnpm run build:demo",
+    "prestart": "cd ../../.. && pnpm doc:copy:changelog && pnpm check:doc-inline-types && cd packages/main/website && pnpm run generate:images && pnpm run generate:emojis && pnpm run generate:bundle-data && pnpm run generate:comparisons && pnpm run generate:use-cases && pnpm run generate:embeddings && pnpm run build:demo",
     "start": "docusaurus start",
-    "prebuild": "cd ../../../ && pnpm build && cd packages/main/website && pnpm run generate:images && pnpm run generate:docs && pnpm run generate:bundle-data && pnpm run generate:embeddings && pnpm run build:demo",
+    "prebuild": "cd ../../../ && pnpm build && cd packages/main/website && pnpm run generate:images && pnpm run generate:emojis && pnpm run generate:docs && pnpm run generate:bundle-data && pnpm run generate:comparisons && pnpm run generate:embeddings && pnpm run build:demo",
     "generate:docs": "cd ../.. && pnpm doc:generate",
     "generate:use-cases": "pnpm exec tsx scripts/generate-use-cases-data.ts",
     "generate:embeddings": "pnpm exec tsx scripts/generate-embeddings.ts",
@@ -20,7 +20,10 @@
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc",
     "generate:images": "pnpm exec tsx scripts/generate-images.ts",
-    "generate:bundle-data": "pnpm exec tsx scripts/generate-bundle-data.ts"
+    "generate:emojis": "pnpm exec tsx scripts/generate-emojis.ts",
+    "generate:fonts": "pnpm exec tsx scripts/generate-fonts.ts",
+    "generate:bundle-data": "pnpm exec tsx scripts/generate-bundle-data.ts",
+    "generate:comparisons": "pnpm exec tsx scripts/generate-precomputed-comparisons.ts"
   },
   "dependencies": {
     "@docusaurus/core": "3.9.2",
