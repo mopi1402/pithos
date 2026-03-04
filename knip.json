@@ -22,6 +22,7 @@
         "src/arkhe/types/performance/*.ts",
         "src/arkhe/types/utilities/*.ts",
         "src/arkhe/util/*.ts",
+        "src/bridges/*.ts",
         "src/kanon/core/consts/*.ts",
         "src/kanon/core/*.ts",
         "src/kanon/helpers/*.ts",

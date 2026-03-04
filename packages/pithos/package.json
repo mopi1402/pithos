@@ -1,6 +1,6 @@
 {
   "name": "@pithos/core",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Advanced JavaScript/TypeScript superset providing utilities, validation, and functional patterns",
   "publishConfig": {
     "access": "public"
@@ -25,6 +25,7 @@
     "./arkhe/types/performance/*": "./dist/arkhe/types/performance/*.js",
     "./arkhe/types/utilities/*": "./dist/arkhe/types/utilities/*.js",
     "./arkhe/util/*": "./dist/arkhe/util/*.js",
+    "./bridges/*": "./dist/bridges/*.js",
     "./kanon/core/consts/*": "./dist/kanon/core/consts/*.js",
     "./kanon/core/*": "./dist/kanon/core/*.js",
     "./kanon/helpers/*": "./dist/kanon/helpers/*.js",
@@ -57,7 +58,6 @@
     "./taphos/string/*": "./dist/taphos/string/*.js",
     "./taphos/util/*": "./dist/taphos/util/*.js",
     "./zygos/*": "./dist/zygos/*.js",
-    "./bridges/*": "./dist/bridges/*.js",
     "./zygos/result/*": "./dist/zygos/result/*.js"
   },
   "files": [

@@ -30,6 +30,8 @@ export interface TableProps<T> {
   sectionExtractor?: (item: T) => string | null;
   /** Disable ellipsis truncation — first column stays nowrap, others wrap naturally */
   noEllipsis?: boolean;
+  /** When combined with noEllipsis, also wraps the first column */
+  wrapAll?: boolean;
 }
 
 export function Table<T>({
@@ -43,6 +45,7 @@ export function Table<T>({
   stickyHeaderOffset = 60,
   sectionExtractor,
   noEllipsis = false,
+  wrapAll = false,
 }: TableProps<T>): React.ReactElement {
   const wrapperRef = React.useRef<HTMLDivElement>(null);
   const { isScrolledToEnd, shadowScale } = useScrollShadow(wrapperRef, {
@@ -179,7 +182,7 @@ export function Table<T>({
       >
         <table
           ref={stickyHeader ? tableRef : undefined}
-          className={`${styles.table} ${highlightedHeader ? styles.highlightedHeader : ""} ${noEllipsis ? styles.noEllipsis : ""}`}
+          className={`${styles.table} ${highlightedHeader ? styles.highlightedHeader : ""} ${noEllipsis ? styles.noEllipsis : ""} ${wrapAll ? styles.wrapAll : ""}`}
         >
           {renderTableContent(false)}
         </table>

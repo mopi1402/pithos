@@ -7,6 +7,8 @@ import CodeBlock from "@theme/CodeBlock";
 import Admonition from "@theme/Admonition";
 import { translate } from "@docusaurus/Translate";
 import { useLocation, useHistory } from "@docusaurus/router";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import { useSmartSearch } from "@site/src/hooks/useSmartSearch";
 
 import styles from "./styles.module.css";
@@ -341,6 +343,8 @@ const ESTIMATED_ITEM_HEIGHT = 280;
 export default function UseCasesPage(): ReactNode {
   const location = useLocation();
   const history = useHistory();
+  const cornucopiaUrl = useBaseUrl('/img/emoji/cornucopia.webp');
+  const {siteConfig} = useDocusaurusContext();
   
   // Initialize search query from URL
   const initialQuery = useMemo(() => {
@@ -395,10 +399,11 @@ export default function UseCasesPage(): ReactNode {
   }, [searchQuery, location.pathname, location.search, history]);
 
   // Load embeddings data via fetch (avoid bundle bloat)
+  const embeddingsUrl = useBaseUrl('/use_cases/use-cases-embeddings.json');
   useEffect(() => {
     async function loadEmbeddings() {
       try {
-        const response = await fetch("/use_cases/use-cases-embeddings.json");
+        const response = await fetch(embeddingsUrl);
         if (response.ok) {
           const data = await response.json();
           setEmbeddings(data);
@@ -408,7 +413,7 @@ export default function UseCasesPage(): ReactNode {
       }
     }
     loadEmbeddings();
-  }, []);
+  }, [embeddingsUrl]);
 
   // Load data with fallbacks
   const data: UseCasesDataType = useCasesData || FALLBACK_DATA;
@@ -426,6 +431,7 @@ export default function UseCasesPage(): ReactNode {
     debounceMs: 300,
     topK: 30,
     minScore: 0.25,
+    baseUrl: siteConfig.baseUrl,
   });
 
   // Trigger search when query changes
@@ -597,7 +603,7 @@ export default function UseCasesPage(): ReactNode {
         <div className={styles.header}>
           <Heading as="h1">
             <img 
-              src="/img/emoji/cornucopia.webp" 
+              src={cornucopiaUrl} 
               alt="Use Cases explorer" 
               className={`custom-emoji ${styles.headingEmoji}`}
               width="48"

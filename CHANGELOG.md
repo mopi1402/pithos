@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-03-04
+
+### Added
+
+- **Bridges** — `ensure()`, `ensureAsync()`, `ensurePromise()` bridge functions (Kanon → Zygos Result)
+
+### Improved
+
+- **Documentation** — Improved and translated to French (excluding API Reference and Use Cases)
+
+---
+
 ## [2.0.0] - 2026-02-22
 
 Complete ecosystem rewrite — first public release as a full ecosystem.

@@ -17,6 +17,7 @@ import { ModuleSchema } from '@site/src/components/seo/ModuleSchema';
 import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 import { ZygosSizeHighlight } from '@site/src/components/comparisons/zygos/BundleSizeTable';
 import { InstallTabs } from "@site/src/components/shared/InstallTabs";
+import { TableConfig } from '@site/src/components/shared/Table/TableConfigContext';
 
 <ModuleSchema
   name="Zygos"
@@ -30,15 +31,15 @@ _ζυγός - "balance"_
 
 Functional error handling. Lightweight alternatives to Neverthrow and fp-ts (Either, Task, TaskEither).
 
-Zygos brings functional error handling patterns to [TypeScript](https://www.typescriptlang.org/) without the weight of a full FP library. Instead of [try/catch](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch) blocks that lose type information, Zygos uses Result, Option, and Either types to make errors explicit in your function signatures. Every failure path is visible to the compiler, so you handle errors before they reach production.
+Zygos brings functional error handling patterns to [TypeScript](https://www.typescriptlang.org/) without the weight of a full FP library. Instead of [try/catch](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch) blocks that lose type information, Zygos uses [`Result`](/api/zygos/result/), [`Option`](/api/zygos/option/), and [`Either`](/api/zygos/either/) types to make errors explicit in your function signatures. Every failure path is visible to the compiler, so you handle errors before they reach production.
 
 ---
 
 ## Quick Example
 
-The `Result` type represents an operation that can succeed (`Ok`) or fail (`Err`). Pattern matching on the result forces you to handle both cases, eliminating unhandled exceptions:
+The `Result` type represents an operation that can succeed ([`Ok`](/api/zygos/result/ok)) or fail ([`Err`](/api/zygos/result/err)). Pattern matching on the result forces you to handle both cases, eliminating unhandled exceptions:
 
-```typescript
+```typescript links="ok:/api/zygos/result/ok,err:/api/zygos/result/err"
 import { ok, err, Result } from "pithos/zygos/result/result";
 
 function divide(a: number, b: number): Result<number, string> {
@@ -61,17 +62,17 @@ if (result.isOk()) {
 
 | Monad | Description | Use Case |
 |-------|-------------|----------|
-| **Result** | `Ok<T>` or `Err<E>` | Operations that can fail |
-| **Option** | `Some<A>` or `None` | Optional values (no null) |
-| **Either** | `Left<E>` or `Right<A>` | Generic two-case branching |
-| **Task** | Lazy async computation | Deferred async operations |
-| **TaskEither** | Async Either | Async operations that can fail |
+| [**Result**](#result) | `Ok<T>` or `Err<E>` | Operations that can fail |
+| [**Option**](#option) | `Some<A>` or `None` | Optional values (no null) |
+| [**Either**](#either-task-taskeither) | `Left<E>` or `Right<A>` | Generic two-case branching |
+| [**Task**](#either-task-taskeither) | Lazy async computation | Deferred async operations |
+| [**TaskEither**](#either-task-taskeither) | Async Either | Async operations that can fail |
 
 --- 
 
 ## Result
 
-Zygos Result is <ZygosSizeHighlight type="full" /> than Neverthrow, while maintaining **100% API compatibility**. You get the same developer experience with a fraction of the bundle cost.
+Zygos Result is <ZygosSizeHighlight type="full" /> than Neverthrow, while maintaining **[100% API compatibility](/comparisons/zygos/interoperability/)**. You get the same developer experience with a fraction of the bundle cost.
 
 ### Drop-in Replacement for Neverthrow
 
@@ -94,9 +95,9 @@ Search & replace `from "neverthrow"` → split into the two imports above. All m
 
 ### Usage
 
-Results support chaining with `map`, `mapErr`, and `andThen`. Each operation transforms the success value while propagating errors automatically, similar to how Promises chain with `.then()`:
+Results support chaining with [`map`](/api/zygos/result/), [`mapErr`](/api/zygos/result/), and [`andThen`](/api/zygos/result/). Each operation transforms the success value while propagating errors automatically, similar to how Promises chain with `.then()`:
 
-```typescript
+```typescript links="ok:/api/zygos/result/ok,err:/api/zygos/result/err,ResultAsync:/api/zygos/result/ResultAsync"
 import { ok, err, Result } from "pithos/zygos/result/result";
 import { ResultAsync } from "pithos/zygos/result/result-async";
 
@@ -123,9 +124,9 @@ const asyncResult = ResultAsync.fromPromise(
 
 ## Option
 
-Handle optional values without null/undefined. The `Option` type makes the absence of a value explicit in the type system, replacing nullable types with `Some` (value present) or `None` (value absent):
+Handle optional values without null/undefined. The `Option` type makes the absence of a value explicit in the type system, replacing nullable types with [`Some`](/api/zygos/option/some) (value present) or [`None`](/api/zygos/option/none) (value absent):
 
-```typescript
+```typescript links="some:/api/zygos/option/some,none:/api/zygos/option/none,fromNullable:/api/zygos/option/fromNullable,map:/api/zygos/option/map,flatMap:/api/zygos/option/flatMap,pipe:/api/arkhe/function/pipe"
 import { some, none, fromNullable, Option, map, flatMap } from "pithos/zygos/option";
 import { pipe } from "pithos/arkhe/function/pipe";
 
@@ -153,11 +154,11 @@ pipe(
 
 ## Either, Task, TaskEither
 
-Lightweight implementations based on fp-ts, **100% API compatible**. These monads cover more advanced functional programming patterns: `Either` for generic two-case branching, `Task` for lazy async computations, and `TaskEither` for async operations that can fail.
+Lightweight implementations based on fp-ts, **[100% API compatible](/comparisons/zygos/interoperability/)**. These monads cover more advanced functional programming patterns: [`Either`](/api/zygos/either/) for generic two-case branching, [`Task`](/api/zygos/task/) for lazy async computations, and [`TaskEither`](/api/zygos/task-either/) for async operations that can fail.
 
 ### Drop-in Replacement for fp-ts
 
-**Migrate from fp-ts with a single line change:**
+**Migrating from fp-ts is just as simple: swap the imports and you're done.**
 
 ```typescript
 // Before (fp-ts)
@@ -184,19 +185,23 @@ Search & replace `from "fp-ts/Either"` → `from "pithos/zygos/either"`, etc. Al
 
 ### Available functions
 
+<TableConfig noEllipsis>
+
 | Module | Functions |
 |--------|-----------|
 | **Either** | `left`, `right`, `isLeft`, `isRight`, `map`, `mapLeft`, `flatMap`, `fold`, `match`, `getOrElse`, `orElse`, `fromOption`, `fromNullable`, `tryCatch`, `Do`, `bind`, `bindTo`, `apS`... |
 | **Task** | `of`, `map`, `flatMap`, `ap` |
 | **TaskEither** | `left`, `right`, `tryCatch`, `fromEither`, `fromTask`, `fromOption`, `map`, `mapLeft`, `flatMap`, `chain`, `fold`, `match`, `getOrElse`, `orElse`, `swap`... |
 
+</TableConfig>
+
 ---
 
-## safe() - Convert throwing functions
+## safe() - From try/catch to Result in one line
 
 Wrap any function that might throw into a Result-returning function. This is especially useful for third-party APIs or built-in functions like `JSON.parse` that communicate errors through exceptions:
 
-```typescript
+```typescript links="safe:/api/zygos/safe"
 import { safe } from "pithos/zygos/safe";
 
 const safeJsonParse = safe(JSON.parse);
@@ -218,6 +223,10 @@ Zygos shines in codebases where error handling needs to be explicit and composab
 - **Validation chains** → `Result` with `andThen`
 - **Optional data** → `Option` instead of `null | undefined`
 - **Wrapping unsafe code** → `safe()` for try/catch elimination
+
+:::info Kanon + Zygos
+[`ensure()`](/api/bridges/ensure/) validates data against a Kanon schema and returns a `Result<T, string>` directly — ready to chain with `map`, `andThen`, etc. [`ensureAsync()`](/api/bridges/ensureAsync/) does the same for async pipelines with `ResultAsync`, and [`ensurePromise()`](/api/bridges/ensurePromise/) combines a Promise and validation in one step. See [Module Alchemy](/guide/module-alchemy/) for more combinations.
+:::
 
 ---
 
@@ -245,7 +254,7 @@ Add Pithos to your project. It includes Zygos and all other modules:
 
 #### Step 2: Update imports
 
-```typescript
+```typescript links="ok:/api/zygos/result/ok,err:/api/zygos/result/err,safeTry:/api/zygos/result/safeTry,ResultAsync:/api/zygos/result/ResultAsync"
 // Before
 import { ok, err, Result, ResultAsync, safeTry } from "neverthrow";
 
@@ -262,7 +271,7 @@ All your existing code works as-is. The API is 100% compatible.
 
 Once migrated, you can take advantage of Zygos-specific features:
 
-```typescript
+```typescript links="fromOption:/api/zygos/result/fromOption,fromEither:/api/zygos/result/fromEither,toEither:/api/zygos/result/toEither,safeAsyncTry:/api/zygos/result/safeAsyncTry"
 // fp-ts bridges
 import { fromOption, fromEither, toEither } from "pithos/zygos/result/result";
 

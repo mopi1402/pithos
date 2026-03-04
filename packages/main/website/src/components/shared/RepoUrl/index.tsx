@@ -1,13 +1,10 @@
 import type { ReactNode } from "react";
-import packageJson from "../../../../../../pithos/package.json";
-
-const repoUrl = packageJson.repository.url.replace("git+", "").replace(".git", "");
-const cloneUrl = packageJson.repository.url.replace("git+", "");
+import { REPO_URL, REPO_CLONE_URL } from "@site/src/constants/repo";
 
 export function RepoCloneUrl(): ReactNode {
-  return <code>{cloneUrl}</code>;
+  return <code>{REPO_CLONE_URL}</code>;
 }
 
 export function RepoUrl(): ReactNode {
-  return <a href={repoUrl}>{repoUrl}</a>;
+  return <a href={REPO_URL}>{REPO_URL}</a>;
 }

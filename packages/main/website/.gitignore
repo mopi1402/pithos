@@ -18,8 +18,9 @@
 # Generated pre-computed comparisons (regenerated at build time)
 /src/data/generated/pre-computed-comparisons.ts
 
-# Copied from root (regenerated at build time)
-/docs/100-basics/090-changelog.md
+# Changelog copies (regenerated from root CHANGELOG.md by scripts/copy-changelog.ts)
+/docs/basics/changelog.md
+/i18n/**/basics/changelog.md
 
 # Misc
 .DS_Store

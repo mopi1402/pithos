@@ -29,14 +29,23 @@ import { ModuleSchema } from '@site/src/components/seo/ModuleSchema';
 
 The resting place of utilities*
 
-## What is Taphos?
-
 Taphos is Pithos's "tomb" module: a place where utilities come to rest. Named after the Greek word for "tomb," Taphos serves two main purposes:
 
 1. **A strategic migration guide** helping you transition from Lodash utilities to their proper replacements
 2. **IDE-integrated deprecation warnings** showing the migration path directly in your editor
 
-Think of Taphos as both a cemetery and a memorial. Like any tomb, it marks the end of something, but it also honors what came before and guides visitors toward the future.
+```mermaid
+flowchart TD
+    Lodash["🔶 Lodash / es-toolkit"] -->|"no native yet"| Arkhe
+    Lodash -->|"native exists"| Taphos
+    Arkhe["🔷 Arkhe"] -.->|"native ships"| Taphos
+    Taphos["⚰️ Taphos<br/>@deprecated polyfill"] -->|"when ready"| Native["✅ Native JS"]
+    Arkhe -->|"no native yet"| Arkhe
+```
+
+:::tip Progressive migration
+Even before the final switch to native, migrating through Taphos already brings concrete benefits: a [smaller bundle](/comparisons/taphos/bundle-size/) and [better performance](/comparisons/taphos/bundle-size/) compared to Lodash or es-toolkit. Every step is a win.
+:::
 
 <details>
 <summary>Why a Tomb?</summary>
@@ -62,7 +71,7 @@ Not all functions in Taphos are buried for the same reason. Understanding the ty
 
 These utilities have been replaced by native JavaScript/TypeScript APIs. The native version is now the canonical way. This is similar to what [You Don't Need Lodash/Underscore](https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore) documents.
 
-```typescript
+```typescript links="flatten:/api/taphos/array/flatten"
 // Buried in Taphos
 import { flatten } from "pithos/taphos/array/flatten";
 const flat = flatten([[1, 2], [3, 4]]);
@@ -93,7 +102,7 @@ const sorted = sort([3, 1, 2]); // Returns new array, original unchanged
 
 Some functions in Taphos aren't truly "dead": they're **aliases** that redirect to the canonical Pithos function. These exist to help developers coming from other libraries (Lodash, Ramda, etc.) find the right function.
 
-```typescript
+```typescript links="castArray:/api/taphos/util/castArray,toArray:/api/arkhe/array/toArray"
 // Alias in Taphos (Lodash naming)
 import { castArray } from "pithos/taphos/util/castArray";
 
@@ -113,7 +122,7 @@ Some utilities are still in Arkhe but have a known native replacement that's too
 
 Think of it as a reserved plot in the cemetery. We know who's going there, just not when.
 
-```typescript
+```typescript links="groupBy:/api/arkhe/array/groupBy"
 // Still in Arkhe (targeting ES2020)
 import { groupBy } from "pithos/arkhe/collection/groupBy";
 const grouped = groupBy(users, (user) => user.role);
@@ -124,13 +133,13 @@ const grouped = groupBy(users, (user) => user.role);
 
 **Status:** Arkhe (for now) → Taphos (when ES target allows)
 
-## IDE-Guided Migration
+## ⛵️ IDE-Guided Migration
 
-Every function in Taphos is marked `@deprecated` and includes its migration path directly in the TSDoc. This means your IDE shows you exactly what to use instead, no need to open the documentation.
+Every function in Taphos is marked `@deprecated` and includes its migration path directly in the TSDoc. This means your IDE shows you exactly what to use instead, without leaving your editor.
 
-```typescript
+```typescript links="at:/api/taphos/array/at"
 import { at } from "pithos/taphos/array/at";
-//         ^^ Your IDE shows: "Deprecated: Use native Array.prototype.at() instead"
+//       ^^ Your IDE shows: "Deprecated: Use native Array.prototype.at() instead"
 ```
 
 When you hover over a Taphos function or see the deprecation warning, the TSDoc tells you:
@@ -140,7 +149,7 @@ When you hover over a Taphos function or see the deprecation warning, the TSDoc 
 
 <Picture src="/img/generated/taphos/ide-hint" alt="Taphos TSDoc migration hints showing deprecation warnings and replacement suggestions in IDE" widths={[400, 800, 1200, 1600]} sizes="100vw" />
 
-This makes migration progressive and frictionless: you can keep using Taphos functions while gradually replacing them, guided by your IDE at each step.
+This makes migration progressive and frictionless: you can keep using Taphos functions while gradually replacing them, guided by your IDE at each step. They'll stay marked `@deprecated` as long as you use them, a quiet reminder that a migration is possible.
 
 ---
 

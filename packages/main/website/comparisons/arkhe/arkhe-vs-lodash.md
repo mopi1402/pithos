@@ -55,7 +55,7 @@ For detailed per-function comparisons with real auto-generated data, see the [Ar
 
 **Key takeaway**: Arkhe functions are typically **10-50x smaller** than their Lodash equivalents. Even compared to es-toolkit, Arkhe is generally 10-30% smaller on individual functions.
 
-```typescript
+```typescript links="chunk:/api/arkhe/array/chunk"
 // Arkhe: only chunk ends up in your bundle (~150 bytes gzipped)
 import { chunk } from "pithos/arkhe/array/chunk";
 
@@ -94,7 +94,7 @@ A faster function that returns wrong results is not faster - it's incomplete.
 
 Lodash was written in JavaScript. TypeScript support comes from `@types/lodash`, maintained separately. This creates gaps:
 
-```typescript
+```typescript links="get:/api/arkhe/object/get"
 const obj = { a: { b: { c: 42 } } };
 
 // Lodash: type inference is broad
@@ -116,7 +116,7 @@ Lodash's original CommonJS build (`lodash`) doesn't tree-shake at all. `lodash-e
 
 Arkhe uses **per-function entry points**. Each import resolves to a standalone module with no shared runtime:
 
-```typescript
+```typescript links="chunk:/api/arkhe/array/chunk,groupBy:/api/arkhe/array/groupBy,get:/api/arkhe/object/get"
 // Each import is fully independent
 import { chunk } from "pithos/arkhe/array/chunk";
 import { groupBy } from "pithos/arkhe/array/groupBy";

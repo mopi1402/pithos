@@ -32,7 +32,7 @@ Pithos is a complete utilities ecosystem. One package, five modules:
 | ----------- | ------------------------------------------------------- |
 | **Arkhe**   | Data manipulation (arrays, objects, strings, functions, ...) |
 | **Kanon**   | Schema validation with JIT support                      |
-| **Zygos**   | Functional error handling (Result, Option, Either, Task) |
+| **Zygos**   | Functional error handling ([Result](/api/zygos/result), [Option](/api/zygos/option), [Either](/api/zygos/either), [Task](/api/zygos/task)) |
 | **Sphalma** | Typed error factories with hex codes                    |
 | **Taphos**  | Migration guide & deprecated utilities with IDE hints   |
 
@@ -42,7 +42,7 @@ Pithos is a complete utilities ecosystem. One package, five modules:
 
 Pithos uses granular entry points for optimal tree-shaking. Import each function directly from its module path, and your bundler will only include the code you actually use:
 
-```typescript
+```typescript links="chunk:/api/arkhe/array/chunk,object:/api/kanon/schemas/composites/object,string:/api/kanon/schemas/primitives/string,number:/api/kanon/schemas/primitives/number,optional:/api/kanon/schemas/wrappers/optional,ok:/api/zygos/result/ok,err:/api/zygos/result/err"
 // Array utilities
 import { chunk } from "pithos/arkhe/array/chunk";
 
@@ -63,7 +63,7 @@ Arkhe utilities follow a consistent pattern: they take the data as the first arg
 
 This makes them safe to use in any context, from React state updates to server-side processing:
 
-```typescript
+```typescript links="chunk:/api/arkhe/array/chunk,get:/api/arkhe/object/get"
 import { chunk } from "pithos/arkhe/array/chunk";
 import { get } from "pithos/arkhe/object/get";
 
@@ -79,10 +79,10 @@ get(user, "profile.address.city", "Unknown");
 
 ### Validation
 
-Kanon schemas compose together to describe complex data structures. The `parse` function returns a discriminated union, so TypeScript narrows the type automatically in each branch.  
-Already using Zod? The `asZod` wrapper provides a compatible API, so you can migrate incrementally and benefit from Kanon's full tree-shaking:
+Kanon schemas compose together to describe complex data structures. The [`parse`](/api/kanon/core/parse) function returns a discriminated union, so TypeScript narrows the type automatically in each branch.  
+Already using Zod? The [`asZod`](/api/kanon/helpers/asZod) wrapper provides a compatible API, so you can migrate incrementally and benefit from Kanon's full tree-shaking:
 
-```typescript
+```typescript links="object:/api/kanon/schemas/composites/object,string:/api/kanon/schemas/primitives/string,number:/api/kanon/schemas/primitives/number,optional:/api/kanon/schemas/wrappers/optional,parse:/api/kanon/core/parse,asZod:/api/kanon/helpers/asZod"
 import { object, string, number, optional, parse } from "pithos/kanon";
 import { asZod } from "pithos/kanon/helpers/as-zod";
 
@@ -112,11 +112,11 @@ if (zodResult.success) {
 
 ### Error handling
 
-`ResultAsync` wraps Promise-based operations in the Result pattern.
+[`ResultAsync`](/api/zygos/result/ResultAsync) wraps Promise-based operations in the [Result](/api/zygos/result) pattern.
 
 Instead of try/catch, you get a typed value that forces you to handle both success and failure paths:
 
-```typescript
+```typescript links="ResultAsync:/api/zygos/result/ResultAsync"
 import { ResultAsync } from "pithos/zygos/result/result-async";
 
 const safeFetch = ResultAsync.fromThrowable(
@@ -149,7 +149,7 @@ if (result.isOk()) {
   imagePosition="left"
 >
 
-<Highlight>[Full TypeScript inference.](/guide/basics/core-philosophy)</Highlight> Type it once, infer it everywhere. No manual generics, no `any` leaks.
+<Highlight>[Full TypeScript inference.](/guide/contribution/design-principles/typescript-first)</Highlight> Type it once, infer it everywhere. No manual generics, no `any` leaks.
 
 <Highlight>[Zero dependencies.](/guide/basics/installation)</Highlight> Complete supply chain security. What you install is what you get.
 

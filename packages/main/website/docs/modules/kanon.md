@@ -16,6 +16,7 @@ import ModuleName from '@site/src/components/shared/badges/ModuleName';
 import { InstallTabs } from "@site/src/components/shared/InstallTabs";
 import { SavingsHighlight } from '@site/src/components/comparisons/BundleSizeTable';
 import { ModuleSchema } from '@site/src/components/seo/ModuleSchema';
+import { TableConfig } from '@site/src/components/shared/Table/TableConfigContext';
 import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 <ModuleSchema
@@ -28,19 +29,21 @@ import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 _κανών - "rule"_
 
-Lightweight alternative to Zod. Schema validation with TypeScript inference: pure validation, no transformations.
+Lightweight alternative to Zod. Schema validation with TypeScript inference, coercion, and schema composition.
 
-Kanon is a runtime schema validation library designed for [TypeScript](https://www.typescriptlang.org/) projects that need fast, type-safe data validation without the overhead of transformation pipelines. It infers TypeScript types directly from your schema definitions, so you define your data shape once and get both validation and type safety.
+Kanon is a runtime schema validation library designed for [TypeScript](https://www.typescriptlang.org/) projects that need fast, type-safe data validation. It infers TypeScript types directly from your schema definitions, so you define your data shape once and get both validation and type safety. Kanon supports type coercion (`coerceString`, `coerceNumber`...), schema transforms (`partial`, `pick`, `omit`...), and offers an [`asZod`](/api/kanon/helpers/asZod) wrapper for progressive migration from Zod.
 
-**Bundle size**: <SavingsHighlight test="full-app" />
+**Bundle size**:
+
+<SavingsHighlight test="full-app" />
 
 ---
 
 ## Quick Example
 
-Define a schema using composable primitives, then validate incoming data with `parse`. The result is a discriminated union: either a typed success value or a structured error, so you always know what you're working with:
+Define a schema using composable primitives, then validate incoming data with [`parse`](/api/kanon/core/parse). The result is a discriminated union: either a typed success value or a structured error, so you always know what you're working with:
 
-```typescript
+```typescript links="object:/api/kanon/schemas/composites/object,string:/api/kanon/schemas/primitives/string,number:/api/kanon/schemas/primitives/number,optional:/api/kanon/schemas/wrappers/optional,parse:/api/kanon/core/parse"
 import { object, string, number, optional, parse } from "pithos/kanon";
 
 const userSchema = object({
@@ -84,12 +87,16 @@ if (result.success) {
 
 Kanon v3 offers two validation modes. The standard mode works in any environment, while the JIT compiler generates optimized JavaScript validators at runtime for higher throughput:
 
+<TableConfig noEllipsis columns={{ "CSP Compatible": { width: "240px" } }}>
+
 | Mode | Speed | CSP Compatible | Use Case |
 |------|-------|----------------|----------|
-| **V3 Standard** | 12.6M ops/s | ✅ Yes | Default, works everywhere |
-| **V3 JIT** | 23.6M ops/s | ❌ Needs `unsafe-eval` | High-throughput scenarios |
+| **V3 Standard** | 12.6M ops/s | ✅ Yes | Default, works everywhere |
+| **V3 JIT** | 23.6M ops/s | ❌ Needs `unsafe-eval` | High-throughput scenarios |
 
-```typescript
+</TableConfig>
+
+```typescript links="parse:/api/kanon/core/parse,compile:/api/kanon/jit/compile"
 import { parse } from "pithos/kanon";              // Standard
 import { compile } from "pithos/kanon/jit/compiler"; // JIT
 
@@ -104,16 +111,15 @@ The JIT compiler analyzes your schema structure and emits a specialized validati
 
 ## Key Difference with Zod
 
-Kanon **validates** but does **not transform** data. This is a deliberate design choice: validation and transformation are separate concerns, and mixing them in a single pipeline can make data flow harder to reason about.
+Kanon separates **validation** and **transformation**. The native API does not offer chained `.transform()` pipelines like Zod: you validate first, then transform explicitly in your code.
 
-Keeping validation and transformation separate makes each step easier to test, debug, and compose. If you need to clean or reshape data, handle it explicitly after validation.
+Coercion (`coerceString`, `coerceNumber`...) is the only built-in transformation: it converts the input type before validation (e.g. `42` → `"42"`).
 
 :::info
-The `asZod()` helper provides Zod-compatible API for migration purposes.  
-While it supports `.transform()` and `.preprocess()` for compatibility, transformations are not a core feature of Kanon : Prefer handling them explicitly after validation.
+The `asZod()` wrapper supports `.transform()` and `.preprocess()` to ease migration from Zod. But in Kanon's native API, prefer handling transformations explicitly after validation.
 :::
 
-For a detailed side-by-side comparison with code examples, see [Kanon vs Zod — Key Design Difference](/comparisons/kanon/kanon-vs-zod/#key-design-difference-no-built-in-transforms).
+See also: [Kanon vs Zod](/comparisons/kanon/kanon-vs-zod/#key-design-difference-validation-and-transformation-are-separate).
 
 ---
 
@@ -130,7 +136,7 @@ import { z } from "zod";
 // After (Kanon): only change the import
 import { z } from "pithos/kanon/helpers/as-zod.shim";
 
-// Your existing code works unchanged
+// Your existing code works unchanged in most cases
 ```
 
 :::tip Migration
@@ -143,7 +149,7 @@ For the full list of supported Zod features and edge cases, see the [Kanon ↔ Z
 
 The `k` namespace provides the same API as `z`, using Kanon's own naming conventions. It groups all schema constructors under a single object for convenience:
 
-```typescript
+```typescript links="k:/api/kanon/helpers/k"
 import { k } from "pithos/kanon/helpers/k";
 
 const schema = k.object({
@@ -155,14 +161,14 @@ k.parse(schema, data);
 ```
 
 :::warning
-Not tree-shakable: imports all schemas. Prefer direct imports for optimal bundle size.
+Lighter than `asZod`, but not tree-shakable: imports all schemas. Prefer direct imports for optimal bundle size.
 :::
 
 ### `asZod()` - Wrap individual schemas
 
 Wraps any Kanon schema with Zod-like methods. This is useful when you want tree-shakable imports but still need Zod's fluent API for specific schemas:
 
-```typescript
+```typescript links="asZod:/api/kanon/helpers/asZod,string:/api/kanon/schemas/primitives/string,number:/api/kanon/schemas/primitives/number,object:/api/kanon/schemas/composites/object"
 import { asZod } from "pithos/kanon/helpers/as-zod";
 import { string, number, object } from "pithos/kanon";
 
@@ -235,15 +241,13 @@ Most schemas work as-is. The `z` shim covers primitives, objects, arrays, unions
 
 ### Step 4: Handle edge cases
 
-Some Zod features (`.pipe()`, `.brand()`, `z.instanceof()`, specialized string formats like JWT/CUID) are not directly available in Kanon. Workarounds exist for all of them.
-
-See the [Kanon ↔ Zod interoperability matrix](/comparisons/kanon/interoperability/) for the complete list of supported features, missing features, and their workarounds.
+Some Zod features (`.pipe()`, `.brand()`, `z.instanceof()`, specialized string formats like JWT/CUID) are not directly available in Kanon. Workarounds exist for all of them — see the [interoperability matrix](/comparisons/kanon/interoperability/).
 
 ### Step 5 (optional): Switch to direct imports
 
 For maximum bundle optimization, gradually replace the `z` shim with direct imports:
 
-```typescript
+```typescript links="object:/api/kanon/schemas/composites/object,string:/api/kanon/schemas/primitives/string,parse:/api/kanon/core/parse"
 // z shim (convenient, slightly larger)
 import { z } from "pithos/kanon/helpers/as-zod.shim";
 const schema = z.object({ name: z.string() });
@@ -253,9 +257,7 @@ import { object, string, parse } from "pithos/kanon";
 const schema = object({ name: string() });
 ```
 
-For a complete mapping of supported Zod features, see the [Kanon ↔ Zod interoperability matrix](/comparisons/kanon/interoperability/) which covers primitives, composites, operators, and refinements.
-
-Kanon pairs well with [Zygos Result types for typed error handling](./zygos.md): validate with Kanon, then wrap failures in typed `Err` values for explicit error propagation.
+Kanon pairs well with [Zygos Result types for typed error handling](./zygos.md): validate with Kanon, then wrap failures in typed `Err` values for explicit error propagation. See the [practical example](/guide/basics/practical-example/).
 
 ---
 

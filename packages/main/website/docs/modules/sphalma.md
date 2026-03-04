@@ -28,13 +28,15 @@ _σφάλμα - "error"_
 
 Typed error factories with hex codes. Create structured, identifiable errors for debugging and logging.
 
-Sphalma provides a systematic way to create and manage application errors. Instead of scattering `new Error("something went wrong")` throughout your codebase, you define error codes upfront and create typed factories that produce consistent, identifiable errors. Each error carries a numeric code, a type label, and optional details, making it straightforward to trace issues in logs and map errors to user-facing messages. The `CodedError` class extends the native [`Error`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) with structured metadata.
+Sphalma provides a systematic way to create and manage application errors. Instead of scattering `new Error()` throughout your codebase, you define error codes upfront and create typed factories that produce consistent, identifiable errors. Each error carries a numeric code, a type label, and optional details, making it straightforward to trace issues in logs and map errors to user-facing messages. The `CodedError` class extends [`Error`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) with structured metadata.
+
+---
 
 ## Quick Example
 
 Define your error codes as hex constants for readability, then create a typed factory. Every error produced by the factory includes a structured key like `[Api:0x1001]` that is instantly searchable in logs:
 
-```typescript
+```typescript links="createErrorFactory:/api/sphalma/error-factory/createErrorFactory,CodedError:/api/sphalma/error-factory/CodedError"
 import { createErrorFactory, CodedError } from "pithos/sphalma/error-factory";
 
 // Define error codes (hex for readability)
@@ -51,11 +53,17 @@ throw createApiError(ErrorCodes.NOT_FOUND, { id: "user-123" });
 // Error: [Api:0x1001] with details.id = "user-123"
 ```
 
+:::tip i18n
+Structured codes like `[Api:0x1001]` make internationalization straightforward: map each code to a translated message, and your error handling stays language-agnostic.
+:::
+
+---
+
 ## CodedError
 
 `CodedError` is the structured error class at the heart of Sphalma. It extends the native `Error` with a numeric code, a type label, and an optional details object. The `key` property combines type and code into a unique identifier for filtering and searching:
 
-```typescript
+```typescript links="CodedError:/api/sphalma/error-factory/CodedError"
 import { CodedError } from "pithos/sphalma/error-factory";
 
 const error = new CodedError(0x2000, "Semaphore", { count: -1 });
@@ -66,6 +74,8 @@ error.key;     // "Semaphore:0x2000"
 error.details; // { count: -1 }
 error.message; // "[Semaphore:0x2000]"
 ```
+
+---
 
 ## Error Code Convention
 
@@ -90,13 +100,15 @@ Pithos uses a 4-digit hex format: `0xMFEE`
   <span style={{color: 'var(--prism-keyword)'}}>&nbsp;&nbsp;&nbsp;└── Module (1-F) → 15 modules</span>
 </div>
 
-Error code ranges will be documented as modules adopt Sphalma.
+Error code ranges are documented in each module using Sphalma.
+
+---
 
 ## Integration with Zygos
 
 Sphalma pairs naturally with Zygos Result types for functional error handling. Instead of throwing errors, return them as typed `Err` values. This makes every failure path visible in the function signature:
 
-```typescript
+```typescript links="createErrorFactory:/api/sphalma/error-factory/createErrorFactory,ok:/api/zygos/result/ok,err:/api/zygos/result/err"
 import { createErrorFactory } from "pithos/sphalma/error-factory";
 import { ok, err, Result } from "pithos/zygos/result/result";
 
@@ -109,6 +121,8 @@ function getUser(id: string): Result<User, CodedError> {
 }
 ```
 
+---
+
 ## ✅ When to Use
 
 Sphalma is most valuable in projects where errors need to be categorized, tracked, and communicated across system boundaries:
@@ -116,6 +130,8 @@ Sphalma is most valuable in projects where errors need to be categorized, tracke
 - **Module errors** → Consistent error codes across a module
 - **API errors** → Frontend can map codes to UI messages
 - **Debugging** → `[Animation:0x1001]` is instantly identifiable in logs
+
+---
 
 ## ❌ When NOT to Use
 
@@ -129,18 +145,16 @@ For simple error cases or specialized error handling patterns, consider these al
 
 ---
 
-## Works Well With
+## 🪢 Works Well With
 
-Sphalma is designed to integrate with other Pithos modules. Combine [Sphalma error factories with Zygos Result types](./zygos.md) to get typed error codes and functional error propagation in the same pipeline.
-
-For input validation before error handling, [Kanon schema validation](./kanon.md) catches malformed data early, while Sphalma handles domain-level errors that occur after validation passes.
+See [Module Alchemy](/guide/module-alchemy/) to discover how Sphalma combines with Zygos and Kanon in typed pipelines.
 
 ---
 
 <RelatedLinks title="Related Resources">
 
 - [When to use Sphalma](/comparisons/overview/) — Compare Pithos modules with alternatives and find when each is the right choice
-- [Full Pithos comparisons](/comparisons/equivalence-table/) — Complete equivalence table mapping Lodash functions to Pithos replacements
+- [Full Pithos comparisons](/comparisons/overview/) — Compare Pithos modules with alternatives and find when each is the right choice
 - [Sphalma API Reference](/api/sphalma) — Complete API documentation for error factories and CodedError
 
 </RelatedLinks>

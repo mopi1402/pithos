@@ -29,6 +29,7 @@ interface UseSmartSearchOptions {
   debounceMs?: number;
   topK?: number;
   minScore?: number;
+  baseUrl?: string;
 }
 
 interface UseSmartSearchReturn {
@@ -46,6 +47,7 @@ export function useSmartSearch({
   debounceMs = 300,
   topK = 20,
   minScore = 0.3,
+  baseUrl = "/",
 }: UseSmartSearchOptions): UseSmartSearchReturn {
   const workerRef = useRef<Worker | null>(null);
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
@@ -122,7 +124,7 @@ export function useSmartSearch({
       };
 
       // Initialize model
-      workerRef.current.postMessage({ type: "init" });
+      workerRef.current.postMessage({ type: "init", baseUrl });
     } catch (err) {
       setError(`Failed to create worker: ${err instanceof Error ? err.message : String(err)}`);
     }

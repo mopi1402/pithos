@@ -15,6 +15,7 @@ import ResponsiveMermaid from "@site/src/components/shared/ResponsiveMermaid";
 import { Table } from "@site/src/components/shared/Table";
 import { MDXTable } from "@site/src/components/shared/Table/MDXTable";
 import TypeRef from "@site/src/components/shared/TypeRef";
+import Emoji from "@site/src/components/shared/Emoji";
 
 import type { MDXComponentsObject } from "@theme/MDXComponents";
 
@@ -41,6 +42,7 @@ const MDXComponents: MDXComponentsObject = {
   Table,
   table: MDXTable,
   TypeRef,
+  Emoji,
 };
 
 export default MDXComponents;

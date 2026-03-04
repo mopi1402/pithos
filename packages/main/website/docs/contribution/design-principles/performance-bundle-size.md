@@ -49,7 +49,7 @@ export function difference<T>(array: readonly T[], values: readonly T[]): T[] {
 
 ## Import Structure
 
-```typescript
+```typescript links="chunk:/api/arkhe/array/chunk"
 // ✅ Direct import (optimal tree-shaking)
 import { chunk } from "pithos/arkhe/array/chunk";
 import { isString } from "pithos/arkhe/is/isString";

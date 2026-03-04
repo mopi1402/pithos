@@ -1,10 +1,11 @@
 import React from "react";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 import styles from "./styles.module.css";
 
-const MEDALS: { src: string; alt: string }[] = [
-  { src: "/img/emoji/medal-gold.webp", alt: "first" },
-  { src: "/img/emoji/medal-silver.webp", alt: "second" },
-  { src: "/img/emoji/medal-bronze.webp", alt: "third" },
+const MEDAL_PATHS = [
+  { path: "/img/emoji/medal-gold.webp", alt: "first" },
+  { path: "/img/emoji/medal-silver.webp", alt: "second" },
+  { path: "/img/emoji/medal-bronze.webp", alt: "third" },
 ];
 
 export interface RankingItem {
@@ -37,10 +38,11 @@ interface RankingChartProps {
   children?: React.ReactNode;
 }
 
-function getMedal(index: number): React.ReactNode {
-  const medal = MEDALS[index];
+function Medal({ index }: { index: number }): React.ReactNode {
+  const medal = MEDAL_PATHS[index];
   if (!medal) return null;
-  return <img src={medal.src} alt={medal.alt} className={styles.medalImg} />;
+  const src = useBaseUrl(medal.path);
+  return <img src={src} alt={medal.alt} className={styles.medalImg} />;
 }
 
 export function RankingChart({
@@ -59,7 +61,7 @@ export function RankingChart({
         {items.map((item, i) => (
           <div key={item.key} className={`${styles.row} ${item.dimmed ? styles.dimmed : ""}`}>
             <div className={styles.label}>
-              <span className={styles.medal}>{item.medal ?? getMedal(i)}</span>
+              <span className={styles.medal}>{item.medal ?? <Medal index={i} />}</span>
               <span className={styles.name}>{item.label}</span>
             </div>
             <div className={styles.bar}>

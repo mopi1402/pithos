@@ -21,18 +21,15 @@ const EMOJI_PATTERN = new RegExp(
 const SKIP_TYPES = new Set(["code", "inlineCode", "mermaid"]);
 
 function makeImgNode(emoji: string): PhrasingContent {
-  const { src, alt, id } = EMOJI_MAP[emoji]!;
-  const className = id ?? alt;
-  const cls = className ? `custom-emoji custom-emoji--${className}` : "custom-emoji";
+  const { src, id } = EMOJI_MAP[emoji]!;
+  const cls = id ? `custom-emoji custom-emoji--${id}` : "custom-emoji";
   return {
     type: "mdxJsxTextElement" as any,
-    name: "img",
+    name: "Emoji",
     attributes: [
       { type: "mdxJsxAttribute", name: "src", value: src },
-      { type: "mdxJsxAttribute", name: "alt", value: alt },
+      { type: "mdxJsxAttribute", name: "alt", value: "" },
       { type: "mdxJsxAttribute", name: "className", value: cls },
-      { type: "mdxJsxAttribute", name: "loading", value: "lazy" },
-      { type: "mdxJsxAttribute", name: "decoding", value: "async" },
     ],
     children: [],
   } as unknown as PhrasingContent;

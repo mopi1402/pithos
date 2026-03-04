@@ -1,5 +1,6 @@
 import React from "react";
 import clsx from "clsx";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 import styles from "./styles.module.css";
 import { Badge, type BadgeVariant } from "../Badge";
 
@@ -25,10 +26,11 @@ export function Accordion({
   defaultOpen = false,
   variant = "default",
 }: AccordionProps): React.ReactElement {
+  const resolvedIcon = useBaseUrl(icon ?? "");
   return (
     <details className={clsx(styles.accordion, variant === "card" && styles.card)} open={defaultOpen}>
       <summary className={styles.summary}>
-        {icon && <img src={icon} alt={title} width="48" height="48" className={styles.icon} />}
+        {icon && <img src={resolvedIcon} alt={title} width="48" height="48" className={styles.icon} />}
         <span className={styles.titleBlock}>
           <span className={clsx(styles.title, variant === "card" && styles.titleCard)}>{title}</span>
           {description && <span className={styles.description}>{description}</span>}

@@ -1,0 +1,1632 @@
+{
+  "homepage.hero.tagline1": {
+    "message": "Juste l'essentiel."
+  },
+  "homepage.hero.tagline2": {
+    "message": ""
+  },
+  "homepage.hero.tagline3": {
+    "message": "Zéro dépendance."
+  },
+  "homepage.hero.tagline4": {
+    "message": "100% TypeScript."
+  },
+  "homepage.hero.getStarted": {
+    "message": "Démarrer"
+  },
+  "homepage.hero.inAction": {
+    "message": "Pithos en action"
+  },
+  "homepage.hero.yetAnother": {
+    "message": "Encore un toolkit ?"
+  },
+  "homepage.meta.description": {
+    "message": "Pithos est une bibliothèque utilitaire TypeScript complète sans aucune dépendance. Inclut des utilitaires tree-shakable, de la validation de schémas, des types Result, et plus encore. Une alternative moderne à Lodash, Zod et Neverthrow."
+  },
+  "homepage.modules.arkhe.description": {
+    "message": "Fonctions utilitaires pures"
+  },
+  "homepage.modules.arkhe.alternative": {
+    "message": "Alternative à Lodash"
+  },
+  "homepage.modules.kanon.description": {
+    "message": "Validation de schémas compilée JIT"
+  },
+  "homepage.modules.kanon.alternative": {
+    "message": "Alternative à Zod"
+  },
+  "homepage.modules.zygos.description": {
+    "message": "Pattern Result & monades"
+  },
+  "homepage.modules.zygos.alternative": {
+    "message": "Alternative à Neverthrow & fp-ts"
+  },
+  "homepage.modules.sphalma.description": {
+    "message": "Erreurs typées & codes d'erreur intégrés"
+  },
+  "homepage.modules.taphos.description": {
+    "message": "Guide de migration Lodash avec intégration IDE"
+  },
+  "useCases.search.placeholderShort": {
+    "message": "Rechercher des cas d'usage..."
+  },
+  "useCases.search.placeholderFull": {
+    "message": "Rechercher des cas d'usage... (ex. : 'pagination', 'appels API', 'je veux gérer des pages')"
+  },
+  "useCases.search.ariaLabel": {
+    "message": "Rechercher des cas d'usage"
+  },
+  "useCases.search.resultCount": {
+    "message": "{count} cas d'usage"
+  },
+  "useCases.filter.topPicks": {
+    "message": "Incontournables"
+  },
+  "useCases.filter.hiddenGems": {
+    "message": "Pépites cachées"
+  },
+  "useCases.card.topPick": {
+    "message": "Incontournable"
+  },
+  "useCases.card.hiddenGem": {
+    "message": "Pépite cachée"
+  },
+  "useCases.card.noteTitle": {
+    "message": "Note"
+  },
+  "useCases.card.taphosNote": {
+    "message": "Cet exemple montre l'approche recommandée, pas la version taphos dépréciée."
+  },
+  "useCases.meta.title": {
+    "message": "Cas d'usage"
+  },
+  "useCases.meta.description": {
+    "message": "Trouvez l'utilitaire Pithos adapté à vos besoins"
+  },
+  "useCases.heading": {
+    "message": "Explorateur de cas d'usage"
+  },
+  "useCases.subtitle": {
+    "message": "Trouvez l'utilitaire adapté à vos besoins. Cherchez par problème, pas par nom de fonction."
+  },
+  "useCases.noResults": {
+    "message": "Aucun cas d'usage trouvé pour \"{query}\""
+  },
+  "useCases.noResultsHint": {
+    "message": "Essayez d'autres mots-clés ou effacez les filtres"
+  },
+  "useCases.scrollToTop": {
+    "message": "Retour en haut"
+  },
+  "comparison.bundle.arkhe.lib.pithos": {
+    "message": "Pithos"
+  },
+  "comparison.bundle.arkhe.lib.lodash": {
+    "message": "Lodash"
+  },
+  "comparison.bundle.arkhe.lib.esToolkit": {
+    "message": "es-toolkit"
+  },
+  "comparison.bundle.arkhe.lib.esToolkitCompat": {
+    "message": "es-toolkit/compat"
+  },
+  "comparison.bundle.arkhe.lib.remeda": {
+    "message": "Remeda"
+  },
+  "comparison.bundle.arkhe.lib.radashi": {
+    "message": "Radashi"
+  },
+  "comparison.bundle.variant.kanon": {
+    "message": "Kanon v3"
+  },
+  "comparison.bundle.variant.zod4Classic": {
+    "message": "Zod 4 Classic"
+  },
+  "comparison.bundle.variant.zod4Mini": {
+    "message": "Zod 4 Mini"
+  },
+  "comparison.bundle.variant.zod3": {
+    "message": "Zod 3"
+  },
+  "comparison.bundle.test.loginForm": {
+    "message": "Formulaire de connexion"
+  },
+  "comparison.bundle.test.userProfile": {
+    "message": "Profil utilisateur"
+  },
+  "comparison.bundle.test.apiResponse": {
+    "message": "Réponse API"
+  },
+  "comparison.bundle.test.configValidation": {
+    "message": "Validation de config"
+  },
+  "comparison.bundle.test.formWithCoercion": {
+    "message": "Formulaire + Coercion"
+  },
+  "comparison.bundle.test.fullApp": {
+    "message": "App complète"
+  },
+  "comparison.bundle.test.string": {
+    "message": "String"
+  },
+  "comparison.bundle.test.simpleObject": {
+    "message": "Objet simple"
+  },
+  "comparison.bundle.test.fullSchema": {
+    "message": "Schéma complet"
+  },
+  "comparison.bundle.test.kNamespace": {
+    "message": "namespace k"
+  },
+  "comparison.bundle.test.zShim": {
+    "message": "shim z (compat Zod)"
+  },
+  "comparison.bundle.test.validationHelper": {
+    "message": "helper de validation"
+  },
+  "comparison.bundle.zygos.variant.zygos": {
+    "message": "Zygos"
+  },
+  "comparison.bundle.zygos.variant.neverthrow": {
+    "message": "Neverthrow"
+  },
+  "comparison.bundle.zygos.variant.fpTs": {
+    "message": "fp-ts"
+  },
+  "comparison.bundle.zygos.module.result": {
+    "message": "Result"
+  },
+  "comparison.bundle.zygos.module.resultAsync": {
+    "message": "ResultAsync"
+  },
+  "comparison.bundle.zygos.module.resultAll": {
+    "message": "Result + ResultAsync"
+  },
+  "comparison.bundle.zygos.module.safe": {
+    "message": "Safe"
+  },
+  "comparison.bundle.zygos.module.option": {
+    "message": "Option"
+  },
+  "comparison.bundle.zygos.module.either": {
+    "message": "Either"
+  },
+  "comparison.bundle.zygos.module.task": {
+    "message": "Task"
+  },
+  "comparison.bundle.zygos.module.taskEither": {
+    "message": "TaskEither"
+  },
+  "comparison.bundle.zygos.module.fullResult": {
+    "message": "Tous les modules Result"
+  },
+  "comparison.bundle.zygos.module.fullFp": {
+    "message": "Toutes les monades FP"
+  },
+  "comparison.bundle.zygos.module.fullLibrary": {
+    "message": "Bibliothèque complète"
+  },
+  "homepage.features.performance.title": {
+    "message": "Performances supérieures"
+  },
+  "homepage.features.performance.description": {
+    "message": "2-3× plus rapide sur les runtimes JavaScript modernes par rapport aux alternatives."
+  },
+  "homepage.features.bundleSize.title": {
+    "message": "Taille de bundle minimale"
+  },
+  "homepage.features.bundleSize.description": {
+    "message": "Jusqu'à 97% de JavaScript en moins par rapport à Lodash. Tree-shaking intégral."
+  },
+  "homepage.features.battleTested.title": {
+    "message": "Testé à l'extrême"
+  },
+  "homepage.features.battleTested.description": {
+    "message": "100% de couverture de tests. 100% de tests de mutation pour une fiabilité maximale."
+  },
+  "homepage.features.migration.title": {
+    "message": "Migration intelligente"
+  },
+  "homepage.features.migration.description": {
+    "message": "Migration progressive de Lodash vers le natif, guidée par l'IDE. Migrez à votre rythme."
+  },
+  "homepage.features.useCases.title": {
+    "message": "850+ cas d'usage"
+  },
+  "homepage.features.useCases.description": {
+    "message": "Parcourez notre catalogue pour trouver l'utilitaire le plus adapté à vos besoins."
+  },
+  "homepage.features.typescript.title": {
+    "message": "TypeScript-first"
+  },
+  "homepage.features.typescript.description": {
+    "message": "Types natifs inclus. Aucune dépendance @types nécessaire."
+  },
+  "homepage.keyFigures.fastValidation": {
+    "message": "plus rapide (JIT)"
+  },
+  "homepage.keyFigures.vsZod": {
+    "message": "que Zod"
+  },
+  "homepage.keyFigures.bundleSize": {
+    "message": "plus petit (bundle)"
+  },
+  "homepage.keyFigures.vsLodash": {
+    "message": "que Lodash"
+  },
+  "homepage.keyFigures.testCoverage": {
+    "message": "de tests"
+  },
+  "homepage.keyFigures.testCoverageDescription": {
+    "message": "(couverture + mutation)"
+  },
+  "homepage.keyFigures.apiCompatible": {
+    "message": "compatible"
+  },
+  "homepage.keyFigures.withNeverthrow": {
+    "message": "avec Neverthrow (API)"
+  },
+  "theme.NotFound.meta.title": {
+    "message": "Page introuvable"
+  },
+  "theme.NotFound.meta.description": {
+    "message": "La page que vous recherchez n'existe pas."
+  },
+  "comparison.filter.groups": {
+    "message": "Groupes :"
+  },
+  "comparison.filter.libraries": {
+    "message": "Bibliothèques :"
+  },
+  "comparison.benchmark.error.title": {
+    "message": "⚠️ Données de benchmark introuvables"
+  },
+  "comparison.benchmark.error.missing": {
+    "message": "Le fichier de résultats {fileName} est manquant."
+  },
+  "comparison.benchmark.error.generate": {
+    "message": "Générez-le en exécutant :"
+  },
+  "comparison.nativeness.custom": {
+    "message": "Réimplémentation custom"
+  },
+  "comparison.nativeness.composition": {
+    "message": "Composition native"
+  },
+  "comparison.nativeness.native": {
+    "message": "API native"
+  },
+  "comparison.nativeness.modalTitle": {
+    "message": "Équivalence native"
+  },
+  "comparison.common.na": {
+    "message": "N/D"
+  },
+  "comparison.common.header.library": {
+    "message": "Bibliothèque"
+  },
+  "comparison.common.header.version": {
+    "message": "Version"
+  },
+  "comparison.common.header.description": {
+    "message": "Description"
+  },
+  "comparison.benchmark.versionsFooter": {
+    "message": "Benchmarks exécutés le {date}"
+  },
+  "comparison.common.header.test": {
+    "message": "Test"
+  },
+  "comparison.common.opsUnit": {
+    "message": "ops/s"
+  },
+  "comparison.common.fastest": {
+    "message": "le plus rapide"
+  },
+  "comparison.benchmark.footer": {
+    "message": "Données générées le {date} • Vitest bench"
+  },
+  "comparison.common.wins": {
+    "message": "{wins} victoires"
+  },
+  "comparison.common.percentage": {
+    "message": "({percentage}%)"
+  },
+  "comparison.benchmark.summary.title": {
+    "message": "📊 Résumé des performances"
+  },
+  "comparison.common.header.ops": {
+    "message": "ops/s"
+  },
+  "comparison.common.header.min": {
+    "message": "min"
+  },
+  "comparison.common.header.max": {
+    "message": "max"
+  },
+  "comparison.common.header.mean": {
+    "message": "moy."
+  },
+  "comparison.common.header.p75": {
+    "message": "p75"
+  },
+  "comparison.common.header.p99": {
+    "message": "p99"
+  },
+  "comparison.common.header.rme": {
+    "message": "rme"
+  },
+  "comparison.common.header.samples": {
+    "message": "échantillons"
+  },
+  "comparison.common.categoryOther": {
+    "message": "Autre"
+  },
+  "comparison.common.categoryAll": {
+    "message": "Tout"
+  },
+  "comparison.common.searchPlaceholder": {
+    "message": "Rechercher un utilitaire..."
+  },
+  "comparison.common.points": {
+    "message": "({points} pts)"
+  },
+  "comparison.benchmark.weightedSummary.title": {
+    "message": "📈 Résumé pondéré des performances"
+  },
+  "comparison.benchmark.weightedSummary.subtitle": {
+    "message": "Scores pondérés par importance réelle : CRITIQUE (5 pts) > ÉLEVÉ (3 pts) > MOYEN (1 pt) > FAIBLE (0,5 pts)."
+  },
+  "comparison.benchmark.weightedSummary.announcement": {
+    "message": "🏆 {library} en tête avec {points} pts ({percentage}% du max)"
+  },
+  "comparison.benchmark.winsByCategory": {
+    "message": "Victoires par catégorie"
+  },
+  "comparison.benchmark.categoryWins": {
+    "message": "{count} {category}"
+  },
+  "comparison.benchmark.category.critical": {
+    "message": "Critique"
+  },
+  "comparison.benchmark.category.high": {
+    "message": "Élevé"
+  },
+  "comparison.benchmark.category.medium": {
+    "message": "Moyen"
+  },
+  "comparison.benchmark.category.low": {
+    "message": "Faible"
+  },
+  "comparison.legend.native": {
+    "message": "API native : équivalent natif direct"
+  },
+  "comparison.legend.composition": {
+    "message": "Composition : construit à partir d'APIs natives"
+  },
+  "comparison.legend.custom": {
+    "message": "Custom : pas d'équivalent natif"
+  },
+  "comparison.legend.quasiEquivalent": {
+    "message": "Quasi-équivalent : différences comportementales subtiles"
+  },
+  "comparison.legend.nonEquivalent": {
+    "message": "Non équivalent : comportement différent"
+  },
+  "comparison.bundle.header.useCase": {
+    "message": "Cas d'usage"
+  },
+  "comparison.common.baseline": {
+    "message": "référence"
+  },
+  "comparison.bundle.footer": {
+    "message": "Données générées le {date} • Mesuré avec esbuild + gzip"
+  },
+  "comparison.bundle.validationHelper": {
+    "message": "helper de validation"
+  },
+  "comparison.bundle.kNamespace": {
+    "message": "namespace k"
+  },
+  "comparison.bundle.zShim": {
+    "message": "shim z"
+  },
+  "comparison.bundle.helperDesc.validation": {
+    "message": "validation(schema).safeParse(data)"
+  },
+  "comparison.bundle.helperDesc.kNamespace": {
+    "message": "Syntaxe type Zod : k.string(), k.object()..."
+  },
+  "comparison.bundle.helperDesc.zShim": {
+    "message": "Migration depuis Zod"
+  },
+  "comparison.bundle.header.importStyle": {
+    "message": "Style d'import"
+  },
+  "comparison.bundle.directImports": {
+    "message": "Imports directs"
+  },
+  "comparison.bundle.alwaysProduction": {
+    "message": "Toujours (production)"
+  },
+  "comparison.bundle.footer.kanonBaseline": {
+    "message": "Référence Kanon : formulaire de connexion avec imports directs"
+  },
+  "comparison.bundle.header.raw": {
+    "message": "Brut"
+  },
+  "comparison.bundle.header.gzip": {
+    "message": "Gzip"
+  },
+  "comparison.bundle.header.brotli": {
+    "message": "Brotli"
+  },
+  "comparison.bundle.footer.generatedOn": {
+    "message": "Données générées le {date}"
+  },
+  "comparison.bundle.savingsHighlight.intro": {
+    "message": "Pour une app complète avec tous les types de schémas (gzip) :"
+  },
+  "comparison.bundle.codeExample.directComment": {
+    "message": "✅ OPTIMAL : Imports directs ({size} pour un formulaire de connexion)"
+  },
+  "comparison.bundle.codeExample.kNamespaceComment": {
+    "message": "⚠️ PRATIQUE : namespace k ({size} - inclut TOUS les schémas)"
+  },
+  "comparison.bundle.codeExample.zShimComment": {
+    "message": "⚠️ COMPAT ZOD : shim z ({size} - adaptateur API Zod)"
+  },
+  "comparison.bundle.whenToUse.validation": {
+    "message": "Quand vous avez besoin du style .safeParse()"
+  },
+  "comparison.bundle.whenToUse.kNamespace": {
+    "message": "Prototypage, petits projets"
+  },
+  "comparison.bundle.whenToUse.zShim": {
+    "message": "Migration depuis Zod"
+  },
+  "comparison.bundle.minimal": {
+    "message": "Minimal"
+  },
+  "comparison.bundle.header.helper": {
+    "message": "Helper"
+  },
+  "comparison.bundle.header.bundleImpact": {
+    "message": "Impact sur le bundle"
+  },
+  "comparison.bundle.header.whenToUse": {
+    "message": "Quand l'utiliser"
+  },
+  "comparison.bundle.header.scenario": {
+    "message": "Scénario"
+  },
+  "comparison.bundle.zodComparison.simpleLoginForm": {
+    "message": "Formulaire de connexion simple"
+  },
+  "comparison.bundle.zodComparison.fullAppSchemas": {
+    "message": "Schémas d'app complète"
+  },
+  "comparison.bundle.zodComparison.growthRate": {
+    "message": "Taux de croissance"
+  },
+  "comparison.bundle.zodComparison.almostFlat": {
+    "message": "Quasi nul"
+  },
+  "comparison.bundle.versionInfo": {
+    "message": "Kanon v{kanonVersion} vs Zod v{zodVersion}"
+  },
+  "comparison.bundle.versionInfoShort": {
+    "message": "Kanon v{kanonVersion} / Zod v{zodVersion}"
+  },
+  "comparison.bundle.summary.header.aspect": {
+    "message": "Aspect"
+  },
+  "comparison.bundle.summary.header.kanon": {
+    "message": "Kanon"
+  },
+  "comparison.bundle.summary.header.zod": {
+    "message": "Zod"
+  },
+  "comparison.bundle.summary.architecture": {
+    "message": "Architecture"
+  },
+  "comparison.bundle.summary.architectureKanon": {
+    "message": "Fonctions"
+  },
+  "comparison.bundle.summary.architectureZod": {
+    "message": "Classes"
+  },
+  "comparison.bundle.summary.treeShaking": {
+    "message": "Tree-shaking"
+  },
+  "comparison.bundle.summary.treeShakingKanon": {
+    "message": "✅ Complet"
+  },
+  "comparison.bundle.summary.treeShakingZod": {
+    "message": "❌ Limité"
+  },
+  "comparison.bundle.summary.minBundle": {
+    "message": "Bundle min"
+  },
+  "comparison.bundle.summary.scalesWithUsage": {
+    "message": "Évolue avec l'usage"
+  },
+  "comparison.bundle.summary.scalesYes": {
+    "message": "✅ Oui"
+  },
+  "comparison.bundle.summary.scalesMostlyFixed": {
+    "message": "❌ Plutôt fixe"
+  },
+  "comparison.bundle.summary.migrationPath": {
+    "message": "Chemin de migration"
+  },
+  "comparison.bundle.summary.migrationKanon": {
+    "message": "shim z disponible"
+  },
+  "comparison.migration.ready": {
+    "message": "Prêt à migrer ? Le guide de migration complet étape par étape se trouve dans la documentation du module {module}"
+  },
+  "comparison.migration.link": {
+    "message": "Aller au guide de migration →"
+  },
+  "comparison.migration.overview": {
+    "message": "Pas sûr de quelle bibliothèque correspond à votre cas d'usage ?"
+  },
+  "comparison.migration.overviewLink": {
+    "message": "Voir l'aperçu des comparaisons."
+  },
+  "comparison.quick.result.percentSmaller": {
+    "message": "~{percent}% plus petit"
+  },
+  "comparison.quick.result.na": {
+    "message": "N/D"
+  },
+  "comparison.quick.result.smaller": {
+    "message": "{ratio}× plus petit"
+  },
+  "comparison.quick.result.faster": {
+    "message": "{ratio}× plus rapide"
+  },
+  "comparison.quick.result.slower": {
+    "message": "{ratio}× plus lent"
+  },
+  "comparison.quick.result.similar": {
+    "message": "Similaire"
+  },
+  "comparison.quick.header.module": {
+    "message": "Module"
+  },
+  "comparison.quick.header.vs": {
+    "message": "vs"
+  },
+  "comparison.quick.header.bundleSize": {
+    "message": "Taille du bundle (moyenne)"
+  },
+  "comparison.quick.header.performance": {
+    "message": "Performance (moyenne)"
+  },
+  "comparison.scoring.critical.weight": {
+    "message": "5 pts"
+  },
+  "comparison.scoring.critical.perfMatters": {
+    "message": "Beaucoup"
+  },
+  "comparison.scoring.critical.description": {
+    "message": "Fonctions hot path appelées dans des boucles serrées"
+  },
+  "comparison.scoring.critical.examples": {
+    "message": "map, filter, reduce, groupBy, chunk"
+  },
+  "comparison.scoring.high.weight": {
+    "message": "3 pts"
+  },
+  "comparison.scoring.high.perfMatters": {
+    "message": "Oui"
+  },
+  "comparison.scoring.high.description": {
+    "message": "Utilitaires fréquemment utilisés, mais pas dans des boucles serrées"
+  },
+  "comparison.scoring.high.examples": {
+    "message": "get, set, pick, omit, cloneDeep"
+  },
+  "comparison.scoring.medium.weight": {
+    "message": "1 pt"
+  },
+  "comparison.scoring.medium.perfMatters": {
+    "message": "Un peu"
+  },
+  "comparison.scoring.medium.description": {
+    "message": "Utilitaires occasionnels"
+  },
+  "comparison.scoring.medium.examples": {
+    "message": "Type guards (isArray, isString), formatage de chaînes"
+  },
+  "comparison.scoring.low.weight": {
+    "message": "0,5 pts"
+  },
+  "comparison.scoring.low.perfMatters": {
+    "message": "Non"
+  },
+  "comparison.scoring.low.description": {
+    "message": "Fonctions d'initialisation où la perf runtime est sans importance"
+  },
+  "comparison.scoring.low.examples": {
+    "message": "debounce, throttle, once, memoize"
+  },
+  "comparison.scoring.header.category": {
+    "message": "La perf compte ?"
+  },
+  "comparison.scoring.header.weight": {
+    "message": "Poids"
+  },
+  "comparison.scoring.header.description": {
+    "message": "Description"
+  },
+  "comparison.scoring.header.examples": {
+    "message": "Exemples"
+  },
+  "homepage.features.ariaLabel": {
+    "message": "Fonctionnalités"
+  },
+  "homepage.keyFigures.ariaLabel": {
+    "message": "Chiffres clés"
+  },
+  "homepage.modules.beta": {
+    "message": "Bêta"
+  },
+  "homepage.modules.kanon.perfDual": {
+    "message": "{v3}× plus rapide ({jit}× avec JIT)"
+  },
+  "homepage.modules.docsAriaLabel": {
+    "message": "Documentation {name}"
+  },
+  "homepage.modules.docs": {
+    "message": "Docs"
+  },
+  "homepage.modules.apiAriaLabel": {
+    "message": "API {name}"
+  },
+  "homepage.modules.api": {
+    "message": "API"
+  },
+  "homepage.modules.ariaLabel": {
+    "message": "Modules disponibles"
+  },
+  "homepage.modules.title": {
+    "message": "Modules"
+  },
+  "playground.dashboard.title": {
+    "message": "Démo Dashboard"
+  },
+  "playground.dashboard.closeFullscreen": {
+    "message": "Fermer le plein écran"
+  },
+  "playground.dashboard.code": {
+    "message": "Code"
+  },
+  "playground.dashboard.preview": {
+    "message": "Aperçu"
+  },
+  "playground.dashboard.result": {
+    "message": "Résultat"
+  },
+  "playground.dashboard.fullscreen": {
+    "message": "Plein écran"
+  },
+  "shared.accordionGroup.searchPlaceholder": {
+    "message": "Rechercher..."
+  },
+  "shared.accordionGroup.resultCount": {
+    "message": "{found} / {total} résultat(s)"
+  },
+  "shared.accordionGroup.noResults": {
+    "message": "Aucun résultat pour \"{query}\""
+  },
+  "shared.searchBar.placeholder": {
+    "message": "Rechercher..."
+  },
+  "shared.searchBar.clearSearch": {
+    "message": "Effacer la recherche"
+  },
+  "comparison.filter.native.label": {
+    "message": "Natif / One-liners"
+  },
+  "comparison.filter.native.description": {
+    "message": "Fonctions avec équivalents JS natifs"
+  },
+  "comparison.filter.niche.label": {
+    "message": "Niche / Rare"
+  },
+  "comparison.filter.niche.description": {
+    "message": "Fonctions rarement utilisées ou très spécifiques"
+  },
+  "comparison.filter.mutable.label": {
+    "message": "Mutable"
+  },
+  "comparison.filter.mutable.description": {
+    "message": "Fonctions qui encouragent la mutation"
+  },
+  "comparison.filter.show": {
+    "message": "Afficher :"
+  },
+  "shared.warningTooltip.modalTitle": {
+    "message": "Quasi-équivalent"
+  },
+  "shared.warningTooltip.close": {
+    "message": "Fermer"
+  },
+  "shared.warningTooltip.warningInfo": {
+    "message": "Information d'avertissement"
+  },
+  "shared.badge.hiddenGem": {
+    "message": "Pépite cachée"
+  },
+  "shared.badge.topPick": {
+    "message": "Incontournable"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "Développer la catégorie '{label}' de la barre latérale",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "Réduire la catégorie '{label}' de la barre latérale",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.NotFound.title": {
+    "message": "Page introuvable",
+    "description": "The title of the 404 page"
+  },
+  "theme.NotFound.p1": {
+    "message": "Nous n'avons pas trouvé ce que vous recherchez.",
+    "description": "The first paragraph of the 404 page"
+  },
+  "theme.NotFound.suggestions": {
+    "message": "Peut-être cherchiez-vous :"
+  },
+  "theme.NotFound.backHome": {
+    "message": "Retour à l'Olympe"
+  },
+  "comparison.bundle.arkhe.legend.baseline": {
+    "message": "Pithos (référence)"
+  },
+  "comparison.bundle.arkhe.legend.smaller": {
+    "message": "Plus petit que Pithos"
+  },
+  "comparison.bundle.arkhe.legend.equal": {
+    "message": "Exactement égal"
+  },
+  "comparison.bundle.arkhe.legend.larger": {
+    "message": "Plus gros que Pithos"
+  },
+  "comparison.bundle.arkhe.header.utility": {
+    "message": "Utilitaire"
+  },
+  "comparison.bundle.footer.gzipEsbuild": {
+    "message": "Données générées le {date} • tailles gzip • esbuild --minify"
+  },
+  "comparison.bundle.arkhe.tldr.text": {
+    "message": "Pithos est"
+  },
+  "comparison.bundle.arkhe.tldr.highlight": {
+    "message": "le plus petit ou comparable (±10%) dans {comparableRate}% des utilitaires"
+  },
+  "comparison.bundle.arkhe.tldr.after": {
+    "message": ". Toujours plus petit que Lodash. Compétitif avec es-toolkit et Radashi."
+  },
+  "comparison.arkhe.balanced.verdict.both": {
+    "message": "Bundle + Perf"
+  },
+  "comparison.arkhe.balanced.verdict.bundleOnly": {
+    "message": "Bundle uniquement"
+  },
+  "comparison.arkhe.balanced.verdict.perfOnly": {
+    "message": "Perf uniquement"
+  },
+  "comparison.arkhe.balanced.verdict.neither": {
+    "message": "Aucun"
+  },
+  "comparison.arkhe.balanced.tldr.highlight": {
+    "message": "{winRate}% des utilitaires gagnent sur au moins un axe"
+  },
+  "comparison.arkhe.balanced.tldr.bothWin": {
+    "message": "gagnent sur bundle + perf,"
+  },
+  "comparison.arkhe.balanced.tldr.bundleOnly": {
+    "message": "bundle uniquement,"
+  },
+  "comparison.arkhe.balanced.tldr.perfOnly": {
+    "message": "perf uniquement."
+  },
+  "comparison.arkhe.balanced.chart.title": {
+    "message": "📊 Bundle + Performance"
+  },
+  "comparison.arkhe.balanced.legend.title": {
+    "message": "Légende :"
+  },
+  "comparison.arkhe.balanced.legend.both": {
+    "message": "Arkhe gagne (ou est comparable) sur les deux axes"
+  },
+  "comparison.arkhe.balanced.legend.bundleOnly": {
+    "message": "Bundle plus petit, mais pas le plus rapide"
+  },
+  "comparison.arkhe.balanced.legend.perfOnly": {
+    "message": "Le plus rapide, mais pas le plus petit bundle"
+  },
+  "comparison.arkhe.balanced.legend.neither": {
+    "message": "Une autre bibliothèque gagne sur les deux"
+  },
+  "comparison.arkhe.balanced.header.function": {
+    "message": "Fonction"
+  },
+  "comparison.arkhe.balanced.header.matters": {
+    "message": "La perf compte ?"
+  },
+  "comparison.arkhe.balanced.header.bundle": {
+    "message": "Bundle"
+  },
+  "comparison.arkhe.balanced.header.perf": {
+    "message": "Perf"
+  },
+  "comparison.arkhe.balanced.header.verdict": {
+    "message": "Verdict"
+  },
+  "comparison.arkhe.category.array": {
+    "message": "Tableau"
+  },
+  "comparison.arkhe.category.function": {
+    "message": "Fonction"
+  },
+  "comparison.arkhe.category.is": {
+    "message": "Is"
+  },
+  "comparison.arkhe.category.number": {
+    "message": "Nombre"
+  },
+  "comparison.arkhe.category.object": {
+    "message": "Objet"
+  },
+  "comparison.arkhe.category.string": {
+    "message": "Chaîne"
+  },
+  "comparison.arkhe.category.util": {
+    "message": "Util"
+  },
+  "comparison.arkhe.lib.arkhe": {
+    "message": "Ce module"
+  },
+  "comparison.arkhe.lib.esToolkit": {
+    "message": "Bibliothèque utilitaire moderne"
+  },
+  "comparison.arkhe.lib.esToolkitCompat": {
+    "message": "es-toolkit avec compat lodash"
+  },
+  "comparison.arkhe.lib.lodashEs": {
+    "message": "Lodash en modules ES"
+  },
+  "comparison.arkhe.tldr": {
+    "message": "Arkhe gagne ~{winRate}% des benchmarks. Le plus rapide pour les cas d'usage typiques (petits à moyens tableaux). Lodash peut être plus rapide sur de très grands tableaux (10K+ éléments) grâce à son cache interne basé sur le hachage."
+  },
+  "comparison.kanon.category.critical": {
+    "message": "Critique"
+  },
+  "comparison.kanon.category.high": {
+    "message": "Élevé"
+  },
+  "comparison.kanon.category.medium": {
+    "message": "Moyen"
+  },
+  "comparison.kanon.category.other": {
+    "message": "Autre"
+  },
+  "comparison.kanon.lib.kanon": {
+    "message": "Module de validation Pithos (schema-first + JIT)"
+  },
+  "comparison.kanon.lib.zod": {
+    "message": "Validation schema-first avec inférence TypeScript"
+  },
+  "comparison.kanon.lib.valibot": {
+    "message": "Validation de schémas modulaire, tree-shakable"
+  },
+  "comparison.kanon.lib.superstruct": {
+    "message": "Validation composable avec types personnalisés"
+  },
+  "comparison.kanon.lib.ajv": {
+    "message": "Validateur JSON Schema avec compilation JIT"
+  },
+  "comparison.kanon.lib.typebox": {
+    "message": "JSON Schema avec inférence TypeScript + JIT"
+  },
+  "comparison.kanon.lib.fastestValidator": {
+    "message": "Validateur haute performance avec JIT"
+  },
+  "comparison.kanon.filter.schemaFirst.label": {
+    "message": "Schema-first"
+  },
+  "comparison.kanon.filter.schemaFirst.description": {
+    "message": "Bibliothèques de définition de schémas orientées développeur"
+  },
+  "comparison.kanon.filter.compiled.label": {
+    "message": "Compilé / JIT"
+  },
+  "comparison.kanon.filter.compiled.description": {
+    "message": "Bibliothèques orientées performance avec génération de code"
+  },
+  "comparison.kanon.tldr.highlight": {
+    "message": "Kanon est 5-11× plus rapide"
+  },
+  "comparison.kanon.tldr": {
+    "message": "Le JIT de Kanon domine sur les unions discriminées et les schémas complexes. TypeBox/AJV gagnent sur les validations simples. Pour la validation API/formulaire typique, Kanon est 5-11× plus rapide que Zod/Valibot."
+  },
+  "comparison.kanon.error.title": {
+    "message": "⚠️ Données de benchmark introuvables"
+  },
+  "comparison.kanon.error.missing": {
+    "message": "Le fichier de résultats kanon-benchmark-realworld.json est manquant."
+  },
+  "comparison.kanon.error.generate": {
+    "message": "Générez-le en exécutant :"
+  },
+  "comparison.kanon.weightedSummary.title": {
+    "message": "📈 Résumé pondéré"
+  },
+  "comparison.kanon.weightedSummary.announcement": {
+    "message": "🏆 {winner} domine les scénarios réels !"
+  },
+  "comparison.kanon.weightedSummary.advantageNote": {
+    "message": "Sur les tâches critiques + haute priorité, {winner} a {advantage}× d'avance."
+  },
+  "comparison.common.header.p995": {
+    "message": "p995"
+  },
+  "comparison.common.header.p999": {
+    "message": "p999"
+  },
+  "comparison.kanon.detailedStats.title": {
+    "message": "Statistiques détaillées"
+  },
+  "comparison.kanon.detailedStats.subtitle": {
+    "message": "Pour les sceptiques qui veulent voir les chiffres bruts :"
+  },
+  "comparison.taphos.equivalence.native": {
+    "message": "🟢 API native"
+  },
+  "comparison.taphos.equivalence.composition": {
+    "message": "🟡 Composition"
+  },
+  "comparison.taphos.equivalence.custom": {
+    "message": "🔴 Custom"
+  },
+  "comparison.taphos.nanWarning.difference": {
+    "message": "Différence :"
+  },
+  "comparison.taphos.nanWarning.cannotFind": {
+    "message": "Les valeurs NaN ne peuvent pas être trouvées avec le natif."
+  },
+  "comparison.taphos.nanWarning.sameValueZero": {
+    "message": "taphos/lodash utilisent SameValueZero → peuvent trouver NaN"
+  },
+  "comparison.taphos.nanWarning.nativeStrict": {
+    "message": "le natif utilise === → NaN !== NaN retourne -1"
+  },
+  "comparison.taphos.nanWarning.safeToMigrate": {
+    "message": "Migration sûre si vous ne cherchez pas de valeurs NaN."
+  },
+  "comparison.taphos.eqWarning.difference": {
+    "message": "Différence :"
+  },
+  "comparison.taphos.eqWarning.negativeZero": {
+    "message": "Gestion différente de -0."
+  },
+  "comparison.taphos.eqWarning.sameValueZero": {
+    "message": "taphos/lodash utilisent SameValueZero → eq(0, -0) retourne true"
+  },
+  "comparison.taphos.eqWarning.objectIs": {
+    "message": "le natif utilise Object.is → Object.is(0, -0) retourne false"
+  },
+  "comparison.taphos.eqWarning.safeToMigrate": {
+    "message": "Migration sûre si vous ne comparez pas de valeurs -0."
+  },
+  "comparison.taphos.cloneDeepWarning.difference": {
+    "message": "Différence :"
+  },
+  "comparison.taphos.cloneDeepWarning.limitations": {
+    "message": "structuredClone a des limitations."
+  },
+  "comparison.taphos.cloneDeepWarning.noFunctions": {
+    "message": "structuredClone ne peut pas cloner les fonctions ou les éléments DOM"
+  },
+  "comparison.taphos.cloneDeepWarning.noPrototype": {
+    "message": "structuredClone ne préserve pas les chaînes de prototypes ni les clés symbol"
+  },
+  "comparison.taphos.cloneDeepWarning.safeToMigrate": {
+    "message": "Migration sûre pour les objets de données simples (pas de fonctions, pas de symbols)."
+  },
+  "comparison.taphos.isNaNWarning.difference": {
+    "message": "Différence :"
+  },
+  "comparison.taphos.isNaNWarning.numberObjects": {
+    "message": "Gestion différente des objets Number."
+  },
+  "comparison.taphos.isNaNWarning.lodash": {
+    "message": "taphos/lodash → isNaN(new Number(NaN)) retourne true"
+  },
+  "comparison.taphos.isNaNWarning.native": {
+    "message": "natif → Number.isNaN(new Number(NaN)) retourne false"
+  },
+  "comparison.taphos.isNaNWarning.safeToMigrate": {
+    "message": "Migration sûre si vous n'utilisez pas les wrappers Number."
+  },
+  "comparison.taphos.pullWarning.difference": {
+    "message": "Différence :"
+  },
+  "comparison.taphos.pullWarning.mutation": {
+    "message": "Comportement de mutation différent."
+  },
+  "comparison.taphos.pullWarning.mutates": {
+    "message": "taphos/lodash modifient le tableau original en place"
+  },
+  "comparison.taphos.pullWarning.immutable": {
+    "message": "le natif utilise filter() → retourne un nouveau tableau"
+  },
+  "comparison.taphos.pullWarning.safeToMigrate": {
+    "message": "Migration sûre si votre code ne dépend pas de la mutation."
+  },
+  "comparison.taphos.forInWarning.difference": {
+    "message": "Différence :"
+  },
+  "comparison.taphos.forInWarning.earlyReturn": {
+    "message": "Comportement de sortie anticipée différent."
+  },
+  "comparison.taphos.forInWarning.lodash": {
+    "message": "taphos/lodash → retourner false arrête l'itération"
+  },
+  "comparison.taphos.forInWarning.native": {
+    "message": "for...in natif → ne peut pas être arrêté depuis un callback"
+  },
+  "comparison.taphos.forInWarning.safeToMigrate": {
+    "message": "Migration sûre si vous n'utilisez pas le retour anticipé."
+  },
+  "comparison.taphos.isTypedArrayWarning.difference": {
+    "message": "Différence :"
+  },
+  "comparison.taphos.isTypedArrayWarning.dataView": {
+    "message": "ArrayBuffer.isView correspond aussi à DataView."
+  },
+  "comparison.taphos.isTypedArrayWarning.lodash": {
+    "message": "taphos/lodash → isTypedArray(new DataView(...)) retourne false"
+  },
+  "comparison.taphos.isTypedArrayWarning.native": {
+    "message": "natif → ArrayBuffer.isView(new DataView(...)) retourne true"
+  },
+  "comparison.taphos.isTypedArrayWarning.safeToMigrate": {
+    "message": "Migration sûre si vous n'utilisez pas DataView."
+  },
+  "comparison.taphos.isElementWarning.difference": {
+    "message": "Différence :"
+  },
+  "comparison.taphos.isElementWarning.detection": {
+    "message": "Méthode de détection différente."
+  },
+  "comparison.taphos.isElementWarning.lodash": {
+    "message": "taphos/lodash utilisent le duck typing (nodeType === 1)"
+  },
+  "comparison.taphos.isElementWarning.native": {
+    "message": "le natif utilise instanceof Element"
+  },
+  "comparison.taphos.isElementWarning.safeToMigrate": {
+    "message": "Migration sûre dans les contextes navigateur same-realm."
+  },
+  "comparison.taphos.toIntegerWarning.difference": {
+    "message": "Différence :"
+  },
+  "comparison.taphos.toIntegerWarning.infinity": {
+    "message": "Gestion différente de Infinity."
+  },
+  "comparison.taphos.toIntegerWarning.lodash": {
+    "message": "taphos/lodash → toInteger(Infinity) retourne MAX_VALUE"
+  },
+  "comparison.taphos.toIntegerWarning.native": {
+    "message": "natif → Math.trunc(Infinity) retourne Infinity"
+  },
+  "comparison.taphos.toIntegerWarning.safeToMigrate": {
+    "message": "Migration sûre si vous ne passez pas Infinity."
+  },
+  "comparison.taphos.precisionWarning.difference": {
+    "message": "Différence :"
+  },
+  "comparison.taphos.precisionWarning.floatingPoint": {
+    "message": "Problèmes de précision en virgule flottante avec le natif."
+  },
+  "comparison.taphos.precisionWarning.taphos": {
+    "message": "taphos utilise la notation exponentielle → round(1.005, 2) retourne 1.01"
+  },
+  "comparison.taphos.precisionWarning.native": {
+    "message": "natif Math.round(1.005 * 100) / 100 retourne 1 (erreur float)"
+  },
+  "comparison.taphos.precisionWarning.safeToMigrate": {
+    "message": "Migration sûre si vous n'utilisez pas le paramètre de précision."
+  },
+  "comparison.taphos.toSafeIntegerWarning.difference": {
+    "message": "Différence :"
+  },
+  "comparison.taphos.toSafeIntegerWarning.nan": {
+    "message": "Gestion différente de NaN."
+  },
+  "comparison.taphos.toSafeIntegerWarning.lodash": {
+    "message": "taphos/lodash → toSafeInteger(NaN) retourne 0"
+  },
+  "comparison.taphos.toSafeIntegerWarning.native": {
+    "message": "natif → Math.trunc(NaN) clampé retourne NaN"
+  },
+  "comparison.taphos.toSafeIntegerWarning.safeToMigrate": {
+    "message": "Migration sûre si l'entrée est toujours un nombre valide."
+  },
+  "comparison.taphos.category.array": {
+    "message": "Tableau"
+  },
+  "comparison.taphos.category.collection": {
+    "message": "Collection"
+  },
+  "comparison.taphos.category.function": {
+    "message": "Fonction"
+  },
+  "comparison.taphos.category.lang": {
+    "message": "Lang"
+  },
+  "comparison.taphos.category.math": {
+    "message": "Math"
+  },
+  "comparison.taphos.category.object": {
+    "message": "Objet"
+  },
+  "comparison.taphos.category.string": {
+    "message": "Chaîne"
+  },
+  "comparison.taphos.category.util": {
+    "message": "Util"
+  },
+  "comparison.taphos.lib.taphos": {
+    "message": "Module utilitaire Pithos (ES2020+ moderne)"
+  },
+  "comparison.taphos.lib.native": {
+    "message": "Équivalent JavaScript natif"
+  },
+  "comparison.taphos.lib.esToolkit": {
+    "message": "Bibliothèque utilitaire moderne"
+  },
+  "comparison.taphos.lib.esToolkitCompat": {
+    "message": "es-toolkit avec compat lodash"
+  },
+  "comparison.taphos.lib.lodashEs": {
+    "message": "Lodash en modules ES"
+  },
+  "comparison.taphos.tldr": {
+    "message": "Le JavaScript natif gagne {nativeWinRate}% des benchmarks. C'est le but : Taphos vous aide à migrer depuis Lodash, mais l'objectif réel est le JS natif. Parmi les bibliothèques, Taphos est compétitif avec {taphosWins} victoires."
+  },
+  "comparison.bundle.zygos.header.module": {
+    "message": "Module"
+  },
+  "comparison.bundle.zygos.footer": {
+    "message": "Données générées le {date} · Mesuré avec esbuild + gzip"
+  },
+  "comparison.bundle.zygos.summary.aspect": {
+    "message": "Comparaison"
+  },
+  "comparison.bundle.zygos.summary.zygosSize": {
+    "message": "Zygos"
+  },
+  "comparison.bundle.zygos.summary.competitor": {
+    "message": "Concurrent"
+  },
+  "comparison.bundle.zygos.summary.savings": {
+    "message": "Économie"
+  },
+  "comparison.bundle.zygos.summary.vsNeverthrow": {
+    "message": "vs Neverthrow"
+  },
+  "comparison.bundle.zygos.summary.smaller": {
+    "message": "plus petit"
+  },
+  "comparison.bundle.zygos.summary.vsFpTs": {
+    "message": "vs fp-ts"
+  },
+  "comparison.bundle.zygos.versionInfo": {
+    "message": "Pithos v{pithos} / Neverthrow v{neverthrow} / fp-ts v{fpTs}"
+  },
+  "comparison.zygos.lib.zygos": {
+    "message": "Module Result/Option de Pithos (léger, tree-shakable)"
+  },
+  "comparison.zygos.lib.neverthrow": {
+    "message": "Bibliothèque Result populaire pour TypeScript"
+  },
+  "comparison.zygos.lib.fpTs": {
+    "message": "Bibliothèque de programmation fonctionnelle avec Option/Either"
+  },
+  "comparison.zygos.tldr.result.highlight": {
+    "message": "Zygos gagne {winRate}% des benchmarks Result vs Neverthrow."
+  },
+  "comparison.zygos.tldr.result": {
+    "message": "Zygos gagne {winRate}% des benchmarks Result vs Neverthrow. Jusqu'à 3× plus rapide sur la création d'objets, 2-3× plus rapide sur les opérations chaînées. Performances similaires sur les opérations simples comme isOk() et unwrapOr()."
+  },
+  "comparison.zygos.tldr.option.highlight": {
+    "message": "Zygos gagne {winRate}% des benchmarks Option vs fp-ts."
+  },
+  "comparison.zygos.tldr.option": {
+    "message": "Zygos gagne {winRate}% des benchmarks Option vs fp-ts. Alternative légère et tree-shakable à fp-ts Option."
+  },
+  "comparison.zygos.error.title": {
+    "message": "⚠️ Données de benchmark introuvables"
+  },
+  "comparison.zygos.error.missing": {
+    "message": "Le fichier de résultats zygos-benchmark.json est manquant."
+  },
+  "comparison.zygos.error.generate": {
+    "message": "Générez-le en exécutant :"
+  },
+  "comparison.zygos.summary.resultLabel": {
+    "message": "Result (vs Neverthrow)"
+  },
+  "comparison.zygos.summary.zygosWins": {
+    "message": "🏆 Zygos : {wins}/{total}"
+  },
+  "comparison.zygos.summary.optionLabel": {
+    "message": "Option (vs fp-ts)"
+  },
+  "theme.docs.sidebar.navAriaLabel": {
+    "message": "Docs sidebar",
+    "description": "The ARIA label for the sidebar navigation"
+  },
+  "theme.docs.sidebar.collapseButtonTitle": {
+    "message": "Réduire le menu latéral",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.collapseButtonAriaLabel": {
+    "message": "Réduire le menu latéral",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.ErrorPageContent.title": {
+    "message": "Cette page a planté.",
+    "description": "The title of the fallback page when the page crashed"
+  },
+  "theme.BackToTopButton.buttonAriaLabel": {
+    "message": "Retour au début de la page",
+    "description": "The ARIA label for the back to top button"
+  },
+  "theme.blog.archive.title": {
+    "message": "Archive",
+    "description": "The page & hero title of the blog archive page"
+  },
+  "theme.blog.archive.description": {
+    "message": "Archive",
+    "description": "The page & hero description of the blog archive page"
+  },
+  "theme.blog.paginator.navAriaLabel": {
+    "message": "Pagination de la liste des articles du blog",
+    "description": "The ARIA label for the blog pagination"
+  },
+  "theme.blog.paginator.newerEntries": {
+    "message": "Nouvelles entrées",
+    "description": "The label used to navigate to the newer blog posts page (previous page)"
+  },
+  "theme.blog.paginator.olderEntries": {
+    "message": "Anciennes entrées",
+    "description": "The label used to navigate to the older blog posts page (next page)"
+  },
+  "theme.blog.post.paginator.navAriaLabel": {
+    "message": "Pagination des articles du blog",
+    "description": "The ARIA label for the blog posts pagination"
+  },
+  "theme.blog.post.paginator.newerPost": {
+    "message": "Article plus récent",
+    "description": "The blog post button label to navigate to the newer/previous post"
+  },
+  "theme.blog.post.paginator.olderPost": {
+    "message": "Article plus ancien",
+    "description": "The blog post button label to navigate to the older/next post"
+  },
+  "theme.tags.tagsPageLink": {
+    "message": "Voir tous les tags",
+    "description": "The label of the link targeting the tag list page"
+  },
+  "theme.colorToggle.ariaLabel.mode.system": {
+    "message": "mode du système",
+    "description": "The name for the system color mode"
+  },
+  "theme.colorToggle.ariaLabel.mode.light": {
+    "message": "mode clair",
+    "description": "The name for the light color mode"
+  },
+  "theme.colorToggle.ariaLabel.mode.dark": {
+    "message": "mode sombre",
+    "description": "The name for the dark color mode"
+  },
+  "theme.colorToggle.ariaLabel": {
+    "message": "Basculer entre le mode sombre et clair (actuellement {mode})",
+    "description": "The ARIA label for the color mode toggle"
+  },
+  "theme.docs.breadcrumbs.navAriaLabel": {
+    "message": "Fil d'Ariane",
+    "description": "The ARIA label for the breadcrumbs"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "1 élément|{count} éléments",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
+  },
+  "theme.docs.paginator.navAriaLabel": {
+    "message": "Pages de documentation",
+    "description": "The ARIA label for the docs pagination"
+  },
+  "theme.docs.paginator.previous": {
+    "message": "Précédent",
+    "description": "The label used to navigate to the previous doc"
+  },
+  "theme.docs.paginator.next": {
+    "message": "Suivant",
+    "description": "The label used to navigate to the next doc"
+  },
+  "theme.docs.versionBadge.label": {
+    "message": "Version: {versionLabel}"
+  },
+  "theme.docs.tagDocListPageTitle.nDocsTagged": {
+    "message": "Un document tagué|{count} documents tagués",
+    "description": "Pluralized label for \"{count} docs tagged\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.docs.tagDocListPageTitle": {
+    "message": "{nDocsTagged} avec \"{tagName}\"",
+    "description": "The title of the page for a docs tag"
+  },
+  "theme.docs.versions.unreleasedVersionLabel": {
+    "message": "Ceci est la documentation de la prochaine version {versionLabel} de {siteTitle}.",
+    "description": "The label used to tell the user that he's browsing an unreleased doc version"
+  },
+  "theme.docs.versions.unmaintainedVersionLabel": {
+    "message": "Ceci est la documentation de {siteTitle} {versionLabel}, qui n'est plus activement maintenue.",
+    "description": "The label used to tell the user that he's browsing an unmaintained doc version"
+  },
+  "theme.docs.versions.latestVersionSuggestionLabel": {
+    "message": "Pour une documentation à jour, consultez la {latestVersionLink} ({versionLabel}).",
+    "description": "The label used to tell the user to check the latest version"
+  },
+  "theme.docs.versions.latestVersionLinkLabel": {
+    "message": "dernière version",
+    "description": "The label used for the latest version suggestion link label"
+  },
+  "theme.common.editThisPage": {
+    "message": "Éditer cette page",
+    "description": "The link label to edit the current page"
+  },
+  "theme.common.headingLinkTitle": {
+    "message": "Lien direct vers {heading}",
+    "description": "Title for link to heading"
+  },
+  "theme.lastUpdated.atDate": {
+    "message": " le {date}",
+    "description": "The words used to describe on which date a page has been last updated"
+  },
+  "theme.lastUpdated.byUser": {
+    "message": " par {user}",
+    "description": "The words used to describe by who the page has been last updated"
+  },
+  "theme.lastUpdated.lastUpdatedAtBy": {
+    "message": "Dernière mise à jour{atDate}{byUser}",
+    "description": "The sentence used to display when a page has been last updated, and by who"
+  },
+  "theme.navbar.mobileVersionsDropdown.label": {
+    "message": "Versions",
+    "description": "The label for the navbar versions dropdown on mobile view"
+  },
+  "theme.tags.tagsListLabel": {
+    "message": "Tags :",
+    "description": "The label alongside a tag list"
+  },
+  "theme.AnnouncementBar.closeButtonAriaLabel": {
+    "message": "Fermer",
+    "description": "The ARIA label for close button of announcement bar"
+  },
+  "theme.admonition.caution": {
+    "message": "attention",
+    "description": "The default label used for the Caution admonition (:::caution)"
+  },
+  "theme.admonition.danger": {
+    "message": "danger",
+    "description": "The default label used for the Danger admonition (:::danger)"
+  },
+  "theme.admonition.info": {
+    "message": "info",
+    "description": "The default label used for the Info admonition (:::info)"
+  },
+  "theme.admonition.note": {
+    "message": "remarque",
+    "description": "The default label used for the Note admonition (:::note)"
+  },
+  "theme.admonition.tip": {
+    "message": "astuce",
+    "description": "The default label used for the Tip admonition (:::tip)"
+  },
+  "theme.admonition.warning": {
+    "message": "attention",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.blog.sidebar.navAriaLabel": {
+    "message": "Navigation article de blog récent",
+    "description": "The ARIA label for recent posts in the blog sidebar"
+  },
+  "theme.IconExternalLink.ariaLabel": {
+    "message": "(s'ouvre dans un nouvel onglet)",
+    "description": "The ARIA label for the external link icon"
+  },
+  "theme.NavBar.navAriaLabel": {
+    "message": "Principal",
+    "description": "The ARIA label for the main navigation"
+  },
+  "theme.NotFound.p2": {
+    "message": "Veuillez contacter le propriétaire du site qui vous a lié à l'URL d'origine et leur faire savoir que leur lien est cassé.",
+    "description": "The 2nd paragraph of the 404 page"
+  },
+  "theme.navbar.mobileLanguageDropdown.label": {
+    "message": "Langues",
+    "description": "The label for the mobile language switcher dropdown"
+  },
+  "theme.TOCCollapsible.toggleButtonLabel": {
+    "message": "Sur cette page",
+    "description": "The label used by the button on the collapsible TOC component"
+  },
+  "theme.blog.post.readMore": {
+    "message": "Lire plus",
+    "description": "The label used in blog post item excerpts to link to full blog posts"
+  },
+  "theme.blog.post.readMoreLabel": {
+    "message": "En savoir plus sur {title}",
+    "description": "The ARIA label for the link to full blog posts from excerpts"
+  },
+  "theme.CodeBlock.wordWrapToggle": {
+    "message": "Activer/désactiver le retour à la ligne",
+    "description": "The title attribute for toggle word wrapping button of code block lines"
+  },
+  "theme.CodeBlock.copy": {
+    "message": "Copier",
+    "description": "The copy button label on code blocks"
+  },
+  "theme.CodeBlock.copied": {
+    "message": "Copié",
+    "description": "The copied button label on code blocks"
+  },
+  "theme.CodeBlock.copyButtonAriaLabel": {
+    "message": "Copier le code",
+    "description": "The ARIA label for copy code blocks button"
+  },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "Une minute de lecture|{readingTime} minutes de lecture",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.docs.breadcrumbs.home": {
+    "message": "Page d'accueil",
+    "description": "The ARIA label for the home page in the breadcrumbs"
+  },
+  "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
+    "message": "Fermer la barre de navigation",
+    "description": "The ARIA label for close button of mobile sidebar"
+  },
+  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
+    "message": "← Retour au menu principal",
+    "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
+  },
+  "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
+    "message": "Ouvrir/fermer la barre de navigation",
+    "description": "The ARIA label for hamburger menu button of mobile navigation"
+  },
+  "theme.docs.sidebar.expandButtonTitle": {
+    "message": "Déplier le menu latéral",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.docs.sidebar.expandButtonAriaLabel": {
+    "message": "Déplier le menu latéral",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.navbar.mobileDropdown.collapseButton.expandAriaLabel": {
+    "message": "Déplier le menu déroulant",
+    "description": "The ARIA label of the button to expand the mobile dropdown navbar item"
+  },
+  "theme.navbar.mobileDropdown.collapseButton.collapseAriaLabel": {
+    "message": "Replier le menu déroulant",
+    "description": "The ARIA label of the button to collapse the mobile dropdown navbar item"
+  },
+  "theme.blog.post.plurals": {
+    "message": "Un article|{count} articles",
+    "description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.blog.tagTitle": {
+    "message": "{nPosts} tagués avec « {tagName} »",
+    "description": "The title of the page for a blog tag"
+  },
+  "theme.blog.author.pageTitle": {
+    "message": "{authorName} - {nPosts}",
+    "description": "The title of the page for a blog author"
+  },
+  "theme.blog.authorsList.pageTitle": {
+    "message": "Auteurs",
+    "description": "The title of the authors page"
+  },
+  "theme.blog.authorsList.viewAll": {
+    "message": "Voir tous les auteurs",
+    "description": "The label of the link targeting the blog authors page"
+  },
+  "theme.blog.author.noPosts": {
+    "message": "Cet auteur n'a pas encore écrit d'articles.",
+    "description": "The text for authors with 0 blog post"
+  },
+  "theme.contentVisibility.unlistedBanner.title": {
+    "message": "Page non répertoriée",
+    "description": "The unlisted content banner title"
+  },
+  "theme.contentVisibility.unlistedBanner.message": {
+    "message": "Cette page n'est pas répertoriée. Les moteurs de recherche ne l'indexeront pas, et seuls les utilisateurs ayant un lien direct peuvent y accéder.",
+    "description": "The unlisted content banner message"
+  },
+  "theme.contentVisibility.draftBanner.title": {
+    "message": "Page brouillon",
+    "description": "The draft content banner title"
+  },
+  "theme.contentVisibility.draftBanner.message": {
+    "message": "Cette page est un brouillon. Elle ne sera visible qu'en développement et sera exclue du build de production.",
+    "description": "The draft content banner message"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "Réessayer",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
+  },
+  "theme.common.skipToMainContent": {
+    "message": "Aller au contenu principal",
+    "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
+  },
+  "theme.tags.tagsPageTitle": {
+    "message": "Tags",
+    "description": "The title of the tag list page"
+  },
+  "comparison.benchmark.category.other": {
+    "message": "Autre",
+    "description": "Label for OTHER/uncategorized items in benchmark tables"
+  },
+  "comparison.bundle.arkhe.tldr": {
+    "message": "Pithos est le plus petit ou égal dans {winRate}% des utilitaires, et à moins de 10% dans {comparableRate}% des cas. Toujours plus petit que Lodash. Compétitif avec es-toolkit et Radashi.",
+    "description": "TL;DR summary for arkhe bundle size comparison"
+  },
+  "comparison.bundle.savingsHighlight": {
+    "message": "vs Zod Mini (+{vsMini}%) / Zod Classic ({vsClassic}× plus gros)",
+    "description": "Savings highlight text comparing Kanon to Zod variants"
+  },
+  "footer.license": {
+    "message": "Licence MIT"
+  },
+  "footer.builtWith": {
+    "message": "Façonné avec"
+  },
+  "easterEgg.countdown": {
+    "message": "Encore {count} {taps} pour devenir développeur."
+  },
+  "easterEgg.tap": {
+    "message": "tape"
+  },
+  "easterEgg.taps": {
+    "message": "tapes"
+  },
+  "easterEgg.unlocked": {
+    "message": "Le mode développeur a été activé."
+  },
+  "codeLinks.hint.title": {
+    "message": "Le saviez-vous ?"
+  },
+  "codeLinks.hint.message": {
+    "message": "Vous pouvez faire Cmd + Clic (ou Ctrl + Clic) sur les symboles surlignés dans les blocs de code pour accéder à leur référence API."
+  },
+  "codeLinks.hint.gotIt": {
+    "message": "J'ai compris"
+  },
+  "codeLinks.hint.dontShowAgain": {
+    "message": "Ne plus afficher"
+  },
+  "zygos.sizeHighlight.smaller": {
+    "message": "plus petit",
+    "description": "Label for bundle size comparison (e.g. '2.6x smaller')"
+  }
+}

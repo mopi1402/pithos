@@ -36,7 +36,7 @@ Individual function sizes, minified + gzipped.
 
 **True tree-shaking.** Import what you use, ship what you import:
 
-```typescript
+```typescript links="chunk:/api/arkhe/array/chunk"
 // Only chunk ends up in your bundle
 import { chunk } from "pithos/arkhe/array/chunk";
 ```

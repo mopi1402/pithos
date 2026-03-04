@@ -1,4 +1,5 @@
 import { type ReactNode, useCallback, useRef, useLayoutEffect, useState, useEffect } from "react";
+import { translate } from "@docusaurus/Translate";
 import { Picture } from "@site/src/components/shared/Picture";
 import { FireworkEngine, type ExplosionEvent } from "./fireworksCanvas";
 
@@ -306,11 +307,11 @@ export default function PithosEasterEgg({
               height: `${textRects.tagline.height}px`,
             } : undefined}
           >
-            <span style={{ whiteSpace: "nowrap" }}>Everything you need.</span>{" "}
-            <span style={{ whiteSpace: "nowrap" }}>Nothing you don&apos;t.</span>
+            <span style={{ whiteSpace: "nowrap" }}>{translate({ id: 'homepage.hero.tagline1', message: 'Everything you need.' })}</span>{" "}
+            <span style={{ whiteSpace: "nowrap" }}>{translate({ id: 'homepage.hero.tagline2', message: "Nothing you don't." })}</span>
             <br />
-            <span style={{ whiteSpace: "nowrap" }}>Zero dependencies.</span>{" "}
-            <span style={{ whiteSpace: "nowrap" }}>100%&nbsp;TypeScript.</span>
+            <span style={{ whiteSpace: "nowrap" }}>{translate({ id: 'homepage.hero.tagline3', message: 'Zero dependencies.' })}</span>{" "}
+            <span style={{ whiteSpace: "nowrap" }}>{translate({ id: 'homepage.hero.tagline4', message: '100%\u00A0TypeScript.' })}</span>
           </div>
         </div>
       )}

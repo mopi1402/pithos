@@ -1,5 +1,6 @@
 import React, {type ReactNode} from 'react';
 import clsx from 'clsx';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 import styles from './styles.module.css';
 import { computeDensities, computeWidths } from './picture-utils';
@@ -64,6 +65,7 @@ export function Picture({
   inline = false,
 }: PictureProps): ReactNode {
   const isDensityMode = displaySize != null;
+  const resolvedSrc = useBaseUrl(src);
 
   // Warn if both displaySize and widths are explicitly provided (dev only)
   // Note: widths always has a default value, so we can't distinguish explicit from default here.
@@ -86,7 +88,7 @@ export function Picture({
     const computedWidths = computeWidths(displaySize, densities, sourceWidth);
 
     const buildDensitySrcSet = (fmt: string) =>
-      computedWidths.map((w, i) => `${src}-${w}.${fmt} ${i + 1}x`).join(', ');
+      computedWidths.map((w, i) => `${resolvedSrc}-${w}.${fmt} ${i + 1}x`).join(', ');
 
     // CLS prevention: emit width and height in density mode
     const imgWidth = width ?? displaySize;
@@ -108,7 +110,7 @@ export function Picture({
           />
         ))}
         <img
-          src={`${src}-${defaultWidth}.${fallback}`}
+          src={`${resolvedSrc}-${defaultWidth}.${fallback}`}
           srcSet={buildDensitySrcSet(fallback!)}
           width={imgWidth}
           height={imgHeight}
@@ -124,7 +126,7 @@ export function Picture({
 
   // Fluid mode (existing behavior)
   const buildSrcSet = (fmt: string) =>
-    widths.map((w) => `${src}-${w}.${fmt} ${w}w`).join(', ');
+    widths.map((w) => `${resolvedSrc}-${w}.${fmt} ${w}w`).join(', ');
 
   return (
     <picture className={clsx(styles.picture, inline && styles.inline, className)} style={style}>
@@ -137,7 +139,7 @@ export function Picture({
         />
       ))}
       <img
-        src={`${src}-${widths[1] ?? widths[0]}.${fallback}`}
+        src={`${resolvedSrc}-${widths[1] ?? widths[0]}.${fallback}`}
         srcSet={buildSrcSet(fallback!)}
         sizes={sizes}
         width={width}

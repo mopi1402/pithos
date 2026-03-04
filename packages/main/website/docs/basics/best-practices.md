@@ -9,34 +9,84 @@ keyword_stuffing_ignore:
 ---
 
 import ResponsiveMermaid from "@site/src/components/shared/ResponsiveMermaid";
+import { DashedSeparator } from '@site/src/components/shared/DashedSeparator';
 
 # ✅ Best Practices
 
-> **The Pithos Contract**: Validate at boundaries, then trust the types.
+These practices aren't style conventions: they follow directly from how Pithos works. Respecting them ensures the library behaves as intended.
 
-Pithos is built on a simple premise: TypeScript guarantees your types at compile-time. If you respect that contract, everything flows smoothly. If you cheat, everything breaks.
+:::warning[The Pithos Contract]
+Pithos delegates type checking entirely to TypeScript and does not duplicate it at runtime.  
+That's why **validating at boundaries and trusting the types** isn't just a recommendation, it's a requirement for everything to work as expected.  
+This principle is directly inspired by the [Parse, don't validate](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/) approach.
+:::
 
 ---
 
 ## ✍️ The Contract
 
+### ❌ Scattered validation (shotgun parsing)
+
+Without a clear contract, type checks multiply at every step. Each function doubts its inputs, the code fills up with defensive checks, and errors can surface anywhere.
+
 <ResponsiveMermaid
   desktop={`flowchart LR
-    E[External data] --> V[Validate with Kanon] --> T[Typed data] --> TR[Trust TypeScript]
+    API[API] --> C1{typeof ?}
+    C1 --> |ok| T[Processing]
+    C1 --> |ko| E1[❌]
+    T --> C2{null ?}
+    C2 --> |ok| L[Logic]
+    C2 --> |ko| E2[❌]
+    L --> C3{valid ?}
+    C3 --> |ok| DB[DB]
+    C3 --> |ko| E3[❌]
+
+    style C1 fill:#e74c3c,color:#fff
+    style C2 fill:#e74c3c,color:#fff
+    style C3 fill:#e74c3c,color:#fff
+    style E1 fill:#e74c3c,color:#fff
+    style E2 fill:#e74c3c,color:#fff
+    style E3 fill:#e74c3c,color:#fff
 `}
 />
 
-1. **Boundaries** = where data enters your system (APIs, user input, files, localStorage)
-2. **Validate once** at the boundary with Kanon
-3. **Trust the types** everywhere else: no runtime checks needed
+<span style={{color: '#e74c3c'}}>■</span> Errors and defensive checks
+
+### ✅ Parse, don't validate
+
+With the Pithos contract, you validate once at the boundary. All downstream code trusts the types. One checkpoint, zero doubt after that.
+
+<ResponsiveMermaid
+  desktop={`flowchart LR
+    API[API] --> K{Kanon parse}
+    K --> |❌| E[Clear error]
+    K --> |✅| TY[Typed data]
+    TY --> T[Processing]
+    TY --> L[Logic]
+    TY --> DB[DB]
+
+    style K fill:#f39c12,color:#fff
+    style TY fill:#2ecc71,color:#fff
+    style T fill:#2ecc71,color:#fff
+    style L fill:#2ecc71,color:#fff
+    style DB fill:#2ecc71,color:#fff
+    style E fill:#e74c3c,color:#fff
+`}
+/>
+
+1. <span style={{color: '#f39c12', fontWeight: 'bold'}}>Boundaries</span> = where data enters your system (APIs, user input, files, localStorage)
+2. <span style={{color: '#f39c12', fontWeight: 'bold'}}>Validate once</span> at the boundary with Kanon
+3. <span style={{color: '#2ecc71', fontWeight: 'bold'}}>Trust the types</span> everywhere else: no runtime checks needed
 
 This is why Pithos functions don't defensively check types at runtime. TypeScript already did that job.
 
 ---
 
-## ❌ Don't
+## How to respect the contract
 
-### Type Casting (`as any`, `as unknown`)
+### ❌ Don't
+
+#### Type Casting (`as any`, `as unknown`)
 
 The moment you cast, you break the chain of trust.
 
@@ -49,9 +99,15 @@ processUser(data); // TypeScript trusts you... but should it?
 const config = loadConfig() as unknown as AppConfig;
 ```
 
-**Why it matters**: Pithos functions assume valid types. If you pass garbage disguised as a `User`, you'll get garbage out, or worse, a cryptic runtime error three layers deep.
+> **The risk**: Pithos functions assume valid types. If you pass garbage disguised as a `User`, you'll get garbage out, or worse, a cryptic runtime error three layers deep.
 
-### Ignoring Results
+:::info[Need to check a type?]
+`as unknown` is often used before a manual type check. Arkhe provides ready-made [guards and predicates](/api/arkhe/#guards) (`isString`, `isNumber`, `isPlainObject`...) to avoid this work and keep TypeScript narrowing intact.
+:::
+
+<DashedSeparator noMarginBottom />
+
+#### Ignoring Results
 
 Zygos `Result` exists to force you to handle errors. Ignoring them defeats the purpose.
 
@@ -64,9 +120,11 @@ if (result.isErr()) return; // Error vanishes into the void
 const user = result.value; // TypeScript error, but you might @ts-ignore it
 ```
 
-**Why it matters**: Unhandled errors become bugs that surface in production, far from their source.
+> **The problem**: Unhandled errors become bugs that surface in production, far from their source.
 
-### `@ts-ignore` / `@ts-expect-error`
+<DashedSeparator noMarginBottom />
+
+#### `@ts-ignore` / `@ts-expect-error`
 
 These are escape hatches, not solutions.
 
@@ -76,9 +134,11 @@ These are escape hatches, not solutions.
 processUser(maybeUser);
 ```
 
-**Why it matters**: If TypeScript complains, there's usually a reason. Fix the type, don't silence the compiler.
+If TypeScript complains, there's usually a reason. Fix the type, silencing the compiler is rarely the right call.
 
-### Manual Type Annotations on Inferred Values
+<DashedSeparator noMarginBottom />
+
+#### Manual Type Annotations on Inferred Values
 
 TypeScript's inference is excellent. Fighting it creates maintenance burden.
 
@@ -93,13 +153,13 @@ const result: Result<User, ApiError> = fetchUser(id);
 
 ---
 
-## ✅ Do
+### ✅ Do
 
-### Validate at Boundaries
+#### Validate at Boundaries
 
 Use Kanon to validate external data exactly once, at the point of entry. Once data passes validation, every downstream function can trust the types without additional runtime checks. This keeps your codebase clean and your bundle small:
 
-```typescript
+```typescript links="object:/api/kanon/schemas/composites/object,string:/api/kanon/schemas/primitives/string,number:/api/kanon/schemas/primitives/number,parse:/api/kanon/core/parse"
 import { object, string, number, parse } from "pithos/kanon";
 
 const UserSchema = object({
@@ -128,11 +188,13 @@ function processUser(user: User) {
 }
 ```
 
-### Handle Results Explicitly
+<DashedSeparator noMarginBottom />
+
+#### Handle Results Explicitly
 
 Every `Result` should be handled. Use `match`, `map`, or explicit checks. The compiler helps you here: if you forget to handle a case, TypeScript will flag it. This makes error handling visible and intentional rather than accidental:
 
-```typescript
+```typescript links="ok:/api/zygos/result/ok,err:/api/zygos/result/err"
 import { ok, err, Result } from "pithos/zygos/result/result";
 
 // ✅ Good: Explicit handling with match
@@ -152,7 +214,9 @@ if (result.isErr()) {
 const user = result.value; // TypeScript knows it's Ok here
 ```
 
-### Let Inference Work
+<DashedSeparator noMarginBottom />
+
+#### Let Inference Work
 
 Trust TypeScript to figure out types. Add annotations only when necessary. Redundant type annotations create maintenance burden and can mask real type errors when the underlying code changes:
 
@@ -169,7 +233,9 @@ function processUser(user: User) { ... }
 const cache: Map<string, User> = new Map();
 ```
 
-### Use Arkhe Utility Types
+<DashedSeparator noMarginBottom />
+
+#### Use Arkhe Utility Types
 
 Arkhe provides utility types that make your intentions clear. These types communicate the shape and constraints of your data at the type level, so other developers understand the contract without reading the implementation:
 

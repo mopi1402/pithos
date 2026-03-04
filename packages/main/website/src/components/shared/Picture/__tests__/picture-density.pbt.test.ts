@@ -14,15 +14,12 @@ describe('Property 2b: Adaptive density calculation', () => {
     ],
     { numRuns: 100 },
   )(
-    'auto densities are [1,2,3] when sourceWidth >= displaySize×2, else [1,2]',
+    'auto densities include only densities where displaySize×d <= sourceWidth',
     (displaySize, sourceWidth) => {
       const densities = computeDensities(displaySize, sourceWidth);
 
-      if (sourceWidth >= displaySize * 2) {
-        expect(densities).toEqual([1, 2, 3]);
-      } else {
-        expect(densities).toEqual([1, 2]);
-      }
+      const expected = [1, 2, 3].filter(d => displaySize * d <= sourceWidth);
+      expect(densities).toEqual(expected);
     },
   );
 
@@ -46,11 +43,11 @@ describe('Property 2b: Adaptive density calculation', () => {
     [fc.integer({ min: 1, max: 2000 })],
     { numRuns: 100 },
   )(
-    'fallback densities are [1,2] when sourceWidth is absent',
+    'fallback densities are [1,2,3] when sourceWidth is absent',
     (displaySize) => {
       const densities = computeDensities(displaySize);
 
-      expect(densities).toEqual([1, 2]);
+      expect(densities).toEqual([1, 2, 3]);
     },
   );
 });

@@ -1,0 +1,298 @@
+{
+  "version.label": {
+    "message": "Suivant",
+    "description": "The label for version current"
+  },
+  "sidebar.apiSidebar.category.Arkhe": {
+    "message": "Arkhe",
+    "description": "The label for category 'Arkhe' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-array": {
+    "message": "array",
+    "description": "The label for category 'array' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-async": {
+    "message": "async",
+    "description": "The label for category 'async' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-function": {
+    "message": "function",
+    "description": "The label for category 'function' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-is": {
+    "message": "is",
+    "description": "The label for category 'is' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-is-guard": {
+    "message": "guard",
+    "description": "The label for category 'guard' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-is-predicate": {
+    "message": "predicate",
+    "description": "The label for category 'predicate' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-number": {
+    "message": "number",
+    "description": "The label for category 'number' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-number-parsers": {
+    "message": "parsers",
+    "description": "The label for category 'parsers' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-object": {
+    "message": "object",
+    "description": "The label for category 'object' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-string": {
+    "message": "string",
+    "description": "The label for category 'string' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-string-parsers": {
+    "message": "parsers",
+    "description": "The label for category 'parsers' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-test": {
+    "message": "test",
+    "description": "The label for category 'test' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-types": {
+    "message": "types",
+    "description": "The label for category 'types' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-types-animations": {
+    "message": "animations",
+    "description": "The label for category 'animations' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-types-common": {
+    "message": "common",
+    "description": "The label for category 'common' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-types-dom": {
+    "message": "dom",
+    "description": "The label for category 'dom' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-types-gestures": {
+    "message": "gestures",
+    "description": "The label for category 'gestures' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-types-math": {
+    "message": "math",
+    "description": "The label for category 'math' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-types-performance": {
+    "message": "performance",
+    "description": "The label for category 'performance' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-types-utilities": {
+    "message": "utilities",
+    "description": "The label for category 'utilities' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.arkhe-util": {
+    "message": "util",
+    "description": "The label for category 'util' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Kanon": {
+    "message": "Kanon",
+    "description": "The label for category 'Kanon' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-core": {
+    "message": "core",
+    "description": "The label for category 'core' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-core-consts": {
+    "message": "consts",
+    "description": "The label for category 'consts' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-helpers": {
+    "message": "helpers",
+    "description": "The label for category 'helpers' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-jit": {
+    "message": "jit",
+    "description": "The label for category 'jit' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-jit-builders": {
+    "message": "builders",
+    "description": "The label for category 'builders' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-jit-builders-composites": {
+    "message": "composites",
+    "description": "The label for category 'composites' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-jit-builders-operators": {
+    "message": "operators",
+    "description": "The label for category 'operators' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-jit-builders-primitives": {
+    "message": "primitives",
+    "description": "The label for category 'primitives' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-jit-utils": {
+    "message": "utils",
+    "description": "The label for category 'utils' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-schemas": {
+    "message": "schemas",
+    "description": "The label for category 'schemas' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-schemas-coerce": {
+    "message": "coerce",
+    "description": "The label for category 'coerce' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-schemas-composites": {
+    "message": "composites",
+    "description": "The label for category 'composites' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-schemas-constraints": {
+    "message": "constraints",
+    "description": "The label for category 'constraints' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-schemas-constraints-refine": {
+    "message": "refine",
+    "description": "The label for category 'refine' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-schemas-operators": {
+    "message": "operators",
+    "description": "The label for category 'operators' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-schemas-primitives": {
+    "message": "primitives",
+    "description": "The label for category 'primitives' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-schemas-transforms": {
+    "message": "transforms",
+    "description": "The label for category 'transforms' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-schemas-wrappers": {
+    "message": "wrappers",
+    "description": "The label for category 'wrappers' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-types": {
+    "message": "types",
+    "description": "The label for category 'types' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-types-base": {
+    "message": "base",
+    "description": "The label for category 'base' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-types-composites": {
+    "message": "composites",
+    "description": "The label for category 'composites' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-types-constraints": {
+    "message": "constraints",
+    "description": "The label for category 'constraints' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-types-guards": {
+    "message": "guards",
+    "description": "The label for category 'guards' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-types-operators": {
+    "message": "operators",
+    "description": "The label for category 'operators' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-types-primitives": {
+    "message": "primitives",
+    "description": "The label for category 'primitives' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-types-transforms": {
+    "message": "transforms",
+    "description": "The label for category 'transforms' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-types-wrappers": {
+    "message": "wrappers",
+    "description": "The label for category 'wrappers' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.kanon-validation": {
+    "message": "validation",
+    "description": "The label for category 'validation' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Sphalma": {
+    "message": "Sphalma",
+    "description": "The label for category 'Sphalma' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.sphalma-error-factory": {
+    "message": "error-factory",
+    "description": "The label for category 'error-factory' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Taphos": {
+    "message": "Taphos",
+    "description": "The label for category 'Taphos' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.taphos-array": {
+    "message": "array",
+    "description": "The label for category 'array' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.taphos-collection": {
+    "message": "collection",
+    "description": "The label for category 'collection' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.taphos-date": {
+    "message": "date",
+    "description": "The label for category 'date' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.taphos-function": {
+    "message": "function",
+    "description": "The label for category 'function' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.taphos-is": {
+    "message": "is",
+    "description": "The label for category 'is' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.taphos-is-predicate": {
+    "message": "predicate",
+    "description": "The label for category 'predicate' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.taphos-lang": {
+    "message": "lang",
+    "description": "The label for category 'lang' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.taphos-math": {
+    "message": "math",
+    "description": "The label for category 'math' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.taphos-object": {
+    "message": "object",
+    "description": "The label for category 'object' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.taphos-seq": {
+    "message": "seq",
+    "description": "The label for category 'seq' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.taphos-string": {
+    "message": "string",
+    "description": "The label for category 'string' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.taphos-util": {
+    "message": "util",
+    "description": "The label for category 'util' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Zygos": {
+    "message": "Zygos",
+    "description": "The label for category 'Zygos' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.zygos-either": {
+    "message": "either",
+    "description": "The label for category 'either' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.zygos-option": {
+    "message": "option",
+    "description": "The label for category 'option' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.zygos-orElse": {
+    "message": "orElse",
+    "description": "The label for category 'orElse' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.zygos-result": {
+    "message": "result",
+    "description": "The label for category 'result' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.zygos-task": {
+    "message": "task",
+    "description": "The label for category 'task' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.zygos-task-either": {
+    "message": "task-either",
+    "description": "The label for category 'task-either' in sidebar 'apiSidebar'"
+  }
+}

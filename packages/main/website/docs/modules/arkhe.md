@@ -27,17 +27,17 @@ import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 
 _ἀρχή - "origin"_
 
-Modern, lightweight alternative to lodash. Data manipulation, type guards, and function utilities with TypeScript-first design and optimal tree-shaking.
+Modern, lightweight alternative to lodash. Data manipulation, type guards, and function utilities with [TypeScript-first](/guide/contribution/design-principles/typescript-first) design and [optimal tree-shaking](/comparisons/arkhe/bundle-size/).
 
-Arkhe provides a curated set of utility functions for everyday TypeScript development. Unlike Lodash, every function is written in [TypeScript](https://www.typescriptlang.org/) from the ground up, with strict type inference and no runtime type checks. The library ships as [ES modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) with granular entry points, so bundlers can eliminate unused code automatically.
+Arkhe provides a curated set of utility functions for everyday TypeScript development. Unlike Lodash, every function is written in [TypeScript](https://www.typescriptlang.org/) from the ground up, with strict type inference and no runtime type checks. Input data is validated and errors surface immediately ([_fail fast, fail loud_](/guide/contribution/design-principles/error-handling)). The library ships as [ES modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) with granular entry points, so bundlers can eliminate unused code automatically.
 
 ---
 
-## Quick Example
+## A Few Examples
 
-Each import targets a single function for optimal tree-shaking. Your bundler only includes the code you actually use, keeping your production bundle minimal:
+Each import targets a single function for optimal tree-shaking. Your bundler only includes the code you actually use, keeping your [production bundle minimal](/comparisons/arkhe/bundle-size/):
 
-```typescript
+```typescript links="chunk:/api/arkhe/array/chunk,groupBy:/api/arkhe/array/groupBy,get:/api/arkhe/object/get,debounce:/api/arkhe/function/debounce"
 import { chunk } from "pithos/arkhe/array/chunk";
 import { groupBy } from "pithos/arkhe/array/group-by";
 import { get } from "pithos/arkhe/object/get";
@@ -51,7 +51,7 @@ get(users[0], "name", "Anonymous");  // "Alice"
 debounce(handleSearch, 300);         // Rate-limited function
 ```
 
-`chunk` splits an array into groups of a given size. `groupBy` categorizes items by a key function. `get` safely accesses deeply nested properties with a fallback value, avoiding runtime errors on missing paths. `debounce` limits how often a function fires, which is useful for search inputs or resize handlers.
+[`chunk`](/api/arkhe/array/chunk) splits an array into groups of a given size. [`groupBy`](/api/arkhe/array/groupBy) categorizes items by a key function. [`get`](/api/arkhe/object/get) safely accesses deeply nested properties with a fallback value, avoiding runtime errors on missing paths. [`debounce`](/api/arkhe/function/debounce) limits how often a function fires, which is useful for search inputs or resize handlers.
 
 ---
 
@@ -91,7 +91,7 @@ import { InstallTabs } from "@site/src/components/shared/InstallTabs";
 
 You don't need to migrate everything at once. Replace one function at a time:
 
-```typescript
+```typescript links="chunk:/api/arkhe/array/chunk"
 // Before
 import { chunk, groupBy } from "lodash-es";
 

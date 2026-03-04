@@ -6,6 +6,7 @@
     "docusaurus": "docusaurus",
     "prestart": "cd ../../.. && pnpm doc:copy:changelog && pnpm check:doc-inline-types && cd packages/main/website && pnpm run generate:images && pnpm run generate:emojis && pnpm run generate:bundle-data && pnpm run generate:comparisons && pnpm run generate:use-cases && pnpm run generate:embeddings && pnpm run build:demo",
     "start": "docusaurus start",
+    "start:fr": "pnpm run prestart && docusaurus start --locale fr",
     "prebuild": "cd ../../../ && pnpm build && cd packages/main/website && pnpm run generate:images && pnpm run generate:emojis && pnpm run generate:docs && pnpm run generate:bundle-data && pnpm run generate:comparisons && pnpm run generate:embeddings && pnpm run build:demo",
     "generate:docs": "cd ../.. && pnpm doc:generate",
     "generate:use-cases": "pnpm exec tsx scripts/generate-use-cases-data.ts",

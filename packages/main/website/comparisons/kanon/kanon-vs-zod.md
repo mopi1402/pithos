@@ -39,7 +39,7 @@ Zod is the most popular [TypeScript](https://www.typescriptlang.org/) schema val
 | **Architecture** | Pure functions | Class-based |
 | **Tree-shaking** | Per-function imports | Limited (class methods bundled together) |
 | **JIT compilation** | Yes (2-10x faster) | No |
-| **Transformations** | Separate concern | Built-in (`.transform()`) |
+| **Transformations** | Coercion only (native) | Built-in (`.transform()`) |
 | **Dependencies** | Zero | Zero |
 | **API compatibility** | `z` shim for drop-in migration | — |
 | **Bundle (login form)** | ~0.5 KB | ~12 KB |
@@ -52,7 +52,7 @@ The architectural difference drives the bundle gap. Zod uses classes: importing 
 
 For detailed per-scenario comparisons with auto-generated data, see the [Kanon bundle size comparison](./bundle-size.md).
 
-```typescript
+```typescript links="string:/api/kanon/schemas/primitives/string,object:/api/kanon/schemas/composites/object,parse:/api/kanon/core/parse"
 // Kanon: only string() and object() end up in your bundle
 import { string, object, parse } from "pithos/kanon";
 
@@ -121,11 +121,11 @@ For a complete compatibility matrix, see the [Kanon ↔ Zod interoperability pag
 
 ---
 
-## Key Design Difference: No Built-in Transforms
+## Key Design Difference: Validation and Transformation are Separate
 
-Kanon validates but does not transform data. This is deliberate: validation and transformation are separate concerns:
+Kanon's native API focuses on validation. Coercion (`coerceString`, `coerceNumber`...) is the only built-in transformation: it converts the input type before validation. There are no chained `.transform()` pipelines like in Zod:
 
-```typescript
+```typescript links="parse:/api/kanon/core/parse"
 // Kanon: pure validation
 parse(string(), "  hello  "); // ✅ Returns "  hello  " as-is
 
@@ -133,7 +133,7 @@ parse(string(), "  hello  "); // ✅ Returns "  hello  " as-is
 z.string().trim().parse("  hello  "); // Returns "hello"
 ```
 
-Keeping them separate makes each step easier to test, debug, and compose. If you need to reshape data, handle it explicitly after validation.
+If you need to reshape data, handle it explicitly after validation.
 
 ---
 

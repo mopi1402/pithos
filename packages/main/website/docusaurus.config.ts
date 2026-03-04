@@ -3,8 +3,9 @@ import type * as Preset from "@docusaurus/preset-classic";
 import remarkCustomEmoji from "./plugins/remark-custom-emoji";
 import seoValidatorPlugin from "./plugins/seo-validator";
 import pithosPackageJson from "../../pithos/package.json";
+import { REPO_URL } from "./src/constants/repo";
 
-const languages: string[] = ["en"]; //["en", "fr"];
+const languages: string[] = ["en", "fr"];
 
 /**
  * Empty Prism theme - we'll use CSS variables for all colors.
@@ -56,7 +57,7 @@ const config: Config = {
         description:
           "TypeScript utilities library with zero dependencies. Includes Arkhe (Lodash alternative), Kanon (Zod alternative), Zygos (Neverthrow alternative), Sphalma, and Taphos.",
         sameAs: [
-          "https://github.com/mopi1402/pithos",
+          REPO_URL,
           `https://www.npmjs.com/package/${pithosPackageJson.name}`,
         ],
       }),
@@ -86,6 +87,10 @@ const config: Config = {
   i18n: {
     defaultLocale: "en",
     locales: languages,
+    localeConfigs: {
+      en: { label: "English", htmlLang: "en" },
+      fr: { label: "Français", htmlLang: "fr" },
+    },
   },
 
   presets: [
@@ -305,7 +310,7 @@ const config: Config = {
           className: "header-npm-link",
         },
         {
-          href: "https://github.com/mopi1402/pithos",
+          href: REPO_URL,
           label: "GitHub",
           position: "right",
           className: "header-github-link",
@@ -322,7 +327,6 @@ const config: Config = {
     },
     footer: {
       style: "dark",
-      copyright: `<span class="footer__main">© ${new Date().getFullYear()} <a href="https://www.linkedin.com/in/mopi1402/" target="_blank" rel="noopener noreferrer">Pierre Moati</a> · <a href="https://github.com/mopi1402/pithos/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a> · <a href="/guide/basics/changelog/">Changelog</a></span><span class="footer__dot"> · </span><span class="footer__docusaurus" style="opacity: 0.7;">Website built with <a href="https://docusaurus.io/" target="_blank" rel="noopener noreferrer" style="color: hsl(167, 68%, 45%);">Docusaurus</a> <img src="/img/external/docusaurus_logo.svg" alt="" width="20" height="20" /></span>`,
     },
     prism: {
       // Using empty theme - colors are defined via CSS variables in custom.css

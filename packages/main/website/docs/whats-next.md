@@ -1,7 +1,7 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 sidebar_label: "What's Next?"
-title: "What's Next? — Comparisons & Real Data"
+title: "What's Next? : Comparisons & Real Data"
 description: "Now that you know the modules, see how they compare to Lodash, Zod, and Neverthrow with real benchmarks and bundle size data."
 ---
 
@@ -10,7 +10,7 @@ import { ZygosSizeHighlight } from '@site/src/components/comparisons/zygos/Bundl
 
 # 🔭 What's Next?
 
-You've seen what each module does. Now see how they stack up against the alternatives — with real numbers, not marketing claims.
+You've seen what each module does. Now take a look at how they perform: real numbers, not marketing claims.
 
 <div className="row" style={{marginTop: '1.5rem'}}>
   <div className="col col--6" style={{marginBottom: '1rem'}}>

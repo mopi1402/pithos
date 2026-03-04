@@ -1,5 +1,6 @@
 import React, {type ReactNode, useRef, useEffect} from 'react';
 import Link from '@docusaurus/Link';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import type {Props} from '@theme/TOCItems/Tree';
 import {EMOJI_MAP} from '../../../plugins/emoji-map';
 
@@ -16,15 +17,15 @@ function extractEmoji(html: string): {emoji: string | null; text: string} {
   return {emoji: match[0], text: html.replace(match[0], '').trim()};
 }
 
-function emojiImg(emoji: string): string {
-  const {src, alt, id} = EMOJI_MAP[emoji]!;
-  const cn = id ?? alt;
-  const cls = cn ? `custom-emoji custom-emoji--${cn}` : 'custom-emoji';
-  return `<img src="${src}" alt="${alt}" class="${cls}" loading="lazy" decoding="async" />`;
+function emojiImg(emoji: string, baseUrl: string): string {
+  const {src, id} = EMOJI_MAP[emoji]!;
+  const cls = id ? `custom-emoji custom-emoji--${id}` : 'custom-emoji';
+  const resolvedSrc = `${baseUrl}${src.startsWith('/') ? src.slice(1) : src}`;
+  return `<img src="${resolvedSrc}" alt="" class="${cls}" loading="lazy" decoding="async" />`;
 }
 
-function replaceEmojis(html: string): string {
-  return html.replace(EMOJI_PATTERN, (m) => emojiImg(m));
+function replaceEmojis(html: string, baseUrl: string): string {
+  return html.replace(EMOJI_PATTERN, (m) => emojiImg(m, baseUrl));
 }
 
 const ACTIVE_CLS = 'table-of-contents__link--active';
@@ -371,25 +372,27 @@ function useSlider(rootRef: React.RefObject<HTMLUListElement | null>) {
 function TOCItemTree({toc, className, linkClassName, isChild}: Props): ReactNode {
   if (!toc.length) return null;
   const ulRef = useRef<HTMLUListElement>(null);
+  const {siteConfig} = useDocusaurusContext();
+  const baseUrl = siteConfig.baseUrl;
   if (!isChild) useSlider(ulRef);
 
   return (
     <ul ref={isChild ? undefined : ulRef} className={isChild ? 'toc-timeline__children' : `${className ?? ''} toc-timeline`}>
       {toc.map((heading) => {
-        const {emoji, text} = extractEmoji(heading.value);
+        const {emoji, text} = isChild ? {emoji: null, text: heading.value} : extractEmoji(heading.value);
         const hasChildren = heading.children.length > 0;
         return (
           <li key={heading.id} className={`toc-timeline__item${hasChildren ? ' toc-timeline__item--parent' : ''}`}>
             <div className="toc-timeline__row">
               <span className="toc-timeline__marker">
                 {emoji
-                  ? <span dangerouslySetInnerHTML={{__html: emojiImg(emoji)}} />
+                  ? <span dangerouslySetInnerHTML={{__html: emojiImg(emoji, baseUrl)}} />
                   : <span className="toc-timeline__dot" />}
               </span>
               <Link
                 to={`#${heading.id}`}
                 className={`${linkClassName ?? ''} toc-timeline__link`}
-                dangerouslySetInnerHTML={{__html: replaceEmojis(text)}}
+                dangerouslySetInnerHTML={{__html: replaceEmojis(text, baseUrl)}}
               />
             </div>
             {hasChildren && (

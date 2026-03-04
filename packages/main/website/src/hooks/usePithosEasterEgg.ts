@@ -2,8 +2,9 @@
  * Hook for the Pithos jar easter egg.
  *
  * Tracks clicks on a target element. The first 2 clicks are silent.
- * From click 3 onward, a countdown toast appears (à la Android dev mode).
- * At click 5, shows "Vous êtes en mode développeur !" then triggers
+ * From click 3 onward, a countdown toast appears (à la Android dev mode):
+ *   tap 3 → "4 taps away", tap 4 → "3", tap 5 → "2", tap 6 → "1".
+ * At click 7, "Developer mode has been enabled." then triggers
  * the hero transition. Once discovered, a single click re-opens.
  */
 
@@ -27,7 +28,7 @@ interface UsePithosEasterEggReturn {
   close: () => void;
 }
 
-const CLICK_THRESHOLD = 5;
+const CLICK_THRESHOLD = 7;
 const SILENT_CLICKS = 2;
 const DEV_MODE_MESSAGE_MS = 1200;
 
@@ -58,7 +59,7 @@ export function usePithosEasterEgg(): UsePithosEasterEggReturn {
     const count = clickCountRef.current;
 
     if (count > SILENT_CLICKS && count < CLICK_THRESHOLD) {
-      // Show remaining clicks
+      // Show remaining clicks (Android-style: tap 3 → "4 taps away" … tap 6 → "1 tap away")
       setDevModeCountdown(CLICK_THRESHOLD - count);
     }
 

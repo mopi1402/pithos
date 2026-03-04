@@ -1,0 +1,26 @@
+{
+  "title": {
+    "message": "Pithos",
+    "description": "The title in the navbar"
+  },
+  "item.label.Documentation": {
+    "message": "Documentation",
+    "description": "Navbar item with label Documentation"
+  },
+  "item.label.API Reference": {
+    "message": "Référence API",
+    "description": "Navbar item with label API Reference"
+  },
+  "item.label.Use Cases": {
+    "message": "Cas d'usage",
+    "description": "Navbar item with label Use Cases"
+  },
+  "item.label.Comparisons": {
+    "message": "Comparaisons",
+    "description": "Navbar item with label Comparisons"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}

@@ -8,6 +8,8 @@ slug: core-philosophy
 import ResponsiveMermaid from "@site/src/components/shared/ResponsiveMermaid";
 import InvisibleList from "@site/src/components/shared/InvisibleList";
 import MarbleQuote from "@site/src/components/shared/MarbleQuote";
+import { DashedSeparator } from '@site/src/components/shared/DashedSeparator';
+import { TableConfig } from '@site/src/components/shared/Table/TableConfigContext';
 
 # 👁️ Core Philosophy
 
@@ -41,21 +43,35 @@ User experience is **always** the #1 criterion:
 
 ### 2. Developer Experience (DX) - Secondary Priority
 
-**Only then** do we maximize developer experience:
+Maximizing user experience doesn't mean sacrificing the developer's. On the contrary, Pithos tries to deliver the best of both worlds:
 
 - Intuitive and consistent API
 - Clear documentation
 - Explicit error messages
 - Quality TypeScript typing
 
-> _The best API is the one you don't need to look up twice._
+> _The best API is the one you understand at first glance._
+
+<DashedSeparator noMarginBottom />
 
 #### Crucial Distinction: Free DX vs Paid DX
 
-| DX Type                                               | Runtime Cost | Decision          |
-| ----------------------------------------------------- | ------------ | ----------------- |
-| **Free DX**: types, naming, API design, documentation | 0            | ✅ Always welcome |
-| **Paid DX**: runtime abstractions, magic, wrappers    | > 0          | ❌ Unacceptable   |
+| DX Type                                               | Runtime Cost | Decision              |
+| ----------------------------------------------------- | ------------ | --------------------- |
+| **Free DX**: types, naming, API design, documentation | 0            | ✅ Always welcome     |
+| **Paid DX**: runtime abstractions, magic, wrappers    | > 0          | ⚠️ Opt-in only       |
+
+### 3. Pragmatism - The Art of Smart Compromise
+
+A certain level of pragmatism guides our choices:
+
+| !Context                                       | Approach                                      |
+| ---------------------------------------------- | --------------------------------------------- |
+| **Impacts bundle or types**                     | Prioritize simplicity, no compromise          |
+| **Where V8 optimizes well**                     | Smart compromise to improve DX                |
+| **Negligible cost (runtime, bundle, types)**    | Improve DX without hesitation                 |
+
+As a general rule, when a choice isn't too far from our philosophy, we prefer to let the developer decide. They get full control over the impact on performance or final bundle size.
 
 **Concrete example: auto-curry**
 
@@ -63,38 +79,28 @@ User experience is **always** the #1 criterion:
 // "Magic" auto-curry (Remeda style)
 map(array, fn); // Detects 2 args → data-first
 map(fn); // Detects 1 arg → returns curried function
-// 👎 Cost: runtime detection on EVERY call, wrappers, extra logic
+// ⚠️ Cost: runtime detection on every call, wrappers, extra logic
 
-// Pithos approach: data-first only
+// Pithos approach: data-first by default
 map(array, fn); // Standard, always data-first
 // For composition, use pipe() with explicit data-first calls
 pipe(array, arr => map(arr, fn));
-// 👍 Cost: 0, no runtime detection, crystal clear
+// ✅ Cost: 0, no runtime detection, crystal clear
 ```
 
-> _We don't impact 100% of users to slightly improve code readability._
+Auto-curry and its magic argument detection on every call are too far from Pithos's philosophy to be the default behavior. The CPU cost is negligible, but the wrappers bloat the bundle and complicate types.
 
-**The rule is simple**: if a DX improvement has a runtime cost, however minimal, it has no place in Pithos. The end user should never pay for developer comfort.
+Classic currying, however, remains a valuable tool for functional composition. That's why Pithos provides [`curry()`](/api/arkhe/function/curry/): an opt-in, zero-cost compromise. The curried function is created once, with no runtime detection.
 
 :::note
-Pithos provides a [`curry()`](/api/arkhe/function/curry/) utility for users who want to create curried functions. Unlike auto-curry (which has runtime detection cost), [`curry()`](/api/arkhe/function/curry/) is a zero-cost abstraction: the choice is made at build time, not at runtime.
+Currying naturally implies a data-last style, unlike the [data-first convention](/guide/contribution/design-principles/data-first-paradigm/) used throughout Pithos. It's a conscious choice you make when you opt for functional composition.
 :::
-
-### 3. Pragmatism - The Art of Smart Compromise
-
-A certain level of pragmatism guides our choices:
-
-| !Context                    | Approach                              |
-| --------------------------- | ------------------------------------- |
-| **Where it really matters** | Prioritize performance, no compromise |
-| **Where V8 optimizes well** | Smart compromise to improve DX        |
-| **Negligible cost**         | Improve DX without hesitation         |
 
 ---
 
 ## TypeScript: The Best of Both Worlds
 
-TypeScript is the ideal choice for Pithos because it perfectly embodies our philosophy:
+[TypeScript](https://www.typescriptlang.org/) is the ideal choice for Pithos because it perfectly embodies our [TypeScript-first philosophy](/guide/contribution/design-principles/typescript-first/):
 
 - **Improves DX**: autocompletion, refactoring, integrated documentation
 - **Zero runtime cost**: types disappear at transpilation
@@ -143,18 +149,18 @@ Some things **cannot** be predicted and must be handled at runtime:
 
 ---
 
-## Red Lines
+## Our Standards
 
-Some compromises are **out of the question**:
+Some compromises are **non-negotiable**:
 
 <InvisibleList>
-❌ Bloated bundles for developer comfort  
-❌ Too many abstractions / overloads weighing on runtime  
+❌ Excessively bloated bundles for developer comfort  
+❌ Superfluous abstractions that weigh on runtime  
 ❌ Sacrificing client-side performance for a "prettier" API
 </InvisibleList>
 
 :::warning[Server-Side (Node.js)]
-Performance matters even more server-side. Utilities like Arkhe and Kanon can be called thousands of times per request. Slow functions accumulate and block the event loop, impacting all users. That's why we obsess over benchmarks.
+Performance matters even more server-side. Utilities like Arkhe and Kanon can be called thousands of times per request. Slow functions accumulate and block the [event loop](https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick), penalizing all users. That's why we place great importance on performance, as our [benchmarks](/comparisons/arkhe/performances/) demonstrate.
 :::
 
 ---
@@ -171,32 +177,20 @@ UX > DX > Code elegance
 
 ---
 
-## Decision Guide
-
-When a technical choice arises, ask these questions in order:
-
-1. **Does it degrade user experience?**
-   → If yes: refuse, find another solution
-
-2. **Does it significantly improve DX?**
-   → If yes: evaluate the real cost (bundle, runtime)
-
-3. **Is the cost negligible or well optimized by V8?**
-   → If yes: accept the compromise
-   → If no: prioritize performance
-
----
-
 ## What Pithos is NOT
 
 To avoid misunderstandings, let's be crystal clear about what Pithos **doesn't try to be**:
 
+<TableConfig noEllipsis wrapAll columns={{ "Pithos is NOT...": { width: "50%", minWidth: "200px", maxWidth: "100px" } }}>
+
 | !Pithos is NOT...                      | Because...                                                                   |
 | -------------------------------------- | ---------------------------------------------------------------------------- |
-| **A lodash clone**                     | We learn from lodash, but we're not bound by its legacy constraints          |
+| **A lodash clone**                     | We used Lodash from its early days, but now offer utilities more aligned with modern JavaScript's evolution |
 | **A "safe" library that never throws** | Explicit errors > silent failures. Masking problems leads to bigger problems |
 | **A library for every use case**       | Quality over quantity. Every addition must earn its place                    |
 | **A defensive library**                | We trust TypeScript at compile-time, not runtime type checks                 |
+
+</TableConfig>
 
 ### On Edge Cases
 
@@ -228,7 +222,7 @@ Pithos deliberately steps away from legacy constraints:
 The goal is the best balance between modern web practices and performance, not perfect interchangeability with lodash.
 
 :::note[Right tool for the job]
-If you need 100% lodash compatibility, [ES Toolkit](https://es-toolkit.dev/) offers that.
+If you need 100% lodash compatibility, <a href="https://es-toolkit.dev/" rel="nofollow">ES Toolkit</a> offers that.
 
 Pithos deliberately breaks from lodash conventions when modern JavaScript offers better patterns. No legacy baggage, no compatibility chains; just [**maximum performance**](/comparisons/arkhe/performances/), [**minimal bundles**](/comparisons/arkhe/bundle-size/), and the best solution for today's web.
 :::

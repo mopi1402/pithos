@@ -58,7 +58,7 @@ These are actual validation scenarios you'll encounter in production:
 
 **Kanon uses pure functions. Zod uses classes.** This architectural difference is why Kanon tree-shakes perfectly.
 
-```typescript
+```typescript links="string:/api/kanon/schemas/primitives/string,object:/api/kanon/schemas/composites/object,parse:/api/kanon/core/parse"
 // ✅ Kanon - each function is standalone
 // Only string() and object() end up in your bundle
 import { string, object, parse } from "pithos/kanon";

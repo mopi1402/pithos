@@ -7,6 +7,7 @@ slug: practical-example
 ---
 
 import { DashboardPlayground } from '@site/src/components/playground/DashboardPlayground';
+import ModuleName from "@site/src/components/shared/badges/ModuleName";
 
 # 🗜️ Practical Example
 
@@ -14,9 +15,9 @@ Let's build something real: a **user dashboard loader** that fetches data from a
 
 This example combines:
 
-- **Zygos** → Safe async operations with `ResultAsync`
-- **Kanon** → Schema validation
-- **Arkhe** → Data transformation utilities
+- <ModuleName name="Zygos" to="/api/zygos/result/ResultAsync">Safe async operations with `ResultAsync`</ModuleName>
+- <ModuleName name="Kanon" to="/guide/modules/kanon/">Schema validation</ModuleName>
+- <ModuleName name="Arkhe" to="/guide/modules/arkhe/">Data transformation utilities</ModuleName>
 
 ---
 
@@ -32,7 +33,7 @@ You need to load a user's dashboard data from an API. The response might be malf
 
 First, define what valid data looks like using Kanon:
 
-```typescript
+```typescript links="object:/api/kanon/schemas/composites/object,string:/api/kanon/schemas/primitives/string,number:/api/kanon/schemas/primitives/number,boolean:/api/kanon/schemas/primitives/boolean,array:/api/kanon/schemas/composites/array,optional:/api/kanon/schemas/wrappers/optional,parse:/api/kanon/core/parse"
 // src/lib/schemas.ts
 import {
   object,
@@ -101,7 +102,7 @@ const UserSchema = z.object({
 
 Wrap fetch operations with Zygos for safe error handling:
 
-```typescript
+```typescript links="ResultAsync:/api/zygos/result/ResultAsync,errAsync:/api/zygos/result/errAsync,okAsync:/api/zygos/result/okAsync"
 // src/lib/api.ts
 import {
   ResultAsync,
@@ -127,7 +128,7 @@ const safeJson = <T>(response: Response) =>
 
 Use Arkhe utilities to transform the validated data:
 
-```typescript
+```typescript links="groupBy:/api/arkhe/array/groupBy,capitalize:/api/arkhe/string/capitalize"
 // src/lib/transformers.ts
 import { groupBy } from "pithos/arkhe/array/group-by";
 import { capitalize } from "pithos/arkhe/string/capitalize";

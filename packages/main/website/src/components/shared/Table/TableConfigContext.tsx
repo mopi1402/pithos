@@ -12,6 +12,7 @@ export interface TableConfigValue {
   stickyHeader?: boolean;
   stickyHeaderOffset?: number;
   noEllipsis?: boolean;
+  wrapAll?: boolean;
 }
 
 const TableConfigContext = createContext<TableConfigValue | null>(null);
@@ -21,6 +22,7 @@ interface TableConfigProps {
   stickyHeader?: boolean;
   stickyHeaderOffset?: number;
   noEllipsis?: boolean;
+  wrapAll?: boolean;
   children: ReactNode;
 }
 
@@ -38,7 +40,7 @@ interface TableConfigProps {
  * </TableConfig>
  * ```
  */
-export function TableConfig({ columns, stickyHeader, stickyHeaderOffset, noEllipsis, children }: TableConfigProps): React.ReactElement {
+export function TableConfig({ columns, stickyHeader, stickyHeaderOffset, noEllipsis, wrapAll, children }: TableConfigProps): React.ReactElement {
   const parentConfig = useContext(TableConfigContext);
   
   // Merge with parent config (child values override parent)
@@ -48,6 +50,7 @@ export function TableConfig({ columns, stickyHeader, stickyHeaderOffset, noEllip
     ...(stickyHeader !== undefined && { stickyHeader }),
     ...(stickyHeaderOffset !== undefined && { stickyHeaderOffset }),
     ...(noEllipsis !== undefined && { noEllipsis }),
+    ...(wrapAll !== undefined && { wrapAll }),
   };
   
   return (

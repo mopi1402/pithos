@@ -224,6 +224,7 @@ export function MDXTable({ children, className }: MDXTableProps): ReactElement {
       stickyHeader={tableConfig?.stickyHeader}
       stickyHeaderOffset={tableConfig?.stickyHeaderOffset}
       noEllipsis={tableConfig?.noEllipsis}
+      wrapAll={tableConfig?.wrapAll}
     />
   );
 }

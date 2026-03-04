@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import clsx from "clsx";
 import Link from "@docusaurus/Link";
 import { useHistory } from "@docusaurus/router";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 import Heading from "@theme/Heading";
 import styles from "./styles.module.css";
 import { GREEK_LETTERS } from "@site/src/data/homepage/greekLetters";
@@ -25,13 +26,14 @@ function Module({ name, description, linkText, linkTo }: ModuleItem) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [letters, setLetters] = useState<BurstLetter[]>([]);
   const history = useHistory();
+  const resolvedLinkTo = useBaseUrl(linkTo);
 
   const handleCardClick = (e: MouseEvent<HTMLDivElement>) => {
     // Don't navigate if clicking on the button (it has its own link)
     if ((e.target as HTMLElement).closest("a")) {
       return;
     }
-    history.push(linkTo);
+    history.push(resolvedLinkTo);
   };
 
   const triggerBurst = () => {
@@ -140,7 +142,7 @@ function Module({ name, description, linkText, linkTo }: ModuleItem) {
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
-            history.push(linkTo);
+            history.push(resolvedLinkTo);
           }
         }}
       >

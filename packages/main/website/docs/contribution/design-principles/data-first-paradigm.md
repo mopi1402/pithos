@@ -45,7 +45,7 @@ filter((n) => n > 0)(numbers);
 
 For functional composition, Pithos also supports the pipe pattern:
 
-```typescript
+```typescript links="pipe:/api/arkhe/function/pipe"
 import { pipe } from "pithos/arkhe/function/pipe";
 import { map, filter, take } from "pithos/arkhe/array";
 

@@ -2,6 +2,7 @@ import type { ReactNode, MouseEvent } from "react";
 import clsx from "clsx";
 import Link from "@docusaurus/Link";
 import { useHistory } from "@docusaurus/router";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 import Heading from "@theme/Heading";
 import { translate } from "@docusaurus/Translate";
 import { Picture } from "@site/src/components/shared/Picture";
@@ -72,11 +73,12 @@ export function ModuleCard({
   comparisonKey,
 }: ModuleItem): ReactNode {
   const history = useHistory();
+  const resolvedDocLink = useBaseUrl(docLink);
   const comparison = comparisonKey ? comparisons[comparisonKey] : null;
 
   const handleCardClick = (e: MouseEvent<HTMLDivElement>) => {
     if ((e.target as HTMLElement).closest("a")) return;
-    history.push(docLink);
+    history.push(resolvedDocLink);
   };
 
   return (

@@ -24,6 +24,11 @@
       "name": "sphalma",
       "enabled": true,
       "description": "Error handling utilities"
+    },
+    {
+      "name": "bridges",
+      "enabled": true,
+      "description": "Bridge functions between modules"
     }
   ]
 }

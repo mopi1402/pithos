@@ -7,8 +7,9 @@ description: Pithos is a modern TypeScript utilities library and Lodash alternat
 
 import ModuleName from "@site/src/components/shared/badges/ModuleName";
 import InvisibleList from "@site/src/components/shared/InvisibleList";
+import Emoji from "@site/src/components/shared/Emoji";
 
-# <span style={{display: 'inline-flex', alignItems: 'center', gap: '0.2em'}}><img src="/img/emoji/pithos.webp" alt="Pithos logo" style={{height: '1.2em'}} /> Pithos</span>
+# <span style={{display: 'inline-flex', alignItems: 'center', gap: '0.2em'}}><Emoji src="/img/emoji/pithos.webp" alt="Pithos logo" style={{height: '1.2em'}} /> Pithos</span>
 
 ## Why this jar exists
 
@@ -18,7 +19,7 @@ Built as a unified alternative to Lodash, Zod, and Neverthrow with zero dependen
 :::info From Utils to Ecosystem
 Pithos started as a utility library, then grew into a complete ecosystem by merging two standalone projects: **Kanon** (schema validation) and **Zygos** (functional error handling).
 
-One unified philosophy: **trust TypeScript at compile-time, validate at boundaries**.
+One unified philosophy: **[trust TypeScript at compile-time, validate at boundaries](/guide/contribution/design-principles/error-handling/)**.
 :::
 
 ---
@@ -26,7 +27,7 @@ One unified philosophy: **trust TypeScript at compile-time, validate at boundari
 ## The problems that sparked it
 
 - "Where did I put that utility again?"
-- Rewriting logic because digging through old repos is slower.
+- Code constantly rewritten, never truly battle-tested.
 - Great snippets scattered across projects, never improving.
 - Fear of supply-chain surprises from external dependencies.
 

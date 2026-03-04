@@ -1,0 +1,22 @@
+{
+  "version.label": {
+    "message": "Suivant",
+    "description": "The label for version current"
+  },
+  "sidebar.comparisonsSidebar.category.Arkhe": {
+    "message": "Arkhe",
+    "description": "The label for category 'Arkhe' in sidebar 'comparisonsSidebar'"
+  },
+  "sidebar.comparisonsSidebar.category.Kanon": {
+    "message": "Kanon",
+    "description": "The label for category 'Kanon' in sidebar 'comparisonsSidebar'"
+  },
+  "sidebar.comparisonsSidebar.category.Taphos": {
+    "message": "Taphos",
+    "description": "The label for category 'Taphos' in sidebar 'comparisonsSidebar'"
+  },
+  "sidebar.comparisonsSidebar.category.Zygos": {
+    "message": "Zygos",
+    "description": "The label for category 'Zygos' in sidebar 'comparisonsSidebar'"
+  }
+}

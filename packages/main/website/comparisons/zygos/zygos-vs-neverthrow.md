@@ -55,7 +55,7 @@ Zygos Result is **<ZygosSizeHighlight type="full" />** than Neverthrow (gzipped)
 
 For detailed per-module comparisons with auto-generated data, see the [Zygos bundle size comparison](./bundle-size.md).
 
-```typescript
+```typescript links="ok:/api/zygos/result/ok,err:/api/zygos/result/err,ResultAsync:/api/zygos/result/ResultAsync"
 // Zygos: Result + ResultAsync
 import { ok, err, Result } from "pithos/zygos/result/result";
 import { ResultAsync } from "pithos/zygos/result/result-async";
@@ -83,7 +83,7 @@ For detailed benchmark results with auto-generated data, see the [Zygos performa
 
 Zygos is a drop-in replacement. Every Result and ResultAsync method works identically:
 
-```typescript
+```typescript links="ok:/api/zygos/result/ok,err:/api/zygos/result/err,safeTry:/api/zygos/result/safeTry,ResultAsync:/api/zygos/result/ResultAsync,okAsync:/api/zygos/result/okAsync,errAsync:/api/zygos/result/errAsync"
 // Just swap the import, zero code changes
 import { ok, err, Result, safeTry } from "pithos/zygos/result/result";
 import { ResultAsync, okAsync, errAsync } from "pithos/zygos/result/result-async";
@@ -112,7 +112,7 @@ For the complete compatibility matrix, see the [Zygos ↔ Neverthrow interoperab
 
 Convert between Result and fp-ts types without manual mapping:
 
-```typescript
+```typescript links="fromOption:/api/zygos/result/fromOption,fromEither:/api/zygos/result/fromEither,toEither:/api/zygos/result/toEither"
 import { fromOption, fromEither, toEither } from "pithos/zygos/result/result";
 
 // Option → Result
@@ -131,7 +131,7 @@ const either = toEither(ok(42)); // { _tag: "Right", right: 42 }
 
 Zygos provides Option, Either, Task, and TaskEither, lightweight implementations compatible with fp-ts:
 
-```typescript
+```typescript links="some:/api/zygos/option/some,none:/api/zygos/option/none,fromNullable:/api/zygos/option/fromNullable"
 // Option: explicit absence (no null/undefined)
 import { some, none, fromNullable } from "pithos/zygos/option";
 
@@ -153,7 +153,7 @@ Neverthrow uses `any` in some internal types. Zygos uses `unknown` throughout, p
 
 Simplified async error handling without generators:
 
-```typescript
+```typescript links="safeAsyncTry:/api/zygos/result/safeAsyncTry"
 import { safeAsyncTry } from "pithos/zygos/result/result";
 
 const result = await safeAsyncTry(() => fetch("/api/users/123").then(r => r.json()));

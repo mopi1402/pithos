@@ -10,7 +10,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("/fonts/CormorantGaramond-Bold.subset.woff2") format("woff2");
+  src: url("../../static/fonts/CormorantGaramond-Bold.subset.woff2") format("woff2");
 }
 
 /* You can override the default Infima variables here. */
@@ -539,7 +539,7 @@ div.container div.row>div.col {
   background-color: var(--ifm-color-primary);
 }
 
-.plugin-id-api .theme-doc-sidebar-item-category-level-1.menu__list-item>.menu__list-item-collapsible {
+.plugin-id-api .theme-doc-sidebar-item-category-level-1.menu__list-item:not(.sidebar-bridges)>.menu__list-item-collapsible {
   font-family: var(--greek-font), sans-serif;
   text-transform: uppercase;
 

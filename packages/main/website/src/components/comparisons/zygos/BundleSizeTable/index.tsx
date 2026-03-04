@@ -298,9 +298,14 @@ export function ZygosSizeHighlight({
   const ratio = getRatio(nev, zygos);
   const zygosSize = formatBytes(zygos.gzipBytes);
   const nevSize = formatBytes(nev.gzipBytes);
+  const smaller = translate({
+    id: "zygos.sizeHighlight.smaller",
+    message: "smaller",
+    description: "Label for bundle size comparison (e.g. '2.6x smaller')",
+  });
 
   if (type === "ratio") {
-    return <span>{ratio} smaller</span>;
+    return <span>{ratio} {smaller}</span>;
   }
   if (type === "zygos-size") {
     return <span>~{zygosSize}</span>;
@@ -312,5 +317,5 @@ export function ZygosSizeHighlight({
     return <span>~{zygosSize} vs ~{nevSize}</span>;
   }
   // full
-  return <span>{ratio} smaller (~{zygosSize} vs ~{nevSize})</span>;
+  return <span>{ratio} {smaller} (~{zygosSize} vs ~{nevSize})</span>;
 }

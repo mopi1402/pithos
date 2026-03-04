@@ -1,0 +1,30 @@
+{
+  "version.label": {
+    "message": "Suivant",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Basics": {
+    "message": "Les bases",
+    "description": "The label for category 'Basics' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Modules": {
+    "message": "Modules",
+    "description": "The label for category 'Modules' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Contribution": {
+    "message": "Contribution",
+    "description": "The label for category 'Contribution' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Design": {
+    "message": "Conception",
+    "description": "The label for category 'Design' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Kanon": {
+    "message": "Kanon",
+    "description": "The label for category 'Kanon' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Kanon.link.generated-index.description": {
+    "message": "Plongée dans l'architecture de Kanon, son évolution de V1 à V3, ses innovations de conception et ses décisions architecturales.",
+    "description": "The generated-index page description for category 'Kanon' in sidebar 'tutorialSidebar'"
+  }
+}

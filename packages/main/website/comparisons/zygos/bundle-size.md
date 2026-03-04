@@ -36,7 +36,7 @@ Individual module sizes, minified + gzipped. Zygos is the baseline.
 
 Zygos is **100% API compatible** with Neverthrow, making migration seamless:
 
-```typescript
+```typescript links="ok:/api/zygos/result/ok,err:/api/zygos/result/err,ResultAsync:/api/zygos/result/ResultAsync"
 // Change this:
 import { ok, err, Result, ResultAsync } from "neverthrow";
 
@@ -59,7 +59,7 @@ import { ResultAsync } from "pithos/zygos/result/result-async";
 
 While fp-ts relies on `pipe` and module-level functions, Zygos uses a fluent chainable API that feels more natural in TypeScript:
 
-```typescript
+```typescript links="ok:/api/zygos/result/ok"
 // fp-ts style
 import { pipe } from "fp-ts/function";
 import * as E from "fp-ts/Either";

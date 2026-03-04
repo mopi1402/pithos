@@ -1,8 +1,8 @@
 ---
 sidebar_label: "Interoperability"
 sidebar_position: 3
-title: "Zygos ↔ Neverthrow Interoperability"
-description: "Compare Zygos Result and Neverthrow APIs: 100% compatible, drop-in replacement, with additional features"
+title: "Zygos Interoperability — Neverthrow & fp-ts"
+description: "Zygos is 100% compatible with both Neverthrow (Result, ResultAsync) and fp-ts (Either, Task, TaskEither). Drop-in replacement, zero code changes."
 ---
 
 import { Accordion } from '@site/src/components/shared/Accordion';
@@ -14,51 +14,39 @@ import { RelatedLinks } from '@site/src/components/shared/RelatedLinks';
 import { ZygosSizeHighlight } from '@site/src/components/comparisons/zygos/BundleSizeTable';
 
 
-# ⛓️‍💥 Zygos ↔ Neverthrow Interoperability
+# ⛓️‍💥 Zygos Interoperability
 
-Real compatibility data. No guesswork. **Analyzed against Neverthrow 8.2.0.**
+Zygos replaces two libraries with a single, lighter package. Both <a href="https://github.com/supermacro/neverthrow" rel="nofollow">Neverthrow</a> and <a href="https://github.com/gcanti/fp-ts" rel="nofollow">fp-ts</a> users can switch by changing imports — no code changes required.
 
 ## TL;DR
 
-**100% API compatible.** Zygos Result is a drop-in replacement for Neverthrow with identical API and behavior.
-
-| Metric | Value |
-|--------|-------|
-| **Result API** | 100% compatible |
-| **ResultAsync API** | 100% compatible |
-| **Bundle Size** | <ZygosSizeHighlight type="full" /> |
-| **Migration Effort** | Import change only |
+| Library | Zygos replacement | Compatibility | Migration |
+|---------|-------------------|---------------|-----------|
+| **Neverthrow** | Result, ResultAsync | 100% API compatible | Import change only |
+| **fp-ts** | Either, Task, TaskEither | 100% API compatible | Import change only |
 
 :::tip[Bottom line]
-Change your import from `neverthrow` to `pithos/zygos/result/result` and you're done. **Zero code changes required.**
+Swap your imports. Your code works as-is. Zygos is <ZygosSizeHighlight type="full" /> than Neverthrow, with zero `any` types.
 :::
 
 ---
 
-## About Zygos Result
+## Neverthrow — Result & ResultAsync
 
-Zygos Result is a micro implementation of Neverthrow's Result type that is:
-- **<ZygosSizeHighlight type="full" />** than Neverthrow 8.2.0
-- **100% API compatible** - can be seamlessly replaced without code changes
-- **Zero `any` types** for better type safety
+Zygos Result is a micro implementation of Neverthrow's Result type: **<ZygosSizeHighlight type="full" />**, 100% API compatible, zero `any` types.
 
 ```typescript
-// Just swap your import
 // Before
 import { ok, err, Result, ResultAsync } from "neverthrow";
 
 // After
 import { ok, err, Result } from "pithos/zygos/result/result";
 import { ResultAsync } from "pithos/zygos/result/result-async";
-
-// Your existing code works as-is
 ```
 
----
+### Full API Compatibility
 
-## ✅ Full API Compatibility
-
-Click to expand each category and see the supported features:
+Click to expand each category:
 
 <Accordion title="Result Constructors (100%)" badge="2/2">
 
@@ -79,11 +67,11 @@ const failure: Result<number, string> = err("Something went wrong");
 
 ```typescript
 const result = ok(5)
-  .map(x => x * 2)           // Transform success value
-  .mapErr(e => `Error: ${e}`) // Transform error value
-  .andThen(x => x > 0 ? ok(x) : err("negative")); // Chain operations
+  .map(x => x * 2)
+  .mapErr(e => `Error: ${e}`)
+  .andThen(x => x > 0 ? ok(x) : err("negative"));
 
-const value = result.unwrapOr(0); // Get value or default
+const value = result.unwrapOr(0);
 
 const message = result.match(
   value => `Success: ${value}`,
@@ -95,10 +83,9 @@ const message = result.match(
 
 <Accordion title="Result Static Methods (100%)" badge="2/2">
 
-<Code>Result.fromThrowable()</Code>, <Code>Result.combine()</Code>
+Create Results from throwable functions and combine multiple Results into one. <Code>Result.fromThrowable()</Code>, <Code>Result.combine()</Code>
 
 ```typescript
-// Wrap throwing functions
 const safeParse = Result.fromThrowable(
   JSON.parse,
   (error) => `Parse error: ${error}`
@@ -107,9 +94,7 @@ const safeParse = Result.fromThrowable(
 const result = safeParse('{"valid": "json"}'); // Ok({valid: "json"})
 const error = safeParse('invalid'); // Err("Parse error: ...")
 
-// Combine multiple Results
 const combined = Result.combine([ok(1), ok(2), ok(3)]); // Ok([1, 2, 3])
-const withError = Result.combine([ok(1), err("fail"), ok(3)]); // Err("fail")
 ```
 
 </Accordion>
@@ -136,13 +121,11 @@ const result = await okAsync(Promise.resolve(5))
   .map(x => x * 2)
   .andThen(x => okAsync(Promise.resolve(x.toString())));
 
-// Pattern matching
 const message = await result.match(
   value => `Success: ${value}`,
   error => `Error: ${error}`
 );
 
-// Fallback on error
 const withFallback = await errAsync("error")
   .orElse(() => okAsync("fallback"));
 ```
@@ -151,19 +134,16 @@ const withFallback = await errAsync("error")
 
 <Accordion title="ResultAsync Static Methods (100%)" badge="4/4">
 
-<Code>ResultAsync.fromPromise()</Code>, <Code>ResultAsync.fromSafePromise()</Code>, <Code>ResultAsync.fromThrowable()</Code>, <Code>ResultAsync.combine()</Code>
+Build async Results from promises, safe promises, throwable functions, and combine them. <Code>ResultAsync.fromPromise()</Code>, <Code>ResultAsync.fromSafePromise()</Code>, <Code>ResultAsync.fromThrowable()</Code>, <Code>ResultAsync.combine()</Code>
 
 ```typescript
-// From potentially failing Promise
 const result = ResultAsync.fromPromise(
   fetch('/api/data'),
   (error) => `Fetch failed: ${error}`
 );
 
-// From safe Promise (won't reject)
 const safe = ResultAsync.fromSafePromise(Promise.resolve(42));
 
-// Wrap async throwing functions
 const safeFetch = ResultAsync.fromThrowable(
   async (url: string) => {
     const res = await fetch(url);
@@ -172,7 +152,6 @@ const safeFetch = ResultAsync.fromThrowable(
   (error) => `Request failed: ${error}`
 );
 
-// Combine multiple async Results
 const combined = ResultAsync.combine([
   okAsync(1),
   okAsync(2),
@@ -184,18 +163,16 @@ const combined = ResultAsync.combine([
 
 <Accordion title="safeTry (100%)" badge="1/1">
 
-<Code>safeTry()</Code>
+Use generator syntax to write Result chains that look like imperative code, with early returns on errors. <Code>safeTry()</Code>
 
 ```typescript
 import { safeTry, ok, err } from "pithos/zygos/result/result";
 
-// With generator function
 const result = safeTry(function* () {
   yield err("validation failed");
   return ok(42);
 });
 
-// With direct function
 const direct = safeTry(() => ok(42));
 ```
 
@@ -203,17 +180,71 @@ const direct = safeTry(() => ok(42));
 
 ---
 
-## ✨ What Zygos adds
+## fp-ts — Either, Task, TaskEither
 
-Beyond Neverthrow compatibility, Zygos brings unique features:
+Lightweight reimplementations of fp-ts monads, **100% API compatible**. Same functions, same signatures, smaller bundle.
+
+```typescript
+// Before
+import * as E from "fp-ts/Either";
+import * as T from "fp-ts/Task";
+import * as TE from "fp-ts/TaskEither";
+
+// After
+import * as E from "pithos/zygos/either";
+import * as T from "pithos/zygos/task";
+import * as TE from "pithos/zygos/task-either";
+```
+
+### Supported functions
+
+<TableConfig noEllipsis>
+
+| Module | Functions |
+|--------|-----------|
+| **Either** | `left`, `right`, `isLeft`, `isRight`, `map`, `mapLeft`, `flatMap`, `fold`, `match`, `getOrElse`, `orElse`, `fromOption`, `fromNullable`, `tryCatch`, `Do`, `bind`, `bindTo`, `apS` |
+| **Task** | `of`, `map`, `flatMap`, `ap` |
+| **TaskEither** | `left`, `right`, `tryCatch`, `fromEither`, `fromTask`, `fromOption`, `map`, `mapLeft`, `flatMap`, `chain`, `fold`, `match`, `getOrElse`, `orElse`, `swap` |
+
+</TableConfig>
+
+### Usage example
+
+```typescript
+import * as E from "pithos/zygos/either";
+import * as TE from "pithos/zygos/task-either";
+import { pipe } from "pithos/arkhe/function/pipe";
+
+// Either — same as fp-ts
+const result = pipe(
+  E.right(5),
+  E.map(x => x * 2),
+  E.flatMap(x => E.right(x + 1))
+);
+
+// TaskEither — async operations that can fail
+const fetchUser = pipe(
+  TE.tryCatch(
+    () => fetch("/api/user").then(r => r.json()),
+    () => "Network error"
+  ),
+  TE.map(user => user.name)
+);
+```
+
+---
+
+## ✨ Zygos-only features
+
+Beyond compatibility, Zygos adds features that neither Neverthrow nor fp-ts provide:
 
 <TableConfig noEllipsis>
 
 | Feature | Description |
 |---------|-------------|
 | 📦 **<ZygosSizeHighlight type="ratio" />** | <ZygosSizeHighlight type="sizes" /> |
-| 🔒 **Zero `any` Types** | Better type safety with `unknown` types |
-| 🔄 **fp-ts Bridges** | Convert to/from Option and Either |
+| 🔒 **Zero `any` types** | Better type safety with `unknown` types |
+| 🔄 **Result ↔ fp-ts bridges** | Convert between Result and Either/Option |
 | ⚡️ **safeAsyncTry** | Simplified async error handling |
 | 🎯 **combineWithAllErrors** | Collect all errors instead of stopping at first |
 
@@ -221,61 +252,41 @@ Beyond Neverthrow compatibility, Zygos brings unique features:
 
 <DashedSeparator noMarginBottom />
 
-### fp-ts Interoperability
+### Result ↔ fp-ts bridges
 
-Zygos provides bridges to convert between Result and fp-ts types:
+Zygos provides built-in converters between Result and fp-ts types, so you can mix both ecosystems in the same codebase without manual wrapping:
 
 ```typescript
-import { 
-  fromOption, 
-  fromEither, 
-  toEither,
-  ok, 
-  err 
-} from "pithos/zygos/result/result";
+import { fromOption, fromEither, toEither, ok, err } from "pithos/zygos/result/result";
 
 // Option → Result
-const someOption = { _tag: "Some", value: 42 };
-const noneOption = { _tag: "None" };
-
-const fromSome = fromOption(() => "No value")(someOption); // Ok(42)
-const fromNone = fromOption(() => "No value")(noneOption); // Err("No value")
+const fromSome = fromOption(() => "No value")({ _tag: "Some", value: 42 }); // Ok(42)
+const fromNone = fromOption(() => "No value")({ _tag: "None" });            // Err("No value")
 
 // Either → Result
-const rightEither = { _tag: "Right", right: 42 };
-const leftEither = { _tag: "Left", left: "error" };
-
-const fromRight = fromEither(rightEither); // Ok(42)
-const fromLeft = fromEither(leftEither);   // Err("error")
+const fromRight = fromEither({ _tag: "Right", right: 42 });  // Ok(42)
+const fromLeft = fromEither({ _tag: "Left", left: "error" }); // Err("error")
 
 // Result → Either
-const okResult = ok(42);
-const errResult = err("error");
-
-const toRight = toEither(okResult); // { _tag: "Right", right: 42 }
-const toLeft = toEither(errResult); // { _tag: "Left", left: "error" }
+const toRight = toEither(ok(42));       // { _tag: "Right", right: 42 }
+const toLeft = toEither(err("error"));  // { _tag: "Left", left: "error" }
 ```
 
 <DashedSeparator noMarginBottom />
 
 ### safeAsyncTry
 
-Simplified async error handling without generators:
+Handle async operations that might throw without needing generators or verbose `fromPromise` wrappers. One function call, one Result:
 
 ```typescript
 import { safeAsyncTry } from "pithos/zygos/result/result";
 
-const fetchUser = async (id: string) => {
-  const response = await fetch(`/api/users/${id}`);
-  return response.json();
-};
-
-const result = await safeAsyncTry(() => fetchUser("123"));
+const result = await safeAsyncTry(() => fetch("/api/user").then(r => r.json()));
 
 if (result.isOk()) {
-  console.log(result.value); // User data
+  console.log(result.value);
 } else {
-  console.log(result.error); // Error details
+  console.log(result.error);
 }
 ```
 
@@ -283,41 +294,39 @@ if (result.isOk()) {
 
 ### combineWithAllErrors
 
-Collect all errors instead of stopping at the first one:
+When validating multiple operations, `Result.combine` stops at the first error. `combineWithAllErrors` collects every failure so you can report them all at once:
 
 ```typescript
 import { ResultAsync, okAsync, errAsync } from "pithos/zygos/result/result-async";
 
-const results = [
+const combined = ResultAsync.combineWithAllErrors([
   okAsync(1),
   errAsync("error1"),
   okAsync(3),
   errAsync("error2")
-];
+]);
 
-const combined = ResultAsync.combineWithAllErrors(results);
 const resolved = await combined;
-// Err(["error1", "error2"]) - collects ALL errors
+// Err(["error1", "error2"]) — collects ALL errors
 ```
-
-<MigrationCTA module="Zygos" guideLink="/guide/modules/zygos/#migrating-from-neverthrow-or-fp-ts" guideDescription="install, swap imports, and start using additional features" />
 
 ---
 
-## Why choose Zygos over Neverthrow?
+## Why choose Zygos?
 
-| Aspect | Zygos | Neverthrow |
-|--------|-------|------------|
-| **Bundle Size** | <ZygosSizeHighlight type="zygos-size" /> (<ZygosSizeHighlight type="ratio" />) | <ZygosSizeHighlight type="nev-size" /> |
-| **Type Safety** | Zero `any` types | Uses `any` in some places |
-| **fp-ts Bridges** | ✅ fromOption, fromEither, toEither | ❌ |
-| **safeAsyncTry** | ✅ Simplified async handling | ❌ |
-| **combineWithAllErrors** | ✅ | ✅ |
-| **API Compatibility** | 100% drop-in replacement | - |
+| Aspect | Zygos | Neverthrow | fp-ts |
+|--------|-------|------------|-------|
+| **Bundle Size** | <ZygosSizeHighlight type="zygos-size" /> | <ZygosSizeHighlight type="nev-size" /> | ~50 kB+ |
+| **Type Safety** | Zero `any` types | Uses `any` in places | ✅ |
+| **Result + Either** | ✅ Both | Result only | Either only |
+| **Bridges** | ✅ Result ↔ Either/Option | ❌ | ❌ |
+| **Migration** | — | Import change only | Import change only |
 
 :::tip[Recommendation]
-If you're already using Neverthrow, switching to Zygos is straightforward: same API, smaller bundle, better types, and additional features. Just change your imports.
+Whether you're coming from Neverthrow or fp-ts, switching to Zygos is the same: change your imports, keep your code. You get a smaller bundle, better types, and both ecosystems in one package.
 :::
+
+<MigrationCTA module="Zygos" guideLink="/guide/modules/zygos/#migrating-from-neverthrow-or-fp-ts" guideDescription="install, swap imports, and start using additional features" />
 
 ---
 

@@ -43,6 +43,7 @@ export function generateRootIndex() {
         { name: "Zygos", logo: "/img/emoji/letter-z.webp", desc: "Result/Either types for error handling", link: "/api/zygos/" },
         { name: "Sphalma", logo: "/img/emoji/letter-s.webp", desc: "Typed error factories with error codes", link: "/api/sphalma/" },
         { name: "Taphos", logo: "/img/emoji/letter-t.webp", desc: "Legacy utilities (Lodash/Ramda compatibility)", link: "/api/taphos/" },
+        { name: "Bridges", logo: "", desc: "Bridge functions between modules (ensure, ensureAsync)", link: "/api/bridges/" },
     ];
 
     const cards = modules.map(m => `  <div className="col col--6" style={{marginBottom: '1rem'}}>
@@ -73,6 +74,16 @@ ${cards}
 
     fs.writeFileSync(path.join(OUTPUT, `index.${DOC_EXTENSION}`), rootIndex);
 }
+
+/** Sidebar positions for API modules. Bridges goes last. */
+const MODULE_POSITIONS: Record<string, number> = {
+    arkhe: 1,
+    kanon: 2,
+    sphalma: 3,
+    taphos: 4,
+    zygos: 5,
+    bridges: 99,
+};
 
 /**
  * Recursively generate _category_.json files with unique translation keys
@@ -120,6 +131,7 @@ export function generateIndexFiles() {
         zygos: "/img/emoji/letter-z.webp",
         sphalma: "/img/emoji/letter-s.webp",
         taphos: "/img/emoji/letter-t.webp",
+        bridges: "/img/emoji/letter-a.webp",
     };
 
     const modules = fs
@@ -131,6 +143,19 @@ export function generateIndexFiles() {
         const modulePath = path.join(OUTPUT, moduleName);
         const logo = moduleLogos[moduleName] ?? moduleLogos.arkhe;
         const displayName = moduleName.charAt(0).toUpperCase() + moduleName.slice(1);
+
+        // Write module-level _category_.json with position and optional className
+        const moduleCategoryMeta: Record<string, unknown> = {
+            label: displayName,
+            position: MODULE_POSITIONS[moduleName] ?? 50,
+        };
+        if (moduleName === "bridges") {
+            moduleCategoryMeta.className = "sidebar-bridges";
+        }
+        fs.writeFileSync(
+            path.join(modulePath, "_category_.json"),
+            JSON.stringify(moduleCategoryMeta, null, 2) + "\n"
+        );
 
         // Recursively generate _category_.json for all subdirectories
         generateCategoryFiles(modulePath, moduleName);
@@ -198,6 +223,7 @@ ${links.join("\n")}
         zygos: "API reference for Zygos, the Result/Either/Option types module of Pithos for typed error handling.",
         sphalma: "API reference for Sphalma, the typed error factory module of Pithos.",
         taphos: "API reference for Taphos, the legacy compatibility module of Pithos for Lodash and Ramda migration.",
+        bridges: "API reference for bridge functions connecting Pithos modules (ensure, ensureAsync).",
     };
 
         const moduleIndex = `---

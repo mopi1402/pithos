@@ -57,6 +57,7 @@ let extractor: Awaited<ReturnType<typeof pipeline>> | null = null;
 let entries: EmbeddingEntry[] = [];
 let isReady = false;
 let precomputedEmbeddings: PrecomputedEmbeddings | null = null;
+let workerBaseUrl = "/";
 
 // Cosine similarity
 function cosineSimilarity(a: number[], b: number[]): number {
@@ -77,7 +78,7 @@ function cosineSimilarity(a: number[], b: number[]): number {
  */
 async function loadPrecomputedEmbeddings(): Promise<PrecomputedEmbeddings | null> {
   try {
-    const response = await fetch("/use_cases/precomputed-embeddings.json");
+    const response = await fetch(`${workerBaseUrl}use_cases/precomputed-embeddings.json`);
     if (!response.ok) {
       return null;
     }
@@ -322,6 +323,7 @@ self.onmessage = async (event: MessageEvent) => {
     switch (type) {
       case "init":
         console.log(`[Embedding Worker] 🎬 Initialization requested`);
+        if (data.baseUrl) workerBaseUrl = data.baseUrl;
         await initModel();
         break;
 

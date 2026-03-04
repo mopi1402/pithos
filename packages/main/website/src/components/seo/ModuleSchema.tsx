@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "@docusaurus/Head";
 import packageJson from "../../../../../../package.json";
+import { REPO_URL } from "@site/src/constants/repo";
 
 interface ModuleSchemaProps {
   name: string;
@@ -19,7 +20,7 @@ export function ModuleSchema({ name, description, url }: ModuleSchemaProps) {
     applicationCategory: "DeveloperApplication",
     operatingSystem: "Cross-platform",
     programmingLanguage: "TypeScript",
-    codeRepository: "https://github.com/mopi1402/pithos",
+    codeRepository: REPO_URL,
     license: "https://opensource.org/licenses/MIT",
     description,
     url,

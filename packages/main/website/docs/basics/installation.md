@@ -21,6 +21,10 @@ Add Pithos to your project using your preferred package manager. The library is 
 
 Pithos ships zero runtime dependencies and ES modules only.
 
+:::note[No CDN?]
+Pithos is not available via CDN. The entire library is designed around granular imports and tree-shaking: a CDN would load all the code, negating Pithos's main advantage. Use a bundler to ship only what you need.
+:::
+
 ---
 
 ## TypeScript configuration
@@ -50,7 +54,7 @@ Pithos ships zero runtime dependencies and ES modules only.
 ## Tree-shaking and optimal imports
 
 - Import at function/module granularity to keep bundles small:
-  ```typescript
+  ```typescript links="chunk:/api/arkhe/array/chunk,parse:/api/kanon/core/parse,ok:/api/zygos/result/ok,err:/api/zygos/result/err"
   import { chunk } from "pithos/arkhe/array/chunk";
   import { parse } from "pithos/kanon";
   import { ok, err } from "pithos/zygos/result/result";
@@ -66,7 +70,7 @@ Pithos ships zero runtime dependencies and ES modules only.
 
 Works out of the box (ESM + package exports). Keep `build.target` at least `es2020` to avoid unnecessary downleveling.
 
-**Frameworks**: Pithos is framework-agnostic. It works with [React](https://react.dev/), [Vue](https://vuejs.org/), [Angular](https://angular.dev/), [Svelte](https://svelte.dev/), [Astro](https://astro.build/), vanilla JS, or any other JavaScript setup ([Node.js](https://nodejs.org/), [Deno](https://deno.com/), [Bun](https://bun.sh/), browser scripts...).
+**Frameworks**: Pithos is framework-agnostic. It works with [React](https://react.dev/), [Vue](https://vuejs.org/), [Angular](https://angular.dev/), [Svelte](https://svelte.dev/), [Astro](https://astro.build/), [Next.js](https://nextjs.org/), [Nuxt](https://nuxt.com/), vanilla JS, or any other JavaScript setup ([Node.js](https://nodejs.org/), [Deno](https://deno.com/), [Bun](https://bun.sh/), browser scripts...).
 
 ---
 

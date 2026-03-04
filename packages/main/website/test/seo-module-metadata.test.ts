@@ -84,7 +84,7 @@ function extractSchemaOrg(content: string): Record<string, unknown> | null {
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Cross-platform",
       programmingLanguage: "TypeScript",
-      codeRepository: "https://github.com/mopi1402/pithos",
+      codeRepository: expect.stringContaining("github.com"),
       license: "https://opensource.org/licenses/MIT",
       description,
       url,

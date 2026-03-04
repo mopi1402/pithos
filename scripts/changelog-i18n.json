@@ -1,0 +1,16 @@
+{
+  "en": {
+    "sidebar_label": "Changelog",
+    "title": "Changelog",
+    "description": "Release notes and version history for Pithos",
+    "heading": "# 📋 Changelog",
+    "intro": "All notable changes to this project will be documented in this file.\n\nThis project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)."
+  },
+  "fr": {
+    "sidebar_label": "Changelog",
+    "title": "Changelog",
+    "description": "Notes de version et historique des versions de Pithos",
+    "heading": "# 📋 Changelog",
+    "intro": "Tous les changements notables de ce projet seront documentés dans ce fichier.\n\nCe projet adhère au [Versionnage Sémantique](https://semver.org/spec/v2.0.0.html)."
+  }
+}

@@ -30,6 +30,7 @@ export const KEY_FIGURES: KeyFigure[] = [
     value: 100,
     suffix: "%",
     label: translate({ id: 'homepage.keyFigures.testCoverage', message: 'Test + Mutation coverage' }),
+    highlight: translate({ id: 'homepage.keyFigures.testCoverageDescription', message: '' }),
     link: "/guide/basics/testing-strategy",
   },
   {

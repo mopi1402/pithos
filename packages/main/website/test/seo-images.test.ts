@@ -118,6 +118,11 @@ for (const file of tsxFiles) {
   const content = readFileSync(file, "utf-8");
   // Skip the Picture component definition itself
   if (file.includes("Picture/index.tsx")) continue;
+  // Skip UI hint components — decorative images use alt="" intentionally (a11y best practice)
+  if (file.includes("CmdClickHint/")) continue;
+  // Skip theme overrides and UI chrome — these contain decorative images (logos, emojis)
+  // with intentional alt="" per a11y best practices. Only content components are checked.
+  if (file.includes("/theme/")) continue;
   for (const img of extractTsxImages(content)) {
     const key = `${img.src}::${file}`;
     if (!seen.has(key)) {
