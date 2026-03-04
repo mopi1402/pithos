@@ -45,6 +45,7 @@ export default defineConfig({
       "@zygos": resolve(__dirname, "./packages/pithos/src/zygos"),
       "@taphos": resolve(__dirname, "./packages/pithos/src/taphos"),
       "@sphalma": resolve(__dirname, "./packages/pithos/src/sphalma"),
+      "@bridges": resolve(__dirname, "./packages/pithos/src/bridges"),
       _internal: resolve(__dirname, "./packages/pithos/src/_internal"),
     },
   },

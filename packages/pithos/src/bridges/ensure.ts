@@ -1,0 +1,36 @@
+import { parse } from "@kanon/core/parser";
+import { ok, err } from "@zygos/result/result";
+import type { Schema } from "@kanon/types/base";
+import type { Result } from "@zygos/result/result";
+
+/**
+ * Parses a value against a Kanon schema and returns a Zygos `Result`.
+ *
+ * Bridge between Kanon validation and Zygos error handling:
+ * instead of checking `result.success`, you get a chainable `Result<T, string>`.
+ *
+ * @template T - The expected output type of the schema.
+ * @param schema - Kanon schema to validate against.
+ * @param input - Value to validate.
+ * @returns `Ok<T>` if validation succeeds, `Err<string>` otherwise.
+ * @since 2.1.0
+ *
+ * @example
+ * ```typescript
+ * import { ensure } from "pithos/bridges/ensure";
+ * import { object, string, number } from "pithos/kanon";
+ *
+ * const schema = object({ name: string(), age: number() });
+ *
+ * ensure(schema, data)
+ *   .map(user => user.name.toUpperCase())
+ *   .mapErr(error => `Validation failed: ${error}`);
+ * ```
+ */
+export function ensure<T>(
+  schema: Schema<T>,
+  input: unknown,
+): Result<T, string> {
+  const result = parse(schema, input);
+  return result.success ? ok(result.data) : err(result.error);
+}

@@ -50,6 +50,9 @@
       ],
       "@taphos/*": [
         "taphos/*"
+      ],
+      "@bridges/*": [
+        "bridges/*"
       ]
     }
   },

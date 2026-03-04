@@ -57,6 +57,7 @@
     "./taphos/string/*": "./dist/taphos/string/*.js",
     "./taphos/util/*": "./dist/taphos/util/*.js",
     "./zygos/*": "./dist/zygos/*.js",
+    "./bridges/*": "./dist/bridges/*.js",
     "./zygos/result/*": "./dist/zygos/result/*.js"
   },
   "files": [
