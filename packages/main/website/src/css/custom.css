@@ -524,6 +524,18 @@ div.container div.row>div.col {
   border-radius: 0;
 }
 
+/* Prevent sidebar from going behind sticky footer */
+@media (min-width: 641px) and (max-width: 997px) {
+  .theme-doc-sidebar-container {
+    max-height: calc(100vh - var(--ifm-navbar-height) - 40px) !important;
+  }
+
+  .menu {
+    max-height: calc(100vh - var(--ifm-navbar-height) - 40px);
+    padding-bottom: 1rem;
+  }
+}
+
 .menu__link--active:not(.menu__link--sublist) {
   position: relative;
 }
@@ -665,10 +677,55 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
   color: var(--prism-property);
 }
 
-/* Very small screens: hide external link icon on GitHub */
-@media (max-width: 370px) {
+/* Below 1100px: hide locale switcher */
+@media (max-width: 1100px) {
+  .navbar-locale-dropdown {
+    display: none !important;
+  }
+}
+
+/* Below 1190px: hide GitHub text label and external link arrow, keep only the icon */
+@media (max-width: 1190px) {
+  .header-github-link {
+    font-size: 0;
+    -webkit-text-fill-color: transparent;
+  }
+
   .header-github-link [class*="iconExternalLink"] {
     display: none;
+  }
+}
+
+/* Below 768px (mobile navbar): fit all icons without overlap */
+@media (max-width: 768px) {
+  .header-github-link::before {
+    width: 24px;
+    height: 24px;
+  }
+
+  .header-npm-link::before {
+    width: 32px;
+    height: 16px;
+  }
+
+  .header-github-link {
+    margin-left: 0;
+    margin-right: 3rem;
+    gap: 0;
+  }
+
+  .header-npm-link {
+    margin-left: 0;
+    gap: 0;
+  }
+
+  .DocSearch-Button {
+    margin-left: 8px !important;
+    padding: 0 6px !important;
+  }
+
+  .navbar__items--right {
+    gap: 0.4rem;
   }
 }
 
@@ -1261,4 +1318,81 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
 .toc-timeline__slider::after {
   top: 100%;
   background: linear-gradient(to bottom, var(--ifm-color-primary), transparent);
+}
+
+/* ─── DocSearch / Algolia ─── */
+
+[data-theme="light"] .DocSearch {
+  --docsearch-primary-color: var(--ifm-color-primary);
+  --docsearch-highlight-color: var(--ifm-color-primary);
+  --docsearch-logo-color: var(--ifm-color-primary);
+  --docsearch-text-color: var(--ifm-font-color-base);
+  --docsearch-muted-color: var(--ifm-color-secondary-darkest);
+  --docsearch-container-background: rgba(94, 100, 112, 0.7);
+  --docsearch-modal-background: var(--ifm-color-secondary-lighter);
+  --docsearch-searchbox-background: var(--ifm-color-secondary);
+  --docsearch-searchbox-focus-background: var(--ifm-color-white);
+  --docsearch-hit-color: var(--ifm-font-color-base);
+  --docsearch-hit-active-color: var(--ifm-color-white);
+  --docsearch-hit-background: var(--ifm-color-white);
+  --docsearch-footer-background: var(--ifm-color-white);
+  --docsearch-key-gradient: linear-gradient(
+    -26.5deg,
+    rgba(242, 111, 23, 0.2) 0%,
+    rgba(242, 111, 23, 0.1) 100%
+  );
+  --docsearch-key-shadow: inset 0 -2px 0 0 rgba(242, 111, 23, 0.25),
+    inset 0 0 1px 1px rgba(242, 111, 23, 0.15),
+    0 1px 2px 1px rgba(0, 0, 0, 0.1);
+  --docsearch-key-background: rgba(242, 111, 23, 0.15);
+  --docsearch-key-color: #c75000;
+  --docsearch-icon-color: #c75000;
+}
+
+/* Light mode: subtle orange on selected search result */
+[data-theme="light"] .DocSearch-Hit[aria-selected=true] a {
+  background-color: rgba(242, 111, 23, 0.12);
+}
+
+[data-theme="dark"] .DocSearch {
+  --docsearch-primary-color: var(--ifm-color-primary);
+  --docsearch-highlight-color: var(--ifm-color-primary);
+  --docsearch-logo-color: var(--ifm-color-primary);
+  --docsearch-text-color: var(--ifm-font-color-base);
+  --docsearch-muted-color: var(--ifm-color-secondary-darkest);
+  --docsearch-container-background: rgba(0, 0, 0, 0.7);
+  --docsearch-modal-background: #111111;
+  --docsearch-searchbox-background: #0a0a0a;
+  --docsearch-searchbox-focus-background: #050505;
+  --docsearch-hit-color: var(--ifm-font-color-base);
+  --docsearch-hit-active-color: var(--ifm-color-white);
+  --docsearch-hit-background: #1a1a1a;
+  --docsearch-footer-background: #0a0a0a;
+  --docsearch-key-gradient: linear-gradient(
+    -26.5deg,
+    rgba(242, 111, 23, 0.25) 0%,
+    rgba(242, 111, 23, 0.15) 100%
+  );
+  --docsearch-key-shadow: inset 0 -2px 0 0 rgba(242, 111, 23, 0.3),
+    inset 0 0 1px 1px rgba(242, 111, 23, 0.2),
+    0 1px 2px 1px rgba(0, 0, 0, 0.3);
+  --docsearch-key-background: rgba(242, 111, 23, 0.2);
+  --docsearch-key-color: #f4833a;
+  --docsearch-icon-color: #f4833a;
+  --docsearch-background-color: rgba(242, 111, 23, 0.2);
+}
+
+/* Dark mode: navbar search button background */
+[data-theme="dark"] .DocSearch-Button {
+  background: #1a1a1a;
+}
+
+/* Override blue highlight on selected search result */
+[data-theme="dark"] .DocSearch-Hit[aria-selected=true] a {
+  background-color: rgba(242, 111, 23, 0.15);
+}
+
+/* DocSearch modal: ensure it sits above navbar and sticky footer */
+.DocSearch-Container {
+  z-index: 10001 !important;
 }

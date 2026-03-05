@@ -320,6 +320,7 @@ const config: Config = {
               {
                 type: "localeDropdown" as const,
                 position: "right" as const,
+                className: "navbar-locale-dropdown",
               },
             ]
           : []),
@@ -336,6 +337,13 @@ const config: Config = {
     },
     mermaid: {
       theme: { light: "neutral", dark: "dark" },
+    },
+    algolia: {
+      appId: "VURGDB6SKL",
+      apiKey: "68f423f0ac948d11bd31803ca0aac372",
+      indexName: "Pithos documentation",
+      contextualSearch: true,
+      searchPagePath: "search",
     },
   } satisfies Preset.ThemeConfig,
 };

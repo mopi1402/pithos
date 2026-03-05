@@ -43,7 +43,7 @@ export function generateRootIndex() {
         { name: "Zygos", logo: "/img/emoji/letter-z.webp", desc: "Result/Either types for error handling", link: "/api/zygos/" },
         { name: "Sphalma", logo: "/img/emoji/letter-s.webp", desc: "Typed error factories with error codes", link: "/api/sphalma/" },
         { name: "Taphos", logo: "/img/emoji/letter-t.webp", desc: "Legacy utilities (Lodash/Ramda compatibility)", link: "/api/taphos/" },
-        { name: "Bridges", logo: "", desc: "Bridge functions between modules (ensure, ensureAsync)", link: "/api/bridges/" },
+        { name: "Bridges", logo: "/img/emoji/node.webp", desc: "Bridge functions between modules (ensure, ensureAsync)", link: "/api/bridges/" },
     ];
 
     const cards = modules.map(m => `  <div className="col col--6" style={{marginBottom: '1rem'}}>
@@ -131,7 +131,7 @@ export function generateIndexFiles() {
         zygos: "/img/emoji/letter-z.webp",
         sphalma: "/img/emoji/letter-s.webp",
         taphos: "/img/emoji/letter-t.webp",
-        bridges: "/img/emoji/letter-a.webp",
+        bridges: "/img/emoji/node.webp",
     };
 
     const modules = fs
