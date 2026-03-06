@@ -1,7 +1,6 @@
 import type { Config } from "@docusaurus/types";
 import type * as Preset from "@docusaurus/preset-classic";
 import remarkCustomEmoji from "./plugins/remark-custom-emoji";
-import seoValidatorPlugin from "./plugins/seo-validator";
 import pithosPackageJson from "../../pithos/package.json";
 import { REPO_URL } from "./src/constants/repo";
 
@@ -112,8 +111,12 @@ const config: Config = {
             const { defaultCreateSitemapItems, ...rest } = params;
             const items = await defaultCreateSitemapItems(rest);
 
+            // Strip locale prefix (e.g. /fr/guide/... → /guide/...) so rules match all locales
+            const stripLocale = (p: string): string =>
+              p.replace(/^\/(en|fr)\//, "/").replace(/^\/(en|fr)$/, "/");
+
             const getPriority = (url: string): number => {
-              const path = new URL(url).pathname;
+              const path = stripLocale(new URL(url).pathname);
 
               // Homepage
               if (path === "/") return 1.0;
@@ -151,7 +154,7 @@ const config: Config = {
             const getChangefreq = (
               url: string,
             ): "daily" | "weekly" | "monthly" => {
-              const path = new URL(url).pathname;
+              const path = stripLocale(new URL(url).pathname);
               if (path === "/" || path === "/guide/get-started/") return "daily";
               if (path.startsWith("/api/")) return "monthly";
               return "weekly";
@@ -160,7 +163,7 @@ const config: Config = {
             const today = new Date().toISOString().split("T")[0];
 
             const getLastmod = (url: string): string | undefined => {
-              const path = new URL(url).pathname;
+              const path = stripLocale(new URL(url).pathname);
               // Force "today" for high-value pages
               if (
                 path === "/" ||
@@ -229,21 +232,8 @@ const config: Config = {
         },
       };
     },
-    // SEO validation plugin - validates frontmatter, headings, links, keyword stuffing
-    [
-      seoValidatorPlugin,
-      {
-        contentDirs: ["docs", "comparisons", "../documentation/_generated/final"],
-        minDescriptionLength: 50,
-        maxDescriptionLength: 160,
-        minInternalLinks: 2,
-        maxInternalLinks: 30,
-        keywordStuffingThreshold: 0.03,
-        failOnError: false,
-        excludePatterns: ["_category_.json", "index.md", "changelog.md"],
-        keywordStuffingIgnore: ["pithos", "arkhe", "kanon", "zygos", "sphalma", "taphos"],
-      },
-    ],
+    // SEO validation: use `pnpm seo:validate` standalone script instead of build-time plugin
+    // (the plugin ran once per locale during build, scanning the same source files twice)
   ],
 
   themes: ["@docusaurus/theme-mermaid"],

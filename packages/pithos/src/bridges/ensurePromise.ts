@@ -13,7 +13,7 @@ import type { Schema } from "@kanon/types/base";
  * @param schema - Kanon schema to validate against.
  * @param promise - Promise that resolves to the value to validate.
  * @returns `ResultAsync<T, string>` — `Ok<T>` if the promise resolves and validation succeeds, `Err<string>` otherwise.
- * @since 2.2.0
+ * @since 2.1.0
  *
  * @example
  * ```typescript

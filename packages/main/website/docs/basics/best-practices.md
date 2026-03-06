@@ -102,7 +102,7 @@ const config = loadConfig() as unknown as AppConfig;
 > **The risk**: Pithos functions assume valid types. If you pass garbage disguised as a `User`, you'll get garbage out, or worse, a cryptic runtime error three layers deep.
 
 :::info[Need to check a type?]
-`as unknown` is often used before a manual type check. Arkhe provides ready-made [guards and predicates](/api/arkhe/#guards) (`isString`, `isNumber`, `isPlainObject`...) to avoid this work and keep TypeScript narrowing intact.
+`as unknown` is often used before a manual type check. Arkhe provides ready-made [guards and predicates](/api/arkhe/is/guard/) (`isString`, `isNumber`, `isPlainObject`...) to avoid this work and keep TypeScript narrowing intact.
 :::
 
 <DashedSeparator noMarginBottom />

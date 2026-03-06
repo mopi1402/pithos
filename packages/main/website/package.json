@@ -11,7 +11,7 @@
     "generate:docs": "cd ../.. && pnpm doc:generate",
     "generate:use-cases": "pnpm exec tsx scripts/generate-use-cases-data.ts",
     "generate:embeddings": "pnpm exec tsx scripts/generate-embeddings.ts",
-    "build": "docusaurus build",
+    "build": "docusaurus clear && docusaurus build",
     "build:demo": "pnpm exec tsx scripts/build-demo.ts",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",

@@ -154,7 +154,7 @@ pipe(
 
 ## Either, Task, TaskEither
 
-Lightweight implementations based on fp-ts, **[100% API compatible](/comparisons/zygos/interoperability/)**. These monads cover more advanced functional programming patterns: [`Either`](/api/zygos/either/) for generic two-case branching, [`Task`](/api/zygos/task/) for lazy async computations, and [`TaskEither`](/api/zygos/task-either/) for async operations that can fail.
+Lightweight implementations based on fp-ts, **[100% API compatible](/comparisons/zygos/interoperability/)**. These monads cover more advanced functional programming patterns: [`Either`](/api/zygos/either/) for generic two-case branching, [`Task`](/api/zygos/task/) for lazy async computations, and [`TaskEither`](/api/zygos/task-either/TaskEither/) for async operations that can fail.
 
 ### Drop-in Replacement for fp-ts
 

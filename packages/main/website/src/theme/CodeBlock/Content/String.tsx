@@ -1,4 +1,4 @@
-import React, { useMemo, lazy, Suspense } from "react";
+import React, { useMemo } from "react";
 import { useThemeConfig } from "@docusaurus/theme-common";
 import {
   CodeBlockContextProvider,
@@ -12,10 +12,7 @@ import {
   parseLinksMetastring,
   type CodeLinksMap,
 } from "@site/src/contexts/CodeLinksContext";
-
-const CmdClickHint = lazy(
-  () => import("@site/src/components/shared/CmdClickHint"),
-);
+import CmdClickHint from "@site/src/components/shared/CmdClickHint";
 
 interface Props {
   children: string;
@@ -48,13 +45,10 @@ export default function CodeBlockString(props: Props) {
     () => parseLinksMetastring(props.metastring),
     [props.metastring],
   );
-  // Resolve all URLs: add baseUrl prefix + ensure trailing slash
   const links = useMemo<CodeLinksMap>(() => {
     const resolved: CodeLinksMap = {};
     for (const [name, url] of Object.entries(rawLinks)) {
       let full = url.startsWith("/") ? `${baseUrl}${url.slice(1)}` : url;
-      // Docusaurus uses trailingSlash: true — client-side navigation
-      // needs the slash or the route won't match.
       if (full.length > 1 && !full.endsWith("/")) {
         full += "/";
       }
@@ -69,11 +63,7 @@ export default function CodeBlockString(props: Props) {
       <CodeBlockContextProvider metadata={metadata} wordWrap={wordWrap}>
         <CodeBlockLayout />
       </CodeBlockContextProvider>
-      {hasLinks && (
-        <Suspense fallback={null}>
-          <CmdClickHint />
-        </Suspense>
-      )}
+      {hasLinks && <CmdClickHint />}
     </CodeLinksProvider>
   );
 }

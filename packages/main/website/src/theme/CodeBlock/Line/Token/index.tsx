@@ -1,4 +1,4 @@
-import React, { type ReactNode } from "react";
+import React, { useCallback, type ReactNode } from "react";
 import { useHistory } from "@docusaurus/router";
 import { useCodeLinks } from "@site/src/contexts/CodeLinksContext";
 import { useCmdKey } from "@site/src/hooks/useCmdKey";
@@ -38,24 +38,23 @@ export default function CodeBlockLineToken({
   const raw = token.content;
   const leading = raw.slice(0, raw.indexOf(text));
   const trailing = raw.slice(raw.indexOf(text) + text.length);
-  const isActive = cmdPressed;
 
-  const linkStyle: React.CSSProperties = {
-    textDecoration: isActive ? "underline" : undefined,
-    cursor: isActive ? "pointer" : undefined,
-    textUnderlineOffset: "3px",
-  };
+  const handleClick = useCallback(
+    (e: React.MouseEvent) => {
+      if (e.metaKey || e.ctrlKey) {
+        e.preventDefault();
+        history.push(href);
+      }
+    },
+    [history, href],
+  );
 
-  const handleClick = (e: React.MouseEvent) => {
-    if (e.metaKey || e.ctrlKey) {
-      e.preventDefault();
-      history.push(href);
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") history.push(href);
-  };
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "Enter") history.push(href);
+    },
+    [history, href],
+  );
 
   return (
     <span {...props}>
@@ -65,7 +64,7 @@ export default function CodeBlockLineToken({
         role="link"
         tabIndex={0}
         aria-label={`API: ${text}`}
-        style={linkStyle}
+        className={`code-link-token${cmdPressed ? " code-link-token--active" : ""}`}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
       >

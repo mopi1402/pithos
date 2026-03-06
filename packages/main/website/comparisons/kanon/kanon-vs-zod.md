@@ -121,7 +121,7 @@ For a complete compatibility matrix, see the [Kanon ↔ Zod interoperability pag
 
 ---
 
-## Key Design Difference: Validation and Transformation are Separate
+## Key Design Difference: Validation and Transformation are Separate {#key-design-difference-validation-and-transformation-are-separate}
 
 Kanon's native API focuses on validation. Coercion (`coerceString`, `coerceNumber`...) is the only built-in transformation: it converts the input type before validation. There are no chained `.transform()` pipelines like in Zod:
 

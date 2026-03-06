@@ -80,9 +80,9 @@ ensurePromise(UserSchema, fetch("/api/user").then(r => r.json()))
 
 ## Sphalma + Zygos : Typed errors in Result chains
 
-Instead of throwing errors, return them as typed [`Err`](/api/zygos/result/err/) values. [`CodedError`](/api/sphalma/error-factory/) carries a hex code, a type label, and optional details. Every failure path is visible in the function signature:
+Instead of throwing errors, return them as typed [`Err`](/api/zygos/result/err/) values. [`CodedError`](/api/sphalma/error-factory/CodedError/) carries a hex code, a type label, and optional details. Every failure path is visible in the function signature:
 
-```typescript links="createErrorFactory:/api/sphalma/error-factory,ok:/api/zygos/result/ok,err:/api/zygos/result/err"
+```typescript links="createErrorFactory:/api/sphalma/error-factory/createErrorFactory,ok:/api/zygos/result/ok,err:/api/zygos/result/err"
 import { createErrorFactory, CodedError } from "pithos/sphalma/error-factory";
 import { ok, err, Result } from "pithos/zygos/result/result";
 
@@ -110,7 +110,7 @@ No `try/catch`, no untyped `string` errors. The compiler knows exactly what can 
 
 Kanon catches malformed data. Sphalma handles domain-level errors that occur after validation passes. Together, they cover the full error spectrum:
 
-```typescript links="createErrorFactory:/api/sphalma/error-factory,ok:/api/zygos/result/ok,err:/api/zygos/result/err"
+```typescript links="createErrorFactory:/api/sphalma/error-factory/createErrorFactory,ok:/api/zygos/result/ok,err:/api/zygos/result/err"
 import { parse, object, string, number } from "pithos/kanon";
 import { createErrorFactory, CodedError } from "pithos/sphalma/error-factory";
 import { ok, err, Result } from "pithos/zygos/result/result";
@@ -152,7 +152,7 @@ See the [Taphos page](/guide/modules/taphos/) for the full migration diagram and
 
 Combine all four modules in a single typed chain : validate, transform, handle errors, and propagate structured failures:
 
-```typescript links="ensure:/api/bridges/ensure,createErrorFactory:/api/sphalma/error-factory,ok:/api/zygos/result/ok,err:/api/zygos/result/err"
+```typescript links="ensure:/api/bridges/ensure,createErrorFactory:/api/sphalma/error-factory/createErrorFactory,ok:/api/zygos/result/ok,err:/api/zygos/result/err"
 import { ensure } from "pithos/bridges/ensure";
 import { object, string, number } from "pithos/kanon";
 import { createErrorFactory, CodedError } from "pithos/sphalma/error-factory";

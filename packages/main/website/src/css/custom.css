@@ -631,10 +631,37 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
   border-radius: 0.25rem;
 }
 
+/*
+ * Fallback for code blocks not yet tokenised by prism-react-renderer
+ * (visible briefly during SPA navigation while the chunk loads).
+ * Once Prism processes the block it adds .prism-code, so these rules
+ * only apply to the raw <pre><code> rendered by MDX before hydration.
+ */
+.theme-code-block pre:not(.prism-code) {
+  background-color: var(--prism-background);
+  color: var(--prism-color);
+  padding: var(--ifm-pre-padding);
+  border-radius: var(--ifm-code-border-radius);
+  overflow-x: auto;
+}
+
+.theme-code-block pre:not(.prism-code) code {
+  display: block;
+  white-space: pre;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: var(--ifm-code-font-size);
+}
+
 /* Prism code block styling using CSS variables */
 .prism-code {
   background-color: var(--prism-background);
   color: var(--prism-color);
+  white-space: pre;
+}
+
+/* Ensure each token-line renders as a block (prevents inline collapse during SPA nav) */
+.prism-code .token-line {
+  display: block;
 }
 
 .token.keyword {
@@ -675,6 +702,16 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
 
 .token.property {
   color: var(--prism-property);
+}
+
+/* Code link tokens (Cmd/Ctrl+Click to navigate to API docs) */
+.code-link-token {
+  text-underline-offset: 3px;
+}
+
+.code-link-token--active {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 /* Below 1100px: hide locale switcher */

@@ -26,33 +26,20 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const websiteRoot = resolve(__dirname, "..");
 
 // ---------------------------------------------------------------------------
-// Extract config from docusaurus.config.ts
+// Project-specific SEO options (single source of truth)
 // ---------------------------------------------------------------------------
 
-async function loadDocusaurusOptions(): Promise<Partial<SeoValidatorOptions>> {
-  try {
-    const configModule = await import("../docusaurus.config");
-    const config = configModule.default;
-    const plugins: unknown[] = config?.plugins ?? [];
-
-    for (const plugin of plugins) {
-      if (Array.isArray(plugin) && plugin.length >= 2) {
-        const [pluginFn, pluginOpts] = plugin;
-        // Match by function name or by checking if it has seo-validator options shape
-        const fnName = typeof pluginFn === "function" ? pluginFn.name : "";
-        if (
-          fnName === "seoValidatorPlugin" ||
-          (pluginOpts && typeof pluginOpts === "object" && "keywordStuffingThreshold" in pluginOpts)
-        ) {
-          return pluginOpts as Partial<SeoValidatorOptions>;
-        }
-      }
-    }
-  } catch {
-    // Config not found or not parseable, use defaults
-  }
-  return {};
-}
+const PROJECT_OPTIONS: Partial<SeoValidatorOptions> = {
+  contentDirs: ["docs", "comparisons", "../documentation/_generated/final"],
+  minDescriptionLength: 50,
+  maxDescriptionLength: 160,
+  minInternalLinks: 2,
+  maxInternalLinks: 30,
+  keywordStuffingThreshold: 0.03,
+  failOnError: false,
+  excludePatterns: ["_category_.json", "index.md", "changelog.md"],
+  keywordStuffingIgnore: ["pithos", "arkhe", "kanon", "zygos", "sphalma", "taphos"],
+};
 
 // ---------------------------------------------------------------------------
 // CLI args parsing
@@ -98,7 +85,6 @@ function parseCLIArgs(): { overrides: Partial<SeoValidatorOptions>; filter: "all
 // ---------------------------------------------------------------------------
 
 async function main(): Promise<void> {
-  const docusaurusOpts = await loadDocusaurusOptions();
   const { overrides: cliOverrides, filter, fresh } = parseCLIArgs();
 
   if (fresh) {
@@ -110,7 +96,7 @@ async function main(): Promise<void> {
 
   const opts: SeoValidatorOptions = {
     ...DEFAULT_OPTIONS,
-    ...docusaurusOpts,
+    ...PROJECT_OPTIONS,
     ...cliOverrides,
   };
 

@@ -133,7 +133,7 @@ const grouped = groupBy(users, (user) => user.role);
 
 **Status:** Arkhe (for now) → Taphos (when ES target allows)
 
-## ⛵️ IDE-Guided Migration
+## ⛵️ IDE-Guided Migration {#ide-guided-migration}
 
 Every function in Taphos is marked `@deprecated` and includes its migration path directly in the TSDoc. This means your IDE shows you exactly what to use instead, without leaving your editor.
 
