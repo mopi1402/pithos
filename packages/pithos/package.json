@@ -1,6 +1,6 @@
 {
   "name": "@pithos/core",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Advanced JavaScript/TypeScript superset providing utilities, validation, and functional patterns",
   "publishConfig": {
     "access": "public"
