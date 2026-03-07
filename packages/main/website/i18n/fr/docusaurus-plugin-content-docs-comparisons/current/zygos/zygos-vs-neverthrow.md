@@ -57,8 +57,8 @@ Pour des comparaisons détaillées par module avec des données auto-générées
 
 ```typescript links="ok:/api/zygos/result/ok,err:/api/zygos/result/err,ResultAsync:/api/zygos/result/ResultAsync"
 // Zygos : Result + ResultAsync
-import { ok, err, Result } from "pithos/zygos/result/result";
-import { ResultAsync } from "pithos/zygos/result/result-async";
+import { ok, err, Result } from "@pithos/core/zygos/result/result";
+import { ResultAsync } from "@pithos/core/zygos/result/result-async";
 
 // Neverthrow : importer n'importe quelle fonction embarque la bibliothèque entière
 import { ok, err, Result, ResultAsync } from "neverthrow";
@@ -85,8 +85,8 @@ Zygos est un remplacement direct. Chaque méthode Result et ResultAsync fonction
 
 ```typescript links="ok:/api/zygos/result/ok,err:/api/zygos/result/err,safeTry:/api/zygos/result/safeTry,ResultAsync:/api/zygos/result/ResultAsync,okAsync:/api/zygos/result/okAsync,errAsync:/api/zygos/result/errAsync"
 // Changez juste l'import, zéro changement de code
-import { ok, err, Result, safeTry } from "pithos/zygos/result/result";
-import { ResultAsync, okAsync, errAsync } from "pithos/zygos/result/result-async";
+import { ok, err, Result, safeTry } from "@pithos/core/zygos/result/result";
+import { ResultAsync, okAsync, errAsync } from "@pithos/core/zygos/result/result-async";
 
 // Tous les patterns Neverthrow fonctionnent tels quels
 const result = ok(5)
@@ -113,7 +113,7 @@ Pour la matrice de compatibilité complète, consultez la [page d'interopérabil
 Convertissez entre Result et les types fp-ts sans mapping manuel :
 
 ```typescript links="fromOption:/api/zygos/result/fromOption,fromEither:/api/zygos/result/fromEither,toEither:/api/zygos/result/toEither"
-import { fromOption, fromEither, toEither } from "pithos/zygos/result/result";
+import { fromOption, fromEither, toEither } from "@pithos/core/zygos/result/result";
 
 // Option → Result
 const fromSome = fromOption(() => "No value")(someOption); // Ok(42)
@@ -133,12 +133,12 @@ Zygos fournit Option, Either, Task et TaskEither, des implémentations légères
 
 ```typescript links="some:/api/zygos/option/some,none:/api/zygos/option/none,fromNullable:/api/zygos/option/fromNullable"
 // Option : absence explicite (pas de null/undefined)
-import { some, none, fromNullable } from "pithos/zygos/option";
+import { some, none, fromNullable } from "@pithos/core/zygos/option";
 
 // Either, Task, TaskEither : compatible fp-ts
-import * as E from "pithos/zygos/either";
-import * as T from "pithos/zygos/task";
-import * as TE from "pithos/zygos/task-either";
+import * as E from "@pithos/core/zygos/either";
+import * as T from "@pithos/core/zygos/task";
+import * as TE from "@pithos/core/zygos/task-either";
 ```
 
 <DashedSeparator noMarginBottom />
@@ -154,7 +154,7 @@ Neverthrow utilise `any` dans certains types internes. Zygos utilise `unknown` p
 Gestion d'erreurs async simplifiée sans générateurs :
 
 ```typescript links="safeAsyncTry:/api/zygos/result/safeAsyncTry"
-import { safeAsyncTry } from "pithos/zygos/result/result";
+import { safeAsyncTry } from "@pithos/core/zygos/result/result";
 
 const result = await safeAsyncTry(() => fetch("/api/users/123").then(r => r.json()));
 ```

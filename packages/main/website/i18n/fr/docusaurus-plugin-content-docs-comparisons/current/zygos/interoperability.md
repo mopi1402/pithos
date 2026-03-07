@@ -40,8 +40,8 @@ Zygos Result est une micro-implémentation du type Result de Neverthrow : **<Zyg
 import { ok, err, Result, ResultAsync } from "neverthrow";
 
 // Après
-import { ok, err, Result } from "pithos/zygos/result/result";
-import { ResultAsync } from "pithos/zygos/result/result-async";
+import { ok, err, Result } from "@pithos/core/zygos/result/result";
+import { ResultAsync } from "@pithos/core/zygos/result/result-async";
 ```
 
 ### Compatibilité API complète
@@ -53,7 +53,7 @@ Cliquez pour développer chaque catégorie :
 <Code>ok(value)</Code>, <Code>err(error)</Code>
 
 ```typescript
-import { ok, err, Result } from "pithos/zygos/result/result";
+import { ok, err, Result } from "@pithos/core/zygos/result/result";
 
 const success: Result<number, string> = ok(42);
 const failure: Result<number, string> = err("Something went wrong");
@@ -104,7 +104,7 @@ const combined = Result.combine([ok(1), ok(2), ok(3)]); // Ok([1, 2, 3])
 <Code>okAsync()</Code>, <Code>errAsync()</Code>
 
 ```typescript
-import { okAsync, errAsync, ResultAsync } from "pithos/zygos/result/result-async";
+import { okAsync, errAsync, ResultAsync } from "@pithos/core/zygos/result/result-async";
 
 const asyncSuccess = okAsync(Promise.resolve(42));
 const asyncError = errAsync("network error");
@@ -166,7 +166,7 @@ const combined = ResultAsync.combine([
 <Code>safeTry()</Code>
 
 ```typescript
-import { safeTry, ok, err } from "pithos/zygos/result/result";
+import { safeTry, ok, err } from "@pithos/core/zygos/result/result";
 
 const result = safeTry(function* () {
   yield err("validation failed");
@@ -191,9 +191,9 @@ import * as T from "fp-ts/Task";
 import * as TE from "fp-ts/TaskEither";
 
 // Après
-import * as E from "pithos/zygos/either";
-import * as T from "pithos/zygos/task";
-import * as TE from "pithos/zygos/task-either";
+import * as E from "@pithos/core/zygos/either";
+import * as T from "@pithos/core/zygos/task";
+import * as TE from "@pithos/core/zygos/task-either";
 ```
 
 ### Fonctions supportées
@@ -211,9 +211,9 @@ import * as TE from "pithos/zygos/task-either";
 ### Exemple d'utilisation
 
 ```typescript
-import * as E from "pithos/zygos/either";
-import * as TE from "pithos/zygos/task-either";
-import { pipe } from "pithos/arkhe/function/pipe";
+import * as E from "@pithos/core/zygos/either";
+import * as TE from "@pithos/core/zygos/task-either";
+import { pipe } from "@pithos/core/arkhe/function/pipe";
 
 // Either — identique à fp-ts
 const result = pipe(
@@ -257,7 +257,7 @@ Au-delà de la compatibilité, Zygos ajoute des fonctionnalités que ni Neverthr
 Conversion entre Result et les types fp-ts :
 
 ```typescript
-import { fromOption, fromEither, toEither, ok, err } from "pithos/zygos/result/result";
+import { fromOption, fromEither, toEither, ok, err } from "@pithos/core/zygos/result/result";
 
 // Option → Result
 const fromSome = fromOption(() => "No value")({ _tag: "Some", value: 42 }); // Ok(42)
@@ -279,7 +279,7 @@ const toLeft = toEither(err("error"));  // { _tag: "Left", left: "error" }
 Gestion d'erreurs async simplifiée sans générateurs :
 
 ```typescript
-import { safeAsyncTry } from "pithos/zygos/result/result";
+import { safeAsyncTry } from "@pithos/core/zygos/result/result";
 
 const result = await safeAsyncTry(() => fetch("/api/user").then(r => r.json()));
 
@@ -297,7 +297,7 @@ if (result.isOk()) {
 Collecter toutes les erreurs au lieu de s'arrêter à la première :
 
 ```typescript
-import { ResultAsync, okAsync, errAsync } from "pithos/zygos/result/result-async";
+import { ResultAsync, okAsync, errAsync } from "@pithos/core/zygos/result/result-async";
 
 const combined = ResultAsync.combineWithAllErrors([
   okAsync(1),

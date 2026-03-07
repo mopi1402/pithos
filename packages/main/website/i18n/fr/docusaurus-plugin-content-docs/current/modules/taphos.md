@@ -75,7 +75,7 @@ Ces utilitaires ont été remplacés par des API JavaScript/TypeScript natives. 
 
 ```typescript links="flatten:/api/taphos/array/flatten"
 // Enterré dans Taphos
-import { flatten } from "pithos/taphos/array/flatten";
+import { flatten } from "@pithos/core/taphos/array/flatten";
 const flat = flatten([[1, 2], [3, 4]]);
 
 // ✅ Remplacement natif, voir Array.prototype.flat() sur MDN
@@ -94,7 +94,7 @@ const arr = [3, 1, 2];
 arr.sort(); // arr est maintenant [1, 2, 3] - muté !
 
 // ✅ Utilisez l'alternative immuable Pithos
-import { sort } from "pithos/arkhe/array/sort";
+import { sort } from "@pithos/core/arkhe/array/sort";
 const sorted = sort([3, 1, 2]); // Retourne un nouveau tableau, l'original inchangé
 ```
 
@@ -106,10 +106,10 @@ Certaines fonctions dans Taphos ne sont pas vraiment « mortes » : ce sont des 
 
 ```typescript links="castArray:/api/taphos/util/castArray,toArray:/api/arkhe/array/toArray"
 // Alias dans Taphos (nommage Lodash)
-import { castArray } from "pithos/taphos/util/castArray";
+import { castArray } from "@pithos/core/taphos/util/castArray";
 
 // ✅ Fonction Pithos canonique
-import { toArray } from "pithos/arkhe/array/toArray";
+import { toArray } from "@pithos/core/arkhe/array/toArray";
 
 // Les deux font la même chose, mais 'toArray' est le nom canonique dans Pithos
 ```
@@ -126,7 +126,7 @@ Pensez-y comme une parcelle réservée au cimetière. On sait qui y va, juste pa
 
 ```typescript links="groupBy:/api/arkhe/array/groupBy"
 // Encore dans Arkhe (ciblant ES2020)
-import { groupBy } from "pithos/arkhe/collection/groupBy";
+import { groupBy } from "@pithos/core/arkhe/collection/groupBy";
 const grouped = groupBy(users, (user) => user.role);
 
 // Futur remplacement natif (ES2024) - pas encore disponible pour notre cible
@@ -140,7 +140,7 @@ const grouped = groupBy(users, (user) => user.role);
 Chaque fonction dans Taphos est marquée `@deprecated` et inclut son chemin de migration directement dans le TSDoc. Cela signifie que votre IDE vous montre exactement quoi utiliser à la place, sans quitter votre éditeur.
 
 ```typescript links="at:/api/taphos/array/at"
-import { at } from "pithos/taphos/array/at";
+import { at } from "@pithos/core/taphos/array/at";
 //       ^^ Votre IDE affiche : "Deprecated: Utilisez le natif Array.prototype.at() à la place"
 ```
 

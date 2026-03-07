@@ -54,11 +54,11 @@ Mesurez n'importe quel import manuellement avec esbuild :
 
 ```bash
 # Fonction unique
-echo 'import { chunk } from "pithos/arkhe/array/chunk"' | \
+echo 'import { chunk } from "@pithos/core/arkhe/array/chunk"' | \
   esbuild --bundle --minify | gzip -c | wc -c
 
 # Schéma Kanon
-echo 'import { string, object, parse } from "pithos/kanon"' | \
+echo 'import { string, object, parse } from "@pithos/core/kanon"' | \
   esbuild --bundle --minify | gzip -c | wc -c
 ```
 

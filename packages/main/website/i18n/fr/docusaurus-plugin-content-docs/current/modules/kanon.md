@@ -44,7 +44,7 @@ Kanon est une bibliothèque de validation de schémas runtime conçue pour les p
 Définissez un schéma avec des primitives composables, puis validez les données entrantes avec [`parse`](/api/kanon/core/parse). Le résultat est une union discriminée : soit une valeur de succès typée, soit une erreur structurée, vous savez donc toujours à quoi vous avez affaire :
 
 ```typescript links="object:/api/kanon/schemas/composites/object,string:/api/kanon/schemas/primitives/string,number:/api/kanon/schemas/primitives/number,optional:/api/kanon/schemas/wrappers/optional,parse:/api/kanon/core/parse"
-import { object, string, number, optional, parse } from "pithos/kanon";
+import { object, string, number, optional, parse } from "@pithos/core/kanon";
 
 const userSchema = object({
   name: string().minLength(1),
@@ -99,8 +99,8 @@ Kanon v3 offre deux modes de validation. Le mode standard fonctionne dans n'impo
 </TableConfig>
 
 ```typescript links="parse:/api/kanon/core/parse,compile:/api/kanon/jit/compile"
-import { parse } from "pithos/kanon";              // Standard
-import { compile } from "pithos/kanon/jit/compiler"; // JIT
+import { parse } from "@pithos/core/kanon";              // Standard
+import { compile } from "@pithos/core/kanon/jit/compiler"; // JIT
 
 // JIT : compiler une fois, valider plusieurs fois
 const validator = compile(schema);
@@ -136,13 +136,13 @@ Voir aussi : [Kanon vs Zod](/comparisons/kanon/kanon-vs-zod/#key-design-differen
 import { z } from "zod";
 
 // Après (Kanon) : changez uniquement l'import
-import { z } from "pithos/kanon/helpers/as-zod.shim";
+import { z } from "@pithos/core/kanon/helpers/as-zod.shim";
 
 // Votre code existant fonctionne sans changement dans la majorité des cas
 ```
 
 :::tip Migration
-Rechercher & remplacer `from "zod"` → `from "pithos/kanon/helpers/as-zod.shim"` dans votre codebase. C'est fait.
+Rechercher & remplacer `from "zod"` → `from "@pithos/core/kanon/helpers/as-zod.shim"` dans votre codebase. C'est fait.
 :::
 
 Pour la liste complète des fonctionnalités Zod supportées et des cas limites, voir la [matrice d'interopérabilité Kanon ↔ Zod](/comparisons/kanon/interoperability/).
@@ -152,7 +152,7 @@ Pour la liste complète des fonctionnalités Zod supportées et des cas limites,
 Le namespace `k` fournit la même API que `z`, en utilisant les conventions de nommage propres à Kanon. Il regroupe tous les constructeurs de schémas sous un seul objet pour plus de commodité :
 
 ```typescript links="k:/api/kanon/helpers/k"
-import { k } from "pithos/kanon/helpers/k";
+import { k } from "@pithos/core/kanon/helpers/k";
 
 const schema = k.object({
   name: k.string(),
@@ -171,8 +171,8 @@ Non tree-shakable : importe tous les schémas. Préférez les imports directs po
 Encapsule n'importe quel schéma Kanon avec des méthodes à la Zod. Utile quand vous voulez des imports tree-shakable mais avez besoin de l'API fluide de Zod pour des schémas spécifiques :
 
 ```typescript links="asZod:/api/kanon/helpers/asZod,string:/api/kanon/schemas/primitives/string,number:/api/kanon/schemas/primitives/number,object:/api/kanon/schemas/composites/object"
-import { asZod } from "pithos/kanon/helpers/as-zod";
-import { string, number, object } from "pithos/kanon";
+import { asZod } from "@pithos/core/kanon/helpers/as-zod";
+import { string, number, object } from "@pithos/core/kanon";
 
 const schema = asZod(object({
   name: string(),
@@ -234,7 +234,7 @@ Ajoutez Pithos à votre projet avec votre gestionnaire de paquets préféré :
 import { z } from "zod";
 
 // Après
-import { z } from "pithos/kanon/helpers/as-zod.shim";
+import { z } from "@pithos/core/kanon/helpers/as-zod.shim";
 ```
 
 ### Étape 3 : Exécuter vos tests
@@ -251,11 +251,11 @@ Pour une optimisation maximale du bundle, remplacez progressivement le shim `z` 
 
 ```typescript links="object:/api/kanon/schemas/composites/object,string:/api/kanon/schemas/primitives/string,parse:/api/kanon/core/parse"
 // Shim z (pratique, légèrement plus gros)
-import { z } from "pithos/kanon/helpers/as-zod.shim";
+import { z } from "@pithos/core/kanon/helpers/as-zod.shim";
 const schema = z.object({ name: z.string() });
 
 // Imports directs (bundle le plus petit possible)
-import { object, string, parse } from "pithos/kanon";
+import { object, string, parse } from "@pithos/core/kanon";
 const schema = object({ name: string() });
 ```
 

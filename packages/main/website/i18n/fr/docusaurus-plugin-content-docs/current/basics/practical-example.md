@@ -44,7 +44,7 @@ import {
   array,
   optional,
   parse,
-} from "pithos/kanon";
+} from "@pithos/core/kanon";
 
 // Définir la structure attendue de la réponse API
 const UserSchema = object({
@@ -87,7 +87,7 @@ const DashboardSchema = object({
 Si vous venez de Zod, le shim compatible Zod offre une syntaxe familière avec moins d'imports, au prix de bundles légèrement plus gros :
 
 ```typescript
-import { z } from "pithos/kanon/helpers/as-zod.shim";
+import { z } from "@pithos/core/kanon/helpers/as-zod.shim";
 
 const UserSchema = z.object({
   id: z.string(),
@@ -109,7 +109,7 @@ import {
   ResultAsync,
   errAsync,
   okAsync,
-} from "pithos/zygos/result/result-async";
+} from "@pithos/core/zygos/result/result-async";
 
 // Créer un wrapper fetch sûr
 const safeFetch = ResultAsync.fromThrowable(
@@ -132,8 +132,8 @@ Utilisez les utilitaires Arkhe pour transformer les données validées :
 
 ```typescript links="groupBy:/api/arkhe/array/groupBy,capitalize:/api/arkhe/string/capitalize"
 // src/lib/transformers.ts
-import { groupBy } from "pithos/arkhe/array/group-by";
-import { capitalize } from "pithos/arkhe/string/capitalize";
+import { groupBy } from "@pithos/core/arkhe/array/group-by";
+import { capitalize } from "@pithos/core/arkhe/string/capitalize";
 
 type User = {
   id: string;

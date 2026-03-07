@@ -38,7 +38,7 @@ Tailles individuelles des fonctions, minifiées + gzippées.
 
 ```typescript links="chunk:/api/arkhe/array/chunk"
 // Seul chunk se retrouve dans votre bundle
-import { chunk } from "pithos/arkhe/array/chunk";
+import { chunk } from "@pithos/core/arkhe/array/chunk";
 ```
 
 ---

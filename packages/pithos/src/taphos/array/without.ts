@@ -24,7 +24,7 @@ import { pull } from "./pull";
  * console.log(filtered); // [1, 3, 5]
  *
  * // ✅ Recommended approach (Arkhe)
- * import { difference } from "pithos/arkhe/array/difference";
+ * import { difference } from "@pithos/core/arkhe/array/difference";
  * const filteredArkhe = difference(numbers, [2, 4]);
  * console.log(filteredArkhe); // [1, 3, 5]
  * ```

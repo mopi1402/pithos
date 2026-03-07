@@ -179,7 +179,7 @@ const result: Result<User, ApiError> = fetchUser(id);
 Utilisez Kanon pour valider les données externes exactement une fois, au point d'entrée. Une fois que les données passent la validation, chaque fonction en aval peut faire confiance aux types sans vérifications runtime supplémentaires. Cela garde votre codebase propre et votre bundle petit :
 
 ```typescript links="object:/api/kanon/schemas/composites/object,string:/api/kanon/schemas/primitives/string,number:/api/kanon/schemas/primitives/number,parse:/api/kanon/core/parse"
-import { object, string, number, parse } from "pithos/kanon";
+import { object, string, number, parse } from "@pithos/core/kanon";
 
 const UserSchema = object({
   id: string(),
@@ -214,7 +214,7 @@ function processUser(user: User) {
 Chaque `Result` devrait être géré. Utilisez `match`, `map` ou des vérifications explicites. Le compilateur vous aide ici : si vous oubliez de gérer un cas, TypeScript le signalera. Cela rend la gestion des erreurs visible et intentionnelle plutôt qu'accidentelle :
 
 ```typescript links="ok:/api/zygos/result/ok,err:/api/zygos/result/err"
-import { ok, err, Result } from "pithos/zygos/result/result";
+import { ok, err, Result } from "@pithos/core/zygos/result/result";
 
 // ✅ Bien : Gestion explicite avec match
 const message = result.match({
@@ -259,9 +259,9 @@ const cache: Map<string, User> = new Map();
 Arkhe fournit des types utilitaires qui rendent vos intentions claires. Ces types communiquent la forme et les contraintes de vos données au niveau du type, pour que le contrat soit lisible sans lire l'implémentation :
 
 ```typescript
-import type { Arrayable } from "pithos/arkhe/types/common/arrayable";
-import type { Nullish } from "pithos/arkhe/types/common/nullish";
-import type { DeepPartial } from "pithos/arkhe/types/utilities/deep-partial";
+import type { Arrayable } from "@pithos/core/arkhe/types/common/arrayable";
+import type { Nullish } from "@pithos/core/arkhe/types/common/nullish";
+import type { DeepPartial } from "@pithos/core/arkhe/types/utilities/deep-partial";
 
 // ✅ Intention claire : accepte un élément unique ou un tableau
 function process(input: Arrayable<User>) {

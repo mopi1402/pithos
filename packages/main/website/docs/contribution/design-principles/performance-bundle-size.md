@@ -51,14 +51,14 @@ export function difference<T>(array: readonly T[], values: readonly T[]): T[] {
 
 ```typescript links="chunk:/api/arkhe/array/chunk"
 // ✅ Direct import (optimal tree-shaking)
-import { chunk } from "pithos/arkhe/array/chunk";
-import { isString } from "pithos/arkhe/is/isString";
+import { chunk } from "@pithos/core/arkhe/array/chunk";
+import { isString } from "@pithos/core/arkhe/is/isString";
 
 // ⚠️ Grouped import (acceptable, tree-shakable)
-import { chunk, map, filter } from "pithos/arkhe/array";
+import { chunk, map, filter } from "@pithos/core/arkhe/array";
 
 // ❌ Global import (avoid, includes everything)
-import * as Arkhe from "pithos/arkhe";
+import * as Arkhe from "@pithos/core/arkhe";
 ```
 
 ## ES2020+ Target

@@ -37,7 +37,7 @@ Sphalma fournit un moyen systématique de créer et gérer les erreurs applicati
 Définissez vos codes d'erreur comme des constantes hexadécimales pour la lisibilité, puis créez une fabrique typée. Chaque erreur produite par la fabrique inclut une clé structurée comme `[Api:0x1001]` instantanément recherchable dans les logs :
 
 ```typescript links="createErrorFactory:/api/sphalma/error-factory/createErrorFactory,CodedError:/api/sphalma/error-factory/CodedError"
-import { createErrorFactory, CodedError } from "pithos/sphalma/error-factory";
+import { createErrorFactory, CodedError } from "@pithos/core/sphalma/error-factory";
 
 // Définir les codes d'erreur (hex pour la lisibilité)
 const ErrorCodes = {
@@ -64,7 +64,7 @@ Les codes structurés comme `[Api:0x1001]` simplifient l'internationalisation : 
 `CodedError` est la classe d'erreur structurée au cœur de Sphalma. Elle étend le `Error` natif avec un code numérique, un label de type et un objet de détails optionnel. La propriété `key` combine type et code en un identifiant unique pour le filtrage et la recherche :
 
 ```typescript links="CodedError:/api/sphalma/error-factory/CodedError"
-import { CodedError } from "pithos/sphalma/error-factory";
+import { CodedError } from "@pithos/core/sphalma/error-factory";
 
 const error = new CodedError(0x2000, "Semaphore", { count: -1 });
 
@@ -109,8 +109,8 @@ Les plages de codes sont documentées dans chaque module utilisant Sphalma.
 Sphalma se combine naturellement avec les types Result de Zygos pour la gestion fonctionnelle des erreurs. Au lieu de lancer des erreurs, retournez-les comme des valeurs `Err` typées. Cela rend chaque chemin d'échec visible dans la signature de la fonction :
 
 ```typescript links="createErrorFactory:/api/sphalma/error-factory/createErrorFactory,ok:/api/zygos/result/ok,err:/api/zygos/result/err"
-import { createErrorFactory } from "pithos/sphalma/error-factory";
-import { ok, err, Result } from "pithos/zygos/result/result";
+import { createErrorFactory } from "@pithos/core/sphalma/error-factory";
+import { ok, err, Result } from "@pithos/core/zygos/result/result";
 
 const createUserError = createErrorFactory<0x3001 | 0x3002>("User");
 

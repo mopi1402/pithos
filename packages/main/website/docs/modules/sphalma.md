@@ -37,7 +37,7 @@ Sphalma provides a systematic way to create and manage application errors. Inste
 Define your error codes as hex constants for readability, then create a typed factory. Every error produced by the factory includes a structured key like `[Api:0x1001]` that is instantly searchable in logs:
 
 ```typescript links="createErrorFactory:/api/sphalma/error-factory/createErrorFactory,CodedError:/api/sphalma/error-factory/CodedError"
-import { createErrorFactory, CodedError } from "pithos/sphalma/error-factory";
+import { createErrorFactory, CodedError } from "@pithos/core/sphalma/error-factory";
 
 // Define error codes (hex for readability)
 const ErrorCodes = {
@@ -64,7 +64,7 @@ Structured codes like `[Api:0x1001]` make internationalization straightforward: 
 `CodedError` is the structured error class at the heart of Sphalma. It extends the native `Error` with a numeric code, a type label, and an optional details object. The `key` property combines type and code into a unique identifier for filtering and searching:
 
 ```typescript links="CodedError:/api/sphalma/error-factory/CodedError"
-import { CodedError } from "pithos/sphalma/error-factory";
+import { CodedError } from "@pithos/core/sphalma/error-factory";
 
 const error = new CodedError(0x2000, "Semaphore", { count: -1 });
 
@@ -109,8 +109,8 @@ Error code ranges are documented in each module using Sphalma.
 Sphalma pairs naturally with Zygos Result types for functional error handling. Instead of throwing errors, return them as typed `Err` values. This makes every failure path visible in the function signature:
 
 ```typescript links="createErrorFactory:/api/sphalma/error-factory/createErrorFactory,ok:/api/zygos/result/ok,err:/api/zygos/result/err"
-import { createErrorFactory } from "pithos/sphalma/error-factory";
-import { ok, err, Result } from "pithos/zygos/result/result";
+import { createErrorFactory } from "@pithos/core/sphalma/error-factory";
+import { ok, err, Result } from "@pithos/core/zygos/result/result";
 
 const createUserError = createErrorFactory<0x3001 | 0x3002>("User");
 

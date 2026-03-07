@@ -55,9 +55,9 @@ Pithos is not available via CDN. The entire library is designed around granular 
 
 - Import at function/module granularity to keep bundles small:
   ```typescript links="chunk:/api/arkhe/array/chunk,parse:/api/kanon/core/parse,ok:/api/zygos/result/ok,err:/api/zygos/result/err"
-  import { chunk } from "pithos/arkhe/array/chunk";
-  import { parse } from "pithos/kanon";
-  import { ok, err } from "pithos/zygos/result/result";
+  import { chunk } from "@pithos/core/arkhe/array/chunk";
+  import { parse } from "@pithos/core/kanon";
+  import { ok, err } from "@pithos/core/zygos/result/result";
   ```
 - Avoid <Code>import <s>* as Pithos</s> from "pithos"</Code>: the package exposes per-file entry points specifically for tree-shaking.
 - All exports are ESM and side-effect free; modern bundlers will drop unused code automatically.

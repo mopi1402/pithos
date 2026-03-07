@@ -38,10 +38,10 @@ Arkhe provides a curated set of utility functions for everyday TypeScript develo
 Each import targets a single function for optimal tree-shaking. Your bundler only includes the code you actually use, keeping your [production bundle minimal](/comparisons/arkhe/bundle-size/):
 
 ```typescript links="chunk:/api/arkhe/array/chunk,groupBy:/api/arkhe/array/groupBy,get:/api/arkhe/object/get,debounce:/api/arkhe/function/debounce"
-import { chunk } from "pithos/arkhe/array/chunk";
-import { groupBy } from "pithos/arkhe/array/group-by";
-import { get } from "pithos/arkhe/object/get";
-import { debounce } from "pithos/arkhe/function/debounce";
+import { chunk } from "@pithos/core/arkhe/array/chunk";
+import { groupBy } from "@pithos/core/arkhe/array/group-by";
+import { get } from "@pithos/core/arkhe/object/get";
+import { debounce } from "@pithos/core/arkhe/function/debounce";
 
 const users = [{ name: "Alice", role: "admin" }, { name: "Bob", role: "user" }];
 
@@ -96,7 +96,7 @@ You don't need to migrate everything at once. Replace one function at a time:
 import { chunk, groupBy } from "lodash-es";
 
 // After: replace one at a time
-import { chunk } from "pithos/arkhe/array/chunk";
+import { chunk } from "@pithos/core/arkhe/array/chunk";
 import { groupBy } from "lodash-es"; // migrate later
 ```
 

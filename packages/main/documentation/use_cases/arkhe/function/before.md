@@ -8,7 +8,7 @@ Limit the number of retry attempts for operations.
 Essential for resilient error handling.
 
 ```typescript
-import { before } from "pithos/arkhe/function/before";
+import { before } from "@pithos/core/arkhe/function/before";
 
 const attemptConnection = async () => {
   const response = await fetch("/api/health");
@@ -40,7 +40,7 @@ Ensure initialization code runs only once.
 Critical for singleton patterns and setup.
 
 ```typescript
-import { before } from "pithos/arkhe/function/before";
+import { before } from "@pithos/core/arkhe/function/before";
 
 const initializeApp = () => {
   console.log("Initializing application...");
@@ -68,7 +68,7 @@ Limit how many times a user action can trigger.
 Important for preventing spam clicks.
 
 ```typescript
-import { before } from "pithos/arkhe/function/before";
+import { before } from "@pithos/core/arkhe/function/before";
 
 const submitForm = (data: FormData) => {
   console.log("Submitting form...");

@@ -57,7 +57,7 @@ For detailed per-function comparisons with real auto-generated data, see the [Ar
 
 ```typescript links="chunk:/api/arkhe/array/chunk"
 // Arkhe: only chunk ends up in your bundle (~150 bytes gzipped)
-import { chunk } from "pithos/arkhe/array/chunk";
+import { chunk } from "@pithos/core/arkhe/array/chunk";
 
 // Lodash-es: chunk + internal dependencies (~3 KB gzipped)
 import { chunk } from "lodash-es";
@@ -102,7 +102,7 @@ import { get } from "lodash-es";
 const value = get(obj, "a.b.c"); // any
 
 // Arkhe: type inference is precise
-import { get } from "pithos/arkhe/object/get";
+import { get } from "@pithos/core/arkhe/object/get";
 const value = get(obj, ["a", "b", "c"]); // correctly typed
 ```
 
@@ -118,9 +118,9 @@ Arkhe uses **per-function entry points**. Each import resolves to a standalone m
 
 ```typescript links="chunk:/api/arkhe/array/chunk,groupBy:/api/arkhe/array/groupBy,get:/api/arkhe/object/get"
 // Each import is fully independent
-import { chunk } from "pithos/arkhe/array/chunk";
-import { groupBy } from "pithos/arkhe/array/groupBy";
-import { get } from "pithos/arkhe/object/get";
+import { chunk } from "@pithos/core/arkhe/array/chunk";
+import { groupBy } from "@pithos/core/arkhe/array/groupBy";
+import { get } from "@pithos/core/arkhe/object/get";
 ```
 
 This means your bundle contains exactly the code you use, nothing more.

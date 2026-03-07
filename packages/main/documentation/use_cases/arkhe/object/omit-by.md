@@ -8,7 +8,7 @@ Remove null and undefined values from objects.
 Essential for cleaning data before API calls.
 
 ```typescript
-import { omitBy } from "pithos/arkhe/object/omit-by";
+import { omitBy } from "@pithos/core/arkhe/object/omit-by";
 
 const formData = {
   name: "John",
@@ -35,7 +35,7 @@ Remove sensitive fields from objects before logging.
 Critical for security compliance.
 
 ```typescript
-import { omitBy } from "pithos/arkhe/object/omit-by";
+import { omitBy } from "@pithos/core/arkhe/object/omit-by";
 
 const sensitiveKeys = new Set(["password", "token", "secret", "apiKey", "creditCard"]);
 
@@ -63,7 +63,7 @@ Filter out empty values when building query strings.
 Important for clean API requests.
 
 ```typescript
-import { omitBy } from "pithos/arkhe/object/omit-by";
+import { omitBy } from "@pithos/core/arkhe/object/omit-by";
 
 function buildQueryString(params: Record<string, unknown>): string {
   // Remove empty values

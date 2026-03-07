@@ -61,7 +61,7 @@ Voici des scénarios de validation que vous rencontrerez en production :
 ```typescript links="string:/api/kanon/schemas/primitives/string,object:/api/kanon/schemas/composites/object,parse:/api/kanon/core/parse"
 // ✅ Kanon - chaque fonction est autonome
 // Seuls string() et object() se retrouvent dans votre bundle
-import { string, object, parse } from "pithos/kanon";
+import { string, object, parse } from "@pithos/core/kanon";
 
 const loginSchema = object({
   email: string({ format: "email" }),

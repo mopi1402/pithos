@@ -31,7 +31,7 @@ Mélanger les deux crée de la complexité et de l'imprévisibilité.
 ### ✅ Validation
 
 ```typescript
-import { string, parse } from "pithos/kanon";
+import { string, parse } from "@pithos/core/kanon";
 
 parse(string(), "  hello  ");
 // → { success: true, data: "  hello  " }
@@ -41,7 +41,7 @@ parse(string(), "  hello  ");
 ### ✅ Coercition (Conversion de type avant validation)
 
 ```typescript
-import { coerceNumber, parse } from "pithos/kanon";
+import { coerceNumber, parse } from "@pithos/core/kanon";
 
 parse(coerceNumber(), "123");
 // → { success: true, data: 123 }
@@ -124,7 +124,7 @@ Les transformations sont des opérations purement runtime. Kanon privilégie ce 
 ### Approche 1 : Transformer après la validation (Recommandé)
 
 ```typescript
-import { string, parse } from "pithos/kanon";
+import { string, parse } from "@pithos/core/kanon";
 
 const result = parse(string().email(), input);
 
@@ -143,7 +143,7 @@ if (result.success) {
 ### Approche 2 : Transformer avant la validation
 
 ```typescript
-import { string, parse } from "pithos/kanon";
+import { string, parse } from "@pithos/core/kanon";
 
 // Transformer d'abord
 const normalized = input.trim().toLowerCase();
@@ -159,7 +159,7 @@ const result = parse(string().email(), normalized);
 ### Approche 3 : Utiliser la coercition pour la conversion de type
 
 ```typescript
-import { coerceNumber, coerceBoolean, parse } from "pithos/kanon";
+import { coerceNumber, coerceBoolean, parse } from "@pithos/core/kanon";
 
 // La coercition de type est intégrée
 parse(coerceNumber(), "123"); // → { success: true, data: 123 }
@@ -173,8 +173,8 @@ parse(coerceBoolean(), "true"); // → { success: true, data: true }
 ### Approche 4 : Utiliser les utilitaires Arkhe
 
 ```typescript
-import { string, parse } from "pithos/kanon";
-import { evolve } from "pithos/arkhe/object/evolve";
+import { string, parse } from "@pithos/core/kanon";
+import { evolve } from "@pithos/core/arkhe/object/evolve";
 
 const result = parse(userSchema, input);
 
@@ -197,8 +197,8 @@ if (result.success) {
 Le helper `asZod()` fournit une API compatible Zod à des **fins de migration** :
 
 ```typescript
-import { asZod } from "pithos/kanon/helpers/as-zod";
-import { string } from "pithos/kanon";
+import { asZod } from "@pithos/core/kanon/helpers/as-zod";
+import { string } from "@pithos/core/kanon";
 
 const schema = asZod(string());
 

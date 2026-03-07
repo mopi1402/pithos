@@ -50,7 +50,7 @@ However, for **smooth migration from Zod**, Kanon provides a `z` shim with a 1:1
 
 ```typescript
 // Just swap your import
-import { z } from "pithos/kanon/helpers/as-zod.shim";
+import { z } from "@pithos/core/kanon/helpers/as-zod.shim";
 
 // Your existing Zod code works as-is
 const schema = z.object({
@@ -146,7 +146,7 @@ With the `z` shim, your Zod code works as-is. Just change the import.
 import { z } from "zod";
 
 // Kanon (just change the import!)
-import { z } from "pithos/kanon/helpers/as-zod.shim";
+import { z } from "@pithos/core/kanon/helpers/as-zod.shim";
 
 // Same code works in both
 const userSchema = z.object({
@@ -162,7 +162,7 @@ const userSchema = z.object({
 Kanon supports the same constraint methods as Zod, including min/max lengths, positive numbers, and email validation:
 
 ```typescript
-import { z } from "pithos/kanon/helpers/as-zod.shim";
+import { z } from "@pithos/core/kanon/helpers/as-zod.shim";
 
 const productSchema = z.object({
   sku: z.string().min(3).max(10),
@@ -178,7 +178,7 @@ const productSchema = z.object({
 Optional, nullable, and nullish modifiers work identically to Zod, no code changes needed:
 
 ```typescript
-import { z } from "pithos/kanon/helpers/as-zod.shim";
+import { z } from "@pithos/core/kanon/helpers/as-zod.shim";
 
 const profileSchema = z.object({
   username: z.string(),
@@ -195,7 +195,7 @@ const profileSchema = z.object({
 Kanon supports union types through `z.union()` and literal values, just like Zod:
 
 ```typescript
-import { z } from "pithos/kanon/helpers/as-zod.shim";
+import { z } from "@pithos/core/kanon/helpers/as-zod.shim";
 
 const statusSchema = z.union([
   z.literal("pending"),

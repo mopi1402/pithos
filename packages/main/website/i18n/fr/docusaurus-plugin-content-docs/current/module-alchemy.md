@@ -41,8 +41,8 @@ const transformed = transform(parsed.data);
 `ensure()` permet de retourner simplement un `Result` :
 
 ```typescript links="ensure:/api/bridges/ensure"
-import { ensure } from "pithos/bridges/ensure";
-import { object, string, number } from "pithos/kanon";
+import { ensure } from "@pithos/core/bridges/ensure";
+import { object, string, number } from "@pithos/core/kanon";
 
 const UserSchema = object({
   name: string().minLength(1),
@@ -68,8 +68,8 @@ ensure(UserSchema, data)
 `ensurePromise()` élimine le boilerplate `ResultAsync.fromPromise(...).andThen(...)` :
 
 ```typescript links="ensurePromise:/api/bridges/ensurePromise"
-import { ensurePromise } from "pithos/bridges/ensurePromise";
-import { object, string, number } from "pithos/kanon";
+import { ensurePromise } from "@pithos/core/bridges/ensurePromise";
+import { object, string, number } from "@pithos/core/kanon";
 
 const UserSchema = object({
   name: string().minLength(1),
@@ -88,8 +88,8 @@ ensurePromise(UserSchema, fetch("/api/user").then(r => r.json()))
 Au lieu de lancer des erreurs, retournez-les comme des valeurs [`Err`](/api/zygos/result/err/) typées. [`CodedError`](/api/sphalma/error-factory/) porte un code hex, un label de type et des détails optionnels. Chaque chemin d'échec est visible dans la signature de la fonction :
 
 ```typescript links="createErrorFactory:/api/sphalma/error-factory,ok:/api/zygos/result/ok,err:/api/zygos/result/err"
-import { createErrorFactory, CodedError } from "pithos/sphalma/error-factory";
-import { ok, err, Result } from "pithos/zygos/result/result";
+import { createErrorFactory, CodedError } from "@pithos/core/sphalma/error-factory";
+import { ok, err, Result } from "@pithos/core/zygos/result/result";
 
 const createUserError = createErrorFactory<0x3001 | 0x3002>("USER_ERROR");
 
@@ -116,9 +116,9 @@ Pas de `try/catch`, pas d'erreurs `string` non typées. Le compilateur sait exac
 Kanon attrape les données malformées. Sphalma gère les erreurs métier qui surviennent après la validation. Ensemble, ils couvrent tout le spectre d'erreurs :
 
 ```typescript links="createErrorFactory:/api/sphalma/error-factory,ok:/api/zygos/result/ok,err:/api/zygos/result/err"
-import { parse, object, string, number } from "pithos/kanon";
-import { createErrorFactory, CodedError } from "pithos/sphalma/error-factory";
-import { ok, err, Result } from "pithos/zygos/result/result";
+import { parse, object, string, number } from "@pithos/core/kanon";
+import { createErrorFactory, CodedError } from "@pithos/core/sphalma/error-factory";
+import { ok, err, Result } from "@pithos/core/zygos/result/result";
 
 const createOrderError = createErrorFactory<0x4001 | 0x4002>("ORDER_ERROR");
 
@@ -158,11 +158,11 @@ Voir la [page Taphos](/guide/modules/taphos/) pour le schéma de migration compl
 Combinez les quatre modules dans une seule chaîne typée : valider, transformer, gérer les erreurs et propager les échecs structurés :
 
 ```typescript links="ensure:/api/bridges/ensure,createErrorFactory:/api/sphalma/error-factory,ok:/api/zygos/result/ok,err:/api/zygos/result/err"
-import { ensure } from "pithos/bridges/ensure";
-import { object, string, number } from "pithos/kanon";
-import { createErrorFactory, CodedError } from "pithos/sphalma/error-factory";
-import { ok, err, Result } from "pithos/zygos/result/result";
-import { capitalize, trim } from "pithos/arkhe";
+import { ensure } from "@pithos/core/bridges/ensure";
+import { object, string, number } from "@pithos/core/kanon";
+import { createErrorFactory, CodedError } from "@pithos/core/sphalma/error-factory";
+import { ok, err, Result } from "@pithos/core/zygos/result/result";
+import { capitalize, trim } from "@pithos/core/arkhe";
 
 const createApiError = createErrorFactory<0x5001 | 0x5002>("API_ERROR");
 

@@ -36,7 +36,7 @@ const get = <T, K extends keyof T>(obj: T, key: K): T[K] => obj[key];
 ## Exemples d'inférence
 
 ```typescript
-import { chunk } from "pithos/arkhe/array/chunk";
+import { chunk } from "@pithos/core/arkhe/array/chunk";
 
 const numbers = [1, 2, 3, 4, 5, 6];
 const chunks = chunk(numbers, 2);

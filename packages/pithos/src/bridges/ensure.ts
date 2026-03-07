@@ -17,8 +17,8 @@ import type { Result } from "@zygos/result/result";
  *
  * @example
  * ```typescript
- * import { ensure } from "pithos/bridges/ensure";
- * import { object, string, number } from "pithos/kanon";
+ * import { ensure } from "@pithos/core/bridges/ensure";
+ * import { object, string, number } from "@pithos/core/kanon";
  *
  * const schema = object({ name: string(), age: number() });
  *

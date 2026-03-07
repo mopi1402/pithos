@@ -4,8 +4,8 @@
  * This file demonstrates the Zygos pattern for type-safe async operations.
  * In this example, we use mock data, but the pattern works identically with real APIs.
  */
-import { ResultAsync, errAsync, okAsync } from "pithos/zygos/result/result-async";
-import { parse } from "pithos/kanon/index";
+import { ResultAsync, errAsync, okAsync } from "@pithos/core/zygos/result/result-async";
+import { parse } from "@pithos/core/kanon/index";
 import { DashboardSchema } from "./schemas";
 import { formatUser, formatPosts } from "./transformers";
 import type { DashboardData, RawDashboardData } from "./types";

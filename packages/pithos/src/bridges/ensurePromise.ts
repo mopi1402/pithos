@@ -17,8 +17,8 @@ import type { Schema } from "@kanon/types/base";
  *
  * @example
  * ```typescript
- * import { ensurePromise } from "pithos/bridges/ensurePromise";
- * import { object, string, number } from "pithos/kanon";
+ * import { ensurePromise } from "@pithos/core/bridges/ensurePromise";
+ * import { object, string, number } from "@pithos/core/kanon";
  *
  * const UserSchema = object({ name: string(), age: number() });
  *

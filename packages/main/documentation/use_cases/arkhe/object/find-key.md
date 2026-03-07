@@ -8,7 +8,7 @@ Find object key based on a value condition.
 Essential for reverse lookups in object maps.
 
 ```typescript
-import { findKey } from "pithos/arkhe/object/find-key";
+import { findKey } from "@pithos/core/arkhe/object/find-key";
 
 const users = {
   user_1: { name: "Alice", active: true },
@@ -33,7 +33,7 @@ Find enum key from its value.
 Critical for translating values back to identifiers.
 
 ```typescript
-import { findKey } from "pithos/arkhe/object/find-key";
+import { findKey } from "@pithos/core/arkhe/object/find-key";
 
 const HttpStatus = {
   OK: 200,
@@ -61,7 +61,7 @@ Find the first invalid configuration entry.
 Important for debugging configuration issues.
 
 ```typescript
-import { findKey } from "pithos/arkhe/object/find-key";
+import { findKey } from "@pithos/core/arkhe/object/find-key";
 
 interface ConfigValue {
   value: unknown;

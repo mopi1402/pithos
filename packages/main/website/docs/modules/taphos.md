@@ -73,7 +73,7 @@ These utilities have been replaced by native JavaScript/TypeScript APIs. The nat
 
 ```typescript links="flatten:/api/taphos/array/flatten"
 // Buried in Taphos
-import { flatten } from "pithos/taphos/array/flatten";
+import { flatten } from "@pithos/core/taphos/array/flatten";
 const flat = flatten([[1, 2], [3, 4]]);
 
 // ✅ Native replacement, see Array.prototype.flat() on MDN
@@ -92,7 +92,7 @@ const arr = [3, 1, 2];
 arr.sort(); // arr is now [1, 2, 3] - mutated!
 
 // ✅ Use Pithos immutable alternative
-import { sort } from "pithos/arkhe/array/sort";
+import { sort } from "@pithos/core/arkhe/array/sort";
 const sorted = sort([3, 1, 2]); // Returns new array, original unchanged
 ```
 
@@ -104,10 +104,10 @@ Some functions in Taphos aren't truly "dead": they're **aliases** that redirect 
 
 ```typescript links="castArray:/api/taphos/util/castArray,toArray:/api/arkhe/array/toArray"
 // Alias in Taphos (Lodash naming)
-import { castArray } from "pithos/taphos/util/castArray";
+import { castArray } from "@pithos/core/taphos/util/castArray";
 
 // ✅ Canonical Pithos function
-import { toArray } from "pithos/arkhe/array/toArray";
+import { toArray } from "@pithos/core/arkhe/array/toArray";
 
 // Both do the same thing, but 'toArray' is the canonical name in Pithos
 ```
@@ -124,7 +124,7 @@ Think of it as a reserved plot in the cemetery. We know who's going there, just 
 
 ```typescript links="groupBy:/api/arkhe/array/groupBy"
 // Still in Arkhe (targeting ES2020)
-import { groupBy } from "pithos/arkhe/collection/groupBy";
+import { groupBy } from "@pithos/core/arkhe/collection/groupBy";
 const grouped = groupBy(users, (user) => user.role);
 
 // Future native replacement (ES2024) - not yet available for our target
@@ -138,7 +138,7 @@ const grouped = groupBy(users, (user) => user.role);
 Every function in Taphos is marked `@deprecated` and includes its migration path directly in the TSDoc. This means your IDE shows you exactly what to use instead, without leaving your editor.
 
 ```typescript links="at:/api/taphos/array/at"
-import { at } from "pithos/taphos/array/at";
+import { at } from "@pithos/core/taphos/array/at";
 //       ^^ Your IDE shows: "Deprecated: Use native Array.prototype.at() instead"
 ```
 

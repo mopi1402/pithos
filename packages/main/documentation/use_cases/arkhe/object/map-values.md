@@ -8,7 +8,7 @@ Transform all values in an object while preserving keys.
 Essential for data transformation pipelines.
 
 ```typescript
-import { mapValues } from "pithos/arkhe/object/map-values";
+import { mapValues } from "@pithos/core/arkhe/object/map-values";
 
 const prices = {
   apple: 1.5,
@@ -35,7 +35,7 @@ Normalize API response data structure.
 Critical for consistent data handling.
 
 ```typescript
-import { mapValues } from "pithos/arkhe/object/map-values";
+import { mapValues } from "@pithos/core/arkhe/object/map-values";
 
 interface RawUser {
   first_name: string;
@@ -67,7 +67,7 @@ Transform validation rules into error messages.
 Important for user-friendly form feedback.
 
 ```typescript
-import { mapValues } from "pithos/arkhe/object/map-values";
+import { mapValues } from "@pithos/core/arkhe/object/map-values";
 
 const fieldValues = {
   username: "ab",
@@ -103,7 +103,7 @@ Convert all positions in a trading portfolio to a base currency.
 Essential for international trading platforms and multi-currency portfolios.
 
 ```typescript
-import { mapValues } from "pithos/arkhe/object/map-values";
+import { mapValues } from "@pithos/core/arkhe/object/map-values";
 
 const portfolio = {
   AAPL: { shares: 50, valueUSD: 8925.00 },

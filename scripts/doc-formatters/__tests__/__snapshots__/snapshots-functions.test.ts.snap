@@ -575,7 +575,7 @@ Essential for resilient error handling.
 </div>
 
 \`\`\`typescript
-import { before } from "pithos/arkhe/function/before";
+import { before } from "@pithos/core/arkhe/function/before";
 
 const attemptConnection = async () => {
   const response = await fetch("/api/health");
@@ -658,7 +658,7 @@ Critical for singleton patterns and setup.
 </div>
 
 \`\`\`typescript
-import { before } from "pithos/arkhe/function/before";
+import { before } from "@pithos/core/arkhe/function/before";
 
 const initializeApp = () => {
   console.log("Initializing application...");
@@ -737,7 +737,7 @@ Important for preventing spam clicks.
 </div>
 
 \`\`\`typescript
-import { before } from "pithos/arkhe/function/before";
+import { before } from "@pithos/core/arkhe/function/before";
 
 const submitForm = (data: FormData) => {
   console.log("Submitting form...");
@@ -1560,7 +1560,7 @@ Essential for creating opposite filter conditions.
 </div>
 
 \`\`\`typescript
-import { negate } from "pithos/arkhe/function/negate";
+import { negate } from "@pithos/core/arkhe/function/negate";
 
 const isEven = (n: number) => n % 2 === 0;
 const isOdd = negate(isEven);
@@ -1630,7 +1630,7 @@ Critical for form validation logic.
 </div>
 
 \`\`\`typescript
-import { negate } from "pithos/arkhe/function/negate";
+import { negate } from "@pithos/core/arkhe/function/negate";
 
 const isEmpty = (value: string) => value.trim().length === 0;
 const isNotEmpty = negate(isEmpty);
@@ -1708,7 +1708,7 @@ Important for authorization systems.
 </div>
 
 \`\`\`typescript
-import { negate } from "pithos/arkhe/function/negate";
+import { negate } from "@pithos/core/arkhe/function/negate";
 
 interface User {
   id: string;

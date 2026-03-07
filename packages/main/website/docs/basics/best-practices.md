@@ -160,7 +160,7 @@ const result: Result<User, ApiError> = fetchUser(id);
 Use Kanon to validate external data exactly once, at the point of entry. Once data passes validation, every downstream function can trust the types without additional runtime checks. This keeps your codebase clean and your bundle small:
 
 ```typescript links="object:/api/kanon/schemas/composites/object,string:/api/kanon/schemas/primitives/string,number:/api/kanon/schemas/primitives/number,parse:/api/kanon/core/parse"
-import { object, string, number, parse } from "pithos/kanon";
+import { object, string, number, parse } from "@pithos/core/kanon";
 
 const UserSchema = object({
   id: string(),
@@ -195,7 +195,7 @@ function processUser(user: User) {
 Every `Result` should be handled. Use `match`, `map`, or explicit checks. The compiler helps you here: if you forget to handle a case, TypeScript will flag it. This makes error handling visible and intentional rather than accidental:
 
 ```typescript links="ok:/api/zygos/result/ok,err:/api/zygos/result/err"
-import { ok, err, Result } from "pithos/zygos/result/result";
+import { ok, err, Result } from "@pithos/core/zygos/result/result";
 
 // ✅ Good: Explicit handling with match
 const message = result.match({
@@ -240,9 +240,9 @@ const cache: Map<string, User> = new Map();
 Arkhe provides utility types that make your intentions clear. These types communicate the shape and constraints of your data at the type level, so other developers understand the contract without reading the implementation:
 
 ```typescript
-import type { Arrayable } from "pithos/arkhe/types/common/arrayable";
-import type { Nullish } from "pithos/arkhe/types/common/nullish";
-import type { DeepPartial } from "pithos/arkhe/types/utilities/deep-partial";
+import type { Arrayable } from "@pithos/core/arkhe/types/common/arrayable";
+import type { Nullish } from "@pithos/core/arkhe/types/common/nullish";
+import type { DeepPartial } from "@pithos/core/arkhe/types/utilities/deep-partial";
 
 // ✅ Clear intent: accepts single item or array
 function process(input: Arrayable<User>) {

@@ -40,7 +40,7 @@ Zygos brings functional error handling patterns to [TypeScript](https://www.type
 The `Result` type represents an operation that can succeed ([`Ok`](/api/zygos/result/ok)) or fail ([`Err`](/api/zygos/result/err)). Pattern matching on the result forces you to handle both cases, eliminating unhandled exceptions:
 
 ```typescript links="ok:/api/zygos/result/ok,err:/api/zygos/result/err"
-import { ok, err, Result } from "pithos/zygos/result/result";
+import { ok, err, Result } from "@pithos/core/zygos/result/result";
 
 function divide(a: number, b: number): Result<number, string> {
   if (b === 0) return err("Division by zero");
@@ -83,8 +83,8 @@ Zygos Result is <ZygosSizeHighlight type="full" /> than Neverthrow, while mainta
 import { ok, err, Result, ResultAsync } from "neverthrow";
 
 // After (Zygos): only change the import, code stays IDENTICAL
-import { ok, err, Result } from "pithos/zygos/result/result";
-import { ResultAsync } from "pithos/zygos/result/result-async";
+import { ok, err, Result } from "@pithos/core/zygos/result/result";
+import { ResultAsync } from "@pithos/core/zygos/result/result-async";
 
 // Your existing code works unchanged
 ```
@@ -98,8 +98,8 @@ Search & replace `from "neverthrow"` → split into the two imports above. All m
 Results support chaining with [`map`](/api/zygos/result/), [`mapErr`](/api/zygos/result/), and [`andThen`](/api/zygos/result/). Each operation transforms the success value while propagating errors automatically, similar to how Promises chain with `.then()`:
 
 ```typescript links="ok:/api/zygos/result/ok,err:/api/zygos/result/err,ResultAsync:/api/zygos/result/ResultAsync"
-import { ok, err, Result } from "pithos/zygos/result/result";
-import { ResultAsync } from "pithos/zygos/result/result-async";
+import { ok, err, Result } from "@pithos/core/zygos/result/result";
+import { ResultAsync } from "@pithos/core/zygos/result/result-async";
 
 // Sync
 const success = ok(42);
@@ -127,8 +127,8 @@ const asyncResult = ResultAsync.fromPromise(
 Handle optional values without null/undefined. The `Option` type makes the absence of a value explicit in the type system, replacing nullable types with [`Some`](/api/zygos/option/some) (value present) or [`None`](/api/zygos/option/none) (value absent):
 
 ```typescript links="some:/api/zygos/option/some,none:/api/zygos/option/none,fromNullable:/api/zygos/option/fromNullable,map:/api/zygos/option/map,flatMap:/api/zygos/option/flatMap,pipe:/api/arkhe/function/pipe"
-import { some, none, fromNullable, Option, map, flatMap } from "pithos/zygos/option";
-import { pipe } from "pithos/arkhe/function/pipe";
+import { some, none, fromNullable, Option, map, flatMap } from "@pithos/core/zygos/option";
+import { pipe } from "@pithos/core/arkhe/function/pipe";
 
 const value = some(42);
 const empty = none;
@@ -167,9 +167,9 @@ import * as T from "fp-ts/Task";
 import * as TE from "fp-ts/TaskEither";
 
 // After (Zygos): only change the import, code stays IDENTICAL
-import * as E from "pithos/zygos/either";
-import * as T from "pithos/zygos/task";
-import * as TE from "pithos/zygos/task-either";
+import * as E from "@pithos/core/zygos/either";
+import * as T from "@pithos/core/zygos/task";
+import * as TE from "@pithos/core/zygos/task-either";
 
 // Your existing code works unchanged
 const result = pipe(
@@ -180,7 +180,7 @@ const result = pipe(
 ```
 
 :::tip Migration
-Search & replace `from "fp-ts/Either"` → `from "pithos/zygos/either"`, etc. All functions work the same.
+Search & replace `from "fp-ts/Either"` → `from "@pithos/core/zygos/either"`, etc. All functions work the same.
 :::
 
 ### Available functions
@@ -202,7 +202,7 @@ Search & replace `from "fp-ts/Either"` → `from "pithos/zygos/either"`, etc. Al
 Wrap any function that might throw into a Result-returning function. This is especially useful for third-party APIs or built-in functions like `JSON.parse` that communicate errors through exceptions:
 
 ```typescript links="safe:/api/zygos/safe"
-import { safe } from "pithos/zygos/safe";
+import { safe } from "@pithos/core/zygos/safe";
 
 const safeJsonParse = safe(JSON.parse);
 
@@ -259,8 +259,8 @@ Add Pithos to your project. It includes Zygos and all other modules:
 import { ok, err, Result, ResultAsync, safeTry } from "neverthrow";
 
 // After
-import { ok, err, Result, safeTry } from "pithos/zygos/result/result";
-import { ResultAsync } from "pithos/zygos/result/result-async";
+import { ok, err, Result, safeTry } from "@pithos/core/zygos/result/result";
+import { ResultAsync } from "@pithos/core/zygos/result/result-async";
 ```
 
 #### Step 3: Run your tests
@@ -273,10 +273,10 @@ Once migrated, you can take advantage of Zygos-specific features:
 
 ```typescript links="fromOption:/api/zygos/result/fromOption,fromEither:/api/zygos/result/fromEither,toEither:/api/zygos/result/toEither,safeAsyncTry:/api/zygos/result/safeAsyncTry"
 // fp-ts bridges
-import { fromOption, fromEither, toEither } from "pithos/zygos/result/result";
+import { fromOption, fromEither, toEither } from "@pithos/core/zygos/result/result";
 
 // Simplified async try
-import { safeAsyncTry } from "pithos/zygos/result/result";
+import { safeAsyncTry } from "@pithos/core/zygos/result/result";
 
 // Collect all errors
 const allErrors = ResultAsync.combineWithAllErrors(results);
@@ -299,9 +299,9 @@ import * as T from "fp-ts/Task";
 import * as TE from "fp-ts/TaskEither";
 
 // After
-import * as E from "pithos/zygos/either";
-import * as T from "pithos/zygos/task";
-import * as TE from "pithos/zygos/task-either";
+import * as E from "@pithos/core/zygos/either";
+import * as T from "@pithos/core/zygos/task";
+import * as TE from "@pithos/core/zygos/task-either";
 ```
 
 #### Step 3: Run your tests

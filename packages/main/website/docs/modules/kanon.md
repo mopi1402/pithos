@@ -44,7 +44,7 @@ Kanon is a runtime schema validation library designed for [TypeScript](https://w
 Define a schema using composable primitives, then validate incoming data with [`parse`](/api/kanon/core/parse). The result is a discriminated union: either a typed success value or a structured error, so you always know what you're working with:
 
 ```typescript links="object:/api/kanon/schemas/composites/object,string:/api/kanon/schemas/primitives/string,number:/api/kanon/schemas/primitives/number,optional:/api/kanon/schemas/wrappers/optional,parse:/api/kanon/core/parse"
-import { object, string, number, optional, parse } from "pithos/kanon";
+import { object, string, number, optional, parse } from "@pithos/core/kanon";
 
 const userSchema = object({
   name: string().minLength(1),
@@ -97,8 +97,8 @@ Kanon v3 offers two validation modes. The standard mode works in any environment
 </TableConfig>
 
 ```typescript links="parse:/api/kanon/core/parse,compile:/api/kanon/jit/compile"
-import { parse } from "pithos/kanon";              // Standard
-import { compile } from "pithos/kanon/jit/compiler"; // JIT
+import { parse } from "@pithos/core/kanon";              // Standard
+import { compile } from "@pithos/core/kanon/jit/compiler"; // JIT
 
 // JIT: compile once, validate many
 const validator = compile(schema);
@@ -134,13 +134,13 @@ See also: [Kanon vs Zod](/comparisons/kanon/kanon-vs-zod/#key-design-difference-
 import { z } from "zod";
 
 // After (Kanon): only change the import
-import { z } from "pithos/kanon/helpers/as-zod.shim";
+import { z } from "@pithos/core/kanon/helpers/as-zod.shim";
 
 // Your existing code works unchanged in most cases
 ```
 
 :::tip Migration
-Search & replace `from "zod"` → `from "pithos/kanon/helpers/as-zod.shim"` in your codebase. Done.
+Search & replace `from "zod"` → `from "@pithos/core/kanon/helpers/as-zod.shim"` in your codebase. Done.
 :::
 
 For the full list of supported Zod features and edge cases, see the [Kanon ↔ Zod interoperability matrix](/comparisons/kanon/interoperability/).
@@ -150,7 +150,7 @@ For the full list of supported Zod features and edge cases, see the [Kanon ↔ Z
 The `k` namespace provides the same API as `z`, using Kanon's own naming conventions. It groups all schema constructors under a single object for convenience:
 
 ```typescript links="k:/api/kanon/helpers/k"
-import { k } from "pithos/kanon/helpers/k";
+import { k } from "@pithos/core/kanon/helpers/k";
 
 const schema = k.object({
   name: k.string(),
@@ -169,8 +169,8 @@ Lighter than `asZod`, but not tree-shakable: imports all schemas. Prefer direct 
 Wraps any Kanon schema with Zod-like methods. This is useful when you want tree-shakable imports but still need Zod's fluent API for specific schemas:
 
 ```typescript links="asZod:/api/kanon/helpers/asZod,string:/api/kanon/schemas/primitives/string,number:/api/kanon/schemas/primitives/number,object:/api/kanon/schemas/composites/object"
-import { asZod } from "pithos/kanon/helpers/as-zod";
-import { string, number, object } from "pithos/kanon";
+import { asZod } from "@pithos/core/kanon/helpers/as-zod";
+import { string, number, object } from "@pithos/core/kanon";
 
 const schema = asZod(object({
   name: string(),
@@ -232,7 +232,7 @@ Add Pithos to your project using your preferred package manager:
 import { z } from "zod";
 
 // After
-import { z } from "pithos/kanon/helpers/as-zod.shim";
+import { z } from "@pithos/core/kanon/helpers/as-zod.shim";
 ```
 
 ### Step 3: Run your tests
@@ -249,11 +249,11 @@ For maximum bundle optimization, gradually replace the `z` shim with direct impo
 
 ```typescript links="object:/api/kanon/schemas/composites/object,string:/api/kanon/schemas/primitives/string,parse:/api/kanon/core/parse"
 // z shim (convenient, slightly larger)
-import { z } from "pithos/kanon/helpers/as-zod.shim";
+import { z } from "@pithos/core/kanon/helpers/as-zod.shim";
 const schema = z.object({ name: z.string() });
 
 // Direct imports (smallest possible bundle)
-import { object, string, parse } from "pithos/kanon";
+import { object, string, parse } from "@pithos/core/kanon";
 const schema = object({ name: string() });
 ```
 

@@ -8,7 +8,7 @@ Compare complex objects to detect state changes.
 Essential for React/Vue change detection and memoization.
 
 ```typescript
-import { isEqual } from "pithos/arkhe/is/predicate/is-equal";
+import { isEqual } from "@pithos/core/arkhe/is/predicate/is-equal";
 
 const prevState = {
   user: { name: "John", settings: { theme: "dark", notifications: true } },
@@ -37,7 +37,7 @@ Assert equality of complex data structures in tests.
 Critical for comprehensive test coverage.
 
 ```typescript
-import { isEqual } from "pithos/arkhe/is/predicate/is-equal";
+import { isEqual } from "@pithos/core/arkhe/is/predicate/is-equal";
 
 function testUserTransformation() {
   const input = { firstName: "John", lastName: "Doe", age: 30 };
@@ -71,7 +71,7 @@ Determine if cached values should be invalidated.
 Important for efficient caching strategies.
 
 ```typescript
-import { isEqual } from "pithos/arkhe/is/predicate/is-equal";
+import { isEqual } from "@pithos/core/arkhe/is/predicate/is-equal";
 
 class MemoizedFetcher {
   private cache = new Map<string, { params: unknown; data: unknown }>();

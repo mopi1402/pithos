@@ -295,6 +295,9 @@ importers:
 
   packages/pithos/examples/practical-example:
     dependencies:
+      '@pithos/core':
+        specifier: workspace:*
+        version: link:../..
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -304,9 +307,6 @@ importers:
       lucide-react:
         specifier: ^0.468.0
         version: 0.468.0(react@19.2.3)
-      pithos:
-        specifier: workspace:*
-        version: link:../../../main/npmjs-first-package
       react:
         specifier: ^19.0.0
         version: 19.2.3

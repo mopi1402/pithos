@@ -35,12 +35,12 @@ npm i @pithos/core
 ```
 
 ```diff
-- import { ok, err } from "pithos/zygos/result/result";
+- import { ok, err } from "@pithos/core/zygos/result/result";
 + import { ok, err } from "@pithos/core/zygos/result/result";
 ```
 
 ```diff
-- import { parseFloatDef } from "pithos/arkhe/number/parsers/parseFloatDef";
+- import { parseFloatDef } from "@pithos/core/arkhe/number/parsers/parseFloatDef";
 + import { parseFloatDef } from "@pithos/core/arkhe/number/parsers/parseFloatDef";
 ```
 

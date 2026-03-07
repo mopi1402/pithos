@@ -17,8 +17,8 @@ import type { ResultAsync } from "@zygos/result/result-async";
  *
  * @example
  * ```typescript
- * import { ensureAsync } from "pithos/bridges/ensureAsync";
- * import { object, string, number } from "pithos/kanon";
+ * import { ensureAsync } from "@pithos/core/bridges/ensureAsync";
+ * import { object, string, number } from "@pithos/core/kanon";
  *
  * safeFetch("/api/user")
  *   .andThen(res => safeJson(res))

@@ -8,7 +8,7 @@ Merge objects with custom array handling.
 Essential for flexible data merging.
 
 ```typescript
-import { mergeWith } from "pithos/arkhe/object/merge-with";
+import { mergeWith } from "@pithos/core/arkhe/object/merge-with";
 
 const baseConfig = {
   plugins: ["plugin-a", "plugin-b"],
@@ -40,7 +40,7 @@ Accumulate numeric values during merge.
 Critical for aggregating statistics.
 
 ```typescript
-import { mergeWith } from "pithos/arkhe/object/merge-with";
+import { mergeWith } from "@pithos/core/arkhe/object/merge-with";
 
 const week1Stats = {
   visits: 1000,
@@ -74,7 +74,7 @@ Apply conditional rules when merging values.
 Important for complex merge scenarios.
 
 ```typescript
-import { mergeWith } from "pithos/arkhe/object/merge-with";
+import { mergeWith } from "@pithos/core/arkhe/object/merge-with";
 
 const defaultSettings = {
   timeout: 30000,

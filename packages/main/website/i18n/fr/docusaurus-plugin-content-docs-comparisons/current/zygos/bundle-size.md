@@ -41,8 +41,8 @@ Zygos est **100% compatible API** avec Neverthrow, rendant la migration transpar
 import { ok, err, Result, ResultAsync } from "neverthrow";
 
 // En ceci :
-import { ok, err, Result } from "pithos/zygos/result/result";
-import { ResultAsync } from "pithos/zygos/result/result-async";
+import { ok, err, Result } from "@pithos/core/zygos/result/result";
+import { ResultAsync } from "@pithos/core/zygos/result/result-async";
 
 // Votre code fonctionne sans modification
 ```
@@ -74,7 +74,7 @@ pipe(
 );
 
 // Style Zygos
-import { ok } from "pithos/zygos/result/result";
+import { ok } from "@pithos/core/zygos/result/result";
 
 ok(5)
   .map(x => x * 2)

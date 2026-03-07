@@ -44,13 +44,13 @@ Pithos utilise des imports granulaires pour un tree-shaking optimal. Importez ch
 
 ```typescript links="chunk:/api/arkhe/array/chunk,object:/api/kanon/schemas/composites/object,string:/api/kanon/schemas/primitives/string,number:/api/kanon/schemas/primitives/number,optional:/api/kanon/schemas/wrappers/optional,ok:/api/zygos/result/ok,err:/api/zygos/result/err"
 // Utilitaires de tableaux
-import { chunk } from "pithos/arkhe/array/chunk";
+import { chunk } from "@pithos/core/arkhe/array/chunk";
 
 // Validation
-import { object, string, number, optional } from "pithos/kanon";
+import { object, string, number, optional } from "@pithos/core/kanon";
 
 // Pattern Result
-import { ok, err } from "pithos/zygos/result/result";
+import { ok, err } from "@pithos/core/zygos/result/result";
 ```
 
 ---
@@ -64,8 +64,8 @@ Les utilitaires Arkhe suivent un pattern cohérent : ils prennent les données e
 Cela les rend sûrs à utiliser dans n'importe quel contexte, par exemple les mises à jour d'état d'un framework frontend ou le traitement côté serveur :
 
 ```typescript links="chunk:/api/arkhe/array/chunk,get:/api/arkhe/object/get"
-import { chunk } from "pithos/arkhe/array/chunk";
-import { get } from "pithos/arkhe/object/get";
+import { chunk } from "@pithos/core/arkhe/array/chunk";
+import { get } from "@pithos/core/arkhe/object/get";
 
 // Découper un tableau en morceaux
 chunk([1, 2, 3, 4, 5], 2);
@@ -83,8 +83,8 @@ Les schémas Kanon se composent ensemble pour décrire des structures de donnée
 Vous utilisez déjà Zod ? Le wrapper [`asZod`](/api/kanon/helpers/asZod) fournit une API compatible, pour migrer progressivement tout en profitant du tree-shaking de Kanon :
 
 ```typescript links="object:/api/kanon/schemas/composites/object,string:/api/kanon/schemas/primitives/string,number:/api/kanon/schemas/primitives/number,optional:/api/kanon/schemas/wrappers/optional,parse:/api/kanon/core/parse,asZod:/api/kanon/helpers/asZod"
-import { object, string, number, optional, parse } from "pithos/kanon";
-import { asZod } from "pithos/kanon/helpers/as-zod";
+import { object, string, number, optional, parse } from "@pithos/core/kanon";
+import { asZod } from "@pithos/core/kanon/helpers/as-zod";
 
 const userSchema = object({
   name: string(),
@@ -117,7 +117,7 @@ if (zodResult.success) {
 Au lieu de `try/catch`, vous obtenez une valeur typée qui vous oblige à gérer les deux chemins : succès et échec :
 
 ```typescript links="ResultAsync:/api/zygos/result/ResultAsync"
-import { ResultAsync } from "pithos/zygos/result/result-async";
+import { ResultAsync } from "@pithos/core/zygos/result/result-async";
 
 const safeFetch = ResultAsync.fromThrowable(
   fetch,

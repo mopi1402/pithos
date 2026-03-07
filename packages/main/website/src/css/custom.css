@@ -656,12 +656,6 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
 .prism-code {
   background-color: var(--prism-background);
   color: var(--prism-color);
-  white-space: pre;
-}
-
-/* Ensure each token-line renders as a block (prevents inline collapse during SPA nav) */
-.prism-code .token-line {
-  display: block;
 }
 
 .token.keyword {

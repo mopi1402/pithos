@@ -8,7 +8,7 @@ Create reusable partially applied functions.
 Essential for functional programming patterns.
 
 ```typescript
-import { curry } from "pithos/arkhe/function/curry";
+import { curry } from "@pithos/core/arkhe/function/curry";
 
 const add = (a: number, b: number, c: number) => a + b + c;
 const curriedAdd = curry(add);
@@ -31,7 +31,7 @@ Create event handlers with pre-configured parameters.
 Critical for UI component callbacks.
 
 ```typescript
-import { curry } from "pithos/arkhe/function/curry";
+import { curry } from "@pithos/core/arkhe/function/curry";
 
 const handleClick = (action: string, category: string, event: MouseEvent) => {
   analytics.track({ action, category, x: event.clientX, y: event.clientY });
@@ -56,7 +56,7 @@ Build configurable API request functions.
 Important for consistent API interactions.
 
 ```typescript
-import { curry } from "pithos/arkhe/function/curry";
+import { curry } from "@pithos/core/arkhe/function/curry";
 
 const fetchResource = async (
   baseUrl: string,

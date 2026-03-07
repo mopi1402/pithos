@@ -493,7 +493,7 @@ export function CodeExample({ variant }: CodeExampleProps): React.ReactElement {
     return (
       <pre className={styles.codeBlock}>
         <code>{`// ${translate({ id: 'comparison.bundle.codeExample.directComment', message: '✅ BEST: Direct imports ({size} for login form)' }, { size: directSize })}
-import { object, string, parse } from "pithos/kanon";
+import { object, string, parse } from "@pithos/core/kanon";
 
 const schema = object({
   email: string({ format: "email" }),
@@ -508,7 +508,7 @@ const result = parse(schema, data);`}</code>
     return (
       <pre className={styles.codeBlock}>
         <code>{`// ${translate({ id: 'comparison.bundle.codeExample.kNamespaceComment', message: '⚠️ CONVENIENT: k namespace ({size} - includes ALL schemas)' }, { size: kSize })}
-import { k } from "pithos/kanon";
+import { k } from "@pithos/core/kanon";
 
 const schema = k.object({
   email: k.string(),
@@ -523,7 +523,7 @@ const result = k.parse(schema, data);`}</code>
   return (
     <pre className={styles.codeBlock}>
       <code>{`// ${translate({ id: 'comparison.bundle.codeExample.zShimComment', message: '⚠️ ZOD COMPAT: z shim ({size} - Zod API adapter)' }, { size: zSize })}
-import { z } from "pithos/kanon/helpers/as-zod.shim";
+import { z } from "@pithos/core/kanon/helpers/as-zod.shim";
 
 const schema = z.object({
   email: z.string().email(),

@@ -54,7 +54,7 @@ Pour des comparaisons détaillées par scénario avec des données auto-génér�
 
 ```typescript links="string:/api/kanon/schemas/primitives/string,object:/api/kanon/schemas/composites/object,parse:/api/kanon/core/parse"
 // Kanon : seuls string() et object() se retrouvent dans votre bundle
-import { string, object, parse } from "pithos/kanon";
+import { string, object, parse } from "@pithos/core/kanon";
 
 const loginSchema = object({
   email: string({ format: "email" }),
@@ -98,7 +98,7 @@ Kanon fournit un shim `z` qui reproduit l'API de Zod pour une migration fluide :
 
 ```typescript
 // Changez juste l'import
-import { z } from "pithos/kanon/helpers/as-zod.shim";
+import { z } from "@pithos/core/kanon/helpers/as-zod.shim";
 
 // Votre code Zod existant fonctionne sans modification
 const userSchema = z.object({

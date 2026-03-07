@@ -1,8 +1,8 @@
 /**
  * Data transformers using Arkhe utilities
  */
-import { groupBy } from "pithos/arkhe/array/group-by";
-import { capitalize } from "pithos/arkhe/string/capitalize";
+import { groupBy } from "@pithos/core/arkhe/array/group-by";
+import { capitalize } from "@pithos/core/arkhe/string/capitalize";
 import type { User, Post, FormattedUser, FormattedPosts } from "./types";
 
 /**

@@ -188,8 +188,8 @@ A boundary is any data source **not guaranteed by TypeScript**:
 #### Concrete Example: Backend Data
 
 ```typescript
-import { validation } from "pithos/kanon/validation";
-import { chunk } from "pithos/arkhe/array/chunk";
+import { validation } from "@pithos/core/kanon/validation";
+import { chunk } from "@pithos/core/arkhe/array/chunk";
 
 // 1️⃣ Validation schema (BOUNDARY)
 const UserResponseSchema = validation.object({
@@ -325,7 +325,7 @@ Format: 0x M F EE
 ### Usage Example
 
 ```typescript
-import { createErrorFactory } from "pithos/sphalma/error-factory";
+import { createErrorFactory } from "@pithos/core/sphalma/error-factory";
 
 // Define codes (Hex)
 export const AnimationErrorCodes = {

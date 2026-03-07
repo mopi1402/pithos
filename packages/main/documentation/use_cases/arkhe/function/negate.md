@@ -8,7 +8,7 @@ Invert predicates for filtering operations.
 Essential for creating opposite filter conditions.
 
 ```typescript
-import { negate } from "pithos/arkhe/function/negate";
+import { negate } from "@pithos/core/arkhe/function/negate";
 
 const isEven = (n: number) => n % 2 === 0;
 const isOdd = negate(isEven);
@@ -27,7 +27,7 @@ Create opposite validation conditions.
 Critical for form validation logic.
 
 ```typescript
-import { negate } from "pithos/arkhe/function/negate";
+import { negate } from "@pithos/core/arkhe/function/negate";
 
 const isEmpty = (value: string) => value.trim().length === 0;
 const isNotEmpty = negate(isEmpty);
@@ -54,7 +54,7 @@ Invert permission checks for access control.
 Important for authorization systems.
 
 ```typescript
-import { negate } from "pithos/arkhe/function/negate";
+import { negate } from "@pithos/core/arkhe/function/negate";
 
 interface User {
   id: string;

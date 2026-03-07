@@ -8,7 +8,7 @@ Merge user configuration with default values recursively.
 Essential for application configuration systems.
 
 ```typescript
-import { defaultsDeep } from "pithos/arkhe/object/defaults-deep";
+import { defaultsDeep } from "@pithos/core/arkhe/object/defaults-deep";
 
 const defaultConfig = {
   server: {
@@ -53,7 +53,7 @@ Apply partial theme overrides to default theme.
 Critical for customizable UI systems.
 
 ```typescript
-import { defaultsDeep } from "pithos/arkhe/object/defaults-deep";
+import { defaultsDeep } from "@pithos/core/arkhe/object/defaults-deep";
 
 const defaultTheme = {
   colors: {
@@ -93,7 +93,7 @@ Apply default options to API requests.
 Important for consistent API interactions.
 
 ```typescript
-import { defaultsDeep } from "pithos/arkhe/object/defaults-deep";
+import { defaultsDeep } from "@pithos/core/arkhe/object/defaults-deep";
 
 const defaultOptions = {
   headers: {

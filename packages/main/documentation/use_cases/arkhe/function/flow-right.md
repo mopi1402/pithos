@@ -8,7 +8,7 @@ Compose functions from right to left (traditional compose).
 Essential for mathematical function composition.
 
 ```typescript
-import { flowRight } from "pithos/arkhe/function/flow-right";
+import { flowRight } from "@pithos/core/arkhe/function/flow-right";
 
 const double = (x: number) => x * 2;
 const addOne = (x: number) => x + 1;
@@ -28,7 +28,7 @@ Compose string transformations in logical order.
 Critical for text processing pipelines.
 
 ```typescript
-import { flowRight } from "pithos/arkhe/function/flow-right";
+import { flowRight } from "@pithos/core/arkhe/function/flow-right";
 
 const trim = (s: string) => s.trim();
 const toLowerCase = (s: string) => s.toLowerCase();
@@ -49,7 +49,7 @@ Compose validators that run in sequence.
 Important for form and data validation.
 
 ```typescript
-import { flowRight } from "pithos/arkhe/function/flow-right";
+import { flowRight } from "@pithos/core/arkhe/function/flow-right";
 
 type ValidationResult = { valid: boolean; errors: string[] };
 
