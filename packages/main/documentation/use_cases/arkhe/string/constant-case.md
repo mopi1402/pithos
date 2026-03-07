@@ -2,7 +2,7 @@
 
 ### **Generate** constants 📍
 
-@keywords: generate, constants, environment, variables, Redux, actions
+@keywords: generate, constants, environment, variables, Redux, actions, design system
 
 Convert strings to `CONSTANT_CASE` for environment variables or Redux action types.
 Critical for code generation tools.

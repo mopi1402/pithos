@@ -53,3 +53,24 @@ const allUsers = [
 const surveyGroup = sampleSize(allUsers, 2);
 // => [{ id: "u3", name: "Charlie" }, { id: "u1", name: "Alice" }]
 ```
+
+### **Pick** random featured items for a homepage carousel
+
+@keywords: featured, carousel, homepage, random, spotlight, design system, seo
+
+Select a random subset of products or articles for a rotating carousel.
+Essential for homepages and landing pages with dynamic featured content.
+
+```typescript
+const allFeatured = [
+  { id: "p1", title: "Summer Collection", image: "/img/summer.jpg" },
+  { id: "p2", title: "New Arrivals", image: "/img/new.jpg" },
+  { id: "p3", title: "Best Sellers", image: "/img/best.jpg" },
+  { id: "p4", title: "Flash Sale", image: "/img/sale.jpg" },
+  { id: "p5", title: "Editor's Pick", image: "/img/pick.jpg" },
+];
+
+const carouselSlides = sampleSize(allFeatured, 3);
+// => 3 random slides for the homepage carousel
+renderCarousel(carouselSlides);
+```

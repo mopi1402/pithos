@@ -2,7 +2,7 @@
 
 ### **Deep Object Comparison** for state changes 📍
 
-@keywords: deep comparison, equality, state, objects, changes
+@keywords: deep comparison, equality, state, objects, changes, performance
 
 Compare complex objects to detect state changes.
 Essential for React/Vue change detection and memoization.
@@ -65,7 +65,7 @@ console.log(isEqual(new Map([["a", 1]]), new Map([["a", 1]]))); // true
 
 ### **Cache Invalidation** with key comparison
 
-@keywords: cache, invalidation, comparison, memoization, keys
+@keywords: cache, invalidation, comparison, memoization, keys, performance
 
 Determine if cached values should be invalidated.
 Important for efficient caching strategies.

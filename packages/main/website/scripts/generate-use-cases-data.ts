@@ -41,6 +41,7 @@ interface UtilData {
   category: string;
   name: string;
   popular: boolean;
+  gem?: boolean;
   useCases: UseCase[];
 }
 
@@ -92,16 +93,17 @@ function extractHeadingTitle(heading: Heading): { title: string; primary: boolea
 }
 
 /**
- * Extract util name and popularity from the main heading (## `utilName` ⭐)
+ * Extract util name, popularity and gem status from the main heading (## `utilName` ⭐ or 💎)
  */
-function extractUtilHeader(heading: Heading): { name: string; popular: boolean } | null {
+function extractUtilHeader(heading: Heading): { name: string; popular: boolean; gem: boolean } | null {
   const text = toString(heading);
-  const match = text.match(/^`?(\w+)`?\s*(⭐)?/);
+  const match = text.match(/^`?(\w+)`?\s*(⭐|💎)?/);
   if (!match) return null;
 
   return {
     name: match[1],
-    popular: !!match[2],
+    popular: match[2] === "⭐",
+    gem: match[2] === "💎",
   };
 }
 
@@ -202,6 +204,7 @@ function parseMarkdownFile(filePath: string, module: string, category: string): 
     category,
     name: utilHeader.name,
     popular: utilHeader.popular,
+    ...(utilHeader.gem && { gem: true }),
     useCases,
   };
 }

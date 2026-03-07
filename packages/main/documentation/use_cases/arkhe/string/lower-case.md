@@ -15,7 +15,7 @@ lowerCase('--Foo-Bar--');  // => 'foo bar'
 
 ### **Normalize** text for display
 
-@keywords: normalize, text, display, format, label
+@keywords: normalize, text, display, format, label, design system
 
 Format programmatic identifiers into human-readable labels.
 

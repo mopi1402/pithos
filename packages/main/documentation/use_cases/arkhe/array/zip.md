@@ -24,7 +24,7 @@ const userObjects = users.map(([name, age, role]) => ({ name, age, role }));
 
 ### **Create chart data points** from separate axis values 📍
 
-@keywords: chart, data points, coordinates, visualization, graphing
+@keywords: chart, data points, coordinates, visualization, graphing, design system
 
 Combine X and Y values into plottable coordinates.
 Ideal for data visualization or graphing libraries.

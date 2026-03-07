@@ -34,12 +34,12 @@ const confirmDelete = after(2, () => {
 });
 
 // User must click "Delete" twice
-deleteButton.on("click", confirmDelete);
+deleteButton.addEventListener("click", confirmDelete);
 ```
 
 ### **Batch notifications** after threshold 📍
 
-@keywords: batch, notifications, threshold, accumulate, summary, alerts
+@keywords: batch, notifications, threshold, accumulate, summary, alerts, observability, ci/cd
 
 Send a summary notification only after N events accumulate.
 Useful for reducing notification spam while still alerting users.

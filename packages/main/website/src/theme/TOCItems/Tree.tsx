@@ -370,11 +370,12 @@ function useSlider(rootRef: React.RefObject<HTMLUListElement | null>) {
 }
 
 function TOCItemTree({toc, className, linkClassName, isChild}: Props): ReactNode {
-  if (!toc.length) return null;
   const ulRef = useRef<HTMLUListElement>(null);
   const {siteConfig} = useDocusaurusContext();
   const baseUrl = siteConfig.baseUrl;
-  if (!isChild) useSlider(ulRef);
+  useSlider(isChild ? {current: null} : ulRef);
+
+  if (!toc.length) return null;
 
   return (
     <ul ref={isChild ? undefined : ulRef} className={isChild ? 'toc-timeline__children' : `${className ?? ''} toc-timeline`}>

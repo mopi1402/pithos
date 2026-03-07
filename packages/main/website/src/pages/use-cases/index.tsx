@@ -230,7 +230,7 @@ function FilterBar({
         {modules.map((module) => (
           <button
             key={module}
-            className={`${styles.filterButton} ${selectedModule === module ? styles.filterButtonActive : ""}`}
+            className={`${styles.filterButton} ${module === "bridges" ? styles.filterButtonDashed : ""} ${selectedModule === module ? styles.filterButtonActive : ""}`}
             onClick={() => onModuleChange(selectedModule === module ? null : module)}
             aria-pressed={selectedModule === module}
           >
@@ -278,7 +278,7 @@ function UseCaseCard({
 }) {
   const isTaphos = util.module === "taphos";
   const isTopPick = util.popular;
-  const isHiddenGem = util.gem || (!util.popular && util.useCases.length > 0);
+  const isHiddenGem = !!util.gem;
   
   return (
     <div className={`${styles.useCaseCard} ${highlight ? styles.highlighted : ""} ${isFirst ? styles.firstUseCaseCard : ""} ${isLast ? styles.lastUseCaseCard : ""}`}>
@@ -289,7 +289,7 @@ function UseCaseCard({
         </span>
         <div className={styles.utilInfo}>
           <a
-            href={`/api/${util.module}/${util.category}/${util.name}/`}
+            href={`/api/${util.module}/${util.category}/${util.category.endsWith(util.name) ? "" : util.name + "/"}`}
             className={styles.utilName}
           >
             {isTopPick && <span title={translate({ id: 'useCases.card.topPick', message: 'Top Pick' })}>⭐ </span>}
@@ -441,12 +441,24 @@ export default function UseCasesPage(): ReactNode {
 
   const modules = useMemo(() => {
     const moduleSet = new Set(data.utils.map((u) => u.module));
-    return Array.from(moduleSet).sort();
+    const sorted = Array.from(moduleSet).sort();
+    // Bridges first: it showcases the Kanon → Zygos bridge, Pithos' key differentiator
+    const bridgesIdx = sorted.indexOf("bridges");
+    if (bridgesIdx > 0) {
+      sorted.splice(bridgesIdx, 1);
+      sorted.unshift("bridges");
+    }
+    return sorted;
   }, [data.utils]);
 
   // Hybrid search + flatten to individual use cases
   const flatItems = useMemo(() => {
-    let utils = data.utils;
+    // Bridges first in default order
+    let utils = [...data.utils].sort((a, b) => {
+      if (a.module === "bridges" && b.module !== "bridges") return -1;
+      if (a.module !== "bridges" && b.module === "bridges") return 1;
+      return 0;
+    });
 
     // Filter by module
     if (selectedModule) {
@@ -457,7 +469,7 @@ export default function UseCasesPage(): ReactNode {
     if (filters.topPicks || filters.hiddenGems) {
       utils = utils.filter((u) => {
         const isTopPick = u.popular;
-        const isHiddenGem = u.gem || (!u.popular && u.useCases.length > 0);
+        const isHiddenGem = !!u.gem;
         
         if (filters.topPicks && filters.hiddenGems) {
           return isTopPick || isHiddenGem;

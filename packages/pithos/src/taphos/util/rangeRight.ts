@@ -4,9 +4,7 @@ import { range } from "@arkhe/util/range";
  * Creates an array of numbers progressing from start up to, but not including, end,
  * in descending order.
  *
- * @param start - The start of the range.
- * @param end - The end of the range.
- * @param step - The value to increment or decrement by. Defaults to 1.
+ * @param end - The end of the range (or start when used with two arguments).
  * @returns The range of numbers in reverse order.
  * @deprecated Use `range().reverse()` directly instead.
  * @see range

@@ -15,7 +15,7 @@ upperCase('--Foo-Bar--');  // => 'FOO BAR'
 
 ### **Format** header text
 
-@keywords: format, header, title, display, label
+@keywords: format, header, title, display, label, design system
 
 Format identifiers as uppercase display text.
 

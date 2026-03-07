@@ -2,7 +2,7 @@
 
 ### **Find User by Property** 📍
 
-@keywords: find, key, object, search, lookup
+@keywords: find, key, object, search, lookup, design system
 
 Find object key based on a value condition.
 Essential for reverse lookups in object maps.
@@ -85,4 +85,46 @@ if (missingKey) {
   throw new Error(`Missing required configuration: ${missingKey}`);
 }
 // Throws: "Missing required configuration: timeout"
+```
+
+### **Detect** current platform from user agent patterns
+
+@keywords: platform, detect, user agent, browser, OS, browser permissions, design system
+
+Find the matching platform key from a set of user agent patterns.
+Essential for platform detection utilities in CDK-style libraries.
+
+```typescript
+const platformPatterns = {
+  ios: (ua: string) => /iPhone|iPad|iPod/.test(ua),
+  android: (ua: string) => /Android/.test(ua),
+  windows: (ua: string) => /Windows/.test(ua),
+  mac: (ua: string) => /Macintosh/.test(ua),
+  linux: (ua: string) => /Linux/.test(ua) && !/Android/.test(ua),
+};
+
+const currentPlatform = findKey(platformPatterns, (test) => test(navigator.userAgent));
+// => "mac" on macOS, "ios" on iPhone, etc.
+
+applyPlatformStyles(currentPlatform ?? "unknown");
+```
+
+### **Find** the active theme in a theme registry
+
+@keywords: theme, active, registry, design system, lookup, presets
+
+Locate the currently active theme key from a theme configuration map.
+Essential for design systems with multiple theme presets.
+
+```typescript
+const themes = {
+  light: { active: false, colors: { bg: "#fff", text: "#111" } },
+  dark: { active: true, colors: { bg: "#1a1a1a", text: "#f0f0f0" } },
+  highContrast: { active: false, colors: { bg: "#000", text: "#fff" } },
+};
+
+const activeThemeKey = findKey(themes, (theme) => theme.active);
+// => "dark"
+
+applyTheme(themes[activeThemeKey]);
 ```

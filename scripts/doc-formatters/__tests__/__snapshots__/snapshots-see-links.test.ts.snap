@@ -187,6 +187,26 @@ Critical for security when displaying user-generated content.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#injection</a>
+  <a href="/use-cases?q=a11y" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#a11y</a>
+  <a href="/use-cases?q=seo" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#seo</a>
 </div>
 
 \`\`\`typescript
@@ -331,6 +351,16 @@ Prevent HTML injection when inserting user-provided data into email templates.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#safe</a>
+  <a href="/use-cases?q=a11y" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#a11y</a>
 </div>
 
 \`\`\`typescript
@@ -339,6 +369,195 @@ const html = \`
   <p>Your message: \${escape(userMessage)}</p>
 \`;
 sendEmail({ to: recipient, html });
+\`\`\`
+
+### Sanitize chat messages in real-time
+
+Escape user messages before rendering in a live chat interface.
+Critical for chat apps, comment sections, and any real-time messaging UI.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=chat" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#chat</a>
+  <a href="/use-cases?q=message" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#message</a>
+  <a href="/use-cases?q=sanitize" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#sanitize</a>
+  <a href="/use-cases?q=real-time" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#real-time</a>
+  <a href="/use-cases?q=websocket" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#websocket</a>
+  <a href="/use-cases?q=security" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#security</a>
+  <a href="/use-cases?q=XSS" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#XSS</a>
+</div>
+
+\`\`\`typescript
+ws.on("message", (raw) => {
+  const data = JSON.parse(raw);
+  const safeMessage = escape(data.text);
+
+  appendMessage({
+    author: escape(data.username),
+    content: safeMessage,
+    timestamp: data.timestamp,
+  });
+});
+\`\`\`
+
+### Escape dynamic content in SSR templates
+
+Prevent XSS when injecting dynamic data into server-rendered HTML.
+Essential for SSR frameworks and server-side template engines.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=SSR" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#SSR</a>
+  <a href="/use-cases?q=template" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#template</a>
+  <a href="/use-cases?q=dynamic" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#dynamic</a>
+  <a href="/use-cases?q=content" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#content</a>
+  <a href="/use-cases?q=server" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#server</a>
+  <a href="/use-cases?q=rendering" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#rendering</a>
+  <a href="/use-cases?q=seo" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#seo</a>
+  <a href="/use-cases?q=security" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#security</a>
+</div>
+
+\`\`\`typescript
+const renderProductPage = (product) => \`
+  <div class="product">
+    <h1>\${escape(product.name)}</h1>
+    <p class="description">\${escape(product.description)}</p>
+    <span class="price">\${escape(String(product.price))}</span>
+  </div>
+\`;
 \`\`\`
 
 "
@@ -888,6 +1107,16 @@ Critical for Stripe, GitHub, Slack, and other webhook integrations where structu
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#integration</a>
+  <a href="/use-cases?q=payment" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#payment</a>
 </div>
 
 \`\`\`typescript
@@ -911,6 +1140,375 @@ const receiptUrl = get(stripeEvent, "data.object.payment_intent.charges.data[0].
 
 const refundReason = get(stripeEvent, "data.object.refund.reason", "none");
 // => "none" (path doesn't exist, fallback used)
+\`\`\`
+
+### Read design token values from a nested theme
+
+Access deeply nested design tokens from a theme configuration.
+Essential for design systems with multi-level token hierarchies.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=design" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design</a>
+  <a href="/use-cases?q=token" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#token</a>
+  <a href="/use-cases?q=theme" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#theme</a>
+  <a href="/use-cases?q=nested" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#nested</a>
+  <a href="/use-cases?q=CSS" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#CSS</a>
+  <a href="/use-cases?q=variable" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#variable</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+  <a href="/use-cases?q=presets" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#presets</a>
+</div>
+
+\`\`\`typescript
+const theme = {
+  colors: {
+    primary: { 50: "#eff6ff", 500: "#3b82f6", 900: "#1e3a5f" },
+    semantic: { success: "#22c55e", error: "#ef4444" },
+  },
+  spacing: { xs: "4px", sm: "8px", md: "16px" },
+};
+
+const primaryColor = get(theme, "colors.primary.500", "#000");
+// => "#3b82f6"
+
+const errorColor = get(theme, "colors.semantic.error", "#ff0000");
+// => "#ef4444"
+
+const missing = get(theme, "colors.accent.500", "#6b7280");
+// => "#6b7280" (fallback)
+\`\`\`
+
+### Access tree node by path in a file explorer
+
+Navigate a nested tree structure using a dot-separated path.
+Essential for file explorers, org charts, and nested menu components.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=tree" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#tree</a>
+  <a href="/use-cases?q=node" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#node</a>
+  <a href="/use-cases?q=path" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#path</a>
+  <a href="/use-cases?q=file" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#file</a>
+  <a href="/use-cases?q=explorer" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#explorer</a>
+  <a href="/use-cases?q=nested" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#nested</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+</div>
+
+\`\`\`typescript
+const fileTree = {
+  src: {
+    components: {
+      Button: { type: "file", size: 1200 },
+      Dialog: { type: "file", size: 3400 },
+    },
+    utils: {
+      helpers: { type: "file", size: 800 },
+    },
+  },
+  tests: {
+    unit: { type: "directory", children: 15 },
+  },
+};
+
+const dialogNode = get(fileTree, "src.components.Dialog");
+// => { type: "file", size: 3400 }
+
+const missingNode = get(fileTree, "src.hooks.useAuth", { type: "unknown" });
+// => { type: "unknown" } (fallback)
+\`\`\`
+
+### Read stepper configuration by step index
+
+Access step-specific configuration from a nested stepper definition.
+Perfect for multi-step forms and wizard components.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=stepper" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#stepper</a>
+  <a href="/use-cases?q=step" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#step</a>
+  <a href="/use-cases?q=config" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#config</a>
+  <a href="/use-cases?q=wizard" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#wizard</a>
+  <a href="/use-cases?q=multi-step" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#multi-step</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+</div>
+
+\`\`\`typescript
+const wizardConfig = {
+  steps: [
+    { label: "Account", fields: ["email", "password"], validation: { required: true } },
+    { label: "Profile", fields: ["name", "avatar"], validation: { required: false } },
+    { label: "Confirm", fields: [], validation: { required: true } },
+  ],
+};
+
+const currentStepLabel = get(wizardConfig, \`steps[\${currentStep}].label\`, "Unknown");
+const isRequired = get(wizardConfig, \`steps[\${currentStep}].validation.required\`, false);
+\`\`\`
+
+### Extract analytics event properties safely
+
+Safely extract nested properties from analytics event payloads.
+Critical for tracking pipelines where event shapes vary.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=analytics" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#analytics</a>
+  <a href="/use-cases?q=event" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#event</a>
+  <a href="/use-cases?q=properties" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#properties</a>
+  <a href="/use-cases?q=tracking" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#tracking</a>
+  <a href="/use-cases?q=observability" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#observability</a>
+  <a href="/use-cases?q=seo" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#seo</a>
+</div>
+
+\`\`\`typescript
+const trackEvent = (event: unknown) => {
+  analytics.send({
+    action: get(event, "action", "unknown"),
+    category: get(event, "metadata.category", "uncategorized"),
+    label: get(event, "metadata.label"),
+    value: get(event, "metadata.value", 0),
+    userId: get(event, "user.id"),
+  });
+};
 \`\`\`
 
 "
@@ -1619,6 +2217,16 @@ Useful for cleaning objects by value.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#cleanup</a>
+  <a href="/use-cases?q=filters" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#filters</a>
 </div>
 
 \`\`\`typescript
@@ -1764,6 +2372,26 @@ Essential for generating clean query parameters or JSON payloads.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#payload</a>
+  <a href="/use-cases?q=seo" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#seo</a>
+  <a href="/use-cases?q=filters" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#filters</a>
 </div>
 
 \`\`\`typescript
@@ -1856,6 +2484,16 @@ Essential for event booking platforms managing real-time seat availability.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#concerts</a>
+  <a href="/use-cases?q=payment" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#payment</a>
 </div>
 
 \`\`\`typescript
@@ -1878,6 +2516,286 @@ const premiumSections = pickBy(venueSection, (sec) => sec.price >= 150);
 // Find sections with bulk availability for group bookings
 const groupFriendly = pickBy(venueSection, (sec) => sec.available >= 20);
 // => { orchestra: {...}, balcony: {...}, standing: {...} }
+\`\`\`
+
+### Filter visible table columns by user preference
+
+Pick only the columns the user has chosen to display in a data table.
+Essential for data table components with column visibility toggles.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=table" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#table</a>
+  <a href="/use-cases?q=columns" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#columns</a>
+  <a href="/use-cases?q=visible" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#visible</a>
+  <a href="/use-cases?q=preference" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#preference</a>
+  <a href="/use-cases?q=data" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#data</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+  <a href="/use-cases?q=panels" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#panels</a>
+</div>
+
+\`\`\`typescript
+const allColumns = {
+  name: { label: "Name", visible: true, width: 200 },
+  email: { label: "Email", visible: true, width: 250 },
+  role: { label: "Role", visible: false, width: 120 },
+  status: { label: "Status", visible: true, width: 100 },
+  lastLogin: { label: "Last Login", visible: false, width: 180 },
+  createdAt: { label: "Created", visible: false, width: 150 },
+};
+
+const visibleColumns = pickBy(allColumns, (col) => col.visible);
+// => { name: {...}, email: {...}, status: {...} }
+
+renderTableHeaders(Object.values(visibleColumns));
+\`\`\`
+
+### Extract enabled feature flags
+
+Pick only the enabled features from a feature flag configuration.
+Essential for feature flag systems and conditional rendering.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=feature" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#feature</a>
+  <a href="/use-cases?q=flags" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#flags</a>
+  <a href="/use-cases?q=enabled" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#enabled</a>
+  <a href="/use-cases?q=config" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#config</a>
+  <a href="/use-cases?q=toggle" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#toggle</a>
+  <a href="/use-cases?q=filters" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#filters</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+</div>
+
+\`\`\`typescript
+const featureFlags = {
+  darkMode: true,
+  newDashboard: false,
+  betaSearch: true,
+  legacyNav: false,
+  aiAssistant: true,
+};
+
+const enabledFeatures = pickBy(featureFlags, (enabled) => enabled);
+// => { darkMode: true, betaSearch: true, aiAssistant: true }
+
+const featureList = Object.keys(enabledFeatures);
+// => ["darkMode", "betaSearch", "aiAssistant"]
+\`\`\`
+
+### Filter chart series with data
+
+Keep only chart series that have actual data points to display.
+Perfect for dynamic dashboards where some metrics may be empty.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=chart" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#chart</a>
+  <a href="/use-cases?q=series" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#series</a>
+  <a href="/use-cases?q=data" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#data</a>
+  <a href="/use-cases?q=filter" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#filter</a>
+  <a href="/use-cases?q=visualization" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#visualization</a>
+  <a href="/use-cases?q=charts" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#charts</a>
+  <a href="/use-cases?q=dashboard" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#dashboard</a>
+</div>
+
+\`\`\`typescript
+const chartSeries = {
+  revenue: [100, 200, 300],
+  expenses: [80, 150, 250],
+  refunds: [],
+  taxes: [10, 20, 30],
+  bonuses: [],
+};
+
+const activeSeries = pickBy(chartSeries, (values) => values.length > 0);
+// => { revenue: [...], expenses: [...], taxes: [...] }
+renderMultiLineChart(activeSeries);
 \`\`\`
 
 "

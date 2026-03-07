@@ -21,7 +21,7 @@ console.log(numbers.filter(isOdd));  // [1, 3, 5, 7, 9]
 
 ### **Validation Negation** for form checks 📍
 
-@keywords: validation, negation, form, checks, conditions
+@keywords: validation, negation, form, checks, conditions, a11y
 
 Create opposite validation conditions.
 Critical for form validation logic.
@@ -48,7 +48,7 @@ console.log(filledFields); // ["username", "password"]
 
 ### **Access Control** logic
 
-@keywords: access control, permissions, authorization, security, roles
+@keywords: access control, permissions, authorization, security, roles, filters
 
 Invert permission checks for access control.
 Important for authorization systems.
@@ -77,4 +77,42 @@ const users: User[] = [
 // Find active non-admin users
 const regularActiveUsers = users.filter(u => isNotAdmin(u) && isActive(u));
 console.log(regularActiveUsers); // [{ id: "3", role: "user", suspended: false }]
+```
+
+### **Invert** tree node filter for "show all" toggle
+
+@keywords: tree, filter, invert, show all, hidden, design system
+
+Create an inverse filter to toggle between filtered and unfiltered tree views.
+Perfect for file tree components with "show hidden files" toggles.
+
+```typescript
+const isNodeHidden = (node: TreeNode) =>
+  node.name.startsWith(".") || node.name === "node_modules";
+const isNodeVisible = negate(isNodeHidden);
+
+// Default: show only visible nodes
+const visibleNodes = treeData.filter(isNodeVisible);
+
+// Toggle: show all including hidden
+const displayNodes = showHidden ? treeData : treeData.filter(isNodeVisible);
+renderTree(displayNodes);
+```
+
+### **Filter** visible items in a panel
+
+@keywords: filter, visible, hidden, panel, toggle, panels, design system
+
+Create an inverse filter to show or hide items based on a toggle.
+Perfect for "show hidden items" toggles in file explorers and dashboards.
+
+```typescript
+const isHidden = (item: FileEntry) => item.name.startsWith(".");
+const isVisible = negate(isHidden);
+
+// Default: show only visible files
+const visibleFiles = files.filter(isVisible);
+
+// Toggle: show all including hidden
+const allFiles = showHidden ? files : files.filter(isVisible);
 ```

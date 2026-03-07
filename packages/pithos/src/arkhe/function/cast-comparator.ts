@@ -43,7 +43,6 @@ const defaultCompare = <Value>(a: Value, b: Value): number => {
  * @template Item - The type of items being sorted.
  * @template Key - The type of the property key.
  * @template MappedValue - The type of the mapped value.
- * @param mapping - A property key or mapping function to extract the comparison value.
  * @param options - Comparison options.
  * @returns A comparator function for Array.sort().
  * @since 2.0.0

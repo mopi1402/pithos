@@ -2,8 +2,7 @@
  * Composes functions left-to-right, passing the result of each to the next.
  *
  * @template A - The type of the initial value.
- * @param value - The initial value to transform.
- * @param fns - Transformation functions to apply sequentially.
+ * @param a - The initial value to transform.
  * @returns The result of applying all transformations.
  * @since 2.0.0
  *

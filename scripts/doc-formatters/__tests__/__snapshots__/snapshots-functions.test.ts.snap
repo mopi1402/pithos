@@ -295,7 +295,7 @@ const confirmDelete = after(2, () => {
 });
 
 // User must click "Delete" twice
-deleteButton.on("click", confirmDelete);
+deleteButton.addEventListener("click", confirmDelete);
 \`\`\`
 
 ### Batch notifications after threshold 📌
@@ -364,6 +364,26 @@ Useful for reducing notification spam while still alerting users.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#alerts</a>
+  <a href="/use-cases?q=observability" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#observability</a>
+  <a href="/use-cases?q=ci%2Fcd" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#ci/cd</a>
 </div>
 
 \`\`\`typescript
@@ -734,6 +754,16 @@ Important for preventing spam clicks.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#throttle</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
 </div>
 
 \`\`\`typescript
@@ -759,6 +789,177 @@ form.addEventListener("submit", async (e) => {
   } else {
     console.log("Form already submitted");
   }
+});
+\`\`\`
+
+### Limit stepper "next" clicks during async validation
+
+Prevent rapid "Next" clicks in a stepper while async validation is running.
+Essential for multi-step forms with server-side validation between steps.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=stepper" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#stepper</a>
+  <a href="/use-cases?q=next" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#next</a>
+  <a href="/use-cases?q=limit" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#limit</a>
+  <a href="/use-cases?q=validation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#validation</a>
+  <a href="/use-cases?q=async" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#async</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+</div>
+
+\`\`\`typescript
+const validateAndProceed = before(async (stepIndex: number) => {
+  const isValid = await validateStep(stepIndex);
+  if (isValid) {
+    goToStep(stepIndex + 1);
+  }
+  return isValid;
+}, 2); // Only allow 1 click (before 2nd call)
+
+nextButton.addEventListener("click", () => {
+  validateAndProceed(currentStep);
+});
+
+// Reset when step changes
+const onStepChange = () => {
+  // Re-create the limited function for the new step
+};
+\`\`\`
+
+### Limit tooltip show attempts during rapid hover
+
+Prevent tooltip from re-triggering more than N times during rapid mouse movements.
+Essential for performance in dense UI layouts with many hoverable elements.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=tooltip" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#tooltip</a>
+  <a href="/use-cases?q=hover" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#hover</a>
+  <a href="/use-cases?q=rapid" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#rapid</a>
+  <a href="/use-cases?q=limit" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#limit</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
+</div>
+
+\`\`\`typescript
+const showTooltip = before((target: HTMLElement) => {
+  const rect = target.getBoundingClientRect();
+  tooltip.style.top = \`\${rect.bottom + 8}px\`;
+  tooltip.style.left = \`\${rect.left}px\`;
+  tooltip.textContent = target.dataset.tooltip ?? "";
+  tooltip.hidden = false;
+}, 3); // Max 3 tooltip shows before requiring a reset
+
+// Reset on mouse leave
+element.addEventListener("mouseleave", () => {
+  tooltip.hidden = true;
+  showTooltip = before(showTooltipFn, 3); // Reset counter
 });
 \`\`\`
 
@@ -1109,6 +1310,16 @@ The most common real-world use case, especially with Python/Ruby/Go backends.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#backend</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
 </div>
 
 \`\`\`typescript
@@ -1627,6 +1838,16 @@ Critical for form validation logic.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#conditions</a>
+  <a href="/use-cases?q=a11y" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#a11y</a>
 </div>
 
 \`\`\`typescript
@@ -1705,6 +1926,16 @@ Important for authorization systems.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#roles</a>
+  <a href="/use-cases?q=filters" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#filters</a>
 </div>
 
 \`\`\`typescript
@@ -1731,6 +1962,176 @@ const users: User[] = [
 // Find active non-admin users
 const regularActiveUsers = users.filter(u => isNotAdmin(u) && isActive(u));
 console.log(regularActiveUsers); // [{ id: "3", role: "user", suspended: false }]
+\`\`\`
+
+### Invert tree node filter for "show all" toggle
+
+Create an inverse filter to toggle between filtered and unfiltered tree views.
+Perfect for file tree components with "show hidden files" toggles.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=tree" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#tree</a>
+  <a href="/use-cases?q=filter" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#filter</a>
+  <a href="/use-cases?q=invert" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#invert</a>
+  <a href="/use-cases?q=show%20all" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#show all</a>
+  <a href="/use-cases?q=hidden" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#hidden</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+</div>
+
+\`\`\`typescript
+const isNodeHidden = (node: TreeNode) =>
+  node.name.startsWith(".") || node.name === "node_modules";
+const isNodeVisible = negate(isNodeHidden);
+
+// Default: show only visible nodes
+const visibleNodes = treeData.filter(isNodeVisible);
+
+// Toggle: show all including hidden
+const displayNodes = showHidden ? treeData : treeData.filter(isNodeVisible);
+renderTree(displayNodes);
+\`\`\`
+
+### Filter visible items in a panel
+
+Create an inverse filter to show or hide items based on a toggle.
+Perfect for "show hidden items" toggles in file explorers and dashboards.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=filter" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#filter</a>
+  <a href="/use-cases?q=visible" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#visible</a>
+  <a href="/use-cases?q=hidden" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#hidden</a>
+  <a href="/use-cases?q=panel" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#panel</a>
+  <a href="/use-cases?q=toggle" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#toggle</a>
+  <a href="/use-cases?q=panels" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#panels</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+</div>
+
+\`\`\`typescript
+const isHidden = (item: FileEntry) => item.name.startsWith(".");
+const isVisible = negate(isHidden);
+
+// Default: show only visible files
+const visibleFiles = files.filter(isVisible);
+
+// Toggle: show all including hidden
+const allFiles = showHidden ? files : files.filter(isVisible);
 \`\`\`
 
 "
@@ -2273,6 +2674,26 @@ Essential for resource management and preventing initialization errors.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#idempotent</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
+  <a href="/use-cases?q=browser%20permissions" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#browser permissions</a>
 </div>
 
 \`\`\`typescript
@@ -2351,6 +2772,16 @@ Essential for state management and ensuring single instance patterns.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#unique</a>
+  <a href="/use-cases?q=PWA" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#PWA</a>
 </div>
 
 \`\`\`typescript
@@ -2457,6 +2888,26 @@ The standard pattern for Stripe, Firebase, Analytics, or any heavy client librar
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#setup</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
+  <a href="/use-cases?q=payment" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#payment</a>
 </div>
 
 \`\`\`typescript
@@ -2473,6 +2924,584 @@ async function handleCheckout() {
   const stripe = await getStripe();
   stripe.redirectToCheckout({ sessionId });
 }
+\`\`\`
+
+### Request browser permission only once
+
+Ensure a permission prompt is shown only once per session.
+Critical for notifications, geolocation, and camera access in PWAs.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=permission" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#permission</a>
+  <a href="/use-cases?q=browser" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#browser</a>
+  <a href="/use-cases?q=notification" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#notification</a>
+  <a href="/use-cases?q=geolocation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#geolocation</a>
+  <a href="/use-cases?q=camera" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#camera</a>
+  <a href="/use-cases?q=browser%20permissions" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#browser permissions</a>
+  <a href="/use-cases?q=PWA" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#PWA</a>
+</div>
+
+\`\`\`typescript
+const requestNotificationPermission = once(async () => {
+  const result = await Notification.requestPermission();
+  return result === "granted";
+});
+
+// Multiple components can call this safely
+async function enableNotifications() {
+  const granted = await requestNotificationPermission();
+  if (granted) {
+    subscribeToUpdates();
+  }
+}
+\`\`\`
+
+### Initialize focus trap on a dialog element
+
+Set up focus trapping once when a modal opens to keep keyboard navigation inside.
+Critical for accessible dialogs and overlays in design systems.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=focus" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#focus</a>
+  <a href="/use-cases?q=trap" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#trap</a>
+  <a href="/use-cases?q=dialog" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#dialog</a>
+  <a href="/use-cases?q=modal" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#modal</a>
+  <a href="/use-cases?q=a11y" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#a11y</a>
+  <a href="/use-cases?q=accessibility" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#accessibility</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+</div>
+
+\`\`\`typescript
+// Use once PER dialog instance, not globally
+const createFocusTrap = (dialog: HTMLElement) => {
+  const init = once(() => {
+    const focusableEls = dialog.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstEl = focusableEls[0] as HTMLElement;
+    const lastEl = focusableEls[focusableEls.length - 1] as HTMLElement;
+
+    dialog.addEventListener("keydown", (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      if (e.shiftKey && document.activeElement === firstEl) {
+        e.preventDefault();
+        lastEl.focus();
+      } else if (!e.shiftKey && document.activeElement === lastEl) {
+        e.preventDefault();
+        firstEl.focus();
+      }
+    });
+
+    firstEl.focus();
+    return { firstEl, lastEl };
+  });
+
+  return init;
+};
+
+// Each dialog gets its own once-guarded init
+const trap = createFocusTrap(dialogElement);
+trap(); // Initializes
+trap(); // Ignored (already initialized)
+\`\`\`
+
+### Create a live announcer singleton for screen readers
+
+Initialize an ARIA live region once for dynamic announcements.
+Essential for SPAs where route changes and async updates need to be announced.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=live" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#live</a>
+  <a href="/use-cases?q=announcer" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#announcer</a>
+  <a href="/use-cases?q=screen%20reader" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#screen reader</a>
+  <a href="/use-cases?q=aria-live" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#aria-live</a>
+  <a href="/use-cases?q=a11y" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#a11y</a>
+  <a href="/use-cases?q=accessibility" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#accessibility</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+</div>
+
+\`\`\`typescript
+const getLiveAnnouncer = once(() => {
+  const el = document.createElement("div");
+  el.setAttribute("aria-live", "polite");
+  el.setAttribute("aria-atomic", "true");
+  el.className = "sr-only";
+  document.body.appendChild(el);
+  return el;
+});
+
+const announce = (message: string) => {
+  const announcer = getLiveAnnouncer();
+  announcer.textContent = "";
+  requestAnimationFrame(() => {
+    announcer.textContent = message;
+  });
+};
+
+// Route change
+announce("Dashboard page loaded");
+// Async operation
+announce("3 new notifications");
+\`\`\`
+
+### Detect platform capabilities once at startup
+
+Run platform detection once and cache the result for the app lifetime.
+Essential for cross-browser components that adapt to the environment.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=platform" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#platform</a>
+  <a href="/use-cases?q=detect" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#detect</a>
+  <a href="/use-cases?q=browser" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#browser</a>
+  <a href="/use-cases?q=OS" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#OS</a>
+  <a href="/use-cases?q=capabilities" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#capabilities</a>
+  <a href="/use-cases?q=feature%20detection" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#feature detection</a>
+  <a href="/use-cases?q=browser%20permissions" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#browser permissions</a>
+</div>
+
+\`\`\`typescript
+const detectPlatform = once(() => ({
+  isTouchDevice: "ontouchstart" in window || navigator.maxTouchPoints > 0,
+  supportsPassive: (() => {
+    let passive = false;
+    try {
+      const opts = Object.defineProperty({}, "passive", { get: () => (passive = true) });
+      window.addEventListener("test", null as never, opts);
+    } catch {}
+    return passive;
+  })(),
+  prefersReducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  isHighContrast: window.matchMedia("(forced-colors: active)").matches,
+}));
+
+// Used across the entire design system
+const platform = detectPlatform();
+if (platform.prefersReducedMotion) {
+  disableAnimations();
+}
+\`\`\`
+
+### Initialize clipboard listener once
+
+Set up clipboard event handling once for a rich text editor.
+Perfect for editors and code blocks with custom copy/paste behavior.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=clipboard" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#clipboard</a>
+  <a href="/use-cases?q=copy" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#copy</a>
+  <a href="/use-cases?q=paste" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#paste</a>
+  <a href="/use-cases?q=listener" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#listener</a>
+  <a href="/use-cases?q=initialization" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#initialization</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+</div>
+
+\`\`\`typescript
+const initClipboard = once((editor: HTMLElement) => {
+  editor.addEventListener("copy", (e: ClipboardEvent) => {
+    const selection = window.getSelection()?.toString() ?? "";
+    e.clipboardData?.setData("text/plain", selection);
+    e.clipboardData?.setData("text/html", editor.innerHTML);
+    e.preventDefault();
+  });
+
+  editor.addEventListener("paste", (e: ClipboardEvent) => {
+    const html = e.clipboardData?.getData("text/html");
+    const text = e.clipboardData?.getData("text/plain") ?? "";
+    insertContent(html ?? text);
+    e.preventDefault();
+  });
+});
+
+// Safe to call on every editor mount
+initClipboard(editorElement);
+\`\`\`
+
+### Register a service worker once at startup
+
+Register the service worker only on first call, even if multiple modules trigger it.
+Essential for PWA initialization without duplicate registrations.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=service%20worker" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#service worker</a>
+  <a href="/use-cases?q=PWA" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#PWA</a>
+  <a href="/use-cases?q=register" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#register</a>
+  <a href="/use-cases?q=offline" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#offline</a>
+  <a href="/use-cases?q=cache" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#cache</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
+</div>
+
+\`\`\`typescript
+const registerSW = once(async () => {
+  if ("serviceWorker" in navigator) {
+    const registration = await navigator.serviceWorker.register("/sw.js");
+    console.log("SW registered:", registration.scope);
+    return registration;
+  }
+  return null;
+});
+
+// Safe to call from multiple entry points
+await registerSW();
 \`\`\`
 
 "
@@ -3168,14 +4197,14 @@ exports[`Functions — taphos (lodash compat) > head (taphos, simple) 1`] = `
 
 Gets the first element of array.
 
-Alias for first.
+Alias for \`first()\`.
 
 :::warning DEPRECATED
 
 Use \`array[0]\` or \`array.at(0)\` directly instead.
 
 > **Reason**:<br/>
-> Alias of first
+> Alias of \`first()\`
 
 :::
 

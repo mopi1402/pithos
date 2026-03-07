@@ -2,7 +2,7 @@
 
 ### **Implement cursor-based pagination** 📍
 
-@keywords: pagination, cursor, skip, infinite-scroll, loading
+@keywords: pagination, cursor, skip, infinite-scroll, loading, huge dataset
 
 Skip already-fetched items when loading more content.
 Essential for infinite scroll or "Load More" buttons.
@@ -50,4 +50,63 @@ const searchResults = [
 
 const organicOnly = drop(searchResults, 2);
 // => [{ title: "Organic Result 1" }, { title: "Organic Result 2" }]
+```
+
+### **Skip** already-rendered items in infinite scroll
+
+@keywords: skip, rendered, infinite scroll, offset, pagination, design system, loading
+
+Drop items already visible when loading the next batch in an infinite scroll.
+Essential for feed-based UIs and content-heavy pages.
+
+```typescript
+const allPosts = await fetchAllPosts();
+const alreadyVisible = currentPage * PAGE_SIZE;
+
+const nextBatch = take(drop(allPosts, alreadyVisible), PAGE_SIZE);
+// => Next PAGE_SIZE posts after what's already shown
+
+appendToFeed(nextBatch);
+```
+
+### **Slice** visible rows for virtual scroll viewport
+
+@keywords: virtual, scroll, viewport, slice, visible, rows, design system, huge dataset, performance
+
+Drop items above the viewport and take only the visible portion for rendering.
+Essential for virtual scroll implementations that render only what's visible.
+
+```typescript
+const ROW_HEIGHT = 40;
+const VIEWPORT_HEIGHT = 600;
+const visibleCount = Math.ceil(VIEWPORT_HEIGHT / ROW_HEIGHT);
+
+const getVisibleRows = (allRows: Row[], scrollTop: number) => {
+  const startIndex = Math.floor(scrollTop / ROW_HEIGHT);
+  return take(drop(allRows, startIndex), visibleCount + 2); // +2 for buffer
+};
+
+container.addEventListener("scroll", throttle(() => {
+  const visible = getVisibleRows(allData, container.scrollTop);
+  renderRows(visible);
+}, 16));
+```
+
+### **Remove** sticky header rows from a grouped list
+
+@keywords: sticky, header, group, section, list, design system
+
+Drop the group header items to get only the data rows within a section.
+Perfect for grouped lists with sticky section headers.
+
+```typescript
+const sectionItems = [
+  { type: "header", label: "Today" },
+  { type: "item", text: "Meeting at 10am" },
+  { type: "item", text: "Lunch with team" },
+  { type: "item", text: "Code review" },
+];
+
+const dataOnly = drop(sectionItems, 1);
+// => [Meeting, Lunch, Code review] (header removed)
 ```

@@ -13,7 +13,7 @@ const ids = times(5, (index) => `id-${index}`);
 
 ### **Generate** test fixtures
 
-@keywords: generate, fixtures, testing, mocks, data, objects
+@keywords: generate, fixtures, testing, mocks, data, objects, scripts
 
 Create multiple mock objects for testing.
 ```typescript
@@ -37,7 +37,7 @@ const grid = times(rows, (row) =>
 
 ### **Render** skeleton loading placeholders
 
-@keywords: skeleton, loading, placeholder, shimmer, UI, design-system
+@keywords: skeleton, loading, placeholder, shimmer, UI, design-system, design system
 
 Generate placeholder components while data is loading.
 Cleaner than manually repeating JSX elements.

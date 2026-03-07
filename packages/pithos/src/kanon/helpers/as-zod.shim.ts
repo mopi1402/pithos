@@ -496,11 +496,6 @@ export const z: ZShim = {
   },
 };
 
-/**
- * Type namespace mirroring Zod's value/type merge for type helpers.
- *
- * @since 2.0.0
- */
 // INTENTIONAL: merge namespace with value export for type helpers
 // eslint-disable-next-line @typescript-eslint/no-namespace, @typescript-eslint/no-redeclare
 export namespace z {

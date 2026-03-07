@@ -2,7 +2,7 @@
 
 ### **Format** headlines 📍
 
-@keywords: format, headlines, title-case, capitalize, headers, formal
+@keywords: format, headlines, title-case, capitalize, headers, formal, design system, seo
 
 Capitalize the first letter of each word.
 Useful for formal titles and headers.
@@ -12,7 +12,7 @@ const headline = titleCase('the quick brown fox'); // 'The Quick Brown Fox'
 
 ### **Format** navigation labels
 
-@keywords: format, navigation, labels, menu, standardize, database
+@keywords: format, navigation, labels, menu, standardize, database, design system
 
 Standardize menu item text from database values.
 ```typescript

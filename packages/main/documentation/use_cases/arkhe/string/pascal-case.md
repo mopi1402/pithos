@@ -2,7 +2,7 @@
 
 ### **Generate** component names 📍
 
-@keywords: generate, components, PascalCase, React, classes, scaffolding
+@keywords: generate, components, PascalCase, React, classes, scaffolding, design system
 
 Convert strings to `PascalCase` for React component names or class definitions.
 Essential for scaffolding tools.

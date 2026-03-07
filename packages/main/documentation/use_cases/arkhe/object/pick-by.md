@@ -2,7 +2,7 @@
 
 ### **Filter** properties dynamically 📍
 
-@keywords: filter, properties, dynamic, predicate, conditional, cleanup
+@keywords: filter, properties, dynamic, predicate, conditional, cleanup, filters
 
 Create a new object with properties that satisfy a predicate function.
 Useful for cleaning objects by value.
@@ -24,7 +24,7 @@ const metrics = pickBy(stats, (value) => typeof value === 'number');
 
 ### **Remove** null or undefined values 📍
 
-@keywords: remove, null, undefined, cleanup, query-params, payload
+@keywords: remove, null, undefined, cleanup, query-params, payload, seo, filters
 
 Clean up an object by removing empty properties.
 Essential for generating clean query parameters or JSON payloads.
@@ -35,7 +35,7 @@ const cleanObj = pickBy(data, (value) => value != null);
 
 ### **Filter available venue sections** for event booking
 
-@keywords: events, venue, sections, seats, tickets, availability, booking, concerts
+@keywords: events, venue, sections, seats, tickets, availability, booking, concerts, payment
 
 Filter venue sections to show only available areas during ticket sales.
 Essential for event booking platforms managing real-time seat availability.
@@ -62,3 +62,70 @@ const groupFriendly = pickBy(venueSection, (sec) => sec.available >= 20);
 // => { orchestra: {...}, balcony: {...}, standing: {...} }
 ```
 
+
+### **Filter** visible table columns by user preference
+
+@keywords: table, columns, visible, preference, data, design system, panels
+
+Pick only the columns the user has chosen to display in a data table.
+Essential for data table components with column visibility toggles.
+
+```typescript
+const allColumns = {
+  name: { label: "Name", visible: true, width: 200 },
+  email: { label: "Email", visible: true, width: 250 },
+  role: { label: "Role", visible: false, width: 120 },
+  status: { label: "Status", visible: true, width: 100 },
+  lastLogin: { label: "Last Login", visible: false, width: 180 },
+  createdAt: { label: "Created", visible: false, width: 150 },
+};
+
+const visibleColumns = pickBy(allColumns, (col) => col.visible);
+// => { name: {...}, email: {...}, status: {...} }
+
+renderTableHeaders(Object.values(visibleColumns));
+```
+
+### **Extract** enabled feature flags
+
+@keywords: feature, flags, enabled, config, toggle, filters, design system
+
+Pick only the enabled features from a feature flag configuration.
+Essential for feature flag systems and conditional rendering.
+
+```typescript
+const featureFlags = {
+  darkMode: true,
+  newDashboard: false,
+  betaSearch: true,
+  legacyNav: false,
+  aiAssistant: true,
+};
+
+const enabledFeatures = pickBy(featureFlags, (enabled) => enabled);
+// => { darkMode: true, betaSearch: true, aiAssistant: true }
+
+const featureList = Object.keys(enabledFeatures);
+// => ["darkMode", "betaSearch", "aiAssistant"]
+```
+
+### **Filter** chart series with data
+
+@keywords: chart, series, data, filter, visualization, charts, dashboard
+
+Keep only chart series that have actual data points to display.
+Perfect for dynamic dashboards where some metrics may be empty.
+
+```typescript
+const chartSeries = {
+  revenue: [100, 200, 300],
+  expenses: [80, 150, 250],
+  refunds: [],
+  taxes: [10, 20, 30],
+  bonuses: [],
+};
+
+const activeSeries = pickBy(chartSeries, (values) => values.length > 0);
+// => { revenue: [...], expenses: [...], taxes: [...] }
+renderMultiLineChart(activeSeries);
+```

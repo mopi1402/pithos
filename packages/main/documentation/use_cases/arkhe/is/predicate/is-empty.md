@@ -2,7 +2,7 @@
 
 ### **Check** for empty collections 📍
 
-@keywords: check, empty, collections, validation, completeness, data
+@keywords: check, empty, collections, validation, completeness, data, a11y
 
 Verify if an array, object, string, or collection is empty.
 Essential for validating data completeness before processing.
@@ -15,7 +15,7 @@ if (isEmpty(data)) {
 
 ### **Validate** form inputs
 
-@keywords: validate, forms, inputs, required, fields, user-input
+@keywords: validate, forms, inputs, required, fields, user-input, a11y
 
 Ensure required fields are not empty strings.
 Critical for user input validation.

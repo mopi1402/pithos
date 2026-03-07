@@ -2,7 +2,7 @@
 
 ### **Create lookup tables** for instant access by ID 📍
 
-@keywords: lookup, table, index, cache, normalize, instant
+@keywords: lookup, table, index, cache, normalize, instant, performance, huge dataset
 
 Transform an array into an object indexed by unique identifier.
 Perfect for normalizing API responses, caching entities, or quick O(1) lookups.
@@ -82,7 +82,7 @@ const enrichedOrders = orders.map((order) => ({
 
 ### **Normalize** API response for a Redux/Zustand store 📍
 
-@keywords: normalize, Redux, Zustand, store, entities, state, API, response
+@keywords: normalize, Redux, Zustand, store, entities, state, API, response, performance
 
 Convert an array of entities into a normalized `{ byId, allIds }` structure for state management.
 The most common real-world pattern for keyBy in any app using Redux, Zustand, or similar stores.
@@ -103,4 +103,26 @@ const normalized = {
 
 // Fast update without scanning the array
 normalized.byId["p2"] = { ...normalized.byId["p2"], status: "done" };
+```
+
+### **Index** i18n translations by key for fast lookup
+
+@keywords: i18n, translations, index, lookup, locale, internationalization, performance
+
+Build a translation dictionary from an array of key-value pairs.
+Essential for i18n systems loading translations from APIs or JSON files.
+
+```typescript
+const translationEntries = [
+  { key: "btn.save", value: "Sauvegarder" },
+  { key: "btn.cancel", value: "Annuler" },
+  { key: "msg.welcome", value: "Bienvenue" },
+  { key: "msg.goodbye", value: "Au revoir" },
+];
+
+const translations = keyBy(translationEntries, (t) => t.key);
+
+const t = (key: string) => translations[key]?.value ?? key;
+t("btn.save");    // => "Sauvegarder"
+t("btn.unknown"); // => "btn.unknown" (fallback to key)
 ```

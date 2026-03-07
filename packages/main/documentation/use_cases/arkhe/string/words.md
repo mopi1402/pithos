@@ -2,7 +2,7 @@
 
 ### **Parse variable names** for display 📍
 
-@keywords: parse, variable, camelCase, PascalCase, labels
+@keywords: parse, variable, camelCase, PascalCase, labels, i18n
 
 Convert code-style identifiers to readable words.
 Essential for auto-generating labels from API field names.
@@ -14,7 +14,7 @@ words('XMLHttpRequest'); // => ['XML', 'Http', 'Request']
 
 ### **Build search indexes** from content 📍
 
-@keywords: search, index, tokenize, keywords, full-text
+@keywords: search, index, tokenize, keywords, full-text, seo
 
 Extract searchable tokens from mixed-format content.
 Useful for building client-side search.
@@ -26,7 +26,7 @@ words('async-data in JavaScript_apps');
 
 ### **Slug generation** from titles
 
-@keywords: slug, URL, SEO, friendly, kebab
+@keywords: slug, URL, SEO, friendly, kebab, seo
 
 Create URL-friendly slugs from titles with any naming convention.
 

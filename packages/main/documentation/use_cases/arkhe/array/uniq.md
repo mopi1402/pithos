@@ -2,7 +2,7 @@
 
 ### **Remove duplicate values** from a collection 📍
 
-@keywords: deduplicate, unique, remove duplicates, distinct, primitives
+@keywords: deduplicate, unique, remove duplicates, distinct, primitives, huge dataset
 
 Remove repeated values from an array, keeping only the first occurrence.
 Essential for cleaning up lists of IDs, tags, or any primitive values.
@@ -50,7 +50,7 @@ const categories = uniq(products.map((p) => p.category));
 
 ### **Deduplicate merged search results** from multiple sources
 
-@keywords: deduplicate, search, merge, sources, aggregation, Algolia, database
+@keywords: deduplicate, search, merge, sources, aggregation, Algolia, database, performance
 
 Remove duplicates when combining results from multiple search providers.
 Common when aggregating results from Algolia, Elasticsearch, and local DB.
@@ -65,7 +65,7 @@ const allResults = uniq([...algoliaResults, ...dbResults]);
 
 ### **Ensure idempotent event processing**
 
-@keywords: idempotent, events, processing, queue, dedup, message, webhook
+@keywords: idempotent, events, processing, queue, dedup, message, webhook, ci/cd
 
 Collect unique event IDs to avoid processing the same event twice.
 Critical for webhook handlers, message queues, and event-driven architectures.

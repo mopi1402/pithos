@@ -19,7 +19,7 @@ const tagList2 = toArray(multipleTags);
 
 ### **Convert iterable collections** to arrays
 
-@keywords: iterable, Set, Map, NodeList, DOM, conversion
+@keywords: iterable, Set, Map, NodeList, DOM, conversion, design system
 
 Transform Sets, Maps, or NodeLists into standard arrays for array methods.
 Essential for working with DOM APIs or unique collections.

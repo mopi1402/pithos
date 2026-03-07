@@ -2,7 +2,7 @@
 
 ### **Decode API responses** for display 📍
 
-@keywords: decode, API, responses, HTML, entities, display
+@keywords: decode, API, responses, HTML, entities, display, a11y
 
 Convert HTML entities from API content back to readable characters.
 Essential when displaying user-generated content stored with HTML encoding.
@@ -14,7 +14,7 @@ unescape("Tom &amp; Jerry");
 
 ### **Process CMS content** for rendering 📍
 
-@keywords: CMS, content, rendering, WYSIWYG, editor
+@keywords: CMS, content, rendering, WYSIWYG, editor, a11y
 
 Restore original characters from CMS or WYSIWYG editor output.
 Critical for headless CMS integrations where content comes pre-escaped.

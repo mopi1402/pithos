@@ -231,7 +231,7 @@
     "message": "Migration progressive de Lodash vers le natif, guidée par l'IDE. Migrez à votre rythme."
   },
   "homepage.features.useCases.title": {
-    "message": "850+ cas d'usage"
+    "message": "1000+ cas d'usage"
   },
   "homepage.features.useCases.description": {
     "message": "Parcourez notre catalogue pour trouver l'utilitaire le plus adapté à vos besoins."

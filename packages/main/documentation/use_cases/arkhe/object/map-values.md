@@ -2,7 +2,7 @@
 
 ### **Transform Object Values** while keeping keys 📍
 
-@keywords: transform, map, values, object, conversion
+@keywords: transform, map, values, object, conversion, design system, charts
 
 Transform all values in an object while preserving keys.
 Essential for data transformation pipelines.
@@ -61,7 +61,7 @@ console.log(users["1"]);
 
 ### **Form Validation** results transformation
 
-@keywords: form, validation, transform, errors, messages
+@keywords: form, validation, transform, errors, messages, a11y
 
 Transform validation rules into error messages.
 Important for user-friendly form feedback.
@@ -97,7 +97,7 @@ console.log(errors);
 
 ### **Convert portfolio currencies** for trading dashboards
 
-@keywords: bourse, trading, currency, conversion, portfolio, forex, stocks, financial
+@keywords: bourse, trading, currency, conversion, portfolio, forex, stocks, financial, payment
 
 Convert all positions in a trading portfolio to a base currency.
 Essential for international trading platforms and multi-currency portfolios.
@@ -132,3 +132,66 @@ const totalUSD = Object.values(portfolioUSD).reduce((sum, p) => sum + p.valueUSD
 console.log(`Portfolio total: $${totalUSD.toLocaleString()}`);
 ```
 
+
+### **Convert** chart data to display format
+
+@keywords: chart, display, format, dashboard, visualization, charts, design system
+
+Transform raw metric values into formatted strings for chart labels.
+Essential for dashboards and data visualization components.
+
+```typescript
+const rawMetrics = {
+  revenue: 1234567,
+  users: 89432,
+  conversion: 0.0342,
+  bounceRate: 0.6721,
+};
+
+const displayMetrics = mapValues(rawMetrics, (value, key) => {
+  if (key === "conversion" || key === "bounceRate") return `${(value * 100).toFixed(1)}%`;
+  if (key === "revenue") return `$${value.toLocaleString()}`;
+  return value.toLocaleString();
+});
+// => { revenue: "$1,234,567", users: "89,432", conversion: "3.4%", bounceRate: "67.2%" }
+```
+
+### **Transform** tree node labels for display
+
+@keywords: tree, node, label, display, icon, design system
+
+Map tree node data to display-ready labels with icons and counts.
+Essential for tree components that need computed display values.
+
+```typescript
+const treeNodes = {
+  src: { type: "directory", children: 12 },
+  "README.md": { type: "file", children: 0 },
+  tests: { type: "directory", children: 8 },
+  ".gitignore": { type: "file", children: 0 },
+};
+
+const displayNodes = mapValues(treeNodes, (node, name) => ({
+  label: node.type === "directory" ? `📁 ${name} (${node.children})` : `📄 ${name}`,
+  expandable: node.type === "directory",
+}));
+// => { src: { label: "📁 src (12)", expandable: true }, "README.md": { label: "📄 README.md", expandable: false }, ... }
+```
+
+### **Translate** enum labels for i18n
+
+@keywords: translate, enum, labels, i18n, locale, internationalization, design system
+
+Map enum values to their translated display labels.
+Perfect for multilingual UIs with status badges, dropdowns, and filters.
+
+```typescript
+const statusLabels = {
+  pending: "status.pending",
+  approved: "status.approved",
+  rejected: "status.rejected",
+};
+
+const translated = mapValues(statusLabels, (translationKey) => t(translationKey, locale));
+// => { pending: "En attente", approved: "Approuve", rejected: "Rejete" }
+```

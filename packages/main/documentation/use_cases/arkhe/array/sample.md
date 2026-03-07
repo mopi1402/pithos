@@ -2,7 +2,7 @@
 
 ### **Pick a random winner** from a contest 📍
 
-@keywords: random, winner, contest, raffle, prize
+@keywords: random, winner, contest, raffle, prize, gaming
 
 Select a lucky participant for prizes or rewards.
 Perfect for raffles, sweepstakes, or promotional campaigns.
@@ -40,16 +40,62 @@ const dailyTip = sample(tips);
 // => "Start your day with the most challenging task."
 ```
 
-### **Assign A/B test variants**
+### **Pick** a random placeholder image
 
-@keywords: A/B testing, variants, experiment, random assignment, feature testing
+@keywords: placeholder, random, image, fallback, UI, design system
 
-Randomly assign users to experiment groups.
-Useful for feature testing or split testing.
+Select a random placeholder when no image is available.
+Adds visual variety to empty states and fallback content.
 
 ```typescript
-const variants = ["control", "variant-a", "variant-b"];
+const placeholders = [
+  "/img/placeholder-landscape.svg",
+  "/img/placeholder-abstract.svg",
+  "/img/placeholder-gradient.svg",
+];
 
-const assignedVariant = sample(variants);
-// => "variant-b"
+const fallbackImage = sample(placeholders);
+// => "/img/placeholder-abstract.svg"
+```
+
+### **Pick** a random loading message
+
+@keywords: loading, message, random, UX, engagement, design system, loading
+
+Show a different loading message each time to keep users engaged.
+Perfect for loading screens, splash pages, and progress indicators.
+
+```typescript
+const loadingMessages = [
+  "Brewing your data...",
+  "Almost there...",
+  "Crunching the numbers...",
+  "Fetching the good stuff...",
+  "Warming up the servers...",
+];
+
+const LoadingScreen = () => (
+  <div className="loading">
+    <Spinner />
+    <p>{sample(loadingMessages)}</p>
+  </div>
+);
+```
+
+### **Select** a random featured item for homepage
+
+@keywords: featured, homepage, spotlight, random, marketing, seo
+
+Rotate featured content on the homepage without manual curation.
+Essential for marketplaces, blogs, and content platforms.
+
+```typescript
+const featuredProducts = [
+  { id: "p1", name: "Pro Headphones", image: "/img/headphones.jpg" },
+  { id: "p2", name: "Smart Watch", image: "/img/watch.jpg" },
+  { id: "p3", name: "Wireless Speaker", image: "/img/speaker.jpg" },
+];
+
+const spotlight = sample(featuredProducts);
+renderHeroBanner(spotlight);
 ```

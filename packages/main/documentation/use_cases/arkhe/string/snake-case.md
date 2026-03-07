@@ -13,7 +13,7 @@ const column = snakeCase('userId'); // 'user_id'
 
 ### **Convert** payload keys before sending to a Python/Ruby API
 
-@keywords: convert, payload, keys, camelCase, snake_case, API, Python, Ruby, backend
+@keywords: convert, payload, keys, camelCase, snake_case, API, Python, Ruby, backend, scripts
 
 Transform camelCase JavaScript keys into snake_case before sending to a backend API.
 The reverse of the camelCase normalization — essential for full-stack interop.

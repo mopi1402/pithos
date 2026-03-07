@@ -1185,6 +1185,16 @@ Critical for text processing pipelines.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#transformation</a>
+  <a href="/use-cases?q=seo" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#seo</a>
 </div>
 
 \`\`\`typescript
@@ -1479,6 +1489,26 @@ Perfect for CRM systems, email campaigns, or user analytics.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#CRM</a>
+  <a href="/use-cases?q=huge%20dataset" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#huge dataset</a>
+  <a href="/use-cases?q=filters" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#filters</a>
 </div>
 
 \`\`\`typescript
@@ -1550,6 +1580,26 @@ Ideal for form validation, data imports, or API request processing.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#batch processing</a>
+  <a href="/use-cases?q=huge%20dataset" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#huge dataset</a>
+  <a href="/use-cases?q=filters" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#filters</a>
 </div>
 
 \`\`\`typescript
@@ -1623,6 +1673,16 @@ Useful for banking apps, expense trackers, or accounting systems.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#budgeting</a>
+  <a href="/use-cases?q=payment" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#payment</a>
 </div>
 
 \`\`\`typescript
@@ -1717,6 +1777,16 @@ Essential for insurance companies managing claim approvals and appeals.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#processing</a>
+  <a href="/use-cases?q=payment" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#payment</a>
 </div>
 
 \`\`\`typescript
@@ -1737,6 +1807,391 @@ const [approved, needsReview] = partition(claims, (c) => c.status === "approved"
 const [highRisk, standard] = partition(claims, (c) => c.riskScore > 0.7);
 // highRisk => [CLM-002, CLM-005] - Flag for investigation
 // standard => [CLM-001, CLM-003, CLM-004] - Normal processing
+\`\`\`
+
+### Separate granted and denied browser permissions
+
+Split permissions into granted and pending groups for a settings page.
+Essential for PWA permission management and privacy dashboards.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=permissions" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#permissions</a>
+  <a href="/use-cases?q=granted" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#granted</a>
+  <a href="/use-cases?q=denied" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#denied</a>
+  <a href="/use-cases?q=browser" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#browser</a>
+  <a href="/use-cases?q=browser%20permissions" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#browser permissions</a>
+  <a href="/use-cases?q=PWA" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#PWA</a>
+  <a href="/use-cases?q=security" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#security</a>
+</div>
+
+\`\`\`typescript
+const permissions = [
+  { name: "notifications", status: "granted" },
+  { name: "geolocation", status: "denied" },
+  { name: "camera", status: "granted" },
+  { name: "microphone", status: "prompt" },
+  { name: "clipboard", status: "denied" },
+];
+
+const [granted, notGranted] = partition(permissions, (p) => p.status === "granted");
+// granted => [notifications, camera]
+// notGranted => [geolocation, microphone, clipboard]
+
+renderPermissionDashboard({ granted, notGranted });
+\`\`\`
+
+### Separate selected and unselected items in a selection model
+
+Split items into selected and unselected groups for a selection model component.
+Essential for data tables with row selection, checkbox lists, and multi-select components.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=selection" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#selection</a>
+  <a href="/use-cases?q=model" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#model</a>
+  <a href="/use-cases?q=selected" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#selected</a>
+  <a href="/use-cases?q=unselected" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#unselected</a>
+  <a href="/use-cases?q=checkbox" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#checkbox</a>
+  <a href="/use-cases?q=list" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#list</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+  <a href="/use-cases?q=a11y" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#a11y</a>
+</div>
+
+\`\`\`typescript
+const allItems = [
+  { id: "1", label: "Item A" },
+  { id: "2", label: "Item B" },
+  { id: "3", label: "Item C" },
+  { id: "4", label: "Item D" },
+];
+
+const selectedIds = new Set(["2", "4"]);
+
+const [selected, unselected] = partition(allItems, (item) => selectedIds.has(item.id));
+// selected => [Item B, Item D]
+// unselected => [Item A, Item C]
+
+renderSelectionSummary(\`\${selected.length} of \${allItems.length} selected\`);
+renderSelectedChips(selected);
+\`\`\`
+
+### Split tree nodes into expanded and collapsed groups
+
+Separate expanded from collapsed tree nodes for rendering optimization.
+Perfect for tree components that render expanded branches differently.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=tree" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#tree</a>
+  <a href="/use-cases?q=expanded" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#expanded</a>
+  <a href="/use-cases?q=collapsed" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#collapsed</a>
+  <a href="/use-cases?q=split" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#split</a>
+  <a href="/use-cases?q=node" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#node</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+</div>
+
+\`\`\`typescript
+const treeNodes = [
+  { id: "src", expanded: true, depth: 0 },
+  { id: "components", expanded: true, depth: 1 },
+  { id: "Button.tsx", expanded: false, depth: 2 },
+  { id: "utils", expanded: false, depth: 1 },
+  { id: "tests", expanded: false, depth: 0 },
+];
+
+const [expanded, collapsed] = partition(treeNodes, (node) => node.expanded);
+// expanded => [src, components] - render with children
+// collapsed => [Button.tsx, utils, tests] - render as leaf
+
+const visibleCount = expanded.reduce((sum, node) => sum + getChildCount(node), collapsed.length);
+updateVirtualScrollHeight(visibleCount * ROW_HEIGHT);
+\`\`\`
+
+### Split products into visible and hidden for a filter panel
+
+Separate products matching active filters from those that don't.
+Perfect for filter panels that show matching count and dimmed non-matching items.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=visible" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#visible</a>
+  <a href="/use-cases?q=hidden" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#hidden</a>
+  <a href="/use-cases?q=filter" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#filter</a>
+  <a href="/use-cases?q=panel" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#panel</a>
+  <a href="/use-cases?q=ecommerce" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#ecommerce</a>
+  <a href="/use-cases?q=catalog" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#catalog</a>
+  <a href="/use-cases?q=filters" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#filters</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+</div>
+
+\`\`\`typescript
+const [matching, nonMatching] = partition(products, (p) =>
+  activeFilters.every((f) => p.attributes.includes(f))
+);
+
+renderProductGrid({
+  highlighted: matching,
+  dimmed: nonMatching,
+  matchCount: matching.length,
+});
 \`\`\`
 
 "
@@ -1853,15 +2308,21 @@ The type of the initial value.
 
 ### a: \`A\`
 
+The initial value to transform.
+
 **Overload 2:**
 
 ### a: \`A\`
+
+The initial value to transform.
 
 ### ab: \`(a) => B\`
 
 **Overload 3:**
 
 ### a: \`A\`
+
+The initial value to transform.
 
 ### ab: \`(a) => B\`
 
@@ -1870,6 +2331,8 @@ The type of the initial value.
 **Overload 4:**
 
 ### a: \`A\`
+
+The initial value to transform.
 
 ### ab: \`(a) => B\`
 
@@ -1885,6 +2348,8 @@ The type of the initial value.
 
 ### a: \`A\`
 
+The initial value to transform.
+
 ### ab: \`(a) => B\`
 
 ### bc: \`(b) => C\`
@@ -1896,6 +2361,8 @@ The type of the initial value.
 **Overload 6:**
 
 ### a: \`A\`
+
+The initial value to transform.
 
 ### ab: \`(a) => B\`
 
@@ -1910,6 +2377,8 @@ The type of the initial value.
 **Overload 7:**
 
 ### a: \`A\`
+
+The initial value to transform.
 
 ### ab: \`(a) => B\`
 
@@ -1926,6 +2395,8 @@ The type of the initial value.
 **Overload 8:**
 
 ### a: \`A\`
+
+The initial value to transform.
 
 ### ab: \`(a) => B\`
 
@@ -1944,6 +2415,8 @@ The type of the initial value.
 **Overload 9:**
 
 ### a: \`A\`
+
+The initial value to transform.
 
 ### ab: \`(a) => B\`
 
@@ -1964,6 +2437,8 @@ The type of the initial value.
 **Overload 10:**
 
 ### a: \`A\`
+
+The initial value to transform.
 
 ### ab: \`(a) => B\`
 
@@ -1986,6 +2461,8 @@ The type of the initial value.
 **Overload 11:**
 
 ### a: \`A\`
+
+The initial value to transform.
 
 ### ab: \`(a) => B\`
 
@@ -2010,6 +2487,8 @@ The type of the initial value.
 **Overload 12:**
 
 ### a: \`A\`
+
+The initial value to transform.
 
 ### ab: \`(a) => B\`
 
@@ -2036,6 +2515,8 @@ The type of the initial value.
 **Overload 13:**
 
 ### a: \`A\`
+
+The initial value to transform.
 
 ### ab: \`(a) => B\`
 
@@ -2064,6 +2545,8 @@ The type of the initial value.
 **Overload 14:**
 
 ### a: \`A\`
+
+The initial value to transform.
 
 ### ab: \`(a) => B\`
 
@@ -2094,6 +2577,8 @@ The type of the initial value.
 **Overload 15:**
 
 ### a: \`A\`
+
+The initial value to transform.
 
 ### ab: \`(a) => B\`
 
@@ -2126,6 +2611,8 @@ The type of the initial value.
 **Overload 16:**
 
 ### a: \`A\`
+
+The initial value to transform.
 
 ### ab: \`(a) => B\`
 
@@ -2160,6 +2647,8 @@ The type of the initial value.
 **Overload 17:**
 
 ### a: \`A\`
+
+The initial value to transform.
 
 ### ab: \`(a) => B\`
 
@@ -2196,6 +2685,8 @@ The type of the initial value.
 **Overload 18:**
 
 ### a: \`A\`
+
+The initial value to transform.
 
 ### ab: \`(a) => B\`
 
@@ -2234,6 +2725,8 @@ The type of the initial value.
 **Overload 19:**
 
 ### a: \`A\`
+
+The initial value to transform.
 
 ### ab: \`(a) => B\`
 
@@ -2274,6 +2767,8 @@ The type of the initial value.
 **Overload 20:**
 
 ### a: \`A\`
+
+The initial value to transform.
 
 ### ab: \`(a) => B\`
 
@@ -2422,7 +2917,7 @@ Composes functions left-to-right, passing each result to the next function.
 
 ### Function composition and chaining 📌
 
-Compose multiple functions in a readable left-to-right manner.
+Pass a value through multiple functions in a readable left-to-right manner.
 Essential for functional programming and clean data processing workflows.
 
 <div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
@@ -2489,19 +2984,18 @@ Essential for functional programming and clean data processing workflows.
 </div>
 
 \`\`\`typescript
-const add = (n) => n + 1;
-const double = (n) => n * 2;
-const square = (n) => n * n;
+const add = (n: number) => n + 1;
+const double = (n: number) => n * 2;
+const square = (n: number) => n * n;
 
-const process = pipe(add, double, square);
-// ((n + 1) * 2) ^ 2
-
-process(2); // ((2+1)*2)^2 = 36
+const result = pipe(2, add, double, square);
+// pipe(2, add, double, square) → add(2)=3 → double(3)=6 → square(6)=36
+// => 36
 \`\`\`
 
 ### Data transformation pipelines
 
-Transform data through multiple steps with type-safe function composition.
+Transform data through multiple steps with type-safe function chaining.
 Essential for complex data processing and ETL operations.
 
 <div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
@@ -2565,21 +3059,31 @@ Essential for complex data processing and ETL operations.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#flow</a>
+  <a href="/use-cases?q=scripts" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#scripts</a>
 </div>
 
 \`\`\`typescript
-const cleanInput = pipe(
+const slug = pipe(
+  "  Hello World  ",
   (s) => s.trim(),
   (s) => s.toLowerCase(),
-  (s) => s.replace(/\\s+/g, "-")
+  (s) => s.replace(/\\s+/g, "-"),
 );
-
-cleanInput("  Hello World  "); // "hello-world"
+// => "hello-world"
 \`\`\`
 
 ### Process API response through a full pipeline
 
-Chain fetch, parse, normalize, and filter steps into a single readable pipeline.
+Chain parse, normalize, and filter steps into a single readable pipeline.
 The real-world pattern developers write daily when consuming API data.
 
 <div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
@@ -2663,18 +3167,225 @@ The real-world pattern developers write daily when consuming API data.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#processing</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
 </div>
 
 \`\`\`typescript
-const getActiveUsers = pipe(
-  (response: Response) => response.json(),
-  (data: { users: User[] }) => data.users,
+const response = await fetch("/api/users");
+const data = await response.json();
+
+const activeUsers = pipe(
+  data.users as User[],
   (users) => users.filter((u) => u.isActive),
   (users) => users.map((u) => ({ id: u.id, name: u.name, email: u.email })),
 );
+// Raw array → filtered active → picked fields
+\`\`\`
 
-const users = await fetch("/api/users").then(getActiveUsers);
-// Raw response → parsed JSON → extracted array → filtered active → picked fields
+### Build an SEO slug from a title
+
+Chain deburr, lowercase, and cleanup into a single slug generator.
+Essential for CMS platforms and blog engines generating URL-friendly slugs.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=SEO" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#SEO</a>
+  <a href="/use-cases?q=slug" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#slug</a>
+  <a href="/use-cases?q=pipeline" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#pipeline</a>
+  <a href="/use-cases?q=URL" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#URL</a>
+  <a href="/use-cases?q=normalize" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#normalize</a>
+  <a href="/use-cases?q=deburr" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#deburr</a>
+  <a href="/use-cases?q=seo" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#seo</a>
+  <a href="/use-cases?q=i18n" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#i18n</a>
+</div>
+
+\`\`\`typescript
+const slug = pipe(
+  "Café Résumé — Été 2025",
+  (s) => deburr(s),
+  (s) => s.toLowerCase(),
+  (s) => s.replace(/[^a-z0-9\\s]/g, ""),
+  (s) => s.trim().replace(/\\s+/g, "-"),
+);
+// => "cafe-resume-ete-2025"
+\`\`\`
+
+### Process form submission through validation and sanitization
+
+Chain sanitization and transformation steps for form data.
+Critical for secure form handling with clear, composable steps.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=form" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#form</a>
+  <a href="/use-cases?q=submission" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#submission</a>
+  <a href="/use-cases?q=validation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#validation</a>
+  <a href="/use-cases?q=sanitization" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#sanitization</a>
+  <a href="/use-cases?q=pipeline" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#pipeline</a>
+  <a href="/use-cases?q=security" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#security</a>
+  <a href="/use-cases?q=a11y" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#a11y</a>
+</div>
+
+\`\`\`typescript
+const clean = pipe(
+  { name: " Alice ", email: " Alice@Mail.COM ", message: "<b>Hello</b>" },
+  (data) => ({
+    ...data,
+    email: data.email.toLowerCase().trim(),
+    name: data.name.trim(),
+  }),
+  (data) => {
+    if (!data.email.includes("@")) throw new Error("Invalid email");
+    return data;
+  },
+  (data) => ({
+    ...data,
+    message: escape(data.message),
+  }),
+);
+// => { name: "Alice", email: "alice@mail.com", message: "&lt;b&gt;Hello&lt;/b&gt;" }
 \`\`\`
 
 "

@@ -4,7 +4,7 @@
 
 ### **Prevent** duplicate API calls 📍
 
-@keywords: prevent, duplicate, deduplication, concurrent, cache, optimization
+@keywords: prevent, duplicate, deduplication, concurrent, cache, optimization, performance, payment
 
 Queue API calls by key to prevent multiple identical requests from being made simultaneously.
 Essential for avoiding race conditions and reducing unnecessary network traffic.

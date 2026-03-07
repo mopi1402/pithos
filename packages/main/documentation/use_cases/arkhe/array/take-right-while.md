@@ -46,3 +46,25 @@ const metrics = [-5, 10, -2, 15, 20, 25];
 const recentGrowth = takeRightWhile(metrics, (m) => m > 0);
 // => [15, 20, 25]
 ```
+
+### **Extract** recent unread notifications
+
+@keywords: unread, notifications, recent, badge, inbox, design system
+
+Take trailing unread notifications for a notification badge count.
+Perfect for notification centers and inbox indicators.
+
+```typescript
+const notifications = [
+  { id: 1, read: true, text: "Welcome" },
+  { id: 2, read: true, text: "New feature" },
+  { id: 3, read: false, text: "New comment" },
+  { id: 4, read: false, text: "New follower" },
+  { id: 5, read: false, text: "Mention in #general" },
+];
+
+const recentUnread = takeRightWhile(notifications, (n) => !n.read);
+// => [New comment, New follower, Mention]
+
+setBadgeCount(recentUnread.length); // Show "3" on bell icon
+```

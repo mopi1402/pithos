@@ -2,7 +2,7 @@
 
 ### **Count items** by status/category 📍
 
-@keywords: count, status, category, occurrences, analytics, dashboard
+@keywords: count, status, category, occurrences, analytics, dashboard, observability, ci/cd
 
 Count occurrences of each status or category in a collection.
 Essential for dashboards, admin panels, and e-commerce analytics.
@@ -52,7 +52,7 @@ countBy(users, (user) => (user.age >= 18 ? "adult" : "minor"));
 
 ### **Display** badge counts in navigation
 
-@keywords: badge, count, navigation, sidebar, inbox, notifications, UI, dashboard
+@keywords: badge, count, navigation, sidebar, inbox, notifications, UI, dashboard, design system
 
 Compute counts per category to display as badges in a sidebar or nav bar.
 Universal pattern for any app with "Inbox (3)", "Pending (12)", or "Errors (5)".
@@ -73,4 +73,28 @@ const counts = countBy(tickets, (t) => t.status);
 // 📬 Open (3)
 // 🔄 In Progress (1)
 // ✅ Closed (1)
+```
+
+### **Count** errors by type for monitoring charts
+
+@keywords: errors, type, monitoring, chart, observability, charts, alerting
+
+Aggregate error counts by type for a monitoring dashboard chart.
+Essential for observability dashboards and incident triage.
+
+```typescript
+const errors = [
+  { type: "TypeError", message: "Cannot read property..." },
+  { type: "NetworkError", message: "Failed to fetch" },
+  { type: "TypeError", message: "undefined is not a function" },
+  { type: "SyntaxError", message: "Unexpected token" },
+  { type: "NetworkError", message: "Timeout" },
+  { type: "NetworkError", message: "DNS resolution failed" },
+];
+
+const errorCounts = countBy(errors, (e) => e.type);
+// => { TypeError: 2, NetworkError: 3, SyntaxError: 1 }
+
+// Render as pie chart
+renderPieChart(Object.entries(errorCounts).map(([type, count]) => ({ label: type, value: count })));
 ```

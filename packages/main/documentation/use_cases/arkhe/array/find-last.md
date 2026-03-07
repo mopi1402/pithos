@@ -51,3 +51,29 @@ const temperatures = [18, 22, 25, 30, 28, 24, 19, 17];
 const lastHotDay = findLast(temperatures, (temp) => temp >= 25);
 // => 28
 ```
+
+### **Find** the last visible element in a scroll container
+
+@keywords: visible, scroll, last, viewport, intersection, design system, performance
+
+Locate the last item currently visible in a scrollable container.
+Essential for scroll-to-bottom detection and "jump to latest" features.
+
+```typescript
+const messages = [
+  { id: 1, text: "Hello", offsetTop: 0 },
+  { id: 2, text: "How are you?", offsetTop: 60 },
+  { id: 3, text: "Fine thanks", offsetTop: 120 },
+  { id: 4, text: "See you later", offsetTop: 180 },
+];
+
+const scrollBottom = container.scrollTop + container.clientHeight;
+
+const lastVisible = findLast(messages, (msg) => msg.offsetTop < scrollBottom);
+// => { id: 3, text: "Fine thanks" } if scrollBottom is 150
+
+// Show "new messages" indicator if last visible != last message
+if (lastVisible?.id !== messages[messages.length - 1].id) {
+  showNewMessagesBadge();
+}
+```

@@ -2,7 +2,7 @@
 
 ### **Control** API rate limits 📍
 
-@keywords: control, concurrency, rate-limiting, throttle, API, requests
+@keywords: control, concurrency, rate-limiting, throttle, API, requests, performance
 
 Execute multiple API calls with controlled concurrency to respect rate limits.
 Essential for working with APIs that have strict rate limiting.
@@ -25,7 +25,7 @@ console.log("Users loaded:", userData);
 
 ### **Manage** resource-intensive operations
 
-@keywords: manage, resources, intensive, performance, optimization, memory
+@keywords: manage, resources, intensive, performance, optimization, memory, huge dataset
 
 Limit concurrent operations to prevent system overload.
 Critical for operations that consume significant system resources.
@@ -47,7 +47,7 @@ console.log("Images processed:", processedImages);
 
 ### **Optimize** database operations
 
-@keywords: optimize, database, queries, connections, performance, concurrency
+@keywords: optimize, database, queries, connections, performance, concurrency, scripts
 
 Execute database queries with controlled concurrency for optimal performance.
 Essential for maintaining database performance and preventing connection exhaustion.
@@ -69,7 +69,7 @@ console.log("Database queries completed:", results);
 
 ### **Handle** file operations efficiently
 
-@keywords: handle, files, operations, processing, batch, IO
+@keywords: handle, files, operations, processing, batch, IO, huge dataset, scripts, ci/cd
 
 Process multiple files with controlled concurrency to prevent I/O overload.
 Critical for file processing systems and batch operations.
@@ -115,7 +115,7 @@ renderPage(content);
 
 ### **Scrape pages with politeness**
 
-@keywords: scrape, crawl, politeness, rate-limiting, concurrent, web
+@keywords: scrape, crawl, politeness, rate-limiting, concurrent, web, scripts
 
 Crawl multiple URLs while limiting concurrent requests to avoid overwhelming servers.
 Essential for web scraping, link checking, or sitemap validation.
@@ -170,3 +170,29 @@ const abnormalResults = labResults.filter((r) => r.status === "ABNORMAL");
 console.log(`${abnormalResults.length} results require review`);
 ```
 
+
+### **Preload** assets for a PWA with controlled concurrency
+
+@keywords: preload, assets, PWA, cache, service worker, offline, loading
+
+Cache critical assets in parallel during service worker installation.
+Essential for PWA offline-first strategies with large asset lists.
+
+```typescript
+const criticalAssets = [
+  "/index.html", "/app.js", "/styles.css",
+  "/icons/logo.svg", "/fonts/inter.woff2",
+  "/api/config", "/api/translations/en",
+];
+
+const preloadAll = async () => {
+  const cache = await caches.open("v1");
+  await parallel(
+    criticalAssets.map((url) => async () => {
+      const response = await fetch(url);
+      await cache.put(url, response);
+    }),
+    3 // Max 3 concurrent fetches
+  );
+};
+```

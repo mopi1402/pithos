@@ -2,7 +2,7 @@
 
 ### **Show recent activity** in dashboards 📍
 
-@keywords: recent, activity, dashboard, last N, audit log
+@keywords: recent, activity, dashboard, last N, audit log, design system
 
 Display the last N actions for quick context.
 Perfect for "Recent Files", "Last Commands", or activity feeds.
@@ -22,7 +22,7 @@ const recentActions = takeRight(auditLog, 3);
 
 ### **Extract trailing data points** for trend analysis
 
-@keywords: trailing, trend, sparkline, recent data, performance
+@keywords: trailing, trend, sparkline, recent data, performance, observability
 
 Get the most recent values for sparklines or mini-charts.
 Ideal for dashboards, stock tickers, or performance monitors.
@@ -50,4 +50,24 @@ const pageSize = 10;
 
 const lastPage = takeRight(allItems, 47 % pageSize || pageSize);
 // => ["Item 41", "Item 42", ..., "Item 47"]
+```
+
+### **Show** recent chat messages on reconnect
+
+@keywords: recent, chat, messages, reconnect, websocket, design system, loading
+
+Display the last N messages when a user reconnects to a chat room.
+Essential for messaging apps and real-time collaboration tools.
+
+```typescript
+const chatHistory = await fetchChatHistory(roomId);
+
+// Show last 50 messages on reconnect
+const recentMessages = takeRight(chatHistory, 50);
+renderMessages(recentMessages);
+
+// Show "Load earlier messages" button if there are more
+if (chatHistory.length > 50) {
+  showLoadEarlierButton();
+}
 ```

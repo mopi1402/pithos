@@ -2,7 +2,7 @@
 
 ### **Group users by role** 📍
 
-@keywords: group, users, role, organize, permission, category
+@keywords: group, users, role, organize, permission, category, huge dataset
 
 Organize a list of users based on their role or permission.
 Perfect for admin dashboards, access management, or category-based displays.
@@ -25,7 +25,7 @@ const usersByRole = groupBy(users, (u) => u.role);
 
 ### **Group products by category** 📍
 
-@keywords: group, products, category, classify, ecommerce, inventory
+@keywords: group, products, category, classify, ecommerce, inventory, huge dataset
 
 Classify items or products by their category for organized display.
 Perfect for e-commerce, catalogs, or inventory systems.
@@ -47,7 +47,7 @@ const productsByCategory = groupBy(products, (p) => p.category);
 
 ### **Group events by date** or period
 
-@keywords: group, events, date, period, calendar, logs, reports
+@keywords: group, events, date, period, calendar, logs, reports, charts
 
 Organize events, logs, or transactions by day/month/year.
 Perfect for calendars, history logs, or time-based reports.
@@ -100,7 +100,7 @@ const byBloodType = groupBy(patients, (p) => p.bloodType);
 
 ### **Group logs by severity** for monitoring dashboards
 
-@keywords: logs, severity, monitoring, observability, error, warn, info, debug
+@keywords: logs, severity, monitoring, observability, error, warn, info, debug, scripts
 
 Organize application logs by severity level for quick triage.
 Essential for monitoring dashboards, alerting systems, and incident response.
@@ -127,7 +127,7 @@ const errorCount = logsBySeverity.error?.length ?? 0;
 
 ### **Group orders by status** for e-commerce pipelines
 
-@keywords: orders, status, ecommerce, pipeline, fulfillment, tracking, shipping
+@keywords: orders, status, ecommerce, pipeline, fulfillment, tracking, shipping, payment
 
 Organize orders by fulfillment status for warehouse and logistics management.
 Critical for e-commerce platforms, order tracking, and operational dashboards.
@@ -151,4 +151,107 @@ const ordersByStatus = groupBy(orders, (o) => o.status);
 // Calculate revenue pending fulfillment
 const pendingRevenue = ordersByStatus.pending?.reduce((sum, o) => sum + o.total, 0) ?? 0;
 // => 369.50
+```
+
+### **Group** chart data by time period
+
+@keywords: chart, time, period, aggregation, visualization, charts, dashboard
+
+Aggregate data points by hour, day, or month for chart rendering.
+Essential for time-series charts and analytics dashboards.
+
+```typescript
+const pageViews = [
+  { url: "/home", timestamp: "2025-06-10T09:15:00Z" },
+  { url: "/about", timestamp: "2025-06-10T09:45:00Z" },
+  { url: "/home", timestamp: "2025-06-10T10:20:00Z" },
+  { url: "/pricing", timestamp: "2025-06-10T10:55:00Z" },
+  { url: "/home", timestamp: "2025-06-10T11:05:00Z" },
+];
+
+const byHour = groupBy(pageViews, (v) => new Date(v.timestamp).getHours().toString());
+// => { "9": [2 views], "10": [2 views], "11": [1 view] }
+
+// Transform for chart rendering
+const chartData = Object.entries(byHour).map(([hour, views]) => ({
+  label: `${hour}:00`,
+  value: views.length,
+}));
+```
+
+### **Group** translations by namespace for i18n
+
+@keywords: translations, namespace, i18n, locale, internationalization, module
+
+Organize flat translation entries into namespaced groups.
+Perfect for i18n systems that load translations per module or page.
+
+```typescript
+const flatTranslations = [
+  { key: "auth.login.title", value: "Sign In" },
+  { key: "auth.login.error", value: "Invalid credentials" },
+  { key: "dashboard.welcome", value: "Welcome back" },
+  { key: "dashboard.stats", value: "Your statistics" },
+  { key: "auth.register.title", value: "Create Account" },
+];
+
+const byNamespace = groupBy(flatTranslations, (t) => t.key.split(".")[0]);
+// => {
+//   auth: [login.title, login.error, register.title],
+//   dashboard: [welcome, stats]
+// }
+```
+
+### **Group** list items with sticky section headers
+
+@keywords: sticky, section, headers, grouped, list, design system, contacts, a11y
+
+Group items alphabetically or by category for a sectioned list with sticky headers.
+Essential for contact lists, file explorers, and settings pages.
+
+```typescript
+const contacts = [
+  { name: "Alice", phone: "555-0001" },
+  { name: "Bob", phone: "555-0002" },
+  { name: "Anna", phone: "555-0003" },
+  { name: "Charlie", phone: "555-0004" },
+  { name: "Ben", phone: "555-0005" },
+];
+
+const grouped = groupBy(contacts, (c) => c.name[0].toUpperCase());
+// => { A: [Alice, Anna], B: [Bob, Ben], C: [Charlie] }
+
+// Render with sticky headers
+Object.entries(grouped).map(([letter, items]) => (
+  <section>
+    <h3 className="sticky-header">{letter}</h3>
+    {items.map((c) => <ContactRow key={c.phone} contact={c} />)}
+  </section>
+));
+```
+
+### **Group** drag-and-drop items by column
+
+@keywords: drag, drop, column, kanban, board, design system, panels
+
+Organize items into kanban columns after a drag-and-drop reorder.
+Essential for project management boards and workflow builders.
+
+```typescript
+const tasks = [
+  { id: "t1", title: "Design mockup", column: "todo" },
+  { id: "t2", title: "Write tests", column: "in-progress" },
+  { id: "t3", title: "Fix bug #42", column: "in-progress" },
+  { id: "t4", title: "Deploy v2", column: "done" },
+];
+
+const columns = groupBy(tasks, (t) => t.column);
+// => { todo: [t1], "in-progress": [t2, t3], done: [t4] }
+
+// After drag: update task column and re-group
+const moveTask = (taskId: string, newColumn: string) => {
+  const task = tasks.find((t) => t.id === taskId);
+  if (task) task.column = newColumn;
+  return groupBy(tasks, (t) => t.column);
+};
 ```

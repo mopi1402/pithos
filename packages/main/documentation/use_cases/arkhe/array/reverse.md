@@ -19,7 +19,7 @@ console.log(commits[0]);
 
 ### **Toggle sort direction** in data tables
 
-@keywords: sort direction, toggle, ascending, descending, data table
+@keywords: sort direction, toggle, ascending, descending, data table, design system
 
 Switch between ascending and descending views.
 Common pattern for sortable columns.

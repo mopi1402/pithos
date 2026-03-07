@@ -2,7 +2,7 @@
 
 ### **Randomize quiz questions** 📍
 
-@keywords: shuffle, randomize, quiz, questions, education
+@keywords: shuffle, randomize, quiz, questions, education, gaming
 
 Shuffle questions to prevent memorization of order.
 Essential for educational apps, quizzes, or exam systems.
@@ -35,7 +35,7 @@ const shuffledPlaylist = shuffle(playlist);
 
 ### **Deal cards in a game**
 
-@keywords: cards, deck, shuffle, game, dealing
+@keywords: cards, deck, shuffle, game, dealing, gaming
 
 Shuffle a deck before dealing in card games.
 Essential for gaming applications or simulations.
@@ -49,7 +49,7 @@ const shuffledDeck = shuffle(deck);
 
 ### **Randomize display order** to avoid position bias
 
-@keywords: randomize, display, position, bias, A/B testing, marketplace, ads, fairness
+@keywords: randomize, display, position, bias, A/B testing, marketplace, ads, fairness, performance
 
 Shuffle product or ad listings to ensure fair exposure and prevent position bias.
 Important for marketplaces, ad platforms, and A/B testing where order influences clicks.
@@ -65,4 +65,40 @@ const sponsoredListings = [
 // Same bid tier → randomize to give equal exposure
 const fairOrder = shuffle(sponsoredListings);
 // => Random order each page load, no advertiser is always first
+```
+
+### **Shuffle** tile positions in a puzzle game
+
+@keywords: puzzle, tiles, board, game, scramble, gaming
+
+Scramble tile positions to create a new puzzle board.
+Essential for sliding puzzles, memory games, and board game setups.
+
+```typescript
+const tiles = range(1, 16).map((n) => ({ id: n, label: String(n) }));
+
+const scrambledBoard = shuffle(tiles);
+// => Tiles in random order for a new game round
+
+renderBoard(chunk(scrambledBoard, 4)); // 4x4 grid
+```
+
+### **Randomize** survey answer order to reduce bias
+
+@keywords: survey, answers, bias, research, UX, randomize, a11y
+
+Shuffle answer options so the first choice doesn't get unfair preference.
+Critical for research surveys, polls, and educational assessments.
+
+```typescript
+const question = {
+  text: "Which framework do you prefer?",
+  options: ["React", "Vue", "Angular", "Svelte", "Solid"],
+};
+
+const displayed = {
+  ...question,
+  options: shuffle(question.options),
+};
+// => Options in random order each time the survey loads
 ```

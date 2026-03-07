@@ -2,7 +2,7 @@
 
 ### **Format** user names 📍
 
-@keywords: format, names, capitalize, display, profiles, users
+@keywords: format, names, capitalize, display, profiles, users, i18n
 
 Ensure proper capitalization of names.
 Useful for display logic on profile pages.
@@ -12,7 +12,7 @@ const name = capitalize('john'); // 'John'
 
 ### **Normalize** input labels
 
-@keywords: normalize, labels, forms, buttons, standardize, text
+@keywords: normalize, labels, forms, buttons, standardize, text, design system
 
 Standardize form field labels or button text.
 ```typescript
@@ -22,7 +22,7 @@ const button = capitalize('CANCEL'); // 'Cancel' (if it lowercases first)
 
 ### **Display** enum values as readable text
 
-@keywords: enum, display, readable, status, constant, format
+@keywords: enum, display, readable, status, constant, format, design system
 
 Convert constant-style enum values into human-readable labels for UI display.
 

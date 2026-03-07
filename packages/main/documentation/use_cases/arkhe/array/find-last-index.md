@@ -54,3 +54,28 @@ const temperatures = [18, 22, 25, 30, 28, 24, 19, 17];
 const lastHotDayIndex = findLastIndex(temperatures, (temp) => temp >= 25);
 // => 4 (value: 28)
 ```
+
+### **Find** the last visible item index for scroll anchoring
+
+@keywords: scroll, anchor, visible, index, position, design system, performance
+
+Locate the index of the last item visible in the viewport for scroll restoration.
+Essential for virtual scroll implementations and scroll position preservation.
+
+```typescript
+const items = [
+  { id: 1, top: 0 },
+  { id: 2, top: 80 },
+  { id: 3, top: 160 },
+  { id: 4, top: 240 },
+  { id: 5, top: 320 },
+];
+
+const viewportBottom = container.scrollTop + container.clientHeight;
+
+const lastVisibleIndex = findLastIndex(items, (item) => item.top < viewportBottom);
+// => 3 (item at top: 240 is last visible)
+
+// Use for scroll restoration after data refresh
+scrollToIndex(lastVisibleIndex);
+```

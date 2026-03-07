@@ -4,7 +4,6 @@
  * @template Item - The type of items being mapped.
  * @template Key - The type of the property key.
  * @template Result - The type of the mapping result.
- * @param input - Property key, mapping function, or nullish (identity).
  * @returns A mapping function.
  * @since 2.0.0
  *

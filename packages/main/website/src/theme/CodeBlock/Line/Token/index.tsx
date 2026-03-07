@@ -30,10 +30,6 @@ export default function CodeBlockLineToken({
   const text = token.content.trim();
   const href = links[text];
 
-  if (!href) {
-    return <span {...props}>{children}</span>;
-  }
-
   // Split leading/trailing whitespace so only the word gets underlined
   const raw = token.content;
   const leading = raw.slice(0, raw.indexOf(text));
@@ -41,7 +37,7 @@ export default function CodeBlockLineToken({
 
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
-      if (e.metaKey || e.ctrlKey) {
+      if (href && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         history.push(href);
       }
@@ -51,10 +47,14 @@ export default function CodeBlockLineToken({
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
-      if (e.key === "Enter") history.push(href);
+      if (href && e.key === "Enter") history.push(href);
     },
     [history, href],
   );
+
+  if (!href) {
+    return <span {...props}>{children}</span>;
+  }
 
   return (
     <span {...props}>

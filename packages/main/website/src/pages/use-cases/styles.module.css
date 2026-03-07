@@ -180,6 +180,10 @@
   font-size: 0.9rem;
 }
 
+.filterButtonDashed {
+  border-style: dashed;
+}
+
 .filterButton:hover {
   background: var(--ifm-color-emphasis-100);
   color: var(--ifm-color-primary);
@@ -193,6 +197,10 @@
   background: var(--ifm-color-primary);
   color: white;
   border-color: var(--ifm-color-primary);
+}
+
+.filterButtonActive.filterButtonDashed {
+  border-style: dashed;
 }
 
 /* Result count inline */

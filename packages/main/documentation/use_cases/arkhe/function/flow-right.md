@@ -22,7 +22,7 @@ console.log(transform(3)); // double(addOne(square(3))) = double(addOne(9)) = do
 
 ### **String Processing** chains 📍
 
-@keywords: string, processing, compose, text, transformation
+@keywords: string, processing, compose, text, transformation, seo
 
 Compose string transformations in logical order.
 Critical for text processing pipelines.

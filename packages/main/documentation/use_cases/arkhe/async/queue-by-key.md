@@ -4,7 +4,7 @@
 
 ### **Sequential Database Writes** 📍
 
-@keywords: sequential, database, writes, consistency, race-conditions, transactions
+@keywords: sequential, database, writes, consistency, race-conditions, transactions, performance, payment
 
 Ensure that updates to the same record happen strictly in order, preventing "Lost Update" anomalies.
 Essential for counters, inventory management, or financial balances.

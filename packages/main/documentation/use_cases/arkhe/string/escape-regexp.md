@@ -14,7 +14,7 @@ items.filter(item => pattern.test(item));
 
 ### **Highlight search terms** in results 📍
 
-@keywords: highlight, search, terms, results, mark
+@keywords: highlight, search, terms, results, mark, seo
 
 Safely highlight user search terms containing special characters.
 

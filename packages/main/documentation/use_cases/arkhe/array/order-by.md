@@ -2,7 +2,7 @@
 
 ### **Sort by multiple criteria** 📍
 
-@keywords: sort, multiple criteria, data table, leaderboard, ranking
+@keywords: sort, multiple criteria, data table, leaderboard, ranking, huge dataset, charts
 
 Organize data with primary and secondary sort keys.
 Perfect for data tables, leaderboards, or search results.
@@ -21,7 +21,7 @@ const sorted = orderBy(employees, ["department", "salary"], ["asc", "desc"]);
 
 ### **Rank products** by rating and reviews 📍
 
-@keywords: ranking, products, rating, reviews, e-commerce
+@keywords: ranking, products, rating, reviews, e-commerce, payment
 
 Create leaderboards with multiple ranking factors.
 Ideal for e-commerce listings or recommendation engines.
@@ -94,7 +94,7 @@ const updateLeaderboard = (newResult) => {
 
 ### **Sort notifications** by unread status then by date
 
-@keywords: notifications, unread, sort, inbox, priority, date, messaging
+@keywords: notifications, unread, sort, inbox, priority, date, messaging, design system
 
 Display unread notifications first, then sort by most recent.
 Universal pattern for any app with a notification center or inbox.
@@ -113,4 +113,45 @@ const sorted = orderBy(
   ["asc", "desc"]
 );
 // => [PR approved (unread, Jun 10), Mention (unread, Jun 9), Build failed (read), New comment (read)]
+```
+
+### **Sort** chart legend items by value
+
+@keywords: chart, legend, sort, value, visualization, charts, dashboard
+
+Order chart legend entries by their data values for better readability.
+Essential for pie charts, bar charts, and any visualization with a legend.
+
+```typescript
+const legendItems = [
+  { label: "Chrome", value: 65.8, color: "#4285f4" },
+  { label: "Safari", value: 18.7, color: "#5ac8fa" },
+  { label: "Firefox", value: 3.2, color: "#ff9500" },
+  { label: "Edge", value: 5.1, color: "#0078d7" },
+  { label: "Other", value: 7.2, color: "#8e8e93" },
+];
+
+const sorted = orderBy(legendItems, ["value"], ["desc"]);
+// => [Chrome (65.8), Safari (18.7), Other (7.2), Edge (5.1), Firefox (3.2)]
+renderPieChart(sorted);
+```
+
+### **Rank** SEO pages by performance score
+
+@keywords: SEO, pages, rank, performance, score, audit, seo, observability
+
+Sort pages by their SEO or performance audit scores for prioritized optimization.
+Critical for SEO dashboards and site audit tools.
+
+```typescript
+const auditResults = [
+  { url: "/home", performance: 92, seo: 88, accessibility: 95 },
+  { url: "/about", performance: 78, seo: 95, accessibility: 100 },
+  { url: "/products", performance: 65, seo: 72, accessibility: 88 },
+  { url: "/blog", performance: 88, seo: 90, accessibility: 92 },
+];
+
+// Worst performance first for prioritized fixes
+const prioritized = orderBy(auditResults, ["performance"], ["asc"]);
+// => [/products (65), /about (78), /blog (88), /home (92)]
 ```

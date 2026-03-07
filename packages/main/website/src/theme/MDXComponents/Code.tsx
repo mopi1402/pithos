@@ -5,6 +5,10 @@ import CodeInline from '@theme/CodeInline';
 import type {Props} from '@theme/MDXComponents/Code';
 
 function shouldBeInline(props: Props) {
+  // A metastring means this is a fenced code block, never inline
+  if ('metastring' in props && props.metastring) {
+    return false;
+  }
   return (
     // empty code blocks have no props.children,
     // see https://github.com/facebook/docusaurus/pull/9704

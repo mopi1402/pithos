@@ -344,6 +344,16 @@ The most common real-world use case, especially with Python/Ruby/Go backends.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#backend</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
 </div>
 
 \`\`\`typescript
@@ -565,7 +575,7 @@ const search = debounce((query) => {
 }, 300);
 
 // User types "hello"... only one API call after 300ms
-input.on("input", (e) => search(e.target.value));
+input.addEventListener("input", (e) => search((e.target as HTMLInputElement).value));
 \`\`\`
 
 ### Delay API calls until idle 📌
@@ -719,7 +729,7 @@ const submitForm = debounce(() => {
 }, 500, true); // Immediate = true
 
 // Only first click triggers action
-button.on("click", submitForm);
+button.addEventListener("click", submitForm);
 \`\`\`
 
 ### Rate-limit WebSocket messages in real-time apps
@@ -798,6 +808,16 @@ Critical for trading platforms, live dashboards, and real-time collaboration too
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#streaming</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
 </div>
 
 \`\`\`typescript
@@ -816,7 +836,7 @@ const sendTypingIndicator = debounce(() => {
   socket.emit("user_typing", { roomId, userId });
 }, 500);
 
-messageInput.on("input", sendTypingIndicator);
+messageInput.addEventListener("input", sendTypingIndicator);
 \`\`\`
 
 ### Auto-save documents while editing
@@ -907,6 +927,668 @@ editor.on("change", (content) => {
   showSaveIndicator("Saving...");
   autoSave(content);
 });
+\`\`\`
+
+### Debounce filter panel changes
+
+Wait for the user to finish adjusting filters before fetching results.
+Essential for faceted search with multiple filter controls (sliders, checkboxes).
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=filter" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#filter</a>
+  <a href="/use-cases?q=panel" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#panel</a>
+  <a href="/use-cases?q=debounce" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#debounce</a>
+  <a href="/use-cases?q=search" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#search</a>
+  <a href="/use-cases?q=catalog" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#catalog</a>
+  <a href="/use-cases?q=ecommerce" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#ecommerce</a>
+  <a href="/use-cases?q=filters" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#filters</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+</div>
+
+\`\`\`typescript
+const applyFilters = debounce(async (filters: FilterState) => {
+  const results = await api.searchProducts(filters);
+  renderProductGrid(results);
+  updateFilterCounts(results.facets);
+}, 400);
+
+priceSlider.addEventListener("input", (e) => {
+  applyFilters({ ...currentFilters, priceRange: parseRange(e) });
+});
+
+categoryCheckbox.addEventListener("change", () => {
+  applyFilters({ ...currentFilters, categories: getCheckedCategories() });
+});
+\`\`\`
+
+### Delay window resize recalculations
+
+Recalculate chart dimensions or complex layouts only after resizing stops.
+Critical for chart libraries and responsive canvas elements.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=resize" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#resize</a>
+  <a href="/use-cases?q=recalculate" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#recalculate</a>
+  <a href="/use-cases?q=layout" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#layout</a>
+  <a href="/use-cases?q=responsive" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#responsive</a>
+  <a href="/use-cases?q=chart" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#chart</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
+  <a href="/use-cases?q=charts" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#charts</a>
+</div>
+
+\`\`\`typescript
+const recalcLayout = debounce(() => {
+  const { width, height } = container.getBoundingClientRect();
+  chart.resize(width, height);
+  chart.redraw();
+}, 250);
+
+window.addEventListener("resize", recalcLayout);
+\`\`\`
+
+### Trigger infinite scroll loading
+
+Load the next page of content when the user stops scrolling near the bottom.
+Essential for social feeds, product listings, and content-heavy pages.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=infinite" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#infinite</a>
+  <a href="/use-cases?q=scroll" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#scroll</a>
+  <a href="/use-cases?q=load%20more" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#load more</a>
+  <a href="/use-cases?q=pagination" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#pagination</a>
+  <a href="/use-cases?q=feed" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#feed</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+  <a href="/use-cases?q=loading" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#loading</a>
+  <a href="/use-cases?q=huge%20dataset" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#huge dataset</a>
+</div>
+
+\`\`\`typescript
+const checkInfiniteScroll = debounce(() => {
+  const { scrollTop, scrollHeight, clientHeight } = container;
+  const nearBottom = scrollTop + clientHeight >= scrollHeight - 200;
+
+  if (nearBottom && !isLoading) {
+    loadNextPage();
+  }
+}, 150);
+
+container.addEventListener("scroll", checkInfiniteScroll);
+\`\`\`
+
+### Debounce drag-end to finalize drop position
+
+Wait for the user to settle on a drop position before committing the reorder.
+Perfect for sortable lists and kanban boards where rapid dragging occurs.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=drag" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#drag</a>
+  <a href="/use-cases?q=drop" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#drop</a>
+  <a href="/use-cases?q=finalize" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#finalize</a>
+  <a href="/use-cases?q=position" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#position</a>
+  <a href="/use-cases?q=sortable" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#sortable</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+</div>
+
+\`\`\`typescript
+const finalizeDrop = debounce((targetIndex: number) => {
+  commitReorder(draggedItem, targetIndex);
+  clearDropIndicators();
+  saveOrder();
+}, 200);
+
+sortableList.addEventListener("dragover", (e) => {
+  const targetIndex = getInsertIndex(e.clientY);
+  showDropIndicator(targetIndex);
+  finalizeDrop(targetIndex);
+});
+\`\`\`
+
+### Debounce content observer mutations
+
+Debounce MutationObserver callbacks to batch rapid DOM changes.
+Essential for CDK-style ContentObserver that watches for content changes in components.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=content" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#content</a>
+  <a href="/use-cases?q=observer" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#observer</a>
+  <a href="/use-cases?q=mutation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#mutation</a>
+  <a href="/use-cases?q=DOM" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#DOM</a>
+  <a href="/use-cases?q=resize" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#resize</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
+</div>
+
+\`\`\`typescript
+const observeContent = (element: HTMLElement, callback: () => void) => {
+  const debouncedCallback = debounce(callback, 50);
+
+  const observer = new MutationObserver(debouncedCallback);
+  observer.observe(element, {
+    childList: true,
+    subtree: true,
+    characterData: true,
+  });
+
+  return () => observer.disconnect();
+};
+
+// Watch for content changes to recalculate overlay position
+const disconnect = observeContent(triggerElement, () => {
+  repositionOverlay();
+});
+\`\`\`
+
+### Debounce container resize for responsive components
+
+Debounce ResizeObserver callbacks to avoid layout thrashing during resize.
+Critical for CDK-style responsive components that adapt to container size.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=container" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#container</a>
+  <a href="/use-cases?q=resize" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#resize</a>
+  <a href="/use-cases?q=responsive" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#responsive</a>
+  <a href="/use-cases?q=observer" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#observer</a>
+  <a href="/use-cases?q=breakpoint" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#breakpoint</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
+</div>
+
+\`\`\`typescript
+const observeResize = (element: HTMLElement, callback: (rect: DOMRectReadOnly) => void) => {
+  const debouncedCallback = debounce((entries: ResizeObserverEntry[]) => {
+    const entry = entries[entries.length - 1];
+    callback(entry.contentRect);
+  }, 100);
+
+  const observer = new ResizeObserver(debouncedCallback);
+  observer.observe(element);
+
+  return () => observer.disconnect();
+};
+
+// Adapt component layout based on container width
+observeResize(container, (rect) => {
+  const layout = rect.width < 400 ? "compact" : "full";
+  component.setLayout(layout);
+});
+\`\`\`
+
+### Detect element overflow after content changes
+
+Check if text overflows its container after dynamic content updates.
+Essential for showing "..." tooltips or "Show more" buttons only when needed.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=overflow" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#overflow</a>
+  <a href="/use-cases?q=detect" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#detect</a>
+  <a href="/use-cases?q=content" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#content</a>
+  <a href="/use-cases?q=resize" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#resize</a>
+  <a href="/use-cases?q=ellipsis" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#ellipsis</a>
+  <a href="/use-cases?q=tooltip" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#tooltip</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+</div>
+
+\`\`\`typescript
+const checkOverflow = debounce(() => {
+  textElements.forEach((el) => {
+    const isOverflowing = el.scrollWidth > el.clientWidth;
+    el.classList.toggle("has-tooltip", isOverflowing);
+    el.title = isOverflowing ? el.textContent ?? "" : "";
+  });
+}, 200);
+
+// Re-check after content changes or window resize
+window.addEventListener("resize", checkOverflow);
 \`\`\`
 
 "
@@ -1462,8 +2144,6 @@ The function to memoize.
 
 ### keyResolver?: \`(...args) => unknown\`
 
-Optional function to generate cache keys (for first overload).
-
 **Overload 2:**
 
 ### fn: \`(...args) => Result\`
@@ -1471,8 +2151,6 @@ Optional function to generate cache keys (for first overload).
 The function to memoize.
 
 ### options?: <TypeRef>[MemoizeOptions](#memoizeoptions)&lt;Args, Result&gt;</TypeRef>
-
-Memoization options (for second overload).
 
 ---
 
@@ -1750,7 +2428,7 @@ await fetchUser("123");
 ### Cache DOM queries
 
 Store DOM element references to avoid repeated queries.
-Essential for DOM manipulation and performance optimization.
+Best suited for elements that remain in the DOM throughout the page lifecycle.
 
 <div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
   <a href="/use-cases?q=cache" style={{
@@ -1816,11 +2494,13 @@ Essential for DOM manipulation and performance optimization.
 </div>
 
 \`\`\`typescript
-const getElement = memoize((selector) => document.querySelector(selector));
+const getElement = memoize((selector: string) => document.querySelector(selector));
 
 // Only queries DOM once per selector
 const btn = getElement("#submit-btn");
 const btnAgain = getElement("#submit-btn"); // Cached
+
+// ⚠️ Cached references become stale if elements are removed/re-added to the DOM
 \`\`\`
 
 ### Cache credit score calculations for loan processing
@@ -2030,6 +2710,16 @@ Important for SSR, documentation sites, and any repeated content transformation.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#compilation</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
 </div>
 
 \`\`\`typescript
@@ -2041,6 +2731,365 @@ const parseMarkdown = memoize((source: string) => {
 // Same content parsed once, cached for subsequent renders
 const html1 = parseMarkdown(readmeContent); // Parsed
 const html2 = parseMarkdown(readmeContent); // Cache hit
+\`\`\`
+
+### Cache responsive breakpoint calculations
+
+Memoize breakpoint detection to avoid recalculating on every render.
+Essential for design systems with JS-driven responsive behavior.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=cache" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#cache</a>
+  <a href="/use-cases?q=breakpoint" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#breakpoint</a>
+  <a href="/use-cases?q=responsive" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#responsive</a>
+  <a href="/use-cases?q=media" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#media</a>
+  <a href="/use-cases?q=query" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#query</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
+</div>
+
+\`\`\`typescript
+const getBreakpoint = memoize((width: number) => {
+  if (width < 640) return "sm";
+  if (width < 1024) return "md";
+  if (width < 1440) return "lg";
+  return "xl";
+});
+
+// Same width returns cached result
+const bp = getBreakpoint(window.innerWidth);
+\`\`\`
+
+### Cache media query match results
+
+Memoize MediaQueryList creation to avoid constructing duplicate objects.
+Essential for CDK-style BreakpointObserver implementations.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=cache" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#cache</a>
+  <a href="/use-cases?q=media" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#media</a>
+  <a href="/use-cases?q=query" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#query</a>
+  <a href="/use-cases?q=match" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#match</a>
+  <a href="/use-cases?q=responsive" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#responsive</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
+</div>
+
+\`\`\`typescript
+const getMediaQuery = memoize((query: string) => window.matchMedia(query));
+
+// Same query returns cached MediaQueryList — use .matches for current state
+const mql = getMediaQuery("(min-width: 1024px)");
+console.log(mql.matches); // Always reads live value from the cached MediaQueryList
+mql.addEventListener("change", (e) => console.log("Changed:", e.matches));
+\`\`\`
+
+### Cache computed overlay positions
+
+Cache the result of expensive config or schema parsing that won't change at runtime.
+Perfect for parsing design tokens, theme definitions, or static configuration.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=cache" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#cache</a>
+  <a href="/use-cases?q=overlay" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#overlay</a>
+  <a href="/use-cases?q=position" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#position</a>
+  <a href="/use-cases?q=computed" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#computed</a>
+  <a href="/use-cases?q=tooltip" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#tooltip</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
+</div>
+
+\`\`\`typescript
+const parseThemeTokens = memoize((themeJson: string) => {
+  const raw = JSON.parse(themeJson);
+  // Expensive: resolve aliases, compute derived values, flatten nested tokens
+  return resolveTokenAliases(raw);
+});
+
+// Same theme string parsed once, cached for subsequent reads
+const tokens = parseThemeTokens(rawTheme); // Parsed
+const again = parseThemeTokens(rawTheme);  // Cache hit
+\`\`\`
+
+### Cache i18n date formatters per locale
+
+Create and cache Intl.DateTimeFormat instances per locale to avoid repeated construction.
+Critical for i18n-heavy apps rendering many formatted dates.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=cache" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#cache</a>
+  <a href="/use-cases?q=i18n" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#i18n</a>
+  <a href="/use-cases?q=date" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#date</a>
+  <a href="/use-cases?q=formatter" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#formatter</a>
+  <a href="/use-cases?q=locale" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#locale</a>
+  <a href="/use-cases?q=internationalization" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#internationalization</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
+</div>
+
+\`\`\`typescript
+const getDateFormatter = memoize((locale: string) => {
+  return new Intl.DateTimeFormat(locale, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+});
+
+// Formatter created once per locale, reused across renders
+getDateFormatter("fr-FR").format(new Date()); // "10 juin 2025"
+getDateFormatter("fr-FR").format(anotherDate); // Cache hit on formatter
 \`\`\`
 
 
@@ -2462,6 +3511,16 @@ Essential for working with APIs that have strict rate limiting.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#requests</a>
+  <a href="/use-cases?q=performance" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#performance</a>
 </div>
 
 \`\`\`typescript
@@ -2546,6 +3605,16 @@ Critical for operations that consume significant system resources.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#memory</a>
+  <a href="/use-cases?q=huge%20dataset" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#huge dataset</a>
 </div>
 
 \`\`\`typescript
@@ -2629,6 +3698,16 @@ Essential for maintaining database performance and preventing connection exhaust
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#concurrency</a>
+  <a href="/use-cases?q=scripts" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#scripts</a>
 </div>
 
 \`\`\`typescript
@@ -2712,6 +3791,36 @@ Critical for file processing systems and batch operations.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#IO</a>
+  <a href="/use-cases?q=huge%20dataset" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#huge dataset</a>
+  <a href="/use-cases?q=scripts" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#scripts</a>
+  <a href="/use-cases?q=ci%2Fcd" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#ci/cd</a>
 </div>
 
 \`\`\`typescript
@@ -2879,6 +3988,16 @@ Essential for web scraping, link checking, or sitemap validation.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#web</a>
+  <a href="/use-cases?q=scripts" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#scripts</a>
 </div>
 
 \`\`\`typescript
@@ -3001,6 +4120,103 @@ const labResults = await parallel(
 // Flag abnormal results for physician review
 const abnormalResults = labResults.filter((r) => r.status === "ABNORMAL");
 console.log(\`\${abnormalResults.length} results require review\`);
+\`\`\`
+
+### Preload assets for a PWA with controlled concurrency
+
+Cache critical assets in parallel during service worker installation.
+Essential for PWA offline-first strategies with large asset lists.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=preload" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#preload</a>
+  <a href="/use-cases?q=assets" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#assets</a>
+  <a href="/use-cases?q=PWA" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#PWA</a>
+  <a href="/use-cases?q=cache" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#cache</a>
+  <a href="/use-cases?q=service%20worker" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#service worker</a>
+  <a href="/use-cases?q=offline" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#offline</a>
+  <a href="/use-cases?q=loading" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#loading</a>
+</div>
+
+\`\`\`typescript
+const criticalAssets = [
+  "/index.html", "/app.js", "/styles.css",
+  "/icons/logo.svg", "/fonts/inter.woff2",
+  "/api/config", "/api/translations/en",
+];
+
+const preloadAll = async () => {
+  const cache = await caches.open("v1");
+  await parallel(
+    criticalAssets.map((url) => async () => {
+      const response = await fetch(url);
+      await cache.put(url, response);
+    }),
+    3 // Max 3 concurrent fetches
+  );
+};
 \`\`\`
 
 "
@@ -3233,6 +4449,36 @@ Essential for handling transient network issues and improving reliability.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#resilience</a>
+  <a href="/use-cases?q=observability" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#observability</a>
+  <a href="/use-cases?q=ci%2Fcd" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#ci/cd</a>
+  <a href="/use-cases?q=PWA" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#PWA</a>
 </div>
 
 \`\`\`typescript
@@ -3323,6 +4569,16 @@ Critical for maintaining service availability and user experience.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#availability</a>
+  <a href="/use-cases?q=ci%2Fcd" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#ci/cd</a>
 </div>
 
 \`\`\`typescript
@@ -3408,6 +4664,26 @@ Essential for handling large file uploads and network instability.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#network</a>
+  <a href="/use-cases?q=ci%2Fcd" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#ci/cd</a>
+  <a href="/use-cases?q=PWA" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#PWA</a>
 </div>
 
 \`\`\`typescript
@@ -3596,6 +4872,26 @@ Essential for payment processing, data synchronization, and critical business op
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#transactions</a>
+  <a href="/use-cases?q=observability" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#observability</a>
+  <a href="/use-cases?q=payment" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#payment</a>
 </div>
 
 \`\`\`typescript
@@ -3729,6 +5025,105 @@ const processPaymentWithFailover = await retry(
 );
 
 console.log("Payment completed via:", gateways[currentGatewayIndex]);
+\`\`\`
+
+### Sync offline data when connection returns
+
+Retry syncing queued offline actions when the network comes back.
+Essential for PWAs and mobile apps with offline-first architecture.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=offline" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#offline</a>
+  <a href="/use-cases?q=sync" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#sync</a>
+  <a href="/use-cases?q=PWA" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#PWA</a>
+  <a href="/use-cases?q=reconnect" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#reconnect</a>
+  <a href="/use-cases?q=queue" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#queue</a>
+  <a href="/use-cases?q=resilience" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#resilience</a>
+  <a href="/use-cases?q=loading" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#loading</a>
+</div>
+
+\`\`\`typescript
+const syncOfflineQueue = async (queue: OfflineAction[]) => {
+  for (const action of queue) {
+    await retry(
+      async () => {
+        await api.sync(action);
+        removeFromQueue(action.id);
+      },
+      {
+        attempts: 3,
+        delay: 2000,
+        backoff: 2,
+        until: (error) => (error as Error).message.includes("NETWORK_OFFLINE"),
+      }
+    );
+  }
+};
+
+window.addEventListener("online", () => syncOfflineQueue(getOfflineQueue()));
 \`\`\`
 
 
@@ -3979,6 +5374,26 @@ Essential for article listings, product descriptions, or comment previews.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#blog</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+  <a href="/use-cases?q=seo" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#seo</a>
 </div>
 
 \`\`\`typescript
@@ -4042,6 +5457,16 @@ Avoids cutting words in half.
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#separator</a>
+  <a href="/use-cases?q=seo" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#seo</a>
 </div>
 
 \`\`\`typescript
@@ -4176,6 +5601,16 @@ Shorten long file names in a file tree or upload list while keeping the extensio
                     fontSize: '0.85em',
                     border: '1px solid var(--ifm-color-emphasis-200)'
                 }}>#UI</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
 </div>
 
 \`\`\`typescript
@@ -4187,6 +5622,168 @@ const truncateFileName = (name: string, maxLen: number) => {
 
 truncateFileName('my-very-long-document-name-final-v2.pdf', 25);
 // => "my-very-long-docum....pdf"
+\`\`\`
+
+### Truncate notification messages for mobile
+
+Shorten notification text for mobile push notifications with character limits.
+Essential for PWAs and mobile apps where push notification length is constrained.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=notification" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#notification</a>
+  <a href="/use-cases?q=mobile" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#mobile</a>
+  <a href="/use-cases?q=push" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#push</a>
+  <a href="/use-cases?q=truncate" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#truncate</a>
+  <a href="/use-cases?q=PWA" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#PWA</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+</div>
+
+\`\`\`typescript
+const pushTitle = truncate(notification.title, { length: 50 });
+const pushBody = truncate(notification.body, { length: 120, separator: " " });
+
+sendPushNotification({ title: pushTitle, body: pushBody });
+\`\`\`
+
+### Truncate breadcrumb labels in navigation
+
+Shorten long breadcrumb segments to prevent layout overflow.
+Perfect for responsive navigation in content-heavy applications.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px', marginBottom: '16px'}}>
+  <a href="/use-cases?q=breadcrumb" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#breadcrumb</a>
+  <a href="/use-cases?q=navigation" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#navigation</a>
+  <a href="/use-cases?q=label" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#label</a>
+  <a href="/use-cases?q=overflow" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#overflow</a>
+  <a href="/use-cases?q=responsive" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#responsive</a>
+  <a href="/use-cases?q=design%20system" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#design system</a>
+  <a href="/use-cases?q=a11y" style={{
+                    display: 'inline-block',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--ifm-color-emphasis-100)',
+                    color: 'var(--ifm-color-content)',
+                    textDecoration: 'none',
+                    fontSize: '0.85em',
+                    border: '1px solid var(--ifm-color-emphasis-200)'
+                }}>#a11y</a>
+</div>
+
+\`\`\`typescript
+const breadcrumbs = ["Home", "Documentation", "API Reference", "Very Long Category Name Here"];
+
+const displayCrumbs = breadcrumbs.map((label) =>
+  truncate(label, { length: 20, separator: " " })
+);
+// => ["Home", "Documentation", "API Reference", "Very Long Category..."]
 \`\`\`
 
 

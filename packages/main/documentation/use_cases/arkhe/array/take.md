@@ -2,7 +2,7 @@
 
 ### **Limit results** to first N items 📍
 
-@keywords: limit, first N, top, preview, results
+@keywords: limit, first N, top, preview, results, huge dataset, loading
 
 Get the first N elements from an array.
 Essential for "Top 10" lists, previews, or limiting API responses.
@@ -22,7 +22,7 @@ const topThree = take(allProducts, 3);
 
 ### **Preview content** without loading everything
 
-@keywords: preview, show more, lazy loading, partial content, truncate
+@keywords: preview, show more, lazy loading, partial content, truncate, design system, loading
 
 Show a preview of items before revealing the full list.
 Perfect for "Show more" patterns or lazy loading.
@@ -54,4 +54,43 @@ const pageSize = 20;
 
 const firstPage = take(allItems, pageSize);
 // => ["Item 1", "Item 2", ..., "Item 20"]
+```
+
+### **Render** initial visible items for lazy loading
+
+@keywords: initial, visible, lazy loading, viewport, above fold, design system, performance, seo
+
+Render only the first batch of items eagerly, lazy-load the rest.
+Essential for fast initial page loads and Core Web Vitals optimization.
+
+```typescript
+const allCards = fetchCards(); // 200 cards
+const INITIAL_BATCH = 12;
+
+const eagerCards = take(allCards, INITIAL_BATCH);
+const lazyCards = drop(allCards, INITIAL_BATCH);
+
+// Render eager cards immediately
+renderCards(eagerCards, { loading: "eager" });
+
+// Lazy-load remaining when they enter viewport
+observeIntersection(lazyCards, (card) => renderCard(card, { loading: "lazy" }));
+```
+
+### **Limit** autocomplete suggestions
+
+@keywords: autocomplete, suggestions, dropdown, limit, search, design system, performance
+
+Show only the top N matching suggestions in a dropdown.
+Essential for search autocomplete and combobox components.
+
+```typescript
+const allMatches = searchIndex.filter((item) =>
+  item.label.toLowerCase().includes(query.toLowerCase())
+);
+
+const suggestions = take(allMatches, 8);
+// => At most 8 suggestions shown in dropdown
+
+renderDropdown(suggestions);
 ```

@@ -1,13 +1,13 @@
 /**
  * Gets the first element of array.
  *
- * Alias for {@link first}.
+ * Alias for `first()`.
  *
  * @template T - The type of elements in the array.
  * @param array - The array to query.
  * @returns The first element of the array, or `undefined` if empty.
  * @deprecated Use `array[0]` or `array.at(0)` directly instead.
- * Reason: Alias of {@link first}
+ * Reason: Alias of `first()`
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at | Array.at() - MDN}
  * @see {@link https://caniuse.com/mdn-javascript_builtins_array_at | Browser support - Can I Use}
  * @since 2.0.0

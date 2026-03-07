@@ -35,7 +35,7 @@ export const FEATURES: Feature[] = [
   {
     icon: "/img/generated/homepage/use_cases_discovery",
     title: translate({ id: 'homepage.features.useCases.title', message: 'Use Cases Discovery' }),
-    description: translate({ id: 'homepage.features.useCases.description', message: '850+ documented use cases to find the right utility for your needs.' }),
+    description: translate({ id: 'homepage.features.useCases.description', message: '1000+ documented use cases to find the right utility for your needs.' }),
     link: "/use-cases",
   },
   {

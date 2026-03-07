@@ -2,7 +2,7 @@
 
 ### **Find common permissions** across user roles 📍
 
-@keywords: find, common, permissions, roles, access, authorization
+@keywords: find, common, permissions, roles, access, authorization, security, filters
 
 Identify shared access rights between multiple roles or user groups.
 Perfect for permission systems, access control, or role-based authorization.
@@ -54,7 +54,7 @@ const commonTags = intersection(article1Tags, article2Tags, article3Tags);
 
 ### **Resolve active feature flags** for a user
 
-@keywords: feature, flags, A/B testing, segments, rollout, toggle, experiment
+@keywords: feature, flags, A/B testing, segments, rollout, toggle, experiment, design system, filters
 
 Find which features are enabled for a user by intersecting their segments with active flags.
 Essential for feature flag systems, gradual rollouts, and A/B testing platforms.
@@ -72,7 +72,7 @@ const universalFeatures = intersection(betaFeatures, premiumFeatures, euFeatures
 
 ### **Find compatible filter options** in faceted search
 
-@keywords: faceted, search, filters, compatible, options, ecommerce, catalog
+@keywords: faceted, search, filters, compatible, options, ecommerce, catalog, seo
 
 Determine which filter values remain valid when multiple filters are combined.
 Critical for e-commerce product filtering where options narrow down as filters are applied.
@@ -88,4 +88,22 @@ const budgetColors = ["red", "blue", "black", "yellow"];
 // Colors available for: size M + Nike + under $50
 const availableColors = intersection(sizeMColors, nikeColors, budgetColors);
 // => ["blue", "black"]
+```
+
+### **Find** common skills for team matching
+
+@keywords: skills, matching, team, HR, recruitment, common, filters
+
+Identify shared skills between candidates and job requirements.
+Perfect for recruitment platforms and team composition tools.
+
+```typescript
+const jobRequirements = ["typescript", "react", "graphql", "testing"];
+const candidateSkills = ["typescript", "react", "vue", "nodejs", "testing"];
+
+const matchingSkills = intersection(jobRequirements, candidateSkills);
+// => ["typescript", "react", "testing"]
+
+const matchRate = matchingSkills.length / jobRequirements.length;
+// => 0.75 (75% match)
 ```

@@ -2,7 +2,7 @@
 
 ### **Handle** network failures gracefully 📍
 
-@keywords: handle, network, failures, retry, backoff, resilience
+@keywords: handle, network, failures, retry, backoff, resilience, observability, ci/cd, PWA
 
 Implement robust retry logic for network operations with exponential backoff.
 Essential for handling transient network issues and improving reliability.
@@ -31,7 +31,7 @@ console.log("User data loaded:", userData);
 
 ### **Recover** from temporary service unavailability
 
-@keywords: recover, temporary, outages, resilience, retry, availability
+@keywords: recover, temporary, outages, resilience, retry, availability, ci/cd
 
 Handle temporary service outages with intelligent retry mechanisms.
 Critical for maintaining service availability and user experience.
@@ -55,7 +55,7 @@ console.log(`Found ${result.length} active users`);
 
 ### **Implement** file upload resilience
 
-@keywords: implement, upload, files, resilience, retry, network
+@keywords: implement, upload, files, resilience, retry, network, ci/cd, PWA
 
 Retry file uploads with progressive delays for better success rates.
 Essential for handling large file uploads and network instability.
@@ -121,7 +121,7 @@ console.log("API data retrieved:", apiData);
 
 ### **Ensure** critical operations succeed
 
-@keywords: ensure, critical, operations, reliability, payments, transactions
+@keywords: ensure, critical, operations, reliability, payments, transactions, observability, payment
 
 Guarantee execution of critical operations with comprehensive retry logic.
 Essential for payment processing, data synchronization, and critical business operations.
@@ -189,3 +189,31 @@ const processPaymentWithFailover = await retry(
 console.log("Payment completed via:", gateways[currentGatewayIndex]);
 ```
 
+
+### **Sync** offline data when connection returns
+
+@keywords: offline, sync, PWA, reconnect, queue, resilience, loading
+
+Retry syncing queued offline actions when the network comes back.
+Essential for PWAs and mobile apps with offline-first architecture.
+
+```typescript
+const syncOfflineQueue = async (queue: OfflineAction[]) => {
+  for (const action of queue) {
+    await retry(
+      async () => {
+        await api.sync(action);
+        removeFromQueue(action.id);
+      },
+      {
+        attempts: 3,
+        delay: 2000,
+        backoff: 2,
+        until: (error) => (error as Error).message.includes("NETWORK_OFFLINE"),
+      }
+    );
+  }
+};
+
+window.addEventListener("online", () => syncOfflineQueue(getOfflineQueue()));
+```

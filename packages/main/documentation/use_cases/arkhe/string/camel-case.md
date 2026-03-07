@@ -25,7 +25,7 @@ const varName = camelCase('My Class Name'); // 'myClassName'
 
 ### **Convert** API response keys from snake_case
 
-@keywords: convert, API, response, snake_case, camelCase, keys, normalize, backend
+@keywords: convert, API, response, snake_case, camelCase, keys, normalize, backend, performance
 
 Transform snake_case keys from a backend API into JavaScript-standard camelCase.
 The most common real-world use case, especially with Python/Ruby/Go backends.

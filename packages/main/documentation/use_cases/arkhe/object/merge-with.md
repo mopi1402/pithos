@@ -34,7 +34,7 @@ console.log(merged);
 
 ### **Numeric Value Accumulation** 📍
 
-@keywords: merge, accumulate, numbers, sum, statistics
+@keywords: merge, accumulate, numbers, sum, statistics, observability
 
 Accumulate numeric values during merge.
 Critical for aggregating statistics.

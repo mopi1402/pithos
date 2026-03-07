@@ -61,8 +61,6 @@ export type MemoizedFunction<Args extends unknown[], Result> = ((
  * @template Args - The argument types of the function.
  * @template Result - The return type of the function.
  * @param fn - The function to memoize.
- * @param keyResolver - Optional function to generate cache keys (for first overload).
- * @param options - Memoization options (for second overload).
  * @returns The memoized function with `clear()`, `delete()` methods and `cache` property.
  * @since 2.0.0
  *

@@ -2,7 +2,7 @@
 
 ### **Separate active and inactive users** 📍
 
-@keywords: partition, users, active, inactive, CRM
+@keywords: partition, users, active, inactive, CRM, huge dataset, filters
 
 Split user lists based on status for targeted actions.
 Perfect for CRM systems, email campaigns, or user analytics.
@@ -22,7 +22,7 @@ const [activeUsers, inactiveUsers] = partition(users, (u) => u.isActive);
 
 ### **Split valid and invalid form submissions** 📍
 
-@keywords: validation, form, submissions, errors, batch processing
+@keywords: validation, form, submissions, errors, batch processing, huge dataset, filters
 
 Separate successful entries from errors for batch handling.
 Ideal for form validation, data imports, or API request processing.
@@ -44,7 +44,7 @@ const [valid, invalid] = partition(submissions, isValid);
 
 ### **Categorize transactions** as income vs expenses
 
-@keywords: transactions, income, expenses, financial, budgeting
+@keywords: transactions, income, expenses, financial, budgeting, payment
 
 Split financial data for budgeting and reporting.
 Useful for banking apps, expense trackers, or accounting systems.
@@ -67,7 +67,7 @@ const totalIncome = income.reduce((sum, t) => sum + t.amount, 0);
 
 ### **Separate approved** vs rejected insurance claims
 
-@keywords: insurance, claims, approved, rejected, assurance, sinistre, processing
+@keywords: insurance, claims, approved, rejected, assurance, sinistre, processing, payment
 
 Split insurance claims for streamlined processing workflows.
 Essential for insurance companies managing claim approvals and appeals.
@@ -92,3 +92,94 @@ const [highRisk, standard] = partition(claims, (c) => c.riskScore > 0.7);
 // standard => [CLM-001, CLM-003, CLM-004] - Normal processing
 ```
 
+
+### **Separate** granted and denied browser permissions
+
+@keywords: permissions, granted, denied, browser, browser permissions, PWA, security
+
+Split permissions into granted and pending groups for a settings page.
+Essential for PWA permission management and privacy dashboards.
+
+```typescript
+const permissions = [
+  { name: "notifications", status: "granted" },
+  { name: "geolocation", status: "denied" },
+  { name: "camera", status: "granted" },
+  { name: "microphone", status: "prompt" },
+  { name: "clipboard", status: "denied" },
+];
+
+const [granted, notGranted] = partition(permissions, (p) => p.status === "granted");
+// granted => [notifications, camera]
+// notGranted => [geolocation, microphone, clipboard]
+
+renderPermissionDashboard({ granted, notGranted });
+```
+
+### **Separate** selected and unselected items in a selection model
+
+@keywords: selection, model, selected, unselected, checkbox, list, design system, a11y
+
+Split items into selected and unselected groups for a selection model component.
+Essential for data tables with row selection, checkbox lists, and multi-select components.
+
+```typescript
+const allItems = [
+  { id: "1", label: "Item A" },
+  { id: "2", label: "Item B" },
+  { id: "3", label: "Item C" },
+  { id: "4", label: "Item D" },
+];
+
+const selectedIds = new Set(["2", "4"]);
+
+const [selected, unselected] = partition(allItems, (item) => selectedIds.has(item.id));
+// selected => [Item B, Item D]
+// unselected => [Item A, Item C]
+
+renderSelectionSummary(`${selected.length} of ${allItems.length} selected`);
+renderSelectedChips(selected);
+```
+
+### **Split** tree nodes into expanded and collapsed groups
+
+@keywords: tree, expanded, collapsed, split, node, design system
+
+Separate expanded from collapsed tree nodes for rendering optimization.
+Perfect for tree components that render expanded branches differently.
+
+```typescript
+const treeNodes = [
+  { id: "src", expanded: true, depth: 0 },
+  { id: "components", expanded: true, depth: 1 },
+  { id: "Button.tsx", expanded: false, depth: 2 },
+  { id: "utils", expanded: false, depth: 1 },
+  { id: "tests", expanded: false, depth: 0 },
+];
+
+const [expanded, collapsed] = partition(treeNodes, (node) => node.expanded);
+// expanded => [src, components] - render with children
+// collapsed => [Button.tsx, utils, tests] - render as leaf
+
+const visibleCount = expanded.reduce((sum, node) => sum + getChildCount(node), collapsed.length);
+updateVirtualScrollHeight(visibleCount * ROW_HEIGHT);
+```
+
+### **Split** products into visible and hidden for a filter panel
+
+@keywords: visible, hidden, filter, panel, ecommerce, catalog, filters, design system
+
+Separate products matching active filters from those that don't.
+Perfect for filter panels that show matching count and dimmed non-matching items.
+
+```typescript
+const [matching, nonMatching] = partition(products, (p) =>
+  activeFilters.every((f) => p.attributes.includes(f))
+);
+
+renderProductGrid({
+  highlighted: matching,
+  dimmed: nonMatching,
+  matchCount: matching.length,
+});
+```

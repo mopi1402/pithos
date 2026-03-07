@@ -62,7 +62,7 @@ console.log(result1 === result2); // true (same reference)
 
 ### **Rate Limited Actions** for user interactions
 
-@keywords: rate limit, user actions, clicks, interactions, throttle
+@keywords: rate limit, user actions, clicks, interactions, throttle, performance
 
 Limit how many times a user action can trigger.
 Important for preventing spam clicks.
@@ -90,5 +90,54 @@ form.addEventListener("submit", async (e) => {
   } else {
     console.log("Form already submitted");
   }
+});
+```
+
+### **Limit** stepper "next" clicks during async validation
+
+@keywords: stepper, next, limit, validation, async, design system
+
+Prevent rapid "Next" clicks in a stepper while async validation is running.
+Essential for multi-step forms with server-side validation between steps.
+
+```typescript
+const validateAndProceed = before(async (stepIndex: number) => {
+  const isValid = await validateStep(stepIndex);
+  if (isValid) {
+    goToStep(stepIndex + 1);
+  }
+  return isValid;
+}, 2); // Only allow 1 click (before 2nd call)
+
+nextButton.addEventListener("click", () => {
+  validateAndProceed(currentStep);
+});
+
+// Reset when step changes
+const onStepChange = () => {
+  // Re-create the limited function for the new step
+};
+```
+
+### **Limit** tooltip show attempts during rapid hover
+
+@keywords: tooltip, hover, rapid, limit, design system, performance
+
+Prevent tooltip from re-triggering more than N times during rapid mouse movements.
+Essential for performance in dense UI layouts with many hoverable elements.
+
+```typescript
+const showTooltip = before((target: HTMLElement) => {
+  const rect = target.getBoundingClientRect();
+  tooltip.style.top = `${rect.bottom + 8}px`;
+  tooltip.style.left = `${rect.left}px`;
+  tooltip.textContent = target.dataset.tooltip ?? "";
+  tooltip.hidden = false;
+}, 3); // Max 3 tooltip shows before requiring a reset
+
+// Reset on mouse leave
+element.addEventListener("mouseleave", () => {
+  tooltip.hidden = true;
+  showTooltip = before(showTooltipFn, 3); // Reset counter
 });
 ```

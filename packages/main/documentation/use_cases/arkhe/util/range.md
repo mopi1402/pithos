@@ -2,7 +2,7 @@
 
 ### **Generate** numeric sequences 📍
 
-@keywords: generate, sequences, numbers, iteration, range, Python
+@keywords: generate, sequences, numbers, iteration, range, Python, scripts
 
 Create arrays of numbers for iteration or data generation.
 Comparable to Python's `range()` function.
@@ -23,7 +23,7 @@ const pages = range(1, totalPages + 1); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 ### **Render** placeholder skeletons
 
-@keywords: render, placeholders, skeletons, loading, React, UI
+@keywords: render, placeholders, skeletons, loading, React, UI, design system
 
 Generate indices for list rendering in React.
 ```typescript
@@ -34,7 +34,7 @@ const skeletons = range(pageSize).map((i) => (
 
 ### **Generate** dropdown options for forms
 
-@keywords: dropdown, select, options, form, hours, years, UI, input
+@keywords: dropdown, select, options, form, hours, years, UI, input, design system
 
 Create numeric options for time pickers, year selectors, or quantity inputs.
 Very common in form-heavy applications with numeric selection fields.

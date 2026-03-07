@@ -40,14 +40,16 @@ await fetchUser("123");
 @keywords: cache, DOM, queries, selectors, performance, optimization
 
 Store DOM element references to avoid repeated queries.
-Essential for DOM manipulation and performance optimization.
+Best suited for elements that remain in the DOM throughout the page lifecycle.
 
 ```typescript
-const getElement = memoize((selector) => document.querySelector(selector));
+const getElement = memoize((selector: string) => document.querySelector(selector));
 
 // Only queries DOM once per selector
 const btn = getElement("#submit-btn");
 const btnAgain = getElement("#submit-btn"); // Cached
+
+// ⚠️ Cached references become stale if elements are removed/re-added to the DOM
 ```
 
 ### **Cache credit score** calculations for loan processing
@@ -93,7 +95,7 @@ const mortgageEligibility = await checkEligibility(
 
 ### **Cache** parsed templates or markdown
 
-@keywords: cache, parse, template, markdown, regex, SSR, rendering, compilation
+@keywords: cache, parse, template, markdown, regex, SSR, rendering, compilation, performance
 
 Avoid re-parsing the same template or markdown content on every render.
 Important for SSR, documentation sites, and any repeated content transformation.
@@ -107,4 +109,79 @@ const parseMarkdown = memoize((source: string) => {
 // Same content parsed once, cached for subsequent renders
 const html1 = parseMarkdown(readmeContent); // Parsed
 const html2 = parseMarkdown(readmeContent); // Cache hit
+```
+
+### **Cache** responsive breakpoint calculations
+
+@keywords: cache, breakpoint, responsive, media, query, design system, performance
+
+Memoize breakpoint detection to avoid recalculating on every render.
+Essential for design systems with JS-driven responsive behavior.
+
+```typescript
+const getBreakpoint = memoize((width: number) => {
+  if (width < 640) return "sm";
+  if (width < 1024) return "md";
+  if (width < 1440) return "lg";
+  return "xl";
+});
+
+// Same width returns cached result
+const bp = getBreakpoint(window.innerWidth);
+```
+
+### **Cache** media query match results
+
+@keywords: cache, media, query, match, responsive, design system, performance
+
+Memoize MediaQueryList creation to avoid constructing duplicate objects.
+Essential for CDK-style BreakpointObserver implementations.
+
+```typescript
+const getMediaQuery = memoize((query: string) => window.matchMedia(query));
+
+// Same query returns cached MediaQueryList — use .matches for current state
+const mql = getMediaQuery("(min-width: 1024px)");
+console.log(mql.matches); // Always reads live value from the cached MediaQueryList
+mql.addEventListener("change", (e) => console.log("Changed:", e.matches));
+```
+
+### **Cache** computed overlay positions
+
+@keywords: cache, overlay, position, computed, tooltip, design system, performance
+
+Cache the result of expensive config or schema parsing that won't change at runtime.
+Perfect for parsing design tokens, theme definitions, or static configuration.
+
+```typescript
+const parseThemeTokens = memoize((themeJson: string) => {
+  const raw = JSON.parse(themeJson);
+  // Expensive: resolve aliases, compute derived values, flatten nested tokens
+  return resolveTokenAliases(raw);
+});
+
+// Same theme string parsed once, cached for subsequent reads
+const tokens = parseThemeTokens(rawTheme); // Parsed
+const again = parseThemeTokens(rawTheme);  // Cache hit
+```
+
+### **Cache** i18n date formatters per locale
+
+@keywords: cache, i18n, date, formatter, locale, internationalization, performance
+
+Create and cache Intl.DateTimeFormat instances per locale to avoid repeated construction.
+Critical for i18n-heavy apps rendering many formatted dates.
+
+```typescript
+const getDateFormatter = memoize((locale: string) => {
+  return new Intl.DateTimeFormat(locale, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+});
+
+// Formatter created once per locale, reused across renders
+getDateFormatter("fr-FR").format(new Date()); // "10 juin 2025"
+getDateFormatter("fr-FR").format(anotherDate); // Cache hit on formatter
 ```
