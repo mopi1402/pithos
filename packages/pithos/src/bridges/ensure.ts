@@ -1,6 +1,6 @@
 import { parse } from "@kanon/core/parser";
 import { ok, err } from "@zygos/result/result";
-import type { Schema } from "@kanon/types/base";
+import type { Schema, GenericSchema, Infer } from "@kanon/types/base";
 import type { Result } from "@zygos/result/result";
 
 /**
@@ -27,10 +27,19 @@ import type { Result } from "@zygos/result/result";
  *   .mapErr(error => `Validation failed: ${error}`);
  * ```
  */
-export function ensure<T>(
-  schema: Schema<T>,
+export function ensure<T>(schema: Schema<T>, input: unknown): Result<T, string>;
+/**
+ * Overload accepting a union of schemas (e.g. `bookFields[name]`).
+ * Infers the output type from the union, so you don't need a switch/case
+ * to narrow each schema individually.
+ *
+ * @since 2.2.0
+ */
+export function ensure<S extends GenericSchema>(schema: S, input: unknown): Result<Infer<S>, string>;
+export function ensure(
+  schema: GenericSchema,
   input: unknown,
-): Result<T, string> {
+): Result<unknown, string> {
   const result = parse(schema, input);
   return result.success ? ok(result.data) : err(result.error);
 }

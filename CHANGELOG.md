@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.1] - 2026-03-08
+
+### Fixed
+
+- **Kanon** — `parse`, `parseBulk`, `ensure`, `ensureAsync`, `ensurePromise`, `validation.parse`, `validation.safeParse`, `validation.parseAsync`, `validation.safeParseAsync` now accept unions of schemas via `GenericSchema` overloads (no more switch/case needed to narrow schema types)
+- **Kanon** — `z.union()` guard relaxed from 2 to 1 minimum schema (aligns with Zod v4)
+- **Kanon** — `z.pick()` no longer passes unknown keys to the underlying schema validator
+- **Kanon** — Removed deprecated `passthrough()` from `ObjectAdapter` (use `z.looseObject()` instead)
+
+### Added
+
+- **Kanon** — `z.looseObject()` on the Zod shim (Zod v4 replacement for `z.object().passthrough()`)
+
+---
+
 ## [2.2.0] - 2026-03-07
 
 ### Added

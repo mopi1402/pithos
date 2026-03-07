@@ -133,8 +133,6 @@ type Mask<T> = { [K in keyof T]?: true };
 type ObjectMethods<T> = {
   /** Returns a strict variant that rejects unknown keys. */
   strict: () => ObjectAdapter<T>;
-  /** Returns a loose variant that allows unknown keys. */
-  passthrough: () => ObjectAdapter<T>;
   /** Makes all properties optional. */
   partial: () => ObjectAdapter<Partial<T>>;
   /** Makes all properties required. */
@@ -202,6 +200,10 @@ export type ZShim = {
 
   /** Creates an object adapter with transform methods. */
   object: <T extends Record<string, unknown>>(
+    shape: ShapeAdapters<T>
+  ) => ObjectAdapter<T>;
+  /** Creates a loose object adapter that allows extra keys. */
+  looseObject: <T extends Record<string, unknown>>(
     shape: ShapeAdapters<T>
   ) => ObjectAdapter<T>;
   /** Creates a record adapter with key and value schemas. */
@@ -318,7 +320,6 @@ export const z: ZShim = {
       
       return Object.assign(base, {
         strict: () => createObjectAdapter<U>(strictObject(currentEntries) as Schema<unknown>, currentEntries),
-        passthrough: () => createObjectAdapter<U>(looseObject(currentEntries) as Schema<unknown>, currentEntries),
         partial: () => createObjectAdapter<Partial<U>>(kanonPartial(schemaWithEntries) as Schema<unknown>, currentEntries),
         required: () => createObjectAdapter<Required<U>>(kanonRequired(schemaWithEntries) as Schema<unknown>, currentEntries),
         pick: <M extends Mask<U>>(mask: M) => {
@@ -329,7 +330,7 @@ export const z: ZShim = {
               pickedEntries[key] = currentEntries[key];
             }
           }
-          return createObjectAdapter<Pick<U, Extract<keyof U, keyof M>>>(kanonPick(schemaWithEntries, keys) as Schema<unknown>, pickedEntries);
+          return createObjectAdapter<Pick<U, Extract<keyof U, keyof M>>>(kanonPick(schemaWithEntries, Object.keys(pickedEntries) as (keyof U & string)[]) as Schema<unknown>, pickedEntries);
         },
         omit: <M extends Mask<U>>(mask: M) => {
           const keys = Object.keys(mask) as (keyof U & string)[];
@@ -346,6 +347,49 @@ export const z: ZShim = {
     };
     
     return createObjectAdapter<T>(object(entries) as Schema<unknown>, entries);
+  },
+  looseObject: <T extends Record<string, unknown>>(
+    shape: ShapeAdapters<T>
+  ): ObjectAdapter<T> => {
+    const entries: Record<string, Schema<unknown>> = {};
+    for (const key in shape) {
+      entries[key] = shape[key]._schema() as Schema<unknown>;
+    }
+    // Reuse the same createObjectAdapter pattern but start with looseObject
+    const createObjectAdapter = <U>(
+      schema: Schema<unknown>,
+      currentEntries: Record<string, Schema<unknown>>
+    ): ObjectAdapter<U> => {
+      const base = asZod(schema) as AdapterOf<U>;
+      const schemaWithEntries = { ...schema, entries: currentEntries };
+      return Object.assign(base, {
+        strict: () => createObjectAdapter<U>(strictObject(currentEntries) as Schema<unknown>, currentEntries),
+        partial: () => createObjectAdapter<Partial<U>>(kanonPartial(schemaWithEntries) as Schema<unknown>, currentEntries),
+        required: () => createObjectAdapter<Required<U>>(kanonRequired(schemaWithEntries) as Schema<unknown>, currentEntries),
+        pick: <M extends Mask<U>>(mask: M) => {
+          const keys = Object.keys(mask) as (keyof U & string)[];
+          const pickedEntries: Record<string, Schema<unknown>> = {};
+          for (const key of keys) {
+            if (key in currentEntries) {
+              pickedEntries[key] = currentEntries[key];
+            }
+          }
+          return createObjectAdapter<Pick<U, Extract<keyof U, keyof M>>>(kanonPick(schemaWithEntries, Object.keys(pickedEntries) as (keyof U & string)[]) as Schema<unknown>, pickedEntries);
+        },
+        omit: <M extends Mask<U>>(mask: M) => {
+          const keys = Object.keys(mask) as (keyof U & string)[];
+          const omittedEntries: Record<string, Schema<unknown>> = {};
+          for (const key in currentEntries) {
+            if (!keys.includes(key as keyof U & string)) {
+              omittedEntries[key] = currentEntries[key];
+            }
+          }
+          return createObjectAdapter<Omit<U, Extract<keyof U, keyof M>>>(kanonOmit(schemaWithEntries, keys) as Schema<unknown>, omittedEntries);
+        },
+        keyof: () => asZod(kanonKeyof(schemaWithEntries)) as unknown as AdapterOf<keyof U & string>,
+      }) as ObjectAdapter<U>;
+    };
+    return createObjectAdapter<T>(looseObject(entries) as Schema<unknown>, entries);
   },
   record: <K, V>(key: AdapterOf<K>, value: AdapterOf<V>) =>
     asZod(record(key._schema(), value._schema())) as AdapterOf<
@@ -420,9 +464,9 @@ export const z: ZShim = {
     asZod(set(value._schema())) as AdapterOf<Set<T>>,
 
   union(schemas: AdapterUnknown[]) {
-    // Match Zod behavior: requires array with at least 2 elements
-    if (!Array.isArray(schemas) || schemas.length < 2) {
-      throw new Error("z.union requires an array of at least 2 schemas");
+    // Match Zod v4 behavior: requires a non-empty array
+    if (!Array.isArray(schemas) || schemas.length < 1) {
+      throw new Error("z.union requires an array of at least 1 schema");
     }
 
     // Create a flat union schema with all schemas

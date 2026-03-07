@@ -1,6 +1,6 @@
 import { parse } from "@kanon/core/parser";
 import { ResultAsync, okAsync, errAsync } from "@zygos/result/result-async";
-import type { Schema } from "@kanon/types/base";
+import type { Schema, GenericSchema, Infer } from "@kanon/types/base";
 
 /**
  * Resolves a Promise, validates the result against a Kanon schema,
@@ -26,10 +26,18 @@ import type { Schema } from "@kanon/types/base";
  *   .map(user => user.name.toUpperCase());
  * ```
  */
-export function ensurePromise<T>(
-  schema: Schema<T>,
+export function ensurePromise<T>(schema: Schema<T>, promise: Promise<unknown>): ResultAsync<T, string>;
+/**
+ * Overload accepting a union of schemas.
+ * Infers the output type from the union.
+ *
+ * @since 2.2.0
+ */
+export function ensurePromise<S extends GenericSchema>(schema: S, promise: Promise<unknown>): ResultAsync<Infer<S>, string>;
+export function ensurePromise(
+  schema: GenericSchema,
   promise: Promise<unknown>,
-): ResultAsync<T, string> {
+): ResultAsync<unknown, string> {
   return ResultAsync.fromPromise(
     promise,
     (e) => e instanceof Error ? e.message : String(e),

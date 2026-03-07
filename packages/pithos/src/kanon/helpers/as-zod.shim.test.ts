@@ -11,6 +11,7 @@
 import { describe, it, expect } from "vitest";
 import { it as itProp, fc } from "@fast-check/vitest";
 import { z } from "./as-zod.shim"
+//import { z } from "zod"
 
 // Helper functions that work with both Zod and the shim
 const tupleWithRest = <
@@ -25,7 +26,7 @@ const strictObject = <S extends z.ZodRawShape>(shape: S) =>
   z.object(shape).strict();
 
 const looseObject = <S extends z.ZodRawShape>(shape: S) =>
-  z.object(shape).passthrough();
+  z.looseObject(shape);
 
 describe("z namespace - Zod compatibility", () => {
   describe("primitives", () => {
@@ -127,7 +128,7 @@ describe("z namespace - Zod compatibility", () => {
       expect(schema.safeParse({ a: "x", b: 1 }).success).toBe(false);
     });
 
-    it("z.object().passthrough()", () => {
+    it("z.looseObject()", () => {
       const schema = looseObject({ a: z.string() });
       expect(schema.safeParse({ a: "x", b: 1 }).success).toBe(true);
     });
@@ -714,7 +715,7 @@ describe("[📖] Documentation Examples Verification", () => {
       expect(schema.safeParse({ name: "Alice", extra: "field" }).success).toBe(false);
     });
 
-    it("z.object().passthrough() allows extra keys", () => {
+    it("z.looseObject() allows extra keys", () => {
       const schema = looseObject({ name: z.string() });
       
       expect(schema.safeParse({ name: "Alice", extra: "field" }).success).toBe(true);
@@ -839,21 +840,21 @@ describe("[🎲] Property-Based Tests", () => {
 describe("[👾] Mutation Tests", () => {
   describe("z.union() validation", () => {
     it("[👾] throws when given empty array", () => {
+      // Zod v4 crashes at runtime (no guard), our shim throws a cleaner message
       expect(() => z.union([] as unknown as [z.ZodTypeAny, z.ZodTypeAny])).toThrow(
-        "z.union requires an array of at least 2 schemas"
+        "z.union requires an array of at least 1 schema"
       );
     });
 
-    it("[👾] throws when given single schema", () => {
-      expect(() => z.union([z.string()] as unknown as [z.ZodTypeAny, z.ZodTypeAny])).toThrow(
-        "z.union requires an array of at least 2 schemas"
-      );
+    it("[👾] accepts single schema (Zod v4 allows it)", () => {
+      // Zod v4 accepts a single-element union without throwing
+      const schema = z.union([z.string()] as unknown as [z.ZodTypeAny, z.ZodTypeAny]);
+      expect(schema.safeParse("hello").success).toBe(true);
     });
 
     it("[👾] throws when given non-array", () => {
-      expect(() => z.union("not an array" as unknown as [z.ZodTypeAny, z.ZodTypeAny])).toThrow(
-        "z.union requires an array of at least 2 schemas"
-      );
+      // Zod v4 crashes at runtime (no guard), our shim throws a cleaner message
+      expect(() => z.union("not an array" as unknown as [z.ZodTypeAny, z.ZodTypeAny])).toThrow();
     });
   });
 
@@ -913,13 +914,53 @@ describe("[👾] Mutation Tests", () => {
       expect(keyofSchema.parse("age")).toBe("age");
       expect(keyofSchema.safeParse("unknown").success).toBe(false);
     });
+  });
 
-    it("[🎯] pick() ignores keys not in shape", () => {
-      const schema = z.object({ name: z.string(), age: z.number() });
-      // Pick a key that doesn't exist in the shape — the false branch of "key in currentEntries"
-      const picked = schema.pick({ name: true, nonExistent: true } as Record<string, true>);
-      // nonExistent is picked but has no entry, so only name is validated
-      expect(picked.safeParse({ name: "Alice", nonExistent: "x" }).success).toBe(true);
+  describe("z.looseObject() transforms use entries", () => {
+    it("[👾] allows extra keys by default", () => {
+      const schema = z.looseObject({ name: z.string() });
+      expect(schema.safeParse({ name: "Alice", extra: 42 }).success).toBe(true);
+    });
+
+    it("[👾] strict() rejects extra keys", () => {
+      const schema = z.looseObject({ name: z.string() }).strict();
+      expect(schema.parse({ name: "Alice" })).toEqual({ name: "Alice" });
+      expect(schema.safeParse({ name: "Alice", extra: 42 }).success).toBe(false);
+    });
+
+    it("[👾] partial() makes fields optional", () => {
+      const schema = z.looseObject({ name: z.string(), age: z.number() });
+      const partialSchema = schema.partial();
+      expect(partialSchema.parse({ name: "Alice" })).toEqual({ name: "Alice" });
+      expect(partialSchema.parse({})).toEqual({});
+    });
+
+    it("[👾] required() makes fields required", () => {
+      const schema = z.looseObject({ name: z.string(), age: z.number().optional() });
+      const requiredSchema = schema.required();
+      expect(requiredSchema.parse({ name: "Alice", age: 30 })).toEqual({ name: "Alice", age: 30 });
+      expect(requiredSchema.safeParse({ name: "Alice" }).success).toBe(false);
+    });
+
+    it("[👾] pick() selects fields", () => {
+      const schema = z.looseObject({ name: z.string(), age: z.number(), email: z.string() });
+      const picked = schema.pick({ name: true, email: true });
+      expect(picked.parse({ name: "Alice", email: "a@b.c" })).toEqual({ name: "Alice", email: "a@b.c" });
+      expect(picked.safeParse({ name: "Alice", email: "a@b.c", age: 30 }).success).toBe(true);
+    });
+
+    it("[👾] omit() excludes fields", () => {
+      const schema = z.looseObject({ name: z.string(), age: z.number(), email: z.string() });
+      const omitted = schema.omit({ age: true });
+      expect(omitted.parse({ name: "Alice", email: "a@b.c" })).toEqual({ name: "Alice", email: "a@b.c" });
+    });
+
+    it("[👾] keyof() returns keys", () => {
+      const schema = z.looseObject({ name: z.string(), age: z.number() });
+      const keyofSchema = schema.keyof();
+      expect(keyofSchema.parse("name")).toBe("name");
+      expect(keyofSchema.parse("age")).toBe("age");
+      expect(keyofSchema.safeParse("unknown").success).toBe(false);
     });
   });
 

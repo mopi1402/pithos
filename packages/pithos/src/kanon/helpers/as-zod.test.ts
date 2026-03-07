@@ -6,6 +6,7 @@
 import { describe, it, expect } from "vitest";
 import { it as itProp, fc } from "@fast-check/vitest";
 import { asZod } from "./as-zod";
+import { z } from "./as-zod.shim";
 import { string, number, object, boolean } from "@kanon";
 
 describe("asZod adapter", () => {
@@ -542,5 +543,22 @@ describe("[🎲] Property-Based Tests", () => {
         expect(result.success).toBe(true);
       }
     );
+  });
+});
+
+describe("z shim-specific behavior", () => {
+  it("[🎯] pick() ignores keys not in shape", () => {
+    const schema = z.object({ name: z.string(), age: z.number() });
+    // Zod v4 throws "Unrecognized key" at parse time, our shim silently ignores unknown keys
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const picked = (schema as any).pick({ name: true, nonExistent: true });
+    expect(picked.safeParse({ name: "Alice" }).success).toBe(true);
+  });
+
+  it("[🎯] looseObject pick() ignores keys not in shape", () => {
+    const schema = z.looseObject({ name: z.string(), age: z.number() });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const picked = (schema as any).pick({ name: true, nonExistent: true });
+    expect(picked.safeParse({ name: "Alice" }).success).toBe(true);
   });
 });

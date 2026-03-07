@@ -1,6 +1,6 @@
 import { parse } from "@kanon/core/parser";
 import { okAsync, errAsync } from "@zygos/result/result-async";
-import type { Schema } from "@kanon/types/base";
+import type { Schema, GenericSchema, Infer } from "@kanon/types/base";
 import type { ResultAsync } from "@zygos/result/result-async";
 
 /**
@@ -26,10 +26,18 @@ import type { ResultAsync } from "@zygos/result/result-async";
  *   .map(user => user.name);
  * ```
  */
-export function ensureAsync<T>(
-  schema: Schema<T>,
+export function ensureAsync<T>(schema: Schema<T>, input: unknown): ResultAsync<T, string>;
+/**
+ * Overload accepting a union of schemas.
+ * Infers the output type from the union.
+ *
+ * @since 2.2.0
+ */
+export function ensureAsync<S extends GenericSchema>(schema: S, input: unknown): ResultAsync<Infer<S>, string>;
+export function ensureAsync(
+  schema: GenericSchema,
   input: unknown,
-): ResultAsync<T, string> {
+): ResultAsync<unknown, string> {
   const result = parse(schema, input);
   return result.success ? okAsync(result.data) : errAsync(result.error);
 }
