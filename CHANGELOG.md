@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-03-07
+
+### Added
+
+- **Kanon** — Barrel export `@pithos/core/kanon` for single-line imports
+- **Arkhe** — `SimpleResult<E>` type in `arkhe/types/common` for lightweight success/failure outcomes without Zygos
+
+### Improved
+
+- **Tooling** — `generate-exports` now auto-detects `index.ts` barrels and adds explicit exports
+
+---
+
 ## [2.1.1] - 2026-03-07
 
 ### Fixed

@@ -1,6 +1,6 @@
 {
   "name": "@pithos/core",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Advanced JavaScript/TypeScript superset providing utilities, validation, and functional patterns",
   "publishConfig": {
     "access": "public"
@@ -30,6 +30,7 @@
     "./kanon/core/*": "./dist/kanon/core/*.js",
     "./kanon/helpers/*": "./dist/kanon/helpers/*.js",
     "./kanon/*": "./dist/kanon/*.js",
+    "./kanon": "./dist/kanon/index.js",
     "./kanon/jit/builders/*": "./dist/kanon/jit/builders/*.js",
     "./kanon/jit/builders/composites/*": "./dist/kanon/jit/builders/composites/*.js",
     "./kanon/jit/builders/operators/*": "./dist/kanon/jit/builders/operators/*.js",

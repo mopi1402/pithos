@@ -91,12 +91,17 @@ function generateExports(): ExportConfig {
 
   directories.forEach(dir => {
     const relDir = dir.replace(srcDir, "");
-    if (!relDir) return; // Skip root
+    if (!relDir) return;
 
     const cleanRelDir = relDir.startsWith("/") ? relDir.substring(1) : relDir;
 
-    // Original format: "./path/to/dir/*": "./dist/path/to/dir/*.js"
     wildcardExports[`./${cleanRelDir}/*`] = `./dist/${cleanRelDir}/*.js`;
+
+    // Barrel: explicit entry for dirs with index.ts
+    const indexPath = path.join(dir, "index.ts");
+    if (fs.existsSync(indexPath)) {
+      wildcardExports[`./${cleanRelDir}`] = `./dist/${cleanRelDir}/index.js`;
+    }
   });
 
   return wildcardExports;
