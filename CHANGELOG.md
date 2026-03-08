@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.2] - 2026-03-08
+
+### Fixed
+
+- **Core** — Added `"type": "module"` to `package.json`, fixing compatibility with native Node.js ESM (`"type": "module"`) and Deno
+
+---
+
 ## [2.2.1] - 2026-03-08
 
 ### Fixed
@@ -36,7 +44,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Fixed
 
-- **ESM** — Added `.js` extensions to internal imports in ESM build output, fixing compatibility with native Node.js ESM (`"type": "module"`) and Deno
+- **ESM** — Added `.js` extensions to internal imports in ESM build output
 
 ---
 
