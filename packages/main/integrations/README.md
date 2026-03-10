@@ -27,7 +27,7 @@ Every demo uses all 5 modules from the Pithos ecosystem:
 |---|---|---|---|
 | Angular | `angular/` | 🔜 Planned | |
 | Bun | `bun/` | 🔜 Planned | Server only |
-| Express | `express/` | 🔜 Planned | Server only |
+| [Express](./express/) | `express/` | ✅ Complete | Server only (see below) |
 | [Hono](./hono/) | `hono/` | ✅ Complete | Server only (see below) |
 | [Next.js](./nextjs/) | `nextjs/` | ✅ Complete | Client + Server (see below) |
 | Nuxt | `nuxt/` | 🔜 Planned | |
@@ -176,6 +176,54 @@ pnpm test       # vitest (unit + property-based tests)
 pnpm test:api   # starts the server, runs 22 curl checks, stops the server
 ```
 
+### Express (server only)
+
+| Pithos module | Where | Usage |
+|---|---|---|
+| **Bridges** | `src/routes/books.ts`, `src/routes/chaos.ts` | `ensure` for payload validation (bookSchema, chaosSchema) |
+| **Kanon** | `src/lib/schemas.ts` | Schema definition, `.pattern()` for ISBN validation, `chaosSchema` for type-safe chaos payload |
+| **Sphalma** | `src/lib/errors.ts`, `src/lib/error-handler.ts` | `CodedError` thrown in routes, serialized via centralized ErrorMiddleware |
+| **Zygos** | `src/routes/books.ts`, `src/routes/chaos.ts` | `Result<T, E>` from `ensure` bridge for validation outcomes |
+
+The app also uses **Arkhe** for data transforms: `titleCase` in `src/routes/books.ts`, `groupBy` and `orderBy` in `src/routes/collection.ts`.
+
+#### Architecture
+
+```
+express/src/
+├── index.ts             ← Entry point (starts server on port 3001)
+├── app.ts               ← Express app, middleware, route mounting
+├── routes/
+│   ├── books.ts         ← GET / POST / DELETE with Sphalma errors
+│   ├── chaos.ts         ← Toggle simulated failures (Kanon-validated)
+│   ├── collection.ts    ← Grouped collection (groupBy + orderBy)
+│   └── seed.ts          ← Populate store with sample data
+└── lib/
+    ├── schemas.ts       ← Kanon schemas (book, storedBook, chaos)
+    ├── errors.ts        ← Sphalma error factory + codes
+    ├── error-handler.ts ← Centralized ErrorMiddleware (4-argument)
+    ├── store.ts         ← In-memory storage (module-level, no globalThis)
+    └── fixtures.ts      ← Sample book data for seeding
+```
+
+#### Key differences from Hono
+
+- **ErrorMiddleware**: Uses Express's 4-argument `(err, req, res, next)` middleware pattern instead of Hono's `app.onError`
+- **Router()**: Uses Express `Router()` for sub-routers instead of Hono sub-apps
+- **express.json()**: Explicit JSON parsing middleware (Hono parses JSON on demand via `c.req.json()`)
+- **cors npm package**: External `cors` package instead of Hono's built-in `cors()` middleware
+- **supertest**: Uses `supertest` for HTTP testing instead of Hono's `app.request()`
+- **Express 5**: Native async error handling — no `asyncHandler` wrapper needed
+
+#### Commands
+
+```bash
+cd packages/main/integrations/express
+pnpm install
+pnpm dev        # http://localhost:3001
+pnpm test       # vitest (unit + property-based tests)
+```
+
 ### Preact (client only)
 
 | Pithos module | Where | Usage |
@@ -235,7 +283,7 @@ npm run dev     # http://localhost:5173
 npm test        # vitest (22 property-based tests)
 ```
 
-### Express / Bun (planned, server only)
+### Bun (planned, server only)
 
 - Same validation, normalization, and error handling as Next.js server-side
 - No client code: useful if you only need Pithos in an API layer

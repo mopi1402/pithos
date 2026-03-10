@@ -1,0 +1,30 @@
+{
+  "name": "express-demo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "check:types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@pithos/core": "2.2.2",
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@fast-check/vitest": "^0.3.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^20.11.17",
+    "@types/supertest": "^6.0.3",
+    "fast-check": "^4.5.2",
+    "supertest": "^7.1.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.2",
+    "vitest": "^4.0.13"
+  }
+}
