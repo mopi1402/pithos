@@ -1,18 +1,20 @@
 packages:
   # All packages in the packages directory (root level)
   - "packages/*"
-  
+
   # All packages in subdirectories (e.g., packages/main/*, packages/kanon/*, etc.)
   - "packages/*/*"
-  
+
   # Integration demos (3 levels deep)
   - "packages/main/integrations/*"
-  
+  - "!packages/main/integrations/nextjs"
+
   # Examples in pithos
   - "packages/pithos/examples/*"
-  
+
   # Exclude tmp directory
   - "!packages/tmp/**"
-
   # Optionally include examples if they become packages
   # - 'examples/*'
+onlyBuiltDependencies:
+  - esbuild

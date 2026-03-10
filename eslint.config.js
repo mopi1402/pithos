@@ -108,6 +108,21 @@ export default tseslint.config(
         },
     },
 
+    // Override for sveltekit integration
+    {
+        files: [
+            'packages/main/integrations/sveltekit/src/**/*.ts',
+        ],
+        languageOptions: {
+            parserOptions: {
+                project: path.resolve(
+                    __dirname,
+                    'packages/main/integrations/sveltekit/tsconfig.json'
+                ),
+            },
+        },
+    },
+
     // Accessibility rules for preact integration JSX
     {
         files: [
@@ -147,6 +162,8 @@ export default tseslint.config(
             '**/kanon/v2/**',
             '**/kanon/benchmarks/**',
             'packages/main/documentation/use-cases-data/**',
+            'packages/main/integrations/sveltekit/.svelte-kit/**',
+            'packages/main/integrations/sveltekit/vite.config.ts',
         ],
     }
 );

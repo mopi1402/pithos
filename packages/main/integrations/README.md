@@ -10,7 +10,7 @@ Each demo deliberately uses every module to show all integration points at once.
 
 ## Pithos modules covered
 
-Every demo uses all 5 modules from the Pithos ecosystem:
+Each demo picks the modules that make sense for its architecture. The full ecosystem includes:
 
 | Module | What it does in the demo |
 |---|---|
@@ -20,6 +20,8 @@ Every demo uses all 5 modules from the Pithos ecosystem:
 | **Sphalma** | Typed business errors (duplicate ISBN, not found, storage failure) |
 | **Bridge ensure** | Kanon → Zygos: validates a schema, returns a `Result` |
 | **Bridge ensurePromise** | Kanon → Zygos: validates a promise, returns a `ResultAsync` |
+
+Kanon, Zygos, Arkhe, and Bridge ensure are used everywhere. Sphalma is used where the framework lacks native structured error handling (Hono, Express, Preact). SvelteKit skips it because `fail()` and `error()` already fill that role. `ensurePromise` only appears in demos with a client-side API layer (Next.js, Preact).
 
 ## Demos
 
@@ -33,7 +35,7 @@ Every demo uses all 5 modules from the Pithos ecosystem:
 | Nuxt | `nuxt/` | 🔜 Planned | |
 | [Preact](./preact/) | `preact/` | ✅ Complete | Client only (see below) |
 | React | `react/` | 🔜 Planned | |
-| SvelteKit | `sveltekit/` | 🔜 Planned | |
+| [SvelteKit](./sveltekit/) | `sveltekit/` | ✅ Complete | Client + Server (see below) |
 
 ## General design choices
 
@@ -283,10 +285,66 @@ npm run dev     # http://localhost:5173
 npm test        # vitest (22 property-based tests)
 ```
 
-### Bun (planned, server only)
+### SvelteKit (client + server)
 
-- Same validation, normalization, and error handling as Next.js server-side
-- No client code: useful if you only need Pithos in an API layer
+| Pithos module | Where | Usage |
+|---|---|---|
+| **Bridges** | `routes/add/+page.server.ts`, `routes/add/+page.svelte` | `ensure` for server-side validation + client-side per-field validation (onblur) |
+| **Kanon** | `lib/schemas/book.ts` | Schema definition, `.pattern()` for ISBN validation, `bookFields` for per-field client validation |
+| **Zygos** | `routes/add/+page.server.ts`, `routes/api/books/+server.ts` | `Result<T, E>` from `ensure` bridge for validation outcomes |
+
+The app also uses **Arkhe** for data transforms: `titleCase` in `routes/add/+page.server.ts` and `routes/api/books/+server.ts`, `groupBy` and `orderBy` in `routes/collection/+page.server.ts`.
+
+> **Why no Sphalma?** SvelteKit provides native `fail()` (form actions) and `error()` (API routes) for structured error handling with HTTP status codes. Pithos fills gaps — it doesn't replace what already exists.
+
+#### Architecture
+
+```
+sveltekit/src/
+├── routes/
+│   ├── +layout.svelte         ← Nav bar + chaos toggle
+│   ├── +page.server.ts        ← Root redirect → /collection
+│   ├── add/
+│   │   ├── +page.server.ts    ← Form action (ensure + titleCase + store)
+│   │   └── +page.svelte       ← Add form with per-field validation (onblur/oninput)
+│   ├── collection/
+│   │   ├── +page.server.ts    ← Load (groupBy + orderBy) + seed/clear/remove actions
+│   │   └── +page.svelte       ← Grouped collection + empty state
+│   └── api/books/
+│       ├── +server.ts         ← GET / POST / DELETE
+│       ├── chaos/+server.ts   ← Toggle simulated failures
+│       └── seed/+server.ts    ← Populate store with sample data
+└── lib/
+    ├── schemas/book.ts        ← Kanon schemas (bookSchema + bookFields)
+    ├── server/store.ts        ← In-memory storage (module-level)
+    ├── styles/variables.css   ← CSS custom properties (design tokens)
+    ├── constants.ts           ← Genres list
+    ├── fixtures.ts            ← Sample book data for seeding
+    └── types.ts               ← StoredBook, AddBookState types
+```
+
+#### Key differences from Next.js
+
+- **Form actions instead of Server Actions**: SvelteKit uses `export const actions` with `use:enhance` for progressive enhancement. No `"use server"` directive.
+- **No Sphalma**: SvelteKit's `fail()` and `error()` handle structured errors natively with HTTP status codes.
+- **Scoped CSS with design tokens**: CSS custom properties in `variables.css` instead of Tailwind. Styles are scoped per component via Svelte's `<style>` blocks.
+- **Svelte 5 runes**: Uses `$state`, `$props` instead of React's `useState`, `useActionState`.
+- **Server-side collection grouping**: `groupBy` + `orderBy` runs in `+page.server.ts` load function (in Next.js, this is done client-side in a React hook).
+
+#### Chaos mode
+
+Same as Next.js: click the toggle in the nav bar to simulate backend failures. When enabled, form actions and POST/DELETE API routes return 503. GET is excluded so the collection page always renders.
+
+#### Commands
+
+```bash
+cd packages/main/integrations/sveltekit
+pnpm install
+pnpm dev        # http://localhost:5173
+pnpm test       # vitest (13 property-based tests)
+```
+
+### Bun (planned, server only)
 
 ## Running a demo
 
