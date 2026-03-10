@@ -1,0 +1,53 @@
+import type { StoredBook } from './schemas.ts'
+
+export const sampleBooks: Omit<StoredBook, 'id'>[] = [
+  {
+    title: 'Dune',
+    author: 'Frank Herbert',
+    isbn: '9780441013593',
+    genre: 'Science-Fiction',
+    addedAt: '2025-01-15T10:00:00.000Z',
+  },
+  {
+    title: 'Neuromancer',
+    author: 'William Gibson',
+    isbn: '9780441569595',
+    genre: 'Science-Fiction',
+    addedAt: '2025-03-22T14:30:00.000Z',
+  },
+  {
+    title: 'The Name Of The Wind',
+    author: 'Patrick Rothfuss',
+    isbn: '9780756404741',
+    genre: 'Fantasy',
+    addedAt: '2025-02-10T09:00:00.000Z',
+  },
+  {
+    title: 'The Hobbit',
+    author: 'J.R.R. Tolkien',
+    isbn: '9780547928227',
+    genre: 'Fantasy',
+    addedAt: '2024-12-01T08:00:00.000Z',
+  },
+  {
+    title: 'Sapiens',
+    author: 'Yuval Noah Harari',
+    isbn: '9780062316097',
+    genre: 'Non-Fiction',
+    addedAt: '2025-04-05T16:00:00.000Z',
+  },
+  {
+    title: 'The Big Sleep',
+    author: 'Raymond Chandler',
+    isbn: '9780394758282',
+    genre: 'Mystery',
+    addedAt: '2025-01-28T11:00:00.000Z',
+  },
+  {
+    title: 'Meditations',
+    author: 'Marcus Aurelius',
+    isbn: '9780140449334',
+    genre: 'Philosophy',
+    addedAt: '2025-05-12T07:00:00.000Z',
+  },
+]

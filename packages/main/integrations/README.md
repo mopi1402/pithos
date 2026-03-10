@@ -28,7 +28,7 @@ Kanon, Zygos, Arkhe, and Bridge ensure are used everywhere. Sphalma is used wher
 | Framework | Directory | Status | Highlights |
 |---|---|---|---|
 | [Angular](./angular/) | `angular/` | ✅ Complete | Client only ([details](#angular-client-only)) |
-| Bun | `bun/` | 🔜 Planned | Server only |
+| [Bun](./bun/) | `bun/` | ✅ Complete | Server only ([details](#bun-server-only)) |
 | [Express](./express/) | `express/` | ✅ Complete | Server only ([details](#express-server-only)) |
 | [Hono](./hono/) | `hono/` | ✅ Complete | Server only ([details](#hono-server-only)) |
 | [Next.js](./nextjs/) | `nextjs/` | ✅ Complete | Client + Server ([details](#nextjs-client--server)) |
@@ -178,6 +178,54 @@ pnpm test       # vitest (unit + property-based tests)
 pnpm test:api   # starts the server, runs 22 curl checks, stops the server
 ```
 
+### Bun (server only)
+
+| Pithos module | Where | Usage |
+|---|---|---|
+| **Bridges** | `src/routes/books.ts`, `src/routes/chaos.ts` | `ensure` for payload validation (bookSchema, chaosSchema) |
+| **Kanon** | `src/lib/schemas.ts` | Schema definition, `.pattern()` for ISBN validation, `chaosSchema` for type-safe chaos payload |
+| **Sphalma** | `src/lib/errors.ts`, `src/lib/error-handler.ts` | `CodedError` thrown in routes, serialized via centralized `try/catch` in the dispatcher |
+| **Zygos** | `src/routes/books.ts`, `src/routes/chaos.ts` | `Result<T, E>` from `ensure` bridge for validation outcomes |
+
+The app also uses **Arkhe** for data transforms: `titleCase` in `src/routes/books.ts`, `groupBy` and `orderBy` in `src/routes/collection.ts`.
+
+#### Architecture
+
+```
+bun/src/
+├── index.ts             ← Entry point (Bun.serve on port 3001)
+├── app.ts               ← Hand-rolled router/dispatcher (no framework)
+├── routes/
+│   ├── books.ts         ← GET / POST / DELETE with Sphalma errors
+│   ├── chaos.ts         ← Toggle simulated failures (Kanon-validated)
+│   ├── collection.ts    ← Grouped collection (groupBy + orderBy)
+│   └── seed.ts          ← Populate store with sample data
+└── lib/
+    ├── schemas.ts       ← Kanon schemas (book, storedBook, chaos)
+    ├── errors.ts        ← Sphalma error factory + codes
+    ├── error-handler.ts ← Centralized error handler (CodedError → Response)
+    ├── store.ts         ← In-memory storage (module-level, no globalThis)
+    └── fixtures.ts      ← Sample book data for seeding
+```
+
+#### Key differences from Hono
+
+- **No framework**: Uses `Bun.serve()` with a hand-rolled dispatcher instead of Hono's router. The route table is a plain `Record<string, Partial<Record<string, RouteHandler>>>` mapping paths and methods to handler functions.
+- **Direct `Response` construction**: Handlers return `Response.json(data, { status })` and `new Response(null, { status: 204 })` directly instead of using Hono's `c.json()` context.
+- **Manual CORS**: CORS headers are added by the dispatcher on every response instead of using Hono's built-in `cors()` middleware.
+- **`try/catch` in dispatcher**: Error handling wraps each handler call in the dispatcher's `try/catch` instead of using Hono's `app.onError()` hook.
+- **Zero TypeScript casts**: No `as` assertions in production code (except `as const`). All types flow from Kanon schemas via `Infer<>` and `ensure`.
+- **Same lib modules**: `schemas.ts`, `errors.ts`, `store.ts`, `fixtures.ts` are identical to the Hono demo — only route handlers and the error handler differ.
+
+#### Commands
+
+```bash
+cd packages/main/integrations/bun
+bun install
+bun dev         # http://localhost:3001
+bun test        # vitest (unit + property-based tests)
+```
+
 ### Express (server only)
 
 | Pithos module | Where | Usage |
@@ -267,7 +315,7 @@ preact/src/
 #### Key differences from Next.js
 
 - **Zero try/catch in application code**: The API layer returns `ResultAsync` end-to-end. Hooks consume results with `.match()`, `.map()`, `.mapErr()` — no throw/catch cycle. The only `try/catch` is in `extractError` for parsing unknown JSON from error responses.
-- **No server actions**: Pure client-side SPA that talks directly to the Hono backend (port 3001) via `fetch()`.
+- **No server actions**: Pure client-side SPA that talks directly to the Hono, Express or Bun backend (port 3001) via `fetch()`.
 - **`ResultAsync` pipeline**: `safeFetch` wraps `fetch` in `ResultAsync.fromPromise`, then chains `checkResponse` → `ensurePromise`. The `Result` flows from API to hook to component without being unwrapped and re-wrapped.
 - **Typed `FormField` component**: Uses `e.currentTarget.value` instead of casting `e.target`. Props typed with `keyof typeof bookFields`.
 - **`ensure` for form validation**: Same pattern as Next.js — raw `FormData` goes through `ensure(bookSchema, data)` instead of manual `FormData.get() as string` casts.
@@ -415,8 +463,6 @@ pnpm install
 pnpm start      # http://localhost:4200
 pnpm test       # vitest (17 property-based tests)
 ```
-
-### Bun (planned, server only)
 
 ## Running a demo
 

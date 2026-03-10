@@ -4,7 +4,7 @@ export function ConnectionError({ backendUrl }: { backendUrl: string }) {
       <p class="text-3xl">🔌</p>
       <h2 class="mt-3 text-lg font-semibold text-red-800">Backend unreachable</h2>
       <p class="mt-2 text-sm text-red-700">
-        Unable to connect to the Hono or Express server at{' '}
+        Unable to connect to the Hono, Express or Bun server at{' '}
         <a
           href={backendUrl}
           target="_blank"
@@ -23,6 +23,11 @@ export function ConnectionError({ backendUrl }: { backendUrl: string }) {
         or{' '}
         <code class="rounded bg-red-100 px-1.5 py-0.5 font-mono">
           cd packages/main/integrations/express && pnpm dev
+        </code>
+        <br />
+        or{' '}
+        <code class="rounded bg-red-100 px-1.5 py-0.5 font-mono">
+          cd packages/main/integrations/bun && bun dev
         </code>
       </p>
     </div>
