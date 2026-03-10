@@ -5,6 +5,9 @@ packages:
   # All packages in subdirectories (e.g., packages/main/*, packages/kanon/*, etc.)
   - "packages/*/*"
   
+  # Integration demos (3 levels deep)
+  - "packages/main/integrations/*"
+  
   # Examples in pithos
   - "packages/pithos/examples/*"
   

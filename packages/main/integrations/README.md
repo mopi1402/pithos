@@ -19,6 +19,7 @@ Every demo uses all 5 modules from the Pithos ecosystem:
 | **Arkhe** | `titleCase`, `groupBy`, `orderBy`, `SimpleResult` type |
 | **Sphalma** | Typed business errors (duplicate ISBN, not found, storage failure) |
 | **Bridge ensure** | Kanon → Zygos: validates a schema, returns a `Result` |
+| **Bridge ensurePromise** | Kanon → Zygos: validates a promise, returns a `ResultAsync` |
 
 ## Demos
 
@@ -30,7 +31,7 @@ Every demo uses all 5 modules from the Pithos ecosystem:
 | [Hono](./hono/) | `hono/` | ✅ Complete | Server only (see below) |
 | [Next.js](./nextjs/) | `nextjs/` | ✅ Complete | Client + Server (see below) |
 | Nuxt | `nuxt/` | 🔜 Planned | |
-| Preact | `preact/` | 🔜 Planned | |
+| [Preact](./preact/) | `preact/` | ✅ Complete | Client only (see below) |
 | React | `react/` | 🔜 Planned | |
 | SvelteKit | `sveltekit/` | 🔜 Planned | |
 
@@ -173,6 +174,65 @@ pnpm install
 pnpm dev        # http://localhost:3001
 pnpm test       # vitest (unit + property-based tests)
 pnpm test:api   # starts the server, runs 22 curl checks, stops the server
+```
+
+### Preact (client only)
+
+| Pithos module | Where | Usage |
+|---|---|---|
+| **Bridges** | `components/add-form.tsx`, `hooks/use-book-validation.ts` | `ensure` for form validation (sync, per-field + submit) |
+| **Kanon** | `lib/schemas.ts`, `lib/errors.ts` | Schema definition, `.pattern()` for ISBN, `errorBodySchema` for API error parsing |
+| **Sphalma** | `lib/errors.ts` | Typed error codes (duplicate ISBN, not found, storage failure) with user-facing messages |
+| **Zygos** | `lib/api.ts`, `hooks/use-books.ts`, `hooks/use-chaos.ts` | Full `ResultAsync` pipeline: `safeFetch` → `checkResponse` → `ensurePromise` → `.andThen()` / `.map()` / `.mapErr()` |
+
+The app also uses **Arkhe** for data transforms: `groupBy` and `orderBy` in `hooks/use-grouped-books.ts`, `titleCase` in `components/add-form.tsx`.
+
+#### Architecture
+
+```
+preact/src/
+├── index.tsx            ← Entry point, routing (preact-iso)
+├── components/
+│   ├── add-form.tsx     ← Book form (ensure + postBook ResultAsync)
+│   ├── form-field.tsx   ← Typed field component (no e.target casts)
+│   ├── book-list.tsx    ← Grouped collection display
+│   ├── book-card.tsx    ← Single book card
+│   ├── error-banner.tsx ← Error/success banner
+│   ├── connection-error.tsx ← Backend unreachable state
+│   ├── empty-state.tsx  ← Empty collection + seed button
+│   ├── nav-bar.tsx      ← Navigation + chaos toggle
+│   └── chaos-toggle.tsx ← Chaos mode switch
+├── hooks/
+│   ├── use-books.ts     ← CRUD via ResultAsync (.match/.map/.mapErr)
+│   ├── use-book-validation.ts ← Per-field validation via ensure
+│   ├── use-chaos.ts     ← Chaos toggle via ResultAsync
+│   └── use-grouped-books.ts ← groupBy + orderBy (Arkhe)
+└── lib/
+    ├── api.ts           ← ResultAsync pipeline (safeFetch → checkResponse → ensurePromise)
+    ├── errors.ts        ← Error extraction with ensurePromise + Sphalma codes
+    ├── schemas.ts       ← Kanon schemas (book, storedBook, chaos)
+    └── constants.ts     ← API URL, genres
+```
+
+#### Key differences from Next.js
+
+- **Zero try/catch in application code**: The API layer returns `ResultAsync` end-to-end. Hooks consume results with `.match()`, `.map()`, `.mapErr()` — no throw/catch cycle. The only `try/catch` is in `extractError` for parsing unknown JSON from error responses.
+- **No server actions**: Pure client-side SPA that talks directly to the Hono backend (port 3001) via `fetch()`.
+- **`ResultAsync` pipeline**: `safeFetch` wraps `fetch` in `ResultAsync.fromPromise`, then chains `checkResponse` → `ensurePromise`. The `Result` flows from API to hook to component without being unwrapped and re-wrapped.
+- **Typed `FormField` component**: Uses `e.currentTarget.value` instead of casting `e.target`. Props typed with `keyof typeof bookFields`.
+- **`ensure` for form validation**: Same pattern as Next.js — raw `FormData` goes through `ensure(bookSchema, data)` instead of manual `FormData.get() as string` casts.
+
+#### Chaos mode
+
+Same as Next.js: click the toggle in the nav bar to simulate backend failures. POST and DELETE return `STORAGE_FAILURE` (HTTP 503). The error propagates through the `ResultAsync` pipeline to the UI without any try/catch.
+
+#### Commands
+
+```bash
+cd packages/main/integrations/preact
+npm install
+npm run dev     # http://localhost:5173
+npm test        # vitest (22 property-based tests)
 ```
 
 ### Express / Bun (planned, server only)

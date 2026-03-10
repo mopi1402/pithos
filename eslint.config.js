@@ -91,6 +91,36 @@ export default tseslint.config(
         },
     },
 
+    // Override for preact integration
+    {
+        files: [
+            'packages/main/integrations/preact/src/**/*.ts',
+            'packages/main/integrations/preact/src/**/*.tsx',
+            'packages/main/integrations/preact/vite.config.ts',
+        ],
+        languageOptions: {
+            parserOptions: {
+                project: path.resolve(
+                    __dirname,
+                    'packages/main/integrations/preact/tsconfig.json'
+                ),
+            },
+        },
+    },
+
+    // Accessibility rules for preact integration JSX
+    {
+        files: [
+            'packages/main/integrations/preact/src/**/*.tsx',
+        ],
+        plugins: {
+            'jsx-a11y': jsxA11y,
+        },
+        rules: {
+            ...jsxA11y.configs.recommended.rules,
+        },
+    },
+
     // Accessibility rules for website JSX
     {
         files: [

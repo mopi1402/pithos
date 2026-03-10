@@ -1,0 +1,31 @@
+{
+	"name": "preact-demo",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview",
+		"test": "vitest --run --root ."
+	},
+	"dependencies": {
+		"@pithos/core": "2.2.2",
+		"preact": "^10.26.9",
+		"preact-iso": "^2.11.1",
+		"tailwindcss": "^4.2.1"
+	},
+	"devDependencies": {
+		"@fast-check/vitest": "^0.3.0",
+		"@preact/preset-vite": "^2.10.2",
+		"@tailwindcss/vite": "^4.1.10",
+		"@testing-library/preact": "^3.2.4",
+		"fast-check": "^4.5.2",
+		"jsdom": "^26.1.0",
+		"vite": "^7.0.4",
+		"vitest": "^3.2.3"
+	},
+	"eslintConfig": {
+		"extends": "preact"
+	}
+}
