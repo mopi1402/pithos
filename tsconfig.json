@@ -10,7 +10,7 @@
     "**/*.bench.ts",
     "packages/kanon/benchmarks/**/*.ts",
     "packages/main/website/scripts/**/*.ts",
-    "vitest.config.ts",
+    "**/vitest.config.ts",
     "vitest.setup.ts"
   ],
   "exclude": [
