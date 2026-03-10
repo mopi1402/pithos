@@ -123,6 +123,38 @@ export default tseslint.config(
         },
     },
 
+    // Override for angular integration
+    {
+        files: [
+            'packages/main/integrations/angular/src/**/*.ts',
+        ],
+        languageOptions: {
+            parserOptions: {
+                project: [
+                    path.resolve(
+                        __dirname,
+                        'packages/main/integrations/angular/tsconfig.app.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/main/integrations/angular/tsconfig.spec.json'
+                    ),
+                ],
+            },
+        },
+        rules: {
+            // Angular decorators create class properties via DI that appear unused
+            '@typescript-eslint/no-unused-vars': [
+                'error',
+                {
+                    argsIgnorePattern: '^_',
+                    varsIgnorePattern: '^_',
+                    caughtErrorsIgnorePattern: '^_',
+                },
+            ],
+        },
+    },
+
     // Accessibility rules for preact integration JSX
     {
         files: [

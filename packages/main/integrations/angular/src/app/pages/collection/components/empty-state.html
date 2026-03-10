@@ -1,0 +1,9 @@
+<div class="empty">
+  <p class="empty-icon">📚</p>
+  <h2 class="empty-title">Your collection is empty</h2>
+  <p class="empty-sub">Add your first book to get started.</p>
+  <a routerLink="/add" class="btn-primary">Add a book</a>
+  <button (click)="seed.emit()" [disabled]="seeding()" [attr.aria-busy]="seeding()" class="btn-outline">
+    {{ seeding() ? 'Seeding...' : 'Load sample books' }}
+  </button>
+</div>

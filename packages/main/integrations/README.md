@@ -21,21 +21,21 @@ Each demo picks the modules that make sense for its architecture. The full ecosy
 | **Bridge ensure** | Kanon → Zygos: validates a schema, returns a `Result` |
 | **Bridge ensurePromise** | Kanon → Zygos: validates a promise, returns a `ResultAsync` |
 
-Kanon, Zygos, Arkhe, and Bridge ensure are used everywhere. Sphalma is used where the framework lacks native structured error handling (Hono, Express, Preact). SvelteKit skips it because `fail()` and `error()` already fill that role. `ensurePromise` only appears in demos with a client-side API layer (Next.js, Preact).
+Kanon, Zygos, Arkhe, and Bridge ensure are used everywhere. Sphalma is used where the framework lacks native structured error handling (Hono, Express, Preact, Angular). SvelteKit skips it because `fail()` and `error()` already fill that role. `ensurePromise` only appears in demos with a client-side API layer (Next.js, Preact, Angular).
 
 ## Demos
 
 | Framework | Directory | Status | Highlights |
 |---|---|---|---|
-| Angular | `angular/` | 🔜 Planned | |
+| [Angular](./angular/) | `angular/` | ✅ Complete | Client only ([details](#angular-client-only)) |
 | Bun | `bun/` | 🔜 Planned | Server only |
-| [Express](./express/) | `express/` | ✅ Complete | Server only (see below) |
-| [Hono](./hono/) | `hono/` | ✅ Complete | Server only (see below) |
-| [Next.js](./nextjs/) | `nextjs/` | ✅ Complete | Client + Server (see below) |
+| [Express](./express/) | `express/` | ✅ Complete | Server only ([details](#express-server-only)) |
+| [Hono](./hono/) | `hono/` | ✅ Complete | Server only ([details](#hono-server-only)) |
+| [Next.js](./nextjs/) | `nextjs/` | ✅ Complete | Client + Server ([details](#nextjs-client--server)) |
 | Nuxt | `nuxt/` | 🔜 Planned | |
-| [Preact](./preact/) | `preact/` | ✅ Complete | Client only (see below) |
+| [Preact](./preact/) | `preact/` | ✅ Complete | Client only ([details](#preact-client-only)) |
 | React | `react/` | 🔜 Planned | |
-| [SvelteKit](./sveltekit/) | `sveltekit/` | ✅ Complete | Client + Server (see below) |
+| [SvelteKit](./sveltekit/) | `sveltekit/` | ✅ Complete | Client + Server ([details](#sveltekit-client--server)) |
 
 ## General design choices
 
@@ -342,6 +342,78 @@ cd packages/main/integrations/sveltekit
 pnpm install
 pnpm dev        # http://localhost:5173
 pnpm test       # vitest (13 property-based tests)
+```
+
+### Angular (client only)
+
+| Pithos module | Where | Usage |
+|---|---|---|
+| **Bridges** | `services/api-client.service.ts`, `components/add-form.ts` | `ensure` for form validation (per-field on blur + submit), `ensurePromise` for API response validation |
+| **Kanon** | `lib/schemas.ts` | Schema definition, `.pattern()` for ISBN validation, `bookFields` for per-field client validation |
+| **Sphalma** | `lib/errors.ts` | Typed error codes (duplicate ISBN, not found, storage failure) with user-facing messages |
+| **Zygos** | `services/api-client.service.ts`, `services/book.service.ts`, `services/chaos.service.ts` | Full `ResultAsync` pipeline: `HttpClient` → `firstValueFrom` → `ResultAsync.fromPromise` → `ensurePromise` → `.match()` / `.map()` / `.mapErr()` |
+
+The app also uses **Arkhe** for data transforms: `groupBy` and `orderBy` in `components/book-list.ts`, `titleCase` in `components/add-form.ts`.
+
+#### Architecture
+
+```
+angular/src/
+├── main.ts                          ← Standalone bootstrap (no NgModule)
+├── styles.scss                      ← Global reset + variables import
+├── styles/variables.css             ← CSS custom properties (design tokens)
+├── app/
+│   ├── app.ts                       ← Root component (NavBar + RouterOutlet)
+│   ├── app.config.ts                ← provideRouter + provideHttpClient
+│   ├── app.routes.ts                ← Lazy-loaded routes: /add, /collection, / → redirect
+│   ├── components/
+│   │   ├── add-form.ts + .html + .scss
+│   │   ├── book-card.ts + .html + .scss
+│   │   ├── book-list.ts + .html + .scss
+│   │   ├── chaos-toggle.ts + .html + .scss
+│   │   ├── connection-error.ts + .html + .scss
+│   │   ├── empty-state.ts + .html + .scss
+│   │   ├── error-banner.ts + .html + .scss
+│   │   ├── form-field.ts + .html + .scss
+│   │   └── nav-bar.ts + .html + .scss
+│   ├── services/
+│   │   ├── api-client.service.ts    ← HttpClient → firstValueFrom → ResultAsync → ensurePromise
+│   │   ├── book.service.ts          ← CRUD via signals + ResultAsync
+│   │   └── chaos.service.ts         ← Chaos state via signals + ResultAsync
+│   └── lib/
+│       ├── constants.ts             ← GENRES, API_URL
+│       ├── errors.ts                ← extractErrorFromBody (sync), USER_MESSAGES, Sphalma codes
+│       └── schemas.ts               ← Kanon schemas (bookSchema, storedBookSchema, etc.)
+└── __tests__/
+    ├── schemas.test.ts              ← PBT: field validation, ISBN, addedAt
+    ├── api.test.ts                  ← PBT: round-trip ensurePromise
+    ├── errors.test.ts               ← PBT: error extraction
+    ├── collection.test.ts           ← PBT: groupBy + orderBy
+    └── title-case.test.ts           ← PBT: idempotence + capitalization
+```
+
+#### Key differences from Preact
+
+- **Services instead of hooks**: Angular services are injectable singletons that persist across navigations. Preact hooks are tied to component lifecycle. `BookService` and `ChaosService` hold state in signals and expose readonly accessors — the Angular equivalent of `useBooks()` and `useChaos()`.
+- **Signals instead of `useState`/`useEffect`**: Angular 21 signals (`signal()`, `computed()`) replace React-style state hooks. Signals are synchronous, fine-grained, and don't require dependency arrays.
+- **`HttpClient` instead of `fetch`**: Pithos fills gaps — it doesn't replace what already exists. Just like SvelteKit skips Sphalma because `fail()` and `error()` already fill that role, Angular has `HttpClient` as its standard HTTP idiom. `HttpClient` is converted to `ResultAsync` via `firstValueFrom()` + `ResultAsync.fromPromise()` — the Pithos validation pipeline stays intact.
+- **Synchronous `extractErrorFromBody`**: Preact's `extractError(res: Response)` is async because it calls `res.json()`. Angular's `HttpClient` parses JSON automatically — the error body is available in `HttpErrorResponse.error`. So `extractErrorFromBody` is synchronous with zero try/catch.
+- **Zero try/catch in application code**: The Preact demo has one try/catch in `extractError` for parsing unknown JSON. The Angular demo has none — `HttpClient` handles JSON parsing, and the entire error flow is synchronous.
+- **Reactive Forms**: Uses `FormGroup`/`FormControl` with programmatic validation via `ensure(bookFields[name], value)` on blur, instead of raw `FormData` manipulation.
+- **`inject()` instead of constructor injection**: Modern Angular pattern that simplifies code and enables injection in functions.
+- **Scoped SCSS with design tokens**: CSS custom properties in `variables.css` (same tokens as SvelteKit) with per-component `.scss` files, instead of Tailwind utility classes.
+
+#### Chaos mode
+
+Same as Preact: click the toggle in the nav bar to simulate backend failures. POST and DELETE return `STORAGE_FAILURE` (HTTP 503). The error propagates through the `ResultAsync` pipeline to the UI without any try/catch.
+
+#### Commands
+
+```bash
+cd packages/main/integrations/angular
+pnpm install
+pnpm start      # http://localhost:4200
+pnpm test       # vitest (17 property-based tests)
 ```
 
 ### Bun (planned, server only)

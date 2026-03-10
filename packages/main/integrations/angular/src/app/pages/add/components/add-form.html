@@ -1,0 +1,85 @@
+<div class="page-header">
+  <h1>Add a book</h1>
+</div>
+
+<app-error-banner
+  [message]="submitState() === 'success' ? 'Added: ' + successTitle() : null"
+  type="success"
+/>
+<app-error-banner
+  [message]="submitState() === 'error' ? submitError() : null"
+  type="error"
+/>
+
+<form (submit)="onSubmit($event)">
+  <div class="field">
+    <label for="title">Title <span class="required-mark">*</span></label>
+    <input id="title" [formField]="bookForm.title"
+      [class.has-error]="bookForm.title().touched() && bookForm.title().invalid()"
+      [attr.aria-describedby]="bookForm.title().touched() && bookForm.title().invalid() ? 'title-error' : null"
+      [attr.aria-invalid]="bookForm.title().touched() && bookForm.title().invalid()" />
+    @if (bookForm.title().touched() && bookForm.title().invalid()) {
+      @for (error of bookForm.title().errors(); track error.kind) {
+        <p class="field-error" id="title-error" role="alert">{{ error.message }}</p>
+      }
+    }
+  </div>
+
+  <div class="field">
+    <label for="author">Author <span class="required-mark">*</span></label>
+    <input id="author" [formField]="bookForm.author"
+      [class.has-error]="bookForm.author().touched() && bookForm.author().invalid()"
+      [attr.aria-describedby]="bookForm.author().touched() && bookForm.author().invalid() ? 'author-error' : null"
+      [attr.aria-invalid]="bookForm.author().touched() && bookForm.author().invalid()" />
+    @if (bookForm.author().touched() && bookForm.author().invalid()) {
+      @for (error of bookForm.author().errors(); track error.kind) {
+        <p class="field-error" id="author-error" role="alert">{{ error.message }}</p>
+      }
+    }
+  </div>
+
+  <div class="field">
+    <label for="isbn">ISBN <span class="required-mark">*</span></label>
+    <input id="isbn" [formField]="bookForm.isbn"
+      [class.has-error]="bookForm.isbn().touched() && bookForm.isbn().invalid()"
+      [attr.aria-describedby]="bookForm.isbn().touched() && bookForm.isbn().invalid() ? 'isbn-error' : null"
+      [attr.aria-invalid]="bookForm.isbn().touched() && bookForm.isbn().invalid()" />
+    @if (bookForm.isbn().touched() && bookForm.isbn().invalid()) {
+      @for (error of bookForm.isbn().errors(); track error.kind) {
+        <p class="field-error" id="isbn-error" role="alert">{{ error.message }}</p>
+      }
+    }
+  </div>
+
+  <div class="field">
+    <label for="genre">Genre <span class="required-mark">*</span></label>
+    <select id="genre" [formField]="bookForm.genre"
+      [class.has-error]="bookForm.genre().touched() && bookForm.genre().invalid()"
+      [attr.aria-describedby]="bookForm.genre().touched() && bookForm.genre().invalid() ? 'genre-error' : null"
+      [attr.aria-invalid]="bookForm.genre().touched() && bookForm.genre().invalid()">
+      <option value="">Select...</option>
+      @for (genre of genres; track genre) {
+        <option [value]="genre">{{ genre }}</option>
+      }
+    </select>
+    @if (bookForm.genre().touched() && bookForm.genre().invalid()) {
+      @for (error of bookForm.genre().errors(); track error.kind) {
+        <p class="field-error" id="genre-error" role="alert">{{ error.message }}</p>
+      }
+    }
+  </div>
+
+  <div class="field">
+    <label for="addedAt">Date added (optional)</label>
+    <input id="addedAt" type="date" [formField]="bookForm.addedAt" />
+  </div>
+
+  <button
+    type="submit"
+    [disabled]="submitState() === 'submitting'"
+    [attr.aria-busy]="submitState() === 'submitting'"
+    class="btn-primary btn-submit"
+  >
+    {{ submitState() === 'submitting' ? 'Adding...' : 'Add book' }}
+  </button>
+</form>

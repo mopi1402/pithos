@@ -1,0 +1,11 @@
+<div class="book-item">
+  <span class="book-info">
+    <strong>{{ book().title }}</strong> · {{ book().author }}
+    <span class="isbn">ISBN {{ book().isbn }}</span>
+  </span>
+  <button (click)="remove.emit(book().id)" class="btn-remove" [attr.aria-label]="'Remove ' + book().title">
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <path d="M1 1l8 8M9 1l-8 8" />
+    </svg>
+  </button>
+</div>

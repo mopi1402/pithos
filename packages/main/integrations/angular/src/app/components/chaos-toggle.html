@@ -1,0 +1,11 @@
+@if (!loading()) {
+  <button
+    (click)="toggle()"
+    [disabled]="toggling()"
+    [attr.aria-pressed]="enabled()"
+    class="chaos-btn"
+  >
+    <span class="chaos-dot" [class.active]="enabled()"></span>
+    {{ enabled() ? 'Chaos mode ON' : 'Chaos mode' }}
+  </button>
+}

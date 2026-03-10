@@ -1,0 +1,15 @@
+<div class="connection-error" role="alert">
+  <p class="icon">🔌</p>
+  <h2>Backend unreachable</h2>
+  <p>
+    Unable to connect to the Hono or Express server at
+    <a [href]="url()" target="_blank" rel="noopener noreferrer"><code>{{ url() }}</code></a>
+  </p>
+  <p class="hint">
+    Start it with
+    <code>cd packages/main/integrations/hono && pnpm dev</code>
+    <br />
+    or
+    <code>cd packages/main/integrations/express && pnpm dev</code>
+  </p>
+</div>

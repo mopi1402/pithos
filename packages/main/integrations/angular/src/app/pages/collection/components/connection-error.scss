@@ -1,0 +1,48 @@
+.connection-error {
+  border-radius: var(--radius);
+  border: 1px solid var(--color-warning-border);
+  background: var(--color-warning-bg);
+  padding: var(--space-3xl) var(--space-2xl);
+  text-align: center;
+}
+
+.connection-error .icon {
+  font-size: 1.875rem;
+}
+
+.connection-error h2 {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--color-warning-text);
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.connection-error p {
+  font-size: var(--font-size-sm);
+  color: var(--color-warning-text);
+}
+
+.connection-error a {
+  font-family: monospace;
+  text-decoration: underline;
+  color: inherit;
+}
+
+.connection-error a:hover {
+  opacity: 0.8;
+}
+
+.connection-error code {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius);
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--font-size-xs);
+  font-family: monospace;
+}
+
+.connection-error .hint {
+  margin-top: var(--space-md);
+  font-size: var(--font-size-xs);
+  opacity: 0.8;
+}

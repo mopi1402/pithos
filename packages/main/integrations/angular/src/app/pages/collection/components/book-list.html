@@ -1,0 +1,38 @@
+@if (loading()) {
+  <p class="loading">Loading...</p>
+} @else if (isConnectionError()) {
+  <app-connection-error [url]="backendUrl()" />
+} @else if (books().length === 0) {
+  <app-empty-state [seeding]="seeding()" (seed)="handleSeed()" />
+} @else {
+  <div class="header">
+    <h1 class="title">
+      My collection
+      <span class="count">{{ books().length }} {{ books().length === 1 ? 'book' : 'books' }}</span>
+    </h1>
+    <div class="header-actions">
+      <button (click)="handleSeed()" [disabled]="seeding()" [attr.aria-busy]="seeding()" class="btn-outline">
+        {{ seeding() ? 'Seeding...' : 'Load sample books' }}
+      </button>
+      <button (click)="handleClear()" [disabled]="clearing()" [attr.aria-busy]="clearing()" class="btn-clear">
+        {{ clearing() ? 'Clearing...' : 'Clear all' }}
+      </button>
+      <a routerLink="/add" class="btn-primary">Add a book</a>
+    </div>
+  </div>
+
+  <app-error-banner [message]="error()" />
+
+  @for (group of groups(); track group.genre) {
+    <section class="genre-section">
+      <h2 class="genre-title">{{ group.genre }}</h2>
+      <ul class="book-list">
+        @for (book of group.books; track book.id) {
+          <li>
+            <app-book-card [book]="book" (remove)="removeBook($event)" />
+          </li>
+        }
+      </ul>
+    </section>
+  }
+}

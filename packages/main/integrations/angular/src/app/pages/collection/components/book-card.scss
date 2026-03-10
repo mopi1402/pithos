@@ -1,0 +1,38 @@
+.book-item {
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-sm);
+}
+
+.book-info {
+  flex: 1;
+}
+
+.book-info strong {
+  font-weight: 500;
+}
+
+.isbn {
+  margin-left: var(--space-md);
+  color: var(--color-text-muted);
+}
+
+.btn-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: var(--radius-full);
+  border: none;
+  background: none;
+  color: var(--color-bg-muted);
+  cursor: pointer;
+  margin-left: var(--space-md);
+  flex-shrink: 0;
+
+  &:hover {
+    background: var(--color-danger-bg);
+    color: var(--color-danger);
+  }
+}
