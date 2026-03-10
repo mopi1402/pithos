@@ -34,7 +34,7 @@ Kanon, Zygos, Arkhe, and Bridge ensure are used everywhere. Sphalma is used wher
 | [Next.js](./nextjs/) | `nextjs/` | ✅ Complete | Client + Server ([details](#nextjs-client--server)) |
 | Nuxt | `nuxt/` | 🔜 Planned | |
 | [Preact](./preact/) | `preact/` | ✅ Complete | Client only ([details](#preact-client-only)) |
-| React | `react/` | 🔜 Planned | |
+| [React](./react/) | `react/` | ✅ Complete | Client only ([details](#react-client-only)) |
 | [SvelteKit](./sveltekit/) | `sveltekit/` | ✅ Complete | Client + Server ([details](#sveltekit-client--server)) |
 
 ## General design choices
@@ -129,6 +129,7 @@ Click the "Chaos mode" button in the nav bar to simulate an unreliable backend. 
 cd packages/main/integrations/nextjs
 pnpm install
 pnpm dev        # http://localhost:3000
+pnpm test       # vitest (17 property-based tests)
 ```
 
 ### Hono (server only)
@@ -194,7 +195,7 @@ The app also uses **Arkhe** for data transforms: `titleCase` in `src/routes/book
 ```
 bun/src/
 ├── index.ts             ← Entry point (Bun.serve on port 3001)
-├── app.ts               ← Hand-rolled router/dispatcher (no framework)
+├── app.ts               ← Declarative routes + CORS/error wrapper + fallback fetch
 ├── routes/
 │   ├── books.ts         ← GET / POST / DELETE with Sphalma errors
 │   ├── chaos.ts         ← Toggle simulated failures (Kanon-validated)
@@ -210,12 +211,15 @@ bun/src/
 
 #### Key differences from Hono
 
-- **No framework**: Uses `Bun.serve()` with a hand-rolled dispatcher instead of Hono's router. The route table is a plain `Record<string, Partial<Record<string, RouteHandler>>>` mapping paths and methods to handler functions.
+- **No framework**: Uses `Bun.serve()` with the native declarative `routes` API (Bun 1.2+) instead of Hono's router. Each route maps HTTP methods to handler functions directly. A `fetch` fallback handles OPTIONS preflight, 405, and 404.
+- **`withCorsAndErrors` HOF**: A higher-order function wraps each handler with CORS headers and error handling, instead of using Hono's built-in `cors()` middleware and `app.onError()` hook.
 - **Direct `Response` construction**: Handlers return `Response.json(data, { status })` and `new Response(null, { status: 204 })` directly instead of using Hono's `c.json()` context.
-- **Manual CORS**: CORS headers are added by the dispatcher on every response instead of using Hono's built-in `cors()` middleware.
-- **`try/catch` in dispatcher**: Error handling wraps each handler call in the dispatcher's `try/catch` instead of using Hono's `app.onError()` hook.
 - **Zero TypeScript casts**: No `as` assertions in production code (except `as const`). All types flow from Kanon schemas via `Infer<>` and `ensure`.
 - **Same lib modules**: `schemas.ts`, `errors.ts`, `store.ts`, `fixtures.ts` are identical to the Hono demo — only route handlers and the error handler differ.
+
+#### Testing with `bun:test`
+
+Unlike the other server demos (Hono, Express) which use vitest, the Bun integration uses `bun:test` — Bun's native test runner. This keeps the project fully within the Bun ecosystem with zero external test dependencies. `fast-check` is used for property-based testing, wired directly into `bun:test` instead of through `@fast-check/vitest`.
 
 #### Commands
 
@@ -223,7 +227,7 @@ bun/src/
 cd packages/main/integrations/bun
 bun install
 bun dev         # http://localhost:3001
-bun test        # vitest (unit + property-based tests)
+bun test        # bun:test (unit + property-based tests)
 ```
 
 ### Express (server only)
@@ -331,6 +335,71 @@ cd packages/main/integrations/preact
 npm install
 npm run dev     # http://localhost:5173
 npm test        # vitest (22 property-based tests)
+```
+
+### React (client only)
+
+| Pithos module | Where | Usage |
+|---|---|---|
+| **Bridges** | `components/add-form.tsx`, `hooks/use-book-validation.ts` | `ensure` for form validation (sync, per-field + submit) |
+| **Kanon** | `lib/schemas.ts`, `lib/errors.ts` | Schema definition, `.pattern()` for ISBN, `errorBodySchema` for API error parsing |
+| **Sphalma** | `lib/errors.ts` | Typed error codes (duplicate ISBN, not found, storage failure) with user-facing messages |
+| **Zygos** | `lib/api.ts`, `hooks/use-books.ts`, `hooks/use-chaos.ts` | Full `ResultAsync` pipeline: `safeFetch` → `checkResponse` → `ensurePromise` → `.andThen()` / `.map()` / `.mapErr()` |
+
+The app also uses **Arkhe** for data transforms: `groupBy` and `orderBy` in `hooks/use-grouped-books.ts`, `titleCase` in `components/add-form.tsx`.
+
+#### Architecture
+
+```
+react/src/
+├── App.tsx              ← Root component (NavBar + Routes)
+├── main.tsx             ← ReactDOM.createRoot entry point
+├── pages/
+│   ├── add-page.tsx     ← Add book page
+│   └── collection-page.tsx ← Collection page (CRUD + seed/clear)
+├── components/
+│   ├── add-form.tsx     ← Book form (ensure + postBook ResultAsync)
+│   ├── form-field.tsx   ← Typed field component
+│   ├── book-list.tsx    ← Grouped collection display
+│   ├── book-card.tsx    ← Single book card
+│   ├── alert-banner.tsx ← Error/success banner
+│   ├── connection-error.tsx ← Backend unreachable state
+│   ├── empty-state.tsx  ← Empty collection + seed button
+│   ├── nav-bar.tsx      ← Navigation + chaos toggle
+│   └── chaos-toggle.tsx ← Chaos mode switch
+├── hooks/
+│   ├── use-books.ts     ← CRUD via ResultAsync (.match/.map/.mapErr)
+│   ├── use-book-validation.ts ← Per-field validation via ensure
+│   ├── use-chaos.ts     ← Chaos toggle via ResultAsync
+│   └── use-grouped-books.ts ← groupBy + orderBy (Arkhe)
+└── lib/
+    ├── api.ts           ← ResultAsync pipeline (safeFetch → checkResponse → ensurePromise)
+    ├── errors.ts        ← Error extraction with ensurePromise + Sphalma codes
+    ├── schemas.ts       ← Kanon schemas (book, storedBook, chaos)
+    └── constants.ts     ← API URL, genres
+```
+
+#### Key differences from Preact
+
+- **`react-router` instead of `preact-iso`**: Uses React Router's `<Routes>` / `<Route>` / `<Link>` instead of Preact ISO's `<Router>` / `<Route>` / `<a>`.
+- **`className` / `htmlFor` / `onChange`**: Standard React DOM attribute names instead of Preact's `class` / `for` / `onInput`.
+- **`ReactDOM.createRoot`**: React 18+ entry point instead of Preact's `render()`.
+- **`@vitejs/plugin-react`**: Vite plugin instead of `@preact/preset-vite`.
+- **Barrel import `@pithos/core/kanon`**: Uses the barrel for a more compact DX. In the React ecosystem where the runtime already weighs hundreds of kilobytes, the few extra kilobytes from barrel wrappers are noise.
+- **`pages/` directory**: `AddPage` and `CollectionPage` are extracted into `src/pages/` instead of being inline in the root component.
+- **`AlertBanner` instead of `ErrorBanner`**: Renamed for semantic accuracy since the component handles both error and success variants.
+
+#### Chaos mode
+
+Same as Preact: click the toggle in the nav bar to simulate backend failures. POST and DELETE return `STORAGE_FAILURE` (HTTP 503). The error propagates through the `ResultAsync` pipeline to the UI without any try/catch.
+
+#### Commands
+
+```bash
+cd packages/main/integrations/react
+pnpm install
+pnpm dev        # http://localhost:5173
+pnpm test       # vitest (20 property-based tests)
 ```
 
 ### SvelteKit (client + server)
