@@ -1,16 +1,10 @@
 # Pithos / Integration Demos
 
-This directory contains standalone demo applications that demonstrate how `@pithos/core` integrates natively into any TypeScript framework. No adapters, no plugins, no wrappers.
+Standalone demo apps showing how `@pithos/core` integrates natively into any TypeScript framework. No adapters, no plugins, no wrappers.
 
-Each demo implements the same **Book Collection Manager** app: a form to add books (with validation, normalization, duplicate detection) and a page to browse the collection (grouped by genre, sorted by date). Same features, same Pithos modules, different framework.
-
-The goal is simple: if it works the same way in Next.js, Nuxt, SvelteKit, and everywhere else, then Pithos is truly framework-agnostic.
-
-Each demo deliberately uses every module to show all integration points at once. A real project would only pick the modules it needs, and apply stricter error handling only where it hurts most.
+Each demo implements the same **Book Collection Manager**: a form to add books (with validation, normalization, duplicate detection) and a page to browse the collection (grouped by genre, sorted by date). Same features, same Pithos modules, different framework.
 
 ## Pithos modules covered
-
-Each demo picks the modules that make sense for its architecture. The full ecosystem includes:
 
 | Module | What it does in the demo |
 |---|---|
@@ -21,61 +15,33 @@ Each demo picks the modules that make sense for its architecture. The full ecosy
 | **Bridge ensure** | Kanon → Zygos: validates a schema, returns a `Result` |
 | **Bridge ensurePromise** | Kanon → Zygos: validates a promise, returns a `ResultAsync` |
 
-Kanon, Zygos, Arkhe, and Bridge ensure are used everywhere. Sphalma is used where the framework lacks native structured error handling (Hono, Express, Preact, Angular). SvelteKit skips it because `fail()` and `error()` already fill that role. `ensurePromise` only appears in demos with a client-side API layer (Next.js, Preact, Angular).
+Kanon, Zygos, Arkhe, and Bridge ensure are used everywhere. Sphalma is used where the framework lacks native structured error handling. SvelteKit skips it because `fail()` and `error()` already fill that role. `ensurePromise` only appears in demos with a client-side API layer.
 
 ## Demos
 
-| Framework | Directory | Status | Highlights |
-|---|---|---|---|
-| [Angular](./angular/) | `angular/` | ✅ Complete | Client only ([details](#angular-client-only)) |
-| [Bun](./bun/) | `bun/` | ✅ Complete | Server only ([details](#bun-server-only)) |
-| [Express](./express/) | `express/` | ✅ Complete | Server only ([details](#express-server-only)) |
-| [Hono](./hono/) | `hono/` | ✅ Complete | Server only ([details](#hono-server-only)) |
-| [Next.js](./nextjs/) | `nextjs/` | ✅ Complete | Client + Server ([details](#nextjs-client--server)) |
-| Nuxt | `nuxt/` | 🔜 Planned | |
-| [Preact](./preact/) | `preact/` | ✅ Complete | Client only ([details](#preact-client-only)) |
-| [React](./react/) | `react/` | ✅ Complete | Client only ([details](#react-client-only)) |
-| [SvelteKit](./sveltekit/) | `sveltekit/` | ✅ Complete | Client + Server ([details](#sveltekit-client--server)) |
+| Framework | Directory | Highlights |
+|---|---|---|
+| [Angular](./angular/) | `angular/` | Client only ([details](#angular-client-only)) |
+| [Bun](./bun/) | `bun/` | Server only ([details](#bun-server-only)) |
+| [Express](./express/) | `express/` | Server only ([details](#express-server-only)) |
+| [Hono](./hono/) | `hono/` | Server only ([details](#hono-server-only)) |
+| [Next.js](./nextjs/) | `nextjs/` | Client + Server ([details](#nextjs-client--server)) |
+| [Nuxt](./nuxt/) | `nuxt/` | Client + Server ([details](#nuxt-client--server)) |
+| [Preact](./preact/) | `preact/` | Client only ([details](#preact-client-only)) |
+| [React](./react/) | `react/` | Client only ([details](#react-client-only)) |
+| [SvelteKit](./sveltekit/) | `sveltekit/` | Client + Server ([details](#sveltekit-client--server)) |
+
+## Chaos mode
+
+Every demo includes a "Chaos mode" toggle in the nav bar. When enabled, POST and DELETE requests fail with a `STORAGE_FAILURE` CodedError (HTTP 503). GET is excluded so the collection page always renders. This shows how errors propagate from the backend through the API layer to the UI.
 
 ## General design choices
 
-### Why Result types?
+**Direct imports vs barrel** — Every demo uses direct imports by default (`@pithos/core/kanon/schemas/primitives/string`). Kanon also exposes a barrel at `@pithos/core/kanon`. The barrel adds a few KB of overhead. On lightweight frameworks (Svelte, Preact), direct imports matter. On React/Next.js, the difference is noise.
 
-Using `Result<T, E>` after validation is less common in JS/TS but standard in Rust, Kotlin, and FP. It's an architectural choice like TDD or clean architecture - not mandatory, but it removes a class of unhandled-error bugs. Every module is independent, so you can use Kanon alone if that's all you need.
+**Validate at boundaries, trust types inside** — Demos validate data where it enters the system (user input, request body), then trust TypeScript from that point on. `ensurePromise` also validates API responses — essential when frontend and backend are separate codebases.
 
-### Direct imports vs barrel
-
-Every demo uses direct imports by default:
-
-```ts
-import { string } from '@pithos/core/kanon/schemas/primitives/string'
-import { object } from '@pithos/core/kanon/schemas/composites/object'
-```
-
-Kanon also exposes a barrel at `@pithos/core/kanon` for a more compact DX:
-
-```ts
-import { string, object, optional, coerceDate } from '@pithos/core/kanon'
-```
-
-Both work. The barrel adds a few kilobytes of overhead from extra module wrappers and metadata that bundlers can't fully eliminate, even with tree-shaking. On lightweight frameworks like Svelte or Preact where every byte matters, direct imports are the way to go. On React/Next.js where the runtime already weighs hundreds of kilobytes, the difference is just noise.
-
-Your call.
-
-### Validate at boundaries, trust types inside
-
-The demos validate data where it enters the system (user input in Server Actions, request body in Route Handlers), then trust TypeScript from that point on.
-
-The `ensurePromise` pipeline in `lib/api/books.ts` also validates API **responses** - catching silent shape mismatches that TypeScript can't see at runtime. In a Next.js monolith where you control both sides, this is a deliberate choice. In practice, `ensurePromise` becomes essential when the frontend and backend are separate codebases and you can't trust what the server sends.
-
-### SimpleResult vs Zygos Result
-
-The demos use two different patterns for success/failure depending on context:
-
-- **Zygos `Result<T, E>`** (via `ensure`): for validation flows where you need type-safe chaining (`.map()`, `.mapErr()`, `.isErr()`). This is the right tool when the result carries a typed value you want to transform.
-- **Arkhe `SimpleResult`**: a plain `{ ok: true } | { ok: false, error: string }` type for simple operations like storage writes where you just need pass/fail with an error message. No chaining, no generics, no import overhead from Zygos.
-
-Use `Result` when you need to chain or transform the outcome, `SimpleResult` when you just need pass/fail.
+**SimpleResult vs Zygos Result** — Use `Result<T, E>` (via `ensure`) when you need type-safe chaining. Use Arkhe's `SimpleResult` (`{ ok: true } | { ok: false, error: string }`) for simple pass/fail operations.
 
 ## What each demo showcases
 
@@ -84,49 +50,82 @@ Use `Result` when you need to chain or transform the outcome, `SimpleResult` whe
 | Pithos module | Where | Usage |
 |---|---|---|
 | **Bridges** | `add/_actions/add-book.ts`, `hooks/use-book-validation.ts` | `ensure` for form validation (server + client per-field) |
-| **Kanon** | `lib/schemas/book.ts`, `lib/api/books.ts` | Schema definition, `.pattern()` for ISBN validation, shared client/server schemas |
-| **Sphalma** | `api/books/route.ts` | `CodedError` thrown server-side (duplicate ISBN, not found, storage failure), serialized as structured JSON |
+| **Kanon** | `lib/schemas/book.ts`, `lib/api/books.ts` | Schema definition, `.pattern()` for ISBN, shared client/server schemas |
+| **Sphalma** | `api/books/route.ts` | `CodedError` thrown server-side, serialized as structured JSON |
 | **Zygos** | `lib/api/books.ts` | `ensurePromise` bridge: fetch → validate → `ResultAsync` pipeline |
 
-The app also uses **Arkhe** for everyday data transforms: `groupBy` and `orderBy` in `hooks/use-grouped-books.ts`, `titleCase` in `add/_actions/add-book.ts`.
+Also uses **Arkhe**: `groupBy`/`orderBy` in `hooks/use-grouped-books.ts`, `titleCase` in `add/_actions/add-book.ts`.
 
 #### Architecture
 
 ```
 nextjs/app/
-├── api/books/           ← Route Handlers (backend)
-│   ├── route.ts         ← GET / POST / DELETE with Sphalma errors
+├── api/books/           ← Route Handlers (GET / POST / DELETE + Sphalma errors)
 │   ├── store.ts         ← In-memory storage
 │   ├── chaos/route.ts   ← Toggle simulated failures
 │   └── seed/route.ts    ← Populate store with sample data
-├── add/                 ← Add book page
-│   ├── _actions/        ← Server Action (ensure + postBook)
-│   └── _components/     ← Form + field components
-├── collection/          ← Collection page
-│   ├── _actions/        ← Remove / clear / seed Server Actions
-│   └── _components/     ← Book list, remove, clear & seed buttons
+├── add/                 ← Add book page (Server Action + form components)
+├── collection/          ← Collection page (remove / clear / seed actions)
 ├── hooks/               ← Client hooks (validation, grouping, server action)
 ├── lib/
 │   ├── api/             ← API client (ensurePromise pipeline) + base URL helper
 │   ├── errors/          ← Sphalma error factory + codes
-│   ├── fixtures.ts      ← Sample book data for seeding
 │   ├── schemas/         ← Kanon schemas (shared client/server)
+│   ├── fixtures.ts      ← Sample book data
 │   └── types.ts         ← Discriminated union types
 └── _components/         ← Chaos mode toggle
 ```
 
-#### Why `COLLECTION_LIMIT` only exists here
-
-The Next.js demo originally stored books in a browser cookie. Cookies are capped at ~4 KB, so a `COLLECTION_LIMIT` CodedError (`0x9002`) was needed to reject writes before the cookie overflowed. Server-only demos (Hono, Express, Bun) use an in-memory store with no practical size limit, so this error code doesn't apply there.
-
-#### Chaos mode
-
-Click the "Chaos mode" button in the nav bar to simulate an unreliable backend. When enabled, POST and DELETE requests will fail with a `STORAGE_FAILURE` CodedError (HTTP 503). GET is intentionally excluded so the collection page always renders cleanly. This lets you see how Sphalma errors propagate from the Route Handler through the API client to the UI without Next.js showing an error screen.
-
-#### Commands
-
 ```bash
 cd packages/main/integrations/nextjs
+pnpm install
+pnpm dev        # http://localhost:3000
+pnpm test       # vitest (17 property-based tests)
+```
+
+### Nuxt (client + server)
+
+| Pithos module | Where | Usage |
+|---|---|---|
+| **Bridges** | `server/api/books/index.post.ts`, `composables/useBookValidation.ts` | `ensure` for server-side validation, `ensurePromise` for API response validation |
+| **Kanon** | `lib/schemas/book.ts`, `lib/api/books.ts` | Schema definition, `.pattern()` for ISBN, shared client/server schemas |
+| **Sphalma** | `lib/errors/book-errors.ts`, `server/api/books/index.post.ts` | `CodedError` thrown server-side, serialized as structured JSON |
+| **Zygos** | `lib/api/books.ts` | `ensurePromise` bridge: `$fetch` → validate → `ResultAsync` pipeline |
+
+Also uses **Arkhe**: `groupBy`/`orderBy` in `composables/useGroupedBooks.ts`, `titleCase` in `server/api/books/index.post.ts`.
+
+#### Architecture
+
+```
+nuxt/
+├── app/
+│   ├── app.vue                ← Root layout (NavBar + NuxtPage)
+│   ├── pages/                 ← index, add (form), collection (useFetch + refresh)
+│   ├── components/            ← AlertBanner, BookList, ChaosToggle, FormField, etc.
+│   ├── composables/           ← useAsyncAction, useBookValidation, useGroupedBooks
+│   ├── lib/
+│   │   ├── api/books.ts       ← API client ($fetch + ensurePromise pipeline)
+│   │   ├── errors/            ← Sphalma error factory + extractError
+│   │   ├── schemas/book.ts    ← Kanon schemas (shared client/server)
+│   │   ├── constants.ts       ← Genres list
+│   │   ├── fixtures.ts        ← Sample book data
+│   │   └── types.ts           ← Book, StoredBook, ActionResult types
+│   └── assets/css/main.css    ← Tailwind CSS v4
+└── server/
+    ├── api/books/             ← File-based routes (index.get/post/delete, seed, chaos)
+    └── utils/store.ts         ← In-memory storage (globalThis for HMR)
+```
+
+#### Key differences from Next.js
+
+- File-based API routes (one file per method) instead of a single `route.ts`
+- `$fetch` (ofetch) auto-resolves URLs — no `base-url.ts` needed
+- `useFetch` + `refresh()` instead of React Server Components + `revalidatePath`
+- Vue composables (`ref`, `computed`) instead of React hooks (`useState`, `useMemo`)
+- Auto-imports for Vue APIs, composables, and components
+
+```bash
+cd packages/main/integrations/nuxt
 pnpm install
 pnpm dev        # http://localhost:3000
 pnpm test       # vitest (17 property-based tests)
@@ -136,40 +135,28 @@ pnpm test       # vitest (17 property-based tests)
 
 | Pithos module | Where | Usage |
 |---|---|---|
-| **Bridges** | `src/routes/books.ts`, `src/routes/chaos.ts` | `ensure` for payload validation (bookSchema, chaosSchema) |
-| **Kanon** | `src/lib/schemas.ts` | Schema definition, `.pattern()` for ISBN validation, `chaosSchema` for type-safe chaos payload |
-| **Sphalma** | `src/lib/errors.ts`, `src/lib/error-handler.ts` | `CodedError` thrown in routes, serialized via centralized `app.onError` handler |
-| **Zygos** | `src/routes/books.ts`, `src/routes/chaos.ts` | `Result<T, E>` from `ensure` bridge for validation outcomes |
+| **Bridges** | `src/routes/books.ts`, `src/routes/chaos.ts` | `ensure` for payload validation |
+| **Kanon** | `src/lib/schemas.ts` | Schema definition, `.pattern()` for ISBN, `chaosSchema` |
+| **Sphalma** | `src/lib/errors.ts`, `src/lib/error-handler.ts` | `CodedError` serialized via centralized `app.onError` |
+| **Zygos** | `src/routes/books.ts`, `src/routes/chaos.ts` | `Result<T, E>` from `ensure` bridge |
 
-The app also uses **Arkhe** for data transforms: `titleCase` in `src/routes/books.ts`, `groupBy` and `orderBy` in `src/routes/collection.ts`.
+Also uses **Arkhe**: `titleCase` in routes, `groupBy`/`orderBy` in collection route.
 
 #### Architecture
 
 ```
 hono/src/
-├── index.ts             ← Entry point (starts server on port 3001)
+├── index.ts             ← Entry point (port 3001)
 ├── app.ts               ← Hono app, error handler, route mounting
-├── routes/
-│   ├── books.ts         ← GET / POST / DELETE with Sphalma errors
-│   ├── chaos.ts         ← Toggle simulated failures (Kanon-validated)
-│   ├── collection.ts    ← Grouped collection (groupBy + orderBy)
-│   └── seed.ts          ← Populate store with sample data
-└── lib/
-    ├── schemas.ts       ← Kanon schemas (book, storedBook, chaos)
-    ├── errors.ts        ← Sphalma error factory + codes
-    ├── error-handler.ts ← Centralized app.onError handler
-    ├── store.ts         ← In-memory storage (module-level, no globalThis)
-    └── fixtures.ts      ← Sample book data for seeding
+├── routes/              ← books, chaos, collection, seed
+└── lib/                 ← schemas, errors, error-handler, store, fixtures
 ```
 
 #### Key differences from Next.js
 
-- **Centralized error handling**: Uses Hono's `app.onError` with a declarative code→status mapping instead of try/catch in each route
-- **No globalThis hack**: Module-level state (Hono has no HMR, so no need for the `globalThis as unknown as ...` pattern)
-- **Type-safe chaos validation**: Uses `ensure(chaosSchema, body)` instead of manual `typeof` checks with `as` casts
-- **Server-side collection grouping**: `groupBy` + `orderBy` runs server-side (in Next.js, this is done client-side in a React hook)
-
-#### Commands
+- Centralized `app.onError` with declarative code→status mapping
+- Module-level state (no `globalThis` — Hono has no HMR)
+- Server-side collection grouping (`groupBy` + `orderBy` runs server-side)
 
 ```bash
 cd packages/main/integrations/hono
@@ -183,45 +170,29 @@ pnpm test:api   # starts the server, runs 22 curl checks, stops the server
 
 | Pithos module | Where | Usage |
 |---|---|---|
-| **Bridges** | `src/routes/books.ts`, `src/routes/chaos.ts` | `ensure` for payload validation (bookSchema, chaosSchema) |
-| **Kanon** | `src/lib/schemas.ts` | Schema definition, `.pattern()` for ISBN validation, `chaosSchema` for type-safe chaos payload |
-| **Sphalma** | `src/lib/errors.ts`, `src/lib/error-handler.ts` | `CodedError` thrown in routes, serialized via centralized `try/catch` in the dispatcher |
-| **Zygos** | `src/routes/books.ts`, `src/routes/chaos.ts` | `Result<T, E>` from `ensure` bridge for validation outcomes |
+| **Bridges** | `src/routes/books.ts`, `src/routes/chaos.ts` | `ensure` for payload validation |
+| **Kanon** | `src/lib/schemas.ts` | Schema definition, `.pattern()` for ISBN, `chaosSchema` |
+| **Sphalma** | `src/lib/errors.ts`, `src/lib/error-handler.ts` | `CodedError` serialized via centralized `try/catch` |
+| **Zygos** | `src/routes/books.ts`, `src/routes/chaos.ts` | `Result<T, E>` from `ensure` bridge |
 
-The app also uses **Arkhe** for data transforms: `titleCase` in `src/routes/books.ts`, `groupBy` and `orderBy` in `src/routes/collection.ts`.
+Also uses **Arkhe**: `titleCase` in routes, `groupBy`/`orderBy` in collection route.
 
 #### Architecture
 
 ```
 bun/src/
 ├── index.ts             ← Entry point (Bun.serve on port 3001)
-├── app.ts               ← Declarative routes + CORS/error wrapper + fallback fetch
-├── routes/
-│   ├── books.ts         ← GET / POST / DELETE with Sphalma errors
-│   ├── chaos.ts         ← Toggle simulated failures (Kanon-validated)
-│   ├── collection.ts    ← Grouped collection (groupBy + orderBy)
-│   └── seed.ts          ← Populate store with sample data
-└── lib/
-    ├── schemas.ts       ← Kanon schemas (book, storedBook, chaos)
-    ├── errors.ts        ← Sphalma error factory + codes
-    ├── error-handler.ts ← Centralized error handler (CodedError → Response)
-    ├── store.ts         ← In-memory storage (module-level, no globalThis)
-    └── fixtures.ts      ← Sample book data for seeding
+├── app.ts               ← Declarative routes + CORS/error wrapper
+├── routes/              ← books, chaos, collection, seed
+└── lib/                 ← schemas, errors, error-handler, store, fixtures
 ```
 
 #### Key differences from Hono
 
-- **No framework**: Uses `Bun.serve()` with the native declarative `routes` API (Bun 1.2+) instead of Hono's router. Each route maps HTTP methods to handler functions directly. A `fetch` fallback handles OPTIONS preflight, 405, and 404.
-- **`withCorsAndErrors` HOF**: A higher-order function wraps each handler with CORS headers and error handling, instead of using Hono's built-in `cors()` middleware and `app.onError()` hook.
-- **Direct `Response` construction**: Handlers return `Response.json(data, { status })` and `new Response(null, { status: 204 })` directly instead of using Hono's `c.json()` context.
-- **Zero TypeScript casts**: No `as` assertions in production code (except `as const`). All types flow from Kanon schemas via `Infer<>` and `ensure`.
-- **Same lib modules**: `schemas.ts`, `errors.ts`, `store.ts`, `fixtures.ts` are identical to the Hono demo — only route handlers and the error handler differ.
-
-#### Testing with `bun:test`
-
-Unlike the other server demos (Hono, Express) which use vitest, the Bun integration uses `bun:test` — Bun's native test runner. This keeps the project fully within the Bun ecosystem with zero external test dependencies. `fast-check` is used for property-based testing, wired directly into `bun:test` instead of through `@fast-check/vitest`.
-
-#### Commands
+- No framework — uses `Bun.serve()` with native declarative `routes` API (Bun 1.2+)
+- `withCorsAndErrors` HOF wraps handlers instead of middleware
+- Direct `Response` construction instead of Hono's `c.json()` context
+- Uses `bun:test` instead of vitest — zero external test dependencies
 
 ```bash
 cd packages/main/integrations/bun
@@ -234,42 +205,29 @@ bun test        # bun:test (unit + property-based tests)
 
 | Pithos module | Where | Usage |
 |---|---|---|
-| **Bridges** | `src/routes/books.ts`, `src/routes/chaos.ts` | `ensure` for payload validation (bookSchema, chaosSchema) |
-| **Kanon** | `src/lib/schemas.ts` | Schema definition, `.pattern()` for ISBN validation, `chaosSchema` for type-safe chaos payload |
-| **Sphalma** | `src/lib/errors.ts`, `src/lib/error-handler.ts` | `CodedError` thrown in routes, serialized via centralized ErrorMiddleware |
-| **Zygos** | `src/routes/books.ts`, `src/routes/chaos.ts` | `Result<T, E>` from `ensure` bridge for validation outcomes |
+| **Bridges** | `src/routes/books.ts`, `src/routes/chaos.ts` | `ensure` for payload validation |
+| **Kanon** | `src/lib/schemas.ts` | Schema definition, `.pattern()` for ISBN, `chaosSchema` |
+| **Sphalma** | `src/lib/errors.ts`, `src/lib/error-handler.ts` | `CodedError` serialized via centralized ErrorMiddleware |
+| **Zygos** | `src/routes/books.ts`, `src/routes/chaos.ts` | `Result<T, E>` from `ensure` bridge |
 
-The app also uses **Arkhe** for data transforms: `titleCase` in `src/routes/books.ts`, `groupBy` and `orderBy` in `src/routes/collection.ts`.
+Also uses **Arkhe**: `titleCase` in routes, `groupBy`/`orderBy` in collection route.
 
 #### Architecture
 
 ```
 express/src/
-├── index.ts             ← Entry point (starts server on port 3001)
+├── index.ts             ← Entry point (port 3001)
 ├── app.ts               ← Express app, middleware, route mounting
-├── routes/
-│   ├── books.ts         ← GET / POST / DELETE with Sphalma errors
-│   ├── chaos.ts         ← Toggle simulated failures (Kanon-validated)
-│   ├── collection.ts    ← Grouped collection (groupBy + orderBy)
-│   └── seed.ts          ← Populate store with sample data
-└── lib/
-    ├── schemas.ts       ← Kanon schemas (book, storedBook, chaos)
-    ├── errors.ts        ← Sphalma error factory + codes
-    ├── error-handler.ts ← Centralized ErrorMiddleware (4-argument)
-    ├── store.ts         ← In-memory storage (module-level, no globalThis)
-    └── fixtures.ts      ← Sample book data for seeding
+├── routes/              ← books, chaos, collection, seed
+└── lib/                 ← schemas, errors, error-handler, store, fixtures
 ```
 
 #### Key differences from Hono
 
-- **ErrorMiddleware**: Uses Express's 4-argument `(err, req, res, next)` middleware pattern instead of Hono's `app.onError`
-- **Router()**: Uses Express `Router()` for sub-routers instead of Hono sub-apps
-- **express.json()**: Explicit JSON parsing middleware (Hono parses JSON on demand via `c.req.json()`)
-- **cors npm package**: External `cors` package instead of Hono's built-in `cors()` middleware
-- **supertest**: Uses `supertest` for HTTP testing instead of Hono's `app.request()`
-- **Express 5**: Native async error handling — no `asyncHandler` wrapper needed
-
-#### Commands
+- Express 4-argument `(err, req, res, next)` ErrorMiddleware
+- `express.json()` for explicit JSON parsing
+- `supertest` for HTTP testing
+- Express 5 with native async error handling
 
 ```bash
 cd packages/main/integrations/express
@@ -282,53 +240,28 @@ pnpm test       # vitest (unit + property-based tests)
 
 | Pithos module | Where | Usage |
 |---|---|---|
-| **Bridges** | `components/add-form.tsx`, `hooks/use-book-validation.ts` | `ensure` for form validation (sync, per-field + submit) |
+| **Bridges** | `components/add-form.tsx`, `hooks/use-book-validation.ts` | `ensure` for form validation (per-field + submit) |
 | **Kanon** | `lib/schemas.ts`, `lib/errors.ts` | Schema definition, `.pattern()` for ISBN, `errorBodySchema` for API error parsing |
-| **Sphalma** | `lib/errors.ts` | Typed error codes (duplicate ISBN, not found, storage failure) with user-facing messages |
-| **Zygos** | `lib/api.ts`, `hooks/use-books.ts`, `hooks/use-chaos.ts` | Full `ResultAsync` pipeline: `safeFetch` → `checkResponse` → `ensurePromise` → `.andThen()` / `.map()` / `.mapErr()` |
+| **Sphalma** | `lib/errors.ts` | Typed error codes with user-facing messages |
+| **Zygos** | `lib/api.ts`, `hooks/use-books.ts`, `hooks/use-chaos.ts` | Full `ResultAsync` pipeline: `safeFetch` → `checkResponse` → `ensurePromise` |
 
-The app also uses **Arkhe** for data transforms: `groupBy` and `orderBy` in `hooks/use-grouped-books.ts`, `titleCase` in `components/add-form.tsx`.
+Also uses **Arkhe**: `groupBy`/`orderBy` in `hooks/use-grouped-books.ts`, `titleCase` in `components/add-form.tsx`.
 
 #### Architecture
 
 ```
 preact/src/
 ├── index.tsx            ← Entry point, routing (preact-iso)
-├── components/
-│   ├── add-form.tsx     ← Book form (ensure + postBook ResultAsync)
-│   ├── form-field.tsx   ← Typed field component (no e.target casts)
-│   ├── book-list.tsx    ← Grouped collection display
-│   ├── book-card.tsx    ← Single book card
-│   ├── error-banner.tsx ← Error/success banner
-│   ├── connection-error.tsx ← Backend unreachable state
-│   ├── empty-state.tsx  ← Empty collection + seed button
-│   ├── nav-bar.tsx      ← Navigation + chaos toggle
-│   └── chaos-toggle.tsx ← Chaos mode switch
-├── hooks/
-│   ├── use-books.ts     ← CRUD via ResultAsync (.match/.map/.mapErr)
-│   ├── use-book-validation.ts ← Per-field validation via ensure
-│   ├── use-chaos.ts     ← Chaos toggle via ResultAsync
-│   └── use-grouped-books.ts ← groupBy + orderBy (Arkhe)
-└── lib/
-    ├── api.ts           ← ResultAsync pipeline (safeFetch → checkResponse → ensurePromise)
-    ├── errors.ts        ← Error extraction with ensurePromise + Sphalma codes
-    ├── schemas.ts       ← Kanon schemas (book, storedBook, chaos)
-    └── constants.ts     ← API URL, genres
+├── components/          ← add-form, form-field, book-list, book-card, nav-bar, chaos-toggle, etc.
+├── hooks/               ← use-books, use-book-validation, use-chaos, use-grouped-books
+└── lib/                 ← api (ResultAsync pipeline), errors, schemas, constants
 ```
 
 #### Key differences from Next.js
 
-- **Zero try/catch in application code**: The API layer returns `ResultAsync` end-to-end. Hooks consume results with `.match()`, `.map()`, `.mapErr()` — no throw/catch cycle. The only `try/catch` is in `extractError` for parsing unknown JSON from error responses.
-- **No server actions**: Pure client-side SPA that talks directly to the Hono, Express or Bun backend (port 3001) via `fetch()`.
-- **`ResultAsync` pipeline**: `safeFetch` wraps `fetch` in `ResultAsync.fromPromise`, then chains `checkResponse` → `ensurePromise`. The `Result` flows from API to hook to component without being unwrapped and re-wrapped.
-- **Typed `FormField` component**: Uses `e.currentTarget.value` instead of casting `e.target`. Props typed with `keyof typeof bookFields`.
-- **`ensure` for form validation**: Same pattern as Next.js — raw `FormData` goes through `ensure(bookSchema, data)` instead of manual `FormData.get() as string` casts.
-
-#### Chaos mode
-
-Same as Next.js: click the toggle in the nav bar to simulate backend failures. POST and DELETE return `STORAGE_FAILURE` (HTTP 503). The error propagates through the `ResultAsync` pipeline to the UI without any try/catch.
-
-#### Commands
+- Zero try/catch — API layer returns `ResultAsync` end-to-end, hooks consume with `.match()`/`.map()`/`.mapErr()`
+- Pure client-side SPA talking to Hono/Express/Bun backend (port 3001)
+- `safeFetch` → `checkResponse` → `ensurePromise` pipeline without unwrap/re-wrap
 
 ```bash
 cd packages/main/integrations/preact
@@ -341,12 +274,12 @@ npm test        # vitest (22 property-based tests)
 
 | Pithos module | Where | Usage |
 |---|---|---|
-| **Bridges** | `components/add-form.tsx`, `hooks/use-book-validation.ts` | `ensure` for form validation (sync, per-field + submit) |
+| **Bridges** | `components/add-form.tsx`, `hooks/use-book-validation.ts` | `ensure` for form validation (per-field + submit) |
 | **Kanon** | `lib/schemas.ts`, `lib/errors.ts` | Schema definition, `.pattern()` for ISBN, `errorBodySchema` for API error parsing |
-| **Sphalma** | `lib/errors.ts` | Typed error codes (duplicate ISBN, not found, storage failure) with user-facing messages |
-| **Zygos** | `lib/api.ts`, `hooks/use-books.ts`, `hooks/use-chaos.ts` | Full `ResultAsync` pipeline: `safeFetch` → `checkResponse` → `ensurePromise` → `.andThen()` / `.map()` / `.mapErr()` |
+| **Sphalma** | `lib/errors.ts` | Typed error codes with user-facing messages |
+| **Zygos** | `lib/api.ts`, `hooks/use-books.ts`, `hooks/use-chaos.ts` | Full `ResultAsync` pipeline: `safeFetch` → `checkResponse` → `ensurePromise` |
 
-The app also uses **Arkhe** for data transforms: `groupBy` and `orderBy` in `hooks/use-grouped-books.ts`, `titleCase` in `components/add-form.tsx`.
+Also uses **Arkhe**: `groupBy`/`orderBy` in `hooks/use-grouped-books.ts`, `titleCase` in `components/add-form.tsx`.
 
 #### Architecture
 
@@ -354,46 +287,18 @@ The app also uses **Arkhe** for data transforms: `groupBy` and `orderBy` in `hoo
 react/src/
 ├── App.tsx              ← Root component (NavBar + Routes)
 ├── main.tsx             ← ReactDOM.createRoot entry point
-├── pages/
-│   ├── add-page.tsx     ← Add book page
-│   └── collection-page.tsx ← Collection page (CRUD + seed/clear)
-├── components/
-│   ├── add-form.tsx     ← Book form (ensure + postBook ResultAsync)
-│   ├── form-field.tsx   ← Typed field component
-│   ├── book-list.tsx    ← Grouped collection display
-│   ├── book-card.tsx    ← Single book card
-│   ├── alert-banner.tsx ← Error/success banner
-│   ├── connection-error.tsx ← Backend unreachable state
-│   ├── empty-state.tsx  ← Empty collection + seed button
-│   ├── nav-bar.tsx      ← Navigation + chaos toggle
-│   └── chaos-toggle.tsx ← Chaos mode switch
-├── hooks/
-│   ├── use-books.ts     ← CRUD via ResultAsync (.match/.map/.mapErr)
-│   ├── use-book-validation.ts ← Per-field validation via ensure
-│   ├── use-chaos.ts     ← Chaos toggle via ResultAsync
-│   └── use-grouped-books.ts ← groupBy + orderBy (Arkhe)
-└── lib/
-    ├── api.ts           ← ResultAsync pipeline (safeFetch → checkResponse → ensurePromise)
-    ├── errors.ts        ← Error extraction with ensurePromise + Sphalma codes
-    ├── schemas.ts       ← Kanon schemas (book, storedBook, chaos)
-    └── constants.ts     ← API URL, genres
+├── pages/               ← add-page, collection-page
+├── components/          ← add-form, form-field, book-list, book-card, nav-bar, chaos-toggle, etc.
+├── hooks/               ← use-books, use-book-validation, use-chaos, use-grouped-books
+└── lib/                 ← api (ResultAsync pipeline), errors, schemas, constants
 ```
 
 #### Key differences from Preact
 
-- **`react-router` instead of `preact-iso`**: Uses React Router's `<Routes>` / `<Route>` / `<Link>` instead of Preact ISO's `<Router>` / `<Route>` / `<a>`.
-- **`className` / `htmlFor` / `onChange`**: Standard React DOM attribute names instead of Preact's `class` / `for` / `onInput`.
-- **`ReactDOM.createRoot`**: React 18+ entry point instead of Preact's `render()`.
-- **`@vitejs/plugin-react`**: Vite plugin instead of `@preact/preset-vite`.
-- **Barrel import `@pithos/core/kanon`**: Uses the barrel for a more compact DX. In the React ecosystem where the runtime already weighs hundreds of kilobytes, the few extra kilobytes from barrel wrappers are noise.
-- **`pages/` directory**: `AddPage` and `CollectionPage` are extracted into `src/pages/` instead of being inline in the root component.
-- **`AlertBanner` instead of `ErrorBanner`**: Renamed for semantic accuracy since the component handles both error and success variants.
-
-#### Chaos mode
-
-Same as Preact: click the toggle in the nav bar to simulate backend failures. POST and DELETE return `STORAGE_FAILURE` (HTTP 503). The error propagates through the `ResultAsync` pipeline to the UI without any try/catch.
-
-#### Commands
+- `react-router` instead of `preact-iso`
+- `className`/`htmlFor`/`onChange` (standard React DOM attributes)
+- Barrel import `@pithos/core/kanon` (React's runtime is heavy enough that barrel overhead is noise)
+- Pages extracted into `src/pages/`
 
 ```bash
 cd packages/main/integrations/react
@@ -406,13 +311,13 @@ pnpm test       # vitest (20 property-based tests)
 
 | Pithos module | Where | Usage |
 |---|---|---|
-| **Bridges** | `routes/add/+page.server.ts`, `routes/add/+page.svelte` | `ensure` for server-side validation + client-side per-field validation (onblur) |
-| **Kanon** | `lib/schemas/book.ts` | Schema definition, `.pattern()` for ISBN validation, `bookFields` for per-field client validation |
-| **Zygos** | `routes/add/+page.server.ts`, `routes/api/books/+server.ts` | `Result<T, E>` from `ensure` bridge for validation outcomes |
+| **Bridges** | `routes/add/+page.server.ts`, `routes/add/+page.svelte` | `ensure` for server-side + client-side per-field validation |
+| **Kanon** | `lib/schemas/book.ts` | Schema definition, `.pattern()` for ISBN, `bookFields` for per-field validation |
+| **Zygos** | `routes/add/+page.server.ts`, `routes/api/books/+server.ts` | `Result<T, E>` from `ensure` bridge |
 
-The app also uses **Arkhe** for data transforms: `titleCase` in `routes/add/+page.server.ts` and `routes/api/books/+server.ts`, `groupBy` and `orderBy` in `routes/collection/+page.server.ts`.
+Also uses **Arkhe**: `titleCase` in server files, `groupBy`/`orderBy` in `routes/collection/+page.server.ts`.
 
-> **Why no Sphalma?** SvelteKit provides native `fail()` (form actions) and `error()` (API routes) for structured error handling with HTTP status codes. Pithos fills gaps — it doesn't replace what already exists.
+> **Why no Sphalma?** SvelteKit's `fail()` and `error()` handle structured errors natively. Pithos fills gaps — it doesn't replace what already exists.
 
 #### Architecture
 
@@ -420,39 +325,19 @@ The app also uses **Arkhe** for data transforms: `titleCase` in `routes/add/+pag
 sveltekit/src/
 ├── routes/
 │   ├── +layout.svelte         ← Nav bar + chaos toggle
-│   ├── +page.server.ts        ← Root redirect → /collection
-│   ├── add/
-│   │   ├── +page.server.ts    ← Form action (ensure + titleCase + store)
-│   │   └── +page.svelte       ← Add form with per-field validation (onblur/oninput)
-│   ├── collection/
-│   │   ├── +page.server.ts    ← Load (groupBy + orderBy) + seed/clear/remove actions
-│   │   └── +page.svelte       ← Grouped collection + empty state
-│   └── api/books/
-│       ├── +server.ts         ← GET / POST / DELETE
-│       ├── chaos/+server.ts   ← Toggle simulated failures
-│       └── seed/+server.ts    ← Populate store with sample data
-└── lib/
-    ├── schemas/book.ts        ← Kanon schemas (bookSchema + bookFields)
-    ├── server/store.ts        ← In-memory storage (module-level)
-    ├── styles/variables.css   ← CSS custom properties (design tokens)
-    ├── constants.ts           ← Genres list
-    ├── fixtures.ts            ← Sample book data for seeding
-    └── types.ts               ← StoredBook, AddBookState types
+│   ├── add/                   ← Form action (ensure + titleCase) + add form
+│   ├── collection/            ← Load (groupBy + orderBy) + seed/clear/remove actions
+│   └── api/books/             ← GET / POST / DELETE, chaos, seed
+└── lib/                       ← schemas, server/store, styles, constants, fixtures, types
 ```
 
 #### Key differences from Next.js
 
-- **Form actions instead of Server Actions**: SvelteKit uses `export const actions` with `use:enhance` for progressive enhancement. No `"use server"` directive.
-- **No Sphalma**: SvelteKit's `fail()` and `error()` handle structured errors natively with HTTP status codes.
-- **Scoped CSS with design tokens**: CSS custom properties in `variables.css` instead of Tailwind. Styles are scoped per component via Svelte's `<style>` blocks.
-- **Svelte 5 runes**: Uses `$state`, `$props` instead of React's `useState`, `useActionState`.
-- **Server-side collection grouping**: `groupBy` + `orderBy` runs in `+page.server.ts` load function (in Next.js, this is done client-side in a React hook).
-
-#### Chaos mode
-
-Same as Next.js: click the toggle in the nav bar to simulate backend failures. When enabled, form actions and POST/DELETE API routes return 503. GET is excluded so the collection page always renders.
-
-#### Commands
+- Form actions (`export const actions` + `use:enhance`) instead of Server Actions
+- No Sphalma — `fail()` and `error()` handle structured errors natively
+- Scoped CSS with design tokens instead of Tailwind
+- Svelte 5 runes (`$state`, `$props`) instead of React hooks
+- Server-side collection grouping in `+page.server.ts` load function
 
 ```bash
 cd packages/main/integrations/sveltekit
@@ -465,66 +350,37 @@ pnpm test       # vitest (13 property-based tests)
 
 | Pithos module | Where | Usage |
 |---|---|---|
-| **Bridges** | `services/api-client.service.ts`, `components/add-form.ts` | `ensure` for form validation (per-field on blur + submit), `ensurePromise` for API response validation |
-| **Kanon** | `lib/schemas.ts` | Schema definition, `.pattern()` for ISBN validation, `bookFields` for per-field client validation |
-| **Sphalma** | `lib/errors.ts` | Typed error codes (duplicate ISBN, not found, storage failure) with user-facing messages |
-| **Zygos** | `services/api-client.service.ts`, `services/book.service.ts`, `services/chaos.service.ts` | Full `ResultAsync` pipeline: `HttpClient` → `firstValueFrom` → `ResultAsync.fromPromise` → `ensurePromise` → `.match()` / `.map()` / `.mapErr()` |
+| **Bridges** | `services/api-client.service.ts`, `components/add-form.ts` | `ensure` for form validation, `ensurePromise` for API response validation |
+| **Kanon** | `lib/schemas.ts` | Schema definition, `.pattern()` for ISBN, `bookFields` for per-field validation |
+| **Sphalma** | `lib/errors.ts` | Typed error codes with user-facing messages |
+| **Zygos** | `services/api-client.service.ts`, `services/book.service.ts`, `services/chaos.service.ts` | Full `ResultAsync` pipeline: `HttpClient` → `firstValueFrom` → `ResultAsync.fromPromise` → `ensurePromise` |
 
-The app also uses **Arkhe** for data transforms: `groupBy` and `orderBy` in `components/book-list.ts`, `titleCase` in `components/add-form.ts`.
+Also uses **Arkhe**: `groupBy`/`orderBy` in `components/book-list.ts`, `titleCase` in `components/add-form.ts`.
 
 #### Architecture
 
 ```
 angular/src/
-├── main.ts                          ← Standalone bootstrap (no NgModule)
-├── styles.scss                      ← Global reset + variables import
-├── styles/variables.css             ← CSS custom properties (design tokens)
+├── main.ts                    ← Standalone bootstrap (no NgModule)
+├── styles/variables.css       ← CSS custom properties (design tokens)
 ├── app/
-│   ├── app.ts                       ← Root component (NavBar + RouterOutlet)
-│   ├── app.config.ts                ← provideRouter + provideHttpClient
-│   ├── app.routes.ts                ← Lazy-loaded routes: /add, /collection, / → redirect
-│   ├── components/
-│   │   ├── add-form.ts + .html + .scss
-│   │   ├── book-card.ts + .html + .scss
-│   │   ├── book-list.ts + .html + .scss
-│   │   ├── chaos-toggle.ts + .html + .scss
-│   │   ├── connection-error.ts + .html + .scss
-│   │   ├── empty-state.ts + .html + .scss
-│   │   ├── error-banner.ts + .html + .scss
-│   │   ├── form-field.ts + .html + .scss
-│   │   └── nav-bar.ts + .html + .scss
-│   ├── services/
-│   │   ├── api-client.service.ts    ← HttpClient → firstValueFrom → ResultAsync → ensurePromise
-│   │   ├── book.service.ts          ← CRUD via signals + ResultAsync
-│   │   └── chaos.service.ts         ← Chaos state via signals + ResultAsync
-│   └── lib/
-│       ├── constants.ts             ← GENRES, API_URL
-│       ├── errors.ts                ← extractErrorFromBody (sync), USER_MESSAGES, Sphalma codes
-│       └── schemas.ts               ← Kanon schemas (bookSchema, storedBookSchema, etc.)
-└── __tests__/
-    ├── schemas.test.ts              ← PBT: field validation, ISBN, addedAt
-    ├── api.test.ts                  ← PBT: round-trip ensurePromise
-    ├── errors.test.ts               ← PBT: error extraction
-    ├── collection.test.ts           ← PBT: groupBy + orderBy
-    └── title-case.test.ts           ← PBT: idempotence + capitalization
+│   ├── app.ts                 ← Root component (NavBar + RouterOutlet)
+│   ├── app.config.ts          ← provideRouter + provideHttpClient
+│   ├── app.routes.ts          ← Lazy-loaded routes
+│   ├── components/            ← add-form, book-list, book-card, form-field, nav-bar, etc.
+│   ├── services/              ← api-client, book, chaos (signals + ResultAsync)
+│   └── lib/                   ← constants, errors, schemas
+└── __tests__/                 ← PBT: schemas, api, errors, collection, title-case
 ```
 
 #### Key differences from Preact
 
-- **Services instead of hooks**: Angular services are injectable singletons that persist across navigations. Preact hooks are tied to component lifecycle. `BookService` and `ChaosService` hold state in signals and expose readonly accessors — the Angular equivalent of `useBooks()` and `useChaos()`.
-- **Signals instead of `useState`/`useEffect`**: Angular 21 signals (`signal()`, `computed()`) replace React-style state hooks. Signals are synchronous, fine-grained, and don't require dependency arrays.
-- **`HttpClient` instead of `fetch`**: Pithos fills gaps — it doesn't replace what already exists. Just like SvelteKit skips Sphalma because `fail()` and `error()` already fill that role, Angular has `HttpClient` as its standard HTTP idiom. `HttpClient` is converted to `ResultAsync` via `firstValueFrom()` + `ResultAsync.fromPromise()` — the Pithos validation pipeline stays intact.
-- **Synchronous `extractErrorFromBody`**: Preact's `extractError(res: Response)` is async because it calls `res.json()`. Angular's `HttpClient` parses JSON automatically — the error body is available in `HttpErrorResponse.error`. So `extractErrorFromBody` is synchronous with zero try/catch.
-- **Zero try/catch in application code**: The Preact demo has one try/catch in `extractError` for parsing unknown JSON. The Angular demo has none — `HttpClient` handles JSON parsing, and the entire error flow is synchronous.
-- **Reactive Forms**: Uses `FormGroup`/`FormControl` with programmatic validation via `ensure(bookFields[name], value)` on blur, instead of raw `FormData` manipulation.
-- **`inject()` instead of constructor injection**: Modern Angular pattern that simplifies code and enables injection in functions.
-- **Scoped SCSS with design tokens**: CSS custom properties in `variables.css` (same tokens as SvelteKit) with per-component `.scss` files, instead of Tailwind utility classes.
-
-#### Chaos mode
-
-Same as Preact: click the toggle in the nav bar to simulate backend failures. POST and DELETE return `STORAGE_FAILURE` (HTTP 503). The error propagates through the `ResultAsync` pipeline to the UI without any try/catch.
-
-#### Commands
+- Injectable services (`BookService`, `ChaosService`) instead of hooks — singletons that persist across navigations
+- Angular signals (`signal()`, `computed()`) instead of `useState`/`useEffect`
+- `HttpClient` → `firstValueFrom` → `ResultAsync` (Pithos fills gaps, doesn't replace `HttpClient`)
+- Synchronous `extractErrorFromBody` — `HttpClient` parses JSON automatically, zero try/catch
+- Reactive Forms (`FormGroup`/`FormControl`) with `ensure` on blur
+- Scoped SCSS with design tokens instead of Tailwind
 
 ```bash
 cd packages/main/integrations/angular
@@ -546,7 +402,7 @@ The only runtime dependency beyond the framework itself is `@pithos/core`.
 
 ## Adding a new demo
 
-1. Create a new directory under `integrations/` (e.g. `nuxt/`)
+1. Create a new directory under `integrations/`
 2. Scaffold the framework's starter project
 3. Implement the Book Collection Manager using the same Pithos modules
 4. Update the tables and sections above

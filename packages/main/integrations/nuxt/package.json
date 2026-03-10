@@ -1,0 +1,28 @@
+{
+  "name": "nuxt-integration",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "start": "nuxt preview",
+    "test": "vitest --run --root ."
+  },
+  "dependencies": {
+    "@pithos/core": "2.2.2",
+    "nuxt": "^3.17.5",
+    "vue": "^3.5.16"
+  },
+  "devDependencies": {
+    "@fast-check/vitest": "^0.3.0",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@vitejs/plugin-vue": "^6.0.4",
+    "@vue/test-utils": "^2.4.6",
+    "fast-check": "^4.5.2",
+    "jsdom": "^26.1.0",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^3.2.3"
+  }
+}
