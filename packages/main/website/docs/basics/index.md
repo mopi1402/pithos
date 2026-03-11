@@ -50,6 +50,15 @@ Everything you need to understand before building with Pithos.
     </Link>
   </div>
   <div className="col col--6" style={{marginBottom: '1rem'}}>
+    <Link className="card padding--md basics-card" to="/guide/basics/integrations/">
+      <span className="basics-card__emoji">🔌</span>
+      <div className="basics-card__text">
+        <strong>Integrations</strong>
+        <span>React, Angular, Next.js, SvelteKit, Express, Hono, Bun and more</span>
+      </div>
+    </Link>
+  </div>
+  <div className="col col--6" style={{marginBottom: '1rem'}}>
     <Link className="card padding--md basics-card" to="/guide/basics/best-practices/">
       <span className="basics-card__emoji">✅</span>
       <div className="basics-card__text">

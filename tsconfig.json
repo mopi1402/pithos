@@ -6,11 +6,7 @@
   },
   "include": [
     "packages/pithos/src/**/*",
-    "**/*.test.ts",
-    "**/*.bench.ts",
-    "packages/kanon/benchmarks/**/*.ts",
-    "packages/main/website/scripts/**/*.ts",
-    "**/vitest.config.ts",
+    "packages/pithos/test/**/*",
     "vitest.setup.ts"
   ],
   "exclude": [
@@ -18,6 +14,7 @@
     "dist",
     "tmp",
     "packages/tmp",
+    "packages/main/integrations",
     ".stryker-tmp",
     ".stryker-tmp-manual",
     "vendor"

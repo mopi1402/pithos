@@ -116,7 +116,15 @@
   "pnpm": {
     "overrides": {
       "sharp": "^0.34.5"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "core-js",
+      "core-js-pure",
+      "esbuild",
+      "protobufjs",
+      "sharp"
+    ]
   },
   "engines": {
     "node": ">=20.0.0"

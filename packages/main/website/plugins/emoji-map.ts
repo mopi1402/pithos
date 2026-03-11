@@ -58,4 +58,5 @@ export const EMOJI_MAP: Record<string, { src: string; id: string }> = {
   "🥉" : { src: "/img/emoji/medal-bronze.webp", id: "third"}, 
   "⛵️" : { src: "/img/emoji/ship.webp", id: "migration"},
   "🪢" : { src: "/img/emoji/node.webp", id: "node"},
+  "🔌" : { src: "/img/emoji/plug.webp", id: "plug"},
 };

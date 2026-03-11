@@ -5,16 +5,14 @@ packages:
   # All packages in subdirectories (e.g., packages/main/*, packages/kanon/*, etc.)
   - "packages/*/*"
 
-  # Integration demos (3 levels deep)
-  - "packages/main/integrations/*"
-  - "!packages/main/integrations/nextjs"
-
   # Examples in pithos
   - "packages/pithos/examples/*"
 
   # Exclude tmp directory
   - "!packages/tmp/**"
-  # Optionally include examples if they become packages
-  # - 'examples/*'
+
+  # Integration demos are standalone projects (they use @pithos/core from npm)
+  - "!packages/main/integrations/*"
+
 onlyBuiltDependencies:
   - esbuild

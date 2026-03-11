@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2026-03-11
+
+### Fixed
+
+- **Tooling** — Scoped `check:types`, `test` and `coverage` to `packages/pithos` only
+- **Tooling** — Integration demos are now standalone projects, excluded from the workspace
+
+### Added
+
+- **Integrations** — 9 framework integration demos (frontend, fullstack, backend)
+- **Documentation** — New Integrations page (EN + FR)
+
+---
+
 ## [2.2.2] - 2026-03-08
 
 ### Fixed
