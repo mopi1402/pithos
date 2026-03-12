@@ -1,6 +1,7 @@
 import type { Config } from "@docusaurus/types";
 import type * as Preset from "@docusaurus/preset-classic";
 import remarkCustomEmoji from "./plugins/remark-custom-emoji";
+import pluginCanonicalFix from "./plugins/canonical-fix";
 import pithosPackageJson from "../../pithos/package.json";
 import { REPO_URL } from "./src/constants/repo";
 
@@ -195,6 +196,7 @@ const config: Config = {
   ],
 
   plugins: [
+    pluginCanonicalFix,
     [
       "@docusaurus/plugin-content-docs",
       {

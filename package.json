@@ -93,6 +93,7 @@
     "seo:lighthouse": "bash scripts/ensure-website-build.sh && bash scripts/run-lighthouse.sh && pnpm exec tsx scripts/generate-lighthouse-index.ts",
     "seo:test": "vitest run packages/main/website/test --dir packages/main/website",
     "seo:validate": "pnpm exec tsx packages/main/website/scripts/seo-validate.ts",
+    "seo:canonicals": "pnpm exec tsx packages/main/website/scripts/verify-canonicals.ts",
     "a11y:lint": "pnpm eslint 'packages/main/website/src/**/*.tsx' 2>&1 | grep 'jsx-a11y' || echo 'No accessibility issues found'",
     "doc:deploy:preview": "pnpm doc:build && pnpm exec tsx scripts/vercel-deploy.ts",
     "doc:deploy:prod": "read -p '⚠️  Deploy to pithos.dev? (y/N) ' confirm && if [ \"$confirm\" = 'y' ] || [ \"$confirm\" = 'yes' ]; then pnpm doc:build && pnpm exec tsx scripts/vercel-deploy.ts --prod; else echo 'Deploy cancelled.'; fi",

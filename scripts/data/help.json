@@ -346,6 +346,19 @@
         }
       ]
     },
+    "seo:canonicals": {
+      "description": "Verify canonical URLs in FR build (untranslated pages → EN canonical)",
+      "category": "Documentation",
+      "order": 103,
+      "flags": [
+        {
+          "type": "checkbox",
+          "name": "verbose",
+          "description": "Show every URL",
+          "args": ["--verbose"]
+        }
+      ]
+    },
     "a11y:lint": {
       "description": "Lint website JSX for accessibility issues (jsx-a11y)",
       "category": "Documentation",
