@@ -14,5 +14,11 @@ packages:
   # Integration demos are standalone projects (they use @pithos/core from npm)
   - "!packages/main/integrations/*"
 
+  # Landscape website is a standalone project
+  - "!packages/main/landscape-website"
+
+  # Bundle analyzer is a standalone project
+  - "!packages/main/pithos-bundle-analyzer"
+
 onlyBuiltDependencies:
   - esbuild

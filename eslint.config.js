@@ -57,23 +57,6 @@ export default tseslint.config(
         },
     },
 
-    // Override for pithos-bundle-analyzer
-    {
-        files: [
-            'packages/main/pithos-bundle-analyzer/src/**/*.ts',
-            'packages/main/pithos-bundle-analyzer/src/**/*.tsx',
-            'packages/main/pithos-bundle-analyzer/vite.config.ts',
-        ],
-        languageOptions: {
-            parserOptions: {
-                project: path.resolve(
-                    __dirname,
-                    'packages/main/pithos-bundle-analyzer/tsconfig.json'
-                ),
-            },
-        },
-    },
-
     // Override for website
     {
         files: [
@@ -196,6 +179,8 @@ export default tseslint.config(
             'packages/main/documentation/use-cases-data/**',
             'packages/main/integrations/sveltekit/.svelte-kit/**',
             'packages/main/integrations/sveltekit/vite.config.ts',
+            'packages/main/landscape-website/**',
+            'packages/main/pithos-bundle-analyzer/**',
         ],
     }
 );
