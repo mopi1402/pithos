@@ -61,6 +61,14 @@ export const primitiveTypesCombinedRealWorldUsage: () => {
       },
     },
     {
+      name: "Effect",
+      fn: () => {
+        schemas.effect.either.string(poolHelpers.getString());
+        schemas.effect.either.number(poolHelpers.getNumber());
+        schemas.effect.either.boolean(poolHelpers.getBoolean());
+      },
+    },
+    {
       name: "Superstruct",
       fn: () => {
         s.is(poolHelpers.getString(), schemas.superstruct.string);

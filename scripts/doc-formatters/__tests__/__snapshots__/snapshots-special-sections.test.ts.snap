@@ -375,7 +375,7 @@ const normalized = mapKeys(apiResponse, (_, key) => camelCase(key));
 exports[`Special sections > debounce (how it works, mermaid, use cases) 1`] = `
 "# debounce()
 
-> **debounce**\\<\`Args\`, \`Context\`\\>(\`func\`, \`wait\`, \`immediate\`): (\`this\`, ...\`args\`) => \`void\` & \`object\`
+> **debounce**\\<\`Args\`, \`Context\`\\>(\`func\`, \`wait\`, \`immediate?\`): (\`this\`, ...\`args\`) => \`void\` & \`object\`
 
 Creates a debounced function that delays execution until after a wait period.
 
@@ -404,7 +404,7 @@ The function to debounce.
 
 The number of milliseconds to delay.
 
-### immediate: \`boolean = false\`
+### immediate?: \`boolean = false\`
 
 If \`true\`, trigger on leading edge instead of trailing edge.
 
@@ -3299,7 +3299,7 @@ The return type of the function.
 exports[`Special sections > parallel (@defaultValue) 1`] = `
 "# parallel()
 
-> **parallel**\\<\`T\`\\>(\`functions\`, \`concurrency\`): \`Promise\`\\<\`T\`[]\\>
+> **parallel**\\<\`T\`\\>(\`functions\`, \`concurrency?\`): \`Promise\`\\<\`T\`[]\\>
 
 Executes multiple async functions in parallel with concurrency control.
 
@@ -3326,7 +3326,7 @@ The return type of the functions.
 
 Array of async functions to execute.
 
-### concurrency: \`number = Infinity\`
+### concurrency?: \`number = Infinity\`
 
 Maximum number of concurrent executions. Defaults to \`Infinity\`.
 
@@ -4225,7 +4225,7 @@ const preloadAll = async () => {
 exports[`Special sections > retry (merged interface) 1`] = `
 "# retry()
 
-> **retry**\\<\`T\`\\>(\`fn\`, \`options\`): \`Promise\`\\<\`T\`\\>
+> **retry**\\<\`T\`\\>(\`fn\`, \`options?\`): \`Promise\`\\<\`T\`\\>
 
 Retries an async function with configurable backoff and error filtering.
 
@@ -4252,7 +4252,7 @@ The return type of the function.
 
 The async function to retry.
 
-### options: <TypeRef>[RetryOptions](#retryoptions) = &#123;&#125;</TypeRef>
+### options?: <TypeRef>[RetryOptions](#retryoptions) = &#123;&#125;</TypeRef>
 
 Retry configuration options.
 
@@ -5195,7 +5195,7 @@ Function to determine if error should trigger retry. Return \`false\` to abort.
 exports[`Special sections > truncate (merged interface) 1`] = `
 "# truncate()
 
-> **truncate**(\`str\`, \`options\`): \`string\`
+> **truncate**(\`str\`, \`options?\`): \`string\`
 
 Truncates string if it's longer than the given maximum length.
 
@@ -5208,7 +5208,7 @@ Truncates string if it's longer than the given maximum length.
 
 The string to truncate.
 
-### options: <TypeRef>[TruncateOptions](#truncateoptions) = &#123;&#125;</TypeRef>
+### options?: <TypeRef>[TruncateOptions](#truncateoptions) = &#123;&#125;</TypeRef>
 
 The options object.
 

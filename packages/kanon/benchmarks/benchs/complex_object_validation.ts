@@ -56,5 +56,10 @@ export const complexObjectValidation: () => {
       name: "AJV",
       fn: () => schemas.ajv.complexObject(poolHelpers.getComplexObject()),
     },
+    {
+      name: "Effect",
+      fn: () =>
+        schemas.effect.either.complexObject(poolHelpers.getComplexObject()),
+    },
   ];
 };

@@ -1764,7 +1764,7 @@ const value = parseFloatDef("", 0.0); // Returns 0.0
 exports[`See / Links > parseIntDef (parsers, @see) 1`] = `
 "# parseIntDef()
 
-> **parseIntDef**(\`value\`, \`defaultValue\`, \`radix?\`): \`number\` \\| \`null\`
+> **parseIntDef**(\`value\`, \`defaultValue?\`, \`radix?\`): \`number\` \\| \`null\`
 
 Parses a string to an integer with a fallback default value.
 
@@ -1783,7 +1783,7 @@ Returns default for null, undefined, empty strings, and NaN results.
 
 The string value to parse (can be nullish or empty).
 
-### defaultValue: <TypeRef>[Nullish](../../types/common/Nullish.md)&lt;number&gt; = null</TypeRef>
+### defaultValue?: <TypeRef>[Nullish](../../types/common/Nullish.md)&lt;number&gt; = null</TypeRef>
 
 The value to return if parsing fails.
 

@@ -3,6 +3,7 @@ import { parse as parseV3 } from "@kanon/core/parser.js";
 import * as poolHelpers from "../helpers/pool_helpers";
 import { LibName } from "../dataset/config";
 import { schemas } from "../dataset/schemas";
+import { Schema as S } from "effect";
 
 export const v3NewTypesSimpleTests: () => {
   name: LibName;
@@ -52,6 +53,17 @@ export const v3NewTypesSimpleTests: () => {
         return true;
       },
     },
+
+    {
+      name: "Effect",
+      fn: () => {
+        S.decodeUnknownEither(S.Null)(poolHelpers.getNull());
+        S.decodeUnknownEither(S.Undefined)(poolHelpers.getUndefined());
+        S.decodeUnknownEither(S.Any)(poolHelpers.getAny());
+        S.decodeUnknownEither(S.Unknown)(poolHelpers.getUnknown());
+        return true;
+      },
+    },
   ];
 };
 
@@ -92,6 +104,15 @@ export const v3NewTypesConstrainedTests: () => {
       fn: () => {
         schemas.fastestValidator.date(poolHelpers.getDate());
         schemas.fastestValidator.bigint(poolHelpers.getBigInt());
+        return true;
+      },
+    },
+
+    {
+      name: "Effect",
+      fn: () => {
+        S.decodeUnknownEither(S.DateFromSelf)(poolHelpers.getDate());
+        S.decodeUnknownEither(S.BigIntFromSelf)(poolHelpers.getBigInt());
         return true;
       },
     },

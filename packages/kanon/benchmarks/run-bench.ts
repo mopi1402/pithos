@@ -142,6 +142,7 @@ function extractLibraryName(testName: string): string {
   if (testName.includes("@kanon/JIT")) return "@kanon/JIT";
   if (testName.includes("Zod")) return "Zod";
   if (testName.includes("Valibot")) return "Valibot";
+  if (testName.includes("Effect")) return "Effect";
   return testName.split(" - ")[0] || testName;
 }
 
@@ -241,6 +242,7 @@ async function getPackageVersions(): Promise<Record<string, string>> {
     "fastest-validator": "fastest-validator",
     "@sinclair/typebox": "@sinclair/typebox",
     "ajv": "ajv",
+    "effect": "effect",
   };
 
   const versions: Record<string, string> = {};
@@ -869,7 +871,7 @@ async function runBenchmark() {
             const report = await generateReport(finalResults, benchmarkType);
             const reportPath = path.resolve(
               process.cwd(),
-              `packages/main/website/src/data/kanon-benchmark-${benchmarkType}.json`
+              `packages/main/website/src/data/benchmarks/kanon-benchmark-${benchmarkType}.json`
             );
             await fs.writeFile(reportPath, JSON.stringify(report, null, 2));
             console.log(

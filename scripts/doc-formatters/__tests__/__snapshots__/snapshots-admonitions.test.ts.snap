@@ -2323,7 +2323,7 @@ Sort order type for orderBy function.
 exports[`Admonitions — @info, @note, @deprecated > retry (@info, @throws, merged interface) 1`] = `
 "# retry()
 
-> **retry**\\<\`T\`\\>(\`fn\`, \`options\`): \`Promise\`\\<\`T\`\\>
+> **retry**\\<\`T\`\\>(\`fn\`, \`options?\`): \`Promise\`\\<\`T\`\\>
 
 Retries an async function with configurable backoff and error filtering.
 
@@ -2350,7 +2350,7 @@ The return type of the function.
 
 The async function to retry.
 
-### options: <TypeRef>[RetryOptions](#retryoptions) = &#123;&#125;</TypeRef>
+### options?: <TypeRef>[RetryOptions](#retryoptions) = &#123;&#125;</TypeRef>
 
 Retry configuration options.
 
@@ -4789,7 +4789,7 @@ renderRows(virtualChunks[visibleChunkIndex]);
 exports[`Admonitions — @throws > debounce (@throws) 1`] = `
 "# debounce()
 
-> **debounce**\\<\`Args\`, \`Context\`\\>(\`func\`, \`wait\`, \`immediate\`): (\`this\`, ...\`args\`) => \`void\` & \`object\`
+> **debounce**\\<\`Args\`, \`Context\`\\>(\`func\`, \`wait\`, \`immediate?\`): (\`this\`, ...\`args\`) => \`void\` & \`object\`
 
 Creates a debounced function that delays execution until after a wait period.
 
@@ -4818,7 +4818,7 @@ The function to debounce.
 
 The number of milliseconds to delay.
 
-### immediate: \`boolean = false\`
+### immediate?: \`boolean = false\`
 
 If \`true\`, trigger on leading edge instead of trailing edge.
 
@@ -6011,7 +6011,7 @@ window.addEventListener("resize", checkOverflow);
 exports[`Admonitions — @throws > parallel (@throws, @note, @defaultValue) 1`] = `
 "# parallel()
 
-> **parallel**\\<\`T\`\\>(\`functions\`, \`concurrency\`): \`Promise\`\\<\`T\`[]\\>
+> **parallel**\\<\`T\`\\>(\`functions\`, \`concurrency?\`): \`Promise\`\\<\`T\`[]\\>
 
 Executes multiple async functions in parallel with concurrency control.
 
@@ -6038,7 +6038,7 @@ The return type of the functions.
 
 Array of async functions to execute.
 
-### concurrency: \`number = Infinity\`
+### concurrency?: \`number = Infinity\`
 
 Maximum number of concurrent executions. Defaults to \`Infinity\`.
 

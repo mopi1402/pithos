@@ -12,6 +12,7 @@ import { LibName } from "../dataset/config";
 import * as poolHelpers from "../helpers/pool_helpers";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
+import { Schema as S } from "effect";
 
 const ajv = new Ajv();
 addFormats(ajv);
@@ -73,6 +74,16 @@ const typeboxUserSchema = Type.Object({
   terms: Type.Boolean(),
 });
 
+const effectUserSchema = S.Struct({
+  name: S.String.pipe(S.minLength(2), S.maxLength(50)),
+  email: S.String.pipe(S.pattern(/^[^@]+@[^@]+\.[^@]+$/)),
+  age: S.Number.pipe(S.greaterThanOrEqualTo(18), S.lessThanOrEqualTo(120)),
+  password: S.String.pipe(S.minLength(8)),
+  terms: S.Boolean,
+});
+
+const effectUserParse = S.decodeUnknownEither(effectUserSchema);
+
 export const objectsWithConstraintsUserRegistration: () => {
   name: LibName;
   fn: () => void;
@@ -118,6 +129,12 @@ export const objectsWithConstraintsUserRegistration: () => {
       name: "AJV",
       fn: () => {
         return ajvUserSchema(poolHelpers.getUserRegistration());
+      },
+    },
+    {
+      name: "Effect",
+      fn: () => {
+        return effectUserParse(poolHelpers.getUserRegistration());
       },
     },
   ];

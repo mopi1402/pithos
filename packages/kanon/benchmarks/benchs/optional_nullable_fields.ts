@@ -11,6 +11,7 @@ import { nullable as nullableV3 } from "@kanon/schemas/wrappers/nullable";
 import { nullish as nullishV3 } from "@kanon/schemas/wrappers/nullish";
 import { compile as compileJIT } from "@kanon/jit/compiler";
 import { LibName, POOL_SIZE } from "../dataset/config";
+import { Schema as S } from "effect";
 
 const optionalObjectPool = Array.from({ length: POOL_SIZE }, (_, i) => {
   const hasMiddleName = i % 3 === 0;
@@ -86,6 +87,15 @@ export const optionalFieldsTests: () => {
     bio: s.optional(s.string()),
   });
 
+  const effectOptionalParse = S.decodeUnknownEither(S.Struct({
+    firstName: S.String,
+    lastName: S.String,
+    middleName: S.optional(S.String),
+    nickname: S.optional(S.String),
+    age: S.Number,
+    bio: S.optional(S.String),
+  }));
+
   return [
     {
       name: "@kanon/V3.0",
@@ -106,6 +116,10 @@ export const optionalFieldsTests: () => {
     {
       name: "Superstruct",
       fn: () => s.is(getOptionalObject(), superstructSchema),
+    },
+    {
+      name: "Effect",
+      fn: () => effectOptionalParse(getOptionalObject()),
     },
   ];
 };
@@ -155,6 +169,14 @@ export const nullableFieldsTests: () => {
     ),
   });
 
+  const effectNullableParse = S.decodeUnknownEither(S.Struct({
+    id: S.Number,
+    name: S.String,
+    deletedAt: S.NullOr(S.DateFromSelf),
+    parentId: S.NullOr(S.Number),
+    metadata: S.NullOr(S.Struct({ key: S.String })),
+  }));
+
   return [
     {
       name: "@kanon/V3.0",
@@ -171,6 +193,10 @@ export const nullableFieldsTests: () => {
     {
       name: "Valibot",
       fn: () => v.safeParse(valibotSchema, getNullableObject()),
+    },
+    {
+      name: "Effect",
+      fn: () => effectNullableParse(getNullableObject()),
     },
   ];
 };
@@ -214,6 +240,13 @@ export const optionalAndNullableCombinedTests: () => {
     avatar: v.nullish(v.string()),
   });
 
+  const effectNullishParse = S.decodeUnknownEither(S.Struct({
+    id: S.Number,
+    email: S.String,
+    phone: S.NullishOr(S.String),
+    avatar: S.NullishOr(S.String),
+  }));
+
   return [
     {
       name: "@kanon/V3.0",
@@ -230,6 +263,10 @@ export const optionalAndNullableCombinedTests: () => {
     {
       name: "Valibot",
       fn: () => v.safeParse(valibotSchema, getMixedObject()),
+    },
+    {
+      name: "Effect",
+      fn: () => effectNullishParse(getMixedObject()),
     },
   ];
 };

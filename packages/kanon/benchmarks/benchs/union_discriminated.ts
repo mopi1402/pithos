@@ -11,6 +11,7 @@ import {
   discriminatedUnion as discriminatedUnionV3,
 } from "@kanon/schemas/operators/union";
 import { LibName, POOL_SIZE } from "../dataset/config";
+import { Schema as S } from "effect";
 
 type ApiSuccessResponse = {
   status: "success";
@@ -171,6 +172,21 @@ export const discriminatedUnionApiResponseTests: () => {
     }),
   ]);
 
+  const effectApiParse = S.decodeUnknownEither(S.Union(
+    S.Struct({
+      status: S.Literal("success"),
+      data: S.Struct({ id: S.Number, name: S.String }),
+    }),
+    S.Struct({
+      status: S.Literal("error"),
+      error: S.Struct({ code: S.Number, message: S.String }),
+    }),
+    S.Struct({
+      status: S.Literal("loading"),
+      progress: S.Number,
+    }),
+  ));
+
   return [
     {
       name: "@kanon/V3.0",
@@ -183,6 +199,10 @@ export const discriminatedUnionApiResponseTests: () => {
     {
       name: "Valibot",
       fn: () => v.safeParse(valibotSchema, getApiResponse()),
+    },
+    {
+      name: "Effect",
+      fn: () => effectApiParse(getApiResponse()),
     },
   ];
 };
@@ -328,6 +348,13 @@ export const discriminatedUnionEventTests: () => {
     }),
   ]);
 
+  const effectEventParse = S.decodeUnknownEither(S.Union(
+    S.Struct({ event: S.Literal("click"), x: S.Number, y: S.Number, button: S.String }),
+    S.Struct({ event: S.Literal("keypress"), key: S.String, ctrl: S.Boolean }),
+    S.Struct({ event: S.Literal("scroll"), deltaX: S.Number, deltaY: S.Number }),
+    S.Struct({ event: S.Literal("resize"), width: S.Number, height: S.Number }),
+  ));
+
   return [
     {
       name: "@kanon/V3.0",
@@ -340,6 +367,10 @@ export const discriminatedUnionEventTests: () => {
     {
       name: "Valibot",
       fn: () => v.safeParse(valibotSchema, getEvent()),
+    },
+    {
+      name: "Effect",
+      fn: () => effectEventParse(getEvent()),
     },
   ];
 };
@@ -361,6 +392,7 @@ export const simpleUnionTests: () => {
   const kanonV3Schema = unionV3_3(stringV3(), numberV3(), booleanV3());
   const zodSchema = z.union([z.string(), z.number(), z.boolean()]);
   const valibotSchema = v.union([v.string(), v.number(), v.boolean()]);
+  const effectUnionParse = S.decodeUnknownEither(S.Union(S.String, S.Number, S.Boolean));
 
   return [
     {
@@ -374,6 +406,10 @@ export const simpleUnionTests: () => {
     {
       name: "Valibot",
       fn: () => v.safeParse(valibotSchema, getMixed()),
+    },
+    {
+      name: "Effect",
+      fn: () => effectUnionParse(getMixed()),
     },
   ];
 };

@@ -65,5 +65,11 @@ export const errorHandlingStrings: () => {
         return result === false; // true = valid, false = invalid
       },
     },
+    {
+      name: "Effect",
+      fn: () => {
+        schemas.effect.either.string(poolHelpers.getInvalidString());
+      },
+    },
   ];
 };

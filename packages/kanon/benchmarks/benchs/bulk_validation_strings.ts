@@ -65,5 +65,12 @@ export const bulkValidationStrings: () => {
         return data.map((item) => schemas.ajv.string(item));
       },
     },
+    {
+      name: "Effect",
+      fn: () => {
+        const data = poolHelpers.getBulkStrings();
+        return data.map((item) => schemas.effect.either.string(item));
+      },
+    },
   ];
 };

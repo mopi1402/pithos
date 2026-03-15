@@ -58,6 +58,7 @@ export const kanonConfig: ModuleConfig<KanonCategory> = {
     ajv: translate({ id: 'comparison.kanon.lib.ajv', message: 'JSON Schema validator with JIT compilation' }),
     "@sinclair/typebox": translate({ id: 'comparison.kanon.lib.typebox', message: 'JSON Schema with TypeScript inference + JIT' }),
     "fastest-validator": translate({ id: 'comparison.kanon.lib.fastestValidator', message: 'High-performance validator with JIT' }),
+    effect: translate({ id: 'comparison.kanon.lib.effect', message: 'Full-featured TypeScript library with schema validation' }),
   },
   excludedLibraries: [],
   libraryFilter: {
@@ -65,7 +66,7 @@ export const kanonConfig: ModuleConfig<KanonCategory> = {
       "schema-first": {
         label: translate({ id: 'comparison.kanon.filter.schemaFirst.label', message: 'Schema-first' }),
         description: translate({ id: 'comparison.kanon.filter.schemaFirst.description', message: 'Developer-friendly schema definition libraries' }),
-        libraries: ["@kanon/V3.0", "Zod", "Valibot", "Superstruct"],
+        libraries: ["@kanon/V3.0", "Zod", "Valibot", "Superstruct", "Effect"],
       },
       compiled: {
         label: translate({ id: 'comparison.kanon.filter.compiled.label', message: 'Compiled / JIT' }),

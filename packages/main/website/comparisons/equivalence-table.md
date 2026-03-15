@@ -1,6 +1,6 @@
 ---
 sidebar_label: "Equivalence Table"
-sidebar_position: 5
+sidebar_position: 6
 title: "Pithos Equivalence Table: Lodash, Zod, Neverthrow & More"
 description: Complete equivalence table between Pithos and popular utility, validation, and error handling libraries
 keyword_stuffing_ignore:

@@ -117,6 +117,7 @@ describe("🚀 Kanon vs others:", () => {
       schemas.fastestValidator.string(poolHelpers.getString());
       Value.Check(schemas.typebox.string, poolHelpers.getString());
       schemas.ajv.string(poolHelpers.getString());
+      schemas.effect.either.string(poolHelpers.getString());
 
       parseV3(schemas.kanonV3.number, poolHelpers.getNumber());
       schemas.zod.number.safeParse(poolHelpers.getNumber());
@@ -125,6 +126,7 @@ describe("🚀 Kanon vs others:", () => {
       schemas.fastestValidator.number(poolHelpers.getNumber());
       Value.Check(schemas.typebox.number, poolHelpers.getNumber());
       schemas.ajv.number(poolHelpers.getNumber());
+      schemas.effect.either.number(poolHelpers.getNumber());
 
       if (i % 10 === 0) {
         parseV3(schemas.kanonV3.simpleObject, poolHelpers.getSimpleObject());
@@ -140,6 +142,7 @@ describe("🚀 Kanon vs others:", () => {
           poolHelpers.getSimpleObject()
         );
         schemas.ajv.simpleObject(poolHelpers.getSimpleObject());
+        schemas.effect.either.simpleObject(poolHelpers.getSimpleObject());
       }
       parseV3(schemas.kanonV3.string, poolHelpers.getInvalidString());
       schemas.zod.string.safeParse(poolHelpers.getInvalidString());
@@ -152,6 +155,7 @@ describe("🚀 Kanon vs others:", () => {
       schemas.fastestValidator.string(poolHelpers.getInvalidString());
       Value.Check(schemas.typebox.string, poolHelpers.getInvalidString());
       schemas.ajv.string(poolHelpers.getInvalidString());
+      schemas.effect.either.string(poolHelpers.getInvalidString());
     }
   };
 

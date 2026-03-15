@@ -146,6 +146,7 @@ Use what works for you. Mix and match if needed.
 - [Arkhe vs Lodash — Full comparison](./arkhe/arkhe-vs-lodash.md)
 - [Kanon vs Zod — Full comparison](./kanon/kanon-vs-zod.md)
 - [Zygos vs Neverthrow — Full comparison](./zygos/zygos-vs-neverthrow.md)
+- [Pithos vs Effect — Modular toolbox vs FP runtime](./pithos-vs-effect.md)
 - [Equivalence Table — All modules side by side](./equivalence-table.md)
 - [Reproduce Our Data](./reproduce.md)
 </RelatedLinks>

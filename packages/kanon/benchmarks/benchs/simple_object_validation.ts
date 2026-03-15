@@ -55,5 +55,10 @@ export const simpleObjectValidation: () => {
       name: "AJV",
       fn: () => schemas.ajv.simpleObject(poolHelpers.getSimpleObject()),
     },
+    {
+      name: "Effect",
+      fn: () =>
+        schemas.effect.either.simpleObject(poolHelpers.getSimpleObject()),
+    },
   ];
 };

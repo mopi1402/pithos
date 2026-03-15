@@ -69,5 +69,12 @@ export const bulkValidationObjects: () => {
         return data.map((item) => schemas.ajv.bulkObject(item));
       },
     },
+    {
+      name: "Effect",
+      fn: () => {
+        const data = poolHelpers.getBulkObjects();
+        return data.map((item) => schemas.effect.either.bulkObject(item));
+      },
+    },
   ];
 };

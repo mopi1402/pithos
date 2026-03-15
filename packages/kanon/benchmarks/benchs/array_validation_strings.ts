@@ -49,5 +49,10 @@ export const arrayValidationStrings: () => {
       name: "AJV",
       fn: () => schemas.ajv.stringArray(poolHelpers.getStringArray()),
     },
+    {
+      name: "Effect",
+      fn: () =>
+        schemas.effect.either.stringArray(poolHelpers.getStringArray()),
+    },
   ];
 };

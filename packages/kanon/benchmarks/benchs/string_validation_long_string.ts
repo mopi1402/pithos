@@ -46,5 +46,9 @@ export const stringValidationLongString: () => {
       name: "AJV",
       fn: () => schemas.ajv.string(poolHelpers.getLongString()),
     },
+    {
+      name: "Effect",
+      fn: () => schemas.effect.either.string(poolHelpers.getLongString()),
+    },
   ];
 };

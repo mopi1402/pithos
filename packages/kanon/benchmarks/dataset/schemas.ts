@@ -4,6 +4,7 @@ import * as s from "superstruct";
 import Validator from "fastest-validator";
 import { Type } from "@sinclair/typebox";
 import Ajv from "ajv";
+import { Schema as S } from "effect";
 import { string as stringV3 } from "@kanon/schemas/primitives/string";
 import { number as numberV3 } from "@kanon/schemas/primitives/number";
 import { boolean as booleanV3 } from "@kanon/schemas/primitives/boolean";
@@ -478,5 +479,120 @@ export const schemas = {
       type: "array",
       items: { type: "number" },
     }),
+  },
+  effect: {
+    string: S.String,
+    number: S.Number,
+    boolean: S.Boolean,
+    null: S.Null,
+    undefined: S.Undefined,
+    any: S.Any,
+    unknown: S.Unknown,
+    date: S.DateFromSelf,
+    bigint: S.BigIntFromSelf,
+    simpleObject: S.Struct({
+      name: S.String,
+      age: S.Number,
+      active: S.Boolean,
+    }),
+    bulkObject: S.Struct({
+      id: S.Number,
+      name: S.String,
+      active: S.Boolean,
+    }),
+    complexObject: S.Struct({
+      id: S.Number,
+      name: S.String,
+      tags: S.Array(S.String),
+      config: S.Struct({
+        enabled: S.Boolean,
+        timeout: S.Number,
+        retries: S.Number,
+      }),
+      users: S.Array(
+        S.Struct({
+          id: S.Number,
+          name: S.String,
+          active: S.Boolean,
+        })
+      ),
+    }),
+    stringArray: S.Array(S.String),
+    numberArray: S.Array(S.Number),
+    // Pre-compiled validators (decodeUnknownSync throws on error, decodeUnknownEither returns Either)
+    parse: {
+      string: S.decodeUnknownSync(S.String),
+      number: S.decodeUnknownSync(S.Number),
+      boolean: S.decodeUnknownSync(S.Boolean),
+      null: S.decodeUnknownSync(S.Null),
+      undefined: S.decodeUnknownSync(S.Undefined),
+      any: S.decodeUnknownSync(S.Any),
+      unknown: S.decodeUnknownSync(S.Unknown),
+      date: S.decodeUnknownSync(S.DateFromSelf),
+      bigint: S.decodeUnknownSync(S.BigIntFromSelf),
+      simpleObject: S.decodeUnknownSync(S.Struct({
+        name: S.String,
+        age: S.Number,
+        active: S.Boolean,
+      })),
+      bulkObject: S.decodeUnknownSync(S.Struct({
+        id: S.Number,
+        name: S.String,
+        active: S.Boolean,
+      })),
+      complexObject: S.decodeUnknownSync(S.Struct({
+        id: S.Number,
+        name: S.String,
+        tags: S.Array(S.String),
+        config: S.Struct({
+          enabled: S.Boolean,
+          timeout: S.Number,
+          retries: S.Number,
+        }),
+        users: S.Array(
+          S.Struct({
+            id: S.Number,
+            name: S.String,
+            active: S.Boolean,
+          })
+        ),
+      })),
+      stringArray: S.decodeUnknownSync(S.Array(S.String)),
+      numberArray: S.decodeUnknownSync(S.Array(S.Number)),
+    },
+    either: {
+      string: S.decodeUnknownEither(S.String),
+      number: S.decodeUnknownEither(S.Number),
+      boolean: S.decodeUnknownEither(S.Boolean),
+      simpleObject: S.decodeUnknownEither(S.Struct({
+        name: S.String,
+        age: S.Number,
+        active: S.Boolean,
+      })),
+      bulkObject: S.decodeUnknownEither(S.Struct({
+        id: S.Number,
+        name: S.String,
+        active: S.Boolean,
+      })),
+      complexObject: S.decodeUnknownEither(S.Struct({
+        id: S.Number,
+        name: S.String,
+        tags: S.Array(S.String),
+        config: S.Struct({
+          enabled: S.Boolean,
+          timeout: S.Number,
+          retries: S.Number,
+        }),
+        users: S.Array(
+          S.Struct({
+            id: S.Number,
+            name: S.String,
+            active: S.Boolean,
+          })
+        ),
+      })),
+      stringArray: S.decodeUnknownEither(S.Array(S.String)),
+      numberArray: S.decodeUnknownEither(S.Array(S.Number)),
+    },
   },
 };

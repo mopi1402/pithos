@@ -23,6 +23,7 @@ import { coerceNumber as coerceNumberV3 } from "@kanon/schemas/coerce/number";
 import { coerceBoolean as coerceBooleanV3 } from "@kanon/schemas/coerce/boolean";
 import { compile as compileJIT } from "@kanon/jit/compiler";
 import { GenericSchema } from "@kanon/types/base";
+import { Schema as S } from "effect";
 
 import { POOL_SIZE, LibName } from "./dataset/config";
 import * as poolHelpers from "./helpers/pool_helpers";
@@ -108,6 +109,14 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
     additionalProperties: false,
   });
 
+  // Effect
+  const effectLoginSchema = S.Struct({
+    email: S.String.pipe(S.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)),
+    password: S.String.pipe(S.minLength(8)),
+    rememberMe: S.Boolean,
+  });
+  const effectLoginParse = S.decodeUnknownEither(effectLoginSchema);
+
   poolHelpers.runBenchmarkSuite("🔐 Login Form Validation", [
     { name: "@kanon/V3.0" as LibName, fn: () => parseV3(kanonLoginSchema, getLoginForm()) },
     { name: "@kanon/JIT" as LibName, fn: () => jitLoginSchema(getLoginForm()) },
@@ -117,6 +126,7 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
     { name: "Fast-Validator" as LibName, fn: () => fvLoginSchema(getLoginForm()) },
     { name: "TypeBox" as LibName, fn: () => Value.Check(typeboxLoginSchema, getLoginForm()) },
     { name: "AJV" as LibName, fn: () => ajvLoginSchema(getLoginForm()) },
+    { name: "Effect" as LibName, fn: () => effectLoginParse(getLoginForm()) },
   ]);
 
 
@@ -235,6 +245,17 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
     additionalProperties: false,
   });
 
+  // Effect
+  const effectRegSchema = S.Struct({
+    username: S.String.pipe(S.minLength(3), S.maxLength(20)),
+    email: S.String.pipe(S.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)),
+    password: S.String.pipe(S.minLength(8)),
+    confirmPassword: S.String,
+    age: S.Number.pipe(S.greaterThanOrEqualTo(13), S.lessThanOrEqualTo(120)),
+    acceptTerms: S.Boolean,
+  }).pipe(S.filter((data) => data.password === data.confirmPassword, { message: () => "Passwords don't match" }));
+  const effectRegParse = S.decodeUnknownEither(effectRegSchema);
+
   poolHelpers.runBenchmarkSuite("📝 User Registration (with password confirm)", [
     { name: "@kanon/V3.0" as LibName, fn: () => parseV3(kanonRegSchema, getRegistration()) },
     { name: "@kanon/JIT" as LibName, fn: () => jitRegSchema(getRegistration()) },
@@ -244,6 +265,7 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
     { name: "Fast-Validator" as LibName, fn: () => fvRegSchema(getRegistration()) },
     { name: "TypeBox" as LibName, fn: () => Value.Check(typeboxRegSchema, getRegistration()) },
     { name: "AJV" as LibName, fn: () => ajvRegSchema(getRegistration()) },
+    { name: "Effect" as LibName, fn: () => effectRegParse(getRegistration()) },
   ]);
 
 
@@ -398,6 +420,26 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
     ],
   });
 
+  // Effect
+  const effectApiSchema = S.Union(
+    S.Struct({
+      status: S.Literal("success"),
+      data: S.Struct({
+        id: S.Number,
+        name: S.String,
+        createdAt: S.String,
+      }),
+    }),
+    S.Struct({
+      status: S.Literal("error"),
+      error: S.Struct({
+        code: S.Number,
+        message: S.String,
+      }),
+    })
+  );
+  const effectApiParse = S.decodeUnknownEither(effectApiSchema);
+
   poolHelpers.runBenchmarkSuite("📡 API Response (discriminated union)", [
     { name: "@kanon/V3.0" as LibName, fn: () => parseV3(kanonApiSchema, getApiResponse()) },
     { name: "@kanon/JIT" as LibName, fn: () => jitApiSchema(getApiResponse()) },
@@ -407,6 +449,7 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
     { name: "Fast-Validator" as LibName, fn: () => fvApiValidate(getApiResponse()) },
     { name: "TypeBox" as LibName, fn: () => Value.Check(typeboxApiSchema, getApiResponse()) },
     { name: "AJV" as LibName, fn: () => ajvApiSchema(getApiResponse()) },
+    { name: "Effect" as LibName, fn: () => effectApiParse(getApiResponse()) },
   ]);
 
 
@@ -567,6 +610,23 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
     required: ["id", "name", "description", "price", "currency", "stock", "categories", "isActive"],
   });
 
+  // Effect
+  const effectProductSchema = S.Struct({
+    id: S.String,
+    name: S.String.pipe(S.minLength(1), S.maxLength(200)),
+    description: S.NullOr(S.String),
+    price: S.Number.pipe(S.greaterThanOrEqualTo(0)),
+    currency: S.Literal("USD", "EUR", "GBP"),
+    stock: S.Number.pipe(S.int(), S.greaterThanOrEqualTo(0)),
+    categories: S.Array(S.String),
+    isActive: S.Boolean,
+    metadata: S.optional(S.Struct({
+      featured: S.Boolean,
+      rank: S.Number,
+    })),
+  });
+  const effectProductParse = S.decodeUnknownEither(effectProductSchema);
+
   poolHelpers.runBenchmarkSuite("🛒 E-commerce Product", [
     { name: "@kanon/V3.0" as LibName, fn: () => parseV3(kanonProductSchema, getProduct()) },
     { name: "@kanon/JIT" as LibName, fn: () => jitProductSchema(getProduct()) },
@@ -576,6 +636,7 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
     { name: "Fast-Validator" as LibName, fn: () => fvProductSchema(getProduct()) },
     { name: "TypeBox" as LibName, fn: () => Value.Check(typeboxProductSchema, getProduct()) },
     { name: "AJV" as LibName, fn: () => ajvProductSchema(getProduct()) },
+    { name: "Effect" as LibName, fn: () => effectProductParse(getProduct()) },
   ]);
 
 
@@ -796,6 +857,28 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
     required: ["id", "title", "slug", "content", "author", "tags", "publishedAt", "comments"],
   });
 
+  // Effect
+  const effectBlogSchema = S.Struct({
+    id: S.Number,
+    title: S.String.pipe(S.minLength(1), S.maxLength(200)),
+    slug: S.String.pipe(S.pattern(/^[a-z0-9-]+$/)),
+    content: S.String,
+    author: S.Struct({
+      id: S.Number,
+      name: S.String,
+      email: S.String.pipe(S.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)),
+    }),
+    tags: S.Array(S.String),
+    publishedAt: S.NullOr(S.String),
+    comments: S.Array(S.Struct({
+      id: S.Number,
+      author: S.String,
+      text: S.String,
+      createdAt: S.String,
+    })),
+  });
+  const effectBlogParse = S.decodeUnknownEither(effectBlogSchema);
+
   poolHelpers.runBenchmarkSuite("📰 Blog Post with Comments", [
     { name: "@kanon/V3.0" as LibName, fn: () => parseV3(kanonBlogSchema, getBlogPost()) },
     { name: "@kanon/JIT" as LibName, fn: () => jitBlogSchema(getBlogPost()) },
@@ -805,6 +888,7 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
     { name: "Fast-Validator" as LibName, fn: () => fvBlogSchema(getBlogPost()) },
     { name: "TypeBox" as LibName, fn: () => Value.Check(typeboxBlogSchema, getBlogPost()) },
     { name: "AJV" as LibName, fn: () => ajvBlogSchema(getBlogPost()) },
+    { name: "Effect" as LibName, fn: () => effectBlogParse(getBlogPost()) },
   ]);
 
 
@@ -897,6 +981,20 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
     required: ["q", "page", "limit", "sortBy", "includeArchived"],
   });
 
+  // Effect - using transforms for coercion
+  const effectSearchSchema = S.Struct({
+    q: S.String,
+    page: S.NumberFromString,
+    limit: S.NumberFromString,
+    sortBy: S.Literal("date", "relevance", "popularity"),
+    includeArchived: S.transform(
+      S.String,
+      S.Boolean,
+      { decode: (s) => s === "true", encode: (b) => b ? "true" : "false" }
+    ),
+  });
+  const effectSearchParse = S.decodeUnknownEither(effectSearchSchema);
+
   poolHelpers.runBenchmarkSuite("🔍 Search Params (with coercion)", [
     { name: "@kanon/V3.0" as LibName, fn: () => parseV3(kanonSearchSchema, getSearchParams()) },
     { name: "@kanon/JIT" as LibName, fn: () => jitSearchSchema(getSearchParams()) },
@@ -906,6 +1004,7 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
     { name: "Fast-Validator" as LibName, fn: () => fvSearchSchema(getSearchParams()) },
     { name: "TypeBox" as LibName, fn: () => Value.Check(typeboxSearchSchema, getSearchParams()) },
     { name: "AJV" as LibName, fn: () => ajvSearchSchema(getSearchParams()) },
+    { name: "Effect" as LibName, fn: () => effectSearchParse(getSearchParams()) },
   ]);
 
 
@@ -992,6 +1091,15 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
     },
   });
 
+  // Effect
+  const effectProfileSchema = S.Struct({
+    displayName: S.optional(S.String.pipe(S.minLength(1), S.maxLength(50))),
+    bio: S.optional(S.String.pipe(S.maxLength(500))),
+    website: S.optional(S.String.pipe(S.pattern(/^https?:\/\/.+/))),
+    location: S.optional(S.String.pipe(S.maxLength(100))),
+  });
+  const effectProfileParse = S.decodeUnknownEither(effectProfileSchema);
+
   poolHelpers.runBenchmarkSuite("👤 User Profile Update (optional fields)", [
     { name: "@kanon/V3.0" as LibName, fn: () => parseV3(kanonProfileSchema, getProfileUpdate()) },
     { name: "@kanon/JIT" as LibName, fn: () => jitProfileSchema(getProfileUpdate()) },
@@ -1001,6 +1109,7 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
     { name: "Fast-Validator" as LibName, fn: () => fvProfileSchema(getProfileUpdate()) },
     { name: "TypeBox" as LibName, fn: () => Value.Check(typeboxProfileSchema, getProfileUpdate()) },
     { name: "AJV" as LibName, fn: () => ajvProfileSchema(getProfileUpdate()) },
+    { name: "Effect" as LibName, fn: () => effectProfileParse(getProfileUpdate()) },
   ]);
 
 
@@ -1169,6 +1278,23 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
     required: ["amount", "currency", "method"],
   });
 
+  // Effect
+  const effectPaymentSchema = S.Struct({
+    amount: S.Number.pipe(S.greaterThanOrEqualTo(1)),
+    currency: S.Literal("USD", "EUR", "GBP"),
+    method: S.Literal("card", "paypal", "bank"),
+    cardNumber: S.optional(S.String),
+    cardExpiry: S.optional(S.String),
+    paypalEmail: S.optional(S.String.pipe(S.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/))),
+    bankAccount: S.optional(S.String),
+  }).pipe(S.filter((data) => {
+    if (data.method === "card" && (!data.cardNumber || !data.cardExpiry)) return false;
+    if (data.method === "paypal" && !data.paypalEmail) return false;
+    if (data.method === "bank" && !data.bankAccount) return false;
+    return true;
+  }, { message: () => "Payment details required" }));
+  const effectPaymentParse = S.decodeUnknownEither(effectPaymentSchema);
+
   poolHelpers.runBenchmarkSuite("💳 Payment Form (conditional validation)", [
     { name: "@kanon/V3.0" as LibName, fn: () => parseV3(kanonPaymentSchema, getPayment()) },
     { name: "@kanon/JIT" as LibName, fn: () => jitPaymentSchema(getPayment()) },
@@ -1178,6 +1304,7 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
     { name: "Fast-Validator" as LibName, fn: () => fvPaymentSchema(getPayment()) },
     { name: "TypeBox" as LibName, fn: () => Value.Check(typeboxPaymentSchema, getPayment()) },
     { name: "AJV" as LibName, fn: () => ajvPaymentSchema(getPayment()) },
+    { name: "Effect" as LibName, fn: () => effectPaymentParse(getPayment()) },
   ]);
 
 
@@ -1330,6 +1457,20 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
     required: ["eventId", "attendees", "date", "totalPrice"],
   });
 
+  // Effect
+  const effectBookingSchema = S.Struct({
+    eventId: S.String,
+    attendees: S.Array(S.Struct({
+      name: S.String.pipe(S.minLength(1)),
+      email: S.String.pipe(S.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)),
+      dietaryRequirements: S.NullOr(S.Literal("vegetarian", "vegan", "gluten-free", "halal", "kosher")),
+    })).pipe(S.minItems(1), S.maxItems(10)),
+    date: S.String,
+    specialRequests: S.optional(S.String.pipe(S.maxLength(500))),
+    totalPrice: S.Number.pipe(S.greaterThanOrEqualTo(0)),
+  });
+  const effectBookingParse = S.decodeUnknownEither(effectBookingSchema);
+
   poolHelpers.runBenchmarkSuite("🎫 Event Booking", [
     { name: "@kanon/V3.0" as LibName, fn: () => parseV3(kanonBookingSchema, getBooking()) },
     { name: "@kanon/JIT" as LibName, fn: () => jitBookingSchema(getBooking()) },
@@ -1339,6 +1480,7 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
     { name: "Fast-Validator" as LibName, fn: () => fvBookingSchema(getBooking()) },
     { name: "TypeBox" as LibName, fn: () => Value.Check(typeboxBookingSchema, getBooking()) },
     { name: "AJV" as LibName, fn: () => ajvBookingSchema(getBooking()) },
+    { name: "Effect" as LibName, fn: () => effectBookingParse(getBooking()) },
   ]);
 
 
@@ -1362,5 +1504,6 @@ describe("🎯 Real-World Scenarios Benchmark", () => {
     { name: "Fast-Validator" as LibName, fn: () => fvLoginSchema(getInvalidLogin()) },
     { name: "TypeBox" as LibName, fn: () => Value.Check(typeboxLoginSchema, getInvalidLogin()) },
     { name: "AJV" as LibName, fn: () => ajvLoginSchema(getInvalidLogin()) },
+    { name: "Effect" as LibName, fn: () => effectLoginParse(getInvalidLogin()) },
   ]);
 });

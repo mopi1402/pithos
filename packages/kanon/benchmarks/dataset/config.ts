@@ -9,7 +9,8 @@ export type LibName =
   | "Superstruct"
   | "Fast-Validator"
   | "TypeBox"
-  | "AJV";
+  | "AJV"
+  | "Effect";
 
 const defaultAvailability: Record<LibName, boolean> = {
   "@kanon/V3.0": true,
@@ -20,6 +21,7 @@ const defaultAvailability: Record<LibName, boolean> = {
   "Fast-Validator": false,
   TypeBox: false,
   AJV: false,
+  Effect: false,
 };
 
 const mapName = (name: string): LibName | null => {
@@ -32,6 +34,7 @@ const mapName = (name: string): LibName | null => {
   if (n === "fastest" || n === "fast-validator" || n === "fastest-validator") return "Fast-Validator";
   if (n === "typebox" || n === "type-box") return "TypeBox";
   if (n === "ajv") return "AJV";
+  if (n === "effect" || n === "effect-schema") return "Effect";
   return null;
 };
 
@@ -45,6 +48,7 @@ const ALL_LIBS: LibName[] = [
   "Fast-Validator",
   "TypeBox",
   "AJV",
+  "Effect",
 ];
 
 const envLibs = process.env.BENCH_LIBS;
@@ -59,6 +63,7 @@ export const BENCH_LIB_HINTS = [
   "Fast-Validator (aliases: fastest)",
   "TypeBox",
   "AJV",
+  "Effect (aliases: effect-schema)",
   "all (v3, jit + all external libs)",
 ] as const;
 

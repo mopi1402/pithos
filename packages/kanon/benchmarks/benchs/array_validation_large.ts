@@ -59,5 +59,10 @@ export const arrayValidationLarge: () => {
       name: "AJV",
       fn: () => schemas.ajv.stringArray(poolHelpers.getPooledLargeArray()),
     },
+    {
+      name: "Effect",
+      fn: () =>
+        schemas.effect.either.stringArray(poolHelpers.getPooledLargeArray()),
+    },
   ];
 };
