@@ -77,7 +77,8 @@
     "lodash-alternative",
     "zod-alternative",
     "neverthrow-alternative",
-    "fp-ts-alternative"
+    "fp-ts-alternative",
+    "effect-alternative"
   ],
   "author": "Pierre Moati <mopi1402>",
   "license": "MIT",
