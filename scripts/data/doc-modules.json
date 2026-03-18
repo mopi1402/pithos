@@ -29,6 +29,11 @@
       "name": "bridges",
       "enabled": true,
       "description": "Bridge functions between modules"
+    },
+    {
+      "name": "eidos",
+      "enabled": true,
+      "description": "Functional design patterns (adapter, chain, command, decorator, observer, proxy, strategy)"
     }
   ]
 }

@@ -6,7 +6,8 @@ description: "Build a real-world feature combining multiple Pithos modules for t
 slug: practical-example
 ---
 
-import { DashboardPlayground } from '@site/src/components/playground/DashboardPlayground';
+import { Playground } from '@site/src/components/playground/Playground';
+import demoSources from '@site/src/data/demo-sources.json';
 import ModuleName from "@site/src/components/shared/badges/ModuleName";
 
 # 🗜️ Practical Example
@@ -253,7 +254,11 @@ async function initDashboard() {
 
 ## Live Demo
 
-<DashboardPlayground />
+<Playground 
+  iframeSrc="/demos/practical-example/index.html"
+  sources={demoSources}
+  title="Dashboard Demo"
+/>
 
 :::info
 The demo above is more complete than the code snippets: it's embedded in a React project and includes the user interface.

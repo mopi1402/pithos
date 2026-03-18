@@ -26,15 +26,16 @@ That's it. Zero dependencies means zero headaches.
 
 ## 🎰 What's in the box?
 
-Pithos is a complete utilities ecosystem. One package, five modules:
+Pithos is a complete utilities ecosystem. One package, six modules:
 
 | !Module     | What it does                                            |
 | ----------- | ------------------------------------------------------- |
 | **Arkhe**   | Data manipulation (arrays, objects, strings, functions, ...) |
+| **Eidos**   | Functional design patterns (adapter, proxy, observer, strategy, ...) |
 | **Kanon**   | Schema validation with JIT support                      |
-| **Zygos**   | Functional error handling ([Result](/api/zygos/result), [Option](/api/zygos/option), [Either](/api/zygos/either), [Task](/api/zygos/task)) |
 | **Sphalma** | Typed error factories with hex codes                    |
 | **Taphos**  | Migration guide & deprecated utilities with IDE hints   |
+| **Zygos**   | Functional error handling ([Result](/api/zygos/result), [Option](/api/zygos/option), [Either](/api/zygos/either), [Task](/api/zygos/task)) |
 
 ---
 

@@ -7,6 +7,7 @@ packages:
 
   # Examples in pithos
   - "packages/pithos/examples/*"
+  - "packages/pithos/examples/design-patterns/*"
 
   # Exclude tmp directory
   - "!packages/tmp/**"

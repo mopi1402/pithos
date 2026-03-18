@@ -1,0 +1,18 @@
+.patternNav {
+  margin-bottom: 1.5rem;
+}
+
+.indexLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.indexLink:hover {
+  color: var(--ifm-color-primary-dark);
+  text-decoration: underline;
+}

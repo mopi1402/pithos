@@ -26,6 +26,7 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
   /* Prism code block colors - customize these variables */
   --prism-background: #faf8f6;
+  --prism-background-rgb: 250, 248, 246;
   --prism-color: #2d2926;
   --prism-keyword: #c75000;
   --prism-string: #986801;
@@ -243,6 +244,7 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
   /* Prism code block colors for dark theme */
   --prism-background: #1a1614;
+  --prism-background-rgb: 26, 22, 20;
   --prism-color: #e8e4e0;
   --prism-keyword: #f26f17;
   --prism-string: #e6b450;
@@ -1426,4 +1428,22 @@ ul.tabs+div div[role="tabpanel"]:first-child .theme-code-block {
 /* DocSearch modal: ensure it sits above navbar and sticky footer */
 .DocSearch-Container {
   z-index: 10001 !important;
+}
+
+/* Code block line numbers - separator between numbers and code */
+[class*="codeLineNumber"] {
+  background: rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding-right: 12px !important;
+}
+
+[data-theme="light"] [class*="codeLineNumber"] {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Space between line numbers and code content */
+[class*="codeLineContent"] {
+  padding-left: 12px !important;
 }

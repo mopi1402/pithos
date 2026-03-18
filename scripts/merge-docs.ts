@@ -8,6 +8,7 @@ import { OUTPUT, countFiles, INTERMEDIATE_BASE } from "./common/index.js";
 import { loadAliases } from "./merge-docs/loaders.js";
 import { processApiDocs } from "./merge-docs/processor.js";
 import { generateIndexFiles } from "./merge-docs/index-generator.js";
+import { copyPatternPages } from "./merge-docs/pattern-pages.js";
 import type { FunctionUseCases } from "./merge-docs/types.js";
 
 /**
@@ -40,6 +41,9 @@ function main() {
 
   console.log("Generating index files...");
   generateIndexFiles();
+
+  console.log("Copying pattern pages...");
+  copyPatternPages();
 
   // Count output files
   const count = countFiles(OUTPUT);

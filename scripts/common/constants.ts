@@ -11,6 +11,9 @@ export const OVERRIDES = `${DOCS_BASE}/overrides`;
 export const ALIASES = `${DOCS_BASE}/alias`;
 export const HOW_IT_WORKS = `${DOCS_BASE}/how-it-works`;
 export const USE_CASES_DOCS = `${DOCS_BASE}/use_cases`;
+export const PATTERN_PAGES = `${DOCS_BASE}/pattern-pages`;
+export const PATTERN_PAGES_I18N = `${DOCS_BASE}/pattern-pages-i18n`;
 export const OUTPUT = `${GENERATED_BASE}/final`;
+export const WEBSITE_I18N = "packages/main/website/i18n";
 
 export const DOC_EXTENSION = "md";

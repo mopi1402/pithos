@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-color: #1e1e2e;
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+
+/* Keep popup above the backdrop overlay */
+.maplibregl-popup {
+  z-index: 3;
+}
+
+/* ── Close button ── */
+.maplibregl-popup-close-button {
+  width: 28px;
+  height: 28px;
+  font-size: 18px;
+  line-height: 28px;
+  text-align: center;
+  border-radius: 8px;
+  color: #94a3b8;
+  background: transparent;
+  transition: background 150ms, color 150ms;
+  top: 8px;
+  right: 8px;
+}
+.maplibregl-popup-close-button:hover {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+/* ── Popup content reset ── */
+.maplibregl-popup-content {
+  padding: 0;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+/* ── Popup card layout ── */
+.popup-card {
+  font-family: system-ui, -apple-system, sans-serif;
+  min-width: 240px;
+  max-width: 280px;
+}
+
+.popup-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 40px 12px 14px;
+  background: #f8fafc;
+}
+
+.popup-emoji {
+  font-size: 22px;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.popup-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.popup-title {
+  font-weight: 600;
+  font-size: 13px;
+  color: #1e293b;
+  line-height: 1.3;
+}
+
+.popup-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 99px;
+  width: fit-content;
+  letter-spacing: 0.02em;
+}
+
+.popup-body {
+  padding: 10px 14px 14px;
+}
+
+.popup-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 5px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+.popup-row:last-child {
+  border-bottom: none;
+}
+
+.popup-row-label {
+  color: #94a3b8;
+  font-size: 11px;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.popup-row-value {
+  color: #334155;
+  font-size: 11px;
+  font-weight: 500;
+  text-align: right;
+}
+
+/* Highlighted marker above backdrop — scale-up from center */
+.highlight-marker {
+  animation: marker-scale-up 300ms ease-out both;
+}
+
+@keyframes marker-scale-up {
+  from { opacity: 0; transform: scale(0.5); }
+  to   { opacity: 1; transform: scale(1.6); }
+}
+
+/* Popup scale-in animation (300ms) — grows from the tip */
+.popup-reveal .maplibregl-popup-content,
+.popup-reveal .maplibregl-popup-tip {
+  animation: popup-scale-in 300ms ease-out both;
+  transform-origin: bottom center;
+}
+
+@keyframes popup-scale-in {
+  from { opacity: 0; transform: scale(0.3); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Keep highlight marker above backdrop */
+.highlight-marker-wrapper {
+  z-index: 2;
+}
+
+/* Lower map controls so backdrop covers them */
+.maplibregl-ctrl-top-right {
+  z-index: 0;
+}

@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --martins-red: #B40024;
+    --martins-red-light: #D0002B;
+    --martins-gold: #C5A258;
+    --martins-cream: #FAF6F1;
+    --martins-dark: #2C1810;
+  }
+
+  * {
+    @apply border-stone-200;
+  }
+
+  body {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--martins-cream);
+    color: var(--martins-dark);
+  }
+}

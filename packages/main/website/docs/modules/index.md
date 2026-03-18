@@ -41,6 +41,15 @@ Explore the architecture, design decisions, and usage patterns for each Pithos m
     </Link>
   </div>
   <div className="col col--6" style={{marginBottom: '1rem'}}>
+    <Link className="card padding--md basics-card" to="/guide/modules/eidos/">
+      <span className="basics-card__emoji">🅴</span>
+      <div className="basics-card__text">
+        <strong>Eidos</strong>
+        <span>GoF design patterns in functional TypeScript: strategy, state, builder, mediator, and more</span>
+      </div>
+    </Link>
+  </div>
+  <div className="col col--6" style={{marginBottom: '1rem'}}>
     <Link className="card padding--md basics-card" to="/guide/modules/sphalma/">
       <span className="basics-card__emoji">🆂</span>
       <div className="basics-card__text">
@@ -58,5 +67,4 @@ Explore the architecture, design decisions, and usage patterns for each Pithos m
       </div>
     </Link>
   </div>
-  
 </div>

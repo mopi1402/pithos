@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-slate-200;
+  }
+  body {
+    @apply bg-slate-50 text-slate-900 m-0 p-0;
+  }
+}
+
+@keyframes panel-swing {
+  0%   { transform: rotateX(-110deg); }
+  35%  { transform: rotateX(25deg); }
+  55%  { transform: rotateX(-12deg); }
+  75%  { transform: rotateX(6deg); }
+  90%  { transform: rotateX(-2deg); }
+  100% { transform: rotateX(0deg); }
+}
+
+.animate-panel-swing {
+  animation: panel-swing 1200ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes flip-slide {
+  from { transform: var(--flip-from); }
+  to   { transform: var(--flip-to); }
+}

@@ -12,6 +12,7 @@ export const EMOJI_MAP: Record<string, { src: string; id: string }> = {
   "🏺": { src: "/img/emoji/pithos.webp", id: "pithos" },
   "🚪" : { src: "/img/emoji/gate.webp", id: "get-started"}, 
   "🅰": { src: "/img/emoji/letter-a.webp", id: "arkhe" },
+  "🅴": { src: "/img/emoji/letter-e.webp", id: "eidos" },
   "🅺": { src: "/img/emoji/letter-k.webp", id: "kanon" },
   "🆉": { src: "/img/emoji/letter-z.webp", id: "zygos" },
   "🆃": { src: "/img/emoji/letter-t.webp", id: "taphos" },

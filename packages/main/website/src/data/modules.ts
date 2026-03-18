@@ -45,6 +45,14 @@ export const MODULE_LIST: ModuleItem[] = [
     comparisonKey: "zygos",
   },
   {
+    name: "Eidos",
+    logo: "/img/generated/modules/letter-e",
+    description: translate({ id: 'homepage.modules.eidos.description', message: 'Functional design patterns' }),
+    docLink: "/guide/modules/eidos",
+    apiLink: "/api/eidos",
+    status: "new",
+  },
+  {
     name: "Sphalma",
     logo: "/img/generated/modules/letter-s",
     description: translate({ id: 'homepage.modules.sphalma.description', message: 'Typed error factories with error codes' }),

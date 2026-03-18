@@ -1,0 +1,1428 @@
+[
+  {
+    "id": 1,
+    "name": "Bulbasaur",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "sprite": "sprites/1.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 2,
+    "name": "Ivysaur",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "sprite": "sprites/2.webp",
+    "evolvesFrom": 1
+  },
+  {
+    "id": 3,
+    "name": "Venusaur",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "sprite": "sprites/3.webp",
+    "evolvesFrom": 2
+  },
+  {
+    "id": 4,
+    "name": "Charmander",
+    "types": [
+      "Fire"
+    ],
+    "sprite": "sprites/4.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 5,
+    "name": "Charmeleon",
+    "types": [
+      "Fire"
+    ],
+    "sprite": "sprites/5.webp",
+    "evolvesFrom": 4
+  },
+  {
+    "id": 6,
+    "name": "Charizard",
+    "types": [
+      "Fire",
+      "Flying"
+    ],
+    "sprite": "sprites/6.webp",
+    "evolvesFrom": 5
+  },
+  {
+    "id": 7,
+    "name": "Squirtle",
+    "types": [
+      "Water"
+    ],
+    "sprite": "sprites/7.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 8,
+    "name": "Wartortle",
+    "types": [
+      "Water"
+    ],
+    "sprite": "sprites/8.webp",
+    "evolvesFrom": 7
+  },
+  {
+    "id": 9,
+    "name": "Blastoise",
+    "types": [
+      "Water"
+    ],
+    "sprite": "sprites/9.webp",
+    "evolvesFrom": 8
+  },
+  {
+    "id": 10,
+    "name": "Caterpie",
+    "types": [
+      "Bug"
+    ],
+    "sprite": "sprites/10.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 11,
+    "name": "Metapod",
+    "types": [
+      "Bug"
+    ],
+    "sprite": "sprites/11.webp",
+    "evolvesFrom": 10
+  },
+  {
+    "id": 12,
+    "name": "Butterfree",
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "sprite": "sprites/12.webp",
+    "evolvesFrom": 11
+  },
+  {
+    "id": 13,
+    "name": "Weedle",
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "sprite": "sprites/13.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 14,
+    "name": "Kakuna",
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "sprite": "sprites/14.webp",
+    "evolvesFrom": 13
+  },
+  {
+    "id": 15,
+    "name": "Beedrill",
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "sprite": "sprites/15.webp",
+    "evolvesFrom": 14
+  },
+  {
+    "id": 16,
+    "name": "Pidgey",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "sprite": "sprites/16.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 17,
+    "name": "Pidgeotto",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "sprite": "sprites/17.webp",
+    "evolvesFrom": 16
+  },
+  {
+    "id": 18,
+    "name": "Pidgeot",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "sprite": "sprites/18.webp",
+    "evolvesFrom": 17
+  },
+  {
+    "id": 19,
+    "name": "Rattata",
+    "types": [
+      "Normal"
+    ],
+    "sprite": "sprites/19.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 20,
+    "name": "Raticate",
+    "types": [
+      "Normal"
+    ],
+    "sprite": "sprites/20.webp",
+    "evolvesFrom": 19
+  },
+  {
+    "id": 21,
+    "name": "Spearow",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "sprite": "sprites/21.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 22,
+    "name": "Fearow",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "sprite": "sprites/22.webp",
+    "evolvesFrom": 21
+  },
+  {
+    "id": 23,
+    "name": "Ekans",
+    "types": [
+      "Poison"
+    ],
+    "sprite": "sprites/23.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 24,
+    "name": "Arbok",
+    "types": [
+      "Poison"
+    ],
+    "sprite": "sprites/24.webp",
+    "evolvesFrom": 23
+  },
+  {
+    "id": 25,
+    "name": "Pikachu",
+    "types": [
+      "Electric"
+    ],
+    "sprite": "sprites/25.webp",
+    "evolvesFrom": 172
+  },
+  {
+    "id": 26,
+    "name": "Raichu",
+    "types": [
+      "Electric"
+    ],
+    "sprite": "sprites/26.webp",
+    "evolvesFrom": 25
+  },
+  {
+    "id": 27,
+    "name": "Sandshrew",
+    "types": [
+      "Ground"
+    ],
+    "sprite": "sprites/27.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 28,
+    "name": "Sandslash",
+    "types": [
+      "Ground"
+    ],
+    "sprite": "sprites/28.webp",
+    "evolvesFrom": 27
+  },
+  {
+    "id": 29,
+    "name": "Nidoran-f",
+    "types": [
+      "Poison"
+    ],
+    "sprite": "sprites/29.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 30,
+    "name": "Nidorina",
+    "types": [
+      "Poison"
+    ],
+    "sprite": "sprites/30.webp",
+    "evolvesFrom": 29
+  },
+  {
+    "id": 31,
+    "name": "Nidoqueen",
+    "types": [
+      "Poison",
+      "Ground"
+    ],
+    "sprite": "sprites/31.webp",
+    "evolvesFrom": 30
+  },
+  {
+    "id": 32,
+    "name": "Nidoran-m",
+    "types": [
+      "Poison"
+    ],
+    "sprite": "sprites/32.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 33,
+    "name": "Nidorino",
+    "types": [
+      "Poison"
+    ],
+    "sprite": "sprites/33.webp",
+    "evolvesFrom": 32
+  },
+  {
+    "id": 34,
+    "name": "Nidoking",
+    "types": [
+      "Poison",
+      "Ground"
+    ],
+    "sprite": "sprites/34.webp",
+    "evolvesFrom": 33
+  },
+  {
+    "id": 35,
+    "name": "Clefairy",
+    "types": [
+      "Fairy"
+    ],
+    "sprite": "sprites/35.webp",
+    "evolvesFrom": 173
+  },
+  {
+    "id": 36,
+    "name": "Clefable",
+    "types": [
+      "Fairy"
+    ],
+    "sprite": "sprites/36.webp",
+    "evolvesFrom": 35
+  },
+  {
+    "id": 37,
+    "name": "Vulpix",
+    "types": [
+      "Fire"
+    ],
+    "sprite": "sprites/37.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 38,
+    "name": "Ninetales",
+    "types": [
+      "Fire"
+    ],
+    "sprite": "sprites/38.webp",
+    "evolvesFrom": 37
+  },
+  {
+    "id": 39,
+    "name": "Jigglypuff",
+    "types": [
+      "Normal",
+      "Fairy"
+    ],
+    "sprite": "sprites/39.webp",
+    "evolvesFrom": 174
+  },
+  {
+    "id": 40,
+    "name": "Wigglytuff",
+    "types": [
+      "Normal",
+      "Fairy"
+    ],
+    "sprite": "sprites/40.webp",
+    "evolvesFrom": 39
+  },
+  {
+    "id": 41,
+    "name": "Zubat",
+    "types": [
+      "Poison",
+      "Flying"
+    ],
+    "sprite": "sprites/41.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 42,
+    "name": "Golbat",
+    "types": [
+      "Poison",
+      "Flying"
+    ],
+    "sprite": "sprites/42.webp",
+    "evolvesFrom": 41
+  },
+  {
+    "id": 43,
+    "name": "Oddish",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "sprite": "sprites/43.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 44,
+    "name": "Gloom",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "sprite": "sprites/44.webp",
+    "evolvesFrom": 43
+  },
+  {
+    "id": 45,
+    "name": "Vileplume",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "sprite": "sprites/45.webp",
+    "evolvesFrom": 44
+  },
+  {
+    "id": 46,
+    "name": "Paras",
+    "types": [
+      "Bug",
+      "Grass"
+    ],
+    "sprite": "sprites/46.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 47,
+    "name": "Parasect",
+    "types": [
+      "Bug",
+      "Grass"
+    ],
+    "sprite": "sprites/47.webp",
+    "evolvesFrom": 46
+  },
+  {
+    "id": 48,
+    "name": "Venonat",
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "sprite": "sprites/48.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 49,
+    "name": "Venomoth",
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "sprite": "sprites/49.webp",
+    "evolvesFrom": 48
+  },
+  {
+    "id": 50,
+    "name": "Diglett",
+    "types": [
+      "Ground"
+    ],
+    "sprite": "sprites/50.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 51,
+    "name": "Dugtrio",
+    "types": [
+      "Ground"
+    ],
+    "sprite": "sprites/51.webp",
+    "evolvesFrom": 50
+  },
+  {
+    "id": 52,
+    "name": "Meowth",
+    "types": [
+      "Normal"
+    ],
+    "sprite": "sprites/52.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 53,
+    "name": "Persian",
+    "types": [
+      "Normal"
+    ],
+    "sprite": "sprites/53.webp",
+    "evolvesFrom": 52
+  },
+  {
+    "id": 54,
+    "name": "Psyduck",
+    "types": [
+      "Water"
+    ],
+    "sprite": "sprites/54.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 55,
+    "name": "Golduck",
+    "types": [
+      "Water"
+    ],
+    "sprite": "sprites/55.webp",
+    "evolvesFrom": 54
+  },
+  {
+    "id": 56,
+    "name": "Mankey",
+    "types": [
+      "Fighting"
+    ],
+    "sprite": "sprites/56.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 57,
+    "name": "Primeape",
+    "types": [
+      "Fighting"
+    ],
+    "sprite": "sprites/57.webp",
+    "evolvesFrom": 56
+  },
+  {
+    "id": 58,
+    "name": "Growlithe",
+    "types": [
+      "Fire"
+    ],
+    "sprite": "sprites/58.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 59,
+    "name": "Arcanine",
+    "types": [
+      "Fire"
+    ],
+    "sprite": "sprites/59.webp",
+    "evolvesFrom": 58
+  },
+  {
+    "id": 60,
+    "name": "Poliwag",
+    "types": [
+      "Water"
+    ],
+    "sprite": "sprites/60.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 61,
+    "name": "Poliwhirl",
+    "types": [
+      "Water"
+    ],
+    "sprite": "sprites/61.webp",
+    "evolvesFrom": 60
+  },
+  {
+    "id": 62,
+    "name": "Poliwrath",
+    "types": [
+      "Water",
+      "Fighting"
+    ],
+    "sprite": "sprites/62.webp",
+    "evolvesFrom": 61
+  },
+  {
+    "id": 63,
+    "name": "Abra",
+    "types": [
+      "Psychic"
+    ],
+    "sprite": "sprites/63.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 64,
+    "name": "Kadabra",
+    "types": [
+      "Psychic"
+    ],
+    "sprite": "sprites/64.webp",
+    "evolvesFrom": 63
+  },
+  {
+    "id": 65,
+    "name": "Alakazam",
+    "types": [
+      "Psychic"
+    ],
+    "sprite": "sprites/65.webp",
+    "evolvesFrom": 64
+  },
+  {
+    "id": 66,
+    "name": "Machop",
+    "types": [
+      "Fighting"
+    ],
+    "sprite": "sprites/66.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 67,
+    "name": "Machoke",
+    "types": [
+      "Fighting"
+    ],
+    "sprite": "sprites/67.webp",
+    "evolvesFrom": 66
+  },
+  {
+    "id": 68,
+    "name": "Machamp",
+    "types": [
+      "Fighting"
+    ],
+    "sprite": "sprites/68.webp",
+    "evolvesFrom": 67
+  },
+  {
+    "id": 69,
+    "name": "Bellsprout",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "sprite": "sprites/69.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 70,
+    "name": "Weepinbell",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "sprite": "sprites/70.webp",
+    "evolvesFrom": 69
+  },
+  {
+    "id": 71,
+    "name": "Victreebel",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "sprite": "sprites/71.webp",
+    "evolvesFrom": 70
+  },
+  {
+    "id": 72,
+    "name": "Tentacool",
+    "types": [
+      "Water",
+      "Poison"
+    ],
+    "sprite": "sprites/72.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 73,
+    "name": "Tentacruel",
+    "types": [
+      "Water",
+      "Poison"
+    ],
+    "sprite": "sprites/73.webp",
+    "evolvesFrom": 72
+  },
+  {
+    "id": 74,
+    "name": "Geodude",
+    "types": [
+      "Rock",
+      "Ground"
+    ],
+    "sprite": "sprites/74.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 75,
+    "name": "Graveler",
+    "types": [
+      "Rock",
+      "Ground"
+    ],
+    "sprite": "sprites/75.webp",
+    "evolvesFrom": 74
+  },
+  {
+    "id": 76,
+    "name": "Golem",
+    "types": [
+      "Rock",
+      "Ground"
+    ],
+    "sprite": "sprites/76.webp",
+    "evolvesFrom": 75
+  },
+  {
+    "id": 77,
+    "name": "Ponyta",
+    "types": [
+      "Fire"
+    ],
+    "sprite": "sprites/77.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 78,
+    "name": "Rapidash",
+    "types": [
+      "Fire"
+    ],
+    "sprite": "sprites/78.webp",
+    "evolvesFrom": 77
+  },
+  {
+    "id": 79,
+    "name": "Slowpoke",
+    "types": [
+      "Water",
+      "Psychic"
+    ],
+    "sprite": "sprites/79.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 80,
+    "name": "Slowbro",
+    "types": [
+      "Water",
+      "Psychic"
+    ],
+    "sprite": "sprites/80.webp",
+    "evolvesFrom": 79
+  },
+  {
+    "id": 81,
+    "name": "Magnemite",
+    "types": [
+      "Electric",
+      "Steel"
+    ],
+    "sprite": "sprites/81.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 82,
+    "name": "Magneton",
+    "types": [
+      "Electric",
+      "Steel"
+    ],
+    "sprite": "sprites/82.webp",
+    "evolvesFrom": 81
+  },
+  {
+    "id": 83,
+    "name": "Farfetchd",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "sprite": "sprites/83.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 84,
+    "name": "Doduo",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "sprite": "sprites/84.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 85,
+    "name": "Dodrio",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "sprite": "sprites/85.webp",
+    "evolvesFrom": 84
+  },
+  {
+    "id": 86,
+    "name": "Seel",
+    "types": [
+      "Water"
+    ],
+    "sprite": "sprites/86.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 87,
+    "name": "Dewgong",
+    "types": [
+      "Water",
+      "Ice"
+    ],
+    "sprite": "sprites/87.webp",
+    "evolvesFrom": 86
+  },
+  {
+    "id": 88,
+    "name": "Grimer",
+    "types": [
+      "Poison"
+    ],
+    "sprite": "sprites/88.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 89,
+    "name": "Muk",
+    "types": [
+      "Poison"
+    ],
+    "sprite": "sprites/89.webp",
+    "evolvesFrom": 88
+  },
+  {
+    "id": 90,
+    "name": "Shellder",
+    "types": [
+      "Water"
+    ],
+    "sprite": "sprites/90.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 91,
+    "name": "Cloyster",
+    "types": [
+      "Water",
+      "Ice"
+    ],
+    "sprite": "sprites/91.webp",
+    "evolvesFrom": 90
+  },
+  {
+    "id": 92,
+    "name": "Gastly",
+    "types": [
+      "Ghost",
+      "Poison"
+    ],
+    "sprite": "sprites/92.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 93,
+    "name": "Haunter",
+    "types": [
+      "Ghost",
+      "Poison"
+    ],
+    "sprite": "sprites/93.webp",
+    "evolvesFrom": 92
+  },
+  {
+    "id": 94,
+    "name": "Gengar",
+    "types": [
+      "Ghost",
+      "Poison"
+    ],
+    "sprite": "sprites/94.webp",
+    "evolvesFrom": 93
+  },
+  {
+    "id": 95,
+    "name": "Onix",
+    "types": [
+      "Rock",
+      "Ground"
+    ],
+    "sprite": "sprites/95.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 96,
+    "name": "Drowzee",
+    "types": [
+      "Psychic"
+    ],
+    "sprite": "sprites/96.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 97,
+    "name": "Hypno",
+    "types": [
+      "Psychic"
+    ],
+    "sprite": "sprites/97.webp",
+    "evolvesFrom": 96
+  },
+  {
+    "id": 98,
+    "name": "Krabby",
+    "types": [
+      "Water"
+    ],
+    "sprite": "sprites/98.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 99,
+    "name": "Kingler",
+    "types": [
+      "Water"
+    ],
+    "sprite": "sprites/99.webp",
+    "evolvesFrom": 98
+  },
+  {
+    "id": 100,
+    "name": "Voltorb",
+    "types": [
+      "Electric"
+    ],
+    "sprite": "sprites/100.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 101,
+    "name": "Electrode",
+    "types": [
+      "Electric"
+    ],
+    "sprite": "sprites/101.webp",
+    "evolvesFrom": 100
+  },
+  {
+    "id": 102,
+    "name": "Exeggcute",
+    "types": [
+      "Grass",
+      "Psychic"
+    ],
+    "sprite": "sprites/102.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 103,
+    "name": "Exeggutor",
+    "types": [
+      "Grass",
+      "Psychic"
+    ],
+    "sprite": "sprites/103.webp",
+    "evolvesFrom": 102
+  },
+  {
+    "id": 104,
+    "name": "Cubone",
+    "types": [
+      "Ground"
+    ],
+    "sprite": "sprites/104.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 105,
+    "name": "Marowak",
+    "types": [
+      "Ground"
+    ],
+    "sprite": "sprites/105.webp",
+    "evolvesFrom": 104
+  },
+  {
+    "id": 106,
+    "name": "Hitmonlee",
+    "types": [
+      "Fighting"
+    ],
+    "sprite": "sprites/106.webp",
+    "evolvesFrom": 236
+  },
+  {
+    "id": 107,
+    "name": "Hitmonchan",
+    "types": [
+      "Fighting"
+    ],
+    "sprite": "sprites/107.webp",
+    "evolvesFrom": 236
+  },
+  {
+    "id": 108,
+    "name": "Lickitung",
+    "types": [
+      "Normal"
+    ],
+    "sprite": "sprites/108.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 109,
+    "name": "Koffing",
+    "types": [
+      "Poison"
+    ],
+    "sprite": "sprites/109.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 110,
+    "name": "Weezing",
+    "types": [
+      "Poison"
+    ],
+    "sprite": "sprites/110.webp",
+    "evolvesFrom": 109
+  },
+  {
+    "id": 111,
+    "name": "Rhyhorn",
+    "types": [
+      "Ground",
+      "Rock"
+    ],
+    "sprite": "sprites/111.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 112,
+    "name": "Rhydon",
+    "types": [
+      "Ground",
+      "Rock"
+    ],
+    "sprite": "sprites/112.webp",
+    "evolvesFrom": 111
+  },
+  {
+    "id": 113,
+    "name": "Chansey",
+    "types": [
+      "Normal"
+    ],
+    "sprite": "sprites/113.webp",
+    "evolvesFrom": 440
+  },
+  {
+    "id": 114,
+    "name": "Tangela",
+    "types": [
+      "Grass"
+    ],
+    "sprite": "sprites/114.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 115,
+    "name": "Kangaskhan",
+    "types": [
+      "Normal"
+    ],
+    "sprite": "sprites/115.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 116,
+    "name": "Horsea",
+    "types": [
+      "Water"
+    ],
+    "sprite": "sprites/116.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 117,
+    "name": "Seadra",
+    "types": [
+      "Water"
+    ],
+    "sprite": "sprites/117.webp",
+    "evolvesFrom": 116
+  },
+  {
+    "id": 118,
+    "name": "Goldeen",
+    "types": [
+      "Water"
+    ],
+    "sprite": "sprites/118.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 119,
+    "name": "Seaking",
+    "types": [
+      "Water"
+    ],
+    "sprite": "sprites/119.webp",
+    "evolvesFrom": 118
+  },
+  {
+    "id": 120,
+    "name": "Staryu",
+    "types": [
+      "Water"
+    ],
+    "sprite": "sprites/120.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 121,
+    "name": "Starmie",
+    "types": [
+      "Water",
+      "Psychic"
+    ],
+    "sprite": "sprites/121.webp",
+    "evolvesFrom": 120
+  },
+  {
+    "id": 122,
+    "name": "Mr-mime",
+    "types": [
+      "Psychic",
+      "Fairy"
+    ],
+    "sprite": "sprites/122.webp",
+    "evolvesFrom": 439
+  },
+  {
+    "id": 123,
+    "name": "Scyther",
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "sprite": "sprites/123.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 124,
+    "name": "Jynx",
+    "types": [
+      "Ice",
+      "Psychic"
+    ],
+    "sprite": "sprites/124.webp",
+    "evolvesFrom": 238
+  },
+  {
+    "id": 125,
+    "name": "Electabuzz",
+    "types": [
+      "Electric"
+    ],
+    "sprite": "sprites/125.webp",
+    "evolvesFrom": 239
+  },
+  {
+    "id": 126,
+    "name": "Magmar",
+    "types": [
+      "Fire"
+    ],
+    "sprite": "sprites/126.webp",
+    "evolvesFrom": 240
+  },
+  {
+    "id": 127,
+    "name": "Pinsir",
+    "types": [
+      "Bug"
+    ],
+    "sprite": "sprites/127.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 128,
+    "name": "Tauros",
+    "types": [
+      "Normal"
+    ],
+    "sprite": "sprites/128.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 129,
+    "name": "Magikarp",
+    "types": [
+      "Water"
+    ],
+    "sprite": "sprites/129.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 130,
+    "name": "Gyarados",
+    "types": [
+      "Water",
+      "Flying"
+    ],
+    "sprite": "sprites/130.webp",
+    "evolvesFrom": 129
+  },
+  {
+    "id": 131,
+    "name": "Lapras",
+    "types": [
+      "Water",
+      "Ice"
+    ],
+    "sprite": "sprites/131.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 132,
+    "name": "Ditto",
+    "types": [
+      "Normal"
+    ],
+    "sprite": "sprites/132.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 133,
+    "name": "Eevee",
+    "types": [
+      "Normal"
+    ],
+    "sprite": "sprites/133.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 134,
+    "name": "Vaporeon",
+    "types": [
+      "Water"
+    ],
+    "sprite": "sprites/134.webp",
+    "evolvesFrom": 133
+  },
+  {
+    "id": 135,
+    "name": "Jolteon",
+    "types": [
+      "Electric"
+    ],
+    "sprite": "sprites/135.webp",
+    "evolvesFrom": 133
+  },
+  {
+    "id": 136,
+    "name": "Flareon",
+    "types": [
+      "Fire"
+    ],
+    "sprite": "sprites/136.webp",
+    "evolvesFrom": 133
+  },
+  {
+    "id": 137,
+    "name": "Porygon",
+    "types": [
+      "Normal"
+    ],
+    "sprite": "sprites/137.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 138,
+    "name": "Omanyte",
+    "types": [
+      "Rock",
+      "Water"
+    ],
+    "sprite": "sprites/138.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 139,
+    "name": "Omastar",
+    "types": [
+      "Rock",
+      "Water"
+    ],
+    "sprite": "sprites/139.webp",
+    "evolvesFrom": 138
+  },
+  {
+    "id": 140,
+    "name": "Kabuto",
+    "types": [
+      "Rock",
+      "Water"
+    ],
+    "sprite": "sprites/140.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 141,
+    "name": "Kabutops",
+    "types": [
+      "Rock",
+      "Water"
+    ],
+    "sprite": "sprites/141.webp",
+    "evolvesFrom": 140
+  },
+  {
+    "id": 142,
+    "name": "Aerodactyl",
+    "types": [
+      "Rock",
+      "Flying"
+    ],
+    "sprite": "sprites/142.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 143,
+    "name": "Snorlax",
+    "types": [
+      "Normal"
+    ],
+    "sprite": "sprites/143.webp",
+    "evolvesFrom": 446
+  },
+  {
+    "id": 144,
+    "name": "Articuno",
+    "types": [
+      "Ice",
+      "Flying"
+    ],
+    "sprite": "sprites/144.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 145,
+    "name": "Zapdos",
+    "types": [
+      "Electric",
+      "Flying"
+    ],
+    "sprite": "sprites/145.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 146,
+    "name": "Moltres",
+    "types": [
+      "Fire",
+      "Flying"
+    ],
+    "sprite": "sprites/146.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 147,
+    "name": "Dratini",
+    "types": [
+      "Dragon"
+    ],
+    "sprite": "sprites/147.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 148,
+    "name": "Dragonair",
+    "types": [
+      "Dragon"
+    ],
+    "sprite": "sprites/148.webp",
+    "evolvesFrom": 147
+  },
+  {
+    "id": 149,
+    "name": "Dragonite",
+    "types": [
+      "Dragon",
+      "Flying"
+    ],
+    "sprite": "sprites/149.webp",
+    "evolvesFrom": 148
+  },
+  {
+    "id": 150,
+    "name": "Mewtwo",
+    "types": [
+      "Psychic"
+    ],
+    "sprite": "sprites/150.webp",
+    "evolvesFrom": null
+  },
+  {
+    "id": 151,
+    "name": "Mew",
+    "types": [
+      "Psychic"
+    ],
+    "sprite": "sprites/151.webp",
+    "evolvesFrom": null
+  }
+]

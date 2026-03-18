@@ -138,6 +138,120 @@ export default tseslint.config(
         },
     },
 
+    // Override for pithos examples (design patterns demos)
+    {
+        files: [
+            'packages/pithos/examples/**/*.ts',
+            'packages/pithos/examples/**/*.tsx',
+        ],
+        languageOptions: {
+            parserOptions: {
+                project: [
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/practical-example/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/strategy/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/observer/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/decorator/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/command/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/chain/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/builder/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/state/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/proxy/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/iterator/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/mediator/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/abstract-factory/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/composite/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/adapter/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/memento/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/template/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/bridge/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/interpreter/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/facade/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/factory-method/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/flyweight/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/prototype/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/singleton/tsconfig.json'
+                    ),
+                    path.resolve(
+                        __dirname,
+                        'packages/pithos/examples/design-patterns/visitor/tsconfig.json'
+                    ),
+                ],
+            },
+        },
+        rules: {
+            // Examples can use console for demo purposes
+            'no-console': 'off',
+        },
+    },
+
     // Accessibility rules for preact integration JSX
     {
         files: [

@@ -1,0 +1,12 @@
+{
+  "src/lib/factory.ts": {
+    "content": "/**\n * Abstract Factory for cross-platform UI kits.\n *\n * One factory.create() call returns a full UIKit (button, input, modal, nav, theme)\n * styled for the selected platform. Consumer code never changes.\n */\n\nimport { createAbstractFactory } from \"@pithos/core/eidos/abstract-factory/abstract-factory\";\nimport { PLATFORM_FAMILIES } from \"@/data/platforms\";\nimport type { Platform, UIKit } from \"./types\";\n\nexport const uiFactory = createAbstractFactory<Platform, UIKit>(PLATFORM_FAMILIES);\n",
+    "label": "factory.ts",
+    "step": 1
+  },
+  "src/hooks/usePhonePreview.ts": {
+    "content": "import { useState, useMemo, useCallback } from \"react\";\nimport { uiFactory } from \"@/lib/factory\";\nimport type { Platform } from \"@/lib/types\";\n\nexport function usePhonePreview() {\n  const [platform, setPlatform] = useState<Platform>(\"ios\");\n  const [modalOpen, setModalOpen] = useState(false);\n  const [formValues, setFormValues] = useState({ name: \"\", email: \"\" });\n\n  const kit = useMemo(() => uiFactory.create(platform), [platform]);\n\n  const handleSubmit = useCallback(() => setModalOpen(true), []);\n\n  const handleCloseModal = useCallback(() => {\n    setModalOpen(false);\n    setFormValues({ name: \"\", email: \"\" });\n  }, []);\n\n  const updateField = useCallback((field: \"name\" | \"email\", value: string) => {\n    setFormValues((prev) => ({ ...prev, [field]: value }));\n  }, []);\n\n  return {\n    platform,\n    setPlatform,\n    kit,\n    modalOpen,\n    formValues,\n    updateField,\n    handleSubmit,\n    handleCloseModal,\n  };\n}\n",
+    "label": "Usage",
+    "step": 2
+  }
+}

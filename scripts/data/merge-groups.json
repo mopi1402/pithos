@@ -1,6 +1,81 @@
 {
   "mergeGroups": [
     {
+      "module": "eidos/strategy",
+      "parent": "createStrategies",
+      "children": ["Strategy"]
+    },
+    {
+      "module": "eidos/abstract-factory",
+      "parent": "createAbstractFactory",
+      "children": ["Factory"]
+    },
+    {
+      "module": "eidos/builder",
+      "parent": "createBuilder",
+      "children": ["BuilderDefinition", "FinalBuilder", "Director"]
+    },
+    {
+      "module": "eidos/builder",
+      "parent": "createValidatedBuilder",
+      "children": ["ValidatedBuilderDefinition", "ValidatedFinalBuilder"]
+    },
+    {
+      "module": "eidos/decorator",
+      "parent": "decorate",
+      "children": ["Decorator"]
+    },
+    {
+      "module": "eidos/adapter",
+      "parent": "adapt",
+      "children": ["Adapter"]
+    },
+    {
+      "module": "eidos/memento",
+      "parent": "createHistory",
+      "children": ["Snapshot", "History"]
+    },
+    {
+      "module": "eidos/state",
+      "parent": "createMachine",
+      "children": ["SimpleTransition", "ContextTransition", "Transition", "Transitions", "MachineDefinition", "TransitionListener"]
+    },
+    {
+      "module": "eidos/command",
+      "parent": "undoable",
+      "children": ["Command", "UndoableCommand"]
+    },
+    {
+      "module": "eidos/command",
+      "parent": "undoableState",
+      "children": ["StateCommand", "UndoableStateCommand"]
+    },
+    {
+      "module": "eidos/command",
+      "parent": "createReactiveCommandStack",
+      "children": ["ReactiveCommandStackOptions"]
+    },
+    {
+      "module": "eidos/observer",
+      "parent": "createObservable",
+      "children": ["Listener", "Unsubscribe"]
+    },
+    {
+      "module": "eidos/mediator",
+      "parent": "createMediator",
+      "children": ["Handler", "Mediator"]
+    },
+    {
+      "module": "eidos/chain",
+      "parent": "createChain",
+      "children": ["Handler"]
+    },
+    {
+      "module": "eidos/composite",
+      "parent": "fold",
+      "children": ["Composite", "FoldHandlers"]
+    },
+    {
       "module": "kanon/jit",
       "parent": "compile",
       "children": [

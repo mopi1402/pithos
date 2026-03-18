@@ -6,7 +6,8 @@ description: "Construisez une fonctionnalité réelle combinant plusieurs module
 slug: practical-example
 ---
 
-import { DashboardPlayground } from '@site/src/components/playground/DashboardPlayground';
+import { Playground } from '@site/src/components/playground/Playground';
+import demoSources from '@site/src/data/demo-sources.json';
 import ModuleName from "@site/src/components/shared/badges/ModuleName";
 
 # 🗜️ Exemple pratique
@@ -255,7 +256,11 @@ async function initDashboard() {
 
 ## Démo interactive
 
-<DashboardPlayground />
+<Playground 
+  iframeSrc="/demos/practical-example/index.html"
+  sources={demoSources}
+  title="Dashboard Demo"
+/>
 
 :::info
 La démo ci-dessus est plus complète que les extraits de code : elle est intégrée dans un projet React et inclut l'interface utilisateur.

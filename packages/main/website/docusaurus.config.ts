@@ -55,7 +55,7 @@ const config: Config = {
         url: "https://pithos.dev",
         logo: "https://pithos.dev/img/logos/logo.svg",
         description:
-          "TypeScript utilities library with zero dependencies. Includes Arkhe (Lodash alternative), Kanon (Zod alternative), Zygos (Neverthrow alternative), Sphalma, and Taphos.",
+          "TypeScript utilities library with zero dependencies. Includes Arkhe (Lodash alternative), Kanon (Zod alternative), Zygos (Neverthrow alternative), Eidos (design patterns), Sphalma, and Taphos.",
         sameAs: [
           REPO_URL,
           `https://www.npmjs.com/package/${pithosPackageJson.name}`,

@@ -12,6 +12,9 @@
 /static/img/generated/
 /static/img/emoji/
 
+# Generated demos (built from examples at build time)
+/static/demos/
+
 # Generated use cases data (should be regenerated at build time)
 /static/use_cases/*.json
 

@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-slate-100 text-slate-800;
+}
+
+/* Phone frame */
+.phone-frame {
+  width: 320px;
+  height: 640px;
+  border-radius: 40px;
+  box-shadow:
+    0 0 0 2px #1a1a2e,
+    0 0 0 6px #2d2d44,
+    0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* Hide header on short viewports */
+@media (max-height: 700px) {
+  .demo-header {
+    display: none;
+  }
+}
+.platform-transition,
+.platform-transition * {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ensure border-radius animates on form elements */
+.phone-frame button,
+.phone-frame input {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}

@@ -9,8 +9,14 @@ TODO merge this logic back in Infima?
   margin-left: var(--ifm-menu-link-padding-vertical);
 }
 
-.categoryLinkLabel {
+.categoryLinkWrapper {
   flex: 1;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.categoryLinkLabel {
   overflow: hidden;
   display: -webkit-box;
   line-clamp: 2;

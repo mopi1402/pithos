@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 6
 sidebar_label: "Taphos"
 title: "Taphos - Lodash Migration Guide | Modern JavaScript Replacements"
 description: "Strategic migration guide from Lodash to modern JavaScript and TypeScript. IDE-integrated deprecation warnings with clear migration paths."

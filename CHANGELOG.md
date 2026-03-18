@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2026-03-30
+
+### Added
+
+- **Eidos** — 23 GoF design patterns en TypeScript fonctionnel (Strategy, Observer, Decorator, Adapter, Command, Chain of Responsibility, State, Iterator, Composite, Abstract Factory, Mediator, Memento, Builder, Template Method + re-exports Arkhe pour Proxy, Prototype, Singleton, Flyweight + deprecated pédagogiques pour Bridge, Factory Method, Facade, Visitor, Interpreter)
+
+---
+
 ## [2.3.0] - 2026-03-11
 
 ### Fixed

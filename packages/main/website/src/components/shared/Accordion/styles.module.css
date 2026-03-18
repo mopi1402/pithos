@@ -59,6 +59,10 @@
   color: var(--ifm-color-emphasis-700);
 }
 
+.titleSuffix {
+  margin-left: 0.4rem;
+}
+
 /* Card variant: primary color title */
 .titleCard {
   color: var(--ifm-color-primary);
@@ -73,4 +77,29 @@
 
 .content {
   padding: var(--pithos-spacing-md) var(--pithos-spacing-lg);
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.actionButton {
+  padding: 0.25rem 0.75rem;
+  font-size: var(--pithos-font-size-sm);
+  font-weight: var(--pithos-font-weight-medium);
+  color: var(--ifm-color-primary);
+  background: transparent;
+  border: 1px solid var(--ifm-color-primary);
+  border-radius: var(--pithos-radius-md);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.actionButton:hover {
+  background: var(--ifm-color-primary);
+  color: white;
+  text-decoration: none;
 }

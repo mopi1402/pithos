@@ -1,0 +1,162 @@
+---
+title: Eidos
+description: "Référence API d'Eidos, le module de design patterns fonctionnels de Pithos (adapter, chain, command, decorator, observer, proxy, strategy)."
+---
+
+import { Accordion } from "@site/src/components/shared/Accordion";
+
+# Eidos
+
+## Patterns de Création
+
+<Accordion title="Abstract Factory" icon="/img/emoji/letter-e.webp" badge="1" description="Créer des familles d'objets liés sans spécifier les classes concrètes" titleSuffix="💎" actions={[{"label":"Explications","href":"/api/eidos/abstract-factory/"},{"label":"Démo interactive","href":"/api/eidos/abstract-factory/#live-demo"}]} variant="card">
+
+- [createAbstractFactory](/api/eidos/abstract-factory/createAbstractFactory)
+
+</Accordion>
+
+<Accordion title="Builder" icon="/img/emoji/letter-e.webp" badge="2" description="Construction étape par étape d'objets complexes" titleSuffix="👑" actions={[{"label":"Explications","href":"/api/eidos/builder/"},{"label":"Démo interactive","href":"/api/eidos/builder/#live-demo"}]} variant="card">
+
+- [createBuilder](/api/eidos/builder/createBuilder)
+- [createValidatedBuilder](/api/eidos/builder/createValidatedBuilder)
+
+</Accordion>
+
+<Accordion title="Factory Method" icon="/img/emoji/letter-e.webp" badge="1" description="Déléguer la création d'objets à des sous-classes ou fonctions" actions={[{"label":"Explications","href":"/api/eidos/factory-method/"},{"label":"Démo interactive","href":"/api/eidos/factory-method/#live-demo"}]} variant="card">
+
+- [createFactoryMethod](/api/eidos/factory-method/createFactoryMethod)
+
+</Accordion>
+
+## Patterns Structurels
+
+<Accordion title="Adapter" icon="/img/emoji/letter-e.webp" badge="2" description="Adapter les signatures de fonctions avec des mappers d'entrée/sortie" titleSuffix="💎" actions={[{"label":"Explications","href":"/api/eidos/adapter/"},{"label":"Démo interactive","href":"/api/eidos/adapter/#live-demo"}]} variant="card">
+
+- [adapt](/api/eidos/adapter/adapt)
+- [createAdapter](/api/eidos/adapter/createAdapter)
+
+</Accordion>
+
+<Accordion title="Bridge" icon="/img/emoji/letter-e.webp" badge="2" description="Découpler l'abstraction de l'implémentation" actions={[{"label":"Explications","href":"/api/eidos/bridge/"},{"label":"Démo interactive","href":"/api/eidos/bridge/#live-demo"}]} variant="card">
+
+- [composeBridges](/api/eidos/bridge/composeBridges)
+- [createBridge](/api/eidos/bridge/createBridge)
+
+</Accordion>
+
+<Accordion title="Composite" icon="/img/emoji/letter-e.webp" badge="6" description="Structures arborescentes avec traitement uniforme feuille/branche" titleSuffix="💎" actions={[{"label":"Explications","href":"/api/eidos/composite/"},{"label":"Démo interactive","href":"/api/eidos/composite/#live-demo"}]} variant="card">
+
+- [branch](/api/eidos/composite/branch)
+- [find](/api/eidos/composite/find)
+- [flatten](/api/eidos/composite/flatten)
+- [fold](/api/eidos/composite/fold)
+- [leaf](/api/eidos/composite/leaf)
+- [map](/api/eidos/composite/map)
+
+</Accordion>
+
+<Accordion title="Decorator" icon="/img/emoji/letter-e.webp" badge="4" description="Hooks before/after/around pour les fonctions" titleSuffix="👑" actions={[{"label":"Explications","href":"/api/eidos/decorator/"},{"label":"Démo interactive","href":"/api/eidos/decorator/#live-demo"}]} variant="card">
+
+- [after](/api/eidos/decorator/after)
+- [around](/api/eidos/decorator/around)
+- [before](/api/eidos/decorator/before)
+- [decorate](/api/eidos/decorator/decorate)
+
+</Accordion>
+
+<Accordion title="Facade" icon="/img/emoji/letter-e.webp" badge="1" description="Interface simplifiée vers un sous-système complexe" actions={[{"label":"Explications","href":"/api/eidos/facade/"},{"label":"Démo interactive","href":"/api/eidos/facade/#live-demo"}]} variant="card">
+
+- [createFacade](/api/eidos/facade/createFacade)
+
+</Accordion>
+
+<Accordion title="Proxy" icon="/img/emoji/letter-e.webp" badge="2" description="Init lazy, cache, rate-limiting, contrôle d'accès" actions={[{"label":"Explications","href":"/api/eidos/proxy/"},{"label":"Démo interactive","href":"/api/eidos/proxy/#live-demo"}]} variant="card">
+
+- [guarded](/api/eidos/proxy/guarded)
+- [lazy](/api/eidos/proxy/lazy)
+
+</Accordion>
+
+## Patterns Comportementaux
+
+<Accordion title="Chain of Responsibility" icon="/img/emoji/letter-e.webp" badge="2" description="Pipeline de handlers qui peuvent passer ou traiter les requêtes" titleSuffix="👑" actions={[{"label":"Explications","href":"/api/eidos/chain/"},{"label":"Démo interactive","href":"/api/eidos/chain/#live-demo"}]} variant="card">
+
+- [createChain](/api/eidos/chain/createChain)
+- [safeChain](/api/eidos/chain/safeChain)
+
+</Accordion>
+
+<Accordion title="Command" icon="/img/emoji/letter-e.webp" badge="5" description="Encapsuler des actions avec support undo/redo" titleSuffix="👑" actions={[{"label":"Explications","href":"/api/eidos/command/"},{"label":"Démo interactive","href":"/api/eidos/command/#live-demo"}]} variant="card">
+
+- [createCommandStack](/api/eidos/command/createCommandStack)
+- [createReactiveCommandStack](/api/eidos/command/createReactiveCommandStack)
+- [safeExecute](/api/eidos/command/safeExecute)
+- [undoable](/api/eidos/command/undoable)
+- [undoableState](/api/eidos/command/undoableState)
+
+</Accordion>
+
+<Accordion title="Interpreter" icon="/img/emoji/letter-e.webp" badge="1" description="Évaluer des expressions ou des DSL" actions={[{"label":"Explications","href":"/api/eidos/interpreter/"},{"label":"Démo interactive","href":"/api/eidos/interpreter/#live-demo"}]} variant="card">
+
+- [interpret](/api/eidos/interpreter/interpret)
+
+</Accordion>
+
+<Accordion title="Iterator" icon="/img/emoji/letter-e.webp" badge="8" description="Parcourir des collections sans exposer les détails internes" titleSuffix="💎" actions={[{"label":"Explications","href":"/api/eidos/iterator/"},{"label":"Démo interactive","href":"/api/eidos/iterator/#live-demo"}]} variant="card">
+
+- [createIterable](/api/eidos/iterator/createIterable)
+- [filter](/api/eidos/iterator/filter)
+- [iterate](/api/eidos/iterator/iterate)
+- [lazyRange](/api/eidos/iterator/lazyRange)
+- [map](/api/eidos/iterator/map)
+- [reduce](/api/eidos/iterator/reduce)
+- [take](/api/eidos/iterator/take)
+- [toArray](/api/eidos/iterator/toArray)
+
+</Accordion>
+
+<Accordion title="Mediator" icon="/img/emoji/letter-e.webp" badge="1" description="Centraliser la communication entre composants" titleSuffix="💎" actions={[{"label":"Explications","href":"/api/eidos/mediator/"},{"label":"Démo interactive","href":"/api/eidos/mediator/#live-demo"}]} variant="card">
+
+- [createMediator](/api/eidos/mediator/createMediator)
+
+</Accordion>
+
+<Accordion title="Memento" icon="/img/emoji/letter-e.webp" badge="1" description="Capturer et restaurer l'état d'un objet (snapshots)" titleSuffix="💎" actions={[{"label":"Explications","href":"/api/eidos/memento/"},{"label":"Démo interactive","href":"/api/eidos/memento/#live-demo"}]} variant="card">
+
+- [createHistory](/api/eidos/memento/createHistory)
+
+</Accordion>
+
+<Accordion title="Observer" icon="/img/emoji/letter-e.webp" badge="1" description="Émetteur d'événements pub/sub avec notification sûre" titleSuffix="👑" actions={[{"label":"Explications","href":"/api/eidos/observer/"},{"label":"Démo interactive","href":"/api/eidos/observer/#live-demo"}]} variant="card">
+
+- [createObservable](/api/eidos/observer/createObservable)
+
+</Accordion>
+
+<Accordion title="State" icon="/img/emoji/letter-e.webp" badge="1" description="Le comportement de l'objet change selon son état interne" titleSuffix="👑" actions={[{"label":"Explications","href":"/api/eidos/state/"},{"label":"Démo interactive","href":"/api/eidos/state/#live-demo"}]} variant="card">
+
+- [createMachine](/api/eidos/state/createMachine)
+
+</Accordion>
+
+<Accordion title="Strategy" icon="/img/emoji/letter-e.webp" badge="4" description="Interchanger des algorithmes à l'exécution" titleSuffix="👑" actions={[{"label":"Explications","href":"/api/eidos/strategy/"},{"label":"Démo interactive","href":"/api/eidos/strategy/#live-demo"}]} variant="card">
+
+- [createStrategies](/api/eidos/strategy/createStrategies)
+- [safeStrategy](/api/eidos/strategy/safeStrategy)
+- [withFallback](/api/eidos/strategy/withFallback)
+- [withValidation](/api/eidos/strategy/withValidation)
+
+</Accordion>
+
+<Accordion title="Template Method" icon="/img/emoji/letter-e.webp" badge="2" description="Définir le squelette d'un algorithme, laisser les sous-classes remplir les étapes" titleSuffix="💎" actions={[{"label":"Explications","href":"/api/eidos/template/"},{"label":"Démo interactive","href":"/api/eidos/template/#live-demo"}]} variant="card">
+
+- [template](/api/eidos/template)
+- [templateWithDefaults](/api/eidos/template/templateWithDefaults)
+
+</Accordion>
+
+<Accordion title="Visitor" icon="/img/emoji/letter-e.webp" badge="1" description="Ajouter des opérations aux objets sans les modifier" actions={[{"label":"Explications","href":"/api/eidos/visitor/"},{"label":"Démo interactive","href":"/api/eidos/visitor/#live-demo"}]} variant="card">
+
+- [visit](/api/eidos/visitor/visit)
+
+</Accordion>

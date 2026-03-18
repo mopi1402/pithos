@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 5
 sidebar_label: "Sphalma"
 title: "Sphalma - Typed Error Factories for TypeScript | Structured Error Handling"
 description: "Create structured, identifiable errors with hex codes for TypeScript. Type-safe error factories for debugging, logging, and API error management."

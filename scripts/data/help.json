@@ -36,6 +36,7 @@
           "defaultValue": "arkhe",
           "options": [
             { "label": "arkhe", "value": "arkhe", "suffix": ":arkhe" },
+            { "label": "eidos", "value": "eidos", "suffix": ":eidos" },
             { "label": "kanon", "value": "kanon", "suffix": ":kanon" },
             { "label": "sphalma", "value": "sphalma", "suffix": ":sphalma" },
             { "label": "taphos", "value": "taphos", "suffix": ":taphos" },
@@ -74,6 +75,7 @@
           "options": [
             { "label": "all", "value": "" },
             { "label": "arkhe", "value": "arkhe", "script": "test:mutation:arkhe" },
+            { "label": "eidos", "value": "eidos", "script": "test:mutation:eidos" },
             { "label": "kanon", "value": "kanon", "script": "test:mutation:kanon" },
             { "label": "sphalma", "value": "sphalma", "script": "test:mutation:sphalma" },
             { "label": "taphos", "value": "taphos", "script": "test:mutation:taphos" },
@@ -100,6 +102,7 @@
           "defaultValue": "arkhe",
           "options": [
             { "label": "arkhe", "value": "arkhe", "suffix": ":arkhe" },
+            { "label": "eidos", "value": "eidos", "suffix": ":eidos" },
             { "label": "kanon", "value": "kanon", "suffix": ":kanon" },
             { "label": "sphalma", "value": "sphalma", "suffix": ":sphalma" },
             { "label": "taphos", "value": "taphos", "suffix": ":taphos" },
@@ -120,6 +123,7 @@
           "options": [
             { "label": "all", "value": "" },
             { "label": "arkhe", "value": "arkhe", "suffix": ":arkhe" },
+            { "label": "eidos", "value": "eidos", "suffix": ":eidos" },
             { "label": "kanon", "value": "kanon", "suffix": ":kanon" },
             { "label": "sphalma", "value": "sphalma", "suffix": ":sphalma" },
             { "label": "taphos", "value": "taphos", "suffix": ":taphos" },

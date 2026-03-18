@@ -1,0 +1,11 @@
+.container {
+  margin: var(--pithos-spacing-xl) 0;
+}
+
+.sourceLink {
+  margin-top: var(--pithos-spacing-lg);
+}
+
+.sourceLink .admonition-content {
+  margin: 0;
+}

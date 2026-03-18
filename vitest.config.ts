@@ -48,6 +48,7 @@ export default defineConfig({
       "@taphos": resolve(__dirname, "./packages/pithos/src/taphos"),
       "@sphalma": resolve(__dirname, "./packages/pithos/src/sphalma"),
       "@bridges": resolve(__dirname, "./packages/pithos/src/bridges"),
+      "@eidos": resolve(__dirname, "./packages/pithos/src/eidos"),
       _internal: resolve(__dirname, "./packages/pithos/src/_internal"),
     },
   },

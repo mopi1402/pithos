@@ -1,0 +1,85 @@
+---
+title: "Pattern Strategy en TypeScript"
+sidebar_label: "strategy"
+description: "Apprenez à implémenter le design pattern Strategy en TypeScript fonctionnel. Remplacez les chaînes if/else complexes par des algorithmes interchangeables."
+keywords:
+  - strategy pattern typescript
+  - design pattern fonctionnel
+  - algorithmes interchangeables
+  - remplacer if else
+  - sélection algorithme runtime
+---
+
+import { PatternDemo } from '@site/src/components/playground/PatternDemo';
+
+# Pattern Strategy
+
+Définissez une famille d'algorithmes, encapsulez chacun dans une fonction, et échangez-les à l'exécution.
+
+---
+
+## Le Problème
+
+Vous développez un checkout e-commerce. Les clients ont différentes réductions : les utilisateurs réguliers paient plein tarif, les membres VIP ont 20% de réduction, les codes promo donnent 15%.
+
+L'approche naïve :
+
+```typescript
+function calculatePrice(price: number, customerType: string): number {
+  if (customerType === "regular") return price;
+  if (customerType === "vip") return price * 0.8;
+  if (customerType === "promo") return price * 0.85;
+  // ... grossit avec chaque nouveau type de réduction
+}
+```
+
+Chaque nouvelle réduction = modifier cette fonction. Ça devient un cauchemar de maintenance.
+
+---
+
+## La Solution
+
+Chaque réduction devient une fonction autonome. Choisissez la bonne par sa clé à l'exécution :
+
+```typescript
+import { createStrategies } from "@pithos/core/eidos/strategy/strategy";
+
+const pricing = createStrategies({
+  regular: (price: number) => price,
+  vip: (price: number) => price * 0.8,
+  promo: (price: number) => price * 0.85,
+});
+
+pricing.execute("vip", 100); // 80
+```
+
+Nouvelle réduction ? Ajoutez une ligne. Pas de conditions à mettre à jour.
+
+---
+
+## Analogie
+
+Une app GPS avec plusieurs options d'itinéraire : le plus rapide, le plus court, sans péages, panoramique. Chacun est un algorithme séparé, mais l'interface de navigation ne se soucie pas de celui qui est actif — elle appelle juste "calculer l'itinéraire" sur la stratégie sélectionnée.
+
+---
+
+## Démo {#live-demo}
+
+<PatternDemo pattern="strategy" />
+
+---
+
+## Quand l'Utiliser
+
+- Plusieurs algorithmes pour la même tâche, sélectionnés à l'exécution
+- Vous voulez ajouter de nouvelles variantes sans modifier le code existant
+- Logique conditionnelle complexe qui choisit entre des opérations similaires
+
+---
+
+## API
+
+- [createStrategies](/api/eidos/strategy/createStrategies) — Construire un résolveur de stratégies à partir de fonctions nommées
+- [safeStrategy](/api/eidos/strategy/safeStrategy) — Wrapper les stratégies pour retourner `Result` au lieu de throw
+- [withFallback](/api/eidos/strategy/withFallback) — Chaîner une stratégie principale avec un backup
+- [withValidation](/api/eidos/strategy/withValidation) — Valider l'input avant exécution

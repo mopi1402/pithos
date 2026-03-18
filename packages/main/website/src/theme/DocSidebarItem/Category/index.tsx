@@ -127,10 +127,40 @@ function CollapseButton({
   );
 }
 
-function CategoryLinkLabel({label}: {label: string}) {
+function CategoryLinkLabel({label, isImportant, isHiddenGem}: {label: string; isImportant?: boolean; isHiddenGem?: boolean}) {
   return (
-    <span title={label} className={styles.categoryLinkLabel}>
-      {label}
+    <span className={styles.categoryLinkWrapper}>
+      <span title={label} className={styles.categoryLinkLabel}>
+        {label}
+      </span>
+      {isImportant && (
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            marginLeft: "0.35rem",
+            fontSize: "0.875rem",
+            flexShrink: 0,
+          }}
+          title={translate({ id: 'shared.badge.topPick', message: 'Top pick' })}
+        >
+          👑
+        </span>
+      )}
+      {isHiddenGem && (
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            marginLeft: "0.35rem",
+            fontSize: "0.875rem",
+            flexShrink: 0,
+          }}
+          title={translate({ id: 'shared.badge.hiddenGem', message: 'Hidden gem' })}
+        >
+          💎
+        </span>
+      )}
     </span>
   );
 }
@@ -194,6 +224,13 @@ function DocSidebarItemCategoryCollapsible({
 
   const isActive = isActiveSidebarItem(item, activePath);
   const isCurrentPage = isSamePath(href, activePath);
+
+  // Check if the item has customProps with important or hiddenGem flag
+  const customProps = 'customProps' in item
+    ? (item as { customProps?: { important?: boolean; hiddenGem?: boolean } }).customProps
+    : null;
+  const isImportant = customProps?.important === true;
+  const isHiddenGem = customProps?.hiddenGem === true;
 
   const {collapsed, setCollapsed} = useCollapsible({
     // Active categories are always initialized as expanded. The default
@@ -279,7 +316,7 @@ function DocSidebarItemCategoryCollapsible({
           aria-expanded={collapsible && !href ? !collapsed : undefined}
           href={collapsible ? hrefWithSSRFallback ?? '#' : hrefWithSSRFallback}
           {...props}>
-          <CategoryLinkLabel label={label} />
+          <CategoryLinkLabel label={label} isImportant={isImportant} isHiddenGem={isHiddenGem} />
         </Link>
         {href && collapsible && (
           <CollapseButton
