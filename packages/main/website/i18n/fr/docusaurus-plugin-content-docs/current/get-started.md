@@ -26,11 +26,12 @@ C'est tout. Zéro dépendance signifie zéro prise de tête.
 
 ## 🎰 Qu'y a-t-il dans la boîte ?
 
-Pithos est un écosystème utilitaire complet composé de cinq modules :
+Pithos est un écosystème utilitaire complet composé de six modules :
 
 | !Module     | Ce qu'il fait                                           |
 | ----------- | ------------------------------------------------------- |
 | **Arkhe**   | Manipulation de données (tableaux, objets, chaînes, fonctions, ...) |
+| **Eidos**   | Design patterns fonctionnels (adapter, proxy, observer, strategy, ...) |
 | **Kanon**   | Validation de schémas avec support JIT                  |
 | **Zygos**   | Gestion fonctionnelle des erreurs ([Result](/api/zygos/result), [Option](/api/zygos/option), [Either](/api/zygos/either), [Task](/api/zygos/task)) |
 | **Sphalma** | Erreurs typées & codes d'erreur intégrés      |

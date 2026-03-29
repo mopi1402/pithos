@@ -58,6 +58,7 @@ No manual try/catch, no `.safeParse()` + `if (!result.success)` boilerplate. Tha
 | Module | Role | Alternative to |
 |---|---|---|
 | **Arkhe** (ἀρχή - origin) | Core utilities & data manipulation | Lodash, Underscore, Ramda |
+| **Eidos** (εἶδος - form) | 23 GoF design patterns, functional style | Classes & inheritance |
 | **Kanon** (κανών - rule) | Schema validation | Zod, Yup, Joi |
 | **Zygos** (ζυγός - balance) | Result/Either/Option patterns | Neverthrow, fp-ts |
 | **Sphalma** (σφάλμα - error) | Typed error factories | - |
