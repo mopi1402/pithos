@@ -82,7 +82,6 @@ export function useSmartSearch({
 
         switch (type) {
           case "ready":
-            console.log("[useSmartSearch] Model ready");
             setIsModelReady(true);
             setLoadingStatus("Ready");
             // Send entries to worker for indexing
@@ -90,7 +89,6 @@ export function useSmartSearch({
             break;
 
           case "indexed":
-            console.log(`[useSmartSearch] Indexed ${data.count} entries`);
             setLoadingStatus(`Indexed ${data.count} entries`);
             break;
 
@@ -102,17 +100,16 @@ export function useSmartSearch({
           case "searchResult":
             // Ignore results from outdated searches
             if (data.searchId !== currentSearchIdRef.current) {
-              console.log(`[useSmartSearch] Ignoring stale result (searchId=${data.searchId}, current=${currentSearchIdRef.current})`);
               return;
             }
-            const filtered = data.results.filter((r: SearchResult) => r.score >= minScore);
-            console.log(`[useSmartSearch] Received ${data.results.length} results, ${filtered.length} after minScore filter`);
-            setResults(filtered);
-            setIsSearching(false);
+            {
+              const filtered = data.results.filter((r: SearchResult) => r.score >= minScore);
+              setResults(filtered);
+              setIsSearching(false);
+            }
             break;
 
           case "error":
-            console.error(`[useSmartSearch] Error: ${data.message}`);
             setError(data.message);
             setIsSearching(false);
             break;
@@ -160,6 +157,7 @@ export function useSmartSearch({
       debounceRef.current = setTimeout(() => {
         if (!workerRef.current || !isModelReady) {
           // Fallback: text search if model not ready
+          // eslint-disable-next-line no-console -- Fallback path: useful for debugging search issues
           console.log(`[useSmartSearch] Fallback text search for "${query}"`);
           const lowerQuery = query.toLowerCase();
           const textResults = entries
@@ -179,7 +177,6 @@ export function useSmartSearch({
         currentSearchIdRef.current += 1;
         const searchId = currentSearchIdRef.current;
 
-        console.log(`[useSmartSearch] Starting search #${searchId} for "${query}"`);
         setIsSearching(true);
         workerRef.current.postMessage({ type: "search", query, topK, searchId });
       }, debounceMs);

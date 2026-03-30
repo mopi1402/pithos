@@ -13,12 +13,14 @@ let kanonBundleSizes: KanonBundleData | null = null;
 let zygosBundleSizes: ZygosBundleData | null = null;
 
 try {
+  /* eslint-disable @typescript-eslint/no-require-imports -- Dynamic data files that may not exist at build time */
   arkheBenchmark = require("../../../data/benchmarks/arkhe-benchmark.json");
   kanonBenchmark = require("../../../data/benchmarks/kanon-benchmark-realworld.json");
   zygosBenchmark = require("../../../data/benchmarks/zygos-benchmark.json");
   arkheBundleSizes = require("../../../data/comparisons/arkhe-taphos-bundle-sizes.json");
   kanonBundleSizes = require("../../../data/generated/kanon-bundle-sizes.json");
   zygosBundleSizes = require("../../../data/comparisons/zygos-bundle-sizes.json");
+  /* eslint-enable @typescript-eslint/no-require-imports */
 } catch {
   // Data not available
 }

@@ -56,6 +56,7 @@ describe('Property 4: Component-side upscaling filtering', () => {
       const widths = computeWidths(displaySize, densities, sourceWidth);
 
       for (let i = 1; i < widths.length; i++) {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- index i-1 is valid since loop starts at 1
         expect(widths[i]).toBeGreaterThan(widths[i - 1]!);
       }
     },

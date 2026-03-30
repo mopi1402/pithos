@@ -28,6 +28,7 @@ import sharedStyles from "@site/src/components/comparisons/BenchmarkTable/styles
 // Re-export library groups for backward compatibility
 // ============================================
 
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- libraryFilter is always defined in kanonConfig
 export const LIBRARY_GROUPS = kanonConfig.libraryFilter!.groups;
 export type LibraryGroup = keyof typeof LIBRARY_GROUPS;
 
@@ -269,6 +270,7 @@ function DetailedStatsInner(): React.ReactElement {
 export function FilterableBenchmarkSection(): React.ReactElement {
   if (!kanonConfig.benchmarkData) return <BenchmarkDataMissing />;
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- libraryFilter is always defined in kanonConfig
   const groups = kanonConfig.libraryFilter!.groups;
   const allLibraries = kanonConfig.benchmarkData.libraries;
 
@@ -296,6 +298,7 @@ export function FilterableBenchmarkSection(): React.ReactElement {
 function BenchmarkResultsTableWithFilter(): React.ReactElement {
   if (!kanonConfig.benchmarkData) return <BenchmarkDataMissing />;
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- libraryFilter is always defined in kanonConfig
   const groups = kanonConfig.libraryFilter!.groups;
   const allLibraries = kanonConfig.benchmarkData.libraries;
 

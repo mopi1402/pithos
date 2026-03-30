@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { AlertCircle, Folder } from "lucide-react";
 import type { FileTree } from "@/lib/types";
 import { collectFolderPaths } from "@/lib/tree-ops";
@@ -13,6 +13,11 @@ type AddFileFormProps = {
 export function AddFileForm({ tree, onAdd }: AddFileFormProps) {
   const [selectedFolder, setSelectedFolder] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const errorTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  useEffect(() => {
+    return () => clearTimeout(errorTimerRef.current);
+  }, []);
 
   const folderPaths = useMemo(() => collectFolderPaths(tree), [tree]);
 
@@ -37,7 +42,8 @@ export function AddFileForm({ tree, onAdd }: AddFileFormProps) {
     const ok = onAdd(folder, file.name, file.size);
     if (!ok) {
       setError(`${file.name} already exists`);
-      setTimeout(() => setError(null), 2000);
+      clearTimeout(errorTimerRef.current);
+      errorTimerRef.current = setTimeout(() => setError(null), 2000);
     }
   };
 

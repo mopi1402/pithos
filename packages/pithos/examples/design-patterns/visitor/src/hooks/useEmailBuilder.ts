@@ -2,21 +2,33 @@ import { useState, useCallback } from "react";
 import { DEFAULT_BLOCKS } from "@/data/blocks";
 import type { EmailBlock, VisitorKey } from "@/lib/types";
 
+export interface IdentifiedBlock {
+  id: number;
+  block: EmailBlock;
+}
+
+let globalId = 0;
+function nextId(): number { return ++globalId; }
+
 export function useEmailBuilder() {
-  const [blocks, setBlocks] = useState<EmailBlock[]>(DEFAULT_BLOCKS);
+  const [items, setItems] = useState<IdentifiedBlock[]>(() =>
+    DEFAULT_BLOCKS.map((b) => ({ id: nextId(), block: b })),
+  );
   const [visitor, setVisitor] = useState<VisitorKey>("preview");
   const [mobileTab, setMobileTab] = useState<"blocks" | "output">("blocks");
 
+  const blocks = items.map((i) => i.block);
+
   const addBlock = useCallback((block: EmailBlock) => {
-    setBlocks((prev) => [...prev, block]);
+    setItems((prev) => [...prev, { id: nextId(), block }]);
   }, []);
 
   const removeBlock = useCallback((index: number) => {
-    setBlocks((prev) => prev.filter((_, i) => i !== index));
+    setItems((prev) => prev.filter((_, i) => i !== index));
   }, []);
 
   const reorderBlock = useCallback((fromIndex: number, toIndex: number) => {
-    setBlocks((prev) => {
+    setItems((prev) => {
       const next = [...prev];
       const [moved] = next.splice(fromIndex, 1);
       next.splice(toIndex, 0, moved);
@@ -25,7 +37,7 @@ export function useEmailBuilder() {
   }, []);
 
   const moveBlock = useCallback((index: number, dir: -1 | 1) => {
-    setBlocks((prev) => {
+    setItems((prev) => {
       const next = [...prev];
       const target = index + dir;
       if (target < 0 || target >= next.length) return prev;
@@ -35,10 +47,11 @@ export function useEmailBuilder() {
   }, []);
 
   const resetBlocks = useCallback(() => {
-    setBlocks(DEFAULT_BLOCKS);
+    setItems(DEFAULT_BLOCKS.map((b) => ({ id: nextId(), block: b })));
   }, []);
 
   return {
+    items,
     blocks,
     visitor,
     setVisitor,

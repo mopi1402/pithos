@@ -73,7 +73,7 @@ This is not a criticism of these libraries, they are excellent at what they do. 
 
 Most specialized libraries are tied to a specific ecosystem. RxJS is deeply integrated with Angular. Zustand is designed for React. XState has framework-specific bindings. If you switch framework, or if you work on a backend Node.js project, these libraries either don't apply or bring unnecessary coupling.
 
-Eidos has no opinion on your framework. It produces plain functions and plain data. You can use it in React, Angular, Vue, Svelte, a CLI tool, a serverless function, or a vanilla TypeScript project. The patterns work the same way everywhere because they depend on nothing but TypeScript itself.
+Eidos has no opinion on your framework. It produces plain functions and plain data. You can use it in React, Angular, Vue, Svelte, a CLI tool, a serverless function, or a vanilla TypeScript project. The patterns work the same way everywhere because they depend on nothing but TypeScript itself. See the [integration guides](/guide/basics/integrations/) for concrete examples.
 
 ### One Import Path, One Philosophy
 
@@ -661,7 +661,5 @@ You can use Eidos alongside any of these libraries. Import one pattern or twenty
 
 - [Eidos module guide](/guide/modules/eidos): philosophy, categories, and quick examples
 - [Eidos API reference](/api/eidos/): all 23 patterns with full documentation
-- [Pithos vs Effect](./pithos-vs-effect.md): modular ecosystem vs full effect system
-- [Comparison Overview](./overview.md): when to use each Pithos module
 
 </RelatedLinks>

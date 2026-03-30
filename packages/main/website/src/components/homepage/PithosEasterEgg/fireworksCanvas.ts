@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion -- Canvas 2D context is always available when canvas element exists */
 /**
  * Canvas-based firework engine, optimized.
  * Sprites pre-rendered, particles pooled, draw calls batched.
@@ -108,15 +109,15 @@ function release(p: Particle): void {
 }
 
 export class FireworkEngine {
-  private ctx: CanvasRenderingContext2D;
-  private particles: Particle[] = [];
+  private readonly ctx: CanvasRenderingContext2D;
+  private readonly particles: Particle[] = [];
   private rafId = 0;
   private running = false;
   private lastTime = 0;
   private w = 0;
   private h = 0;
-  private onExplode?: (e: ExplosionEvent) => void;
-  private pendingTimers: ReturnType<typeof setTimeout>[] = [];
+  private readonly onExplode?: (e: ExplosionEvent) => void;
+  private readonly pendingTimers: ReturnType<typeof setTimeout>[] = [];
 
   constructor(canvas: HTMLCanvasElement, onExplode?: (e: ExplosionEvent) => void) {
     this.ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -212,7 +213,7 @@ export class FireworkEngine {
     }
   }
 
-  private tick = (): void => {
+  private readonly tick = (): void => {
     if (!this.running) return;
     const now = performance.now();
     const dt = now - this.lastTime;

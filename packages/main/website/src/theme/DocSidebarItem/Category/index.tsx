@@ -192,11 +192,11 @@ function DocSidebarItemCategoryEmpty({item, ...props}: Props): ReactNode {
   }
   // We remove props that don't make sense for a link and forward the rest
   const {
-    type,
-    collapsed,
-    collapsible,
-    items,
-    linkUnlisted,
+    type: _type,
+    collapsed: _collapsed,
+    collapsible: _collapsible,
+    items: _items,
+    linkUnlisted: _linkUnlisted,
     ...forwardableProps
   } = item;
   const linkItem: PropSidebarItemLink = {

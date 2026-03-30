@@ -4,6 +4,7 @@ import { ModuleConfig, BenchmarkReport } from "@site/src/components/comparisons/
 import functionWeights from "@site/src/data/comparisons/function-weights.json";
 
 let benchmarkData: BenchmarkReport | null = null;
+// eslint-disable-next-line @typescript-eslint/no-require-imports -- Dynamic data file that may not exist at build time
 try { benchmarkData = require("@site/src/data/benchmarks/arkhe-benchmark.json"); } catch { benchmarkData = null; }
 
 export type ArkheCategory = "array" | "function" | "is" | "number" | "object" | "string" | "util";
@@ -12,7 +13,7 @@ export const arkheConfig: ModuleConfig<ArkheCategory> = {
   name: "arkhe",
   primaryLibrary: "arkhe",
   benchmarkData,
-  weights: functionWeights.modules.arkhe as any,
+  weights: functionWeights.modules.arkhe as Record<string, { category: string; reason: string }>,
   categoryLabels: {
     array: translate({ id: 'comparison.arkhe.category.array', message: 'Array' }),
     function: translate({ id: 'comparison.arkhe.category.function', message: 'Function' }),

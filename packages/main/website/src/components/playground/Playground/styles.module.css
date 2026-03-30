@@ -1,4 +1,5 @@
 .container {
+  --playground-animation-duration: 400ms;
   margin: var(--pithos-spacing-xl) 0;
   border: 1px solid var(--ifm-color-emphasis-300);
   border-radius: var(--pithos-radius-xl);
@@ -46,27 +47,27 @@
 
 /* Animations for container */
 .container.animateExpand {
-  animation: expandAnimation 0.4s ease-out forwards;
+  animation: expandAnimation var(--playground-animation-duration) ease-out forwards;
 }
 
 .container.animateExpand .codePanel {
-  animation: codeExpand 0.4s ease-out forwards;
+  animation: codeExpand var(--playground-animation-duration) ease-out forwards;
 }
 
 .container.animateExpand .previewPanel {
-  animation: previewShrink 0.4s ease-out forwards;
+  animation: previewShrink var(--playground-animation-duration) ease-out forwards;
 }
 
 .container.animateCollapse {
-  animation: collapseAnimation 0.4s ease-out forwards;
+  animation: collapseAnimation var(--playground-animation-duration) ease-out forwards;
 }
 
 .container.animateCollapse .codePanel {
-  animation: codeCollapse 0.4s ease-out forwards;
+  animation: codeCollapse var(--playground-animation-duration) ease-out forwards;
 }
 
 .container.animateCollapse .previewPanel {
-  animation: previewExpand 0.4s ease-out forwards;
+  animation: previewExpand var(--playground-animation-duration) ease-out forwards;
 }
 
 /* Placeholder to maintain layout when expanded */
@@ -145,7 +146,7 @@
   bottom: 0;
   z-index: 9999;
   background: rgba(0, 0, 0, 0);
-  animation: backdropFadeIn 0.4s ease-out forwards;
+  animation: backdropFadeIn var(--playground-animation-duration) ease-out forwards;
   cursor: pointer;
 }
 
@@ -156,7 +157,7 @@
 }
 
 .backdrop.backdropCollapsing {
-  animation: backdropFadeOut 0.4s ease-out forwards;
+  animation: backdropFadeOut var(--playground-animation-duration) ease-out forwards;
 }
 
 @keyframes backdropFadeOut {
@@ -312,20 +313,20 @@
 .expandedHeaderCode {
   border-right: 1px solid var(--ifm-color-emphasis-300);
   width: 66.666%;
-  animation: codeExpand 0.4s ease-out forwards;
+  animation: codeExpand var(--playground-animation-duration) ease-out forwards;
 }
 
 .expandedHeaderResult {
   width: 33.333%;
-  animation: previewShrink 0.4s ease-out forwards;
+  animation: previewShrink var(--playground-animation-duration) ease-out forwards;
 }
 
 .animateCollapse .expandedHeaderCode {
-  animation: codeCollapse 0.4s ease-out forwards;
+  animation: codeCollapse var(--playground-animation-duration) ease-out forwards;
 }
 
 .animateCollapse .expandedHeaderResult {
-  animation: previewExpand 0.4s ease-out forwards;
+  animation: previewExpand var(--playground-animation-duration) ease-out forwards;
 }
 
 .headerButtons {

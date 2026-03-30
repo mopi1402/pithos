@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { createInitialTree } from "@/data/initial-tree";
 import { computeSize, countFiles, countFolders, traceFold } from "@/lib/composite";
 import { addFileToTree } from "@/lib/tree-ops";
@@ -9,6 +9,8 @@ export function useFileExplorer() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [modalClosing, setModalClosing] = useState(false);
   const [mobileTab, setMobileTab] = useState<"explorer" | "fold">("explorer");
+  const highlightTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const modalTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const totalSize = computeSize(tree);
   const fileCount = countFiles(tree);
@@ -20,7 +22,8 @@ export function useFileExplorer() {
     if (!result) return false;
     setTree(result);
     setHighlightedNode(name);
-    setTimeout(() => setHighlightedNode(null), 1500);
+    if (highlightTimerRef.current) clearTimeout(highlightTimerRef.current);
+    highlightTimerRef.current = setTimeout(() => setHighlightedNode(null), 1500);
     return true;
   }, [tree]);
 
@@ -31,7 +34,15 @@ export function useFileExplorer() {
 
   const closeModal = useCallback(() => {
     setModalClosing(true);
-    setTimeout(() => { setShowAddModal(false); setModalClosing(false); }, 200);
+    if (modalTimerRef.current) clearTimeout(modalTimerRef.current);
+    modalTimerRef.current = setTimeout(() => { setShowAddModal(false); setModalClosing(false); }, 200);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (highlightTimerRef.current) clearTimeout(highlightTimerRef.current);
+      if (modalTimerRef.current) clearTimeout(modalTimerRef.current);
+    };
   }, []);
 
   return {

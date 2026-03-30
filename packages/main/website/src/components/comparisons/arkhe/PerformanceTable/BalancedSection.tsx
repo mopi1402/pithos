@@ -10,6 +10,7 @@ import styles from "./balanced.module.css";
 import bundleData from "@site/src/data/comparisons/arkhe-taphos-bundle-sizes.json";
 
 let benchmarkData: BenchmarkReport | null = null;
+// eslint-disable-next-line @typescript-eslint/no-require-imports -- Dynamic data file that may not exist at build time
 try { benchmarkData = require("@site/src/data/benchmarks/arkhe-benchmark.json"); } catch { benchmarkData = null; }
 
 type CategoryName = "CRITICAL" | "HIGH" | "MEDIUM" | "LOW";
@@ -53,6 +54,7 @@ function computeVerdicts(): FunctionVerdict[] {
     let bundleWin = false;
     let bundleDiff = "";
     if (pithosBundle?.gzipBytes && competitorBundles.length > 0) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- filtered to non-null gzipBytes above
       const smallest = Math.min(...competitorBundles.map(r => r.gzipBytes!));
       bundleWin = pithosBundle.gzipBytes <= smallest * 1.1;
       const pct = Math.round(((pithosBundle.gzipBytes - smallest) / smallest) * 100);

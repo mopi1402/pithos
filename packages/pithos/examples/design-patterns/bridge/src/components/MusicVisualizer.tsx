@@ -19,7 +19,7 @@ export function MusicVisualizer() {
           <VisualizerIcon size={22} />
           <span className="w-px h-6 bg-white/10 shrink-0" />
           <div>
-            <h1 className="text-[14px] font-bold text-zinc-100 tracking-tight">Music Visualizer</h1>
+            <h1 className="text-[14px] font-bold text-zinc-100 tracking-tight">Nəvər</h1>
             <p className="text-[9px] text-zinc-500 mt-0.5">Bridge Pattern</p>
           </div>
         </div>
@@ -60,7 +60,7 @@ export function MusicVisualizer() {
             <VisualizerIcon size={26} />
             <span className="w-px h-8 bg-white/10 shrink-0" />
             <div>
-              <h1 className="text-[16px] font-bold text-zinc-100 tracking-tight">Music Visualizer</h1>
+              <h1 className="text-[16px] font-bold text-zinc-100 tracking-tight">Nəvər</h1>
               <p className="text-[10px] text-zinc-500 mt-0.5">Bridge Pattern</p>
             </div>
           </div>

@@ -56,8 +56,9 @@ export function WarningModalProvider({ children }: { children: React.ReactNode }
 
   const modalElement = modalContent && typeof document !== "undefined"
     ? createPortal(
-        <div className={styles.modalOverlay} onClick={closeModal}>
-          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.modalOverlay} onClick={closeModal} onKeyDown={(e) => { if (e.key === 'Enter') closeModal(); }} role="button" tabIndex={0}>
+          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- stopPropagation prevents backdrop close when clicking inside modal */}
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
             <div className={styles.modalHeader}>
               <span className={styles.modalIcon}>{modalHeader?.icon ?? '⚠️'}</span>
               <span className={styles.modalTitle}>{modalHeader?.title ?? translate({ id: 'shared.warningTooltip.modalTitle', message: 'Nearly equivalent' })}</span>

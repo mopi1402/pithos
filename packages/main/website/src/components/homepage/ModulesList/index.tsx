@@ -86,7 +86,9 @@ export function ModuleCard({
       <div
         className={clsx("text--center", styles.moduleCard)}
         onClick={handleCardClick}
-        role="group"
+        onKeyDown={(e) => { if (e.key === 'Enter') handleCardClick(e as unknown as React.MouseEvent); }}
+        role="button"
+        tabIndex={0}
         aria-label={`${name}`}
       >
         {status === "beta" && <span className={styles.betaBadge}>{translate({ id: 'homepage.modules.beta', message: 'Beta' })}</span>}

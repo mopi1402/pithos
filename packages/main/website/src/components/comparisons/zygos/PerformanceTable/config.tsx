@@ -8,6 +8,7 @@ import styles from "./styles.module.css";
 
 let benchmarkData: BenchmarkReport | null = null;
 try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports -- Dynamic data file that may not exist at build time
   benchmarkData = require("@site/src/data/benchmarks/zygos-benchmark.json");
 } catch {
   benchmarkData = null;

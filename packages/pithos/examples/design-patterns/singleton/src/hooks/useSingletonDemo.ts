@@ -27,12 +27,12 @@ export function useSingletonDemo() {
   const [stats, setStats] = useState<ServiceStats>(getStats);
 
   const handleRequest = useCallback(async (key: ServiceKey) => {
-    const svc = services[key];
-    const isFirstCall = svc.status === "idle";
-
-    if (isFirstCall) {
-      setServices((prev) => ({ ...prev, [key]: { ...prev[key], status: "connecting" } }));
-    }
+    let isFirstCall = false;
+    setServices((prev) => {
+      isFirstCall = prev[key].status === "idle";
+      if (isFirstCall) return { ...prev, [key]: { ...prev[key], status: "connecting" } };
+      return prev;
+    });
 
     trackRequest();
     const serviceMap = getServiceMap();
@@ -44,7 +44,7 @@ export function useSingletonDemo() {
       [key]: { status: "connected", instance, requestCount: prev[key].requestCount + 1 },
     }));
     setStats(getStats());
-  }, [services]);
+  }, []);
 
   const handleReset = useCallback(() => {
     resetAll();

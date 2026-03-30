@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const DURATION = 350;
 
@@ -17,17 +17,19 @@ function defaultColor(val: string): string {
 }
 
 export function FlipDigit({ from, to, direction = "forward", textClass = "font-bold text-xl", colorFn = defaultColor }: FlipDigitProps) {
-  const keyRef = useRef(0);
+  const [flipKey, setFlipKey] = useState(0);
   const lastPairRef = useRef(`${from}|${to}`);
 
   const same = from === to;
 
   // Bump key when pair changes to force remount → retrigger animation
-  const pair = `${from}|${to}`;
-  if (pair !== lastPairRef.current) {
-    lastPairRef.current = pair;
-    keyRef.current++;
-  }
+  useEffect(() => {
+    const pair = `${from}|${to}`;
+    if (pair !== lastPairRef.current) {
+      lastPairRef.current = pair;
+      setFlipKey((k) => k + 1);
+    }
+  }, [from, to]);
 
   if (same) {
     return (
@@ -50,7 +52,7 @@ export function FlipDigit({ from, to, direction = "forward", textClass = "font-b
   return (
     <div className="w-full h-full overflow-hidden">
       <div
-        key={keyRef.current}
+        key={flipKey}
         style={{
           height: "200%",
           animation: `flip-slide ${DURATION}ms cubic-bezier(0.4,0,0.2,1) forwards`,

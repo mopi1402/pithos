@@ -228,6 +228,7 @@ Eidos is useful when:
 
 <RelatedLinks title="Related Resources">
 
+- [Eidos in the TypeScript Ecosystem](/comparisons/eidos/) - How Eidos compares to existing solutions
 - [Eidos API Reference](/api/eidos) - Full API documentation for all patterns
 - [Arkhe Utilities](/guide/modules/arkhe/) - General utilities that complement Eidos
 

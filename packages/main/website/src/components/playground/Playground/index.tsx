@@ -1,10 +1,17 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import CodeBlock from "@theme/CodeBlock";
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 import { translate } from "@docusaurus/Translate";
+import { useVisibleOnce } from "@site/src/hooks/useVisibleOnce";
 import styles from "./styles.module.css";
+
+// React 19 removed implicit children from component props.
+// Docusaurus 3.x types haven't adapted yet, so we cast these components.
+const UntypedTabs = Tabs as React.ComponentType<Record<string, unknown>>;
+const UntypedTabItem = TabItem as React.ComponentType<Record<string, unknown>>;
+const UntypedCodeBlock = CodeBlock as React.ComponentType<Record<string, unknown> & { children?: ReactNode }>;
 
 export interface SourceFile {
   content: string;
@@ -35,19 +42,30 @@ export function Playground({
 
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Lazy-load iframe: only set src once the playground is near the viewport
+  const hasBeenVisible = useVisibleOnce(containerRef);
+  const iframeSrcResolved = hasBeenVisible || isExpanded || isFullscreen ? iframeSrc : undefined;
+
   const orderedFiles = Object.entries(sources)
     .sort(([, a], [, b]) => a.step - b.step)
     .filter(([, file]) => file.step > 0);
 
-  // Lock body scroll when expanded or fullscreen
+  // Lock body scroll when fullscreen (expanded scroll is handled in handlers)
   useEffect(() => {
-    if (isExpanded || isFullscreen) {
+    if (isFullscreen) {
       document.body.style.overflow = "hidden";
       return () => {
         document.body.style.overflow = "";
       };
     }
-  }, [isExpanded, isFullscreen]);
+  }, [isFullscreen]);
+
+  // Safety net: if component unmounts while expanded, restore scroll
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
 
   const handleExpand = () => {
     const el = containerRef.current;
@@ -58,21 +76,38 @@ export function Playground({
     setIsExpanded(true);
     setIsClosing(false);
     setSkipAnimation(false);
+    document.body.style.overflow = "hidden";
   };
 
   const handleCollapse = useCallback(() => {
-    if (isClosing) return;
-    setIsClosing(true);
-  }, [isClosing]);
+    // Restore scroll immediately, regardless of animation state
+    document.body.style.overflow = "";
 
-  const handleAnimationEnd = (e: React.AnimationEvent) => {
-    const animName = e.animationName;
-    if (animName.includes("collapse") && isClosing) {
+    if (isClosing) {
+      // Already closing: skip animation, finalize immediately
       setIsExpanded(false);
       setIsClosing(false);
       setStartRect(null);
+      return;
     }
-  };
+    setIsClosing(true);
+  }, [isClosing]);
+
+  // Finalize collapse after animation duration (read from CSS variable).
+  // Only cleans up visual state (portal, backdrop). Scroll is already restored.
+  useEffect(() => {
+    if (!isClosing) return;
+    const ms = parseFloat(
+      getComputedStyle(containerRef.current ?? document.documentElement)
+        .getPropertyValue("--playground-animation-duration"),
+    ) || 400;
+    const timer = setTimeout(() => {
+      setIsExpanded(false);
+      setIsClosing(false);
+      setStartRect(null);
+    }, ms);
+    return () => clearTimeout(timer);
+  }, [isClosing]);
 
   // Escape key
   useEffect(() => {
@@ -132,7 +167,7 @@ export function Playground({
               ✕
             </button>
           </div>
-          <iframe src={iframeSrc} title={title} className={styles.fullscreenIframe} />
+          <iframe src={iframeSrcResolved} title={title} className={styles.fullscreenIframe} />
         </div>
       </>
     );
@@ -174,7 +209,6 @@ export function Playground({
         ref={containerRef} 
         className={containerClasses}
         style={expandedStyle}
-        onAnimationEnd={handleAnimationEnd}
         role={isExpanded ? "dialog" : undefined}
         aria-modal={isExpanded ? true : undefined}
       >
@@ -216,15 +250,15 @@ export function Playground({
                 <span>{translate({ id: "playground.code", message: "Code" })}</span>
               </div>
             )}
-            <Tabs>
-              {orderedFiles.map(([path, file]) => (
-                <TabItem key={path} value={path} label={file.label}>
-                  <CodeBlock language="typescript" showLineNumbers>
+            <UntypedTabs>
+              {orderedFiles.map(([filePath, file]) => (
+                <UntypedTabItem key={filePath} value={filePath} label={file.label}>
+                  <UntypedCodeBlock language="typescript" showLineNumbers>
                     {file.content}
-                  </CodeBlock>
-                </TabItem>
+                  </UntypedCodeBlock>
+                </UntypedTabItem>
               ))}
-            </Tabs>
+            </UntypedTabs>
           </div>
 
           <div
@@ -237,7 +271,7 @@ export function Playground({
               </div>
             )}
             <div className={styles.iframeWrapper}>
-              <iframe src={iframeSrc} title={title} className={styles.iframe} />
+              <iframe src={iframeSrcResolved} title={title} className={styles.iframe} />
             </div>
           </div>
         </div>

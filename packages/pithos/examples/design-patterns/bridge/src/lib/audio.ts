@@ -27,11 +27,13 @@ function getAudioContext(): AudioContext {
 }
 
 const bufferCache = new Map<string, AudioBuffer>();
+let loadVersion = 0;
 
 export async function loadAndPlay(url: string): Promise<void> {
   const ctx = getAudioContext();
   if (ctx.state === "suspended") await ctx.resume();
   if (currentSourceNode) { currentSourceNode.stop(); currentSourceNode.disconnect(); currentSourceNode = null; }
+  const version = ++loadVersion;
   let buffer = bufferCache.get(url);
   if (!buffer) {
     const response = await fetch(url);
@@ -39,6 +41,7 @@ export async function loadAndPlay(url: string): Promise<void> {
     buffer = await ctx.decodeAudioData(arrayBuffer);
     bufferCache.set(url, buffer);
   }
+  if (version !== loadVersion) return;
   currentBuffer = buffer;
   const source = ctx.createBufferSource();
   source.buffer = buffer;

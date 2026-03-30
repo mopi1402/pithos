@@ -1,3 +1,4 @@
+/* eslint-disable no-console, @typescript-eslint/no-non-null-assertion -- Web worker uses console for progress reporting; non-null assertions on worker-internal state */
 /**
  * Web Worker for embedding inference
  *
@@ -215,8 +216,9 @@ async function computeEmbedding(text: string): Promise<number[]> {
     throw new Error("Model not loaded");
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- transformers.js API types are incomplete
   const output = await extractor(text, { pooling: "mean", normalize: true } as any);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- transformers.js output type is opaque
   return Array.from((output as any).data as Float32Array);
 }
 
@@ -310,7 +312,7 @@ async function search(query: string, topK: number = 10, searchId?: number): Prom
     console.log(`  ${i + 1}. score=${r.score.toFixed(4)} | ${r.utilId} | "${r.text.substring(0, 50)}..."`);
   });
 
-  const scored = allScored.slice(0, topK).map(({ text, ...rest }) => rest);
+  const scored = allScored.slice(0, topK).map(({ text: _text, ...rest }) => rest);
 
   return scored;
 }
@@ -336,8 +338,10 @@ self.onmessage = async (event: MessageEvent) => {
           self.postMessage({ type: "error", message: "Model not ready" });
           return;
         }
-        const embedding = await computeEmbedding(data.text);
-        self.postMessage({ type: "result", id: data.id, embedding });
+        {
+          const embedding = await computeEmbedding(data.text);
+          self.postMessage({ type: "result", id: data.id, embedding });
+        }
         break;
 
       case "search":
@@ -345,8 +349,10 @@ self.onmessage = async (event: MessageEvent) => {
           self.postMessage({ type: "error", message: "Model not ready" });
           return;
         }
-        const results = await search(data.query, data.topK || 10, data.searchId);
-        self.postMessage({ type: "searchResult", results, searchId: data.searchId });
+        {
+          const results = await search(data.query, data.topK || 10, data.searchId);
+          self.postMessage({ type: "searchResult", results, searchId: data.searchId });
+        }
         break;
 
       default:

@@ -6,17 +6,17 @@ import { VisitorOutput } from "./VisitorOutput";
 
 export function EmailBuilder() {
   const {
-    blocks, visitor, setVisitor, mobileTab, setMobileTab,
+    items, blocks, visitor, setVisitor, mobileTab, setMobileTab,
     addBlock, removeBlock, reorderBlock, moveBlock, resetBlocks,
   } = useEmailBuilder();
 
   const blockList = (
     <div className="divide-y divide-slate-50 overflow-y-auto flex-1">
-      {blocks.length === 0 ? (
+      {items.length === 0 ? (
         <div className="p-6 text-center text-sm text-slate-400">Add blocks from the palette above</div>
       ) : (
-        blocks.map((block, i) => (
-          <BlockRow key={`${block.type}-${i}`} block={block} index={i} total={blocks.length}
+        items.map((item, i) => (
+          <BlockRow key={item.id} block={item.block} index={i} total={items.length}
             onRemove={() => removeBlock(i)} onReorder={reorderBlock} onMove={moveBlock} />
         ))
       )}
@@ -100,11 +100,11 @@ export function EmailBuilder() {
                 <span className="text-[10px] text-slate-400 tabular-nums">{blocks.length} blocks</span>
               </div>
               <div className="divide-y divide-slate-50 overflow-y-auto">
-                {blocks.length === 0 ? (
+                {items.length === 0 ? (
                   <div className="p-6 text-center text-sm text-slate-400">Add blocks from the palette above</div>
                 ) : (
-                  blocks.map((block, i) => (
-                    <BlockRow key={`${block.type}-${i}`} block={block} index={i} total={blocks.length}
+                  items.map((item, i) => (
+                    <BlockRow key={item.id} block={item.block} index={i} total={items.length}
                       onRemove={() => removeBlock(i)} onReorder={reorderBlock} onMove={moveBlock} />
                   ))
                 )}

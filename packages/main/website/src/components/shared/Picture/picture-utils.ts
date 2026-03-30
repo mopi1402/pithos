@@ -44,6 +44,7 @@ export function computeWidths(
     if (sourceWidth != null && w > sourceWidth) {
       w = sourceWidth;
     }
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- array length checked above
     const maxRetained = result.length > 0 ? result[result.length - 1]! : -1;
     if (w > maxRetained) {
       result.push(w);

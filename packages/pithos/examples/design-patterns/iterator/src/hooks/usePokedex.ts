@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { createPokedex, type SourceId, type Pokemon, type PokedexState } from "@/lib/pokedex";
 import type { LogEntry } from "@/components/YieldLog";
 
@@ -13,6 +13,10 @@ export function usePokedex() {
   const logScrollRef = useRef<HTMLDivElement>(null);
   const mobileLogScrollRef = useRef<HTMLDivElement>(null);
   const clearNewTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  useEffect(() => {
+    return () => clearTimeout(clearNewTimerRef.current);
+  }, []);
 
   const sync = useCallback(() => setState(pokedexRef.current.getState()), []);
 

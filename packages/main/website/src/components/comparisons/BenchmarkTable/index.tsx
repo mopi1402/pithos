@@ -77,7 +77,10 @@ function TestNameCell<T extends string>({ scenario, config }: { scenario: Scenar
 
   return (
     <div className={`${styles.testName} ${showTooltip ? styles.testNameClickable : ''}`}
-         onClick={showTooltip ? () => warningModal?.openModal(tooltipContent, modalHeader) : undefined}>
+         onClick={showTooltip ? () => warningModal?.openModal(tooltipContent, modalHeader) : undefined}
+         onKeyDown={showTooltip ? (e) => { if (e.key === 'Enter') warningModal?.openModal(tooltipContent, modalHeader); } : undefined}
+         role={showTooltip ? 'button' : undefined}
+         tabIndex={showTooltip ? 0 : undefined}>
       <span className={styles.testNameMain}>
         {utilityName}
         {showTooltip && tooltipContent && (
@@ -296,6 +299,7 @@ export function DetailedStats<T extends string>({ config }: { config: ModuleConf
     const cat = config.functionToCategory[getUtilityName(s.name)];
     const label = cat ? config.categoryLabels[cat] : translate({ id: 'comparison.common.categoryOther', message: 'Other' });
     if (!grouped.has(label)) grouped.set(label, []);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- guaranteed by the line above
     grouped.get(label)!.push(s);
   }
 

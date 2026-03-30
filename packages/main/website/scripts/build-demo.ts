@@ -255,7 +255,7 @@ const DEMOS: DemoConfig[] = [
     dataFileName: "singleton-demo-sources.json",
     sourceFiles: [
       { path: "src/lib/services.ts", label: "services.ts", step: 1 },
-      { path: "src/components/OnceTab.tsx", label: "Usage", step: 2 },
+      { path: "src/components/SingletonDemo.tsx", label: "Usage", step: 2 },
     ],
   },
   {

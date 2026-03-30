@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Children, isValidElement, Fragment } from "react";
+import { Children, isValidElement } from "react";
 
 interface InvisibleListProps {
   children: ReactNode;

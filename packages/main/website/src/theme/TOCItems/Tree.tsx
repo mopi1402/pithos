@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion -- Swizzled Docusaurus component with DOM operations where non-null is guaranteed by code flow */
 import React, {type ReactNode, useRef, useEffect} from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -6,7 +7,7 @@ import {EMOJI_MAP} from '../../../plugins/emoji-map';
 
 const EMOJI_KEYS = Object.keys(EMOJI_MAP);
 const EMOJI_PATTERN = new RegExp(
-  '(' + EMOJI_KEYS.map((e) => e.replace(/[-\/\\^$*+?.()|[\]{}]/g, (ch) => '\\' + ch)).join('|') + ')',
+  '(' + EMOJI_KEYS.map((e) => e.replace(/[-\\^$*+?.()|[\]{}]/g, (ch) => '\\' + ch)).join('|') + ')',
   'g',
 );
 
@@ -80,7 +81,6 @@ function useSlider(rootRef: React.RefObject<HTMLUListElement | null>) {
       if (!row) return;
 
       // If this is a section title (item right after a parent separator), hide slider
-      const prevSibling = li.previousElementSibling;
       if (!li.closest('.toc-timeline__children') && li.classList.contains(SECTION_TITLE_CLS)) {
         slider.style.opacity = '0';
         return;

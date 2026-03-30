@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { loadAndPlay, stopPlayback, pausePlayback, resumePlayback, setVolume, isPlaying, getDuration } from "@/lib/audio";
 import { setCoverImage } from "@/lib/visualizers/sun";
 import { SOURCES } from "@/data/tracks";
@@ -10,6 +10,7 @@ export function useMusicPlayer() {
   const [playing, setPlaying] = useState(false);
   const [loading, setLoading] = useState(false);
   const [volume, setVolumeState] = useState(0.7);
+  const loadIdRef = useRef(0);
 
   const sourceMeta = SOURCES.find((s) => s.key === sourceKey);
   const accent = sourceMeta?.color ?? "#f43f5e";
@@ -19,8 +20,11 @@ export function useMusicPlayer() {
     const meta = SOURCES.find((s) => s.key === key);
     if (!meta) return;
     setCoverImage(`${import.meta.env.BASE_URL}${meta.cover}`);
+    stopPlayback();
     setLoading(true);
+    const id = ++loadIdRef.current;
     await loadAndPlay(`${import.meta.env.BASE_URL}${meta.filename}`);
+    if (id !== loadIdRef.current) return; // superseded by a newer call
     setVolume(volume);
     setLoading(false);
     setPlaying(true);
@@ -37,7 +41,9 @@ export function useMusicPlayer() {
       const meta = SOURCES.find((s) => s.key === sourceKey);
       if (!meta) return;
       setLoading(true);
+      const id = ++loadIdRef.current;
       await loadAndPlay(`${import.meta.env.BASE_URL}${meta.filename}`);
+      if (id !== loadIdRef.current) return;
       setVolume(volume);
       setLoading(false);
       setPlaying(true);
@@ -52,6 +58,9 @@ export function useMusicPlayer() {
   useEffect(() => {
     const meta = SOURCES.find((s) => s.key === sourceKey);
     if (meta) setCoverImage(`${import.meta.env.BASE_URL}${meta.cover}`);
+  }, [sourceKey]);
+
+  useEffect(() => {
     return () => stopPlayback();
   }, []);
 

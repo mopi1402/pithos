@@ -208,6 +208,7 @@ export function TLDR({ module = "arkhe" }: TLDRProps): React.ReactElement {
     if (otherResults.length === 0) continue;
     total++;
     
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- filtered to non-null gzipBytes above
     const smallestOther = Math.min(...otherResults.map((r) => r.gzipBytes!));
     
     if (pithosResult.gzipBytes <= smallestOther) {
@@ -217,7 +218,7 @@ export function TLDR({ module = "arkhe" }: TLDRProps): React.ReactElement {
     }
   }
   
-  const pithosWinRate = Math.round((pithosSmallest / total) * 100);
+  const _pithosWinRate = Math.round((pithosSmallest / total) * 100);
   const comparableRate = Math.round(((pithosSmallest + pithosComparable) / total) * 100);
   
   return (

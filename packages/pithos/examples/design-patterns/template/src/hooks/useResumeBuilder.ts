@@ -23,23 +23,32 @@ export function useResumeBuilder() {
     setCompletedSteps(new Set());
     setExecutingStep(null);
 
-    const wait = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+    const wait = (ms: number) =>
+      new Promise<void>((resolve, reject) => {
+        const id = setTimeout(resolve, ms);
+        ctrl.signal.addEventListener("abort", () => {
+          clearTimeout(id);
+          reject(new DOMException("Aborted", "AbortError"));
+        }, { once: true });
+      });
 
     (async () => {
-      await wait(500);
-      if (ctrl.signal.aborted) return;
-      setExecutingStep(0);
+      try {
+        await wait(500);
+        setExecutingStep(0);
 
-      for (let i = 0; i < STEP_ORDER.length; i++) {
-        await wait(400);
-        if (ctrl.signal.aborted) return;
-        setCompletedSteps((prev) => new Set([...prev, i]));
-        if (i < STEP_ORDER.length - 1) {
-          setExecutingStep(i + 1);
-        } else {
-          setExecutingStep(null);
-          setAnimating(false);
+        for (let i = 0; i < STEP_ORDER.length; i++) {
+          await wait(400);
+          setCompletedSteps((prev) => new Set([...prev, i]));
+          if (i < STEP_ORDER.length - 1) {
+            setExecutingStep(i + 1);
+          } else {
+            setExecutingStep(null);
+            setAnimating(false);
+          }
         }
+      } catch {
+        // aborted
       }
     })();
   }, []);

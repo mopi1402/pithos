@@ -214,7 +214,7 @@ export default function PithosEasterEgg({
       const frames = sampleBezier(fromX, fromY, ctrlX, ctrlY, targetX, targetY, STEPS, 250);
       const anim = el.animate(frames, { duration: DURATION, easing: "linear" });
       onReady();
-      const overlayAnim = overlayRef.current?.animate(
+    const _overlayAnim = overlayRef.current?.animate(
         [{ backgroundColor: "rgba(0,0,0,0)" }, { backgroundColor: "rgba(0,0,0,0.92)" }],
         { duration: DURATION, easing: "ease-out" },
       );
@@ -225,7 +225,7 @@ export default function PithosEasterEgg({
         requestAnimationFrame(() => requestAnimationFrame(() => { arrivedRef.current = true; setArrived(true); }));
       };
     });
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // Forward animation runs once on mount
 
   // Reverse animation (only when animating goes from true → false)
   useLayoutEffect(() => {
@@ -254,7 +254,7 @@ export default function PithosEasterEgg({
       if (overlayRef.current) overlayRef.current.style.backgroundColor = "rgba(0,0,0,0)";
       onReturnDone();
     };
-  }, [animating]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [animating]); // Reverse animation reacts only to animating toggle
 
   const fireFromJar = useCallback(() => {
     if (landscape) return;

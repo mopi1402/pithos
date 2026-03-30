@@ -78,7 +78,7 @@ La plupart des bibliothèques spécialisées sont liées à un écosystème spé
 
 Si vous changez de framework, ou si vous travaillez sur un projet backend Node.js, ces bibliothèques pourraient apporter de la friction ou risqueraient d'introduire un couplage inutile.
 
-Eidos n'est pas propre à une technologie ou un framework. Il produit des fonctions pures et des données simples. Vous pouvez l'utiliser en React, Angular, Vue, Svelte, un outil CLI, une fonction serverless ou un projet TypeScript vanilla. Les patterns fonctionnent de façon identique quelle que soit la stack, parce que la seule chose dont ils dépendent, c'est TypeScript !
+Eidos n'est pas propre à une technologie ou un framework. Il produit des fonctions pures et des données simples. Vous pouvez l'utiliser en React, Angular, Vue, Svelte, un outil CLI, une fonction serverless ou un projet TypeScript vanilla. Les patterns fonctionnent de façon identique quelle que soit la stack, parce que la seule chose dont ils dépendent, c'est TypeScript ! Consultez les [guides d'intégration](/guide/basics/integrations/) pour des exemples concrets.
 
 ### Un chemin d'import, une philosophie
 
@@ -667,7 +667,5 @@ On peut utiliser Eidos à côté de n'importe laquelle de ces libs. Un pattern o
 
 - [Guide du module Eidos](/guide/modules/eidos) : philosophie, catégories et exemples rapides
 - [Référence API Eidos](/api/eidos/) : les 23 patterns avec documentation complète
-- [Pithos vs Effect](./pithos-vs-effect.md) : écosystème modulaire vs système d'effets complet
-- [Vue d'ensemble des comparaisons](./overview.md) : quand utiliser chaque module Pithos
 
 </RelatedLinks>
