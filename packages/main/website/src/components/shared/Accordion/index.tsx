@@ -49,6 +49,7 @@ export function Accordion({
           <span className={clsx(styles.title, variant === "card" && styles.titleCard)}>
             {title}
             {titleSuffix && <span className={styles.titleSuffix}>{titleSuffix}</span>}
+            {badge && <span className={styles.badge}><Badge variant={badgeVariant}>{badge}</Badge></span>}
           </span>
           {description && <span className={styles.description}>{description}</span>}
         </span>
@@ -66,7 +67,6 @@ export function Accordion({
             ))}
           </span>
         )}
-        {badge && <Badge variant={badgeVariant}>{badge}</Badge>}
       </summary>
       <div className={styles.content}>{children}</div>
     </details>

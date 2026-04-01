@@ -3,6 +3,10 @@
  *
  * Three panels (flights, weather, runway) communicate exclusively
  * through a typed mediator. No panel knows about the others.
+ *
+ * React integration also goes through the mediator: every mutation
+ * emits "stateChanged", and useSyncExternalStore subscribes to it.
+ * No separate listener set needed.
  */
 
 import { createMediator } from "@pithos/core/eidos/mediator/mediator";
@@ -24,7 +28,6 @@ export function createDashboard() {
   const logs: { id: number; timestamp: string; event: string; detail: string }[] = [];
 
   let snapshot = buildSnapshot();
-  const listeners = new Set<() => void>();
 
   function now() {
     return new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
@@ -48,7 +51,7 @@ export function createDashboard() {
 
   function commit() {
     snapshot = buildSnapshot();
-    for (const fn of listeners) fn();
+    mediator.emit("stateChanged", {});
   }
 
   // ── Wire up mediator handlers ──────────────────────────────────
@@ -81,9 +84,9 @@ export function createDashboard() {
   // ── Public API ─────────────────────────────────────────────────
 
   return {
+    /** Subscribe via the mediator's stateChanged event (for useSyncExternalStore). */
     subscribe(fn: () => void) {
-      listeners.add(fn);
-      return () => { listeners.delete(fn); };
+      return mediator.on("stateChanged", fn);
     },
 
     getState(): DashboardState {

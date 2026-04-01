@@ -103,3 +103,28 @@
   color: white;
   text-decoration: none;
 }
+
+.badge {
+  margin-left: 0.4rem;
+  vertical-align: middle;
+  display: inline-flex;
+}
+
+/* Responsive: stack card layout on mobile */
+@media (max-width: 768px) {
+  .summary {
+    flex-wrap: wrap;
+  }
+
+  .titleBlock {
+    flex-basis: 0;
+    min-width: 120px;
+  }
+
+  .actions {
+    margin-left: 0;
+    flex-basis: 100%;
+    padding-left: calc(var(--pithos-font-size-2xs) + var(--pithos-spacing-md));
+    margin-top: 0.25rem;
+  }
+}

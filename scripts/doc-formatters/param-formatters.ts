@@ -46,6 +46,14 @@ function removeClassMethodSignatureBlockquotes(content: string): string {
         /(####+\s+Call Signature)\n\n>\s*(?:`\w+`\s*)*\*\*(?:new\s+)?\w+\*\*(?:\\<[^>]*\\>)*\s*\([^\n]*\)[^\n]*\n\n/g,
         "$1\n\n"
     );
+
+    // Remove getter/setter signature blockquotes:
+    //   #### Get Signature\n\n> **get** **name**(): `type`\n\n
+    //   #### Set Signature\n\n> **set** **name**(value): void\n\n
+    content = content.replace(
+        /(####+\s+(?:Get|Set) Signature)\n\n>\s*\*\*(?:get|set)\*\*\s+\*\*\w+\*\*[^\n]*\n\n/g,
+        "$1\n\n"
+    );
     
     return content;
 }

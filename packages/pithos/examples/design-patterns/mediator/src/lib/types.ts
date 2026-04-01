@@ -15,6 +15,8 @@ export type DashboardEvents = {
   flightSelected: { flightId: string; destination: string; gate: string };
   flightDeselected: Record<string, never>;
   runwayUpdated: { capacity: RunwayCapacity };
+  /** Emitted after every state mutation — used by React to trigger re-renders. */
+  stateChanged: Record<string, never>;
 };
 
 export interface LogEntry {

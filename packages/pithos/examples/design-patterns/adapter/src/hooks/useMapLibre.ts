@@ -58,15 +58,18 @@ export function useMapLibre(
 
     const mapHeight = map.getContainer().clientHeight;
     const isMobileView = mapHeight > 0 && window.innerWidth < 768;
-    const offsetY = isMobileView ? mapHeight * 0.3 : 90;
-    map.panTo(lngLat, { offset: [0, offsetY], duration: 300 });
 
-    setTimeout(() => {
-      const popup = new maplibregl.Popup({ offset: 20, maxWidth: "300px", className: "popup-reveal" })
-        .setLngLat(lngLat).setHTML(html).addTo(map);
-      popupRef.current = popup;
-      popup.on("close", () => { onPopupChange(false); highlightRef.current?.remove(); highlightRef.current = null; });
-    }, 100);
+    const popup = new maplibregl.Popup({ offset: 20, maxWidth: "300px", className: "popup-reveal" })
+      .setLngLat(lngLat).setHTML(html).addTo(map);
+    popupRef.current = popup;
+    popup.on("close", () => { onPopupChange(false); highlightRef.current?.remove(); highlightRef.current = null; });
+
+    const popupEl = popup.getElement();
+    const popupHeight = popupEl ? popupEl.offsetHeight : 200;
+    const offsetY = isMobileView
+      ? Math.max(mapHeight * 0.3, popupHeight / 2 + 40)
+      : Math.max(90, popupHeight / 2 + 20);
+    map.panTo(lngLat, { offset: [0, offsetY], duration: 300 });
   }, [onPopupChange]);
 
   useEffect(() => {
