@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.0] - 2026-04-03
+
+### Added
+
+- **Eidos** — `createLiteObservable` (`eidos/observer/observer-lite`) — lightweight variant of `createObservable` with only `subscribe`, `notify`, `clear`. Zero dependency on `@zygos/result`
+- **Eidos** — `createLiteMachine` (`eidos/state/state-lite`) — lightweight variant of `createMachine` with `current`, `send`, `matches`, `onTransition`, `reset` (+ `context`). Zero dependency on `@zygos/option`
+
+---
+
 ## [2.4.0] - 2026-03-30
 
 ### Added
